@@ -1,0 +1,16 @@
+# pkg-config source file
+
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Cflags: -I${includedir} 
+Libs: -l:libuliss7config.@SHARED_LIBRARY_EXTENSION@.@MAJORVER@.@MINORVER@
+
+Name: ulibss7config
+Description: universal SS7 configuration library
+Version: @VERSION@
+Requires: ulib ulibgsmmap
+
+
