@@ -1,0 +1,1857 @@
+//
+//  UMSS7ConfigStorage.m
+//  estp
+//
+//  Created by Andreas Fink on 01.02.18.
+//  Copyright © 2018 Andreas Fink. All rights reserved.
+//
+
+#import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigObject.h"
+#import <ulibsctp/ulibsctp.h>
+#import "UMSS7ConfigGeneral.h"
+#import "UMSS7ConfigWebserver.h"
+#import "UMSS7ConfigTelnet.h"
+#import "UMSS7ConfigSyslogDestination.h"
+#import "UMSS7ConfigSCTP.h"
+#import "UMSS7ConfigM2PA.h"
+#import "UMSS7ConfigMTP3.h"
+#import "UMSS7ConfigMTP3Route.h"
+#import "UMSS7ConfigMTP3Filter.h"
+#import "UMSS7ConfigMTP3FilterEntry.h"
+#import "UMSS7ConfigMTP3Linkset.h"
+#import "UMSS7ConfigMTP3Link.h"
+#import "UMSS7ConfigM3UAAS.h"
+#import "UMSS7ConfigM3UAASP.h"
+#import "UMSS7ConfigSCCP.h"
+#import "UMSS7ConfigSCCPFilter.h"
+#import "UMSS7ConfigSCCPFilterEntry.h"
+#import "UMSS7ConfigSCCPTranslationTable.h"
+#import "UMSS7ConfigSCCPTranslationTableEntry.h"
+#import "UMSS7ConfigSCCPDestination.h"
+#import "UMSS7ConfigSCCPDestinationEntry.h"
+#import "UMSS7ConfigTCAP.h"
+#import "UMSS7ConfigTCAPFilter.h"
+#import "UMSS7ConfigTCAPFilterEntry.h"
+#import "UMSS7ConfigGSMMAP.h"
+#import "UMSS7ConfigGSMMAPFilter.h"
+#import "UMSS7ConfigGSMMAPFilterEntry.h"
+#import "UMSS7ConfigSMS.h"
+#import "UMSS7ConfigSMSFilter.h"
+#import "UMSS7ConfigSMSFilterEntry.h"
+#import "UMSS7ConfigHLR.h"
+#import "UMSS7ConfigMSC.h"
+#import "UMSS7ConfigSMSC.h"
+#import "UMSS7ConfigSMSProxy.h"
+#import "UMSS7ConfigDatabasePool.h"
+#import "UMSS7ConfigCdrWriter.h"
+#import "UMSS7ConfigUser.h"
+
+#define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
+
+@implementation UMSS7ConfigStorage
+
+- (void)generalInitialisation
+{
+    _webserver_dict             = [[UMSynchronizedDictionary alloc]init];
+    _telnet_dict                = [[UMSynchronizedDictionary alloc]init];
+    _syslog_destination_dict    = [[UMSynchronizedDictionary alloc]init];
+    _sctp_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _m2pa_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _mtp3_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _mtp3_route_dict            = [[UMSynchronizedDictionary alloc]init];
+    _mtp3_filter_dict           = [[UMSynchronizedDictionary alloc]init];
+    _mtp3_link_dict             = [[UMSynchronizedDictionary alloc]init];
+    _mtp3_linkset_dict          = [[UMSynchronizedDictionary alloc]init];
+    _m3ua_as_dict               = [[UMSynchronizedDictionary alloc]init];
+    _m3ua_asp_dict              = [[UMSynchronizedDictionary alloc]init];
+    _sccp_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _sccp_filter_dict           = [[UMSynchronizedDictionary alloc]init];
+    _sccp_destination_dict      = [[UMSynchronizedDictionary alloc]init];
+    _tcap_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _tcap_filter_dict           = [[UMSynchronizedDictionary alloc]init];
+    _gsmmap_dict                = [[UMSynchronizedDictionary alloc]init];
+    _gsmmap_filter_dict         = [[UMSynchronizedDictionary alloc]init];
+    _sms_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _sms_filter_dict            = [[UMSynchronizedDictionary alloc]init];
+    _hlr_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _msc_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _smsc_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _smsproxy_dict              = [[UMSynchronizedDictionary alloc]init];
+    _user_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _dirtyTimer = [[UMTimer alloc]initWithTarget:self
+                                                selector:@selector(dirtyCheck)
+                                                  object:NULL
+                                                 seconds:10.0
+                                                    name:@"dirty-config-timer"
+                                                 repeats:YES];
+}
+
+- (UMSS7ConfigStorage *)init
+{
+    return [self initWithFileName:NULL];
+}
+
+
+- (void)touch
+{
+    _dirty = YES;
+}
+
+- (UMSS7ConfigStorage *)initWithFileName:(NSString *)filename
+{
+    self = [super init];
+    if(self)
+    {
+        [self generalInitialisation];
+        if(filename)
+        {
+            [self loadFromFile:filename];
+        }
+    }
+    return self;
+}
+
+- (UMSS7ConfigStorage *)initWithCommandLine:(UMCommandLine *)cmd
+{
+    self = [super init];
+    if(self)
+    {
+        [self generalInitialisation];
+        _commandLine = cmd;
+        NSArray *configFiles = _commandLine.params[@"config"];
+        if(configFiles.count ==0)
+        {
+            configFiles = @[ @"/etc/estp/estp.conf" ];
+        }
+        for(NSString *configFile in configFiles)
+        {
+            [self loadFromFile:configFile];
+        }
+        NSArray *rwconfigFiles = _commandLine.params[@"readwriteconfig"];
+        if(rwconfigFiles.count==1)
+        {
+           _rwconfigFile = rwconfigFiles[0];
+            [self loadFromFile:_rwconfigFile];
+
+        }
+    }
+    return self;
+}
+
+
+- (void)startDirtyTimer
+{
+    [_dirtyTimer start];
+}
+
+- (void)stopDirtyTimer
+{
+    [_dirtyTimer stop];
+}
+
+- (void)dirtyCheck
+{
+    if(_dirty==YES)
+    {
+        NSLog(@"dirty config. lets write it");
+        NSError *e = NULL;
+        NSString *s = [self configString];
+        if(s == NULL)
+        {
+            NSLog(@"self config is NULL. can't write");
+        }
+        else if(_rwconfigFile.length==0)
+        {
+            NSLog(@"_rwconfigFile is NULL. can't write");
+        }
+        else
+        {
+            [s writeToFile:_rwconfigFile atomically:YES encoding:NSUTF8StringEncoding error:&e];
+            if(e)
+            {
+                NSLog(@"Error %@",e);
+            }
+        }
+    }
+    _dirty=NO;
+}
+
+- (void)loadFromFile:(NSString *)filename
+{
+    UMConfig* cfg = [[UMConfig alloc]initWithFileName:filename];
+    [cfg allowSingleGroup:@"general"];
+    [cfg allowMultiGroup:[UMSS7ConfigWebserver type]];
+    [cfg allowMultiGroup:[UMSS7ConfigTelnet type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSyslogDestination type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCTP type]];
+    [cfg allowMultiGroup:[UMSS7ConfigM2PA type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3 type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Linkset type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Link type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Route type]];
+    [cfg allowMultiGroup:[UMSS7ConfigM3UAAS type]];
+    [cfg allowMultiGroup:[UMSS7ConfigM3UAASP type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCP type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPDestination type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPDestinationEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTable type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigTCAP type]];
+    [cfg allowMultiGroup:[UMSS7ConfigTCAPFilter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigTCAPFilterEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMMAP type]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMMAPFilter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMMAPFilterEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMS type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSFilter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSFilterEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigHLR type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMSC type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
+    [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
+    [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigUser type]];
+    [cfg read];
+    [self processConfig:cfg];
+}
+
+- (void)processConfig:(UMConfig *)cfg
+{
+    /* as we can read multiple config files, the general options could be further
+     enhanced in a second file */
+    NSDictionary *general_config = [cfg getSingleGroup:[UMSS7ConfigGeneral type]];
+    if(general_config==NULL)
+    {
+        general_config = @{@"group" : @"general",
+                           @"name"  : @"general",
+                           @"hostname" : @"localhost",
+                           @"log-level": @(3),
+                           @"log-rotations" : @(5),
+                           @"log-file": @"main.log",
+                           @"log-directory": @".",
+                           @"concurrent-tasks" : @(8),
+                           };
+    }
+    if(_generalConfig==NULL)
+    {
+        _generalConfig =[[ UMSS7ConfigGeneral alloc]initWithConfig:general_config];
+    }
+    else
+    {
+        [_generalConfig setConfig:general_config];
+    }
+
+    NSArray *webserver_configs = [cfg getMultiGroups:[UMSS7ConfigWebserver type]];
+    for(NSDictionary *webserver_config in webserver_configs)
+    {
+        UMSS7ConfigWebserver *webserver = [[UMSS7ConfigWebserver alloc]initWithConfig:webserver_config];
+        if(webserver.name.length  > 0)
+        {
+            _webserver_dict[webserver.name] = webserver;
+        }
+    }
+    NSArray *telnet_configs = [cfg getMultiGroups:[UMSS7ConfigTelnet type]];
+    for(NSDictionary *telnet_config in telnet_configs)
+    {
+        UMSS7ConfigTelnet *telnet = [[UMSS7ConfigTelnet alloc]initWithConfig:telnet_config];
+        if(telnet.name.length  > 0)
+        {
+            _telnet_dict[telnet.name] = telnet;
+        }
+    }
+
+    NSArray *syslog_configs = [cfg getMultiGroups:[UMSS7ConfigSyslogDestination type]];
+    for(NSDictionary *syslog_config in syslog_configs)
+    {
+        UMSS7ConfigSyslogDestination *syslog = [[UMSS7ConfigSyslogDestination alloc]initWithConfig:syslog_config];
+        if(syslog.name.length  > 0)
+        {
+            _syslog_destination_dict[syslog.name] = syslog;
+        }
+    }
+
+    NSArray *sctp_configs = [cfg getMultiGroups:[UMSS7ConfigSCTP type]];
+    for(NSDictionary *sctp_config in sctp_configs)
+    {
+        UMSS7ConfigSCTP *sctp = [[UMSS7ConfigSCTP alloc]initWithConfig:sctp_config];
+        if(sctp.name.length  > 0)
+        {
+            _sctp_dict[sctp.name] = sctp;
+        }
+    }
+    NSArray *m2pa_configs = [cfg getMultiGroups:[UMSS7ConfigM2PA type]];
+    for(NSDictionary *m2pa_config in m2pa_configs)
+    {
+        UMSS7ConfigM2PA *m2pa = [[UMSS7ConfigM2PA alloc]initWithConfig:m2pa_config];
+        if(m2pa.name.length  > 0)
+        {
+            _m2pa_dict[m2pa.name] = m2pa;
+        }
+    }
+    NSArray *mtp3_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3 type]];
+    for(NSDictionary *mtp3_config in mtp3_configs)
+    {
+        UMSS7ConfigMTP3 *mtp3 = [[UMSS7ConfigMTP3 alloc]initWithConfig:mtp3_config];
+        if(mtp3.name.length  > 0)
+        {
+            _mtp3_dict[mtp3.name] = mtp3;
+        }
+    }
+    NSArray *mtp3_link_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Link type]];
+    for(NSDictionary *mtp3_link_config in mtp3_link_configs)
+    {
+        UMSS7ConfigMTP3Link *mtp3_link = [[UMSS7ConfigMTP3Link alloc]initWithConfig:mtp3_link_config];
+        if(mtp3_link.name.length  > 0)
+        {
+            _mtp3_link_dict[mtp3_link.name] = mtp3_link;
+        }
+    }
+    NSArray *mtp3_linkset_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Linkset type]];
+    for(NSDictionary *mtp3_linkset_config in mtp3_linkset_configs)
+    {
+        UMSS7ConfigMTP3Linkset *mtp3_linkset = [[UMSS7ConfigMTP3Linkset alloc]initWithConfig:mtp3_linkset_config];
+        if(mtp3_linkset.name.length  > 0)
+        {
+            _mtp3_linkset_dict[mtp3_linkset.name] = mtp3_linkset;
+        }
+    }
+    NSArray *m3ua_as_configs = [cfg getMultiGroups:[UMSS7ConfigM3UAAS type]];
+    for(NSDictionary *m3ua_as_config in m3ua_as_configs)
+    {
+        UMSS7ConfigM3UAAS *m3ua_as = [[UMSS7ConfigM3UAAS alloc]initWithConfig:m3ua_as_config];
+        if(m3ua_as.name.length  > 0)
+        {
+            _m3ua_as_dict[m3ua_as.name] = m3ua_as;
+        }
+    }
+    NSArray *m3ua_asp_configs = [cfg getMultiGroups:[UMSS7ConfigM3UAASP type]];
+    for(NSDictionary *m3ua_asp_config in m3ua_asp_configs)
+    {
+        UMSS7ConfigM3UAASP *m3ua_asp = [[UMSS7ConfigM3UAASP alloc]initWithConfig:m3ua_asp_config];
+        if(m3ua_asp.name.length  > 0)
+        {
+            _m3ua_asp_dict[m3ua_asp.name] = m3ua_asp;
+        }
+    }
+
+    NSArray *mtp3_filter_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Filter type]];
+    for(NSDictionary *mtp3_filter_config in mtp3_filter_configs)
+    {
+        UMSS7ConfigMTP3Filter *mtp3_filter = [[UMSS7ConfigMTP3Filter alloc]initWithConfig:mtp3_filter_config];
+        if(mtp3_filter.name.length  > 0)
+        {
+            _mtp3_filter_dict[mtp3_filter.name] = mtp3_filter;
+        }
+    }
+
+    NSArray *mtp3_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3FilterEntry type]];
+    for(NSDictionary *mtp3_filter_entry_config in mtp3_filter_entry_configs)
+    {
+        UMSS7ConfigMTP3FilterEntry *mtp3_filter_entry = [[UMSS7ConfigMTP3FilterEntry alloc]initWithConfig:mtp3_filter_entry_config];
+        if(mtp3_filter_entry.filter.length  > 0)
+        {
+            UMSS7ConfigMTP3Filter *filter = _mtp3_filter_dict[mtp3_filter_entry.filter];
+            if(filter)
+            {
+                [filter addSubEntry:mtp3_filter_entry];
+            }
+        }
+    }
+
+
+    NSArray *sccp_configs = [cfg getMultiGroups:[UMSS7ConfigSCCP type]];
+    for(NSDictionary *sccp_config in sccp_configs)
+    {
+        UMSS7ConfigSCCP *sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:sccp_config];
+        if(sccp.name.length  > 0)
+        {
+            _sccp_dict[sccp.name] = sccp;
+        }
+    }
+
+
+    NSArray *sccp_destination_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPDestination type]];
+    for(NSDictionary *sccp_destination_config in sccp_destination_configs)
+    {
+        UMSS7ConfigSCCPDestination *sccp_destination = [[UMSS7ConfigSCCPDestination alloc]initWithConfig:sccp_destination_config];
+        if(sccp_destination.name.length  > 0)
+        {
+            _sccp_destination_dict[sccp_destination.name] = sccp_destination;
+        }
+    }
+
+    NSArray *sccp_destination_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPDestinationEntry type]];
+    for(NSDictionary *sccp_destination_entry_config in sccp_destination_entry_configs)
+    {
+        UMSS7ConfigSCCPDestinationEntry *sccp_destination_entry = [[UMSS7ConfigSCCPDestinationEntry alloc]initWithConfig:sccp_destination_entry_config];
+        if(sccp_destination_entry.destination.length  > 0)
+        {
+            UMSS7ConfigSCCPDestination *destination = _sccp_destination_dict[sccp_destination_entry.destination];
+            if(destination)
+            {
+                [destination addSubEntry:sccp_destination_entry];
+            }
+        }
+    }
+
+
+    NSArray *sccp_translation_table_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTable type]];
+    for(NSDictionary *sccp_translation_table_config in sccp_translation_table_configs)
+    {
+        UMSS7ConfigSCCPTranslationTable *sccp_translation_table = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:sccp_translation_table_config];
+        if(sccp_translation_table.name.length  > 0)
+        {
+            _sccp_translation_table_dict[sccp_translation_table.name] = sccp_translation_table;
+        }
+    }
+
+    NSArray *sccp_translation_table_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableEntry type]];
+    for(NSDictionary *sccp_translation_table_entry_config in sccp_translation_table_entry_configs)
+    {
+        UMSS7ConfigSCCPTranslationTableEntry *sccp_translation_table_entry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]initWithConfig:sccp_translation_table_entry_config];
+        if(sccp_translation_table_entry.translationTableName.length  > 0)
+        {
+            UMSS7ConfigSCCPTranslationTable *translation_table = _sccp_translation_table_dict[sccp_translation_table_entry.translationTableName];
+            if(translation_table)
+            {
+                [translation_table addSubEntry:sccp_translation_table_entry];
+            }
+        }
+    }
+
+
+    NSArray *sccp_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPFilter type]];
+    for(NSDictionary *sccp_filter_config in sccp_filter_configs)
+    {
+        UMSS7ConfigSCCPFilter *sccp_filter = [[UMSS7ConfigSCCPFilter alloc]initWithConfig:sccp_filter_config];
+        if(sccp_filter.name.length  > 0)
+        {
+            _sccp_filter_dict[sccp_filter.name] = sccp_filter;
+        }
+    }
+
+    NSArray *sccp_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPFilterEntry type]];
+    for(NSDictionary *sccp_filter_entry_config in sccp_filter_entry_configs)
+    {
+        UMSS7ConfigSCCPFilterEntry *sccp_filter_entry = [[UMSS7ConfigSCCPFilterEntry alloc]initWithConfig:sccp_filter_entry_config];
+        if(sccp_filter_entry.filter.length  > 0)
+        {
+            UMSS7ConfigSCCPFilter *filter = _sccp_filter_dict[sccp_filter_entry.filter];
+            if(filter)
+            {
+                [filter addSubEntry:sccp_filter_entry];
+            }
+        }
+    }
+
+    NSArray *tcap_configs = [cfg getMultiGroups:[UMSS7ConfigTCAP type]];
+    for(NSDictionary *tcap_config in tcap_configs)
+    {
+        UMSS7ConfigTCAP *tcap = [[UMSS7ConfigTCAP alloc]initWithConfig:tcap_config];
+        if(tcap.name.length  > 0)
+        {
+            _tcap_dict[tcap.name] = tcap;
+        }
+    }
+
+    NSArray *tcap_filter_configs = [cfg getMultiGroups:[UMSS7ConfigTCAPFilter type]];
+    for(NSDictionary *tcap_filter_config in tcap_filter_configs)
+    {
+        UMSS7ConfigTCAPFilter *tcap_filter = [[UMSS7ConfigTCAPFilter alloc]initWithConfig:tcap_filter_config];
+        if(tcap_filter.name.length  > 0)
+        {
+            _tcap_filter_dict[tcap_filter.name] = tcap_filter;
+        }
+    }
+
+    NSArray *tcap_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigTCAPFilterEntry type]];
+    for(NSDictionary *tcap_filter_entry_config in tcap_filter_entry_configs)
+    {
+        UMSS7ConfigTCAPFilterEntry *tcap_filter_entry = [[UMSS7ConfigTCAPFilterEntry alloc]initWithConfig:tcap_filter_entry_config];
+        if(tcap_filter_entry.filter.length  > 0)
+        {
+            UMSS7ConfigTCAPFilter *filter = _tcap_filter_dict[tcap_filter_entry.filter];
+            if(filter)
+            {
+                [filter addSubEntry:tcap_filter_entry];
+            }
+        }
+    }
+
+    NSArray *gsmmap_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAP type]];
+    for(NSDictionary *gsmmap_config in gsmmap_configs)
+    {
+        UMSS7ConfigGSMMAP *gsmmap = [[UMSS7ConfigGSMMAP alloc]initWithConfig:gsmmap_config];
+        if(gsmmap.name.length  > 0)
+        {
+            _gsmmap_dict[gsmmap.name] = gsmmap;
+        }
+    }
+
+    NSArray *gsmmap_filter_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAPFilter type]];
+    for(NSDictionary *gsmmap_filter_config in gsmmap_filter_configs)
+    {
+        UMSS7ConfigGSMMAPFilter *gsmmap_filter = [[UMSS7ConfigGSMMAPFilter alloc]initWithConfig:gsmmap_filter_config];
+        if(gsmmap_filter.name.length  > 0)
+        {
+            _gsmmap_filter_dict[gsmmap_filter.name] = gsmmap_filter;
+        }
+    }
+
+    NSArray *gsmmap_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAPFilterEntry type]];
+    for(NSDictionary *gsmmap_filter_entry_config in gsmmap_filter_entry_configs)
+    {
+        UMSS7ConfigGSMMAPFilterEntry *gsmmap_filter_entry = [[UMSS7ConfigGSMMAPFilterEntry alloc]initWithConfig:gsmmap_filter_entry_config];
+        if(gsmmap_filter_entry.filter.length  > 0)
+        {
+            UMSS7ConfigGSMMAPFilter *filter = _gsmmap_filter_dict[gsmmap_filter_entry.filter];
+            if(filter)
+            {
+                [filter addSubEntry:gsmmap_filter_entry];
+            }
+        }
+    }
+
+    NSArray *sms_configs = [cfg getMultiGroups:[UMSS7ConfigSMS type]];
+    for(NSDictionary *sms_config in sms_configs)
+    {
+        UMSS7ConfigSMS *sms = [[UMSS7ConfigSMS alloc]initWithConfig:sms_config];
+        if(sms.name.length  > 0)
+        {
+            _sms_dict[sms.name] = sms;
+        }
+    }
+
+    NSArray *sms_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSMSFilter type]];
+    for(NSDictionary *sms_filter_config in sms_filter_configs)
+    {
+        UMSS7ConfigSMSFilter *sms_filter = [[UMSS7ConfigSMSFilter alloc]initWithConfig:sms_filter_config];
+        if(sms_filter.name.length  > 0)
+        {
+            _sms_filter_dict[sms_filter.name] = sms_filter;
+        }
+    }
+
+    NSArray *sms_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSMSFilterEntry type]];
+    for(NSDictionary *sms_filter_entry_config in sms_filter_entry_configs)
+    {
+        UMSS7ConfigSMSFilterEntry *sms_filter_entry = [[UMSS7ConfigSMSFilterEntry alloc]initWithConfig:sms_filter_entry_config];
+        if(sms_filter_entry.filter.length  > 0)
+        {
+            UMSS7ConfigSMSFilter *filter = _sms_filter_dict[sms_filter_entry.filter];
+            if(filter)
+            {
+                [filter addSubEntry:sms_filter_entry];
+            }
+        }
+    }
+
+    NSArray *hlr_configs = [cfg getMultiGroups:[UMSS7ConfigHLR type]];
+    for(NSDictionary *hlr_config in hlr_configs)
+    {
+        UMSS7ConfigHLR *hlr = [[UMSS7ConfigHLR alloc]initWithConfig:hlr_config];
+        if(hlr.name.length  > 0)
+        {
+            _hlr_dict[hlr.name] = hlr;
+        }
+    }
+    NSArray *msc_configs = [cfg getMultiGroups:[UMSS7ConfigMSC type]];
+    for(NSDictionary *msc_config in msc_configs)
+    {
+        UMSS7ConfigMSC *msc = [[UMSS7ConfigMSC alloc]initWithConfig:msc_config];
+        if(msc.name.length  > 0)
+        {
+            _msc_dict[msc.name] = msc;
+        }
+    }
+
+    NSArray *smsc_configs = [cfg getMultiGroups:[UMSS7ConfigSMSC type]];
+    for(NSDictionary *smsc_config in smsc_configs)
+    {
+        UMSS7ConfigSMSC *smsc = [[UMSS7ConfigSMSC alloc]initWithConfig:smsc_config];
+        if(smsc.name.length  > 0)
+        {
+            _smsc_dict[smsc.name] = smsc;
+        }
+    }
+    NSArray *user_configs = [cfg getMultiGroups:[UMSS7ConfigUser type]];
+    for(NSDictionary *user_config in user_configs)
+    {
+        UMSS7ConfigUser *user = [[UMSS7ConfigUser alloc]initWithConfig:user_config];
+        if(user.name.length  > 0)
+        {
+            _user_dict[user.name] = user;
+        }
+    }
+}
+
+- (UMConfig *)saveConfig
+{
+    return NULL;
+}
+
+
+- (void)appendSection:(NSMutableString *)s
+                 dict:(UMSynchronizedDictionary *)dict
+          sectionName:(NSString *)sectionName
+{
+    if(dict.count > 0)
+    {
+        [s appendString:@"\n"];
+        [s appendString:@"#-----------------------------------------------\n"];
+        [s appendFormat:@"# Section %@\n", sectionName];
+        [s appendString:@"#-----------------------------------------------\n"];
+
+        NSArray *keys = [dict allKeys];
+        for(id key in keys)
+        {
+            UMSS7ConfigObject *co = dict[key];
+            [s appendString: co.configString];
+            [s appendString:@"\n"];
+        }
+    }
+}
+
+- (void)appendSingleSection:(NSMutableString *)s
+                     config:(UMSS7ConfigObject *)co
+                sectionName:(NSString *)sectionName
+{
+    [s appendString:@"\n"];
+    [s appendString:@"#-----------------------------------------------\n"];
+    [s appendFormat:@"# Section %@\n", sectionName];
+    [s appendString:@"#-----------------------------------------------\n"];
+    [s appendString: co.configString];
+    [s appendString:@"\n"];
+}
+
+- (NSString *)configString
+{
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [s appendString:@"#-----------------------------------------------\n"];
+    [s appendString:@"# ESTP Config\n"];
+    [s appendFormat:@"# Written %@\n", [NSDate date]];
+    [s appendString:@"#-----------------------------------------------\n\n"];
+    [s appendString:@"\n"];
+    
+    [self appendSingleSection:s config:_generalConfig sectionName:@"general"];
+    [self configStringAppendSubsections:s];
+    return s;
+}
+
+- (void)configStringAppendSubsections:(NSMutableString *)s
+{
+    [self appendSection:s dict:_webserver_dict sectionName:@"webserver"];
+    [self appendSection:s dict:_telnet_dict sectionName:@"telnet"];
+    [self appendSection:s dict:_syslog_destination_dict sectionName:@"syslog-destination"];
+    [self appendSection:s dict:_sctp_dict sectionName:@"sctp"];
+    [self appendSection:s dict:_m2pa_dict sectionName:@"m2pa"];
+    [self appendSection:s dict:_mtp3_dict sectionName:@"mtp3"];
+    [self appendSection:s dict:_mtp3_linkset_dict sectionName:@"mtp3-linkset"];
+    [self appendSection:s dict:_mtp3_link_dict sectionName:@"mtp3-link"];
+    [self appendSection:s dict:_m3ua_as_dict sectionName:@"m3ua-as"];
+    [self appendSection:s dict:_m3ua_asp_dict sectionName:@"m3ua-asp"];
+    [self appendSection:s dict:_mtp3_filter_dict sectionName:@"mtp3-filter"];
+    [self appendSection:s dict:_mtp3_route_dict sectionName:@"mtp3-route"];
+    [self appendSection:s dict:_sccp_dict sectionName:@"sccp"];
+    [self appendSection:s dict:_sccp_destination_dict sectionName:@"sccp-destination"];
+    [self appendSection:s dict:_sccp_filter_dict sectionName:@"sccp-filter"];
+    [self appendSection:s dict:_tcap_dict sectionName:@"tcap"];
+    [self appendSection:s dict:_tcap_filter_dict sectionName:@"tcap-filter"];
+    [self appendSection:s dict:_gsmmap_dict sectionName:@"gsmmap"];
+    [self appendSection:s dict:_gsmmap_filter_dict sectionName:@"gsmmap-filter"];
+    [self appendSection:s dict:_sms_dict sectionName:@"sms"];
+    [self appendSection:s dict:_sms_filter_dict sectionName:@"sms-filter"];
+}
+
+- (void)writeConfigToDirectory:(NSString *)dir usingFilename:(NSString *)main_config_file_name  singleFile:(BOOL)compact
+{
+
+    NSError *e=NULL;
+    if([[NSFileManager defaultManager]createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:NULL error:&e]==NO)
+    {
+        NSString *s = [NSString stringWithFormat:@"Can not create directory at path %@ due to error: %@",dir,e];
+        @throw([NSException exceptionWithName:@"WRITE_CONFIG" reason:s userInfo:NULL]);
+    }
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [s appendString:@"#-----------------------------------------------\n"];
+    [s appendString:@"# ESTP Config\n"];
+    [s appendFormat:@"# Written %@\n", [NSDate date]];
+    [s appendString:@"#-----------------------------------------------\n\n"];
+    [s appendString:@"\n"];
+
+
+    [self appendSingleSection:s config:_generalConfig sectionName:@"general"];
+
+    if(compact)
+    {
+        [self configStringAppendSubsections:s];
+    }
+    else
+    {
+        [self writeSectionToDirectory:dir dict:_webserver_dict sectionName:@"webserver" general:s];
+        [self writeSectionToDirectory:dir dict:_telnet_dict sectionName:@"telnet" general:s];
+        [self writeSectionToDirectory:dir dict:_syslog_destination_dict sectionName:@"syslog-destination" general:s];
+        [self writeSectionToDirectory:dir dict:_sctp_dict sectionName:@"sctp" general:s];
+        [self writeSectionToDirectory:dir dict:_m2pa_dict sectionName:@"m2pa" general:s];
+        [self writeSectionToDirectory:dir dict:_mtp3_dict sectionName:@"mtp3" general:s];
+        [self writeSectionToDirectory:dir dict:_mtp3_linkset_dict sectionName:@"mtp3-linkset" general:s];
+        [self writeSectionToDirectory:dir dict:_mtp3_link_dict sectionName:@"mtp3-link" general:s];
+        [self writeSectionToDirectory:dir dict:_m3ua_as_dict sectionName:@"m3ua-as" general:s];
+        [self writeSectionToDirectory:dir dict:_m3ua_asp_dict sectionName:@"m3ua-asp" general:s];
+        [self writeSectionToDirectory:dir dict:_mtp3_filter_dict sectionName:@"mtp3-filter" general:s];
+        [self writeSectionToDirectory:dir dict:_mtp3_route_dict sectionName:@"mtp3-route" general:s];
+        [self writeSectionToDirectory:dir dict:_sccp_dict sectionName:@"sccp" general:s];
+        [self writeSectionToDirectory:dir dict:_sccp_destination_dict sectionName:@"sccp-destination" general:s];
+        [self writeSectionToDirectory:dir dict:_sccp_filter_dict sectionName:@"sccp-filter" general:s];
+        [self writeSectionToDirectory:dir dict:_tcap_dict sectionName:@"tcap" general:s];
+        [self writeSectionToDirectory:dir dict:_tcap_filter_dict sectionName:@"tcap-filter" general:s];
+        [self writeSectionToDirectory:dir dict:_gsmmap_dict sectionName:@"gsmmap" general:s];
+        [self writeSectionToDirectory:dir dict:_gsmmap_filter_dict sectionName:@"gsmmap-filter" general:s];
+        [self writeSectionToDirectory:dir dict:_sms_dict sectionName:@"sms" general:s];
+        [self writeSectionToDirectory:dir dict:_sms_filter_dict sectionName:@"sms-filter" general:s];
+    }
+    NSString *config_file  = [NSString stringWithFormat:@"%@/%@",dir,main_config_file_name];
+    if(NO==[s writeToFile:config_file atomically:YES encoding:NSUTF8StringEncoding error:&e])
+    {
+        NSString *s = [NSString stringWithFormat:@"Can not write config file at path %@ due to error: %@",config_file,e];
+        @throw([NSException exceptionWithName:@"WRITE_CONFIG" reason:s userInfo:NULL]);
+    }
+}
+
+/* returns YES on success */
+- (void)writeSectionToDirectory:(NSString *)dir
+                           dict:(UMSynchronizedDictionary *)dict
+                    sectionName:(NSString *)sectionName
+                        general:(NSMutableString *)general
+{
+    if(dict.count==0)
+    {
+        return;
+    }
+    NSString *subdir  = [NSString stringWithFormat:@"%@/%@/",dir,sectionName];
+
+    NSError *e = NULL;
+    if([[NSFileManager defaultManager]createDirectoryAtPath:subdir withIntermediateDirectories:YES attributes:NULL error:&e]==NO)
+    {
+        NSString *s = [NSString stringWithFormat:@"Can not create directory at path %@ due to error: %@",subdir,e];
+        @throw([NSException exceptionWithName:@"WRITE_CONFIG" reason:s userInfo:NULL]);
+    }
+
+    NSArray *keys = [dict allKeys];
+    for(id key in keys)
+    {
+        [general appendString:@"\n"];
+        [general appendString:@"#-----------------------------------------------\n"];
+        [general appendFormat:@"# Section %@\n", sectionName];
+        [general appendString:@"#-----------------------------------------------\n"];
+
+        UMSS7ConfigObject *co = dict[key];
+
+        NSString *config_file_absolute  = [NSString stringWithFormat:@"%@/%@/%@.conf",dir,sectionName,co.name];
+        NSString *config_file_relative  = [NSString stringWithFormat:@"%@/%@.conf",sectionName,co.name];
+        NSMutableString *config = [[NSMutableString alloc]init];
+        [general appendFormat:@"include=\"%@\"\n",config_file_relative];
+
+        [config appendString:@"#-----------------------------------------------\n"];
+        [config appendFormat:@"# Config for %@ %@\n", sectionName,co.name];
+        [config appendString:@"#-----------------------------------------------\n"];
+        [config appendString: co.configString];
+        [config appendString:@"\n"];
+
+        if(NO==[config writeToFile:config_file_absolute atomically:YES encoding:NSUTF8StringEncoding error:&e])
+        {
+            NSString *s = [NSString stringWithFormat:@"Can not write config file at path %@ due to error: %@",config_file_absolute,e];
+            @throw([NSException exceptionWithName:@"WRITE_CONFIG" reason:s userInfo:NULL]);
+        }
+    }
+}
+
+/*
+ **************************************************
+ ** SCTP
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SCCP
+
+- (NSArray *)getSCTPNames
+{
+    return [_sctp_dict allKeys];
+}
+
+- (UMSS7ConfigSCTP *)getSCTP:(NSString *)name
+{
+    return _sctp_dict[name];
+}
+
+- (NSString *)addSCTP:(UMSS7ConfigSCTP*)sctp
+{
+    if(_sctp_dict[sctp.name] == NULL)
+    {
+        _sctp_dict[sctp.name] = sctp;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSCTP:(UMSS7ConfigSCTP *)sctp
+{
+    _sctp_dict[sctp.name] = sctp;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSCTP:(NSString *)name
+{
+    if(_sctp_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sctp_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** M2PA
+ **************************************************
+ */
+#pragma mark -
+#pragma mark M2PA
+
+- (NSArray *)getM2PANames
+{
+    return [_m2pa_dict allKeys];
+}
+
+- (UMSS7ConfigM2PA *)getM2PA:(NSString *)name
+{
+    return _m2pa_dict[name];
+}
+
+- (NSString *)addM2PA:(UMSS7ConfigM2PA*)m2pa
+{
+    if(_m2pa_dict[m2pa.name] == NULL)
+    {
+        _m2pa_dict[m2pa.name] = m2pa;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceM2PA:(UMSS7ConfigM2PA *)m2pa
+{
+    _m2pa_dict[m2pa.name] = m2pa;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteM2PA:(NSString *)name
+{
+    if(_m2pa_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_m2pa_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** MTP3
+ **************************************************
+ */
+#pragma mark -
+#pragma mark MTP3
+
+- (NSArray *)getMTP3Names
+{
+    return [_mtp3_dict allKeys];
+}
+
+- (UMSS7ConfigMTP3 *)getMTP3:(NSString *)name
+{
+    return _mtp3_dict[name];
+}
+
+- (NSString *)addMTP3:(UMSS7ConfigMTP3*)mtp3
+{
+    if(_mtp3_dict[mtp3.name] == NULL)
+    {
+        _mtp3_dict[mtp3.name] = mtp3;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMTP3:(UMSS7ConfigMTP3 *)mtp3
+{
+    _mtp3_dict[mtp3.name] = mtp3;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteMTP3:(NSString *)name
+{
+    if(_mtp3_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mtp3_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** MTP3 Route
+ **************************************************
+ */
+#pragma mark -
+#pragma mark MTP3 Route
+
+- (NSArray *)getMTP3RouteNames
+{
+    return [_mtp3_route_dict allKeys];
+}
+
+- (UMSS7ConfigMTP3Route *)getMTP3Route:(NSString *)name
+{
+    return _mtp3_route_dict[name];
+}
+
+- (NSString *)addMTP3Route:(UMSS7ConfigMTP3Route*)mtp3route
+{
+    if(_mtp3_route_dict[mtp3route.name] == NULL)
+    {
+        _mtp3_route_dict[mtp3route.name] = mtp3route;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMTP3Route:(UMSS7ConfigMTP3Route *)mtp3route
+{
+    _mtp3_route_dict[mtp3route.name] = mtp3route;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteMTP3Route:(NSString *)name
+{
+    if(_mtp3_route_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mtp3_route_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** MTP3 Filter
+ **************************************************
+ */
+#pragma mark -
+#pragma mark MTP3 Filter
+
+- (NSArray *)getMTP3FilterNames
+{
+    return [_mtp3_filter_dict allKeys];
+}
+
+- (UMSS7ConfigMTP3Filter *)getMTP3Filter:(NSString *)name
+{
+    return _mtp3_filter_dict[name];
+}
+
+- (NSString *)addMTP3Filter:(UMSS7ConfigMTP3Filter*)mtp3filter
+{
+    if(_mtp3_filter_dict[mtp3filter.name] == NULL)
+    {
+        _mtp3_filter_dict[mtp3filter.name] = mtp3filter;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMTP3Filter:(UMSS7ConfigMTP3Filter *)mtp3filter
+{
+    _mtp3_filter_dict[mtp3filter.name] = mtp3filter;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteMTP3Filter:(NSString *)name
+{
+    if(_mtp3_filter_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mtp3_filter_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** MTP3-Link
+ **************************************************
+ */
+#pragma mark -
+#pragma mark MTP3Link
+
+- (NSArray *)getMTP3LinkNames
+{
+    return [_mtp3_link_dict allKeys];
+}
+
+- (UMSS7ConfigMTP3Link *)getMTP3Link:(NSString *)name
+{
+    return _mtp3_link_dict[name];
+}
+
+- (NSString *)addMTP3Link:(UMSS7ConfigMTP3Link*)mtp3_link
+{
+    if(_mtp3_link_dict[mtp3_link.name] == NULL)
+    {
+        _mtp3_link_dict[mtp3_link.name] = mtp3_link;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMTP3Link:(UMSS7ConfigMTP3Link *)mtp3_link
+{
+    _mtp3_link_dict[mtp3_link.name] = mtp3_link;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteMTP3Link:(NSString *)name
+{
+    if(_mtp3_link_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mtp3_link_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** MTP3-Linkset
+ **************************************************
+ */
+
+#pragma mark -
+#pragma mark MTP3Linkset
+
+- (NSArray *)getMTP3LinksetNames
+{
+    return [_mtp3_linkset_dict allKeys];
+}
+
+- (UMSS7ConfigMTP3Linkset *)getMTP3Linkset:(NSString *)name
+{
+    return _mtp3_linkset_dict[name];
+}
+
+- (NSString *)addMTP3Linkset:(UMSS7ConfigMTP3Linkset*)mtp3_linkset
+{
+    if(_mtp3_linkset_dict[mtp3_linkset.name] == NULL)
+    {
+        _mtp3_linkset_dict[mtp3_linkset.name] = mtp3_linkset;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMTP3Linkset:(UMSS7ConfigMTP3Linkset *)mtp3_linkset
+{
+    _mtp3_linkset_dict[mtp3_linkset.name] = mtp3_linkset;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteMTP3Linkset:(NSString *)name
+{
+    if(_mtp3_linkset_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mtp3_linkset_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** M3UAS
+ **************************************************
+ */
+#pragma mark -
+#pragma mark M3UAS
+
+- (NSArray *)getM3UAASNames
+{
+    return [_m3ua_as_dict allKeys];
+}
+
+- (UMSS7ConfigM3UAAS *)getM3UAAS:(NSString *)name
+{
+    return _m3ua_asp_dict[name];
+}
+
+- (NSString *)addM3UAAS:(UMSS7ConfigM3UAAS*)m3ua_as
+{
+    if(_m3ua_as_dict[m3ua_as.name] == NULL)
+    {
+        _m3ua_as_dict[m3ua_as.name] = m3ua_as;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceM3UAAS:(UMSS7ConfigM3UAAS *)m3ua_as
+{
+    _m3ua_as_dict[m3ua_as.name] = m3ua_as;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteM3UAAS:(NSString *)name
+{
+    if(_m3ua_as_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_m3ua_as_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** M3UASP
+ **************************************************
+ */
+#pragma mark -
+#pragma mark M3UAASP
+
+- (NSArray *)getM3UAASPNames
+{
+    return [_m3ua_asp_dict allKeys];
+}
+
+- (UMSS7ConfigM3UAASP *)getM3UAASP:(NSString *)name
+{
+    return _m3ua_asp_dict[name];
+}
+
+- (NSString *)addM3UAASP:(UMSS7ConfigM3UAASP*)m3ua_asp
+{
+    if(_m3ua_asp_dict[m3ua_asp.name] == NULL)
+    {
+        _m3ua_asp_dict[m3ua_asp.name] = m3ua_asp;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceM3UAASP:(UMSS7ConfigM3UAASP *)m3ua_asp
+{
+    _m3ua_asp_dict[m3ua_asp.name] = m3ua_asp;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteM3UAASP:(NSString *)name
+{
+    if(_m3ua_asp_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_m3ua_asp_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** SCCP
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SCCP
+
+- (NSArray *)getSCCPNames
+{
+    return [_sccp_dict allKeys];
+}
+
+- (UMSS7ConfigSCCP *)getSCCP:(NSString *)name
+{
+    return _sccp_dict[name];
+}
+
+- (NSString *)addSCCP:(UMSS7ConfigSCCP*)sccp
+{
+    if(_sccp_dict[sccp.name] == NULL)
+    {
+        _sccp_dict[sccp.name] = sccp;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSCCP:(UMSS7ConfigSCCP *)sccp
+{
+    _sccp_dict[sccp.name] = sccp;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSCCP:(NSString *)name
+{
+    if(_sccp_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+**************************************************
+** SCCP Filter
+**************************************************
+*/
+#pragma mark -
+#pragma mark SCCP Filter
+
+- (NSArray *)getSCCPFilterNames
+{
+    return  [_sccp_filter_dict allKeys];
+}
+
+- (UMSS7ConfigSCCPFilter *)getSCCPFilter:(NSString *)name
+{
+    return _sccp_filter_dict[name];
+}
+
+- (NSString *)addSCCPFilter:(UMSS7ConfigSCCPFilter *)sccpFilter
+{
+    if(_sccp_filter_dict[sccpFilter.name] == NULL)
+    {
+        _sccp_filter_dict[sccpFilter.name] = sccpFilter;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSCCPFilter:(UMSS7ConfigSCCPFilter *)sccpFilter
+{
+    _sccp_filter_dict[sccpFilter.name] = sccpFilter;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSCCPFilter:(NSString *)name
+{
+    if(_sccp_filter_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_filter_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SCCP-Destination
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SCCP Destination
+
+- (NSArray *)getSCCPDestinationNames
+{
+    return [_sccp_destination_dict allKeys];
+}
+
+- (UMSS7ConfigSCCPDestination *)getSCCPDestination:(NSString *)name
+{
+    return _sccp_destination_dict[name];
+}
+
+- (NSString *)addSCCPDestination:(UMSS7ConfigSCCPDestination*)sccp_destination
+{
+    if(_sccp_destination_dict[sccp_destination.name] == NULL)
+    {
+        _sccp_destination_dict[sccp_destination.name] = sccp_destination;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSCCPDestination:(UMSS7ConfigSCCPDestination *)sccp_destination
+{
+    _sccp_destination_dict[sccp_destination.name] = sccp_destination;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSCCPDestination:(NSString *)name
+{
+    if(_sccp_destination_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_destination_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** TCAP
+ **************************************************
+ */
+#pragma mark -
+#pragma mark TCAP
+
+- (NSArray *)getTCAPNames
+{
+    return [_tcap_dict allKeys];
+}
+
+- (UMSS7ConfigTCAP *)getTCAP:(NSString *)name
+{
+    return _tcap_dict[name];
+}
+
+- (NSString *)addTCAP:(UMSS7ConfigTCAP *)tcap
+{
+    if(_tcap_dict[tcap.name] == NULL)
+    {
+        _tcap_dict[tcap.name] = tcap;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceTCAP:(UMSS7ConfigTCAP *)tcap
+{
+    _tcap_dict[tcap.name] = tcap;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteTCAP:(NSString *)name
+{
+    if(_tcap_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_tcap_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+**************************************************
+** TCAP Filter
+**************************************************
+*/
+#pragma mark -
+#pragma mark TCAP Filter
+
+- (NSArray *)getTCAPFilterNames
+{
+    return [_tcap_filter_dict allKeys];
+}
+
+- (UMSS7ConfigTCAPFilter *)getTCAPFilter:(NSString *)name
+{
+    return _tcap_filter_dict[name];
+}
+
+- (NSString *)addTCAPFilter:(UMSS7ConfigTCAPFilter *)tcapFilter
+{
+    if(_tcap_filter_dict[tcapFilter.name] == NULL)
+    {
+        _tcap_filter_dict[tcapFilter.name] = tcapFilter;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceTCAPFilter:(UMSS7ConfigTCAPFilter *)tcapFilter
+{
+    _tcap_filter_dict[tcapFilter.name] = tcapFilter;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteTCAPFilter:(NSString *)name
+{
+    if(_tcap_filter_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_tcap_filter_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** GSMMAP
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GSMMAP
+
+- (NSArray *)getGSMMAPNames
+{
+    return [_gsmmap_dict allKeys];
+}
+
+- (UMSS7ConfigGSMMAP *)getGSMMAP:(NSString *)name
+{
+    return _gsmmap_dict[name];
+}
+
+- (NSString *)addGSMMAP:(UMSS7ConfigGSMMAP *)gsmmap
+{
+    if(_gsmmap_dict[gsmmap.name] == NULL)
+    {
+        _gsmmap_dict[gsmmap.name] = gsmmap;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceGSMMAP:(UMSS7ConfigGSMMAP *)gsmmap
+{
+    _gsmmap_dict[gsmmap.name] = gsmmap;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteGSMMAP:(NSString *)name
+{
+    if(_gsmmap_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_gsmmap_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** GSMMAP Filter
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GSMMAP Filter
+
+- (NSArray *)getGSMMAPFilterNames
+{
+    return [_gsmmap_filter_dict allKeys];
+}
+
+- (UMSS7ConfigGSMMAPFilter *)getGSMMAPFilter:(NSString *)name
+{
+    return _gsmmap_filter_dict[name];
+}
+
+- (NSString *)addGSMMAPFilter:(UMSS7ConfigGSMMAP *)gsmmapFilter
+{
+    if(_gsmmap_filter_dict[gsmmapFilter.name] == NULL)
+    {
+        _gsmmap_filter_dict[gsmmapFilter.name] = gsmmapFilter;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceGSMMAPFilter:(UMSS7ConfigGSMMAP *)gsmmapFilter
+{
+    _gsmmap_filter_dict[gsmmapFilter.name] = gsmmapFilter;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteGSMMAPFilter:(NSString *)name
+{
+    if(_gsmmap_filter_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_gsmmap_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SMS
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMS
+
+- (NSArray *)getSMSNames
+{
+    return [_sms_dict allKeys];
+}
+
+- (UMSS7ConfigSMS *)getSMS:(NSString *)name
+{
+    return _sms_dict[name];
+}
+
+- (NSString *)addSMS:(UMSS7ConfigSMS*)sms
+{
+    if(_sms_dict[sms.name] == NULL)
+    {
+        _sms_dict[sms.name] = sms;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMS:(UMSS7ConfigSMS *)sms
+{
+    _sms_filter_dict[sms.name] = sms;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMS:(NSString *)name
+{
+    if(_sms_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sms_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SMS Filter
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMS Filter
+
+- (NSArray *)getSMSFilterNames
+{
+    return [_sms_filter_dict allKeys];
+}
+
+- (UMSS7ConfigSMSFilter *)getSMSFilter:(NSString *)name
+{
+    return _sms_filter_dict[name];
+}
+
+- (NSString *)addSMSFilter:(UMSS7ConfigSMS*)smsFilter
+{
+    if(_sms_filter_dict[smsFilter.name] == NULL)
+    {
+        _sms_filter_dict[smsFilter.name] = smsFilter;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSFilter:(UMSS7ConfigSMSFilter *)smsFilter
+{
+    _sms_filter_dict[smsFilter.name] = smsFilter;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSFilter:(NSString *)name
+{
+    if(_sms_filter_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sms_filter_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** Webserver
+ **************************************************
+ */
+#pragma mark -
+#pragma mark Webserver
+
+- (NSArray *)getWebserverNames
+{
+    return [_webserver_dict allKeys];
+}
+
+- (UMSS7ConfigWebserver *)getWebserver:(NSString *)name
+{
+    return _webserver_dict[name];
+}
+
+- (NSString *)addWebserver:(UMSS7ConfigWebserver *)webserver
+{
+    if(_webserver_dict[webserver.name] == NULL)
+    {
+        _webserver_dict[webserver.name] = webserver;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceWebserver:(UMSS7ConfigWebserver *)webserver
+{
+    _webserver_dict[webserver.name] = webserver;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteWebserver:(NSString *)name
+{
+    if(_webserver_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_webserver_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** telnet server
+ **************************************************
+ */
+#pragma mark -
+#pragma mark Telnet
+
+- (NSArray *)getTelnetNames
+{
+    return [_telnet_dict allKeys];
+}
+
+- (UMSS7ConfigTelnet *)getTelnet:(NSString *)name
+{
+    return _telnet_dict[name];
+}
+
+- (NSString *)addTelnet:(UMSS7ConfigTelnet *)telnet
+{
+    if(_telnet_dict[telnet.name] == NULL)
+    {
+        _telnet_dict[telnet.name] = telnet;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceTelnet:(UMSS7ConfigTelnet *)telnet
+{
+    _telnet_dict[telnet.name] = telnet;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteTelnet:(NSString *)name
+{
+    if(_telnet_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_telnet_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** Syslog Destinations
+***************************************************
+ */
+#pragma mark -
+#pragma mark Syslog Destination
+
+- (NSArray *)getSyslogDestinationNames
+{
+    return [_syslog_destination_dict allKeys];
+}
+
+- (UMSS7ConfigSyslogDestination *)getSyslogDestination:(NSString *)name
+{
+    return _syslog_destination_dict[name];
+}
+
+- (NSString *)addSyslogDestination:(UMSS7ConfigSyslogDestination *)syslog
+{
+    if(_syslog_destination_dict[syslog.name] == NULL)
+    {
+        _syslog_destination_dict[syslog.name] = syslog;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSyslogDestination:(UMSS7ConfigSyslogDestination *)syslog
+{
+    _syslog_destination_dict[syslog.name] = syslog;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSyslogDestination:(NSString *)name
+{
+    if(_syslog_destination_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_syslog_destination_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** User
+ **************************************************
+ */
+#pragma mark -
+#pragma mark User
+
+- (NSArray *)getUserNames
+{
+    return [_user_dict allKeys];
+}
+
+- (UMSS7ConfigUser *)getUser:(NSString *)name
+{
+    return _user_dict[name];
+}
+
+- (NSString *)addUser:(UMSS7ConfigUser *)user
+{
+    if(_user_dict[user.name] == NULL)
+    {
+        _user_dict[user.name] = user;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceUser:(UMSS7ConfigUser *)user
+{
+    _user_dict[user.name] = user;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteUser:(NSString *)name
+{
+    if(_user_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_user_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+- (UMSS7ConfigStorage *)copyWithZone:(NSZone *)zone
+{
+    UMSS7ConfigStorage *n = [[UMSS7ConfigStorage alloc]init];
+
+    n.commandLine = [_commandLine copy];
+
+    n.commandLineArguments = [_commandLineArguments copy];
+    n.generalConfig = [_generalConfig copy];
+
+    n.webserver_dict = [_webserver_dict copy];
+    n.telnet_dict = [_telnet_dict copy];
+    n.syslog_destination_dict = [_syslog_destination_dict copy];
+    n.sctp_dict = [_sctp_dict copy];
+    n.m2pa_dict = [_m2pa_dict copy];
+    n.mtp3_dict = [_mtp3_dict copy];
+    n.mtp3_route_dict = [_mtp3_route_dict copy];
+    n.mtp3_filter_dict = [_mtp3_filter_dict copy];
+    n.mtp3_link_dict = [_mtp3_link_dict copy];
+    n.mtp3_linkset_dict = [_mtp3_linkset_dict copy];
+    n.m3ua_as_dict = [_m3ua_as_dict copy];
+    n.m3ua_asp_dict = [_m3ua_asp_dict copy];
+    n.sccp_dict = [_sccp_dict copy];
+    n.sccp_filter_dict = [_sccp_filter_dict copy];
+    n.sccp_destination_dict = [_sccp_destination_dict copy];
+    n.sccp_translation_table_dict = [_sccp_translation_table_dict copy];
+    n.tcap_dict = [_tcap_dict copy];
+    n.tcap_filter_dict = [_tcap_filter_dict copy];
+    n.gsmmap_dict = [_gsmmap_dict copy];
+    n.gsmmap_filter_dict = [_gsmmap_filter_dict copy];
+    n.sms_dict = [_sms_dict copy];
+    n.sms_filter_dict = [_sms_filter_dict copy];
+    n.hlr_dict = [_hlr_dict copy];
+    n.msc_dict = [_smsc_dict copy];
+    n.smsc_dict = [_smsc_dict copy];
+    n.smsproxy_dict = [_smsproxy_dict copy];
+    n.rwconfigFile = _rwconfigFile;
+    return n;
+
+}
+
+
+@end
