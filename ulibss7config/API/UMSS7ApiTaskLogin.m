@@ -30,7 +30,7 @@
         if([password isEqualToString:user.password])
         {
             UMSS7ApiSession *session = [[UMSS7ApiSession alloc]initWithHttpRequest:_webRequest user:user];
-            [_appDelegate addUMSS7ApiSession:session];
+            [_appDelegate addApiSession:session];
             [self sendResultObject:session.sessionKey];
         }
         else

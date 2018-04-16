@@ -39,6 +39,7 @@
     APPEND_CONFIG_INTEGER(s,@"log-rotations",_logRotations);
     APPEND_CONFIG_STRING(s,@"config-store",_configStore);
     APPEND_CONFIG_INTEGER(s,@"concurrent-tasks",_concurrentTasks);
+    APPEND_CONFIG_INTEGER(s,@"queue-hard-limit",_queueHardLimit);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -50,6 +51,7 @@
     APPEND_DICT_INTEGER(dict,@"log-rotations",_logRotations);
     APPEND_DICT_STRING(dict,@"config-store",_configStore);
     APPEND_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
+    APPEND_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
 
     return dict;
 }
@@ -61,6 +63,7 @@
     SET_DICT_INTEGER(dict,@"log-rotations",_logRotations);
     SET_DICT_STRING(dict,@"config-store",_configStore);
     SET_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
+    SET_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
 }
 
 - (UMSS7ConfigGeneral *)copyWithZone:(NSZone *)zone

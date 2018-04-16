@@ -85,6 +85,7 @@
                                                  seconds:10.0
                                                     name:@"dirty-config-timer"
                                                  repeats:YES];
+    _productName = @"UniversalSS7";
 }
 
 - (UMSS7ConfigStorage *)init
@@ -112,7 +113,13 @@
     return self;
 }
 
+
 - (UMSS7ConfigStorage *)initWithCommandLine:(UMCommandLine *)cmd
+{
+    return [self initWithCommandLine:cmd defaultConfigFileName:@"/etc/universalss7/universalss7.conf"];
+}
+
+- (UMSS7ConfigStorage *)initWithCommandLine:(UMCommandLine *)cmd defaultConfigFileName:(NSString *)defaultCfgFile
 {
     self = [super init];
     if(self)
@@ -122,18 +129,18 @@
         NSArray *configFiles = _commandLine.params[@"config"];
         if(configFiles.count ==0)
         {
-            configFiles = @[ @"/etc/estp/estp.conf" ];
+            configFiles = @[ defaultCfgFile ];
         }
         for(NSString *configFile in configFiles)
         {
             [self loadFromFile:configFile];
         }
+
         NSArray *rwconfigFiles = _commandLine.params[@"readwriteconfig"];
         if(rwconfigFiles.count==1)
         {
            _rwconfigFile = rwconfigFiles[0];
             [self loadFromFile:_rwconfigFile];
-
         }
     }
     return self;
@@ -194,6 +201,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigM3UAASP type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCP type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestination type]];
+
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestinationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTable type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableEntry type]];
@@ -630,7 +638,7 @@
 {
     NSMutableString *s = [[NSMutableString alloc]init];
     [s appendString:@"#-----------------------------------------------\n"];
-    [s appendString:@"# ESTP Config\n"];
+    [s appendFormat:@"# %@ Config\n",_productName];
     [s appendFormat:@"# Written %@\n", [NSDate date]];
     [s appendString:@"#-----------------------------------------------\n\n"];
     [s appendString:@"\n"];
@@ -676,7 +684,7 @@
     }
     NSMutableString *s = [[NSMutableString alloc]init];
     [s appendString:@"#-----------------------------------------------\n"];
-    [s appendString:@"# ESTP Config\n"];
+    [s appendFormat:@"# %@ Config\n",_productName];
     [s appendFormat:@"# Written %@\n", [NSDate date]];
     [s appendString:@"#-----------------------------------------------\n\n"];
     [s appendString:@"\n"];
@@ -1818,7 +1826,7 @@
     UMSS7ConfigStorage *n = [[UMSS7ConfigStorage alloc]init];
 
     n.commandLine = [_commandLine copy];
-
+    n.productName = _productName;
     n.commandLineArguments = [_commandLineArguments copy];
     n.generalConfig = [_generalConfig copy];
 

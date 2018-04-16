@@ -42,6 +42,7 @@
 @class  UMSS7ConfigSMSC;
 @class  UMSS7ConfigSMSproxy;
 @class  UMSS7ConfigUser;
+@class  UMSS7ConfigDatabasePool;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -77,8 +78,11 @@
     UMSynchronizedDictionary *_smsc_dict;
     UMSynchronizedDictionary *_smsproxy_dict;
     UMSynchronizedDictionary *_user_dict;
+    UMSynchronizedDictionary *_database_pool_dict;
+
     NSString *_rwconfigFile;
     UMTimer *_dirtyTimer;
+    NSString *_productName;
 }
 
 @property(readwrite,assign,atomic)  BOOL dirty;
@@ -112,7 +116,10 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsproxy_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *user_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *database_pool_dict;
+
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
+@property(readwrite,strong,atomic)  NSString *productName;
 
 
 - (void)startDirtyTimer;
@@ -122,6 +129,8 @@
 - (UMSS7ConfigStorage *)copyWithZone:(NSZone *)zone;
 
 - (UMSS7ConfigStorage *)initWithCommandLine:(UMCommandLine *)cmd;
+- (UMSS7ConfigStorage *)initWithCommandLine:(UMCommandLine *)cmd defaultConfigFileName:(NSString *)defaultCfgFile;
+
 - (void)writeConfigToDirectory:(NSString *)dir usingFilename:(NSString *)main_config_file_name singleFile:(BOOL)compact;
 
 - (NSString *)configString;

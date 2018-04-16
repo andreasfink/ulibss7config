@@ -107,7 +107,7 @@
 - (BOOL)isAuthenticated
 {
     NSString *session_key = _webRequest.params[@"session-key"];
-    _apiSession = [_appDelegate getUMSS7ApiSession:session_key];
+    _apiSession = [_appDelegate getApiSession:session_key];
     if(_apiSession)
     {
         [_apiSession touch];
