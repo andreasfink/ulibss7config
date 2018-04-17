@@ -1126,7 +1126,7 @@
 
 - (UMSS7ConfigM3UAAS *)getM3UAAS:(NSString *)name
 {
-    return _m3ua_asp_dict[name];
+    return _m3ua_as_dict[name];
 }
 
 - (NSString *)addM3UAAS:(UMSS7ConfigM3UAAS*)m3ua_as
