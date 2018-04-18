@@ -42,7 +42,7 @@
     APPEND_CONFIG_INTEGER(s,@"priority",_priority);
     APPEND_CONFIG_INTEGER(s,@"subsystem",_subsystem);
     APPEND_CONFIG_INTEGER(s,@"ntt",_ntt);
-
+    APPEND_CONFIG_STRING(s,@"add-prefix",_addPrefix);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -54,6 +54,7 @@
     APPEND_DICT_INTEGER(dict,@"priority",_priority);
     APPEND_DICT_INTEGER(dict,@"subsystem",_subsystem);
     APPEND_DICT_INTEGER(dict,@"ntt",_ntt);
+    APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
     return dict;
 }
 
@@ -66,6 +67,7 @@
     SET_DICT_INTEGER(dict,@"priority",_priority);
     SET_DICT_INTEGER(dict,@"subsystem",_subsystem);
     SET_DICT_INTEGER(dict,@"ntt",_ntt);
+    SET_DICT_STRING(dict,@"add-prefix",_addPrefix);
 }
 
 - (UMSS7ConfigSCCPDestinationEntry *)copyWithZone:(NSZone *)zone

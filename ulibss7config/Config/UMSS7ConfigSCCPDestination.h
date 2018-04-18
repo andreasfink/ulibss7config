@@ -11,7 +11,10 @@
 
 @interface UMSS7ConfigSCCPDestination : UMSS7ConfigObject
 {
+    NSString *_sccp;
 }
+
+@property(readwrite,strong,atomic)  NSString *sccp;
 
 + (NSString *)type;
 - (NSString *)type;

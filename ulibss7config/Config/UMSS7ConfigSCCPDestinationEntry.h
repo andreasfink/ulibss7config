@@ -16,6 +16,7 @@
     NSNumber *_priority;
     NSNumber *_subsystem;
     NSNumber *_ntt;
+    NSString *_addPrefix;
 }
 
 + (NSString *)type;
@@ -28,5 +29,6 @@
 @property(readwrite,strong,atomic)  NSNumber *priority;
 @property(readwrite,strong,atomic)  NSNumber *subsystem;
 @property(readwrite,strong,atomic)  NSNumber *ntt;
+@property(readwrite,strong,atomic)  NSString *addPrefix;
 
 @end

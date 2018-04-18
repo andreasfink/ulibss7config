@@ -32,35 +32,24 @@
     }
     return self;
 }
-/*
-- (void)appendConfigToString:(NSMutableString *)s
-{
-    [super appendConfigToString:s];
-    for(UMSS7ConfigSCCPDestinationEntry *e in _subEntries)
-    {
-        [s appendString:@"\n"];
-        [e appendConfigToString:s];
-    }
-}
-
-*/
-
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
+    APPEND_CONFIG_STRING(s,@"sccp",_sccp);
 }
-
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
+    APPEND_DICT_STRING(dict,@"sccp",_sccp);
     return dict;
 }
 
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+    SET_DICT_STRING(dict,@"sccp",_sccp);
 }
 
 - (UMSS7ConfigSCCPDestination *)copyWithZone:(NSZone *)zone

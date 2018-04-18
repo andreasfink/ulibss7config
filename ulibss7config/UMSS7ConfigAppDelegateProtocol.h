@@ -71,7 +71,6 @@ realm:(NSString **)realm;
 - (void)removeApiSession:(NSString *)sessionKey;
 - (UMSS7ApiSession *)getApiSession:(NSString *)sessionKey;
 
-
 @optional
 - (UMLayerSCCP *)getTCAP:(NSString *)name;
 - (void)addWithConfigTCAP:(NSDictionary *)config;

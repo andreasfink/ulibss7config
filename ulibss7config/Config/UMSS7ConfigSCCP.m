@@ -40,7 +40,6 @@
     APPEND_CONFIG_STRING(s,@"variant",_variant);
 }
 
-
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
@@ -62,6 +61,5 @@
     UMSynchronizedSortedDictionary *currentConfig = [self config];
     return [[UMSS7ConfigSCCP allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
-
 
 @end
