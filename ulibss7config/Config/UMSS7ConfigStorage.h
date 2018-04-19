@@ -39,10 +39,15 @@
 @class  UMSS7ConfigSyslogDestination;
 @class  UMSS7ConfigHLR;
 @class  UMSS7ConfigMSC;
+@class  UMSS7ConfigVLR;
+@class  UMSS7ConfigGSMSCF;
+@class  UMSS7ConfigGMLC;
 @class  UMSS7ConfigSMSC;
 @class  UMSS7ConfigSMSproxy;
 @class  UMSS7ConfigUser;
 @class  UMSS7ConfigDatabasePool;
+@class UMSS7ConfigGSMSCF;
+@class UMSS7ConfigEIR;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -75,6 +80,10 @@
     UMSynchronizedDictionary *_sms_filter_dict;
     UMSynchronizedDictionary *_hlr_dict;
     UMSynchronizedDictionary *_msc_dict;
+    UMSynchronizedDictionary *_vlr_dict;
+    UMSynchronizedDictionary *_gsmscf_dict;
+    UMSynchronizedDictionary *_gmlc_dict;
+    UMSynchronizedDictionary *_eir_dict;
     UMSynchronizedDictionary *_smsc_dict;
     UMSynchronizedDictionary *_smsproxy_dict;
     UMSynchronizedDictionary *_user_dict;
@@ -113,6 +122,10 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sms_filter_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *hlr_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *msc_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *vlr_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *gsmscf_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *gmlc_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *eir_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsproxy_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *user_dict;
@@ -230,6 +243,47 @@
 - (NSString *)replaceGSMMAPFilter :(UMSS7ConfigGSMMAPFilter  *)gsmmapFilter;
 - (NSString *)deleteGSMMAPFilter :(NSString *)name;
 
+
+
+
+
+- (NSArray *)getHLRNames;
+- (UMSS7ConfigHLR *)getHLR:(NSString *)name;
+- (NSString *)addHLR:(UMSS7ConfigHLR *)hlr;
+- (NSString *)replaceHLR:(UMSS7ConfigHLR *)hlr;
+- (NSString *)deleteHLR:(NSString *)name;
+
+- (NSArray *)getMSCNames;
+- (UMSS7ConfigMSC *)getMSC:(NSString *)name;
+- (NSString *)addMSC:(UMSS7ConfigMSC *)msc;
+- (NSString *)replaceMSC:(UMSS7ConfigMSC *)msc;
+- (NSString *)deleteMSC:(NSString *)name;
+
+- (NSArray *)getVLRNames;
+- (UMSS7ConfigVLR *)getVLR:(NSString *)name;
+- (NSString *)addVLR:(UMSS7ConfigVLR *)vlr;
+- (NSString *)replaceVLR:(UMSS7ConfigVLR *)vlr;
+- (NSString *)deleteVLR:(NSString *)name;
+
+- (NSArray *)getGSMSCFNames;
+- (UMSS7ConfigGSMSCF *)getGSMSCF:(NSString *)name;
+- (NSString *)addGSMSCF:(UMSS7ConfigGSMSCF *)gsmscf;
+- (NSString *)replaceGSMSCF:(UMSS7ConfigGSMSCF *)gsmscf;
+- (NSString *)deleteGSMSCF:(NSString *)name;
+
+- (NSArray *)getGMLCNames;
+- (UMSS7ConfigGMLC *)getGMLC:(NSString *)name;
+- (NSString *)addGMLC:(UMSS7ConfigGMLC *)gmlc;
+- (NSString *)replaceGMLC:(UMSS7ConfigGMLC *)gmlc;
+- (NSString *)deleteGMLC:(NSString *)name;
+
+
+
+- (NSArray *)getEIRNames;
+- (UMSS7ConfigEIR *)getEIR:(NSString *)name;
+- (NSString *)addEIR:(UMSS7ConfigEIR *)eir;
+- (NSString *)replaceEIR:(UMSS7ConfigEIR *)eir;
+- (NSString *)deleteEIR:(NSString *)name;
 
 - (NSArray *)getSMSNames;
 - (UMSS7ConfigSMS *)getSMS:(NSString *)name;

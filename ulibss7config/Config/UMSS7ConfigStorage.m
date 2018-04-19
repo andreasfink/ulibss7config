@@ -46,6 +46,12 @@
 #import "UMSS7ConfigDatabasePool.h"
 #import "UMSS7ConfigCdrWriter.h"
 #import "UMSS7ConfigUser.h"
+#import "UMSS7ConfigMSC.h"
+#import "UMSS7ConfigHLR.h"
+#import "UMSS7ConfigVLR.h"
+#import "UMSS7ConfigGSMSCF.h"
+#import "UMSS7ConfigGMLC.h"
+#import "UMSS7ConfigEIR.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -79,6 +85,13 @@
     _smsc_dict                  = [[UMSynchronizedDictionary alloc]init];
     _smsproxy_dict              = [[UMSynchronizedDictionary alloc]init];
     _user_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _msc_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _hlr_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _vlr_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _gsmscf_dict                = [[UMSynchronizedDictionary alloc]init];
+    _gmlc_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _eir_dict                  = [[UMSynchronizedDictionary alloc]init];
+
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                                 selector:@selector(dirtyCheck)
                                                   object:NULL
@@ -1631,6 +1644,289 @@
     return @"ok";
 }
 
+
+/*
+ **************************************************
+ ** MSC
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GSMMAP
+
+- (NSArray *)getMSCNames
+{
+    return [_msc_dict allKeys];
+}
+
+- (UMSS7ConfigMSC *)getMSC:(NSString *)name
+{
+    return _msc_dict[name];
+}
+
+- (NSString *)addMSC:(UMSS7ConfigMSC *)msc
+{
+    if(_msc_dict[msc.name] == NULL)
+    {
+        _msc_dict[msc.name] = msc;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMSC:(UMSS7ConfigMSC *)msc
+{
+    _msc_dict[msc.name] = msc;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteMSC:(NSString *)name
+{
+    if(_msc_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_msc_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** HLR
+ **************************************************
+ */
+#pragma mark -
+#pragma mark HLR
+
+- (NSArray *)getHLRNames
+{
+    return [_hlr_dict allKeys];
+}
+
+- (UMSS7ConfigHLR *)getHLR:(NSString *)name
+{
+    return _hlr_dict[name];
+}
+
+- (NSString *)addHLR:(UMSS7ConfigHLR *)hlr
+{
+    if(_hlr_dict[hlr.name] == NULL)
+    {
+        _hlr_dict[hlr.name] = hlr;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceHLR:(UMSS7ConfigHLR *)hlr
+{
+    _hlr_dict[hlr.name] = hlr;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteHLR:(NSString *)name
+{
+    if(_hlr_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_hlr_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** VLR
+ **************************************************
+ */
+#pragma mark -
+#pragma mark VLR
+
+- (NSArray *)getVLRNames
+{
+    return [_vlr_dict allKeys];
+}
+
+- (UMSS7ConfigVLR *)getVLR:(NSString *)name
+{
+    return _vlr_dict[name];
+}
+
+- (NSString *)addVLR:(UMSS7ConfigVLR *)vlr
+{
+    if(_vlr_dict[vlr.name] == NULL)
+    {
+        _vlr_dict[vlr.name] = vlr;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceVLR:(UMSS7ConfigVLR *)vlr
+{
+    _vlr_dict[vlr.name] = vlr;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteVLR:(NSString *)name
+{
+    if(_vlr_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_vlr_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** GSMSCF
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GSMSCF
+
+- (NSArray *)getGSMSCFNames
+{
+    return [_gsmscf_dict allKeys];
+}
+
+- (UMSS7ConfigGSMSCF *)getGSMSCF:(NSString *)name
+{
+    return _gsmscf_dict[name];
+}
+
+- (NSString *)addGSMSCF:(UMSS7ConfigGSMSCF *)gsmscf
+{
+    if(_gsmscf_dict[gsmscf.name] == NULL)
+    {
+        _gsmscf_dict[gsmscf.name] = gsmscf;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceGSMSCF:(UMSS7ConfigGSMSCF *)gsmscf
+{
+    _gsmscf_dict[gsmscf.name] = gsmscf;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteGSMSCF:(NSString *)name
+{
+    if(_gsmscf_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_gsmscf_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** GMLC
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GMLC
+
+- (NSArray *)getGMLCNames
+{
+    return [_gmlc_dict allKeys];
+}
+
+- (UMSS7ConfigGMLC *)getGMLC:(NSString *)name
+{
+    return _gmlc_dict[name];
+}
+
+- (NSString *)addGMLC:(UMSS7ConfigGMLC *)gmlc
+{
+    if(_gsmmap_dict[gmlc.name] == NULL)
+    {
+        _gmlc_dict[gmlc.name] = gmlc;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceGMLC:(UMSS7ConfigGMLC *)gmlc
+{
+    _gmlc_dict[gmlc.name] = gmlc;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteGMLC:(NSString *)name
+{
+    if(_gmlc_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_gmlc_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** EIR
+ **************************************************
+ */
+#pragma mark -
+#pragma mark EIR
+
+- (NSArray *)getEIRNames
+{
+    return [_eir_dict allKeys];
+}
+
+- (UMSS7ConfigEIR *)getEIR:(NSString *)name
+{
+    return _eir_dict[name];
+}
+
+- (NSString *)addEIR:(UMSS7ConfigEIR *)eir
+{
+    if(_eir_dict[eir.name] == NULL)
+    {
+        _eir_dict[eir.name] = eir;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceEIR:(UMSS7ConfigEIR *)eir
+{
+    _eir_dict[eir.name] = eir;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteEIR:(NSString *)name
+{
+    if(_eir_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_eir_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 /*
  **************************************************

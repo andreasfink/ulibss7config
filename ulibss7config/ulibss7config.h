@@ -50,6 +50,7 @@
 #import "UMSS7ConfigVLR.h"
 #import "UMSS7ConfigGSMSCF.h"
 #import "UMSS7ConfigGMLC.h"
+#import "UMSS7ConfigEIR.h"
 #import "UMSS7ConfigSMSC.h"
 #import "UMSS7ConfigSMSProxy.h"
 #import "UMSS7ConfigCdrWriter.h"
