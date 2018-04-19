@@ -229,6 +229,10 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSFilterEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigHLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigMSC type]];
+    [cfg allowMultiGroup:[UMSS7ConfigVLR type]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMSCF type]];
+    [cfg allowMultiGroup:[UMSS7ConfigGMLC type]];
+    [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
     [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
@@ -585,6 +589,46 @@
         if(msc.name.length  > 0)
         {
             _msc_dict[msc.name] = msc;
+        }
+    }
+
+    NSArray *vlr_configs = [cfg getMultiGroups:[UMSS7ConfigVLR type]];
+    for(NSDictionary *vlr_config in vlr_configs)
+    {
+        UMSS7ConfigVLR *vlr = [[UMSS7ConfigVLR alloc]initWithConfig:vlr_config];
+        if(vlr.name.length  > 0)
+        {
+            _vlr_dict[vlr.name] = vlr;
+        }
+    }
+
+    NSArray *eir_configs = [cfg getMultiGroups:[UMSS7ConfigEIR type]];
+    for(NSDictionary *eir_config in eir_configs)
+    {
+        UMSS7ConfigEIR *eir = [[UMSS7ConfigEIR alloc]initWithConfig:eir_config];
+        if(eir.name.length  > 0)
+        {
+            _eir_dict[eir.name] = eir;
+        }
+    }
+
+    NSArray *gsmscf_configs = [cfg getMultiGroups:[UMSS7ConfigGSMSCF type]];
+    for(NSDictionary *gsmscf_config in gsmscf_configs)
+    {
+        UMSS7ConfigGSMSCF *gsmscf = [[UMSS7ConfigGSMSCF alloc]initWithConfig:gsmscf_config];
+        if(gsmscf.name.length  > 0)
+        {
+            _gsmscf_dict[gsmscf.name] = gsmscf;
+        }
+    }
+
+    NSArray *gmlc_configs = [cfg getMultiGroups:[UMSS7ConfigGMLC type]];
+    for(NSDictionary *gmlc_config in gmlc_configs)
+    {
+        UMSS7ConfigGMLC *gmlc = [[UMSS7ConfigGMLC alloc]initWithConfig:gmlc_config];
+        if(gmlc.name.length  > 0)
+        {
+            _gmlc_dict[gmlc.name] = gmlc;
         }
     }
 
@@ -2149,7 +2193,11 @@
     n.sms_dict = [_sms_dict copy];
     n.sms_filter_dict = [_sms_filter_dict copy];
     n.hlr_dict = [_hlr_dict copy];
-    n.msc_dict = [_smsc_dict copy];
+    n.msc_dict = [_msc_dict copy];
+    n.gsmscf_dict = [_gsmscf_dict copy];
+    n.gmlc_dict = [_gmlc_dict copy];
+    n.vlr_dict = [_vlr_dict copy];
+    n.eir_dict = [_eir_dict copy];
     n.smsc_dict = [_smsc_dict copy];
     n.smsproxy_dict = [_smsproxy_dict copy];
     n.rwconfigFile = _rwconfigFile;

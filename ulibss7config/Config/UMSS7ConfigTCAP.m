@@ -37,7 +37,9 @@
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
     APPEND_CONFIG_STRING(s,@"variant",_variant);
-    APPEND_CONFIG_INTEGER(s,@"subsystem",_subsystem);
+    APPEND_CONFIG_STRING(s,@"subsystem",_subsystem);
+    APPEND_CONFIG_STRING(s,@"number",_number);
+    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
 }
 
 
@@ -47,7 +49,10 @@
 
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
     APPEND_DICT_STRING(dict,@"variant",_variant);
-    APPEND_DICT_INTEGER(dict,@"subsystem",_subsystem);
+    APPEND_DICT_STRING(dict,@"subsystem",_subsystem);
+    APPEND_DICT_STRING(dict,@"number",_number);
+    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
+
     return dict;
 }
 
@@ -56,8 +61,11 @@
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_STRING(dict,@"variant",_variant);
-    SET_DICT_INTEGER(dict,@"subsystem",_subsystem);
-
+    SET_DICT_STRING(dict,@"attach-ssn",_subsystem);/* backwards compatibility */
+    SET_DICT_STRING(dict,@"subsystem",_subsystem);
+    SET_DICT_STRING(dict,@"attach-number",_number);/* backwards compatibility */
+    SET_DICT_STRING(dict,@"number",_number);
+    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
 }
 
 - (UMSS7ConfigTCAP *)copyWithZone:(NSZone *)zone

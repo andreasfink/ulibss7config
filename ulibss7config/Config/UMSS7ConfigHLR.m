@@ -37,6 +37,10 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(s,@"number",_attachTo);
+    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
+    APPEND_CONFIG_STRING(s,@"timeout-trace-directory",_timeoutTraceDirectory);
+    APPEND_CONFIG_STRING(s,@"full-trace-directory",_fullTraceDirectory);
 }
 
 
@@ -45,6 +49,11 @@
     UMSynchronizedSortedDictionary *dict = [super config];
 
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(dict,@"number",_attachTo);
+    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
+    APPEND_DICT_STRING(dict,@"timeout-trace-directory",_timeoutTraceDirectory);
+    APPEND_DICT_STRING(dict,@"full-trace-directory",_fullTraceDirectory);
+
     return dict;
 }
 
@@ -52,7 +61,12 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
+    SET_DICT_STRING(dict,@"number",_attachTo);
+    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
+    SET_DICT_STRING(dict,@"timeout-trace-directory",_timeoutTraceDirectory);
+    SET_DICT_STRING(dict,@"full-trace-directory",_fullTraceDirectory);
 }
+
 
 
 - (UMSS7ConfigHLR *)copyWithZone:(NSZone *)zone

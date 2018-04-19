@@ -40,6 +40,8 @@
     APPEND_CONFIG_STRING(s,@"address",_address);
     APPEND_CONFIG_INTEGER(s,@"nai",_nai);
     APPEND_CONFIG_INTEGER(s,@"npi",_npi);
+    APPEND_CONFIG_STRING(s,@"operations",_operations);
+
 }
 
 
@@ -51,6 +53,8 @@
     APPEND_DICT_STRING(dict,@"address",_address);
     APPEND_DICT_INTEGER(dict,@"nai",_nai);
     APPEND_DICT_INTEGER(dict,@"npi",_npi);
+    APPEND_DICT_STRING(dict,@"operations",_operations);
+
     return dict;
 }
 
@@ -61,6 +65,7 @@
     SET_DICT_STRING(dict,@"address",_address);
     SET_DICT_INTEGER(dict,@"nai",_nai);
     SET_DICT_INTEGER(dict,@"npi",_npi);
+    SET_DICT_STRING(dict,@"operations",_operations);
 }
 
 - (UMSS7ConfigGSMMAP *)copyWithZone:(NSZone *)zone

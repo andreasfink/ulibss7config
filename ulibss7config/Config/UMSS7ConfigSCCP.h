@@ -12,6 +12,8 @@
 {
     NSString *_attachTo;
     NSString *_variant;
+    NSString *_mode;
+    NSString *_next_pc;
 }
 
 + (NSString *)type;
@@ -20,5 +22,7 @@
 
 @property(readwrite,strong,atomic)  NSString *attachTo;
 @property(readwrite,strong,atomic)  NSString *variant;
+@property(readwrite,strong,atomic)  NSString *mode;
+@property(readwrite,strong,atomic)  NSString *next_pc;
 
 @end

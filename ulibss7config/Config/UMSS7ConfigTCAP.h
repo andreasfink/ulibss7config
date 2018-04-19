@@ -12,12 +12,17 @@
 {
     NSString *_attachTo;
     NSString *_variant;
-    NSNumber *_subsystem;
+    NSString *_subsystem;
+    NSNumber *_timeout;
+    NSString *_number;
 }
 
 @property(readwrite,strong,atomic)  NSString *attachTo;
 @property(readwrite,strong,atomic)  NSString *variant;
-@property(readwrite,strong,atomic)  NSNumber *subsystem;
+@property(readwrite,strong,atomic)  NSString *subsystem;
+@property(readwrite,strong,atomic)  NSNumber *timeout;
+@property(readwrite,strong,atomic)  NSString *number;
+
 
 
 + (NSString *)type;
