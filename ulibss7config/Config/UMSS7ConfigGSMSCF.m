@@ -59,7 +59,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
-    SET_DICT_STRING(dict,@"number",v);
+    SET_DICT_STRING(dict,@"number",_number);
     SET_DICT_DOUBLE(dict,@"timeout",_timeout);
     SET_DICT_STRING(dict,@"timeout-trace-directory",_timeoutTraceDirectory);
     SET_DICT_STRING(dict,@"full-trace-directory",_fullTraceDirectory);
