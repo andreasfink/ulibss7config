@@ -13,7 +13,6 @@
 {
     NSNumber *_bypassTranslationType;
     NSString *_defaultResult;
-    NSMutableArray<UMSS7ConfigTCAPFilterEntry *> *_entries;
 }
 
 @property(readwrite,strong,atomic)  NSNumber *bypassTranslationType;

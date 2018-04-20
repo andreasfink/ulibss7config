@@ -52,6 +52,8 @@
 #import "UMSS7ConfigGSMSCF.h"
 #import "UMSS7ConfigGMLC.h"
 #import "UMSS7ConfigEIR.h"
+#import "UMSS7ConfigSCCPNumberTranslation.h"
+#import "UMSS7ConfigSCCPNumberTranslationEntry.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -238,6 +240,9 @@
     [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
     [cfg allowMultiGroup:[UMSS7ConfigUser type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
+
     [cfg read];
     [self processConfig:cfg];
 }
@@ -650,6 +655,30 @@
             _user_dict[user.name] = user;
         }
     }
+
+    NSArray *sccp_number_translation_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslation type]];
+    for(NSDictionary *sccp_number_translation_config in sccp_number_translation_configs)
+    {
+        UMSS7ConfigSCCPNumberTranslation *e = [[UMSS7ConfigSCCPNumberTranslation alloc]initWithConfig:sccp_number_translation_config];
+        if(e.name.length  > 0)
+        {
+            _sccp_number_translation_dict[e.name] = e;
+        }
+    }
+    NSArray *sccp_number_translation_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslationEntry type]];
+    for(NSDictionary *sccp_number_translation_entry_config in sccp_number_translation_entry_configs)
+    {
+        UMSS7ConfigSCCPNumberTranslationEntry *e = [[UMSS7ConfigSCCPNumberTranslationEntry alloc]initWithConfig:sccp_number_translation_entry_config];
+        NSString *parent = e.sccpNumberTranslation;
+        UMSS7ConfigSCCPNumberTranslation *p = _sccp_number_translation_dict[e];
+        if(p==NULL)
+        {
+            p = [[UMSS7ConfigSCCPNumberTranslation alloc]initWithConfig:@{ @"name" : parent }];
+            _sccp_number_translation_dict[p.name] = p;
+        }
+        [p.entries addObject:e];
+        _sccp_number_translation_dict[p.name] = p;
+    }
 }
 
 - (UMConfig *)saveConfig
@@ -675,6 +704,36 @@
             UMSS7ConfigObject *co = dict[key];
             [s appendString: co.configString];
             [s appendString:@"\n"];
+        }
+    }
+}
+
+- (void)appendSectionWithEntries:(NSMutableString *)s
+                            dict:(UMSynchronizedDictionary *)dict
+                     sectionName:(NSString *)sectionName
+                     entriesName:(NSString *)entriesName
+{
+    if(dict.count > 0)
+    {
+        [s appendString:@"\n"];
+        [s appendString:@"#-----------------------------------------------\n"];
+        [s appendFormat:@"# Section %@\n", sectionName];
+        [s appendString:@"#-----------------------------------------------\n"];
+
+        NSArray *keys = [dict allKeys];
+        for(id key in keys)
+        {
+            UMSS7ConfigObject *co = dict[key];
+            [s appendString: co.configString];
+            [s appendString:@"\n"];
+
+            UMSynchronizedArray *entries = [co entries];
+            for(NSInteger i=0;i<entries.count;i++)
+            {
+                UMSS7ConfigObject *co2 = dict[key];
+                [s appendString: co2.configString];
+                [s appendString:@"\n"];
+            }
         }
     }
 }
@@ -722,6 +781,7 @@
     [self appendSection:s dict:_sccp_dict sectionName:@"sccp"];
     [self appendSection:s dict:_sccp_destination_dict sectionName:@"sccp-destination"];
     [self appendSection:s dict:_sccp_filter_dict sectionName:@"sccp-filter"];
+    [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:@"sccp-number-translation" entriesName:@"sccp-number-translation-entry"];
     [self appendSection:s dict:_tcap_dict sectionName:@"tcap"];
     [self appendSection:s dict:_tcap_filter_dict sectionName:@"tcap-filter"];
     [self appendSection:s dict:_gsmmap_dict sectionName:@"gsmmap"];

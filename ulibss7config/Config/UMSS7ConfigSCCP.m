@@ -40,7 +40,6 @@
     APPEND_CONFIG_STRING(s,@"variant",_variant);
     APPEND_CONFIG_STRING(s,@"mode",_mode);
     APPEND_CONFIG_STRING(s,@"next-pc",_next_pc);
-
 }
 
 - (UMSynchronizedSortedDictionary *)config

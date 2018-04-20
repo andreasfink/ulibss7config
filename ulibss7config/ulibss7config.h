@@ -54,5 +54,7 @@
 #import "UMSS7ConfigSMSC.h"
 #import "UMSS7ConfigSMSProxy.h"
 #import "UMSS7ConfigCdrWriter.h"
+#import "UMSS7ConfigSCCPNumberTranslation.h"
+#import "UMSS7ConfigSCCPNumberTranslationEntry.h"
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"

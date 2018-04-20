@@ -88,6 +88,7 @@
     UMSynchronizedDictionary *_smsproxy_dict;
     UMSynchronizedDictionary *_user_dict;
     UMSynchronizedDictionary *_database_pool_dict;
+    UMSynchronizedDictionary *_sccp_number_translation_dict;
 
     NSString *_rwconfigFile;
     UMTimer *_dirtyTimer;
@@ -130,6 +131,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsproxy_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *database_pool_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_number_translation_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -242,10 +244,6 @@
 - (NSString *)addGSMMAPFilter :(UMSS7ConfigGSMMAPFilter  *)gsmmapFilter;
 - (NSString *)replaceGSMMAPFilter :(UMSS7ConfigGSMMAPFilter  *)gsmmapFilter;
 - (NSString *)deleteGSMMAPFilter :(NSString *)name;
-
-
-
-
 
 - (NSArray *)getHLRNames;
 - (UMSS7ConfigHLR *)getHLR:(NSString *)name;
