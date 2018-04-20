@@ -13,6 +13,7 @@
     NSString *_translationTableName;
     NSString *_gta;
     NSString *_sccpDestination;
+    NSString *_postTranslation;
 }
 
 + (NSString *)type;
@@ -22,5 +23,6 @@
 @property(readwrite,strong,atomic)  NSString *translationTableName;
 @property(readwrite,strong,atomic)  NSString *gta;
 @property(readwrite,strong,atomic)  NSString *sccpDestination;
+@property(readwrite,strong,atomic)  NSString *postTranslation;
 
 @end

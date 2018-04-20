@@ -39,6 +39,7 @@
     APPEND_CONFIG_STRING(s,@"table",_translationTableName);
     APPEND_CONFIG_STRING(s,@"gta",_gta);
     APPEND_CONFIG_STRING(s,@"destination",_sccpDestination);
+    APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
 }
 
 
@@ -48,6 +49,7 @@
     APPEND_DICT_STRING(dict,@"table",_translationTableName);
     APPEND_DICT_STRING(dict,@"gta",_gta);
     APPEND_DICT_STRING(dict,@"destination",_sccpDestination);
+    APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
     return dict;
 }
 
@@ -57,6 +59,7 @@
     SET_DICT_STRING(dict,@"table",_translationTableName);
     SET_DICT_STRING(dict,@"gta",_gta);
     SET_DICT_STRING(dict,@"destination",_sccpDestination);
+    SET_DICT_STRING(dict,@"post-translation",_postTranslation);
 }
 
 - (UMSS7ConfigSCCPTranslationTableEntry *)copyWithZone:(NSZone *)zone

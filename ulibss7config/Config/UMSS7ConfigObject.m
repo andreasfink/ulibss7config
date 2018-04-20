@@ -176,6 +176,10 @@
 
 - (void)addSubEntry:(UMSS7ConfigObject *)obj
 {
+    if(_subEntries==NULL)
+    {
+       _subEntries =  [[NSMutableArray alloc]init];
+    }
     [_subEntries addObject:obj];
 }
 

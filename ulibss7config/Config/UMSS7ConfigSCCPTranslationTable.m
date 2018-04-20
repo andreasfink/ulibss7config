@@ -42,6 +42,9 @@
     APPEND_CONFIG_INTEGER(s,@"gti",_gti);
     APPEND_CONFIG_INTEGER(s,@"np",_np);
     APPEND_CONFIG_INTEGER(s,@"nai",_nai);
+    APPEND_CONFIG_STRING(s,@"pre-translation",_preTranslation);
+    APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
+    APPEND_CONFIG_STRING(s,@"default-destination",_defaultDestination);
 
     for(UMSS7ConfigSCCPTranslationTableEntry *e in _subEntries)
     {
@@ -61,6 +64,10 @@
     APPEND_DICT_INTEGER(dict,@"gti",_gti);
     APPEND_DICT_INTEGER(dict,@"np",_np);
     APPEND_DICT_INTEGER(dict,@"nai",_nai);
+    APPEND_DICT_STRING(dict,@"pre-translation",_preTranslation);
+    APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
+    APPEND_DICT_STRING(dict,@"default-destination",_defaultDestination);
+
     return dict;
 }
 
@@ -72,6 +79,10 @@
     SET_DICT_INTEGER(dict,@"gti",_gti);
     SET_DICT_INTEGER(dict,@"np",_np);
     SET_DICT_INTEGER(dict,@"nai",_nai);
+    SET_DICT_STRING(dict,@"pre-translation",_preTranslation);
+    SET_DICT_STRING(dict,@"post-translation",_postTranslation);
+    SET_DICT_STRING(dict,@"default-destination",_defaultDestination);
+
 }
 
 

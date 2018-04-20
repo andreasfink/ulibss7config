@@ -76,6 +76,8 @@
     _sccp_dict                  = [[UMSynchronizedDictionary alloc]init];
     _sccp_filter_dict           = [[UMSynchronizedDictionary alloc]init];
     _sccp_destination_dict      = [[UMSynchronizedDictionary alloc]init];
+    _sccp_number_translation_dict      = [[UMSynchronizedDictionary alloc]init];
+    _sccp_translation_table_dict     = [[UMSynchronizedDictionary alloc]init];
     _tcap_dict                  = [[UMSynchronizedDictionary alloc]init];
     _tcap_filter_dict           = [[UMSynchronizedDictionary alloc]init];
     _gsmmap_dict                = [[UMSynchronizedDictionary alloc]init];
@@ -444,13 +446,13 @@
         if(sccp_translation_table_entry.translationTableName.length  > 0)
         {
             UMSS7ConfigSCCPTranslationTable *translation_table = _sccp_translation_table_dict[sccp_translation_table_entry.translationTableName];
-            if(translation_table)
+            if(translation_table==NULL)
             {
-                [translation_table addSubEntry:sccp_translation_table_entry];
+                translation_table = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:@{ @"name" : sccp_translation_table_entry.translationTableName }];
             }
+            [translation_table addSubEntry:sccp_translation_table_entry];
         }
     }
-
 
     NSArray *sccp_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPFilter type]];
     for(NSDictionary *sccp_filter_config in sccp_filter_configs)
@@ -656,6 +658,9 @@
         }
     }
 
+
+
+
     NSArray *sccp_number_translation_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslation type]];
     for(NSDictionary *sccp_number_translation_config in sccp_number_translation_configs)
     {
@@ -670,13 +675,13 @@
     {
         UMSS7ConfigSCCPNumberTranslationEntry *e = [[UMSS7ConfigSCCPNumberTranslationEntry alloc]initWithConfig:sccp_number_translation_entry_config];
         NSString *parent = e.sccpNumberTranslation;
-        UMSS7ConfigSCCPNumberTranslation *p = _sccp_number_translation_dict[e];
+        UMSS7ConfigSCCPNumberTranslation *p = _sccp_number_translation_dict[parent];
         if(p==NULL)
         {
             p = [[UMSS7ConfigSCCPNumberTranslation alloc]initWithConfig:@{ @"name" : parent }];
             _sccp_number_translation_dict[p.name] = p;
         }
-        [p.entries addObject:e];
+        [p addSubEntry:e];
         _sccp_number_translation_dict[p.name] = p;
     }
 }
@@ -711,7 +716,6 @@
 - (void)appendSectionWithEntries:(NSMutableString *)s
                             dict:(UMSynchronizedDictionary *)dict
                      sectionName:(NSString *)sectionName
-                     entriesName:(NSString *)entriesName
 {
     if(dict.count > 0)
     {
@@ -727,10 +731,9 @@
             [s appendString: co.configString];
             [s appendString:@"\n"];
 
-            UMSynchronizedArray *entries = [co entries];
-            for(NSInteger i=0;i<entries.count;i++)
+            NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
+            for(UMSS7ConfigObject *co2 in entries)
             {
-                UMSS7ConfigObject *co2 = dict[key];
                 [s appendString: co2.configString];
                 [s appendString:@"\n"];
             }
@@ -779,15 +782,16 @@
     [self appendSection:s dict:_mtp3_filter_dict sectionName:@"mtp3-filter"];
     [self appendSection:s dict:_mtp3_route_dict sectionName:@"mtp3-route"];
     [self appendSection:s dict:_sccp_dict sectionName:@"sccp"];
-    [self appendSection:s dict:_sccp_destination_dict sectionName:@"sccp-destination"];
+    [self appendSectionWithEntries:s dict:_sccp_destination_dict sectionName:@"sccp-destination"];
     [self appendSection:s dict:_sccp_filter_dict sectionName:@"sccp-filter"];
-    [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:@"sccp-number-translation" entriesName:@"sccp-number-translation-entry"];
+    [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:@"sccp-number-translation"];
+    [self appendSectionWithEntries:s dict:_sccp_translation_table_dict sectionName:@"sccp-translation-table"];
     [self appendSection:s dict:_tcap_dict sectionName:@"tcap"];
-    [self appendSection:s dict:_tcap_filter_dict sectionName:@"tcap-filter"];
+    [self appendSectionWithEntries:s dict:_tcap_filter_dict sectionName:@"tcap-filter"];
     [self appendSection:s dict:_gsmmap_dict sectionName:@"gsmmap"];
-    [self appendSection:s dict:_gsmmap_filter_dict sectionName:@"gsmmap-filter"];
+    [self appendSectionWithEntries:s dict:_gsmmap_filter_dict sectionName:@"gsmmap-filter"];
     [self appendSection:s dict:_sms_dict sectionName:@"sms"];
-    [self appendSection:s dict:_sms_filter_dict sectionName:@"sms-filter"];
+    [self appendSectionWithEntries:s dict:_sms_filter_dict sectionName:@"sms-filter"];
 }
 
 - (void)writeConfigToDirectory:(NSString *)dir usingFilename:(NSString *)main_config_file_name  singleFile:(BOOL)compact
@@ -1461,6 +1465,99 @@
         return @"not found";
     }
     [_sccp_destination_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SCCP-GTT Translation Tables
+ **************************************************
+ */
+- (NSArray *)getSCCPTranslationTableNames
+{
+    return [_sccp_translation_table_dict allKeys];
+}
+
+- (UMSS7ConfigSCCPTranslationTable *)getSCCPTranslationTable:(NSString *)name
+{
+    return _sccp_translation_table_dict[name];
+
+}
+
+- (NSString *)addSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable*)sccp_translation_table
+{
+    if(_sccp_translation_table_dict[sccp_translation_table.name] == NULL)
+    {
+        _sccp_translation_table_dict[sccp_translation_table.name] = sccp_translation_table;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+
+}
+- (NSString *)replaceSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable *)sccp_translation_table
+{
+    _sccp_translation_table_dict[sccp_translation_table.name] = sccp_translation_table;
+    _dirty=YES;
+    return @"ok";
+
+}
+- (NSString *)deleteSCCPTranslationTable:(NSString *)name
+{
+    if(_sccp_translation_table_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_translation_table_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** SCCP-NumberTranslation
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SCCP Destination
+
+- (NSArray *)getSCCPNumberTranslationNames
+{
+    return [_sccp_number_translation_dict allKeys];
+}
+
+- (UMSS7ConfigSCCPNumberTranslation *)getSCCPNumberTranslation:(NSString *)name;
+{
+    return _sccp_number_translation_dict[name];
+}
+
+- (NSString *)addSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation*)number_translation;
+{
+    if(_sccp_number_translation_dict[number_translation.name] == NULL)
+    {
+        _sccp_number_translation_dict[number_translation.name] = number_translation;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation *)number_translation;
+{
+    _sccp_number_translation_dict[number_translation.name] = number_translation;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSCCPNumberTranslation:(NSString *)name;
+{
+    if(_sccp_number_translation_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_number_translation_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
@@ -2254,12 +2351,16 @@
     n.sms_filter_dict = [_sms_filter_dict copy];
     n.hlr_dict = [_hlr_dict copy];
     n.msc_dict = [_msc_dict copy];
+    n.vlr_dict = [_vlr_dict copy];
     n.gsmscf_dict = [_gsmscf_dict copy];
     n.gmlc_dict = [_gmlc_dict copy];
-    n.vlr_dict = [_vlr_dict copy];
     n.eir_dict = [_eir_dict copy];
     n.smsc_dict = [_smsc_dict copy];
     n.smsproxy_dict = [_smsproxy_dict copy];
+    n.user_dict = [_user_dict copy];
+    n.database_pool_dict = [_database_pool_dict copy];
+    n.sccp_number_translation_dict = [_sccp_number_translation_dict copy];
+
     n.rwconfigFile = _rwconfigFile;
     return n;
 

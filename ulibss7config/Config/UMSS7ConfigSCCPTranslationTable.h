@@ -15,6 +15,9 @@
     NSNumber *_gti;
     NSNumber *_np;
     NSNumber *_nai;
+    NSString *_preTranslation;
+    NSString *_postTranslation;
+    NSString *_defaultDestination;
 }
 
 + (NSString *)type;
@@ -26,5 +29,8 @@
 @property(readwrite,strong,atomic)   NSNumber *gti;
 @property(readwrite,strong,atomic)   NSNumber *np;
 @property(readwrite,strong,atomic)   NSNumber *nai;
+@property(readwrite,strong,atomic)   NSString *preTranslation;
+@property(readwrite,strong,atomic)   NSString *postTranslation;
+@property(readwrite,strong,atomic)   NSString *defaultDestination;
 
 @end

@@ -48,6 +48,7 @@
 @class  UMSS7ConfigDatabasePool;
 @class UMSS7ConfigGSMSCF;
 @class UMSS7ConfigEIR;
+@class UMSS7ConfigSCCPNumberTranslation;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -221,6 +222,12 @@
 - (NSString *)replaceSCCPDestination:(UMSS7ConfigSCCPDestination *)sccp_destination;
 - (NSString *)deleteSCCPDestination:(NSString *)name;
 
+- (NSArray *)getSCCPTranslationTableNames;
+- (UMSS7ConfigSCCPTranslationTable *)getSCCPTranslationTable:(NSString *)name;
+- (NSString *)addSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable*)sccp_destination;
+- (NSString *)replaceSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable *)sccp_destination;
+- (NSString *)deleteSCCPTranslationTable:(NSString *)name;
+
 - (NSArray *)getTCAPNames;
 - (UMSS7ConfigTCAP *)getTCAP:(NSString *)name;
 - (NSString *)addTCAP:(UMSS7ConfigTCAP *)tcap;
@@ -318,5 +325,11 @@
 - (NSString *)addUser:(UMSS7ConfigUser *)user;
 - (NSString *)replaceUser:(UMSS7ConfigUser *)user;
 - (NSString *)deleteUser:(NSString *)name;
+
+- (NSArray *)getSCCPNumberTranslationNames;
+- (UMSS7ConfigSCCPNumberTranslation *)getSCCPNumberTranslation:(NSString *)name;
+- (NSString *)addSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation*)number_translaton;
+- (NSString *)replaceSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation *)number_translaton;
+- (NSString *)deleteSCCPNumberTranslation:(NSString *)name;
 
 @end
