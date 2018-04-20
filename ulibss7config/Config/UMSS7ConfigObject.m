@@ -31,6 +31,7 @@
     self = [super init];
     if(self)
     {
+        _subEntries =     [[NSMutableArray<UMSS7ConfigObject *> alloc] init];
         [self setSuperConfig:dict];
     }
     return self;
@@ -170,7 +171,7 @@
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
     UMSS7ConfigObject *o = [[UMSS7ConfigObject allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
-    [o setSubConfig:self.subConfig];
+    o.subEntries = _subEntries;
     return o;
 }
 
@@ -181,6 +182,17 @@
        _subEntries =  [[NSMutableArray alloc]init];
     }
     [_subEntries addObject:obj];
+}
+
+
+- (NSArray<NSDictionary *> *)subConfigs
+{
+    NSMutableArray *configs = [[NSMutableArray alloc]init];
+    for(UMSS7ConfigObject *co in _subEntries)
+    {
+        [configs addObject:[co.config dictionaryCopy]];
+    }
+    return configs;
 }
 
 @end

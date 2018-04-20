@@ -37,7 +37,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"destination",_destination);
-    APPEND_CONFIG_STRING(s,@"dpc",_dpc);
+    APPEND_CONFIG_STRING(s,@"point-code",_dpc);
     APPEND_CONFIG_STRING(s,@"application-server",_applicationServer);
     APPEND_CONFIG_INTEGER(s,@"priority",_priority);
     APPEND_CONFIG_INTEGER(s,@"subsystem",_subsystem);
@@ -49,7 +49,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"destination",_destination);
-    APPEND_DICT_STRING(dict,@"dpc",_dpc);
+    APPEND_DICT_STRING(dict,@"point-code",_dpc);
     APPEND_DICT_STRING(dict,@"application-server",_applicationServer);
     APPEND_DICT_INTEGER(dict,@"priority",_priority);
     APPEND_DICT_INTEGER(dict,@"subsystem",_subsystem);
@@ -62,7 +62,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"destination",_destination);
-    SET_DICT_STRING(dict,@"dpc",_dpc);
+    SET_DICT_STRING(dict,@"point-code",_dpc);
     SET_DICT_STRING(dict,@"application-server",_applicationServer);
     SET_DICT_INTEGER(dict,@"priority",_priority);
     SET_DICT_INTEGER(dict,@"subsystem",_subsystem);

@@ -47,4 +47,5 @@
 - (UMSS7ConfigObject *)copyWithZone:(NSZone *)zone;
 - (void)addSubEntry:(UMSS7ConfigObject *)obj;
 
+- (NSArray<NSDictionary *> *)subConfigs;
 @end
