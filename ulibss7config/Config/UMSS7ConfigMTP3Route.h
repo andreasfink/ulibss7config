@@ -10,6 +10,7 @@
 
 @interface UMSS7ConfigMTP3Route : UMSS7ConfigObject
 {
+    NSString *_mtp3;
     NSString *_dpc;
     NSString *_as;
     NSString *_ls;
@@ -21,6 +22,7 @@
 - (NSString *)type;
 - (UMSS7ConfigMTP3Route *)initWithConfig:(NSDictionary *)dict;
 
+@property(readwrite,strong,atomic)  NSString *mtp3;
 @property(readwrite,strong,atomic)  NSString *dpc;
 @property(readwrite,strong,atomic)  NSString *as;
 @property(readwrite,strong,atomic)  NSString *ls;

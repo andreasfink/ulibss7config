@@ -22,6 +22,17 @@
     return [UMSS7ConfigMTP3Route type];
 }
 
+- (NSString *)name
+{
+    if(_as)
+    {
+        return [NSString stringWithFormat:@"%@:AS:%@:%@",_mtp3,_as,_dpc];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%@:LS:%@:%@",_mtp3,_ls,_dpc];
+    }
+}
 
 - (UMSS7ConfigMTP3Route *)initWithConfig:(NSDictionary *)dict
 {
@@ -36,6 +47,7 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
+    APPEND_CONFIG_STRING(s,@"mtp3",_mtp3);
     APPEND_CONFIG_STRING(s,@"dpc",_dpc);
     APPEND_CONFIG_STRING(s,@"ls",_ls);
     APPEND_CONFIG_STRING(s,@"as",_as);
@@ -47,6 +59,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
 
+    APPEND_DICT_STRING(dict,@"mtp3",_mtp3);
     APPEND_DICT_STRING(dict,@"dpc",_dpc);
     APPEND_DICT_STRING(dict,@"ls",_ls);
     APPEND_DICT_STRING(dict,@"as",_as);
@@ -57,6 +70,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+    SET_DICT_STRING(dict,@"mtp3",_mtp3);
     SET_DICT_STRING(dict,@"dpc",_dpc);
     SET_DICT_STRING(dict,@"ls",_ls);
     SET_DICT_STRING(dict,@"as",_as);

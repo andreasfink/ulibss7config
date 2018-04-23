@@ -392,6 +392,16 @@
         }
     }
 
+    NSArray *mtp3_route_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Route type]];
+    for(NSDictionary *mtp3_route_config in mtp3_route_configs)
+    {
+        UMSS7ConfigMTP3Route *mtp3_route = [[UMSS7ConfigMTP3Route alloc]initWithConfig:mtp3_route_config];
+        if(mtp3_route)
+        {
+            _mtp3_route_dict[mtp3_route.name] = mtp3_route;
+        }
+    }
+
 
     NSArray *sccp_configs = [cfg getMultiGroups:[UMSS7ConfigSCCP type]];
     for(NSDictionary *sccp_config in sccp_configs)
