@@ -94,16 +94,20 @@
 
     /* names can only be filtered names */
 
-    NSString *n = dict[@"name"];
-    NSLog(@"name=%@",n);
-    if(n.length > 0)
+    id n = dict[@"name"];
+    if([n isKindOfClass:[NSString class]])
     {
-        n = [UMSS7ConfigObject filterName:n];
-        if(n.length > 0)
+        NSString *n2 = [UMSS7ConfigObject filterName:(NSString *)n];
+        if(n2.length > 0)
         {
-            _name = n;
+            _name = n2;
         }
     }
+    else
+    {
+        NSLog(@"Warning: Not a string for an object name. Probably misconfiguration: %@",n);
+    }
+
     NSString *newName = [UMSS7ConfigObject filterName:dict[@"newname"]];
     if((newName.length > 0) && (![newName isEqualToString:_name]))
     {
