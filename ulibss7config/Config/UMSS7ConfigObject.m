@@ -94,9 +94,15 @@
 
     /* names can only be filtered names */
 
-    if(dict[@"name"])
+    NSString *n = dict[@"name"];
+    NSLog(@"name=%@",n);
+    if(n.length > 0)
     {
-        _name = [UMSS7ConfigObject filterName:dict[@"name"]];
+        n = [UMSS7ConfigObject filterName:n];
+        if(n.length > 0)
+        {
+            _name = n;
+        }
     }
     NSString *newName = [UMSS7ConfigObject filterName:dict[@"newname"]];
     if((newName.length > 0) && (![newName isEqualToString:_name]))
