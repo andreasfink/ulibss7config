@@ -21,7 +21,6 @@
     return [UMSS7ConfigSCCPNumberTranslationEntry type];
 }
 
-
 - (UMSS7ConfigSCCPNumberTranslationEntry *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
