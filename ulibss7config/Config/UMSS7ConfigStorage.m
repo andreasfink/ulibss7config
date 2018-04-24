@@ -97,11 +97,11 @@
     _eir_dict                  = [[UMSynchronizedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
-                                                selector:@selector(dirtyCheck)
-                                                  object:NULL
-                                                 seconds:10.0
-                                                    name:@"dirty-config-timer"
-                                                 repeats:YES];
+                                        selector:@selector(dirtyCheck)
+                                          object:NULL
+                                         seconds:10.0
+                                            name:@"dirty-config-timer"
+                                         repeats:YES];
     _productName = @"UniversalSS7";
 }
 
