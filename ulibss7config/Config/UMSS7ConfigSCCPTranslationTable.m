@@ -74,14 +74,14 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"sccp",_sccp);
+    SET_DICT_FILTERED_STRING(dict,@"sccp",_sccp);
     SET_DICT_INTEGER(dict,@"tt",_tt);
     SET_DICT_INTEGER(dict,@"gti",_gti);
     SET_DICT_INTEGER(dict,@"np",_np);
     SET_DICT_INTEGER(dict,@"nai",_nai);
-    SET_DICT_STRING(dict,@"pre-translation",_preTranslation);
-    SET_DICT_STRING(dict,@"post-translation",_postTranslation);
-    SET_DICT_STRING(dict,@"default-destination",_defaultDestination);
+    SET_DICT_FILTERED_STRING(dict,@"pre-translation",_preTranslation);
+    SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
+    SET_DICT_FILTERED_STRING(dict,@"default-destination",_defaultDestination);
 
 }
 

@@ -54,7 +54,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"mtp3-linkset",_mtp3Linkset);
+    SET_DICT_FILTERED_STRING(dict,@"mtp3-linkset",_mtp3Linkset);
     SET_DICT_STRING(dict,@"m2pa",_m2pa);
     SET_DICT_INTEGER(dict,@"slc",_slc);
 }

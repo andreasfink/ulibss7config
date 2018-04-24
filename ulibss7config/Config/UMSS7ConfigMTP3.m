@@ -59,7 +59,7 @@
     SET_DICT_STRING(dict,@"variant",_variant);
     SET_DICT_STRING(dict,@"opc",_opc);
     SET_DICT_STRING(dict,@"ni",_networkIndicator);
-    SET_DICT_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
+    SET_DICT_FILTERED_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
 }
 
 - (UMSS7ConfigMTP3 *)copyWithZone:(NSZone *)zone

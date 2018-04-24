@@ -55,7 +55,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"mtp3",_mtp3);
+    SET_DICT_FILTERED_STRING(dict,@"mtp3",_mtp3);
     SET_DICT_STRING(dict,@"apc",_apc);
     SET_DICT_STRING(dict,@"opc",_opc);
     SET_DICT_DOUBLE(dict,@"speed",_speed);

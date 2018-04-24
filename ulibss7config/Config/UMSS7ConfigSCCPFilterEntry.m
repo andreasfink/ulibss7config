@@ -50,7 +50,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"filter",_filter);
+    SET_DICT_FILTERED_STRING(dict,@"filter",_filter);
     SET_DICT_STRING(dict,@"result",_result);
 }
 

@@ -61,9 +61,9 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"destination",_destination);
+    SET_DICT_FILTERED_STRING(dict,@"destination",_destination);
     SET_DICT_STRING(dict,@"point-code",_dpc);
-    SET_DICT_STRING(dict,@"application-server",_applicationServer);
+    SET_DICT_FILTERED_STRING(dict,@"application-server",_applicationServer);
     SET_DICT_INTEGER(dict,@"priority",_priority);
     SET_DICT_INTEGER(dict,@"subsystem",_subsystem);
     SET_DICT_INTEGER(dict,@"ntt",_ntt);

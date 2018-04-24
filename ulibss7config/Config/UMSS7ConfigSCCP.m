@@ -56,7 +56,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
+    SET_DICT_FILTERED_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_STRING(dict,@"variant",_variant);
     SET_DICT_STRING(dict,@"mode",_mode);
     SET_DICT_STRING(dict,@"next-pc",_next_pc);

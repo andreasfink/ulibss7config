@@ -178,6 +178,30 @@ if(dict[name]) \
     } \
 }
 
+/* same as SET_DICT_STRING but passes string objects through filterName: */
+/* use this if the passed string is a name of another object so its also filtered the same way */
+
+#define SET_DICT_FILTERED_STRING(dict,name,value) \
+if(dict[name]) \
+{ \
+    id o = dict[name]; \
+    if([o isKindOfClass:[NSString class]]) \
+    { \
+        value = [UMSS7ConfigObject filterName:o]; \
+    } \
+    else if([o isKindOfClass:[NSArray class]]) \
+    { \
+        NSMutableArray *o2 = [(NSArray *)o mutableCopy]; \
+        NSUInteger n = o2.count; \
+        for(NSUInteger i=0;i<n;i++) \
+        { \
+            o2[i] = [UMSS7ConfigObject filterName:o2[i] ];\
+        } \
+        value = [o2 componentsJoinedByString:@";"]; \
+    } \
+}
+
+
 #define SET_DICT_ARRAY(dict,name,value) \
 if(dict[name]) \
 { \

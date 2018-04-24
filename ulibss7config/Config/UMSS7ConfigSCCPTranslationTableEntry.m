@@ -56,10 +56,10 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"table",_translationTableName);
+    SET_DICT_FILTERED_STRING(dict,@"table",_translationTableName);
     SET_DICT_STRING(dict,@"gta",_gta);
-    SET_DICT_STRING(dict,@"destination",_sccpDestination);
-    SET_DICT_STRING(dict,@"post-translation",_postTranslation);
+    SET_DICT_FILTERED_STRING(dict,@"destination",_sccpDestination);
+    SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
 }
 
 - (UMSS7ConfigSCCPTranslationTableEntry *)copyWithZone:(NSZone *)zone

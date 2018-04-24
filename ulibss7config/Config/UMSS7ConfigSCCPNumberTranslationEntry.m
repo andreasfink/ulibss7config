@@ -59,7 +59,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"sccp-number-translation",_sccpNumberTranslation);
+    SET_DICT_FILTERED_STRING(dict,@"sccp-number-translation",_sccpNumberTranslation);
     SET_DICT_STRING(dict,@"in-address",_inAddress);
     SET_DICT_STRING(dict,@"out-address",_outAddress);
     SET_DICT_INTEGER(dict,@"new-nai",_replacementNAI);

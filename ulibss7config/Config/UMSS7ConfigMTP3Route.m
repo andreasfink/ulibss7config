@@ -70,10 +70,10 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"mtp3",_mtp3);
+    SET_DICT_FILTERED_STRING(dict,@"mtp3",_mtp3);
     SET_DICT_STRING(dict,@"dpc",_dpc);
-    SET_DICT_STRING(dict,@"ls",_ls);
-    SET_DICT_STRING(dict,@"as",_as);
+    SET_DICT_FILTERED_STRING(dict,@"ls",_ls);
+    SET_DICT_FILTERED_STRING(dict,@"as",_as);
     SET_DICT_INTEGER(dict,@"priority",_priority);
 }
 
