@@ -26,7 +26,7 @@
         [self sendErrorNotAuthenticated];
         return;
     }
-   NSString *name = _webRequest.params[@"name"];
+    NSString *name = _webRequest.params[@"name"];
     NSString *action = _webRequest.params[@"action"];
     name = [UMSS7ConfigObject filterName:name];
     UMM3UAApplicationServer *m3ua_as = [_appDelegate getM3UA_AS:name];

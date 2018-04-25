@@ -38,6 +38,7 @@
     APPEND_CONFIG_STRING(s,@"variant",_variant);
     APPEND_CONFIG_STRING(s,@"opc",_opc);
     APPEND_CONFIG_STRING(s,@"ni",_networkIndicator);
+    APPEND_CONFIG_STRING(s,@"mode",_mode);
     APPEND_CONFIG_STRING(s,@"problematic-packet-dumper",_problematicPacketDumper);
 }
 
@@ -48,6 +49,7 @@
     APPEND_DICT_STRING(dict,@"variant",_variant);
     APPEND_DICT_STRING(dict,@"opc",_opc);
     APPEND_DICT_STRING(dict,@"ni",_networkIndicator);
+    APPEND_DICT_STRING(dict,@"mode",_mode);
     APPEND_DICT_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
 
     return dict;
@@ -59,6 +61,7 @@
     SET_DICT_STRING(dict,@"variant",_variant);
     SET_DICT_STRING(dict,@"opc",_opc);
     SET_DICT_STRING(dict,@"ni",_networkIndicator);
+    SET_DICT_STRING(dict,@"mode",_mode);
     SET_DICT_FILTERED_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
 }
 

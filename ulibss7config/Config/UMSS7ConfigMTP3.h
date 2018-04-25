@@ -15,6 +15,7 @@
     NSString *_opc;
     NSString *_networkIndicator;
     NSString *_problematicPacketDumper;
+    NSString *_mode; /* either "stp" or "ssp". defaults to "stp" */
 }
 
 + (NSString *)type;

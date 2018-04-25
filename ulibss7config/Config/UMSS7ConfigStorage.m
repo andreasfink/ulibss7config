@@ -668,9 +668,6 @@
         }
     }
 
-
-
-
     NSArray *sccp_number_translation_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslation type]];
     for(NSDictionary *sccp_number_translation_config in sccp_number_translation_configs)
     {
