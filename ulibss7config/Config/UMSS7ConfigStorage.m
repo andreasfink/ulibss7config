@@ -1996,6 +1996,52 @@
 
 /*
  **************************************************
+ ** SMSC
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMSC
+
+- (NSArray *)getSMSCNames
+{
+    return [_smsc_dict allKeys];
+}
+
+- (UMSS7ConfigSMSC *)getSMSC:(NSString *)name
+{
+    return _smsc_dict[name];
+}
+
+- (NSString *)addSMSC:(UMSS7ConfigSMSC *)smsc
+{
+    if(_smsc_dict[smsc.name] == NULL)
+    {
+        _smsc_dict[smsc.name] = smsc;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSC:(UMSS7ConfigSMSC *)smsc
+{
+    _smsc_dict[smsc.name] = smsc;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSC:(NSString *)name
+{
+    if(_smsc_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsc_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+/*
+ **************************************************
  ** GSMSCF
  **************************************************
  */

@@ -270,6 +270,12 @@
 - (NSString *)replaceVLR:(UMSS7ConfigVLR *)vlr;
 - (NSString *)deleteVLR:(NSString *)name;
 
+- (NSArray *)getSMSCNames;
+- (UMSS7ConfigSMSC *)getSMSC:(NSString *)name;
+- (NSString *)addSMSC:(UMSS7ConfigSMSC *)smsc;
+- (NSString *)replaceSMSC:(UMSS7ConfigSMSC *)smsc;
+- (NSString *)deleteSMSC:(NSString *)name;
+
 - (NSArray *)getGSMSCFNames;
 - (UMSS7ConfigGSMSCF *)getGSMSCF:(NSString *)name;
 - (NSString *)addGSMSCF:(UMSS7ConfigGSMSCF *)gsmscf;
