@@ -8,31 +8,31 @@
 
 
 #define APPEND_CONFIG_BOOLEAN(str,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     [str appendFormat:@"%@=%@\n",name,value.boolValue ? @"YES": @"NO"]; \
 }
 
 #define APPEND_CONFIG_DOUBLE(str,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     [str appendFormat:@"%@=%lf\n",name,value.doubleValue]; \
 }
 
 #define APPEND_CONFIG_INTEGER(str,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     [str appendFormat:@"%@=%d\n",name,value.intValue]; \
 }
 
 #define APPEND_CONFIG_STRING(str,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     [str appendFormat:@"%@=%@\n",name,value]; \
 }
 
 #define APPEND_CONFIG_ARRAY_COMPACT(str,name,array) \
-if(array) \
+if(array!=NULL) \
 { \
     NSUInteger n= [array count]; \
     for(NSUInteger i=0;i<n;i++) \
@@ -50,7 +50,7 @@ if(array) \
 }
 
 #define APPEND_CONFIG_ARRAY_VERBOSE(str,name,array) \
-if(array) \
+if(array!=NULL) \
 { \
     NSUInteger n= [array count]; \
     for(NSUInteger i=0;i<n;i++) \
@@ -60,7 +60,7 @@ if(array) \
 }
 
 #define APPEND_CONFIG_ARRAY_OF_CONFIG_OBJECTS(str,name,array) \
-if(array) \
+if(array!=NULL) \
 { \
     NSUInteger n= [array count]; \
     for(NSUInteger i=0;i<n;i++) \
@@ -79,38 +79,38 @@ if(array) \
 }
 /**************************************/
 #define APPEND_DICT_BOOLEAN(dict,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     dict[name] = @(value.boolValue); \
 }
 
 #define APPEND_DICT_DOUBLE(dict,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     dict[name] = @(value.doubleValue); \
 }
 
 #define APPEND_DICT_INTEGER(dict,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     dict[name] = @(value.intValue); \
 }
 
 #define APPEND_DICT_STRING(dict,name,value) \
-if(value) \
+if(value!=NULL) \
 { \
     dict[name] = value.stringValue; \
 }
 
 
 #define APPEND_DICT_ARRAY(dict,name,array) \
-if(array) \
+if(array!=NULL) \
 { \
     dict[name] = array; \
 }
 
 #define SET_DICT_BOOLEAN(dict,name,value) \
-if(dict[name]) \
+if(dict[name]!=NULL) \
 { \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
@@ -128,7 +128,7 @@ if(dict[name]) \
 }
 
 #define SET_DICT_DOUBLE(dict,name,value) \
-if(dict[name]) \
+if(dict[name]!=NULL) \
 { \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
@@ -147,7 +147,7 @@ if(dict[name]) \
 
 
 #define SET_DICT_INTEGER(dict,name,value) \
-if(dict[name]) \
+if(dict[name]!=NULL) \
 { \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
@@ -165,7 +165,7 @@ if(dict[name]) \
 }
 
 #define SET_DICT_STRING(dict,name,value) \
-if(dict[name]) \
+if(dict[name]!=NULL) \
 { \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
@@ -182,7 +182,7 @@ if(dict[name]) \
 /* use this if the passed string is a name of another object so its also filtered the same way */
 
 #define SET_DICT_FILTERED_STRING(dict,name,value) \
-if(dict[name]) \
+if(dict[name]!=NULL) \
 { \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
@@ -203,7 +203,7 @@ if(dict[name]) \
 
 
 #define SET_DICT_ARRAY(dict,name,value) \
-if(dict[name]) \
+if(dict[name]!=NULL) \
 { \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \

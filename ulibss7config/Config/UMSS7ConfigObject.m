@@ -51,7 +51,7 @@
     APPEND_CONFIG_STRING(s,@"name",_name);
     APPEND_CONFIG_STRING(s,@"description",_objectDescription);
     APPEND_CONFIG_BOOLEAN(s,@"enable",_enabled);
-    APPEND_CONFIG_INTEGER(s,@"log-level",(int)_logLevel);
+    APPEND_CONFIG_INTEGER(s,@"log-level",_logLevel);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"comment",_comments);
 }
 
@@ -62,7 +62,7 @@
     APPEND_DICT_STRING(dict,@"name",_name);
     APPEND_DICT_STRING(dict,@"description",_objectDescription);
     APPEND_DICT_BOOLEAN(dict,@"enable",_enabled);
-    APPEND_DICT_INTEGER(dict,@"log-level",(int)_logLevel);
+    APPEND_DICT_INTEGER(dict,@"log-level",_logLevel);
     APPEND_DICT_ARRAY(dict,@"comment",_comments);
     return dict;
 }
