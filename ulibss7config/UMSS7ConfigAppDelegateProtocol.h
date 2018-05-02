@@ -71,13 +71,12 @@ realm:(NSString **)realm;
 - (void)removeApiSession:(NSString *)sessionKey;
 - (UMSS7ApiSession *)getApiSession:(NSString *)sessionKey;
 
-@optional
-- (UMLayerSCCP *)getTCAP:(NSString *)name;
+- (UMLayerTCAP *)getTCAP:(NSString *)name;
 - (void)addWithConfigTCAP:(NSDictionary *)config;
 - (void)deleteTCAP:(NSString *)name;
 - (void)renameTCAP:(NSString *)old to:(NSString *)new;
 
-- (UMLayerSCCP *)getGSMMAP:(NSString *)name;
+- (UMLayerGSMMAP *)getGSMMAP:(NSString *)name;
 - (void)addWithConfigGSMMAP:(NSDictionary *)config;
 - (void)deleteGSMMAP:(NSString *)name;
 - (void)renameGSMMAP:(NSString *)old to:(NSString *)new;
