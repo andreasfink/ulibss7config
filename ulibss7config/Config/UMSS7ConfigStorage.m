@@ -54,6 +54,9 @@
 #import "UMSS7ConfigEIR.h"
 #import "UMSS7ConfigSCCPNumberTranslation.h"
 #import "UMSS7ConfigSCCPNumberTranslationEntry.h"
+#import "UMSS7ConfigSMSCUser.h"
+#import "UMSS7ConfigSMSCUserProfile.h"
+#import "UMSS7ConfigSMSCBillingEntity.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -76,8 +79,8 @@
     _sccp_dict                  = [[UMSynchronizedDictionary alloc]init];
     _sccp_filter_dict           = [[UMSynchronizedDictionary alloc]init];
     _sccp_destination_dict      = [[UMSynchronizedDictionary alloc]init];
-    _sccp_number_translation_dict      = [[UMSynchronizedDictionary alloc]init];
-    _sccp_translation_table_dict     = [[UMSynchronizedDictionary alloc]init];
+    _sccp_number_translation_dict   = [[UMSynchronizedDictionary alloc]init];
+    _sccp_translation_table_dict    = [[UMSynchronizedDictionary alloc]init];
     _tcap_dict                  = [[UMSynchronizedDictionary alloc]init];
     _tcap_filter_dict           = [[UMSynchronizedDictionary alloc]init];
     _gsmmap_dict                = [[UMSynchronizedDictionary alloc]init];
@@ -94,7 +97,10 @@
     _vlr_dict                   = [[UMSynchronizedDictionary alloc]init];
     _gsmscf_dict                = [[UMSynchronizedDictionary alloc]init];
     _gmlc_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _eir_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _eir_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _smsc_user_dict             = [[UMSynchronizedDictionary alloc]init];
+    _smsc_billing_entity_dict   = [[UMSynchronizedDictionary alloc]init];
+    _smsc_profile_dict          = [[UMSynchronizedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -244,6 +250,9 @@
     [cfg allowMultiGroup:[UMSS7ConfigUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSCUser type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSCBillingEntity type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSCUserProfile type]];
 
     [cfg read];
     [self processConfig:cfg];
@@ -691,6 +700,37 @@
         [p addSubEntry:e];
         _sccp_number_translation_dict[p.name] = p;
     }
+
+    NSArray *smsc_user_configs = [cfg getMultiGroups:[UMSS7ConfigSMSCUser type]];
+    for(NSDictionary *smsc_user_config in smsc_user_configs)
+    {
+        UMSS7ConfigSMSCUser *u = [[UMSS7ConfigSMSCUser alloc]initWithConfig:smsc_user_config];
+        if(u.name.length  > 0)
+        {
+            _smsc_user_dict[u.name] = u;
+        }
+    }
+
+    NSArray *smsc_user_profile_configs = [cfg getMultiGroups:[UMSS7ConfigSMSCUserProfile type]];
+    for(NSDictionary *smsc_user_profile_config in smsc_user_profile_configs)
+    {
+        UMSS7ConfigSMSCUserProfile *up = [[UMSS7ConfigSMSCUserProfile alloc]initWithConfig:smsc_user_profile_config];
+        if(up.name.length  > 0)
+        {
+            _smsc_profile_dict[up.name] = up;
+        }
+    }
+
+    NSArray *smsc_billing_entity_configs = [cfg getMultiGroups:[UMSS7ConfigSMSCBillingEntity type]];
+    for(NSDictionary *smsc_billing_entity_config in smsc_billing_entity_configs)
+    {
+        UMSS7ConfigSMSCBillingEntity *be = [[UMSS7ConfigSMSCBillingEntity alloc]initWithConfig:smsc_billing_entity_config];
+        if(be.name.length  > 0)
+        {
+            _smsc_billing_entity_dict[be.name] = be;
+        }
+    }
+
 }
 
 - (UMConfig *)saveConfig
@@ -1481,6 +1521,9 @@
  ** SCCP-GTT Translation Tables
  **************************************************
  */
+#pragma mark -
+#pragma mark SCCP TranslationTable
+
 - (NSArray *)getSCCPTranslationTableNames
 {
     return [_sccp_translation_table_dict allKeys];
@@ -1528,7 +1571,7 @@
  **************************************************
  */
 #pragma mark -
-#pragma mark SCCP Destination
+#pragma mark SCCP Number Translation
 
 - (NSArray *)getSCCPNumberTranslationNames
 {
@@ -2370,6 +2413,155 @@
     _dirty=YES;
     return @"ok";
 }
+///
+
+/*
+ **************************************************
+ ** SMSCUser
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMSCUser
+
+- (NSArray *)getSMSCUserNames
+{
+    return [_smsc_user_dict allKeys];
+}
+
+- (UMSS7ConfigSMSCUser *)getSMSCUser:(NSString *)name
+{
+    return _smsc_user_dict[name];
+}
+
+- (NSString *)addSMSCUser:(UMSS7ConfigSMSCUser *)user
+{
+    if(_smsc_user_dict[user.name] == NULL)
+    {
+        _smsc_user_dict[user.name] = user;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSCUser:(UMSS7ConfigSMSCUser *)user
+{
+    _smsc_user_dict[user.name] = user;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSCUser:(NSString *)name
+{
+    if(_smsc_user_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsc_user_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SMSCUserProfile
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMSCUserProfile
+
+
+- (NSArray *)getSMSCUserProfileNames
+{
+    return [_smsc_profile_dict allKeys];
+}
+
+- (UMSS7ConfigSMSCUserProfile *)getSMSCUserProfile:(NSString *)name
+{
+    return _smsc_profile_dict[name];
+}
+
+- (NSString *)addSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)profile
+{
+    if(_smsc_profile_dict[profile.name] == NULL)
+    {
+        _smsc_profile_dict[profile.name] = profile;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)profile
+{
+    _smsc_profile_dict[profile.name] = profile;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSCUserProfile:(NSString *)name
+{
+    if(_smsc_profile_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsc_profile_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** SMSCBillingEntity
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMSCBillingEntity
+
+
+- (NSArray *)getSMSCBillingEntityNames
+{
+    return [_smsc_billing_entity_dict allKeys];
+}
+
+- (UMSS7ConfigSMSCBillingEntity *)getSMSCBillingEntity:(NSString *)name
+{
+    return _smsc_billing_entity_dict [name];
+}
+
+- (NSString *)addSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)be
+{
+    if(_smsc_billing_entity_dict[be.name] == NULL)
+    {
+        _smsc_billing_entity_dict[be.name] = be;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)be
+{
+    _smsc_billing_entity_dict[be.name] = be;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSCBillingEntitye:(NSString *)name
+{
+    if(_smsc_billing_entity_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsc_billing_entity_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/***************************************************/
+#pragma mark -
+
 
 - (UMSS7ConfigStorage *)copyWithZone:(NSZone *)zone
 {

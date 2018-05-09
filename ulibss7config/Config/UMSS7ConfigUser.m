@@ -34,7 +34,7 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
-    APPEND_CONFIG_INTEGER(s,@"password",_password);
+    APPEND_CONFIG_STRING(s,@"password",_password);
 }
 
 

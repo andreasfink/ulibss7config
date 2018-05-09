@@ -49,6 +49,9 @@
 @class UMSS7ConfigGSMSCF;
 @class UMSS7ConfigEIR;
 @class UMSS7ConfigSCCPNumberTranslation;
+@class UMSS7ConfigSMSCUser;
+@class UMSS7ConfigSMSCUserProfile;
+@class UMSS7ConfigSMSCBillingEntity;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -90,6 +93,9 @@
     UMSynchronizedDictionary *_user_dict;
     UMSynchronizedDictionary *_database_pool_dict;
     UMSynchronizedDictionary *_sccp_number_translation_dict;
+    UMSynchronizedDictionary *_smsc_user_dict;
+    UMSynchronizedDictionary *_smsc_billing_entity_dict;
+    UMSynchronizedDictionary *_smsc_profile_dict;
 
     NSString *_rwconfigFile;
     UMTimer *_dirtyTimer;
@@ -133,7 +139,9 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *database_pool_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_number_translation_dict;
-
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_user_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_billing_entity_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_profile_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 
@@ -337,5 +345,24 @@
 - (NSString *)addSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation*)number_translaton;
 - (NSString *)replaceSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation *)number_translaton;
 - (NSString *)deleteSCCPNumberTranslation:(NSString *)name;
+
+
+- (NSArray *)getSMSCUserNames;
+- (UMSS7ConfigSMSCUser *)getSMSCUser:(NSString *)name;
+- (NSString *)addSMSCUser:(UMSS7ConfigSMSCUser *)smsc;
+- (NSString *)replaceSMSCUser:(UMSS7ConfigSMSCUser *)smsc;
+- (NSString *)deleteSMSCUser:(NSString *)name;
+
+- (NSArray *)getSMSCUserProfileNames;
+- (UMSS7ConfigSMSCUserProfile *)getSMSCUserProfile:(NSString *)name;
+- (NSString *)addSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)smsc;
+- (NSString *)replaceSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)smsc;
+- (NSString *)deleteSMSCUserProfile:(NSString *)name;
+
+- (NSArray *)getSMSCBillingEntityNames;
+- (UMSS7ConfigSMSCBillingEntity *)getSMSCBillingEntity:(NSString *)name;
+- (NSString *)addSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)smsc;
+- (NSString *)replaceSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)smsc;
+- (NSString *)deleteSMSCBillingEntitye:(NSString *)name;
 
 @end
