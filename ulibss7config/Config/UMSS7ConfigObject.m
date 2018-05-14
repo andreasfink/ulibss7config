@@ -93,9 +93,13 @@
      So we already have to be the right object */
 
     /* names can only be filtered names */
-
+    NSString *group =  dict[@"group"];
     id n = dict[@"name"];
-    if([n isKindOfClass:[NSString class]])
+    if(n==NULL)
+    {
+        NSLog(@"Warning: object of type %@ without a name",group);
+    }
+    else if([n isKindOfClass:[NSString class]])
     {
         NSString *n2 = [UMSS7ConfigObject filterName:(NSString *)n];
         if(n2.length > 0)
@@ -105,7 +109,7 @@
     }
     else
     {
-        NSLog(@"Warning: Not a string for an object name. Probably misconfiguration: %@",n);
+        NSLog(@"Warning: Not a string for an object name. Probably misconfiguration: %@ in group %@",n,group);
     }
 
     NSString *newName = [UMSS7ConfigObject filterName:dict[@"newname"]];
