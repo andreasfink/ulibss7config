@@ -97,7 +97,11 @@
     id n = dict[@"name"];
     if(n==NULL)
     {
-        NSLog(@"Warning: object of type %@ without a name",group);
+        if(   (![group isEqualToString:@"general"])
+            &&(![group isEqualToString:@"mtp3-route"]))
+        {
+            NSLog(@"Warning: object of type %@ without a name",group);
+        }
     }
     else if([n isKindOfClass:[NSString class]])
     {
