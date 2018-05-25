@@ -33,6 +33,7 @@
     UMM3UAApplicationServerProcess *m3ua_asp = [_appDelegate getM3UA_ASP:name];
     if(m3ua_asp)
     {
+	
         if([action isEqualToString:@"action-list"])
         {
             [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
