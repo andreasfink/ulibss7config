@@ -99,7 +99,8 @@
     {
         if(   (![group isEqualToString:@"general"])
             &&(![group isEqualToString:@"mtp3-route"])
-            &&(![group isEqualToString:@"sccp-number-translation-entry"]))
+            &&(![group isEqualToString:@"sccp-number-translation-entry"])
+            &&(![group isEqualToString:@"tcap-filter-entry"]))
         {
             NSLog(@"Warning: object of type %@ without a name",group);
         }
