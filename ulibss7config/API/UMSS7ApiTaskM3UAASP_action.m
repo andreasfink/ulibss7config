@@ -33,27 +33,31 @@
     UMM3UAApplicationServerProcess *m3ua_asp = [_appDelegate getM3UA_ASP:name];
     if(m3ua_asp)
     {
+	
         if([action isEqualToString:@"action-list"])
         {
             [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
         }
 
-        else if([action isEqualToString:@"activate"])
+        else if([action isEqualToString:@"activate"]) 
         {
-            [self sendErrorNotImplemented];
-
+            [m3ua_asp goActive];
+            [self sendResultOK];
         }
         else if([action isEqualToString:@"deactivate"])
         {
-            [self sendErrorNotImplemented];
+            [m3ua_asp goInactive];
+            [self sendResultOK];
         }
         else if([action isEqualToString:@"start"])
         {
-            [self sendErrorNotImplemented];
+            [m3ua_asp start];
+            [self sendResultOK];
         }
         else if([action isEqualToString:@"stop"])
         {
-            [self sendErrorNotImplemented];
+            [m3ua_asp stop];
+            [self sendResultOK];
         }
         else
         {

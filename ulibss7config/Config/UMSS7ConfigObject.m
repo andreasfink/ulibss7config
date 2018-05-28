@@ -93,9 +93,19 @@
      So we already have to be the right object */
 
     /* names can only be filtered names */
-
+    NSString *group =  dict[@"group"];
     id n = dict[@"name"];
-    if([n isKindOfClass:[NSString class]])
+    if(n==NULL)
+    {
+        if(   (![group isEqualToString:@"general"])
+            &&(![group isEqualToString:@"mtp3-route"])
+            &&(![group isEqualToString:@"sccp-number-translation-entry"])
+            &&(![group isEqualToString:@"tcap-filter-entry"]))
+        {
+            NSLog(@"Warning: object of type %@ without a name",group);
+        }
+    }
+    else if([n isKindOfClass:[NSString class]])
     {
         NSString *n2 = [UMSS7ConfigObject filterName:(NSString *)n];
         if(n2.length > 0)
@@ -105,7 +115,7 @@
     }
     else
     {
-        NSLog(@"Warning: Not a string for an object name. Probably misconfiguration: %@",n);
+        NSLog(@"Warning: Not a string for an object name. Probably misconfiguration: %@ in group %@",n,group);
     }
 
     NSString *newName = [UMSS7ConfigObject filterName:dict[@"newname"]];

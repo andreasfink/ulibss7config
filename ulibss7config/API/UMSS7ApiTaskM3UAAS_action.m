@@ -39,20 +39,24 @@
 
         else if([action isEqualToString:@"activate"])
         {
-            [self sendErrorNotImplemented];
+            [m3ua_as aspActive:NULL];
+            [self sendResultOK];
 
         }
         else if([action isEqualToString:@"deactivate"])
         {
-            [self sendErrorNotImplemented];
+            [m3ua_as aspInactive:NULL];
+            [self sendResultOK];
         }
         else if([action isEqualToString:@"start"])
         {
-            [self sendErrorNotImplemented];
+            [m3ua_as aspUp:NULL];
+            [self sendResultOK];
         }
         else if([action isEqualToString:@"stop"])
         {
-            [self sendErrorNotImplemented];
+            [m3ua_as aspDown:NULL];
+            [self sendResultOK];
         }
         else
         {
