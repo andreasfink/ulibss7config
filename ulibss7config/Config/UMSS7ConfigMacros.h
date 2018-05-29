@@ -115,15 +115,15 @@ if(dict[name]!=NULL) \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
     { \
-        value = [NSNumber numberWithInt:[o boolValue]]; \
+        value = [NSNumber numberWithBool:[o boolValue]]; \
     } \
     else if([o isKindOfClass:[NSArray class]]) \
     { \
-        value = [NSNumber numberWithInt:[o[0] boolValue]]; \
+        value = [NSNumber numberWithBool:[o[0] boolValue]]; \
     } \
     else if([o isKindOfClass:[NSNumber class]]) \
     { \
-        value = [NSNumber numberWithInt:[o boolValue]]; \
+        value = [NSNumber numberWithBool:[o boolValue]]; \
     } \
 }
 
@@ -133,11 +133,11 @@ if(dict[name]!=NULL) \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
     { \
-        value = [NSNumber numberWithInt:[o doubleValue]]; \
+        value = [NSNumber numberWithDouble:[o doubleValue]]; \
     } \
     else if([o isKindOfClass:[NSArray class]]) \
     { \
-        value = [NSNumber numberWithInt:[o[0] doubleValue]]; \
+        value = [NSNumber numberWithDouble:[o[0] doubleValue]]; \
     } \
     else if([o isKindOfClass:[NSNumber class]]) \
     { \
