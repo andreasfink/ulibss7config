@@ -52,6 +52,8 @@
 @class UMSS7ConfigSMSCUser;
 @class UMSS7ConfigSMSCUserProfile;
 @class UMSS7ConfigSMSCBillingEntity;
+@class UMSS7ConfigESTP;
+@class UMSS7ConfigMAPI;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -96,6 +98,8 @@
     UMSynchronizedDictionary *_smsc_user_dict;
     UMSynchronizedDictionary *_smsc_billing_entity_dict;
     UMSynchronizedDictionary *_smsc_profile_dict;
+    UMSynchronizedDictionary *_estp_dict;
+    UMSynchronizedDictionary *_mapi_dict;
 
     NSString *_rwconfigFile;
     UMTimer *_dirtyTimer;
@@ -142,6 +146,8 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_billing_entity_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_profile_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *estp_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *mapi_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 
@@ -303,6 +309,18 @@
 - (NSString *)addEIR:(UMSS7ConfigEIR *)eir;
 - (NSString *)replaceEIR:(UMSS7ConfigEIR *)eir;
 - (NSString *)deleteEIR:(NSString *)name;
+
+- (NSArray *)getESTPNames;
+- (UMSS7ConfigESTP *)getESTP:(NSString *)name;
+- (NSString *)addESTP:(UMSS7ConfigESTP *)eir;
+- (NSString *)replaceESTP:(UMSS7ConfigESTP *)eir;
+- (NSString *)deleteESTP:(NSString *)name;
+
+- (NSArray *)getMAPINames;
+- (UMSS7ConfigMAPI *)getMAPI:(NSString *)name;
+- (NSString *)addMAPI:(UMSS7ConfigMAPI *)eir;
+- (NSString *)replaceMAPI:(UMSS7ConfigMAPI *)eir;
+- (NSString *)deleteMAPI:(NSString *)name;
 
 - (NSArray *)getSMSNames;
 - (UMSS7ConfigSMS *)getSMS:(NSString *)name;
