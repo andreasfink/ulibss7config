@@ -52,6 +52,8 @@
 #import "UMSS7ConfigGSMSCF.h"
 #import "UMSS7ConfigGMLC.h"
 #import "UMSS7ConfigEIR.h"
+#import "UMSS7ConfigESTP.h"
+#import "UMSS7ConfigMAPI.h"
 #import "UMSS7ConfigSCCPNumberTranslation.h"
 #import "UMSS7ConfigSCCPNumberTranslationEntry.h"
 #import "UMSS7ConfigSMSCUser.h"
@@ -98,6 +100,8 @@
     _gsmscf_dict                = [[UMSynchronizedDictionary alloc]init];
     _gmlc_dict                  = [[UMSynchronizedDictionary alloc]init];
     _eir_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _estp_dict                  = [[UMSynchronizedDictionary alloc]init];
+    _mapi_dict                  = [[UMSynchronizedDictionary alloc]init];
     _smsc_user_dict             = [[UMSynchronizedDictionary alloc]init];
     _smsc_billing_entity_dict   = [[UMSynchronizedDictionary alloc]init];
     _smsc_profile_dict          = [[UMSynchronizedDictionary alloc]init];
@@ -2221,6 +2225,100 @@
         return @"not found";
     }
     [_eir_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** ESTP
+ **************************************************
+ */
+#pragma mark -
+#pragma mark ESTP
+
+- (NSArray *)getESTPNames
+{
+    return [_estp_dict allKeys];
+}
+
+- (UMSS7ConfigESTP *)getESTP:(NSString *)name
+{
+    return _estp_dict[name];
+}
+
+- (NSString *)addESTP:(UMSS7ConfigESTP *)estp
+{
+    if(_estp_dict[estp.name] == NULL)
+    {
+        _estp_dict[estp.name] = estp;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceESTP:(UMSS7ConfigESTP *)estp
+{
+    _estp_dict[estp.name] = estp;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteESTP:(NSString *)name
+{
+    if(_estp_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_estp_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** MAPI
+ **************************************************
+ */
+#pragma mark -
+#pragma mark MAPI
+
+- (NSArray *)getMAPINames
+{
+    return [_mapi_dict allKeys];
+}
+
+- (UMSS7ConfigMAPI *)getMAPI:(NSString *)name
+{
+    return _estp_dict[name];
+}
+
+- (NSString *)addMAPI:(UMSS7ConfigMAPI *)mapi
+{
+    if(_mapi_dict[mapi.name] == NULL)
+    {
+        _mapi_dict[mapi.name] = mapi;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMAPI:(UMSS7ConfigMAPI *)mapi
+{
+    _mapi_dict[mapi.name] = mapi;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteMAPI:(NSString *)name
+{
+    if(_mapi_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mapi_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }

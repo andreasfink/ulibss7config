@@ -38,6 +38,10 @@
 		A684E3A120774ADB000F3F70 /* ulibss7config.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A684E39720774ADA000F3F70 /* ulibss7config.framework */; };
 		A684E3A620774ADB000F3F70 /* ulibss7configTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A684E3A520774ADB000F3F70 /* ulibss7configTests.m */; };
 		A684E3A820774ADB000F3F70 /* ulibss7config.h in Headers */ = {isa = PBXBuildFile; fileRef = A684E39A20774ADA000F3F70 /* ulibss7config.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6B1060E20D7862800162905 /* UMSS7ConfigESTP.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B1060C20D7862800162905 /* UMSS7ConfigESTP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6B1060F20D7862800162905 /* UMSS7ConfigESTP.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1060D20D7862800162905 /* UMSS7ConfigESTP.m */; };
+		A6B1061220D7898100162905 /* UMSS7ConfigMAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B1061020D7898100162905 /* UMSS7ConfigMAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6B1061320D7898100162905 /* UMSS7ConfigMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1061120D7898100162905 /* UMSS7ConfigMAPI.m */; };
 		A6BC42F620774F93008C3CEB /* UMSS7ConfigMSC.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC42A720774F88008C3CEB /* UMSS7ConfigMSC.m */; };
 		A6BC42F720774F93008C3CEB /* UMSS7ConfigGeneral.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42A820774F89008C3CEB /* UMSS7ConfigGeneral.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BC42F820774F93008C3CEB /* UMSS7ConfigMTP3Linkset.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42A920774F89008C3CEB /* UMSS7ConfigMTP3Linkset.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -303,6 +307,10 @@
 		A684E3A020774ADB000F3F70 /* ulibss7configTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ulibss7configTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A684E3A520774ADB000F3F70 /* ulibss7configTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ulibss7configTests.m; sourceTree = "<group>"; };
 		A684E3A720774ADB000F3F70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6B1060C20D7862800162905 /* UMSS7ConfigESTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigESTP.h; sourceTree = "<group>"; };
+		A6B1060D20D7862800162905 /* UMSS7ConfigESTP.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigESTP.m; sourceTree = "<group>"; };
+		A6B1061020D7898100162905 /* UMSS7ConfigMAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigMAPI.h; sourceTree = "<group>"; };
+		A6B1061120D7898100162905 /* UMSS7ConfigMAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigMAPI.m; sourceTree = "<group>"; };
 		A6BC42A720774F88008C3CEB /* UMSS7ConfigMSC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigMSC.m; sourceTree = "<group>"; };
 		A6BC42A820774F89008C3CEB /* UMSS7ConfigGeneral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigGeneral.h; sourceTree = "<group>"; };
 		A6BC42A920774F89008C3CEB /* UMSS7ConfigMTP3Linkset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigMTP3Linkset.h; sourceTree = "<group>"; };
@@ -765,6 +773,10 @@
 				A6BC42DC20774F90008C3CEB /* UMSS7ConfigMacros.h */,
 				A6BC42BC20774F8B008C3CEB /* UMSS7ConfigMSC.h */,
 				A6BC42A720774F88008C3CEB /* UMSS7ConfigMSC.m */,
+				A6B1060C20D7862800162905 /* UMSS7ConfigESTP.h */,
+				A6B1060D20D7862800162905 /* UMSS7ConfigESTP.m */,
+				A6B1061020D7898100162905 /* UMSS7ConfigMAPI.h */,
+				A6B1061120D7898100162905 /* UMSS7ConfigMAPI.m */,
 				A63DBFCA2088892400CA6871 /* UMSS7ConfigEIR.h */,
 				A63DBFCB2088892400CA6871 /* UMSS7ConfigEIR.m */,
 				A63DBFBE20887D0E00CA6871 /* UMSS7ConfigVLR.h */,
@@ -891,6 +903,7 @@
 				A6BC433B20774F93008C3CEB /* UMSS7ConfigSMSC.h in Headers */,
 				A6BC4510207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_delete.h in Headers */,
 				A6BC432120774F93008C3CEB /* UMSS7ConfigSyslogDestination.h in Headers */,
+				A6B1061220D7898100162905 /* UMSS7ConfigMAPI.h in Headers */,
 				A6BC4534207753EE008C3CEB /* UMSS7ApiTaskM3UAAS_add.h in Headers */,
 				A6BC44F0207753ED008C3CEB /* UMSS7ApiTask.h in Headers */,
 				A6BC432420774F93008C3CEB /* UMSS7ConfigObject.h in Headers */,
@@ -901,6 +914,7 @@
 				A6BC4529207753EE008C3CEB /* UMSS7ApiTaskM3UAASP_read.h in Headers */,
 				A6369E5D20A1F53900AD6673 /* UMSS7ApiTaskSMSCUser_status.h in Headers */,
 				A6BC432A20774F93008C3CEB /* UMSS7ConfigSMSFilterEntry.h in Headers */,
+				A6B1060E20D7862800162905 /* UMSS7ConfigESTP.h in Headers */,
 				A63DBFC420887DB000CA6871 /* UMSS7ConfigGSMSCF.h in Headers */,
 				A6BC431520774F93008C3CEB /* UMSS7ConfigCdrWriter.h in Headers */,
 				A6BC4507207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_modify.h in Headers */,
@@ -1125,6 +1139,7 @@
 				A6BC44DD207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_read.m in Sources */,
 				A6BC431820774F93008C3CEB /* UMSS7ConfigSMSFilterEntry.m in Sources */,
 				A6BC4516207753EE008C3CEB /* UMSS7ApiTaskM2PA_modify.m in Sources */,
+				A6B1061320D7898100162905 /* UMSS7ConfigMAPI.m in Sources */,
 				A6369E4A20A1F4E900AD6673 /* UMSS7ApiTaskSMSCUser_add.m in Sources */,
 				A6369E5A20A1F51200AD6673 /* UMSS7ApiTaskSMSCUser_action.m in Sources */,
 				A6BC433420774F93008C3CEB /* UMSS7ConfigTCAP.m in Sources */,
@@ -1192,6 +1207,7 @@
 				A6BC433920774F93008C3CEB /* UMSS7ConfigGeneral.m in Sources */,
 				A6BC451D207753EE008C3CEB /* UMSS7ApiTaskM3UAAS_read.m in Sources */,
 				A6369E6620A1F5A400AD6673 /* UMSS7ConfigSMSCUserProfile.m in Sources */,
+				A6B1060F20D7862800162905 /* UMSS7ConfigESTP.m in Sources */,
 				A6BC44E7207753ED008C3CEB /* UMSS7ApiTaskList.m in Sources */,
 				A6BC432D20774F93008C3CEB /* UMSS7ConfigWebserver.m in Sources */,
 				A6BC44D2207753ED008C3CEB /* UMSS7ApiTaskMTP3Linkset_read.m in Sources */,

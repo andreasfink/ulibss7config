@@ -73,10 +73,10 @@
 }
 
 
-- (UMSS7ConfigMSC *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigEIR *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigMSC allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigEIR allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end
