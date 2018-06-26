@@ -257,6 +257,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCBillingEntity type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUserProfile type]];
+    [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
 
     [cfg read];
     [self processConfig:cfg];
@@ -671,6 +672,17 @@
             _smsc_dict[smsc.name] = smsc;
         }
     }
+    
+    NSArray *estp_configs = [cfg getMultiGroups:[UMSS7ConfigESTP type]];
+    for(NSDictionary *estp_config in estp_configs)
+    {
+        UMSS7ConfigESTP *estp = [[UMSS7ConfigESTP alloc]initWithConfig:estp_config];
+        if(estp.name.length  > 0)
+        {
+            _estp_dict[estp.name] = estp;
+        }
+    }
+
     NSArray *user_configs = [cfg getMultiGroups:[UMSS7ConfigUser type]];
     for(NSDictionary *user_config in user_configs)
     {
@@ -2703,6 +2715,7 @@
     n.user_dict = [_user_dict copy];
     n.database_pool_dict = [_database_pool_dict copy];
     n.sccp_number_translation_dict = [_sccp_number_translation_dict copy];
+    n.estp_dict = [_estp_dict copy];
 
     n.rwconfigFile = _rwconfigFile;
     return n;
