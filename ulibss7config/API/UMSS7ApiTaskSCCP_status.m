@@ -7,6 +7,10 @@
 //
 
 #import "UMSS7ApiTaskSCCP_status.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigStorage.h"
+#import <ulibsccp/ulibsccp.h>
 
 @implementation UMSS7ApiTaskSCCP_status
 
@@ -22,5 +26,20 @@
         [self sendErrorNotAuthenticated];
         return;
     }
+	
+	NSString *name = _webRequest.params[@"name"];
+	name = [UMSS7ConfigObject filterName:name];
+	UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+	
+	if(sccp)
+	{
+		NSDictionary *dict = [sccp statisticalInfo];
+		
+		[self sendResultObject:dict];
+	}
+	else
+	{
+		[self sendErrorNotFound];
+	}
 }
 @end
