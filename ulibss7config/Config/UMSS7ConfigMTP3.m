@@ -51,7 +51,6 @@
     APPEND_DICT_STRING(dict,@"ni",_networkIndicator);
     APPEND_DICT_STRING(dict,@"mode",_mode);
     APPEND_DICT_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
-
     return dict;
 }
 

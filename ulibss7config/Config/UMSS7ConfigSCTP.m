@@ -41,6 +41,7 @@
     APPEND_CONFIG_INTEGER(s,@"remote-port",_remotePort);
     APPEND_CONFIG_BOOLEAN(s,@"passive",_passive);
     APPEND_CONFIG_DOUBLE(s,@"heartbeat",_heartbeat);
+
 }
 
 

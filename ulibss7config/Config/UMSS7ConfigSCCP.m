@@ -40,7 +40,6 @@
     APPEND_CONFIG_STRING(s,@"variant",_variant);
     APPEND_CONFIG_STRING(s,@"mode",_mode);
     APPEND_CONFIG_STRING(s,@"next-pc",_next_pc);
-    APPEND_CONFIG_INTEGER(s,@"concurrent-tasks",_concurrentTasks);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -51,7 +50,6 @@
     APPEND_DICT_STRING(dict,@"variant",_variant);
     APPEND_DICT_STRING(dict,@"mode",_mode);
     APPEND_DICT_STRING(dict,@"next-pc",_next_pc);
-    APPEND_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
 
     return dict;
 }
@@ -63,7 +61,6 @@
     SET_DICT_STRING(dict,@"variant",_variant);
     SET_DICT_STRING(dict,@"mode",_mode);
     SET_DICT_STRING(dict,@"next-pc",_next_pc);
-    SET_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
 }
 
 - (UMSS7ConfigSCCP *)copyWithZone:(NSZone *)zone
