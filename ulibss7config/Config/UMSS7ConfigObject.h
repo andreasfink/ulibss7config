@@ -19,6 +19,7 @@
     NSString         *_objectDescription;
     NSMutableArray<UMSS7ConfigObject *> *_subEntries;
     BOOL            _nameChanged;
+    NSNumber        *_concurrentTasks;
 }
 
 @property(readwrite,strong,atomic)  NSString        *name;
@@ -28,6 +29,7 @@
 @property(readwrite,strong,atomic)  NSString        *objectDescription; /*we have to name this differently due to [NSObject description] */
 @property(readwrite,strong,atomic)  NSMutableArray<UMSS7ConfigObject *> *subEntries;
 @property(readwrite,assign,atomic)  BOOL            nameChanged;
+@property(readwrite,strong,atomic)  NSNumber        *concurrentTasks;
 
 - (BOOL) isDirty;
 - (void) setDirty:(BOOL)d;
@@ -48,4 +50,5 @@
 - (void)addSubEntry:(UMSS7ConfigObject *)obj;
 
 - (NSArray<NSDictionary *> *)subConfigs;
+
 @end

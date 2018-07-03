@@ -14,7 +14,7 @@
     NSString *_logDirectory;
     NSNumber *_logRotations;
     NSString *_configStore;
-    NSNumber *_concurrentTasks;
+//    NSNumber *_concurrentTasks;
     NSNumber *_queueHardLimit;
 }
 
@@ -26,7 +26,7 @@
 @property(readwrite,strong,atomic)  NSString *logDirectory;
 @property(readwrite,strong,atomic)  NSNumber *logRotations;
 @property(readwrite,strong,atomic)  NSString *configStore;
-@property(readwrite,strong,atomic)  NSNumber *concurrentTasks;
+//@property(readwrite,strong,atomic)  NSNumber *concurrentTasks;
 @property(readwrite,strong,atomic)  NSNumber *queueHardLimit;
 
 

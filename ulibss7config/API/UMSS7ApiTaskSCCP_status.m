@@ -33,7 +33,7 @@
 	
 	if(sccp)
 	{
-		NSDictionary *dict = [sccp statisticalInfo];
+		UMSynchronizedSortedDictionary *dict = [sccp statisticalInfo];
 		
 		[self sendResultObject:dict];
 	}
