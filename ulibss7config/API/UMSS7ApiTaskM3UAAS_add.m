@@ -33,7 +33,7 @@
     UMSS7ConfigM3UAAS *m3uaas = [cs getM3UAAS:name];
     if(m3uaas!=NULL)
     {
-        [self sendErrorNotFound];
+        [self sendErrorAlreadyExisting];
     }
     else
     {

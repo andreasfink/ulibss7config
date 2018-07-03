@@ -32,7 +32,7 @@
     UMSS7ConfigSCCP *sccp = [cs getSCCP:name];
     if(sccp!=NULL)
     {
-        [self sendErrorNotFound];
+        [self sendErrorAlreadyExisting];
     }
     else
     {

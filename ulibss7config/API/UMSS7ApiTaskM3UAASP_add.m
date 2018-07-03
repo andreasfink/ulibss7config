@@ -32,7 +32,7 @@
     UMSS7ConfigM3UAASP *m3uaasp = [cs getM3UAASP:name];
     if(m3uaasp!=NULL)
     {
-        [self sendErrorNotFound];
+        [self sendErrorAlreadyExisting];
     }
     else
     {
