@@ -134,7 +134,7 @@
 	
 	NSDictionary *d =   @{ @"error" : @{ @"exception": d1 } };
 	
-    [_webRequest setResponseJsonObject:@{ @"exception" : e }];
+    [_webRequest setResponseJsonObject:@{ @"exception" : d }];
     [_webRequest resumePendingRequest];
 }
 

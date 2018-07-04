@@ -37,10 +37,17 @@
     }
     else
     {
-        mtp3link = [[UMSS7ConfigMTP3Link alloc]initWithConfig:_webRequest.params];
-        UMSynchronizedSortedDictionary *config = mtp3link.config;
-        [_appDelegate addWithConfigMTP3_Link:config.dictionaryCopy];
-        [self sendResultObject:config];
+		@try
+		{
+			mtp3link = [[UMSS7ConfigMTP3Link alloc]initWithConfig:_webRequest.params];
+			UMSynchronizedSortedDictionary *config = mtp3link.config;
+			[_appDelegate addWithConfigMTP3_Link:config.dictionaryCopy];
+			[self sendResultObject:config];
+		}
+        @catch(NSException *e)
+        {
+			[self sendException:e];
+        }
     }
 }
 

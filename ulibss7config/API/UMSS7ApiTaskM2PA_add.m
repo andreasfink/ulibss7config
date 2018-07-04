@@ -37,10 +37,17 @@
     }
     else
     {
-        m2pa = [[UMSS7ConfigM2PA alloc]initWithConfig:_webRequest.params];
-        UMSynchronizedSortedDictionary *config = m2pa.config;
-        [_appDelegate addWithConfigM2PA:config.dictionaryCopy];
-        [self sendResultObject:config];
+		@try
+		{
+			m2pa = [[UMSS7ConfigM2PA alloc]initWithConfig:_webRequest.params];
+			UMSynchronizedSortedDictionary *config = m2pa.config;
+			[_appDelegate addWithConfigM2PA:config.dictionaryCopy];
+			[self sendResultObject:config];
+		}
+        @catch(NSException *e)
+        {
+			[self sendException:e];
+        }
     }
 }
 
