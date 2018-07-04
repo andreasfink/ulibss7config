@@ -115,5 +115,28 @@
     }
     return NO;
 }
+
+-(void)sendException:(NSException *)e
+{
+	NSMutableDictionary *d1 = [[NSMutableDictionary alloc]init];
+	if(e.name)
+	{
+		d1[@"name"] = e.name;
+	}
+	if(e.reason)
+	{
+		d1[@"reason"] = e.reason;
+	}
+	if(e.userInfo)
+	{
+		d1[@"user-info"] = e.userInfo;
+	}
+	
+	NSDictionary *d =   @{ @"error" : @{ @"exception": d1 } };
+	
+    [_webRequest setResponseJsonObject:@{ @"exception" : e }];
+    [_webRequest resumePendingRequest];
+}
+
 @end
 

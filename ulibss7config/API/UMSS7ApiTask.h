@@ -31,5 +31,6 @@
 - (void)sendResultObject:(id)result;
 - (void)sendErrorNotAuthenticated;
 - (BOOL) isAuthenticated;
+- (void)sendException:(NSException *)e;
 
 @end
