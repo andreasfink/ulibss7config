@@ -36,10 +36,34 @@
     }
     else
     {
-        sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:_webRequest.params];
-        UMSynchronizedSortedDictionary *config = sccp.config;
-        [_appDelegate addWithConfigSCCP:config.dictionaryCopy];
-        [self sendResultObject:config];
+	
+		@try
+        {
+			sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:_webRequest.params];
+			UMSynchronizedSortedDictionary *config = sccp.config;
+			[_appDelegate addWithConfigSCCP:config.dictionaryCopy];
+			[self sendResultObject:config];
+		}
+        @catch(NSException *e)
+        {
+            
+            NSMutableDictionary *d1 = [[NSMutableDictionary alloc]init];
+            if(e.name)
+            {
+                d1[@"name"] = e.name;
+            }
+            if(e.reason)
+            {
+                d1[@"reason"] = e.reason;
+            }
+            if(e.userInfo)
+            {
+                d1[@"user-info"] = e.userInfo;
+            }
+            NSDictionary *d =   @{ @"error" : @{ @"exception": d1 } };
+			[self sendResultObject:d];
+        }
+		
     }
 }
 
