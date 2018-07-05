@@ -32,14 +32,23 @@
     UMSS7ConfigSCCP *sccp = [cs getSCCP:name];
     if(sccp!=NULL)
     {
-        [self sendErrorNotFound];
+        [self sendErrorAlreadyExisting];
     }
     else
     {
-        sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:_webRequest.params];
-        UMSynchronizedSortedDictionary *config = sccp.config;
-        [_appDelegate addWithConfigSCCP:config.dictionaryCopy];
-        [self sendResultObject:config];
+	
+		@try
+        {
+			sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:_webRequest.params];
+			UMSynchronizedSortedDictionary *config = sccp.config;
+			[_appDelegate addWithConfigSCCP:config.dictionaryCopy];
+			[self sendResultObject:config];
+		}
+        @catch(NSException *e)
+        {
+			[self sendException:e];
+        }
+		
     }
 }
 

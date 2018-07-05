@@ -38,10 +38,17 @@
     }
     else
     {
-        sctp = [[UMSS7ConfigSCTP alloc]initWithConfig:_webRequest.params];
-        UMSynchronizedSortedDictionary *config = sctp.config;
-        [_appDelegate addWithConfigSCTP:config.dictionaryCopy];
-        [self sendResultObject:config];
+		@try
+		{
+			sctp = [[UMSS7ConfigSCTP alloc]initWithConfig:_webRequest.params];
+			UMSynchronizedSortedDictionary *config = sctp.config;
+			[_appDelegate addWithConfigSCTP:config.dictionaryCopy];
+			[self sendResultObject:config];
+		}
+        @catch(NSException *e)
+        {
+			[self sendException:e];
+        }
     }
 }
 

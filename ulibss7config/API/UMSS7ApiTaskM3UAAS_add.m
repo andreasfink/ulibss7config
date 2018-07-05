@@ -33,14 +33,21 @@
     UMSS7ConfigM3UAAS *m3uaas = [cs getM3UAAS:name];
     if(m3uaas!=NULL)
     {
-        [self sendErrorNotFound];
+        [self sendErrorAlreadyExisting];
     }
     else
     {
-        m3uaas = [[UMSS7ConfigM3UAAS alloc]initWithConfig:_webRequest.params];
-        UMSynchronizedSortedDictionary *config = m3uaas.config;
-        [_appDelegate addWithConfigM3UA_AS:config.dictionaryCopy];
-        [self sendResultObject:config];
+		@try
+		{
+			m3uaas = [[UMSS7ConfigM3UAAS alloc]initWithConfig:_webRequest.params];
+			UMSynchronizedSortedDictionary *config = m3uaas.config;
+			[_appDelegate addWithConfigM3UA_AS:config.dictionaryCopy];
+			[self sendResultObject:config];
+		}
+        @catch(NSException *e)
+        {
+			[self sendException:e];
+        }
     }
 }
 
