@@ -16,6 +16,8 @@
     NSNumber *_reopenTimer1;
     NSNumber *_reopenTimer2;
     NSNumber *_linktestTimer;
+    NSNumber *_beatTimer;
+    NSNumber *_beatMaxOutstanding;
 }
 
 + (NSString *)type;
@@ -27,5 +29,7 @@
 @property(readwrite,strong,atomic)  NSNumber *reopenTimer1;
 @property(readwrite,strong,atomic)  NSNumber *reopenTimer2;
 @property(readwrite,strong,atomic)  NSNumber *linktestTimer;
+@property(readwrite,strong,atomic)  NSNumber *beatTimer;
+@property(readwrite,strong,atomic)  NSNumber *beatMaxOutstanding;
 
 @end

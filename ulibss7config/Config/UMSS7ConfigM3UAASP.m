@@ -39,6 +39,8 @@
     APPEND_CONFIG_DOUBLE(s,@"reopen-timer1",_reopenTimer1);
     APPEND_CONFIG_DOUBLE(s,@"reopen-timer2",_reopenTimer1);
     APPEND_CONFIG_DOUBLE(s,@"linktest-timer",_linktestTimer);
+    APPEND_CONFIG_DOUBLE(s,@"beat-timer",_beatTimer);
+    APPEND_CONFIG_INTEGER(s,@"beat-max-outstanding",_beatMaxOutstanding);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -50,6 +52,8 @@
     APPEND_DICT_DOUBLE(dict,@"reopen-timer1",_reopenTimer1);
     APPEND_DICT_DOUBLE(dict,@"reopen-timer2",_reopenTimer1);
     APPEND_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
+    APPEND_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
+    APPEND_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
     return dict;
 }
 
@@ -61,6 +65,8 @@
     SET_DICT_DOUBLE(dict,@"reopen-timer1",_reopenTimer1);
     SET_DICT_DOUBLE(dict,@"reopen-timer2",_reopenTimer1);
     SET_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
+    SET_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
+    SET_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
 }
 
 - (UMSS7ConfigM3UAASP *)copyWithZone:(NSZone *)zone
