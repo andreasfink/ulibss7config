@@ -15,6 +15,7 @@
     NSString         *_oldName;
     NSNumber         *_enabled;
     NSNumber         *_logLevel;
+    NSString         *_logFile;
     NSArray          *_comments;
     NSString         *_objectDescription;
     NSMutableArray<UMSS7ConfigObject *> *_subEntries;
