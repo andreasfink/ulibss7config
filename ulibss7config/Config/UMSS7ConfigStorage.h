@@ -54,6 +54,7 @@
 @class UMSS7ConfigSMSCBillingEntity;
 @class UMSS7ConfigESTP;
 @class UMSS7ConfigMAPI;
+@class UMSS7ConfigIMSIPool;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -100,6 +101,7 @@
     UMSynchronizedDictionary *_smsc_profile_dict;
     UMSynchronizedDictionary *_estp_dict;
     UMSynchronizedDictionary *_mapi_dict;
+    UMSynchronizedDictionary *_imsi_pool_dict;
 
     NSString *_rwconfigFile;
     UMTimer *_dirtyTimer;
@@ -148,6 +150,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_profile_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *estp_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mapi_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *imsi_pool_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 
@@ -383,4 +386,9 @@
 - (NSString *)replaceSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)smsc;
 - (NSString *)deleteSMSCBillingEntitye:(NSString *)name;
 
+- (NSArray *)getIMSIPoolNames;
+- (UMSS7ConfigIMSIPool *)getIMSIPool:(NSString *)name;
+- (NSString *)addIMSIPool:(UMSS7ConfigIMSIPool *)pool;
+- (NSString *)replaceIMSIPool:(UMSS7ConfigIMSIPool *)pool;
+- (NSString *)deleteIMSIPool:(NSString *)name;
 @end

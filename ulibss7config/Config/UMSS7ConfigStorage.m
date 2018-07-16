@@ -59,6 +59,7 @@
 #import "UMSS7ConfigSMSCUser.h"
 #import "UMSS7ConfigSMSCUserProfile.h"
 #import "UMSS7ConfigSMSCBillingEntity.h"
+#import "UMSS7ConfigIMSIPool.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -105,6 +106,7 @@
     _smsc_user_dict             = [[UMSynchronizedDictionary alloc]init];
     _smsc_billing_entity_dict   = [[UMSynchronizedDictionary alloc]init];
     _smsc_profile_dict          = [[UMSynchronizedDictionary alloc]init];
+    _imsi_pool_dict             = [[UMSynchronizedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -258,6 +260,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSCBillingEntity type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUserProfile type]];
     [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
+    [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
 
     [cfg read];
     [self processConfig:cfg];
@@ -746,7 +749,15 @@
             _smsc_billing_entity_dict[be.name] = be;
         }
     }
-
+    NSArray *imsi_pool_configs = [cfg getMultiGroups:[UMSS7ConfigIMSIPool type]];
+    for(NSDictionary *imsi_pool_config in imsi_pool_configs)
+    {
+        UMSS7ConfigIMSIPool *pool = [[UMSS7ConfigIMSIPool alloc]initWithConfig:imsi_pool_config];
+        if(pool.name.length  > 0)
+        {
+            _imsi_pool_dict[pool.name] = pool;
+        }
+    }
 }
 
 - (UMConfig *)saveConfig
@@ -855,6 +866,7 @@
     [self appendSectionWithEntries:s dict:_gsmmap_filter_dict sectionName:@"gsmmap-filter"];
     [self appendSection:s dict:_sms_dict sectionName:@"sms"];
     [self appendSectionWithEntries:s dict:_sms_filter_dict sectionName:@"sms-filter"];
+    [self appendSection:s dict:_imsi_pool_dict sectionName:@"imsi-pool"];
 }
 
 - (void)writeConfigToDirectory:(NSString *)dir usingFilename:(NSString *)main_config_file_name  singleFile:(BOOL)compact
@@ -903,6 +915,7 @@
         [self writeSectionToDirectory:dir dict:_gsmmap_filter_dict sectionName:@"gsmmap-filter" general:s];
         [self writeSectionToDirectory:dir dict:_sms_dict sectionName:@"sms" general:s];
         [self writeSectionToDirectory:dir dict:_sms_filter_dict sectionName:@"sms-filter" general:s];
+        [self writeSectionToDirectory:dir dict:_imsi_pool_dict sectionName:@"imsi-pool" general:s];
     }
     NSString *config_file  = [NSString stringWithFormat:@"%@/%@",dir,main_config_file_name];
     if(NO==[s writeToFile:config_file atomically:YES encoding:NSUTF8StringEncoding error:&e])
@@ -1251,7 +1264,6 @@
  ** MTP3-Linkset
  **************************************************
  */
-
 #pragma mark -
 #pragma mark MTP3Linkset
 
@@ -2334,6 +2346,57 @@
     _dirty=YES;
     return @"ok";
 }
+
+
+/*
+ **************************************************
+ ** IMSI-Pool
+ **************************************************
+ */
+
+#pragma mark -
+#pragma mark IMSIPool
+
+- (NSArray *)getIMSIPoolNames
+{
+    return [_imsi_pool_dict allKeys];
+}
+
+- (UMSS7ConfigIMSIPool *)getIMSIPool:(NSString *)name
+{
+    return _imsi_pool_dict[name];
+}
+
+- (NSString *)addIMSIPool:(UMSS7ConfigIMSIPool *)pool
+{
+    if(_imsi_pool_dict[pool.name] == NULL)
+    {
+        _imsi_pool_dict[pool.name] = pool;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceIMSIPool:(UMSS7ConfigIMSIPool *)pool
+{
+    _imsi_pool_dict[pool.name] = pool;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteIMSIPool:(NSString *)name
+{
+    if(_imsi_pool_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_imsi_pool_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
 
 /*
  **************************************************
