@@ -45,6 +45,7 @@
 
     APPEND_CONFIG_STRING(s,@"status-update-url",_statusUpdateUrl);
     APPEND_CONFIG_STRING(s,@"roaming-number",_roamingNumber);
+    APPEND_CONFIG_STRING(s,@"roaming-number-url",_roamingNumberUrl);
 }
 
 
@@ -60,6 +61,7 @@
 
     APPEND_DICT_STRING(dict,@"status-update-url",_statusUpdateUrl);
     APPEND_DICT_STRING(dict,@"roaming-number",_roamingNumber);
+    APPEND_DICT_STRING(dict,@"roaming-number-url",_roamingNumberUrl);
     return dict;
 }
 
@@ -74,6 +76,7 @@
 
     SET_DICT_STRING(dict,@"status-update-url",_statusUpdateUrl);
     SET_DICT_STRING(dict,@"roaming-number",_roamingNumber);
+    SET_DICT_STRING(dict,@"roaming-number-url",_roamingNumberUrl);
 
 }
 
