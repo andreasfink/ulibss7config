@@ -18,6 +18,7 @@
 
     NSString *_statusUpdateUrl;
     NSString *_roamingNumber;
+    NSString *_roamingNumberUrl;
 
 }
 
@@ -29,6 +30,7 @@
 
 @property(readwrite,strong,atomic)   NSString *statusUpdateUrl;
 @property(readwrite,strong,atomic)   NSString *roamingNumber;
+@property(readwrite,strong,atomic)   NSString *roamingNumberUrl;
 
 
 
