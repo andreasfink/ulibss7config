@@ -67,6 +67,12 @@ realm:(NSString **)realm;
 - (void)deleteSCCP:(NSString *)name;
 - (void)renameSCCP:(NSString *)old to:(NSString *)new;
 
+- (void)deleteSCCPTranslationTable:(NSString *)name
+								   tt:(NSNumber *)tt
+								   gti:(NSNumber *)gti
+								   np:(NSNumber *)np
+								   nai:(NSNumber *)nai;
+
 - (void)addApiSession:(UMSS7ApiSession *)session;
 - (void)removeApiSession:(NSString *)sessionKey;
 - (UMSS7ApiSession *)getApiSession:(NSString *)sessionKey;
