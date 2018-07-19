@@ -19,7 +19,7 @@
 
 - (NSString *)type
 {
-    return [UMSS7ConfigEIR type];
+    return [UMSS7ConfigESTP type];
 }
 
 
