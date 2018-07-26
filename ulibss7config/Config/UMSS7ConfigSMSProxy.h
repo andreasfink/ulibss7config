@@ -25,6 +25,7 @@
     NSNumber *_timeout;
     NSNumber *_imsiTimer;
     NSString *_imsiPrefix;
+    NSString *_cdrWriter;
 
 }
 
@@ -43,6 +44,7 @@
 @property(readwrite,strong,atomic)   NSNumber *timeout;
 @property(readwrite,strong,atomic)   NSNumber *imsiTimer;
 @property(readwrite,strong,atomic)   NSString *imsiPrefix;
+@property(readwrite,strong,atomic)   NSString *cdrWriter;
 
 
 
