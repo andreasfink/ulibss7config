@@ -231,7 +231,6 @@
     [cfg allowMultiGroup:[UMSS7ConfigM3UAASP type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCP type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestination type]];
-
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestinationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTable type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableEntry type]];
@@ -252,9 +251,9 @@
     [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
+    [cfg allowMultiGroup:[UMSS7ConfigUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUser type]];
@@ -705,6 +704,15 @@
         if(user.name.length  > 0)
         {
             _user_dict[user.name] = user;
+        }
+    }
+    NSArray *database_pool_configs = [cfg getMultiGroups:[UMSS7ConfigDatabasePool type]];
+    for(NSDictionary *database_pool_config in database_pool_configs)
+    {
+        UMSS7ConfigDatabasePool *e = [[UMSS7ConfigDatabasePool alloc]initWithConfig:database_pool_config];
+        if(e.name.length  > 0)
+        {
+            _database_pool_dict[e.name] = e;
         }
     }
 
