@@ -2894,11 +2894,17 @@
     n.gmlc_dict = [_gmlc_dict copy];
     n.eir_dict = [_eir_dict copy];
     n.smsc_dict = [_smsc_dict copy];
-    n.smsproxy_dict = [_smsproxy_dict copy];
     n.user_dict = [_user_dict copy];
     n.database_pool_dict = [_database_pool_dict copy];
     n.sccp_number_translation_dict = [_sccp_number_translation_dict copy];
+    n.smsc_user_dict = [_smsc_user_dict copy];
+    n.smsc_billing_entity_dict = [_smsc_billing_entity_dict copy];
+    n.smsc_profile_dict = [_smsc_profile_dict copy];
+    n.smsproxy_dict = [_smsproxy_dict copy];
     n.estp_dict = [_estp_dict copy];
+    n.mapi_dict = [_mapi_dict copy];
+    n.imsi_pool_dict = [_imsi_pool_dict copy];
+    n.cdr_writer_dict = [_cdr_writer_dict copy];
 
     n.rwconfigFile = _rwconfigFile;
     return n;
