@@ -10,10 +10,14 @@
 
 @interface UMSS7ConfigSMSProxy : UMSS7ConfigObject
 {
-    NSString *_attachTo;
+    NSString *_number;
+    NSString *_sccp;
+    NSString *_licenseDirectory;
 }
 
-@property(readwrite,strong,atomic)  NSString *attachTo;
+@property(readwrite,strong,atomic)   NSString *number;
+@property(readwrite,strong,atomic)   NSString *sccp;
+@property(readwrite,strong,atomic)   NSString *licenseDirectory;
 
 
 + (NSString *)type;
