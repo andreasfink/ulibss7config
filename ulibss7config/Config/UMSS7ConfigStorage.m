@@ -109,6 +109,7 @@
     _smsc_billing_entity_dict   = [[UMSynchronizedDictionary alloc]init];
     _smsc_profile_dict          = [[UMSynchronizedDictionary alloc]init];
     _imsi_pool_dict             = [[UMSynchronizedDictionary alloc]init];
+    _cdr_writer_dict            = [[UMSynchronizedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -776,10 +777,11 @@
     for(NSDictionary *cdr_writer_config in cdr_writer_configs)
     {
         UMSS7ConfigCdrWriter *co = [[UMSS7ConfigCdrWriter alloc]initWithConfig:cdr_writer_config];
-        if(co.name.length  > 0)
+        if(co.name==NULL)
         {
-            _cdr_writer_dict[co.name] = co;
+            co.name=@"cdr-writer";
         }
+        _cdr_writer_dict[co.name] = co;
     }
 }
 
