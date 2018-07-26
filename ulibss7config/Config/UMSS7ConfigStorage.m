@@ -60,6 +60,7 @@
 #import "UMSS7ConfigSMSCUserProfile.h"
 #import "UMSS7ConfigSMSCBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
+#import "UMSS7ConfigCdrWriter.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -770,7 +771,19 @@
             _imsi_pool_dict[pool.name] = pool;
         }
     }
+
+    NSArray *cdr_writer_configs = [cfg getMultiGroups:[UMSS7ConfigCdrWriter type]];
+    for(NSDictionary *cdr_writer_config in cdr_writer_configs)
+    {
+        UMSS7ConfigCdrWriter *co = [[UMSS7ConfigCdrWriter alloc]initWithConfig:cdr_writer_config];
+        if(co.name.length  > 0)
+        {
+            _cdr_writer_dict[co.name] = co;
+        }
+    }
 }
+
+
 
 - (UMConfig *)saveConfig
 {
@@ -2456,6 +2469,52 @@
 }
 
 
+/**************************************************
+** CDRWriter
+**************************************************
+*/
+
+#pragma mark -
+#pragma mark IMSIPool
+
+- (NSArray *)getCdrWriterNames
+{
+    return [_cdr_writer_dict allKeys];
+}
+
+- (UMSS7ConfigCdrWriter *)getCdrWriter:(NSString *)name
+{
+    return _cdr_writer_dict[name];
+}
+
+- (NSString *)addCdrWriter:(UMSS7ConfigCdrWriter *)cdrw
+{
+    if(_cdr_writer_dict[cdrw.name] == NULL)
+    {
+        _cdr_writer_dict[cdrw.name] = cdrw;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceCdrWriter:(UMSS7ConfigCdrWriter *)cdrw
+{
+    _cdr_writer_dict[cdrw.name] = cdrw;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteCdrWriter:(NSString *)name
+{
+    if(_cdr_writer_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_cdr_writer_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 /*
  **************************************************

@@ -56,6 +56,7 @@
 @class UMSS7ConfigESTP;
 @class UMSS7ConfigMAPI;
 @class UMSS7ConfigIMSIPool;
+@class UMSS7ConfigCdrWriter;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -103,6 +104,7 @@
     UMSynchronizedDictionary *_estp_dict;
     UMSynchronizedDictionary *_mapi_dict;
     UMSynchronizedDictionary *_imsi_pool_dict;
+    UMSynchronizedDictionary *_cdr_writer_dict;
 
     NSString *_rwconfigFile;
     UMTimer *_dirtyTimer;
@@ -152,6 +154,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *estp_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mapi_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *imsi_pool_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *cdr_writer_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 
@@ -399,4 +402,11 @@
 - (NSString *)addIMSIPool:(UMSS7ConfigIMSIPool *)pool;
 - (NSString *)replaceIMSIPool:(UMSS7ConfigIMSIPool *)pool;
 - (NSString *)deleteIMSIPool:(NSString *)name;
+
+- (NSArray *)getCdrWriterNames;
+- (UMSS7ConfigCdrWriter *)getCdrWriter:(NSString *)cdrw;
+- (NSString *)addCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
+- (NSString *)replaceCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
+- (NSString *)deleteCdrWriter:(NSString *)cdrw;
+
 @end
