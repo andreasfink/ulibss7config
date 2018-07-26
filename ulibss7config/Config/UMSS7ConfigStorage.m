@@ -101,6 +101,7 @@
     _gsmscf_dict                = [[UMSynchronizedDictionary alloc]init];
     _gmlc_dict                  = [[UMSynchronizedDictionary alloc]init];
     _eir_dict                   = [[UMSynchronizedDictionary alloc]init];
+    _smsproxy_dict              = [[UMSynchronizedDictionary alloc]init];
     _estp_dict                  = [[UMSynchronizedDictionary alloc]init];
     _mapi_dict                  = [[UMSynchronizedDictionary alloc]init];
     _smsc_user_dict             = [[UMSynchronizedDictionary alloc]init];
@@ -259,6 +260,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCBillingEntity type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUserProfile type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
     [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
 
@@ -676,6 +678,16 @@
         }
     }
     
+    NSArray *smsproxy_configs = [cfg getMultiGroups:[UMSS7ConfigSMSProxy type]];
+    for(NSDictionary *smsproxy_config in smsproxy_configs)
+    {
+        UMSS7ConfigSMSProxy *proxy = [[UMSS7ConfigSMSProxy alloc]initWithConfig:smsproxy_config];
+        if(proxy.name.length  > 0)
+        {
+            _smsproxy_dict[proxy.name] = proxy;
+        }
+    }
+
     NSArray *estp_configs = [cfg getMultiGroups:[UMSS7ConfigESTP type]];
     for(NSDictionary *estp_config in estp_configs)
     {
@@ -2249,6 +2261,53 @@
         return @"not found";
     }
     [_eir_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SMSProxy
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMSProxy
+
+- (NSArray *)getSMSProxyNames
+{
+    return [_smsproxy_dict allKeys];
+}
+
+- (UMSS7ConfigSMSProxy *)getSMSProxy:(NSString *)name
+{
+    return _smsproxy_dict[name];
+}
+
+- (NSString *)addSMSProxy:(UMSS7ConfigSMSProxy *)proxy
+{
+    if(_smsproxy_dict[proxy.name] == NULL)
+    {
+        _smsproxy_dict[proxy.name] = proxy;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSProxy:(UMSS7ConfigSMSProxy *)proxy
+{
+    _smsproxy_dict[proxy.name] = proxy;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSProxy:(NSString *)name
+{
+    if(_smsproxy_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsproxy_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
