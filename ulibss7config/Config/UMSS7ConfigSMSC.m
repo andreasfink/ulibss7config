@@ -37,6 +37,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(s,@"number",_number);
     APPEND_CONFIG_STRING(s,@"full-trace-directory",_fullTraceDirectory);
     APPEND_CONFIG_STRING(s,@"timeout-trace-directory",_timeoutTraceDirectory);
     APPEND_CONFIG_INTEGER(s,@"smsc-translation-type",_smscTranslationType);
@@ -52,6 +53,7 @@
     UMSynchronizedSortedDictionary *dict = [super config];
 
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(dict,@"number",_number);
     APPEND_DICT_STRING(dict,@"full-trace-directory",_fullTraceDirectory);
     APPEND_DICT_STRING(dict,@"timeout-trace-directory",_timeoutTraceDirectory);
     APPEND_DICT_INTEGER(dict,@"smsc-translation-type",_smscTranslationType);
@@ -65,6 +67,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
+    SET_DICT_STRING(dict,@"number",_number);
     SET_DICT_STRING(dict,@"full-trace-directory",_fullTraceDirectory);
     SET_DICT_STRING(dict,@"timeout-trace-directory",_timeoutTraceDirectory);
     SET_DICT_INTEGER(dict,@"smsc-translation-type",_smscTranslationType);
