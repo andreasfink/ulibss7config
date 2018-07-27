@@ -53,6 +53,10 @@
     APPEND_CONFIG_DOUBLE(s,@"imsi-timer",_imsiTimer);
     APPEND_CONFIG_STRING(s,@"imsi-prefix",_imsiPrefix);
     APPEND_CONFIG_STRING(s,@"cdr-writer",_cdrWriter);
+    APPEND_CONFIG_INTEGER(s,@"smsc-translation-type",_smscTranslationType);
+    APPEND_CONFIG_INTEGER(s,@"srism-translation-type",_srismTranslationType);
+    APPEND_CONFIG_INTEGER(s,@"forwardsm-translation-type",_forwardsmTranslationType);
+
 
 }
 
@@ -77,6 +81,10 @@
     APPEND_DICT_DOUBLE(dict,@"imsi-timer",_imsiTimer);
     APPEND_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
     APPEND_DICT_STRING(dict,@"cdr-writer",_cdrWriter);
+    APPEND_DICT_INTEGER(dict,@"smsc-translation-type",_smscTranslationType);
+    APPEND_DICT_INTEGER(dict,@"srism-translation-type",_srismTranslationType);
+    APPEND_DICT_INTEGER(dict,@"forwardsm-translation-type",_forwardsmTranslationType);
+
 
     return dict;
 }
@@ -100,6 +108,10 @@
     SET_DICT_DOUBLE(dict,@"imsi-timer",_imsiTimer);
     SET_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
     SET_DICT_STRING(dict,@"cdr-writer",_cdrWriter);
+    SET_DICT_INTEGER(dict,@"smsc-translation-type",_smscTranslationType);
+    SET_DICT_INTEGER(dict,@"srism-translation-type",_srismTranslationType);
+    SET_DICT_INTEGER(dict,@"forwardsm-translation-type",_forwardsmTranslationType);
+
 }
 
 

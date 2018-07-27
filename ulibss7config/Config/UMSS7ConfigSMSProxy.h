@@ -27,6 +27,11 @@
     NSString *_imsiPrefix;
     NSString *_cdrWriter;
 
+    NSNumber *_smscTranslationType;
+    NSNumber *_srismTranslationType;
+    NSNumber *_forwardsmTranslationType;
+
+
 }
 
 @property(readwrite,strong,atomic)   NSString *number;
@@ -45,6 +50,11 @@
 @property(readwrite,strong,atomic)   NSNumber *imsiTimer;
 @property(readwrite,strong,atomic)   NSString *imsiPrefix;
 @property(readwrite,strong,atomic)   NSString *cdrWriter;
+
+@property(readwrite,strong,atomic)   NSNumber *smscTranslationType;
+@property(readwrite,strong,atomic)   NSNumber *srismTranslationType;
+@property(readwrite,strong,atomic)   NSNumber *forwardsmTranslationType;
+
 
 
 
