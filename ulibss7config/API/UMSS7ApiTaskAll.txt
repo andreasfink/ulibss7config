@@ -76,4 +76,4 @@ API(UMSS7ApiTaskSCCP_status)
 API(UMSS7ApiTaskSCCP_action)
 
 API(UMSS7ApiTaskSCCPTranslationTable_delete)
-
+API(UMSS7ApiTaskSCCPTranslationTable_read)
