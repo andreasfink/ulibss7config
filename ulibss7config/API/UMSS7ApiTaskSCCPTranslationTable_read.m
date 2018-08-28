@@ -41,7 +41,8 @@
     else
     {
 		// Find sccp layer by name and then return RoutingTable  by _gti, _np, _nai, _tt
-		return [_appDelegate readSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
+		UMSynchronizedSortedDictionary *dict = [_appDelegate readSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
+		[self sendResultObject:dict];
     }
 }
 

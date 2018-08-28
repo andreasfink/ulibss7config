@@ -72,6 +72,12 @@ realm:(NSString **)realm;
 								   gti:(NSNumber *)gti
 								   np:(NSNumber *)np
 								   nai:(NSNumber *)nai;
+								   
+- (UMSynchronizedSortedDictionary *)readSCCPTranslationTable:(NSString *)name
+								   tt:(NSNumber *)tt
+								   gti:(NSNumber *)gti
+								   np:(NSNumber *)np
+								   nai:(NSNumber *)nai;								   
 
 - (void)addApiSession:(UMSS7ApiSession *)session;
 - (void)removeApiSession:(NSString *)sessionKey;
