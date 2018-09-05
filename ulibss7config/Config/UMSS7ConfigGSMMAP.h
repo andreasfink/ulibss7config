@@ -12,15 +12,15 @@
 {
     NSString *_attachTo;
     NSString *_address;
-    NSNumber *_nai;
-    NSNumber *_npi;
+    NSString *_ssn;
+    NSNumber *_timeout;
     NSString *_operations;
 }
 
 @property(readwrite,strong,atomic)  NSString *attachTo;
 @property(readwrite,strong,atomic)  NSString *address;
-@property(readwrite,strong,atomic)  NSNumber *nai;
-@property(readwrite,strong,atomic)  NSNumber *npi;
+@property(readwrite,strong,atomic)  NSString *ssn;
+@property(readwrite,strong,atomic)  NSNumber *timeout;
 @property(readwrite,strong,atomic)  NSString *operations;
 
 + (NSString *)type;

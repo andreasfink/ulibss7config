@@ -38,8 +38,8 @@
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
     APPEND_CONFIG_STRING(s,@"address",_address);
-    APPEND_CONFIG_INTEGER(s,@"nai",_nai);
-    APPEND_CONFIG_INTEGER(s,@"npi",_npi);
+    APPEND_CONFIG_STRING(s,@"ssn",_ssn);
+    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
     APPEND_CONFIG_STRING(s,@"operations",_operations);
 
 }
@@ -51,8 +51,8 @@
 
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
     APPEND_DICT_STRING(dict,@"address",_address);
-    APPEND_DICT_INTEGER(dict,@"nai",_nai);
-    APPEND_DICT_INTEGER(dict,@"npi",_npi);
+    APPEND_DICT_STRING(dict,@"ssn",_ssn);
+    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
     APPEND_DICT_STRING(dict,@"operations",_operations);
 
     return dict;
@@ -63,8 +63,8 @@
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_STRING(dict,@"address",_address);
-    SET_DICT_INTEGER(dict,@"nai",_nai);
-    SET_DICT_INTEGER(dict,@"npi",_npi);
+    SET_DICT_STRING(dict,@"ssn",_ssn);
+    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
     SET_DICT_STRING(dict,@"operations",_operations);
 }
 

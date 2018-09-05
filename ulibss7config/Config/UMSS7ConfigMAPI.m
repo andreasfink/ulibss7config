@@ -38,6 +38,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"number",_number);
+    APPEND_CONFIG_STRING(s,@"sccp",_sccp);
     APPEND_CONFIG_STRING(s,@"license-directory",_licenseDirectory);
 }
 
@@ -47,6 +48,7 @@
     UMSynchronizedSortedDictionary *dict = [super config];
 
     APPEND_DICT_STRING(dict,@"number",_number);
+    APPEND_DICT_STRING(dict,@"sccp",_sccp);
     APPEND_DICT_STRING(dict,@"license-directory",_licenseDirectory);
 
     return dict;
@@ -56,6 +58,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"number",_number);
+    SET_DICT_STRING(dict,@"sccp",_sccp);
     SET_DICT_STRING(dict,@"license-directory",_licenseDirectory);
 }
 

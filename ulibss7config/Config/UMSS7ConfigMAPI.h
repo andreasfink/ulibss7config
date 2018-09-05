@@ -11,10 +11,12 @@
 @interface UMSS7ConfigMAPI : UMSS7ConfigObject
 {
     NSString *_number;
+    NSString *_sccp;
     NSString *_licenseDirectory;
 }
 
 @property(readwrite,strong,atomic)   NSString *number;
+@property(readwrite,strong,atomic)   NSString *sccp;
 @property(readwrite,strong,atomic)   NSString *licenseDirectory;
 
 

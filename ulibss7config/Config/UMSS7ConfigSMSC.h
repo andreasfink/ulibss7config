@@ -15,6 +15,11 @@
     NSString *_number;
     NSString *_timeoutTraceDirectory;
     NSString *_fullTraceDirectory;
+
+    NSNumber *_smscTranslationType;
+    NSNumber *_srismTranslationType;
+    NSNumber *_forwardsmTranslationType;
+
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;
@@ -22,6 +27,9 @@
 @property(readwrite,strong,atomic)   NSString *number;
 @property(readwrite,strong,atomic)   NSString *timeoutTraceDirectory;
 @property(readwrite,strong,atomic)   NSString *fullTraceDirectory;
+@property(readwrite,strong,atomic)   NSNumber *smscTranslationType;
+@property(readwrite,strong,atomic)   NSNumber *srismTranslationType;
+@property(readwrite,strong,atomic)   NSNumber *forwardsmTranslationType;
 
 
 + (NSString *)type;

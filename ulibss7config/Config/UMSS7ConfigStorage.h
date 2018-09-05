@@ -52,9 +52,11 @@
 @class UMSS7ConfigSMSCUser;
 @class UMSS7ConfigSMSCUserProfile;
 @class UMSS7ConfigSMSCBillingEntity;
+@class UMSS7ConfigSMSProxy;
 @class UMSS7ConfigESTP;
 @class UMSS7ConfigMAPI;
 @class UMSS7ConfigIMSIPool;
+@class UMSS7ConfigCdrWriter;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -92,16 +94,17 @@
     UMSynchronizedDictionary *_gmlc_dict;
     UMSynchronizedDictionary *_eir_dict;
     UMSynchronizedDictionary *_smsc_dict;
-    UMSynchronizedDictionary *_smsproxy_dict;
     UMSynchronizedDictionary *_user_dict;
     UMSynchronizedDictionary *_database_pool_dict;
     UMSynchronizedDictionary *_sccp_number_translation_dict;
     UMSynchronizedDictionary *_smsc_user_dict;
     UMSynchronizedDictionary *_smsc_billing_entity_dict;
     UMSynchronizedDictionary *_smsc_profile_dict;
+    UMSynchronizedDictionary *_smsproxy_dict;
     UMSynchronizedDictionary *_estp_dict;
     UMSynchronizedDictionary *_mapi_dict;
     UMSynchronizedDictionary *_imsi_pool_dict;
+    UMSynchronizedDictionary *_cdr_writer_dict;
 
     NSString *_rwconfigFile;
     UMTimer *_dirtyTimer;
@@ -141,16 +144,17 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *gmlc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *eir_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_dict;
-@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsproxy_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *database_pool_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_number_translation_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_billing_entity_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_profile_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsproxy_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *estp_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mapi_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *imsi_pool_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *cdr_writer_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 
@@ -319,6 +323,13 @@
 - (NSString *)replaceESTP:(UMSS7ConfigESTP *)eir;
 - (NSString *)deleteESTP:(NSString *)name;
 
+- (NSArray *)getSMSProxyNames;
+- (UMSS7ConfigSMSProxy *)getSMSProxy:(NSString *)name;
+- (NSString *)addSMSProxy:(UMSS7ConfigSMSProxy *)rpoxy;
+- (NSString *)replaceSMSProxy:(UMSS7ConfigSMSProxy *)proxy;
+- (NSString *)deleteSMSProxy:(NSString *)name;
+
+
 - (NSArray *)getMAPINames;
 - (UMSS7ConfigMAPI *)getMAPI:(NSString *)name;
 - (NSString *)addMAPI:(UMSS7ConfigMAPI *)eir;
@@ -391,4 +402,11 @@
 - (NSString *)addIMSIPool:(UMSS7ConfigIMSIPool *)pool;
 - (NSString *)replaceIMSIPool:(UMSS7ConfigIMSIPool *)pool;
 - (NSString *)deleteIMSIPool:(NSString *)name;
+
+- (NSArray *)getCdrWriterNames;
+- (UMSS7ConfigCdrWriter *)getCdrWriter:(NSString *)cdrw;
+- (NSString *)addCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
+- (NSString *)replaceCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
+- (NSString *)deleteCdrWriter:(NSString *)cdrw;
+
 @end

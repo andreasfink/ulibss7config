@@ -60,6 +60,7 @@
 #import "UMSS7ConfigSMSCUserProfile.h"
 #import "UMSS7ConfigSMSCBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
+#import "UMSS7ConfigCdrWriter.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -67,46 +68,46 @@
 
 - (void)generalInitialisation
 {
-    _webserver_dict             = [[UMSynchronizedDictionary alloc]init];
-    _telnet_dict                = [[UMSynchronizedDictionary alloc]init];
-    _syslog_destination_dict    = [[UMSynchronizedDictionary alloc]init];
-    _sctp_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _m2pa_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _mtp3_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _mtp3_route_dict            = [[UMSynchronizedDictionary alloc]init];
-    _mtp3_filter_dict           = [[UMSynchronizedDictionary alloc]init];
-    _mtp3_link_dict             = [[UMSynchronizedDictionary alloc]init];
-    _mtp3_linkset_dict          = [[UMSynchronizedDictionary alloc]init];
-    _m3ua_as_dict               = [[UMSynchronizedDictionary alloc]init];
-    _m3ua_asp_dict              = [[UMSynchronizedDictionary alloc]init];
-    _sccp_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _sccp_filter_dict           = [[UMSynchronizedDictionary alloc]init];
-    _sccp_destination_dict      = [[UMSynchronizedDictionary alloc]init];
-    _sccp_number_translation_dict   = [[UMSynchronizedDictionary alloc]init];
-    _sccp_translation_table_dict    = [[UMSynchronizedDictionary alloc]init];
-    _tcap_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _tcap_filter_dict           = [[UMSynchronizedDictionary alloc]init];
-    _gsmmap_dict                = [[UMSynchronizedDictionary alloc]init];
-    _gsmmap_filter_dict         = [[UMSynchronizedDictionary alloc]init];
-    _sms_dict                   = [[UMSynchronizedDictionary alloc]init];
-    _sms_filter_dict            = [[UMSynchronizedDictionary alloc]init];
-    _hlr_dict                   = [[UMSynchronizedDictionary alloc]init];
-    _msc_dict                   = [[UMSynchronizedDictionary alloc]init];
-    _smsc_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _smsproxy_dict              = [[UMSynchronizedDictionary alloc]init];
-    _user_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _msc_dict                   = [[UMSynchronizedDictionary alloc]init];
-    _hlr_dict                   = [[UMSynchronizedDictionary alloc]init];
-    _vlr_dict                   = [[UMSynchronizedDictionary alloc]init];
-    _gsmscf_dict                = [[UMSynchronizedDictionary alloc]init];
-    _gmlc_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _eir_dict                   = [[UMSynchronizedDictionary alloc]init];
-    _estp_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _mapi_dict                  = [[UMSynchronizedDictionary alloc]init];
-    _smsc_user_dict             = [[UMSynchronizedDictionary alloc]init];
-    _smsc_billing_entity_dict   = [[UMSynchronizedDictionary alloc]init];
-    _smsc_profile_dict          = [[UMSynchronizedDictionary alloc]init];
-    _imsi_pool_dict             = [[UMSynchronizedDictionary alloc]init];
+    _webserver_dict= [[UMSynchronizedDictionary alloc]init];
+    _telnet_dict= [[UMSynchronizedDictionary alloc]init];
+    _syslog_destination_dict= [[UMSynchronizedDictionary alloc]init];
+    _sctp_dict= [[UMSynchronizedDictionary alloc]init];
+    _m2pa_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_route_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_filter_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_link_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_linkset_dict= [[UMSynchronizedDictionary alloc]init];
+    _m3ua_as_dict= [[UMSynchronizedDictionary alloc]init];
+    _m3ua_asp_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
+    _tcap_dict= [[UMSynchronizedDictionary alloc]init];
+    _tcap_filter_dict= [[UMSynchronizedDictionary alloc]init];
+    _gsmmap_dict= [[UMSynchronizedDictionary alloc]init];
+    _gsmmap_filter_dict= [[UMSynchronizedDictionary alloc]init];
+    _sms_dict= [[UMSynchronizedDictionary alloc]init];
+    _sms_filter_dict= [[UMSynchronizedDictionary alloc]init];
+    _hlr_dict= [[UMSynchronizedDictionary alloc]init];
+    _msc_dict= [[UMSynchronizedDictionary alloc]init];
+    _vlr_dict= [[UMSynchronizedDictionary alloc]init];
+    _gsmscf_dict= [[UMSynchronizedDictionary alloc]init];
+    _gmlc_dict= [[UMSynchronizedDictionary alloc]init];
+    _eir_dict= [[UMSynchronizedDictionary alloc]init];
+    _smsc_dict= [[UMSynchronizedDictionary alloc]init];
+    _user_dict= [[UMSynchronizedDictionary alloc]init];
+    _database_pool_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
+    _smsc_user_dict= [[UMSynchronizedDictionary alloc]init];
+    _smsc_billing_entity_dict= [[UMSynchronizedDictionary alloc]init];
+    _smsc_profile_dict= [[UMSynchronizedDictionary alloc]init];
+    _smsproxy_dict= [[UMSynchronizedDictionary alloc]init];
+    _estp_dict= [[UMSynchronizedDictionary alloc]init];
+    _mapi_dict= [[UMSynchronizedDictionary alloc]init];
+    _imsi_pool_dict= [[UMSynchronizedDictionary alloc]init];
+    _cdr_writer_dict= [[UMSynchronizedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -230,7 +231,6 @@
     [cfg allowMultiGroup:[UMSS7ConfigM3UAASP type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCP type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestination type]];
-
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestinationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTable type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableEntry type]];
@@ -251,14 +251,15 @@
     [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
+    [cfg allowMultiGroup:[UMSS7ConfigUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCBillingEntity type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSCUserProfile type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
     [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
 
@@ -676,6 +677,16 @@
         }
     }
     
+    NSArray *smsproxy_configs = [cfg getMultiGroups:[UMSS7ConfigSMSProxy type]];
+    for(NSDictionary *smsproxy_config in smsproxy_configs)
+    {
+        UMSS7ConfigSMSProxy *proxy = [[UMSS7ConfigSMSProxy alloc]initWithConfig:smsproxy_config];
+        if(proxy.name.length  > 0)
+        {
+            _smsproxy_dict[proxy.name] = proxy;
+        }
+    }
+
     NSArray *estp_configs = [cfg getMultiGroups:[UMSS7ConfigESTP type]];
     for(NSDictionary *estp_config in estp_configs)
     {
@@ -693,6 +704,15 @@
         if(user.name.length  > 0)
         {
             _user_dict[user.name] = user;
+        }
+    }
+    NSArray *database_pool_configs = [cfg getMultiGroups:[UMSS7ConfigDatabasePool type]];
+    for(NSDictionary *database_pool_config in database_pool_configs)
+    {
+        UMSS7ConfigDatabasePool *e = [[UMSS7ConfigDatabasePool alloc]initWithConfig:database_pool_config];
+        if(e.name.length  > 0)
+        {
+            _database_pool_dict[e.name] = e;
         }
     }
 
@@ -758,7 +778,20 @@
             _imsi_pool_dict[pool.name] = pool;
         }
     }
+
+    NSArray *cdr_writer_configs = [cfg getMultiGroups:[UMSS7ConfigCdrWriter type]];
+    for(NSDictionary *cdr_writer_config in cdr_writer_configs)
+    {
+        UMSS7ConfigCdrWriter *co = [[UMSS7ConfigCdrWriter alloc]initWithConfig:cdr_writer_config];
+        if(co.name==NULL)
+        {
+            co.name=@"cdr-writer";
+        }
+        _cdr_writer_dict[co.name] = co;
+    }
 }
+
+
 
 - (UMConfig *)saveConfig
 {
@@ -2255,6 +2288,53 @@
 
 /*
  **************************************************
+ ** SMSProxy
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMSProxy
+
+- (NSArray *)getSMSProxyNames
+{
+    return [_smsproxy_dict allKeys];
+}
+
+- (UMSS7ConfigSMSProxy *)getSMSProxy:(NSString *)name
+{
+    return _smsproxy_dict[name];
+}
+
+- (NSString *)addSMSProxy:(UMSS7ConfigSMSProxy *)proxy
+{
+    if(_smsproxy_dict[proxy.name] == NULL)
+    {
+        _smsproxy_dict[proxy.name] = proxy;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSProxy:(UMSS7ConfigSMSProxy *)proxy
+{
+    _smsproxy_dict[proxy.name] = proxy;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSProxy:(NSString *)name
+{
+    if(_smsproxy_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsproxy_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
  ** ESTP
  **************************************************
  */
@@ -2397,6 +2477,52 @@
 }
 
 
+/**************************************************
+** CDRWriter
+**************************************************
+*/
+
+#pragma mark -
+#pragma mark IMSIPool
+
+- (NSArray *)getCdrWriterNames
+{
+    return [_cdr_writer_dict allKeys];
+}
+
+- (UMSS7ConfigCdrWriter *)getCdrWriter:(NSString *)name
+{
+    return _cdr_writer_dict[name];
+}
+
+- (NSString *)addCdrWriter:(UMSS7ConfigCdrWriter *)cdrw
+{
+    if(_cdr_writer_dict[cdrw.name] == NULL)
+    {
+        _cdr_writer_dict[cdrw.name] = cdrw;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceCdrWriter:(UMSS7ConfigCdrWriter *)cdrw
+{
+    _cdr_writer_dict[cdrw.name] = cdrw;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteCdrWriter:(NSString *)name
+{
+    if(_cdr_writer_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_cdr_writer_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 /*
  **************************************************
@@ -2774,11 +2900,17 @@
     n.gmlc_dict = [_gmlc_dict copy];
     n.eir_dict = [_eir_dict copy];
     n.smsc_dict = [_smsc_dict copy];
-    n.smsproxy_dict = [_smsproxy_dict copy];
     n.user_dict = [_user_dict copy];
     n.database_pool_dict = [_database_pool_dict copy];
     n.sccp_number_translation_dict = [_sccp_number_translation_dict copy];
+    n.smsc_user_dict = [_smsc_user_dict copy];
+    n.smsc_billing_entity_dict = [_smsc_billing_entity_dict copy];
+    n.smsc_profile_dict = [_smsc_profile_dict copy];
+    n.smsproxy_dict = [_smsproxy_dict copy];
     n.estp_dict = [_estp_dict copy];
+    n.mapi_dict = [_mapi_dict copy];
+    n.imsi_pool_dict = [_imsi_pool_dict copy];
+    n.cdr_writer_dict = [_cdr_writer_dict copy];
 
     n.rwconfigFile = _rwconfigFile;
     return n;
