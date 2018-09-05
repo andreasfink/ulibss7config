@@ -93,4 +93,8 @@ realm:(NSString **)realm;
 - (void)deleteGSMMAP:(NSString *)name;
 - (void)renameGSMMAP:(NSString *)old to:(NSString *)new;
 
+- (UMSynchronizedSortedDictionary *)modifySCCPTranslationTable:(NSDictionary *)new_config
+									old:(NSDictionary *)old_config;
+
+
 @end
