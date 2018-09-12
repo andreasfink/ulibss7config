@@ -102,5 +102,13 @@ realm:(NSString **)realm;
 - (UMSynchronizedSortedDictionary *)modifySCCPTranslationTable:(NSDictionary *)new_config
 									old:(NSDictionary *)old_config;
 
-
+- (UMSynchronizedSortedDictionary *)activateSCCPTranslationTable:(NSString *)name
+									tt:(NSNumber *)tt
+									gti:(NSNumber *)gti
+									np:(NSNumber *)np
+									nai:(NSNumber *)nai
+									on:(BOOL)on;
+									
+- (UMSynchronizedSortedDictionary *)cloneSCCPTranslationTable:(NSDictionary *)config;
+									
 @end
