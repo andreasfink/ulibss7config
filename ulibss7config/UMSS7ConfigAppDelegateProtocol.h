@@ -67,6 +67,24 @@ realm:(NSString **)realm;
 - (void)deleteSCCP:(NSString *)name;
 - (void)renameSCCP:(NSString *)old to:(NSString *)new;
 
+- (void)deleteSCCPTranslationTable:(NSString *)name
+								   tt:(NSNumber *)tt
+								   gti:(NSNumber *)gti
+								   np:(NSNumber *)np
+								   nai:(NSNumber *)nai;
+								   
+- (UMSynchronizedSortedDictionary *)readSCCPTranslationTable:(NSString *)name
+								   tt:(NSNumber *)tt
+								   gti:(NSNumber *)gti
+								   np:(NSNumber *)np
+								   nai:(NSNumber *)nai;	
+								   
+- (UMSynchronizedSortedDictionary *)statusSCCPTranslationTable:(NSString *)name
+									tt:(NSNumber *)tt
+									gti:(NSNumber *)gti
+									np:(NSNumber *)np
+									nai:(NSNumber *)nai;								   
+
 - (void)addApiSession:(UMSS7ApiSession *)session;
 - (void)removeApiSession:(NSString *)sessionKey;
 - (UMSS7ApiSession *)getApiSession:(NSString *)sessionKey;
@@ -81,6 +99,16 @@ realm:(NSString **)realm;
 - (void)deleteGSMMAP:(NSString *)name;
 - (void)renameGSMMAP:(NSString *)old to:(NSString *)new;
 
-- (void)addSCCPTranslationTable:(NSDictionary *)config;		
+- (UMSynchronizedSortedDictionary *)modifySCCPTranslationTable:(NSDictionary *)new_config
+									old:(NSDictionary *)old_config;
 
+- (UMSynchronizedSortedDictionary *)activateSCCPTranslationTable:(NSString *)name
+									tt:(NSNumber *)tt
+									gti:(NSNumber *)gti
+									np:(NSNumber *)np
+									nai:(NSNumber *)nai
+									on:(BOOL)on;
+									
+- (UMSynchronizedSortedDictionary *)cloneSCCPTranslationTable:(NSDictionary *)config;
+									
 @end

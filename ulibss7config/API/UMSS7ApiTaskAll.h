@@ -77,3 +77,6 @@
 #import "UMSS7ApiTaskSCCP_delete.h"
 #import "UMSS7ApiTaskSCCP_status.h"
 #import "UMSS7ApiTaskSCCP_action.h"
+
+#import "UMSS7ApiTaskSCCPTranslationTable_delete.h"
+#import "UMSS7ApiTaskSCCPTranslationTable_read.h"
