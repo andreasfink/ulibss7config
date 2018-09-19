@@ -100,15 +100,15 @@ realm:(NSString **)realm;
 - (void)renameGSMMAP:(NSString *)old to:(NSString *)new;
 
 - (UMSynchronizedSortedDictionary *)modifySCCPTranslationTable:(NSDictionary *)new_config
-									old:(NSDictionary *)old_config;
+                                                           old:(NSDictionary *)old_config;
 
 - (UMSynchronizedSortedDictionary *)activateSCCPTranslationTable:(NSString *)name
-									tt:(NSNumber *)tt
-									gti:(NSNumber *)gti
-									np:(NSNumber *)np
-									nai:(NSNumber *)nai
-									on:(BOOL)on;
-									
+                                                              tt:(NSNumber *)tt
+                                                             gti:(NSNumber *)gti
+                                                              np:(NSNumber *)np
+                                                             nai:(NSNumber *)nai
+                                                              on:(BOOL)on;
+
 - (UMSynchronizedSortedDictionary *)cloneSCCPTranslationTable:(NSDictionary *)config;
-									
+
 @end
