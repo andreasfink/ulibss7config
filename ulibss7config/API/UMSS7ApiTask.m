@@ -104,6 +104,12 @@
     [_webRequest resumePendingRequest];
 }
 
+- (void)sendErrorNotAuthorized
+{
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized" }];
+    [_webRequest resumePendingRequest];
+}
+
 - (BOOL)isAuthenticated
 {
     NSString *session_key = _webRequest.params[@"session-key"];
@@ -114,6 +120,12 @@
         return YES;
     }
     return NO;
+}
+
+- (BOOL)isAuthorized
+{
+    /* this will be expanded in the future to more fine grained user authorisation method. For now a user can do all or nothing */
+    return YES;
 }
 
 -(void)sendException:(NSException *)e

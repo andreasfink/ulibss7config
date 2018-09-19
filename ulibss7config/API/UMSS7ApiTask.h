@@ -30,7 +30,9 @@
 - (void)sendResultOK;
 - (void)sendResultObject:(id)result;
 - (void)sendErrorNotAuthenticated;
+- (void)sendErrorNotAuthorized;
 - (BOOL) isAuthenticated;
+- (BOOL) isAuthorized;
 - (void)sendException:(NSException *)e;
 
 @end
