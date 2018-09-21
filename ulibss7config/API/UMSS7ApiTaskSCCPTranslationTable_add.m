@@ -42,8 +42,8 @@
         {
 			UMSS7ConfigSCCPTranslationTable *co = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_webRequest.params];
 			UMSynchronizedSortedDictionary *config = co.config;
-            //[_appDelegate addSCCPTranslationTable:config.dictionaryCopy];
-            [cs addSCCPTranslationTable:config.dictionaryCopy];
+            [cs addSCCPTranslationTable:co];
+            //[cs addSCCPTranslationTable:config.dictionaryCopy];
 			[self sendResultObject:config];
 		}
         @catch(NSException *e)
