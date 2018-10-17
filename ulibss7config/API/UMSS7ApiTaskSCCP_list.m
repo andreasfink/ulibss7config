@@ -23,6 +23,12 @@
         [self sendErrorNotAuthenticated];
         return;
     }
+	
+	if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
 
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     NSArray *names = [cs getSCCPNames];

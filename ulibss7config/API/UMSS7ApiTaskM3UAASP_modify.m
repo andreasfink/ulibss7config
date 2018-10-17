@@ -25,6 +25,13 @@
         [self sendErrorNotAuthenticated];
         return;
     }
+	
+	if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+	
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
