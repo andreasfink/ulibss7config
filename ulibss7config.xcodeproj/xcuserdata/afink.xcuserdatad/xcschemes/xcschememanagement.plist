@@ -7,16 +7,7 @@
 		<key>ulibss7config.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
 			<integer>21</integer>
-=======
-			<integer>32</integer>
->>>>>>> b587b70bac02bc8debdf81d2a6e7a7adfe3c4a05
-		</dict>
-		<key>ulibss7config.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>17</integer>
 		</dict>
 	</dict>
 </dict>
