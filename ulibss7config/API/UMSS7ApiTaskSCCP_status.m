@@ -34,7 +34,8 @@
 	if(sccp)
 	{
 		UMSynchronizedSortedDictionary *dict = [sccp statisticalInfo];
-		
+        NSString *json = [dict jsonString];
+        NSLog(@"%@",json);
 		[self sendResultObject:dict];
 	}
 	else
