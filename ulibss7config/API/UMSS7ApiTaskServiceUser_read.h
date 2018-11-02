@@ -1,13 +1,13 @@
 //
-//  UMSS7ApiTaskSMSCUser_modify.m
+//  UMSS7ApiTaskServiceUser_read.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSMSCUser_modify.h"
+#import <ulibss7config/ulibss7config.h>
 
-@implementation UMSS7ApiTaskSMSCUser_modify
+@interface UMSS7ApiTaskServiceUser_read : UMSS7ApiTask
 
 @end

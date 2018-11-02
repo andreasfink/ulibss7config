@@ -1,26 +1,26 @@
 //
-//  UMSS7ConfigSMSCUserProfile.m
+//  UMSS7ConfigServiceUserProfile.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigSMSCUserProfile.h"
+#import "UMSS7ConfigServiceUserProfile.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigSMSCUserProfile
+@implementation UMSS7ConfigServiceUserProfile
 
 + (NSString *)type
 {
-    return @"user-profile";
+    return @"service-profile";
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigSMSCUserProfile type];
+    return [UMSS7ConfigServiceUserProfile type];
 }
 
-- (UMSS7ConfigSMSCUserProfile *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigServiceUserProfile *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -127,10 +127,10 @@
     SET_DICT_STRING(dict,@"retry-pattern",_retryPattern);
 }
 
-- (UMSS7ConfigSMSCUserProfile *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigServiceUserProfile *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigSMSCUserProfile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigServiceUserProfile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

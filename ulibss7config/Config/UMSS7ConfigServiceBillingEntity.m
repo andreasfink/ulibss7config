@@ -1,27 +1,27 @@
 //
-//  UMSS7ConfigBillingEntity.m
+//  UMSS7ConfigServiceBillingEntity.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigSMSCBillingEntity.h"
+#import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigBillingEntity
+@implementation UMSS7ConfigServiceBillingEntity
 
 
 + (NSString *)type
 {
-    return @"billing-entity";
+    return @"service-billing-entity";
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigBillingEntity type];
+    return [UMSS7ConfigServiceBillingEntity type];
 }
 
-- (UMSS7ConfigBillingEntity *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigServiceBillingEntity *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -65,10 +65,10 @@
     SET_DICT_STRING(dict,@"price-table",_priceTable);
 }
 
-- (UMSS7ConfigBillingEntity *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigServiceBillingEntity *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigBillingEntity allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigServiceBillingEntity allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

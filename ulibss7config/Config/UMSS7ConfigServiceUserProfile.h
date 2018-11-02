@@ -1,5 +1,5 @@
 //
-//  UMSS7ConfigSMSCUserProfile.h
+//  UMSS7ConfigServiceUserProfile.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
@@ -8,7 +8,7 @@
 
 #import "UMSS7ConfigObject.h"
 
-@interface UMSS7ConfigSMSCUserProfile : UMSS7ConfigObject
+@interface UMSS7ConfigServiceUserProfile : UMSS7ConfigObject
 {
     NSString *_instance;
     NSString *_deliveryMethod;
@@ -46,6 +46,6 @@
 
 + (NSString *)type;
 - (NSString *)type;
-- (UMSS7ConfigSMSCUserProfile *)initWithConfig:(NSDictionary *)dict;
+- (UMSS7ConfigServiceUserProfile *)initWithConfig:(NSDictionary *)dict;
 
 @end

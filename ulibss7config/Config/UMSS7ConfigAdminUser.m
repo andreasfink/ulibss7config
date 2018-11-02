@@ -17,10 +17,10 @@
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigUser type];
+    return [UMSS7ConfigAdminUser type];
 }
 
-- (UMSS7ConfigUser *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigAdminUser *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -50,10 +50,10 @@
     SET_DICT_STRING(dict,@"password",_password);
 }
 
-- (UMSS7ConfigUser *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigAdminUser *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigUser allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigAdminUser allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 
