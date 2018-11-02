@@ -13,7 +13,7 @@
 
 + (NSString *)type
 {
-    return @"smsc-user-profile";
+    return @"user-profile";
 }
 - (NSString *)type
 {

@@ -1,5 +1,5 @@
 //
-//  UMSS7ConfigSMSCBillingEntity.m
+//  UMSS7ConfigBillingEntity.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
@@ -9,7 +9,7 @@
 #import "UMSS7ConfigSMSCBillingEntity.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigSMSCBillingEntity
+@implementation UMSS7ConfigBillingEntity
 
 
 + (NSString *)type
@@ -18,10 +18,10 @@
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigSMSCBillingEntity type];
+    return [UMSS7ConfigBillingEntity type];
 }
 
-- (UMSS7ConfigSMSCBillingEntity *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigBillingEntity *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -65,10 +65,10 @@
     SET_DICT_STRING(dict,@"price-table",_priceTable);
 }
 
-- (UMSS7ConfigSMSCBillingEntity *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigBillingEntity *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigSMSCBillingEntity allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigBillingEntity allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

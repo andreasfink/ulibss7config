@@ -1,19 +1,19 @@
 //
-//  UMSS7ConfigUser.m
+//  UMSS7ConfigAdminUser.m
 //  estp
 //
 //  Created by Andreas Fink on 15.03.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigUser.h"
+#import "UMSS7ConfigAdminUser.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigUser
+@implementation UMSS7ConfigAdminUser
 
 + (NSString *)type
 {
-    return @"user";
+    return @"admin-user";
 }
 - (NSString *)type
 {

@@ -1,26 +1,26 @@
 //
-//  UMSS7ConfigSMSCUser.m
+//  UMSS7ConfigUser.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigSMSCUser.h"
+#import "UMSS7ConfigUser.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigSMSCUser
+@implementation UMSS7ConfigUser
 
 + (NSString *)type
 {
-    return @"smsc-user";
+    return @"user";
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigSMSCUser type];
+    return [UMSS7ConfigUser type];
 }
 
-- (UMSS7ConfigSMSCUser *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigUser *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -56,10 +56,10 @@
     SET_DICT_STRING(dict,@"billing-entity",_billingEntity);
 }
 
-- (UMSS7ConfigSMSCUser *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigUser *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigSMSCUser allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigUser allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

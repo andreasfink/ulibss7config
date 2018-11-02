@@ -1,5 +1,5 @@
 //
-//  UMSS7ConfigUser.h
+//  UMSS7ConfigAdminUser.h
 //  estp
 //
 //  Created by Andreas Fink on 15.03.18.
@@ -8,7 +8,7 @@
 
 #import "UMSS7ConfigObject.h"
 
-@interface UMSS7ConfigUser : UMSS7ConfigObject
+@interface UMSS7ConfigAdminUser : UMSS7ConfigObject
 {
     NSString *_password;
 }
@@ -17,7 +17,7 @@
 
 + (NSString *)type;
 - (NSString *)type;
-- (UMSS7ConfigUser *)initWithConfig:(NSDictionary *)dict;
+- (UMSS7ConfigAdminUser *)initWithConfig:(NSDictionary *)dict;
 
 @end
 

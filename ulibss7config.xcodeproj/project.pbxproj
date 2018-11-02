@@ -72,7 +72,7 @@
 		A6BC430320774F93008C3CEB /* UMSS7ConfigMTP3Link.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42B420774F8A008C3CEB /* UMSS7ConfigMTP3Link.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BC430420774F93008C3CEB /* UMSS7ConfigSCCPTranslationTableEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC42B520774F8A008C3CEB /* UMSS7ConfigSCCPTranslationTableEntry.m */; };
 		A6BC430520774F93008C3CEB /* UMSS7ConfigTelnet.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42B620774F8B008C3CEB /* UMSS7ConfigTelnet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BC430620774F93008C3CEB /* UMSS7ConfigUser.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42B720774F8B008C3CEB /* UMSS7ConfigUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6BC430620774F93008C3CEB /* UMSS7ConfigAdminUser.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42B720774F8B008C3CEB /* UMSS7ConfigAdminUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BC430720774F93008C3CEB /* UMSS7ConfigSCCPDestinationEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC42B820774F8B008C3CEB /* UMSS7ConfigSCCPDestinationEntry.m */; };
 		A6BC430820774F93008C3CEB /* UMSS7ConfigGSMMAP.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42B920774F8B008C3CEB /* UMSS7ConfigGSMMAP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BC430920774F93008C3CEB /* UMSS7ConfigSMSFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42BA20774F8B008C3CEB /* UMSS7ConfigSMSFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -100,7 +100,7 @@
 		A6BC431F20774F93008C3CEB /* UMSS7ConfigSCCPDestination.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42D020774F8E008C3CEB /* UMSS7ConfigSCCPDestination.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BC432020774F93008C3CEB /* UMSS7ConfigSCCPTranslationTableEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42D120774F8E008C3CEB /* UMSS7ConfigSCCPTranslationTableEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BC432120774F93008C3CEB /* UMSS7ConfigSyslogDestination.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42D220774F8E008C3CEB /* UMSS7ConfigSyslogDestination.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BC432220774F93008C3CEB /* UMSS7ConfigUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC42D320774F8F008C3CEB /* UMSS7ConfigUser.m */; };
+		A6BC432220774F93008C3CEB /* UMSS7ConfigAdminUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC42D320774F8F008C3CEB /* UMSS7ConfigAdminUser.m */; };
 		A6BC432320774F93008C3CEB /* UMSS7ConfigSCCPDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC42D420774F8F008C3CEB /* UMSS7ConfigSCCPDestination.m */; };
 		A6BC432420774F93008C3CEB /* UMSS7ConfigObject.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42D520774F8F008C3CEB /* UMSS7ConfigObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BC432520774F93008C3CEB /* UMSS7ConfigWebserver.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BC42D620774F8F008C3CEB /* UMSS7ConfigWebserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -355,7 +355,7 @@
 		A6BC42B420774F8A008C3CEB /* UMSS7ConfigMTP3Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigMTP3Link.h; sourceTree = "<group>"; };
 		A6BC42B520774F8A008C3CEB /* UMSS7ConfigSCCPTranslationTableEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPTranslationTableEntry.m; sourceTree = "<group>"; };
 		A6BC42B620774F8B008C3CEB /* UMSS7ConfigTelnet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigTelnet.h; sourceTree = "<group>"; };
-		A6BC42B720774F8B008C3CEB /* UMSS7ConfigUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigUser.h; sourceTree = "<group>"; };
+		A6BC42B720774F8B008C3CEB /* UMSS7ConfigAdminUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigAdminUser.h; sourceTree = "<group>"; };
 		A6BC42B820774F8B008C3CEB /* UMSS7ConfigSCCPDestinationEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPDestinationEntry.m; sourceTree = "<group>"; };
 		A6BC42B920774F8B008C3CEB /* UMSS7ConfigGSMMAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigGSMMAP.h; sourceTree = "<group>"; };
 		A6BC42BA20774F8B008C3CEB /* UMSS7ConfigSMSFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSMSFilter.h; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 		A6BC42D020774F8E008C3CEB /* UMSS7ConfigSCCPDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSCCPDestination.h; sourceTree = "<group>"; };
 		A6BC42D120774F8E008C3CEB /* UMSS7ConfigSCCPTranslationTableEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSCCPTranslationTableEntry.h; sourceTree = "<group>"; };
 		A6BC42D220774F8E008C3CEB /* UMSS7ConfigSyslogDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSyslogDestination.h; sourceTree = "<group>"; };
-		A6BC42D320774F8F008C3CEB /* UMSS7ConfigUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigUser.m; sourceTree = "<group>"; };
+		A6BC42D320774F8F008C3CEB /* UMSS7ConfigAdminUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigAdminUser.m; sourceTree = "<group>"; };
 		A6BC42D420774F8F008C3CEB /* UMSS7ConfigSCCPDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPDestination.m; sourceTree = "<group>"; };
 		A6BC42D520774F8F008C3CEB /* UMSS7ConfigObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigObject.h; sourceTree = "<group>"; };
 		A6BC42D620774F8F008C3CEB /* UMSS7ConfigWebserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigWebserver.h; sourceTree = "<group>"; };
@@ -883,8 +883,8 @@
 				A6BC42B120774F8A008C3CEB /* UMSS7ConfigTCAPFilterEntry.m */,
 				A6BC42B620774F8B008C3CEB /* UMSS7ConfigTelnet.h */,
 				A6BC42CA20774F8D008C3CEB /* UMSS7ConfigTelnet.m */,
-				A6BC42B720774F8B008C3CEB /* UMSS7ConfigUser.h */,
-				A6BC42D320774F8F008C3CEB /* UMSS7ConfigUser.m */,
+				A6BC42B720774F8B008C3CEB /* UMSS7ConfigAdminUser.h */,
+				A6BC42D320774F8F008C3CEB /* UMSS7ConfigAdminUser.m */,
 				A6BC42D620774F8F008C3CEB /* UMSS7ConfigWebserver.h */,
 				A6BC42DE20774F90008C3CEB /* UMSS7ConfigWebserver.m */,
 				A6369E5F20A1F58D00AD6673 /* UMSS7ConfigSMSCUser.h */,
@@ -953,7 +953,7 @@
 				A6BC4534207753EE008C3CEB /* UMSS7ApiTaskM3UAAS_add.h in Headers */,
 				A6BC44F0207753ED008C3CEB /* UMSS7ApiTask.h in Headers */,
 				A6BC432420774F93008C3CEB /* UMSS7ConfigObject.h in Headers */,
-				A6BC430620774F93008C3CEB /* UMSS7ConfigUser.h in Headers */,
+				A6BC430620774F93008C3CEB /* UMSS7ConfigAdminUser.h in Headers */,
 				A6BC451E207753EE008C3CEB /* UMSS7ApiTaskMTP3_modify.h in Headers */,
 				A6BC431120774F93008C3CEB /* UMSS7ConfigGSMMAPFilterEntry.h in Headers */,
 				A6BC44FB207753ED008C3CEB /* UMSS7ApiTaskMTP3Linkset_delete.h in Headers */,
@@ -1163,7 +1163,7 @@
 				A6BC44DF207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_action.m in Sources */,
 				A6BC433120774F93008C3CEB /* UMSS7ConfigSMSProxy.m in Sources */,
 				A6BC453D207753EE008C3CEB /* UMSS7ApiTaskSCTP_modify.m in Sources */,
-				A6BC432220774F93008C3CEB /* UMSS7ConfigUser.m in Sources */,
+				A6BC432220774F93008C3CEB /* UMSS7ConfigAdminUser.m in Sources */,
 				A6BC4525207753EE008C3CEB /* UMSS7ApiTaskMTP3Link_action.m in Sources */,
 				A63DBFC520887DB000CA6871 /* UMSS7ConfigGSMSCF.m in Sources */,
 				A6BC44EE207753ED008C3CEB /* UMSS7ApiTaskSCTP_add.m in Sources */,
