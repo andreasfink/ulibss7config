@@ -44,14 +44,14 @@
 @class  UMSS7ConfigGMLC;
 @class  UMSS7ConfigSMSC;
 @class  UMSS7ConfigSMSproxy;
-@class  UMSS7ConfigUser;
+@class  UMSS7ConfigAdminUser;
 @class  UMSS7ConfigDatabasePool;
 @class UMSS7ConfigGSMSCF;
 @class UMSS7ConfigEIR;
 @class UMSS7ConfigSCCPNumberTranslation;
-@class UMSS7ConfigSMSCUser;
-@class UMSS7ConfigSMSCUserProfile;
-@class UMSS7ConfigSMSCBillingEntity;
+@class UMSS7ConfigServiceUser;
+@class UMSS7ConfigServiceUserProfile;
+@class UMSS7ConfigServiceBillingEntity;
 @class UMSS7ConfigSMSProxy;
 @class UMSS7ConfigESTP;
 @class UMSS7ConfigMAPI;
@@ -94,12 +94,12 @@
     UMSynchronizedDictionary *_gmlc_dict;
     UMSynchronizedDictionary *_eir_dict;
     UMSynchronizedDictionary *_smsc_dict;
-    UMSynchronizedDictionary *_user_dict;
+    UMSynchronizedDictionary *_admin_user_dict;
     UMSynchronizedDictionary *_database_pool_dict;
     UMSynchronizedDictionary *_sccp_number_translation_dict;
-    UMSynchronizedDictionary *_smsc_user_dict;
-    UMSynchronizedDictionary *_smsc_billing_entity_dict;
-    UMSynchronizedDictionary *_smsc_profile_dict;
+    UMSynchronizedDictionary *_service_user_dict;
+    UMSynchronizedDictionary *_service_billing_entity_dict;
+    UMSynchronizedDictionary *_service_user_profile_dict;
     UMSynchronizedDictionary *_smsproxy_dict;
     UMSynchronizedDictionary *_estp_dict;
     UMSynchronizedDictionary *_mapi_dict;
@@ -144,12 +144,12 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *gmlc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *eir_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_dict;
-@property(readwrite,strong,atomic)  UMSynchronizedDictionary *user_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *admin_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *database_pool_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_number_translation_dict;
-@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_user_dict;
-@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_billing_entity_dict;
-@property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_profile_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *service_user_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *service_billing_entity_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *service_user_profile_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsproxy_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *estp_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mapi_dict;
@@ -366,11 +366,11 @@
 - (NSString *)replaceSyslogDestination:(UMSS7ConfigSyslogDestination *)syslog;
 - (NSString *)deleteSyslogDestination:(NSString *)name;
 
-- (NSArray *)getUserNames;
-- (UMSS7ConfigUser *)getUser:(NSString *)name;
-- (NSString *)addUser:(UMSS7ConfigUser *)user;
-- (NSString *)replaceUser:(UMSS7ConfigUser *)user;
-- (NSString *)deleteUser:(NSString *)name;
+- (NSArray *)getAdminUserNames;
+- (UMSS7ConfigAdminUser *)getAdminUser:(NSString *)name;
+- (NSString *)addAdminUser:(UMSS7ConfigAdminUser *)user;
+- (NSString *)replaceAdminUser:(UMSS7ConfigAdminUser *)user;
+- (NSString *)deleteAdminUser:(NSString *)name;
 
 - (NSArray *)getSCCPNumberTranslationNames;
 - (UMSS7ConfigSCCPNumberTranslation *)getSCCPNumberTranslation:(NSString *)name;
@@ -379,23 +379,23 @@
 - (NSString *)deleteSCCPNumberTranslation:(NSString *)name;
 
 
-- (NSArray *)getSMSCUserNames;
-- (UMSS7ConfigSMSCUser *)getSMSCUser:(NSString *)name;
-- (NSString *)addSMSCUser:(UMSS7ConfigSMSCUser *)smsc;
-- (NSString *)replaceSMSCUser:(UMSS7ConfigSMSCUser *)smsc;
-- (NSString *)deleteSMSCUser:(NSString *)name;
+- (NSArray *)getServiceUserNames;
+- (UMSS7ConfigServiceUser *)getServiceUser:(NSString *)name;
+- (NSString *)addServiceUser:(UMSS7ConfigServiceUser *)smsc;
+- (NSString *)replaceServiceUser:(UMSS7ConfigServiceUser *)smsc;
+- (NSString *)deleteServiceUser:(NSString *)name;
 
-- (NSArray *)getSMSCUserProfileNames;
-- (UMSS7ConfigSMSCUserProfile *)getSMSCUserProfile:(NSString *)name;
-- (NSString *)addSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)smsc;
-- (NSString *)replaceSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)smsc;
-- (NSString *)deleteSMSCUserProfile:(NSString *)name;
+- (NSArray *)getServiceUserProfileNames;
+- (UMSS7ConfigServiceUserProfile *)getServiceUserProfile:(NSString *)name;
+- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceUserProfile *)smsc;
+- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceUserProfile *)smsc;
+- (NSString *)deleteServiceUserProfile:(NSString *)name;
 
-- (NSArray *)getSMSCBillingEntityNames;
-- (UMSS7ConfigSMSCBillingEntity *)getSMSCBillingEntity:(NSString *)name;
-- (NSString *)addSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)smsc;
-- (NSString *)replaceSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)smsc;
-- (NSString *)deleteSMSCBillingEntitye:(NSString *)name;
+- (NSArray *)getServiceBillingEntityNames;
+- (UMSS7ConfigServiceBillingEntity *)getServiceBillingEntity:(NSString *)name;
+- (NSString *)addServiceBillingEntity:(UMSS7ConfigServiceBillingEntity *)smsc;
+- (NSString *)replaceServiceBillingEntity:(UMSS7ConfigServiceBillingEntity *)smsc;
+- (NSString *)deleteServiceBillingEntitye:(NSString *)name;
 
 - (NSArray *)getIMSIPoolNames;
 - (UMSS7ConfigIMSIPool *)getIMSIPool:(NSString *)name;

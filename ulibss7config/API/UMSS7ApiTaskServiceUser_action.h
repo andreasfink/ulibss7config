@@ -1,5 +1,5 @@
 //
-//  UMSS7ApiTaskSMSCUser_add.h
+//  UMSS7ApiTaskServiceUser_action.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
@@ -8,6 +8,6 @@
 
 #import <ulibss7config/ulibss7config.h>
 
-@interface UMSS7ApiTaskSMSCUser_add : UMSS7ApiTask
+@interface UMSS7ApiTaskServiceUser_action : UMSS7ApiTask
 
 @end

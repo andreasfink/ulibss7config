@@ -1,23 +1,23 @@
 //
-//  UMSS7ApiTaskSMSCUser_action.m
+//  UMSS7ApiTaskServiceUser_action.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSMSCUser_action.h"
+#import "UMSS7ApiTaskServiceUser_action.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
-#import "UMSS7ConfigSMSCUser.h"
+#import "UMSS7ConfigServiceUser.h"
 
-@implementation UMSS7ApiTaskSMSCUser_action
+@implementation UMSS7ApiTaskServiceUser_action
 
 
 + (NSString *)apiPath
 {
-    return @"/api/smscuser-read";
+    return @"/api/serviceuser-read";
 }
 
 - (void)main
@@ -31,7 +31,7 @@
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigSMSCUser *obj = [cs getSMSCUser:name];
+    UMSS7ConfigServiceUser *obj = [cs getServiceUser:name];
     if(obj)
     {
         [self sendResultObject:obj.config];

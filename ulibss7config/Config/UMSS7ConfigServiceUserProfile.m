@@ -1,26 +1,26 @@
 //
-//  UMSS7ConfigSMSCUserProfile.m
+//  UMSS7ConfigServiceUserProfile.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigSMSCUserProfile.h"
+#import "UMSS7ConfigServiceUserProfile.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigSMSCUserProfile
+@implementation UMSS7ConfigServiceUserProfile
 
 + (NSString *)type
 {
-    return @"smsc-user-profile";
+    return @"service-profile";
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigSMSCUserProfile type];
+    return [UMSS7ConfigServiceUserProfile type];
 }
 
-- (UMSS7ConfigSMSCUserProfile *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigServiceUserProfile *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -60,6 +60,14 @@
     APPEND_CONFIG_INTEGER(s,@"max-attempts",_maxAttempts);
     APPEND_CONFIG_INTEGER(s,@"max-attempts-for-delivery-reports",_maxAttemptsDlr);
     APPEND_CONFIG_STRING(s,@"retry-pattern",_retryPattern);
+
+
+    APPEND_CONFIG_BOOLEAN(s,@"config-api-access",_apiAccess);
+    APPEND_CONFIG_BOOLEAN(s,@"web-access",_webSubmissionAccess);
+    APPEND_CONFIG_BOOLEAN(s,@"web-admin-access",_webAdminAccess);
+    APPEND_CONFIG_BOOLEAN(s,@"smpp-access",_smppAccess);
+    APPEND_CONFIG_BOOLEAN(s,@"emiucp-access",_emiucpAccess);
+
 }
 
 
@@ -93,6 +101,13 @@
     APPEND_DICT_INTEGER(dict,@"max-attempts",_maxAttempts);
     APPEND_DICT_INTEGER(dict,@"max-attempts-for-delivery-reports",_maxAttemptsDlr);
     APPEND_DICT_STRING(dict,@"retry-pattern",_retryPattern);
+
+    APPEND_DICT_BOOLEAN(dict,@"config-api-access",_apiAccess);
+    APPEND_DICT_BOOLEAN(dict,@"web-access",_webSubmissionAccess);
+    APPEND_DICT_BOOLEAN(dict,@"web-admin-access",_webAdminAccess);
+    APPEND_DICT_BOOLEAN(dict,@"smpp-access",_smppAccess);
+    APPEND_DICT_BOOLEAN(dict,@"emiucp-access",_emiucpAccess);
+
     return dict;
 }
 
@@ -125,12 +140,19 @@
     SET_DICT_INTEGER(dict,@"max-attempts",_maxAttempts);
     SET_DICT_INTEGER(dict,@"max-attempts-for-delivery-reports",_maxAttemptsDlr);
     SET_DICT_STRING(dict,@"retry-pattern",_retryPattern);
+
+    SET_DICT_BOOLEAN(dict,@"config-api-access",_apiAccess);
+    SET_DICT_BOOLEAN(dict,@"web-access",_webSubmissionAccess);
+    SET_DICT_BOOLEAN(dict,@"web-admin-access",_webAdminAccess);
+    SET_DICT_BOOLEAN(dict,@"smpp-access",_smppAccess);
+    SET_DICT_BOOLEAN(dict,@"emiucp-access",_emiucpAccess);
+
 }
 
-- (UMSS7ConfigSMSCUserProfile *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigServiceUserProfile *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigSMSCUserProfile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigServiceUserProfile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

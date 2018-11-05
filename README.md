@@ -1,9 +1,10 @@
-#ulibgsms
-# The Universal Libary: SMS
+#ulibss7config
+# The Universal Libary: SS7 configuration
 
-ulib is a collection of generic useful Objective-C classes which can be used on macOS, iOS, tvOS, watchOS, Linux and probably many other Unixes. It builds on top of Foundation under Apple operating systems and GnuStep's base under Linux. It also used to work  with Cocotron in the past.
+ulibss7config is a library to hold configuration data for SS7 protocol stacks
 
-ulibsms implements the SMS content PDU functions used in GSM-MAP. It's  the layer7 of the ulib based universal SS7 stack but could also be used for non SS7 applications such as the AT command interface on GSM Modems.
+it reads textual configurtations into a tree of objects which then can be applied to a application stack
+running the ss7 layers
 
 
 # Related #
