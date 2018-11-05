@@ -12,7 +12,7 @@
 {
     NSNumber *_doBill;
     NSNumber *_blockIfOutOfCredit;
-    NSNumber *_creditLimit;;
+    NSNumber *_creditLimit;
     NSString *_priceTable;
 }
 
