@@ -17,6 +17,7 @@
     NSNumber            *_remotePort;
     NSNumber            *_passive;
     NSNumber            *_heartbeat; /* in seconds */
+    NSNumber            *_mtu;
 }
 
 + (NSString *)type;
@@ -29,6 +30,6 @@
 @property(readwrite,strong,atomic)      NSNumber            *remotePort;
 @property(readwrite,strong,atomic)      NSNumber            *passive;
 @property(readwrite,strong,atomic)      NSNumber            *heartbeat; /* in seconds */
-
+@property(readwrite,strong,atomic)      NSNumber            *mtu;
 @end
 
