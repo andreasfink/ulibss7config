@@ -8,6 +8,7 @@
 
 #import <ulib/ulib.h>
 
+#import "SS7AppDelegate.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 
 #import "UMSS7ConfigObject.h"
