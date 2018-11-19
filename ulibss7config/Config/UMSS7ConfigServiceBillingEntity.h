@@ -1,5 +1,5 @@
 //
-//  UMSS7ConfigSMSCBillingGroup.h
+//  UMSS7ConfigServiceBillingEntity.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 08.05.18.
@@ -8,11 +8,11 @@
 
 #import "UMSS7ConfigObject.h"
 
-@interface UMSS7ConfigSMSCBillingEntity : UMSS7ConfigObject
+@interface UMSS7ConfigServiceBillingEntity : UMSS7ConfigObject
 {
     NSNumber *_doBill;
     NSNumber *_blockIfOutOfCredit;
-    NSNumber *_creditLimit;;
+    NSNumber *_creditLimit;
     NSString *_priceTable;
 }
 
@@ -23,6 +23,6 @@
 
 + (NSString *)type;
 - (NSString *)type;
-- (UMSS7ConfigSMSCBillingEntity *)initWithConfig:(NSDictionary *)dict;
+- (UMSS7ConfigServiceBillingEntity *)initWithConfig:(NSDictionary *)dict;
 
 @end

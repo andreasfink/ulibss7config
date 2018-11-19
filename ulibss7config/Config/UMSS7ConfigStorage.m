@@ -45,7 +45,7 @@
 #import "UMSS7ConfigSMSProxy.h"
 #import "UMSS7ConfigDatabasePool.h"
 #import "UMSS7ConfigCdrWriter.h"
-#import "UMSS7ConfigUser.h"
+#import "UMSS7ConfigAdminUser.h"
 #import "UMSS7ConfigMSC.h"
 #import "UMSS7ConfigHLR.h"
 #import "UMSS7ConfigVLR.h"
@@ -56,9 +56,9 @@
 #import "UMSS7ConfigMAPI.h"
 #import "UMSS7ConfigSCCPNumberTranslation.h"
 #import "UMSS7ConfigSCCPNumberTranslationEntry.h"
-#import "UMSS7ConfigSMSCUser.h"
-#import "UMSS7ConfigSMSCUserProfile.h"
-#import "UMSS7ConfigSMSCBillingEntity.h"
+#import "UMSS7ConfigServiceUser.h"
+#import "UMSS7ConfigServiceUserProfile.h"
+#import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
 
@@ -97,12 +97,12 @@
     _gmlc_dict= [[UMSynchronizedDictionary alloc]init];
     _eir_dict= [[UMSynchronizedDictionary alloc]init];
     _smsc_dict= [[UMSynchronizedDictionary alloc]init];
-    _user_dict= [[UMSynchronizedDictionary alloc]init];
+    _admin_user_dict= [[UMSynchronizedDictionary alloc]init];
     _database_pool_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsc_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsc_billing_entity_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsc_profile_dict= [[UMSynchronizedDictionary alloc]init];
+    _service_user_dict= [[UMSynchronizedDictionary alloc]init];
+    _service_billing_entity_dict= [[UMSynchronizedDictionary alloc]init];
+    _service_user_profile_dict= [[UMSynchronizedDictionary alloc]init];
     _smsproxy_dict= [[UMSynchronizedDictionary alloc]init];
     _estp_dict= [[UMSynchronizedDictionary alloc]init];
     _mapi_dict= [[UMSynchronizedDictionary alloc]init];
@@ -251,14 +251,14 @@
     [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
-    [cfg allowMultiGroup:[UMSS7ConfigUser type]];
+    [cfg allowMultiGroup:[UMSS7ConfigAdminUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSCUser type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSCBillingEntity type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSCUserProfile type]];
+    [cfg allowMultiGroup:[UMSS7ConfigServiceUser type]];
+    [cfg allowMultiGroup:[UMSS7ConfigServiceUserProfile type]];
+    [cfg allowMultiGroup:[UMSS7ConfigServiceBillingEntity type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
     [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
@@ -697,13 +697,13 @@
         }
     }
 
-    NSArray *user_configs = [cfg getMultiGroups:[UMSS7ConfigUser type]];
-    for(NSDictionary *user_config in user_configs)
+    NSArray *admin_user_configs = [cfg getMultiGroups:[UMSS7ConfigAdminUser type]];
+    for(NSDictionary *admin_user_config in admin_user_configs)
     {
-        UMSS7ConfigUser *user = [[UMSS7ConfigUser alloc]initWithConfig:user_config];
-        if(user.name.length  > 0)
+        UMSS7ConfigAdminUser *admin_user = [[UMSS7ConfigAdminUser alloc]initWithConfig:admin_user_config];
+        if(admin_user.name.length  > 0)
         {
-            _user_dict[user.name] = user;
+            _admin_user_dict[admin_user.name] = admin_user;
         }
     }
     NSArray *database_pool_configs = [cfg getMultiGroups:[UMSS7ConfigDatabasePool type]];
@@ -740,33 +740,33 @@
         _sccp_number_translation_dict[p.name] = p;
     }
 
-    NSArray *smsc_user_configs = [cfg getMultiGroups:[UMSS7ConfigSMSCUser type]];
-    for(NSDictionary *smsc_user_config in smsc_user_configs)
+    NSArray *service_user_configs = [cfg getMultiGroups:[UMSS7ConfigServiceUser type]];
+    for(NSDictionary *service_user_config in service_user_configs)
     {
-        UMSS7ConfigSMSCUser *u = [[UMSS7ConfigSMSCUser alloc]initWithConfig:smsc_user_config];
+        UMSS7ConfigServiceUser *u = [[UMSS7ConfigServiceUser alloc]initWithConfig:service_user_config];
         if(u.name.length  > 0)
         {
-            _smsc_user_dict[u.name] = u;
+            _service_user_dict[u.name] = u;
         }
     }
 
-    NSArray *smsc_user_profile_configs = [cfg getMultiGroups:[UMSS7ConfigSMSCUserProfile type]];
-    for(NSDictionary *smsc_user_profile_config in smsc_user_profile_configs)
+    NSArray *service_user_profile_configs = [cfg getMultiGroups:[UMSS7ConfigServiceUserProfile type]];
+    for(NSDictionary *service_user_profile_config in service_user_profile_configs)
     {
-        UMSS7ConfigSMSCUserProfile *up = [[UMSS7ConfigSMSCUserProfile alloc]initWithConfig:smsc_user_profile_config];
+        UMSS7ConfigServiceUserProfile *up = [[UMSS7ConfigServiceUserProfile alloc]initWithConfig:service_user_profile_config];
         if(up.name.length  > 0)
         {
-            _smsc_profile_dict[up.name] = up;
+            _service_user_profile_dict[up.name] = up;
         }
     }
 
-    NSArray *smsc_billing_entity_configs = [cfg getMultiGroups:[UMSS7ConfigSMSCBillingEntity type]];
-    for(NSDictionary *smsc_billing_entity_config in smsc_billing_entity_configs)
+    NSArray *service_billing_entity_configs = [cfg getMultiGroups:[UMSS7ConfigServiceBillingEntity type]];
+    for(NSDictionary *service_billing_entity_config in service_billing_entity_configs)
     {
-        UMSS7ConfigSMSCBillingEntity *be = [[UMSS7ConfigSMSCBillingEntity alloc]initWithConfig:smsc_billing_entity_config];
+        UMSS7ConfigServiceBillingEntity *be = [[UMSS7ConfigServiceBillingEntity alloc]initWithConfig:service_billing_entity_config];
         if(be.name.length  > 0)
         {
-            _smsc_billing_entity_dict[be.name] = be;
+            _service_billing_entity_dict[be.name] = be;
         }
     }
     NSArray *imsi_pool_configs = [cfg getMultiGroups:[UMSS7ConfigIMSIPool type]];
@@ -2668,47 +2668,47 @@
 
 /*
  **************************************************
- ** User
+ ** AdminUser
  **************************************************
  */
 #pragma mark -
-#pragma mark User
+#pragma mark AdminUser
 
-- (NSArray *)getUserNames
+- (NSArray *)getAdminUserNames
 {
-    return [_user_dict allKeys];
+    return [_admin_user_dict allKeys];
 }
 
-- (UMSS7ConfigUser *)getUser:(NSString *)name
+- (UMSS7ConfigAdminUser *)getAdminUser:(NSString *)name
 {
-    return _user_dict[name];
+    return _admin_user_dict[name];
 }
 
-- (NSString *)addUser:(UMSS7ConfigUser *)user
+- (NSString *)addAdminUser:(UMSS7ConfigAdminUser *)user
 {
-    if(_user_dict[user.name] == NULL)
+    if(_admin_user_dict[user.name] == NULL)
     {
-        _user_dict[user.name] = user;
+        _admin_user_dict[user.name] = user;
         _dirty=YES;
         return @"ok";
     }
     return @"already exists";
 }
 
-- (NSString *)replaceUser:(UMSS7ConfigUser *)user
+- (NSString *)replaceAdminUser:(UMSS7ConfigAdminUser *)user
 {
-    _user_dict[user.name] = user;
+    _admin_user_dict[user.name] = user;
     _dirty=YES;
     return @"ok";
 }
 
-- (NSString *)deleteUser:(NSString *)name
+- (NSString *)deleteAdminUser:(NSString *)name
 {
-    if(_user_dict[name]==NULL)
+    if(_admin_user_dict[name]==NULL)
     {
         return @"not found";
     }
-    [_user_dict removeObjectForKey:name];
+    [_admin_user_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
@@ -2716,95 +2716,95 @@
 
 /*
  **************************************************
- ** SMSCUser
+ ** ServiceUser
  **************************************************
  */
 #pragma mark -
-#pragma mark SMSCUser
+#pragma mark ServiceUser
 
-- (NSArray *)getSMSCUserNames
+- (NSArray *)getServiceUserNames
 {
-    return [_smsc_user_dict allKeys];
+    return [_service_user_dict allKeys];
 }
 
-- (UMSS7ConfigSMSCUser *)getSMSCUser:(NSString *)name
+- (UMSS7ConfigServiceUser *)getServiceUser:(NSString *)name
 {
-    return _smsc_user_dict[name];
+    return _service_user_dict[name];
 }
 
-- (NSString *)addSMSCUser:(UMSS7ConfigSMSCUser *)user
+- (NSString *)addServiceUser:(UMSS7ConfigServiceUser *)user
 {
-    if(_smsc_user_dict[user.name] == NULL)
+    if(_service_user_dict[user.name] == NULL)
     {
-        _smsc_user_dict[user.name] = user;
+        _service_user_dict[user.name] = user;
         _dirty=YES;
         return @"ok";
     }
     return @"already exists";
 }
 
-- (NSString *)replaceSMSCUser:(UMSS7ConfigSMSCUser *)user
+- (NSString *)replaceServiceUser:(UMSS7ConfigServiceUser *)user
 {
-    _smsc_user_dict[user.name] = user;
+    _service_user_dict[user.name] = user;
     _dirty=YES;
     return @"ok";
 }
 
-- (NSString *)deleteSMSCUser:(NSString *)name
+- (NSString *)deleteServiceUser:(NSString *)name
 {
-    if(_smsc_user_dict[name]==NULL)
+    if(_service_user_dict[name]==NULL)
     {
         return @"not found";
     }
-    [_smsc_user_dict removeObjectForKey:name];
+    [_service_user_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
 
 /*
  **************************************************
- ** SMSCUserProfile
+ ** ServiceUserProfile
  **************************************************
  */
 #pragma mark -
-#pragma mark SMSCUserProfile
+#pragma mark ServiceUserProfile
 
 
-- (NSArray *)getSMSCUserProfileNames
+- (NSArray *)getServiceUserProfileNames
 {
-    return [_smsc_profile_dict allKeys];
+    return [_service_user_profile_dict allKeys];
 }
 
-- (UMSS7ConfigSMSCUserProfile *)getSMSCUserProfile:(NSString *)name
+- (UMSS7ConfigServiceUserProfile *)getServiceUserProfile:(NSString *)name
 {
-    return _smsc_profile_dict[name];
+    return _service_user_profile_dict[name];
 }
 
-- (NSString *)addSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)profile
+- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceUserProfile *)profile
 {
-    if(_smsc_profile_dict[profile.name] == NULL)
+    if(_service_user_profile_dict[profile.name] == NULL)
     {
-        _smsc_profile_dict[profile.name] = profile;
+        _service_user_profile_dict[profile.name] = profile;
         _dirty=YES;
         return @"ok";
     }
     return @"already exists";
 }
 
-- (NSString *)replaceSMSCUserProfile:(UMSS7ConfigSMSCUserProfile *)profile
+- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceUserProfile *)profile
 {
-    _smsc_profile_dict[profile.name] = profile;
+    _service_user_profile_dict[profile.name] = profile;
     _dirty=YES;
     return @"ok";
 }
 
-- (NSString *)deleteSMSCUserProfile:(NSString *)name
+- (NSString *)deleteServiceUserProfile:(NSString *)name
 {
-    if(_smsc_profile_dict[name]==NULL)
+    if(_service_user_profile_dict[name]==NULL)
     {
         return @"not found";
     }
-    [_smsc_profile_dict removeObjectForKey:name];
+    [_service_user_profile_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
@@ -2812,48 +2812,48 @@
 
 /*
  **************************************************
- ** SMSCBillingEntity
+ ** ServiceBillingEntity
  **************************************************
  */
 #pragma mark -
-#pragma mark SMSCBillingEntity
+#pragma mark ServiceBillingEntity
 
 
-- (NSArray *)getSMSCBillingEntityNames
+- (NSArray *)getServiceBillingEntityNames
 {
-    return [_smsc_billing_entity_dict allKeys];
+    return [_service_billing_entity_dict allKeys];
 }
 
-- (UMSS7ConfigSMSCBillingEntity *)getSMSCBillingEntity:(NSString *)name
+- (UMSS7ConfigServiceBillingEntity *)getServiceBillingEntity:(NSString *)name
 {
-    return _smsc_billing_entity_dict [name];
+    return _service_billing_entity_dict [name];
 }
 
-- (NSString *)addSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)be
+- (NSString *)addServiceBillingEntity:(UMSS7ConfigServiceBillingEntity *)be
 {
-    if(_smsc_billing_entity_dict[be.name] == NULL)
+    if(_service_billing_entity_dict[be.name] == NULL)
     {
-        _smsc_billing_entity_dict[be.name] = be;
+        _service_billing_entity_dict[be.name] = be;
         _dirty=YES;
         return @"ok";
     }
     return @"already exists";
 }
 
-- (NSString *)replaceSMSCBillingEntity:(UMSS7ConfigSMSCBillingEntity *)be
+- (NSString *)replaceServiceBillingEntity:(UMSS7ConfigServiceBillingEntity *)be
 {
-    _smsc_billing_entity_dict[be.name] = be;
+    _service_billing_entity_dict[be.name] = be;
     _dirty=YES;
     return @"ok";
 }
 
-- (NSString *)deleteSMSCBillingEntitye:(NSString *)name
+- (NSString *)deleteServiceBillingEntitye:(NSString *)name
 {
-    if(_smsc_billing_entity_dict[name]==NULL)
+    if(_service_billing_entity_dict[name]==NULL)
     {
         return @"not found";
     }
-    [_smsc_billing_entity_dict removeObjectForKey:name];
+    [_service_billing_entity_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
@@ -2900,12 +2900,12 @@
     n.gmlc_dict = [_gmlc_dict copy];
     n.eir_dict = [_eir_dict copy];
     n.smsc_dict = [_smsc_dict copy];
-    n.user_dict = [_user_dict copy];
+    n.admin_user_dict = [_admin_user_dict copy];
     n.database_pool_dict = [_database_pool_dict copy];
     n.sccp_number_translation_dict = [_sccp_number_translation_dict copy];
-    n.smsc_user_dict = [_smsc_user_dict copy];
-    n.smsc_billing_entity_dict = [_smsc_billing_entity_dict copy];
-    n.smsc_profile_dict = [_smsc_profile_dict copy];
+    n.service_user_dict = [_service_user_dict copy];
+    n.service_billing_entity_dict = [_service_billing_entity_dict copy];
+    n.service_user_profile_dict = [_service_user_profile_dict copy];
     n.smsproxy_dict = [_smsproxy_dict copy];
     n.estp_dict = [_estp_dict copy];
     n.mapi_dict = [_mapi_dict copy];

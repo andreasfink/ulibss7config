@@ -22,6 +22,9 @@
     NSString *_filterSirSmResp;
     NSString *_filterForwardSm;
     NSString *_filterForwardSmResp;
+	NSString *_filterMoForwardSmSubmit;
+	NSString *_filterMoForwardSmSubmitResp;
+
     NSNumber *_timeout;
     NSNumber *_imsiTimer;
     NSString *_imsiPrefix;
@@ -29,9 +32,9 @@
 
     NSNumber *_smscTranslationType;
     NSNumber *_srismTranslationType;
-    NSNumber *_forwardsmTranslationType;
-
-
+	NSNumber *_forwardsmTranslationType;
+	NSNumber *_moForwardsmSubmitTranslationType;
+	NSNumber *_moForwardSmSubmitHlrCheck;
 }
 
 @property(readwrite,strong,atomic)   NSString *number;
@@ -46,6 +49,8 @@
 @property(readwrite,strong,atomic)   NSString *filterSirSmResp;
 @property(readwrite,strong,atomic)   NSString *filterForwardSm;
 @property(readwrite,strong,atomic)   NSString *filterForwardSmResp;
+@property(readwrite,strong,atomic)   NSString *filterMoForwardSmSubmit;
+@property(readwrite,strong,atomic)   NSString *filterMoForwardSmSubmitResp;
 @property(readwrite,strong,atomic)   NSNumber *timeout;
 @property(readwrite,strong,atomic)   NSNumber *imsiTimer;
 @property(readwrite,strong,atomic)   NSString *imsiPrefix;
@@ -54,9 +59,8 @@
 @property(readwrite,strong,atomic)   NSNumber *smscTranslationType;
 @property(readwrite,strong,atomic)   NSNumber *srismTranslationType;
 @property(readwrite,strong,atomic)   NSNumber *forwardsmTranslationType;
-
-
-
+@property(readwrite,strong,atomic)   NSNumber *moForwardsmSubmitTranslationType;
+@property(readwrite,strong,atomic)   NSNumber *moForwardSmSubmitHlrCheck;
 
 + (NSString *)type;
 - (NSString *)type;

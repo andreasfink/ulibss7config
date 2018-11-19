@@ -7,23 +7,23 @@
 //
 
 #import <ulib/ulib.h>
-#import "UMSS7ConfigUser.h"
+#import "UMSS7ConfigAdminUser.h"
 
 @interface UMSS7ApiSession : UMObject
 {
     NSString *_sessionKey;
-    UMSS7ConfigUser *_currentUser;
+    UMSS7ConfigAdminUser *_currentUser;
     NSString *_connectedFromIp;
     UMAtomicDate *_lastUsed;
     NSTimeInterval timeout;
 }
 
 @property(readwrite,strong,atomic) NSString *sessionKey;
-@property(readwrite,strong,atomic) UMSS7ConfigUser *currentUser;
+@property(readwrite,strong,atomic) UMSS7ConfigAdminUser *currentUser;
 @property(readwrite,strong,atomic) NSString *connectedFromIp;
 @property(readwrite,strong,atomic) UMAtomicDate *lastUsed;
 
-- (UMSS7ApiSession *)initWithHttpRequest:(UMHTTPRequest *)req user:(UMSS7ConfigUser *)user;
+- (UMSS7ApiSession *)initWithHttpRequest:(UMHTTPRequest *)req user:(UMSS7ConfigAdminUser *)user;
 - (void)touch;
 
 @end

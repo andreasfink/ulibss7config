@@ -1,26 +1,26 @@
 //
-//  UMSS7ConfigUser.m
+//  UMSS7ConfigAdminUser.m
 //  estp
 //
 //  Created by Andreas Fink on 15.03.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigUser.h"
+#import "UMSS7ConfigAdminUser.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigUser
+@implementation UMSS7ConfigAdminUser
 
 + (NSString *)type
 {
-    return @"user";
+    return @"admin-user";
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigUser type];
+    return [UMSS7ConfigAdminUser type];
 }
 
-- (UMSS7ConfigUser *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigAdminUser *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -50,10 +50,10 @@
     SET_DICT_STRING(dict,@"password",_password);
 }
 
-- (UMSS7ConfigUser *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigAdminUser *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigUser allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigAdminUser allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 
