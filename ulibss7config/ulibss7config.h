@@ -9,6 +9,13 @@
 #import <ulib/ulib.h>
 
 #import "SS7AppDelegate.h"
+#import "SS7UserAuthenticateProtocol.h"
+#import "SS7GenericInstance.h"
+#import "SS7GenericSession.h"
+#import "SS7AppTransportHandler.h"
+#import "SS7TelnetSocketHelperProtocol.h"
+#import "SS7TelnetSocket.h"
+
 #import "UMSS7ConfigAppDelegateProtocol.h"
 
 #import "UMSS7ConfigObject.h"

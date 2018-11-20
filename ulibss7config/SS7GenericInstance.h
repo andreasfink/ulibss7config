@@ -12,8 +12,8 @@
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
-
-//#import "AuthenticationDelegateProtocol.h"
+#import <ulibss7config/ulibss7config.h>
+#import "SS7UserAuthenticateProtocol.h"
 
 @class SS7GenericSession;
 
@@ -34,7 +34,7 @@ UMHTTPRequest_TimeoutProtocol
     UMMutex                     *_housekeeping_lock;
     UMAtomicDate                *_houseKeepingTimerRun;
     UMHTTPClient                *_webClient;
-    id                          _authDelegate;
+    id<SS7UserAuthenticateProtocol> _authDelegate;
 }
 
 @property(readwrite,strong) UMLayerGSMMAP *gsmMap;
@@ -44,7 +44,7 @@ UMHTTPRequest_TimeoutProtocol
 @property(readwrite,strong) NSString *genericTraceDirectory;
 @property(readwrite,strong) UMAtomicDate *houseKeepingTimerRun;
 @property(readwrite,strong) UMHTTPClient *webClient;
-//@property(readwrite,strong) id<AuthenticationDelegateProtocol>    authDelegate;
+@property(readwrite,strong) id<SS7UserAuthenticateProtocol>    authDelegate;
 
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;

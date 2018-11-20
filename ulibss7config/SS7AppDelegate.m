@@ -2269,8 +2269,14 @@ static void signalHandler(int signum);
     if(_signal_sigusr2>0)
     {
         [self signal_SIGUSR2]; /* go into Standby Mode */
-        _signal_sigusr2;
+        _signal_sigusr2--;
     }
+}
+
+
+- (UMHTTPAuthenticationStatus)authenticateUser:(NSString *)user pass:(NSString *)pass
+{
+    return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
 }
 
 @end

@@ -13,6 +13,8 @@
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import "UMSS7ConfigObject.h"
+#import "SS7TelnetSocketHelperProtocol.h"
+#import "SS7UserAuthenticateProtocol.h"
 
 @class HLRInstance;
 @class MSCInstance;
@@ -42,7 +44,9 @@ UMLayerM2PAApplicationContextProtocol,
 UMLayerMTP3ApplicationContextProtocol,
 UMLayerSCCPApplicationContextProtocol,
 UMLayerTCAPApplicationContextProtocol,
-UMLayerGSMMAPApplicationContextProtocol>
+UMLayerGSMMAPApplicationContextProtocol,
+SS7TelnetSocketHelperProtocol,
+SS7UserAuthenticateProtocol>
 #else
 @interface SS7AppDelegate : NSObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
@@ -53,7 +57,9 @@ UMLayerM2PAApplicationContextProtocol,
 UMLayerMTP3ApplicationContextProtocol,
 UMLayerSCCPApplicationContextProtocol,
 UMLayerTCAPApplicationContextProtocol,
-UMLayerGSMMAPApplicationContextProtocol>
+UMLayerGSMMAPApplicationContextProtocol,
+SS7TelnetSocketHelperProtocol,
+SS7UserAuthenticateProtocol>
 #endif
 {
     NSDictionary                *_enabledOptions;
@@ -115,9 +121,11 @@ UMLayerGSMMAPApplicationContextProtocol>
     id                          _mainHlrInstance;
 }
 
-@property(readwrite,assign)     UMLogLevel logLevel;
-@property(readwrite,strong)     UMLogFeed  *logFeed;
+@property(readwrite,assign)     UMLogLevel      logLevel;
+@property(readwrite,strong)     UMLogFeed       *logFeed;
+@property(readwrite,strong)     UMLogHandler    *logHandler;
 
+- (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
 
