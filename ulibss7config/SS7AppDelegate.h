@@ -12,16 +12,15 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
+#import "UMSS7ConfigObject.h"
 
-#import "TemporaryImsiPool.h"
-#import "TelnetSocketHelperProtocol.h"
-
+@class HLRInstance;
 @class MSCInstance;
 @class ConfigurationSocket;
 @class SchrittmacherClient;
 @class UMSS7ConfigStorage;
 @class SccpDestination;
-@class AppTransportHandler;
+@class SS7AppTransportHandler;
 
 typedef enum SchrittmacherMode
 {
@@ -43,8 +42,7 @@ UMLayerM2PAApplicationContextProtocol,
 UMLayerMTP3ApplicationContextProtocol,
 UMLayerSCCPApplicationContextProtocol,
 UMLayerTCAPApplicationContextProtocol,
-UMLayerGSMMAPApplicationContextProtocol,
-TelnetSocketHelperProtocol>
+UMLayerGSMMAPApplicationContextProtocol>
 #else
 @interface SS7AppDelegate : NSObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
@@ -55,8 +53,7 @@ UMLayerM2PAApplicationContextProtocol,
 UMLayerMTP3ApplicationContextProtocol,
 UMLayerSCCPApplicationContextProtocol,
 UMLayerTCAPApplicationContextProtocol,
-UMLayerGSMMAPApplicationContextProtocol,
-TelnetSocketHelperProtocol>
+UMLayerGSMMAPApplicationContextProtocol>
 #endif
 {
     NSDictionary                *_enabledOptions;
@@ -100,7 +97,7 @@ TelnetSocketHelperProtocol>
     UMSynchronizedDictionary    *_gsmscf_dict;
     UMSynchronizedDictionary    *_gmlc_dict;
 
-    AppTransportHandler         *_appTransport;
+    SS7AppTransportHandler      *_appTransport;
 
     NSString                    *_logDirectory;
     int                         _logRotations;
@@ -113,10 +110,13 @@ TelnetSocketHelperProtocol>
     
     UMSocketSCTPRegistry        *_registry;
     int                         _must_quit;
+
+    id                          _mainMscInstance;
+    id                          _mainHlrInstance;
 }
 
 @property(readwrite,assign)     UMLogLevel logLevel;
-@property(readwrite,strong)     UMLogFeed logFeed;
+@property(readwrite,strong)     UMLogFeed  *logFeed;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
@@ -136,6 +136,7 @@ TelnetSocketHelperProtocol>
 - (NSArray *)commandLineSyntax;
 - (NSString *)defaultConfigFile;
 - (void) setupSignalHandlers;
-- (void) main;
+- (int)main:(int)argc argv:(const char **)argv;
+
 @end
 

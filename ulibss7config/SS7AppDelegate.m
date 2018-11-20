@@ -9,7 +9,67 @@
 #import "SS7AppDelegate.h"
 
 #import <ulibtransport/ulibtransport.h>
-#import "AppTransportHandler.h"
+#import <schrittmacherclient/schrittmacherclient.h>
+#import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigGeneral.h"
+#import "UMSS7ConfigWebserver.h"
+#import "UMSS7ConfigAdminUser.h"
+#import "UMSS7ConfigGeneral.h"
+#import "UMSS7ConfigWebserver.h"
+#import "UMSS7ConfigTelnet.h"
+#import "UMSS7ConfigSyslogDestination.h"
+#import "UMSS7ConfigSCTP.h"
+#import "UMSS7ConfigM2PA.h"
+#import "UMSS7ConfigMTP3.h"
+#import "UMSS7ConfigMTP3Route.h"
+#import "UMSS7ConfigMTP3Filter.h"
+#import "UMSS7ConfigMTP3FilterEntry.h"
+#import "UMSS7ConfigMTP3Linkset.h"
+#import "UMSS7ConfigMTP3Link.h"
+#import "UMSS7ConfigM3UAAS.h"
+#import "UMSS7ConfigM3UAASP.h"
+#import "UMSS7ConfigSCCP.h"
+#import "UMSS7ConfigSCCPFilter.h"
+#import "UMSS7ConfigSCCPFilterEntry.h"
+#import "UMSS7ConfigSCCPTranslationTable.h"
+#import "UMSS7ConfigSCCPTranslationTableEntry.h"
+#import "UMSS7ConfigSCCPDestination.h"
+#import "UMSS7ConfigSCCPDestinationEntry.h"
+#import "UMSS7ConfigTCAP.h"
+#import "UMSS7ConfigTCAPFilter.h"
+#import "UMSS7ConfigTCAPFilterEntry.h"
+#import "UMSS7ConfigGSMMAP.h"
+#import "UMSS7ConfigGSMMAPFilter.h"
+#import "UMSS7ConfigGSMMAPFilterEntry.h"
+#import "UMSS7ConfigSMS.h"
+#import "UMSS7ConfigSMSFilter.h"
+#import "UMSS7ConfigSMSFilterEntry.h"
+#import "UMSS7ConfigHLR.h"
+#import "UMSS7ConfigMSC.h"
+#import "UMSS7ConfigSMSC.h"
+#import "UMSS7ConfigSMSProxy.h"
+#import "UMSS7ConfigDatabasePool.h"
+#import "UMSS7ConfigCdrWriter.h"
+#import "UMSS7ConfigAdminUser.h"
+#import "UMSS7ConfigMSC.h"
+#import "UMSS7ConfigHLR.h"
+#import "UMSS7ConfigVLR.h"
+#import "UMSS7ConfigGSMSCF.h"
+#import "UMSS7ConfigGMLC.h"
+#import "UMSS7ConfigEIR.h"
+#import "UMSS7ConfigESTP.h"
+#import "UMSS7ConfigMAPI.h"
+#import "UMSS7ConfigSCCPNumberTranslation.h"
+#import "UMSS7ConfigSCCPNumberTranslationEntry.h"
+#import "UMSS7ConfigServiceUser.h"
+#import "UMSS7ConfigServiceUserProfile.h"
+#import "UMSS7ConfigServiceBillingEntity.h"
+#import "UMSS7ConfigIMSIPool.h"
+#import "UMSS7ConfigCdrWriter.h"
+
+#import "SS7GenericInstance.h"
+#import "SS7GenericSession.h"
+#import "SS7AppTransportHandler.h"
 
 @class SS7AppDelegate;
 
@@ -18,7 +78,6 @@ static int _signal_sigint = 0;
 static int _signal_sighup = 0;
 static int _signal_sigusr1 = 0;
 static int _signal_sigusr2 = 0;
-static void setupSignalHandlers(void);
 static void signalHandler(int signum);
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
@@ -59,29 +118,28 @@ static void signalHandler(int signum);
         _imsi_pools_dict                = [[UMSynchronizedDictionary alloc]init];
         if(_enabledOptions[@"msc"])
         {
-            _msc_pools_dict = [[UMSynchronizedDictionary alloc]init];
+            _msc_dict = [[UMSynchronizedDictionary alloc]init];
         }
         if(_enabledOptions[@"hlr"])
         {
-            _hlr_pools_dict = [[UMSynchronizedDictionary alloc]init];
+            _hlr_dict = [[UMSynchronizedDictionary alloc]init];
         }
         if(_enabledOptions[@"vlr"])
         {
-            _vlr_pools_dict = [[UMSynchronizedDictionary alloc]init];
+            _vlr_dict = [[UMSynchronizedDictionary alloc]init];
         }
         if(_enabledOptions[@"eir"])
         {
-            _eir_pools_dict = [[UMSynchronizedDictionary alloc]init];
+            _eir_dict = [[UMSynchronizedDictionary alloc]init];
         }
         if(_enabledOptions[@"gsmscf"])
         {
-            _gsmscf_pools_dict = [[UMSynchronizedDictionary alloc]init];
+            _gsmscf_dict = [[UMSynchronizedDictionary alloc]init];
         }
         if(_enabledOptions[@"gmlc"])
         {
-            _gmlc_pools_dict = [[UMSynchronizedDictionary alloc]init];
+            _gmlc_dict = [[UMSynchronizedDictionary alloc]init];
         }
-        _appTransport                   = [[AppTransportHandler alloc]init];
         _tidPool                        = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
     }
     return self;
@@ -250,10 +308,10 @@ static void signalHandler(int signum);
 
 - (NSString *)productName
 {
-    
+    return @"ss7-product";
 }
 
-- (void)processCommandLine:(int)argc argv:(const char **)argv )
+- (void)processCommandLine:(int)argc argv:(const char **)argv
 {
     NSDictionary    *appDefinition = [self appDefinition];
     NSArray         *commandLineDefinition = [self commandLineSyntax];
@@ -447,17 +505,17 @@ static void signalHandler(int signum);
     
     NSArray *names;
     /* make sure we have at least one default user */
-    names = [_runningConfig getUserNames];
+    names = [_runningConfig getAdminUserNames];
     if(names.count == 0)
     {
-        UMSS7ConfigUser *user = [[UMSS7ConfigUser alloc]initWithConfig:
+        UMSS7ConfigAdminUser *user = [[UMSS7ConfigAdminUser alloc]initWithConfig:
                                  @{
                                    @"group":@"user",
                                    @"name":@"admin",
                                    @"password":@"admin"
                                    }
                                  ];
-        [_runningConfig addUser:user];
+        [_runningConfig addAdminUser:user];
     }
     
     /* Webserver */
@@ -512,28 +570,7 @@ static void signalHandler(int signum);
         }
     }
     
-    /*****************************************************************/
-    /* Section Telnet */
-    /*****************************************************************/
-    names = [_runningConfig getTelnetNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getTelnet:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if([config configEnabledWithYesDefault])
-        {
-            int csPort = [[config configEntry:@"port"] intValue];
-            if(csPort == 0)
-            {
-                csPort = 7976;
-            }
-            TelnetSocket *cs = [[TelnetSocket alloc]init];
-            cs.localPort = csPort;
-            cs.delegate = self;
-            [cs startListener];
-            _telnet_dict[name] = cs;
-        }
-    }
+
     
     /*****************************************************************/
     /* Section Syslog */
@@ -551,22 +588,7 @@ static void signalHandler(int signum);
         }
     }
     
-    /*****************************************************************/
-    /* Section IMSI Pool */
-    /*****************************************************************/
-    names = [_runningConfig getIMSIPoolNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getIMSIPool:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
-        {
-            TemporaryImsiPool *pool = [[TemporaryImsiPool alloc]initWithConfig:config];
-            _imsi_pools_dict[pool.name] = pool;
-            
-        }
-    }
-    
+
     /*****************************************************************/
     /* SCTP */
     /*****************************************************************/
@@ -772,35 +794,7 @@ static void signalHandler(int signum);
             [self addWithConfigGSMMAP:config];
         }
     }
-    
-    /*****************************************************************/
-    /* MSC */
-    /*****************************************************************/
-    names = [_runningConfig getMSCNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getMSC:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
-        {
-            [self addWithConfigMSC:config];
-        }
-    }
-    
-    /*****************************************************************/
-    /* HLR */
-    /*****************************************************************/
-    names = [_runningConfig getHLRNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getHLR:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
-        {
-            [self addWithConfigHLR:config];
-        }
-    }
-    
+
     /*********************************/
     /* Setup SccpNumberTranslations  */
     /*********************************/
@@ -865,20 +859,6 @@ static void signalHandler(int signum);
         }
     }
     
-    /*****************************************************************/
-    /* AppTransport */
-    /*****************************************************************/
-    names = [_runningConfig getMAPINames];
-    if(names.count==1)
-    {
-        NSString *name = names[0];
-        UMSS7ConfigMAPI *co = [_runningConfig getMAPI:name];
-        UMLayerSCCP *sccp = [self getSCCP:co.sccp];
-        [self attachAppTransport:_appTransport
-                            sccp:sccp
-                          number:co.number
-                 transactionPool:tidPool];
-    }
 }
 
 - (void)startInstances
@@ -925,15 +905,15 @@ static void signalHandler(int signum);
         NSString *path = req.url.relativePath;
         if([path hasPrefix:@"/msc"])
         {
-            [mainMscInstance httpGetPost:req];
+            [_mainMscInstance httpGetPost:req];
         }
         else if([path hasPrefix:@"/hlr"])
         {
-            [mainHlrInstance httpGetPost:req];
+            [_mainHlrInstance httpGetPost:req];
         }
         else if([path isEqualToString:@"/css/style.css"])
         {
-            [req setResponseCssString:[AppDelegate css]];
+            [req setResponseCssString:[SS7AppDelegate css]];
         }
         else if([path isEqualToString:@"/status"])
         {
@@ -1174,12 +1154,12 @@ static void signalHandler(int signum);
         return s;
     }
     s = [[NSMutableString alloc]init];
-    [GenericInstance webHeader:s title:@"Main Menu"];
+    [SS7GenericInstance webHeader:s title:@"Main Menu"];
     
     [s appendString:@"<h2>Main Menu</h2>\n"];
     [s appendString:@"<UL>\n"];
     [s appendString:@"<LI><a href=\"/status\">status</a></LI>\n"];
-    
+    /* FIXME
     if(mainMscInstance)
     {
         [s appendString:@"<LI><a href=\"/msc\">msc</a></LI>\n"];
@@ -1197,7 +1177,7 @@ static void signalHandler(int signum);
     {
         [s appendString:@"<LI><i>hlr</i></LI>\n"];
     }
-    
+    */
     [s appendString:@"</UL>\n"];
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
@@ -1445,25 +1425,36 @@ static void signalHandler(int signum);
 
 - (void)signal_SIGINT
 {
-    NSLog(@"signal_SIGINT received, terminating...");
-    exit(0);
-}
-
-- (void)signal_SIGHUP
-{
-    NSLog(@"SIGHUP received, should be reopening logfile...");
+    if (_must_quit == 0)
+    {
+        NSLog(@"SIGINT received, aborting program...");
+        _must_quit = 1;
+        [self applicationWillTerminate:NULL];
+    }
+    else
+    {
+        NSLog(@"SIGINT received again, force quitting program...");
+        _must_quit = 2;
+        exit(-1);
+    }
 }
 
 - (void)signal_SIGUSR1
 {
+    _schrittmacherMode = SchrittmacherMode_hot;
     NSLog(@"SIGUSR1 received, going to hot...");
     [self applicationGoToHot];
 }
 
 - (void)signal_SIGUSR2
 {
+    _schrittmacherMode = SchrittmacherMode_standby;
     NSLog(@"SIGUSR2 received, going to standby...");
     [self applicationGoToStandby];
+}
+- (void)signal_SIGHUP
+{
+    NSLog(@"SIGHUP received, should be reopening logfile...");
 }
 
 
@@ -1576,6 +1567,8 @@ static void signalHandler(int signum);
     return _mtp3_dict[name];
 }
 
+
+
 - (void)addWithConfigMTP3:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
@@ -1583,13 +1576,13 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigMTP3 *co = [[UMSS7ConfigMTP3 alloc]initWithConfig:config];
         [_runningConfig addMTP3:co];
-        
+
         int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
         UMTaskQueueMulti *_mtp3TaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
                                                                                        name:@"mtp3"
                                                                               enableLogging:NO
                                                                              numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
+
         UMLayerMTP3 *mtp3 = [[UMLayerMTP3 alloc]initWithTaskQueueMulti:_mtp3TaskQueue];
         mtp3.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3"];
         mtp3.logFeed.name = name;
@@ -1618,19 +1611,19 @@ static void signalHandler(int signum);
 #pragma mark MTP3Link Service Functions
 /************************************************************/
 
-- (UMMTP3Link *)getMTP3Link:(NSString *)name
+- (UMMTP3Link *)getMTP3_Link:(NSString *)name
 {
     return _mtp3_link_dict[name];
 }
 
-- (void)addWithConfigMTP3Link:(NSDictionary *)config
+- (void)addWithConfigMTP3_Link:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
     if(name)
     {
         UMSS7ConfigMTP3Link *co = [[UMSS7ConfigMTP3Link alloc]initWithConfig:config];
         [_runningConfig addMTP3Link:co];
-        
+
         UMMTP3Link *mtp3link = [[UMMTP3Link alloc]init];
         mtp3link.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3-link"];
         mtp3link.logFeed.name = name;
@@ -1640,12 +1633,12 @@ static void signalHandler(int signum);
 }
 
 
-- (void)deleteMTP3Link:(NSString *)name
+- (void)deleteMTP3_Link:(NSString *)name
 {
     /* FIXME: to be implemented */
 }
 
-- (void)renameMTP3Link:(NSString *)oldName to:(NSString *)newName
+- (void)renameMTP3_Link:(NSString *)oldName to:(NSString *)newName
 {
     UMMTP3Link *layer =  _mtp3_link_dict[oldName];
     [_mtp3_link_dict removeObjectForKey:oldName];
@@ -1658,19 +1651,19 @@ static void signalHandler(int signum);
 #pragma mark MTP3LinkSet Service Functions
 /************************************************************/
 
-- (UMMTP3LinkSet *)getMTP3LinkSet:(NSString *)name
+- (UMMTP3LinkSet *)getMTP3_LinkSet:(NSString *)name
 {
     return _mtp3_linkset_dict[name];
 }
 
-- (void)addWithConfigMTP3LinkSet:(NSDictionary *)config
+- (void)addWithConfigMTP3_LinkSet:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
     if(name)
     {
         UMSS7ConfigMTP3Linkset *co = [[UMSS7ConfigMTP3Linkset alloc]initWithConfig:config];
         [_runningConfig addMTP3Linkset:co];
-        
+
         UMMTP3LinkSet *mtp3linkset = [[UMMTP3LinkSet alloc]init];
         mtp3linkset.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3-linkset"];
         mtp3linkset.logFeed.name = name;
@@ -1680,12 +1673,12 @@ static void signalHandler(int signum);
 }
 
 
-- (void)deleteMTP3LinkSet:(NSString *)name
+- (void)deleteMTP3_LinkSet:(NSString *)name
 {
     /* FIXME: to be implemented */
 }
 
-- (void)renameMTP3Linkset:(NSString *)oldName to:(NSString *)newName
+- (void)renameMTP3_Linkset:(NSString *)oldName to:(NSString *)newName
 {
     UMMTP3LinkSet *layer =  _mtp3_linkset_dict[oldName];
     [_mtp3_linkset_dict removeObjectForKey:oldName];
@@ -1700,19 +1693,19 @@ static void signalHandler(int signum);
 #pragma mark M3UAAS Service Functions
 /************************************************************/
 
-- (UMM3UAApplicationServer *)getM3UAAS:(NSString *)name
+- (UMM3UAApplicationServer *)getM3UA_AS:(NSString *)name
 {
     return  _m3ua_as_dict[name];
 }
 
-- (void)addWithConfigM3UAAS:(NSDictionary *)config
+- (void)addWithConfigM3UA_AS:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
     if(name)
     {
         UMSS7ConfigM3UAAS *co = [[UMSS7ConfigM3UAAS alloc]initWithConfig:config];
         [_runningConfig addM3UAAS:co];
-        
+
         UMM3UAApplicationServer *m3ua_as = [[UMM3UAApplicationServer alloc]init];
         m3ua_as.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-as"];
         m3ua_as.logFeed.name = name;
@@ -1721,15 +1714,15 @@ static void signalHandler(int signum);
     }
 }
 
-- (void)deleteM3UAAS:(NSString *)name
+- (void)deleteM3UA_AS:(NSString *)name
 {
     //UMM3UAApplicationServer *instance =  _m3ua_as_dict[name];
     [_m3ua_as_dict removeObjectForKey:name];
     //    [instance stopDetachAndDestroy];
-    
+
 }
 
-- (void)renameM3UAAS:(NSString *)oldName to:(NSString *)newName
+- (void)renameM3UA_AS:(NSString *)oldName to:(NSString *)newName
 {
     UMM3UAApplicationServer *layer =  _m3ua_as_dict[oldName];
     [_m3ua_as_dict removeObjectForKey:oldName];
@@ -1743,19 +1736,19 @@ static void signalHandler(int signum);
 #pragma mark M3UAASP Service Functions
 /************************************************************/
 
-- (UMM3UAApplicationServerProcess *)getM3UAASP:(NSString *)name
+- (UMM3UAApplicationServerProcess *)getM3UA_ASP:(NSString *)name
 {
     return _m3ua_asp_dict[name];
 }
 
-- (void)addWithConfigM3UAASP:(NSDictionary *)config
+- (void)addWithConfigM3UA_ASP:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
     if(name)
     {
         UMSS7ConfigM3UAAS *co = [[UMSS7ConfigM3UAAS alloc]initWithConfig:config];
         [_runningConfig addM3UAAS:co];
-        
+
         UMM3UAApplicationServerProcess *m3ua_asp = [[UMM3UAApplicationServerProcess alloc]init];
         m3ua_asp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-asp"];
         m3ua_asp.logFeed.name = name;
@@ -1764,12 +1757,12 @@ static void signalHandler(int signum);
     }
 }
 
-- (void)deleteMM3UAASP:(NSString *)name
+- (void)deleteMM3UA_ASP:(NSString *)name
 {
     /* FIXME: to be implemented */
 }
 
-- (void)renameM3UAASP:(NSString *)oldName to:(NSString *)newName
+- (void)renameM3UA_ASP:(NSString *)oldName to:(NSString *)newName
 {
     UMM3UAApplicationServerProcess *layer =  _m3ua_asp_dict[oldName];
     [_m3ua_asp_dict removeObjectForKey:oldName];
@@ -1777,7 +1770,7 @@ static void signalHandler(int signum);
     _m3ua_asp_dict[newName] = layer;
 }
 
-- (void)deleteM3UAASP:(NSString *)name
+- (void)deleteM3UA_ASP:(NSString *)name
 {
     /* FIXME */
 }
@@ -1799,13 +1792,13 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigSCCP *co = [[UMSS7ConfigSCCP alloc]initWithConfig:config];
         [_runningConfig addSCCP:co];
-        
+
         int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
         UMTaskQueueMulti *_sccpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
                                                                                        name:@"sccp"
                                                                               enableLogging:NO
                                                                              numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
+
         UMLayerSCCP *sccp = [[UMLayerSCCP alloc]initWithTaskQueueMulti:_sccpTaskQueue];
         sccp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sccp"];
         sccp.logFeed.name = name;
@@ -1846,7 +1839,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigSCCPDestination *co = [[UMSS7ConfigSCCPDestination alloc]initWithConfig:config];
         [_runningConfig addSCCPDestination:co];
-        
+
         SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
         [dstgrp setConfig:config applicationContext:self];
         _sccp_destinations_dict[name] = dstgrp;
@@ -1860,7 +1853,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigSCCPDestination *co = [[UMSS7ConfigSCCPDestination alloc]initWithConfig:config];
         [_runningConfig addSCCPDestination:co];
-        
+
         SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
         [dstgrp setConfig:config applicationContext:self];
         for(NSDictionary *subConfig in subConfigs)
@@ -1964,17 +1957,17 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigTCAP *co = [[UMSS7ConfigTCAP alloc]initWithConfig:config];
         [_runningConfig addTCAP:co];
-        
+
         config = co.config.dictionaryCopy;
-        
+
         int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
         UMTaskQueueMulti *_tcapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
                                                                                        name:@"tcap"
                                                                               enableLogging:NO
                                                                              numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
-        UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:tidPool];
-        
+
+        UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
+
         tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         tcap.logFeed.name = name;
         [tcap setConfig:config applicationContext:self];
@@ -1982,14 +1975,14 @@ static void signalHandler(int signum);
         UMLayerSCCP *sccp  = [self getSCCP:co.attachTo];
         if(sccp==NULL)
         {
-            [_stdLogFeed majorErrorText:[NSString stringWithFormat:@"TCAP %@ can not attach to SCCP %@",name,co.attachTo]];
+            [self.logFeed majorErrorText:[NSString stringWithFormat:@"TCAP %@ can not attach to SCCP %@",name,co.attachTo]];
         }
         else
         {
             SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithName:co.subsystem];
             if(co.number)
             {
-                
+
                 SccpAddress *sccpAddr =  [[SccpAddress alloc] initWithHumanReadableString:co.number sccpVariant:sccp.sccpVariant mtp3Variant:sccp.mtp3.variant];
                 [sccp setUser:tcap forSubsystem:ssn number:sccpAddr];
             }
@@ -2007,7 +2000,7 @@ static void signalHandler(int signum);
     // UMLayerTCAP *instance =  _tcap_dict[name];
     [_tcap_dict removeObjectForKey:name];
     //    [instance stopDetachAndDestroy];
-    
+
 }
 
 - (void)renameTCAP:(NSString *)oldName to:(NSString *)newName
@@ -2035,25 +2028,25 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigGSMMAP *co = [[UMSS7ConfigGSMMAP alloc]initWithConfig:config];
         [_runningConfig addGSMMAP:co];
-        
+
         config = co.config.dictionaryCopy;
-        
+
         int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
         UMTaskQueueMulti *_gsmmapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
                                                                                          name:@"gsmmap"
                                                                                 enableLogging:NO
                                                                                numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
+
         UMLayerGSMMAP *gsmmap = [[UMLayerGSMMAP alloc]initWithTaskQueueMulti:_gsmmapTaskQueue];
         gsmmap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         gsmmap.logFeed.name = name;
         [gsmmap setConfig:config applicationContext:self];
         _gsmmap_dict[name] = gsmmap;
-        
+
         UMLayerTCAP *tcap  = [self getTCAP:co.attachTo];
         if(tcap==NULL)
         {
-            [_stdLogFeed majorErrorText:[NSString stringWithFormat:@"GSM-MAP %@ can not attach to TCAP %@",name,co.attachTo]];
+            [_logFeed majorErrorText:[NSString stringWithFormat:@"GSM-MAP %@ can not attach to TCAP %@",name,co.attachTo]];
         }
         else
         {
@@ -2068,7 +2061,7 @@ static void signalHandler(int signum);
     // UMLayerGSMMAP *instance =  _gsmmap_dict[name];
     [_gsmmap_dict removeObjectForKey:name];
     //    [instance stopDetachAndDestroy];
-    
+
 }
 
 - (void)renameGSMMAP:(NSString *)oldName to:(NSString *)newName
@@ -2079,172 +2072,7 @@ static void signalHandler(int signum);
     _gsmmap_dict[newName] = layer;
 }
 
-/************************************************************/
-#pragma mark -
-#pragma mark IMSI Pool Service Functions
-/************************************************************/
 
-- (TemporaryImsiPool *)getIMSIPool:(NSString *)name
-{
-    return _imsi_pools_dict[name];
-}
-
-- (void)addWithConfigIMSIPool:(NSDictionary *)config
-{
-    NSString *name = config[@"name"];
-    if(name)
-    {
-        TemporaryImsiPool *pool = [[TemporaryImsiPool alloc]initWithConfig:config];
-        _imsi_pools_dict[name] = pool;
-    }
-}
-
-- (void)deleteIMSIPool:(NSString *)name
-{
-    [_imsi_pools_dict removeObjectForKey:name];
-}
-
-- (void)renameIMSIPool:(NSString *)oldName to:(NSString *)newName
-{
-    TemporaryImsiPool *pool =  _imsi_pools_dict[oldName];
-    [_imsi_pools_dict removeObjectForKey:oldName];
-    pool.name = newName;
-    _imsi_pools_dict[newName] = pool;
-}
-
-/************************************************************/
-#pragma mark -
-#pragma mark MSC Service Functions
-/************************************************************/
-
-- (MSCInstance *)getMSC:(NSString *)name
-{
-    return _msc_dict[name];
-}
-
-- (void)addWithConfigMSC:(NSDictionary *)config
-{
-    NSString *name = config[@"name"];
-    if(name)
-    {
-        UMSS7ConfigMSC *co = [[UMSS7ConfigMSC alloc]initWithConfig:config];
-        [_runningConfig addMSC:co];
-        
-        config = co.config.dictionaryCopy;
-        int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
-        UMTaskQueueMulti *_mscTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-                                                                                      name:@"msc"
-                                                                             enableLogging:NO
-                                                                            numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
-        MSCInstance *msc = [[MSCInstance alloc]initWithTaskQueueMulti:_mscTaskQueue];
-        msc.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"msc"];
-        msc.logFeed.name = name;
-        msc.webClient = _webClient;
-        [msc setConfig:config applicationContext:self];
-        _msc_dict[name] = msc;
-        
-        UMLayerGSMMAP *map  = [self getGSMMAP:co.attachTo];
-        if(map==NULL)
-        {
-            [_stdLogFeed majorErrorText:[NSString stringWithFormat:@"MSC %@ can not attach to GSM-MAP %@",name,co.attachTo]];
-        }
-        else
-        {
-            msc.gsmMap = map;
-            map.user = msc;
-        }
-        if(!mainMscInstance)
-        {
-            mainMscInstance = msc;
-        }
-    }
-}
-
-- (void)deleteMSC:(NSString *)name
-{
-    //MSCInstance *instance =  _msc_dict[name];
-    [_msc_dict removeObjectForKey:name];
-    //    [instance stopDetachAndDestroy];
-    
-}
-
-- (void)renameMSC:(NSString *)oldName to:(NSString *)newName
-{
-    MSCInstance *layer =  _msc_dict[oldName];
-    [_msc_dict removeObjectForKey:oldName];
-    layer.layerName = newName;
-    _msc_dict[newName] = layer;
-}
-
-
-/************************************************************/
-#pragma mark -
-#pragma mark HLR Service Functions
-/************************************************************/
-
-- (HLRInstance *)getHLR:(NSString *)name
-{
-    return _hlr_dict[name];
-}
-
-- (void)addWithConfigHLR:(NSDictionary *)config
-{
-    NSString *name = config[@"name"];
-    if(name)
-    {
-        UMSS7ConfigHLR *co = [[UMSS7ConfigHLR alloc]initWithConfig:config];
-        [_runningConfig addHLR:co];
-        
-        config = co.config.dictionaryCopy;
-        
-        int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
-        UMTaskQueueMulti *_hlrTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-                                                                                      name:@"hlr"
-                                                                             enableLogging:NO
-                                                                            numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
-        HLRInstance *hlr = [[HLRInstance alloc]initWithTaskQueueMulti:_hlrTaskQueue];
-        hlr.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"hlr"];
-        hlr.logFeed.name = name;
-        hlr.webClient = _webClient;
-        
-        [hlr setConfig:config applicationContext:self];
-        _hlr_dict[name] = hlr;
-        UMLayerGSMMAP *map  = [self getGSMMAP:co.attachTo];
-        if(map==NULL)
-        {
-            [_stdLogFeed majorErrorText:[NSString stringWithFormat:@"HLR %@ can not attach to GSM-MAP %@",name,co.attachTo]];
-        }
-        else
-        {
-            hlr.gsmMap = map;
-            map.user = hlr;
-        }
-        
-        if(!mainHlrInstance)
-        {
-            mainHlrInstance = hlr;
-        }
-        
-    }
-}
-
-- (void)deleteHLR:(NSString *)name
-{
-    //HLRInstance *instance =  _hlrdict[name];
-    [_hlr_dict removeObjectForKey:name];
-    //    [instance stopDetachAndDestroy];
-    
-}
-
-- (void)renameHLR:(NSString *)oldName to:(NSString *)newName
-{
-    HLRInstance *layer =  _hlr_dict[oldName];
-    [_hlr_dict removeObjectForKey:oldName];
-    layer.layerName = newName;
-    _hlr_dict[newName] = layer;
-}
 
 
 
@@ -2331,13 +2159,13 @@ static void signalHandler(int signum);
 
 
 
-- (void)attachAppTransport:(AppTransportHandler *)transport
+- (void)attachAppTransport:(SS7AppTransportHandler *)transport
                       sccp:(UMLayerSCCP *)sccp
                     number:(NSString *)number
            transactionPool:(UMTCAP_TransactionIdPool *)pool
 {
     int concurrentThreads = ulib_cpu_count() * 2;
-    
+
     NSMutableDictionary *tcapConfig = [[NSMutableDictionary alloc]init];
     NSString *tcapName = [NSString stringWithFormat:@"_ulibtransport-tcap-%@",sccp.layerName];
     tcapConfig[@"name"] = tcapName;
@@ -2357,7 +2185,7 @@ static void signalHandler(int signum);
     [tcap setConfig:tcapConfig applicationContext:self];
     _tcap_dict[tcapName] = tcap;
     transport.transportService.tcap = tcap;
-    
+
     SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_ULIBTRANSPORT];
     SccpAddress *sccpAddr =  [[SccpAddress alloc] initWithHumanReadableString:number
                                                                   sccpVariant:sccp.sccpVariant
@@ -2367,16 +2195,27 @@ static void signalHandler(int signum);
     [sccp setUser:tcap forSubsystem:ssn];
 }
 
-
-- (void)main:(int)argc argv:(const char **)argv
+- (void) setupSignalHandlers
 {
-    setup_signal_handlers();
+    struct sigaction act;
+    act.sa_handler = signalHandler;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    sigaction(SIGINT, &act, NULL);
+    sigaction(SIGHUP, &act, NULL);
+    sigaction(SIGUSR1, &act, NULL);
+    sigaction(SIGUSR2, &act, NULL);
+}
+
+- (int)main:(int)argc argv:(const char **)argv
+{
+    [self setupSignalHandlers];
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
     [self processCommandLine:argc argv:argv];
-    
+
     [NSOperationQueue mainQueue];
     /* this initializes some stuff for the main run loop on Linux/GNUStep */
-    
+
     [self applicationDidFinishLaunching:NULL];
     while(_must_quit==0)
     {
@@ -2392,20 +2231,19 @@ static void signalHandler(int signum);
 
 - (void) writePidFile:(NSString *)filename
 {
-    if(file==NULL)
+    if(filename)
     {
-        file = "/var/run/cnam-server.pid";
-    }
-    long pid = (long)getpid();
-    FILE *f = fopen(file,"w");
-    if(f)
-    {
-        fprintf(f,"%ld",pid);
-        fclose(f);
-    }
-    else
-    {
-        fprintf(stderr,"Sorry, can not write pid to '%s'",file);
+        long pid = (long)getpid();
+        FILE *f = fopen(filename.UTF8String,"w");
+        if(f)
+        {
+            fprintf(f,"%ld",pid);
+            fclose(f);
+        }
+        else
+        {
+            fprintf(stderr,"Sorry, can not write pid to '%s'",filename.UTF8String);
+        }
     }
 }
 
@@ -2435,55 +2273,8 @@ static void signalHandler(int signum);
     }
 }
 
-
-- (void)signal_SIGHUP
-{
-    NSLog(@"SIGHUP received, reopening logfile...");
-}
-
-- (void)signal_SIGINT
-{
-    if (_must_quit == 0)
-    {
-        NSLog(@"SIGINT received, aborting program...");
-        _must_quit = 1;
-        [self applicationWillTerminate:NULL];
-    }
-    else
-    {
-        NSLog(@"SIGINT received again, force quitting program...");
-        _must_quit = 2;
-        exit(-1);
-    }
-}
-
-- (void)signal_SIGUSR1
-{
-    _schrittmacherMode = SchrittmacherMode_hot;
-    NSLog(@"SIGUSR1 received, going to hot...");
-    [self applicationGoToHot];
-}
-
-- (void)signal_SIGUSR2
-{
-    _schrittmacherMode = SchrittmacherMode_standby;
-    NSLog(@"SIGUSR2 received, going to standby...");
-    [self applicationGoToStandby];
-}
-
 @end
 
-static void setupSignalHandlers(void)
-{
-    struct sigaction act;
-    act.sa_handler = signalHandler;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(SIGINT, &act, NULL);
-    sigaction(SIGHUP, &act, NULL);
-    sigaction(SIGUSR1, &act, NULL);
-    sigaction(SIGUSR2, &act, NULL);
-}
 
 static void signalHandler(int signum)
 {
@@ -2505,5 +2296,4 @@ static void signalHandler(int signum)
     }
 }
 
-@end
 
