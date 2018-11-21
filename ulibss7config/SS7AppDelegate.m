@@ -2301,5 +2301,3 @@ static void signalHandler(int signum)
         _signal_sigusr2++;
     }
 }
-
-
