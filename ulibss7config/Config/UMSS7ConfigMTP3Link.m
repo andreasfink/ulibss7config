@@ -39,6 +39,7 @@
     APPEND_CONFIG_STRING(s,@"mtp3-linkset",_mtp3Linkset);
     APPEND_CONFIG_STRING(s,@"m2pa",_m2pa);
     APPEND_CONFIG_INTEGER(s,@"slc",_slc);
+    APPEND_CONFIG_DOUBLE(s,@"link-test-time",_linkTestTime);
 }
 
 
@@ -48,6 +49,7 @@
     APPEND_DICT_STRING(dict,@"mtp3-linkset",_mtp3Linkset);
     APPEND_DICT_STRING(dict,@"m2pa",_m2pa);
     APPEND_DICT_INTEGER(dict,@"slc",_slc);
+    APPEND_DICT_DOUBLE(dict,@"link-test-time",_linkTestTime);
     return dict;
 }
 
@@ -57,6 +59,7 @@
     SET_DICT_FILTERED_STRING(dict,@"mtp3-linkset",_mtp3Linkset);
     SET_DICT_STRING(dict,@"m2pa",_m2pa);
     SET_DICT_INTEGER(dict,@"slc",_slc);
+    SET_DICT_DOUBLE(dict,@"link-test-time",_linkTestTime);
 }
 
 - (UMSS7ConfigMTP3Link *)copyWithZone:(NSZone *)zone

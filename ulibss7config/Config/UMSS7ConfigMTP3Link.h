@@ -13,6 +13,7 @@
     NSString *_mtp3Linkset;
     NSString *_m2pa;
     NSNumber *_slc;
+    NSNumber *_linkTestTime;
 }
 
 + (NSString *)type;
@@ -22,5 +23,6 @@
 @property(readwrite,strong,atomic)  NSString *mtp3Linkset;
 @property(readwrite,strong,atomic)  NSString *m2pa;
 @property(readwrite,strong,atomic)  NSNumber *slc;
+@property(readwrite,strong,atomic)  NSNumber *linkTestTime;
 
 @end
