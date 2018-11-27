@@ -9,6 +9,7 @@
 #import "SS7AppDelegate.h"
 
 #import <ulibtransport/ulibtransport.h>
+#import <ulibcamel/ulibcamel.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigGeneral.h"
@@ -1280,8 +1281,8 @@ static void signalHandler(int signum);
     keys = [_camel_dict allKeys];
     for(NSString *key in keys)
     {
-        UMLayerCamel *map = _camel_dict[key];
-        [status appendFormat:@"CAMEL-INSTANCE:%@:%@\n",map.layerName,map.status];
+        UMLayerCamel *camel = _camel_dict[key];
+        [status appendFormat:@"CAMEL-INSTANCE:%@:%@\n",camel.layerName,camel.status];
     }
     
 
