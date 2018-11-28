@@ -1555,31 +1555,6 @@ static void signalHandler(int signum);
 /************************************************************/
 
 - (UMLayerMTP3 *)getMTP3:(NSString *)name
-
-- (UMM3UAApplicationServer *)getM3UA_AS:(NSString *)name { 
-    <#code#>
-}
-
-
-- (UMM3UAApplicationServerProcess *)getM3UA_ASP:(NSString *)name { 
-    <#code#>
-}
-
-
-- (UMMTP3Link *)getMTP3_Link:(NSString *)name { 
-    <#code#>
-}
-
-
-- (UMMTP3LinkSet *)getMTP3_LinkSet:(NSString *)name { 
-    <#code#>
-}
-
-- (UMM3UAApplicationServer *)getM3UA_AS:(NSString *)name { 
-    <#code#>
-}
-
-
 {
     return _mtp3_dict[name];
 }
@@ -2335,17 +2310,6 @@ static void signalHandler(int signum);
 - (UMHTTPAuthenticationStatus)authenticateUser:(NSString *)user pass:(NSString *)pass
 {
     return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
-}
-
-
-
-
-- (UMLogLevel)logLevel { 
-    <#code#>
-}
-
-- (void)setLogLevel:(UMLogLevel)ll { 
-    <#code#>
 }
 
 @end
