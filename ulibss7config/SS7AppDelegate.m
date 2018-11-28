@@ -144,7 +144,7 @@ static void signalHandler(int signum);
 		if(_enabledOptions[@"umtransport"])
 		{
 			_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
-			_umtransportService.delegate = self;
+			/* FIXME: _umtransportService.delegate = self;  */
 		}
 		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
 		_umtransportLock = [[UMMutex alloc]init];
