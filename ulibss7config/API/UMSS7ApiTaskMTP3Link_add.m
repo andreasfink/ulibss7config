@@ -47,7 +47,7 @@
 		{
 			mtp3link = [[UMSS7ConfigMTP3Link alloc]initWithConfig:_webRequest.params];
 			UMSynchronizedSortedDictionary *config = mtp3link.config;
-			[_appDelegate addWithConfigMTP3_Link:config.dictionaryCopy];
+			[_appDelegate addWithConfigMTP3Link:config.dictionaryCopy];
 			[self sendResultObject:config];
 		}
         @catch(NSException *e)

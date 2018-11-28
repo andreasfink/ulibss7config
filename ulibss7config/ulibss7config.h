@@ -31,7 +31,7 @@
 #import "UMSS7ConfigM2PA.h"
 #import "UMSS7ConfigMTP3.h"
 #import "UMSS7ConfigMTP3Link.h"
-#import "UMSS7ConfigMTP3Linkset.h"
+#import "UMSS7ConfigMTP3LinkSet.h"
 #import "UMSS7ConfigM3UAAS.h"
 #import "UMSS7ConfigM3UAASP.h"
 #import "UMSS7ConfigMTP3Filter.h"

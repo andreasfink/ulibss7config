@@ -9,12 +9,13 @@
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibsms/ulibsms.h>
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <uliblicense/uliblicense.h>
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import "UMSS7ConfigObject.h"
 #import "SS7TelnetSocketHelperProtocol.h"
 #import "SS7UserAuthenticateProtocol.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
 
 @class HLRInstance;
 @class MSCInstance;
@@ -46,7 +47,8 @@ UMLayerSCCPApplicationContextProtocol,
 UMLayerTCAPApplicationContextProtocol,
 UMLayerGSMMAPApplicationContextProtocol,
 SS7TelnetSocketHelperProtocol,
-SS7UserAuthenticateProtocol>
+SS7UserAuthenticateProtocol,
+UMSS7ConfigAppDelegateProtocol>
 #else
 @interface SS7AppDelegate : NSObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
@@ -59,7 +61,8 @@ UMLayerSCCPApplicationContextProtocol,
 UMLayerTCAPApplicationContextProtocol,
 UMLayerGSMMAPApplicationContextProtocol,
 SS7TelnetSocketHelperProtocol,
-SS7UserAuthenticateProtocol>
+SS7UserAuthenticateProtocol,
+UMSS7ConfigAppDelegateProtocol>
 #endif
 {
     NSDictionary                *_enabledOptions;
@@ -102,8 +105,11 @@ SS7UserAuthenticateProtocol>
     UMSynchronizedDictionary    *_eir_dict;
     UMSynchronizedDictionary    *_gsmscf_dict;
     UMSynchronizedDictionary    *_gmlc_dict;
-
+	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
+	UMLicenseDirectory       	*_globalLicenseDirectory;
+	UMTransportService       	*_umtransportService;
+	UMMutex                  	*_umtransportLock;
 
     NSString                    *_logDirectory;
     int                         _logRotations;
@@ -124,6 +130,19 @@ SS7UserAuthenticateProtocol>
 @property(readwrite,assign)     UMLogLevel      logLevel;
 @property(readwrite,strong)     UMLogFeed       *logFeed;
 @property(readwrite,strong)     UMLogHandler    *logHandler;
+
+
+@property(readwrite,strong)     NSDictionary		*enabledOptions;
+@property(readwrite,strong)     UMCommandLine		*commandLine;
+@property(readwrite,strong)     SchrittmacherClient	*schrittmacherClient;
+@property(readwrite,strong)     NSString			*schrittmacherResourceID;
+@property(readwrite,assign)     SchrittmacherMode   schrittmacherMode;
+@property(readwrite,strong)     UMSS7ConfigStorage	*startupConfig;
+@property(readwrite,strong)     UMSS7ConfigStorage	*runningConfig;
+@property(readwrite,strong)     UMTaskQueueMulti	*generalTaskQueue;
+@property(readwrite,strong)     NSMutableDictionary	*webPages;
+@property(readwrite,strong)     UMHTTPClient		*webClient;
+
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;

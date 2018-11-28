@@ -37,7 +37,7 @@
     UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
 
     UMSS7ConfigM3UAASP *config_object = [config_storage getM3UAASP:name];
-    UMM3UAApplicationServerProcess *instance = [_appDelegate getM3UA_ASP:name];
+    UMM3UAApplicationServerProcess *instance = [_appDelegate getM3UAASP:name];
 
     if((instance!=NULL) || (config_object==NULL))
     {

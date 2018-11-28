@@ -36,7 +36,7 @@
     NSString *name = _webRequest.params[@"name"];
     NSString *action = _webRequest.params[@"action"];
     name = [UMSS7ConfigObject filterName:name];
-    UMMTP3Link *mtp3link = [_appDelegate getMTP3_Link:name];
+    UMMTP3Link *mtp3link = [_appDelegate getMTP3Link:name];
     if(mtp3link)
     {
         if([action isEqualToString:@"action-list"])

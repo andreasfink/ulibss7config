@@ -1,15 +1,15 @@
 //
-//  UMSS7ConfigMtp3Linkset.m
+//  UMSS7ConfigMtp3LinkSet.m
 //  estp
 //
 //  Created by Andreas Fink on 08.03.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigMTP3Linkset.h"
+#import "UMSS7ConfigMTP3LinkSet.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigMTP3Linkset
+@implementation UMSS7ConfigMTP3LinkSet
 
 + (NSString *)type
 {
@@ -18,11 +18,11 @@
 
 - (NSString *)type
 {
-    return [UMSS7ConfigMTP3Linkset type];
+    return [UMSS7ConfigMTP3LinkSet type];
 }
 
 
-- (UMSS7ConfigMTP3Linkset *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigMTP3LinkSet *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -61,10 +61,10 @@
     SET_DICT_DOUBLE(dict,@"speed",_speed);
 }
 
-- (UMSS7ConfigMTP3Linkset *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigMTP3LinkSet *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigMTP3Linkset allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigMTP3LinkSet allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 

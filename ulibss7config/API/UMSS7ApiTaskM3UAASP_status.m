@@ -35,7 +35,7 @@
 
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
-    UMM3UAApplicationServerProcess *asp = [_appDelegate getM3UA_ASP:name];
+    UMM3UAApplicationServerProcess *asp = [_appDelegate getM3UAASP:name];
     if(asp)
     {
 

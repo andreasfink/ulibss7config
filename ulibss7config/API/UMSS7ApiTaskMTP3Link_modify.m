@@ -37,7 +37,7 @@
     UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
 
     UMSS7ConfigMTP3Link *config_object = [config_storage getMTP3Link:name];
-    UMMTP3Link *instance = [_appDelegate getMTP3_Link:name];
+    UMMTP3Link *instance = [_appDelegate getMTP3Link:name];
 
     if((instance!=NULL) || (config_object==NULL))
     {

@@ -36,7 +36,7 @@
 
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
-    UMMTP3Link *mtp3Link = [_appDelegate getMTP3_Link:name];
+    UMMTP3Link *mtp3Link = [_appDelegate getMTP3Link:name];
     if(mtp3Link)
     {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
