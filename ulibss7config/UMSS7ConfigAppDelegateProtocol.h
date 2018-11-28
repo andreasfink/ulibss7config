@@ -42,23 +42,23 @@ realm:(NSString **)realm;
 - (void)deleteMTP3:(NSString *)name;
 - (void)renameMTP3:(NSString *)old to:(NSString *)new;
 
-- (UMMTP3Link *)getMTP3_Link:(NSString *)name;
-- (void)addWithConfigMTP3_Link:(NSDictionary *)config;
+- (UMMTP3Link *)getMTP3Link:(NSString *)name;
+- (void)addWithConfigMTP3Link:(NSDictionary *)config;
 - (void)deleteMTP3Link:(NSString *)name;
 - (void)renameMTP3Link:(NSString *)old to:(NSString *)new;
 
-- (UMMTP3LinkSet *)getMTP3_LinkSet:(NSString *)name;
-- (void)addWithConfigMTP3_LinkSet:(NSDictionary *)config;
-- (void)deleteMTP3Linkset:(NSString *)name;
-- (void)renameMTP3Linkset:(NSString *)old to:(NSString *)new;
+- (UMMTP3LinkSet *)getMTP3LinkSet:(NSString *)name;
+- (void)addWithConfigMTP3LinkSet:(NSDictionary *)config;
+- (void)deleteMTP3LinkSet:(NSString *)name;
+- (void)renameMTP3LinkSet:(NSString *)old to:(NSString *)new;
 
-- (UMM3UAApplicationServer *)getM3UA_AS:(NSString *)name;
-- (void)addWithConfigM3UA_AS:(NSDictionary *)config;
+- (UMM3UAApplicationServer *)getM3UAAS:(NSString *)name;
+- (void)addWithConfigM3UAAS:(NSDictionary *)config;
 - (void)deleteM3UAAS:(NSString *)name;
 - (void)renameM3UAAS:(NSString *)old to:(NSString *)new;
 
-- (UMM3UAApplicationServerProcess *)getM3UA_ASP:(NSString *)name;
-- (void)addWithConfigM3UA_ASP:(NSDictionary *)config;
+- (UMM3UAApplicationServerProcess *)getM3UAASP:(NSString *)name;
+- (void)addWithConfigM3UAASP:(NSDictionary *)config;
 - (void)deleteM3UAASP:(NSString *)name;
 - (void)renameM3UAASP:(NSString *)old to:(NSString *)new;
 

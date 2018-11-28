@@ -487,7 +487,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming executeMAP_Invoke_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming executeMAP_Invoke_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     if(t)
@@ -514,7 +514,7 @@
                          last:(BOOL)xlast
                       options:(NSDictionary *)xoptions
 {
-    [logFeed minorErrorText:[NSString stringWithFormat:@"incoming executeMAP_Invoke_Ind for unknown userIdentifier %@",userIdentifier]];
+    [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming executeMAP_Invoke_Ind for unknown userIdentifier %@",userIdentifier]];
     return;
 }
 
@@ -531,7 +531,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_ReturnResult_Resp for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_ReturnResult_Resp for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_ReturnResult_Resp:param
@@ -558,7 +558,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_ReturnError_Resp for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_ReturnError_Resp for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_ReturnError_Resp:param
@@ -585,7 +585,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Reject_Resp for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Reject_Resp for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_Reject_Resp:param
@@ -610,7 +610,7 @@
              dialoguePortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion
                      options:(NSDictionary *)options
 {
-    [logFeed majorErrorText:@"incoming executeMAP_Open_Ind for SS7GenericInstance. Should be overriden by Instance object"];
+    [self.logFeed majorErrorText:@"incoming executeMAP_Open_Ind for SS7GenericInstance. Should be overriden by Instance object"];
 }
 
 - (void) executeMAP_Open_Resp:(UMGSMMAP_UserIdentifier *)userIdentifier
@@ -627,7 +627,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming executeMAP_Invoke_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming executeMAP_Invoke_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
 
@@ -660,7 +660,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Delimiter_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Delimiter_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
 }
@@ -671,7 +671,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Delimiter_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Delimiter_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_Close_Ind:userIdentifier
@@ -691,13 +691,13 @@
     if(self.logLevel <= UMLOG_DEBUG)
     {
         NSString *s = [NSString stringWithFormat:@"executeMAP_U_Abort_Ind: dialogPortion: %@ (%@)",xdialoguePortion,[xdialoguePortion className]];
-        [logFeed infoText:s];
+        [self.logFeed infoText:s];
     }
 
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_U_Abort_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_U_Abort_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_U_Abort_Ind:userIdentifier
@@ -722,7 +722,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_P_Abort_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_P_Abort_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_P_Abort_Ind:userIdentifier
@@ -744,7 +744,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Notice_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Notice_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_Notice_Ind:userIdentifier
@@ -765,7 +765,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Continue_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Continue_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_Continue_Ind:userIdentifier
@@ -784,7 +784,7 @@
                        transactionId:(NSString *)localTransactionId
                  remoteTransactionId:(NSString *)remoteTransactionId
 {
-    [logFeed minorErrorText:@"unimplemented MAP_Unidirectional_Ind"];
+    [self.logFeed minorErrorText:@"unimplemented MAP_Unidirectional_Ind"];
 }
 
 - (UMSynchronizedSortedDictionary *)decodeSmsObject:(NSData *)pdu

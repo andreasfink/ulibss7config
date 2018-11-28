@@ -1,18 +1,18 @@
 //
-//  UMSS7ApiTaskMTP3Linkset_modify.m
+//  UMSS7ApiTaskMTP3LinkSet_modify.m
 //  estp
 //
 //  Created by Andreas Fink on 13.03.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskMTP3Linkset_modify.h"
+#import "UMSS7ApiTaskMTP3LinkSet_modify.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigObject.h"
-#import "UMSS7ConfigMTP3Linkset.h"
+#import "UMSS7ConfigMTP3LinkSet.h"
 
-@implementation UMSS7ApiTaskMTP3Linkset_modify
+@implementation UMSS7ApiTaskMTP3LinkSet_modify
 
 + (NSString *)apiPath
 {
@@ -26,12 +26,19 @@
         [self sendErrorNotAuthenticated];
         return;
     }
+	
+	if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+	
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
 
-    UMSS7ConfigMTP3Linkset *config_object = [config_storage getMTP3Linkset:name];
-    UMMTP3LinkSet *instance = [_appDelegate getMTP3_LinkSet:name];
+    UMSS7ConfigMTP3LinkSet *config_object = [config_storage getMTP3LinkSet:name];
+    UMMTP3LinkSet *instance = [_appDelegate getMTP3LinkSet:name];
 
     if((instance!=NULL) || (config_object==NULL))
     {

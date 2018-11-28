@@ -46,13 +46,13 @@
 #import "UMSS7ApiTaskMTP3Link_action.h"
 
 
-#import "UMSS7ApiTaskMTP3Linkset_list.h"
-#import "UMSS7ApiTaskMTP3Linkset_read.h"
-#import "UMSS7ApiTaskMTP3Linkset_add.h"
-#import "UMSS7ApiTaskMTP3Linkset_modify.h"
-#import "UMSS7ApiTaskMTP3Linkset_delete.h"
-#import "UMSS7ApiTaskMTP3Linkset_status.h"
-#import "UMSS7ApiTaskMTP3Linkset_action.h"
+#import "UMSS7ApiTaskMTP3LinkSet_list.h"
+#import "UMSS7ApiTaskMTP3LinkSet_read.h"
+#import "UMSS7ApiTaskMTP3LinkSet_add.h"
+#import "UMSS7ApiTaskMTP3LinkSet_modify.h"
+#import "UMSS7ApiTaskMTP3LinkSet_delete.h"
+#import "UMSS7ApiTaskMTP3LinkSet_status.h"
+#import "UMSS7ApiTaskMTP3LinkSet_action.h"
 
 #import "UMSS7ApiTaskM3UAAS_list.h"
 #import "UMSS7ApiTaskM3UAAS_read.h"

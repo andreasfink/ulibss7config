@@ -1,5 +1,5 @@
 //
-//  UMSS7ApiTaskMTP3Linkset_delete.h
+//  UMSS7ApiTaskMTP3LinkSet_modify.h
 //  estp
 //
 //  Created by Andreas Fink on 13.03.18.
@@ -8,6 +8,6 @@
 
 #import "UMSS7ApiTask.h"
 
-@interface UMSS7ApiTaskMTP3Linkset_delete : UMSS7ApiTask
+@interface UMSS7ApiTaskMTP3LinkSet_modify : UMSS7ApiTask
 
 @end

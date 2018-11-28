@@ -19,7 +19,7 @@
 #import "UMSS7ConfigMTP3Route.h"
 #import "UMSS7ConfigMTP3Filter.h"
 #import "UMSS7ConfigMTP3FilterEntry.h"
-#import "UMSS7ConfigMTP3Linkset.h"
+#import "UMSS7ConfigMTP3LinkSet.h"
 #import "UMSS7ConfigMTP3Link.h"
 #import "UMSS7ConfigM3UAAS.h"
 #import "UMSS7ConfigM3UAASP.h"
@@ -224,7 +224,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSCTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigM2PA type]];
     [cfg allowMultiGroup:[UMSS7ConfigMTP3 type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3Linkset type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3LinkSet type]];
     [cfg allowMultiGroup:[UMSS7ConfigMTP3Link type]];
     [cfg allowMultiGroup:[UMSS7ConfigMTP3Route type]];
     [cfg allowMultiGroup:[UMSS7ConfigM3UAAS type]];
@@ -358,10 +358,10 @@
             _mtp3_link_dict[mtp3_link.name] = mtp3_link;
         }
     }
-    NSArray *mtp3_linkset_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Linkset type]];
+    NSArray *mtp3_linkset_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3LinkSet type]];
     for(NSDictionary *mtp3_linkset_config in mtp3_linkset_configs)
     {
-        UMSS7ConfigMTP3Linkset *mtp3_linkset = [[UMSS7ConfigMTP3Linkset alloc]initWithConfig:mtp3_linkset_config];
+        UMSS7ConfigMTP3LinkSet *mtp3_linkset = [[UMSS7ConfigMTP3LinkSet alloc]initWithConfig:mtp3_linkset_config];
         if(mtp3_linkset.name.length  > 0)
         {
             _mtp3_linkset_dict[mtp3_linkset.name] = mtp3_linkset;
@@ -1294,23 +1294,23 @@
 
 /*
  **************************************************
- ** MTP3-Linkset
+ ** MTP3-LinkSet
  **************************************************
  */
 #pragma mark -
-#pragma mark MTP3Linkset
+#pragma mark MTP3LinkSet
 
-- (NSArray *)getMTP3LinksetNames
+- (NSArray *)getMTP3LinkSetNames
 {
     return [_mtp3_linkset_dict allKeys];
 }
 
-- (UMSS7ConfigMTP3Linkset *)getMTP3Linkset:(NSString *)name
+- (UMSS7ConfigMTP3LinkSet *)getMTP3LinkSet:(NSString *)name
 {
     return _mtp3_linkset_dict[name];
 }
 
-- (NSString *)addMTP3Linkset:(UMSS7ConfigMTP3Linkset*)mtp3_linkset
+- (NSString *)addMTP3LinkSet:(UMSS7ConfigMTP3LinkSet*)mtp3_linkset
 {
     if(_mtp3_linkset_dict[mtp3_linkset.name] == NULL)
     {
@@ -1321,14 +1321,14 @@
     return @"already exists";
 }
 
-- (NSString *)replaceMTP3Linkset:(UMSS7ConfigMTP3Linkset *)mtp3_linkset
+- (NSString *)replaceMTP3LinkSet:(UMSS7ConfigMTP3LinkSet *)mtp3_linkset
 {
     _mtp3_linkset_dict[mtp3_linkset.name] = mtp3_linkset;
     _dirty=YES;
     return @"ok";
 }
 
-- (NSString *)deleteMTP3Linkset:(NSString *)name
+- (NSString *)deleteMTP3LinkSet:(NSString *)name
 {
     if(_mtp3_linkset_dict[name]==NULL)
     {
