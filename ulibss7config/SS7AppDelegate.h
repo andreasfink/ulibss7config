@@ -161,6 +161,6 @@ UMSS7ConfigAppDelegateProtocol>
 - (NSString *)defaultConfigFile;
 - (void) setupSignalHandlers;
 - (int)main:(int)argc argv:(const char **)argv;
-
+- (void)handleStatus:(UMHTTPRequest *)req;
 @end
 
