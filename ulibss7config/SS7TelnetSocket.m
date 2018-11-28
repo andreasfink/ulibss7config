@@ -580,7 +580,7 @@
 
     _receivePollTimeoutMs = 100;
 
-    [logFeed info:0 withText:[NSString stringWithFormat:@"ConfigurationSocketListener listening on port %d\r\n",self.localPort]];
+    [self.logFeed info:0 withText:[NSString stringWithFormat:@"ConfigurationSocketListener listening on port %d\r\n",self.localPort]];
 
     while (!self.endThisConnection)
     {
@@ -597,7 +597,7 @@
                 err = [_sock bind];
                 if (![_sock isBound] )
                 {
-                    [logFeed majorError:err withText:@"bind failed\r\n"];
+                    [self.logFeed majorError:err withText:@"bind failed\r\n"];
                     //retryTime = [[NSDate alloc]initWithTimeIntervalSinceNow:bindDelay];
                     _incomingStatus = CS_STATUS_INCOMING_BIND_RETRY_TIMER;
                 }
@@ -619,7 +619,7 @@
                 err = [_sock listen];
                 if (![_sock isListening] )
                 {
-                    [logFeed majorError:err withText:@"listen failed\r\n"];
+                    [self.logFeed majorError:err withText:@"listen failed\r\n"];
                     //retryTime = [[NSDate alloc]initWithTimeIntervalSinceNow:retryDelay];
                     retryDelay = retryDelay * 2;
                     if(retryDelay > 600)
@@ -630,7 +630,7 @@
                 {
                     TRACK_FILE_ADD_COMMENT_FOR_FDES([_sock sock],@"listening");
                     _incomingStatus = CS_STATUS_INCOMING_LISTENING;
-                    [logFeed debug:0 withText:@"Listening...\r\n"];
+                    [self.logFeed debug:0 withText:@"Listening...\r\n"];
                 }
                 break;
             case CS_STATUS_INCOMING_LISTENING:
@@ -659,14 +659,14 @@
                             [e setIncomingStatus: CS_STATUS_INCOMING_LOGIN];
                             [e setIsListener: NO];
                             [e setLastActivity:[NSDate date]];
-                            [e setLogFeed:logFeed];
-                            [logFeed debug:0 withText:[NSString stringWithFormat:@"accepting new connection from %@\r\n",newUc.remoteHost.description]];
+                            [e setLogFeed:self.logFeed];
+                            [self.logFeed debug:0 withText:[NSString stringWithFormat:@"accepting new connection from %@\r\n",newUc.remoteHost.description]];
                             [e runSelectorInBackground:@selector(inbound)];
                         }
                         else
                         {
                             TRACK_FILE_ADD_COMMENT_FOR_FDES([_sock sock],@"failed whitelist");
-                            [logFeed debug:0 withText:[NSString stringWithFormat:@"rejected new connection from %@\r\n",newUc.remoteHost.description]];
+                            [self.logFeed debug:0 withText:[NSString stringWithFormat:@"rejected new connection from %@\r\n",newUc.remoteHost.description]];
                             [newUc close];
                             newUc=NULL;
                         }
@@ -683,7 +683,7 @@
         }
     }
 
-    [logFeed info:0 withText:[NSString stringWithFormat:@"ConfigurationSocket on port %d shutting down\r\n",_localPort]];
+    [self.logFeed info:0 withText:[NSString stringWithFormat:@"ConfigurationSocket on port %d shutting down\r\n",_localPort]];
     [_sock close];
     _sock = nil;
     retryTime = nil;
@@ -810,7 +810,7 @@
     ulib_set_thread_name([NSString stringWithFormat:@"ConfigurationSocket:%@",_sock.description]);
     TRACK_FILE_ADD_COMMENT_FOR_FDES(_sock.sock,@"inbound");
 
-    [logFeed info:0 inSubsection:@"init" withText:@"ConfigurationSocket inbound starting\r\n"];
+    [self.logFeed info:0 inSubsection:@"init" withText:@"ConfigurationSocket inbound starting\r\n"];
 
     NSDate *loginPromptExpires = NULL;//[[NSDate alloc]initWithTimeIntervalSinceNow:30]; /* we want to see authentication being passed within 30 seconds */
 
@@ -912,7 +912,7 @@
     _sock = NULL;
     _config_session = NULL;
     NSString *msg = [NSString stringWithFormat:@"ConfigurationSocket terminate"];
-    [logFeed info:0 inSubsection:@"shutdown" withText:msg];
+    [self.logFeed info:0 inSubsection:@"shutdown" withText:msg];
 }
 
 @end

@@ -135,7 +135,7 @@
 #define VERIFY_MAP(a,b)\
 if( a != b) \
 { \
-    [logFeed minorErrorText:[NSString stringWithFormat: @"ERROR: got MAP=%@ but was expecting MAP=%@",a,b]];\
+    [self.logFeed minorErrorText:[NSString stringWithFormat: @"ERROR: got MAP=%@ but was expecting MAP=%@",a,b]];\
     return;\
 }
 
@@ -148,7 +148,7 @@ else \
 {\
     if(![a isEqualToString:b]) \
     { \
-        [logFeed minorErrorText:[NSString stringWithFormat:@"ERROR: got SessionID=%@ but was expecting SessionID=%@",a,b]];\
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"ERROR: got SessionID=%@ but was expecting SessionID=%@",a,b]];\
         return;\
     }\
 }
@@ -164,7 +164,7 @@ else \
     NSString *b1 = b.dialogId; \
     if(![a1 isEqualToString:b1]) \
     { \
-        [logFeed minorErrorText:[NSString stringWithFormat:@"ERROR: got DialogID=%@ but was expecting DialogID=%@",a,b]];\
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"ERROR: got DialogID=%@ but was expecting DialogID=%@",a,b]];\
         return;\
     }\
 }
@@ -180,7 +180,7 @@ else \
     NSString *b1 = b.userIdentifier; \
     if(![a1 isEqualToString:b1]) \
     { \
-        [logFeed minorErrorText:[NSString stringWithFormat:@"ERROR: got UserIdentifier=%@ but was expecting UserIdentifier=%@",a1,b1]];\
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"ERROR: got UserIdentifier=%@ but was expecting UserIdentifier=%@",a1,b1]];\
         return;\
     }\
 }
@@ -212,7 +212,7 @@ else \
     _timeoutInSeconds = inst.timeoutInSeconds;
     _startTime = [NSDate date];
     _lastActiveTime = [[UMAtomicDate alloc]initWithDate:_startTime];
-    logFeed = inst.logFeed;
+    self.logFeed = inst.logFeed;
     _logLevel = UMLOG_MAJOR;
     _operationMutex = [[UMMutex alloc]init];
     _historyLog = [[UMHistoryLog alloc]init];
@@ -619,7 +619,7 @@ else \
     }
     @catch(id err)
     {
-        [logFeed majorErrorText:[NSString stringWithFormat:@"SS7GenericSession: CloseReq exception: %@",err]];
+        [self.logFeed majorErrorText:[NSString stringWithFormat:@"SS7GenericSession: CloseReq exception: %@",err]];
     }
     [self markForTermination];
 }
@@ -699,7 +699,7 @@ else \
     remoteAddress = src;
     if(gInstance.logLevel <= UMLOG_DEBUG)
     {
-        [logFeed debugText:@"we got a sessionMAP_Continue_Ind"];
+        [self.logFeed debugText:@"we got a sessionMAP_Continue_Ind"];
     }
     [self touch];
 }
@@ -795,7 +795,7 @@ else \
     }
     @catch(id err)
     {
-        [logFeed majorErrorText:[NSString stringWithFormat:@"HLRSession: Sending U_Abort due to exception: %@",err]];
+        [self.logFeed majorErrorText:[NSString stringWithFormat:@"HLRSession: Sending U_Abort due to exception: %@",err]];
     }
     if(!json)
     {
@@ -835,7 +835,7 @@ else \
     {
         VERIFY_UID(userIdentifier,xuserIdentifier);
         /***/
-        [logFeed infoText:@"sessionMAP_U_Abort_Ind"];
+        [self.logFeed infoText:@"sessionMAP_U_Abort_Ind"];
 
         /* now we can finish the HTTP request */
 
@@ -844,7 +844,7 @@ else \
         if(_logLevel <= UMLOG_DEBUG)
         {
             NSString *s = [NSString stringWithFormat:@"sessionMAP_U_Abort_Ind: dialogPortion: %@ (%@)",xdialoguePortion,[xdialoguePortion className]];
-            [logFeed infoText:s];
+            [self.logFeed infoText:s];
         }
         if(xdialoguePortion !=NULL)
         {
@@ -921,7 +921,7 @@ else \
     @try
     {
         VERIFY_UID(userIdentifier,xuserIdentifier);
-        [logFeed infoText:@"MAP_P_Abort_Ind"];
+        [self.logFeed infoText:@"MAP_P_Abort_Ind"];
 
         /* now we can finish the HTTP request */
         UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
@@ -997,12 +997,12 @@ else \
 {
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Notice_Ind with reason"];
-    [logFeed infoText:@"MAP_Notice_Ind"];
+    [self.logFeed infoText:@"MAP_Notice_Ind"];
 
     [_operationMutex lock];
     @try
     {
-        [logFeed infoText:@"MAP_P_Abort_Ind"];
+        [self.logFeed infoText:@"MAP_P_Abort_Ind"];
 
         /* now we can finish the HTTP request */
         UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
@@ -1724,7 +1724,7 @@ else \
     [self abort];
     [self writeTraceToDirectory:gInstance.timeoutTraceDirectory];
 
-    [logFeed infoText:@"timeout"];
+    [self.logFeed infoText:@"timeout"];
 
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     dict[@"query"] =  _query.objectValue;
