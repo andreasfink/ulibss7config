@@ -77,7 +77,6 @@ UMSS7ConfigAppDelegateProtocol>
     UMLogHandler                *_logHandler;
     UMLogLevel                  _logLevel;
     UMLogFeed                   *_logFeed;
-    NSMutableDictionary         *_webPages;
     UMHTTPClient                *_webClient;
     
     UMSynchronizedDictionary    *_sctp_dict;
@@ -140,7 +139,7 @@ UMSS7ConfigAppDelegateProtocol>
 @property(readwrite,strong)     UMSS7ConfigStorage	*startupConfig;
 @property(readwrite,strong)     UMSS7ConfigStorage	*runningConfig;
 @property(readwrite,strong)     UMTaskQueueMulti	*generalTaskQueue;
-@property(readwrite,strong)     NSMutableDictionary	*webPages;
+@property(readwrite,strong)     NSDictionary		*staticWebPages;
 @property(readwrite,strong)     UMHTTPClient		*webClient;
 
 
