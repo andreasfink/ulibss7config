@@ -149,7 +149,7 @@ static void signalHandler(int signum);
 
 		if(_enabledOptions[@"umtransport"])
 		{
-			_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
+			_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:self.generalTaskQueue];
 			/* FIXME: _umtransportService.delegate = self;  */
 		}
 		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
@@ -506,7 +506,7 @@ static void signalHandler(int signum);
 
 	int concurrentThreads = ulib_cpu_count() * 2;
 	NSLog(@"cpu-count: %d",concurrentThreads);
-	if(_generalTaskQueue == NULL)
+	if(self.generalTaskQueue == NULL)
 	{
 		if(_runningConfig.generalConfig.concurrentTasks!=NULL)
 		{
@@ -517,13 +517,13 @@ static void signalHandler(int signum);
 			_concurrentTasks = 8;
 		}
 		NSLog(@"concurrent-threads: %d",concurrentThreads);
-		_generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentThreads
+		self.generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentThreads
 																		name:@"general-task-queue"
 															   enableLogging:NO
 															  numberOfQueues:UMLAYER_QUEUE_COUNT];
 	}
 
-	_webClient = [[UMHTTPClient alloc]init];
+	self.2webClient = [[UMHTTPClient alloc]init];
 	if(generalConfig.hostname)
 	{
 		_hostname = generalConfig.hostname;
