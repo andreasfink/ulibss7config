@@ -505,6 +505,7 @@ static void signalHandler(int signum);
 	}
 
 	int concurrentThreads = ulib_cpu_count() * 2;
+	NSLog(@"cpu-count: %d",concurrentThreads);
 	if(_generalTaskQueue == NULL)
 	{
 		if(_runningConfig.generalConfig.concurrentTasks!=NULL)
@@ -515,11 +516,13 @@ static void signalHandler(int signum);
 		{
 			_concurrentTasks = 8;
 		}
+		NSLog(@"concurrent-threads: %d",concurrentThreads);
 		_generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentThreads
 																		name:@"general-task-queue"
 															   enableLogging:NO
 															  numberOfQueues:UMLAYER_QUEUE_COUNT];
 	}
+
 	_webClient = [[UMHTTPClient alloc]init];
 	if(generalConfig.hostname)
 	{
