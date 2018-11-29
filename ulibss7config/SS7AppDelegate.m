@@ -523,7 +523,7 @@ static void signalHandler(int signum);
 															  numberOfQueues:UMLAYER_QUEUE_COUNT];
 	}
 
-	self.2webClient = [[UMHTTPClient alloc]init];
+	self.webClient = [[UMHTTPClient alloc]init];
 	if(generalConfig.hostname)
 	{
 		_hostname = generalConfig.hostname;
