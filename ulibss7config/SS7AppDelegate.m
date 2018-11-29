@@ -2165,7 +2165,7 @@ static void signalHandler(int signum);
 	}
 }
 
-- (void)addAccessCpntrolAllowOriginHeaders:(UMHTTPRequest *)req
+- (void)addAccessControlAllowOriginHeaders:(UMHTTPRequest *)req
 {
 	if(_runningConfig.generalConfig.hostname)
 	{
@@ -2206,11 +2206,9 @@ static void signalHandler(int signum);
 
 - (void) httpOptions:(UMHTTPRequest *)req
 {
-	[self addAccessCpntrolAllowOriginHeaders:req];
+	[self addAccessControlAllowOriginHeaders:req];
 	req.responseCode =  200;
 }
-
-
 
 - (void)attachAppTransport:(SS7AppTransportHandler *)transport
 					  sccp:(UMLayerSCCP *)sccp

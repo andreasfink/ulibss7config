@@ -164,5 +164,7 @@ UMSS7ConfigAppDelegateProtocol>
 - (void) setupSignalHandlers;
 - (int)main:(int)argc argv:(const char **)argv;
 
+- (void)  handleStatus:(UMHTTPRequest *)req;
+
 @end
 
