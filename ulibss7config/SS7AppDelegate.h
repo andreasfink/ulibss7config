@@ -103,7 +103,8 @@ UMSS7ConfigAppDelegateProtocol>
     UMSynchronizedDictionary    *_vlr_dict;
     UMSynchronizedDictionary    *_eir_dict;
     UMSynchronizedDictionary    *_gsmscf_dict;
-    UMSynchronizedDictionary    *_gmlc_dict;
+	UMSynchronizedDictionary    *_gmlc_dict;
+	UMSynchronizedDictionary    *_estp_dict;
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
 	UMLicenseDirectory       	*_globalLicenseDirectory;
@@ -163,8 +164,11 @@ UMSS7ConfigAppDelegateProtocol>
 - (NSString *)defaultConfigFile;
 - (void) setupSignalHandlers;
 - (int)main:(int)argc argv:(const char **)argv;
-
+- (void) createInstances;
 - (void)  handleStatus:(UMHTTPRequest *)req;
-
+- (NSString *)defaultLogDirectory;
+- (int)defaultWebPort;
+- (NSString *)defaultWebUser;
+- (NSString *)defaultWebPassword;
 @end
 

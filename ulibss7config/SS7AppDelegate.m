@@ -116,7 +116,7 @@ static void signalHandler(int signum);
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
 		_imsi_pools_dict                = [[UMSynchronizedDictionary alloc]init];
-		if(_enabledOptions[@"msc"])
+		if([_enabledOptions[@"msc"] boolValue])
 		{
 			_msc_dict = [[UMSynchronizedDictionary alloc]init];
 		}
@@ -139,6 +139,10 @@ static void signalHandler(int signum);
 		if([_enabledOptions[@"gmlc"] boolValue])
 		{
 			_gmlc_dict = [[UMSynchronizedDictionary alloc]init];
+		}
+		if([_enabledOptions[@"estp"] boolValue])
+		{
+			_estp_dict = [[UMSynchronizedDictionary alloc]init];
 		}
 
 		if(_enabledOptions[@"umtransport"])
@@ -313,7 +317,25 @@ static void signalHandler(int signum);
 
 - (NSString *)defaultConfigFile
 {
-	return @"/etc/messsagemover/smsc.conf";
+	return @"/etc/ss7.conf";
+}
+
+- (NSString *)defaultLogDirectory
+{
+	return @"/var/log";
+}
+
+- (int)defaultWebPort
+{
+	return 8080;
+}
+- (NSString *)defaultWebUser
+{
+	return @"admin";
+}
+- (NSString *)defaultWebPassword
+{
+	return @"admin";
 }
 
 - (NSString *)productName
@@ -460,7 +482,7 @@ static void signalHandler(int signum);
 	}
 	else
 	{
-		_logDirectory = @"/var/log/messagemover/";
+		_logDirectory = [self defaultLogDirectory];
 	}
 	if(generalConfig.logRotations)
 	{
@@ -523,8 +545,8 @@ static void signalHandler(int signum);
 		UMSS7ConfigAdminUser *user = [[UMSS7ConfigAdminUser alloc]initWithConfig:
 									  @{
 										@"group":@"user",
-										@"name":@"admin",
-										@"password":@"admin"
+										@"name": [self defaultWebUser],
+										@"password": [self defaultWebPassword],
 										}
 									  ];
 		[_runningConfig addAdminUser:user];
@@ -538,7 +560,7 @@ static void signalHandler(int signum);
 		UMSS7ConfigWebserver *ws = [[UMSS7ConfigWebserver alloc]initWithConfig:
 									@{ @"group" : @"webserver",
 									   @"name"  : @"default-webserver",
-									   @"port"  : @(8086),
+									   @"port"  : @([self defaultWebPort]),
 									   }];
 		[_runningConfig addWebserver:ws];
 		names = @[@"default-webserver"];
@@ -871,6 +893,86 @@ static void signalHandler(int signum);
 		}
 	}
 
+
+
+	/*****************************************************************/
+	/* Configuring ESTP and set up a ULibTransport entity for it     */
+	/*****************************************************************/
+	if([_enabledOptions[@"estp"] boolValue])
+	{
+		names = [_runningConfig getESTPNames];
+		if(names.count==1)
+		{
+			NSString *name = names[0];
+			UMSS7ConfigESTP *co = [_runningConfig getESTP:name];
+			UMLayerSCCP *sccp  = [self getSCCP:co.sccp];
+			if(sccp==NULL)
+			{
+				CONFIG_ERROR(@"can not find sccp entry for estp config");
+			}
+
+			NSMutableDictionary *tcapConfig = [[NSMutableDictionary alloc]init];
+			NSString *tcapName = [NSString stringWithFormat:@"_ulibtransport-tcap-%@",co.sccp];
+			tcapConfig[@"name"] = tcapName;
+			tcapConfig[@"attach-to"] = co.sccp;
+			tcapConfig[@"variant"] = @"itu";
+			tcapConfig[@"subsystem"] = @(SCCP_SSN_ULIBTRANSPORT);
+			tcapConfig[@"timeout"] = @(30);
+			tcapConfig[@"number"] =co.number;
+
+
+			int concurrentTasks = [[self concurrentTasksForConfig:NULL] intValue];
+			UMTaskQueueMulti *_tcapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
+																						   name:@"tcap"
+																				  enableLogging:NO
+																				 numberOfQueues:UMLAYER_QUEUE_COUNT];
+
+			UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
+			tcap.logFeed = [[UMLogFeed alloc]initWithHandler:self.logHandler section:@"tcap"];
+			tcap.logFeed.name = tcapName;
+			tcap.attachedLayer = sccp;
+			[tcap setConfig:tcapConfig applicationContext:self];
+			_tcap_dict[tcapName] = tcap;
+			_umtransportService.tcap = tcap;
+
+			SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_ULIBTRANSPORT];
+			SccpAddress *sccpAddr =  [[SccpAddress alloc] initWithHumanReadableString:co.number sccpVariant:sccp.sccpVariant mtp3Variant:sccp.mtp3.variant];
+			_umtransportService.localAddress = sccpAddr;
+			[sccp setUser:tcap forSubsystem:ssn number:sccpAddr];
+			[sccp setUser:tcap forSubsystem:ssn];
+
+			/*****************************************************************************/
+			/* we are creating a destination group for umtransport                       */
+			/*****************************************************************************/
+			SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
+			[dstgrp setConfig:@{ @"name" : @"_umtransport" } applicationContext:self];
+			SccpDestination *destination = [[SccpDestination alloc]initWithConfig:
+											@{ @"name" : @"_umtransport-1",
+											   @"ssn"  : @(SCCP_SSN_ULIBTRANSPORT) }
+																		  variant:UMMTP3Variant_ITU];
+			[dstgrp addEntry:destination];
+			_sccp_destinations_dict[name] = dstgrp;
+
+			/*****************************************************************************/
+			/* we add a GT route to the destination                                      */
+			/*****************************************************************************/
+			NSMutableDictionary *sConfig = [[NSMutableDictionary alloc]init];
+			sConfig[@"gta"] = co.number;
+			sConfig[@"destination"] = co.number;
+			SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:
+											   @{ @"gta" : co.number, @"destination" : @"_umtransport" }];
+			SccpGttSelector *selector = [sccp.gttSelectorRegistry selectorForInstance:co.sccp
+																				   tt:0
+																				  gti:4
+																				   np:1
+																				  nai:4];
+			[selector.routingTable addEntry:entry];
+		}
+		else
+		{
+			CONFIG_ERROR(@"One and only one ESTP config section is required and it must have a name");
+		}
+	}
 }
 
 - (void)startInstances
@@ -1211,7 +1313,15 @@ static void signalHandler(int signum);
 	for(NSString *key in keys)
 	{
 		UMLayerM2PA *m2pa = _m2pa_dict[key];
+
 		[status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[m2pa m2paStatusString:m2pa.m2pa_status]];
+
+		[status appendFormat:@"    lscState: %@\n", m2pa.lscState.description];
+		[status appendFormat:@"    iacState: %@\n", m2pa.iacState.description];
+		[status appendFormat:@"    alignmentsReceived: %d\n", (int)m2pa.alignmentsReceived];
+		[status appendFormat:@"    local_processor_outage: %@\n", (m2pa.local_processor_outage ? @"YES" : @"NO")];
+		[status appendFormat:@"    remote_processor_outage: %@\n", (m2pa.remote_processor_outage ? @"YES" : @"NO")];
+		[status appendFormat:@"    outstanding: %d\n", m2pa.outstanding];
 	}
 
 	keys = [_mtp3_linkset_dict allKeys];
@@ -2330,9 +2440,6 @@ static void signalHandler(int signum);
 	return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
 }
 
-
-
-
 @end
 
 
@@ -2355,4 +2462,3 @@ static void signalHandler(int signum)
 		_signal_sigusr2++;
 	}
 }
-
