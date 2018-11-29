@@ -60,10 +60,10 @@
 
 @interface UMSS7ConfigStorage : UMObject
 {
-    BOOL _dirty;
-    NSArray *_commandLineArguments;
-    UMCommandLine *_commandLine;
-    UMSS7ConfigGeneral *_generalConfig;
+    BOOL                    _dirty;
+    NSArray                 *_commandLineArguments;
+    UMCommandLine           *_commandLine;
+    UMSS7ConfigGeneral      *_generalConfig;
 
     UMSynchronizedDictionary *_webserver_dict;
     UMSynchronizedDictionary *_telnet_dict;

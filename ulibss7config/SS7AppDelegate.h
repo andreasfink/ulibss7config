@@ -35,7 +35,7 @@ typedef enum SchrittmacherMode
 #ifdef __APPLE__
 /* this is for unit tests to work in Xcode */
 #import <cocoa/cocoa.h>
-@interface SS7AppDelegate : NSObject<UMHTTPServerHttpGetPostDelegate,
+@interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
 UMLayerUserProtocol,
 NSApplicationDelegate,
@@ -50,7 +50,7 @@ SS7TelnetSocketHelperProtocol,
 SS7UserAuthenticateProtocol,
 UMSS7ConfigAppDelegateProtocol>
 #else
-@interface SS7AppDelegate : NSObject<UMHTTPServerHttpGetPostDelegate,
+@interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
 UMLayerUserProtocol,
 UMHTTPServerHttpOptionsDelegate,
@@ -76,7 +76,6 @@ UMSS7ConfigAppDelegateProtocol>
     UMTaskQueueMulti            *_generalTaskQueue;
     UMLogHandler                *_logHandler;
     UMLogLevel                  _logLevel;
-    UMLogFeed                   *_logFeed;
     UMHTTPClient                *_webClient;
     
     UMSynchronizedDictionary    *_sctp_dict;
@@ -128,7 +127,6 @@ UMSS7ConfigAppDelegateProtocol>
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
-@property(readwrite,strong)     UMLogFeed       *logFeed;
 @property(readwrite,strong)     UMLogHandler    *logHandler;
 
 
