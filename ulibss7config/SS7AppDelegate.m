@@ -2318,13 +2318,8 @@ static void signalHandler(int signum);
 
 - (void) httpOptions:(UMHTTPRequest *)req
 {
-<<<<<<< HEAD
 	[self addAccessControlAllowOriginHeaders:req];
 	req.responseCode =  200;
-=======
-    [self addAccessCpntrolAllowOriginHeaders:req];
-    req.responseCode =  200;
->>>>>>> 2972362e2bf0f635d6240f52b0755a7f0c722f94
 }
 
 - (void)attachAppTransport:(SS7AppTransportHandler *)transport
