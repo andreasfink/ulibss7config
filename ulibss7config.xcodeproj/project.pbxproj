@@ -317,6 +317,12 @@
 		A6D2D7C721A49FA400B1895A /* SS7TelnetSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D2D7C521A49FA400B1895A /* SS7TelnetSocket.m */; };
 		A6D2D7CA21A4A01800B1895A /* SS7ConfigurationSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7C821A4A01800B1895A /* SS7ConfigurationSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6D2D7CB21A4A01800B1895A /* SS7ConfigurationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D2D7C921A4A01800B1895A /* SS7ConfigurationSession.m */; };
+		A6EC8E5821B12F3E00B69FDD /* UMTTaskPing.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5221B12F3D00B69FDD /* UMTTaskPing.m */; };
+		A6EC8E5921B12F3E00B69FDD /* UMTTaskGetVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */; };
+		A6EC8E5A21B12F3E00B69FDD /* UMTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5421B12F3D00B69FDD /* UMTTask.m */; };
+		A6EC8E5B21B12F3E00B69FDD /* UMTTaskPing.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5521B12F3D00B69FDD /* UMTTaskPing.h */; };
+		A6EC8E5C21B12F3E00B69FDD /* UMTTaskGetVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5621B12F3E00B69FDD /* UMTTaskGetVersion.m */; };
+		A6EC8E5D21B12F3E00B69FDD /* UMTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5721B12F3E00B69FDD /* UMTTask.h */; };
 		A6F178C421AEFDC90084D972 /* SS7AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6F178C321AEFDC90084D972 /* SS7AppDelegate.m */; };
 /* End PBXBuildFile section */
 
@@ -652,6 +658,12 @@
 		A6D2D7C521A49FA400B1895A /* SS7TelnetSocket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7TelnetSocket.m; sourceTree = "<group>"; };
 		A6D2D7C821A4A01800B1895A /* SS7ConfigurationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7ConfigurationSession.h; sourceTree = "<group>"; };
 		A6D2D7C921A4A01800B1895A /* SS7ConfigurationSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7ConfigurationSession.m; sourceTree = "<group>"; };
+		A6EC8E5221B12F3D00B69FDD /* UMTTaskPing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTTaskPing.m; sourceTree = "<group>"; };
+		A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTTaskGetVersion.h; sourceTree = "<group>"; };
+		A6EC8E5421B12F3D00B69FDD /* UMTTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTTask.m; sourceTree = "<group>"; };
+		A6EC8E5521B12F3D00B69FDD /* UMTTaskPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTTaskPing.h; sourceTree = "<group>"; };
+		A6EC8E5621B12F3E00B69FDD /* UMTTaskGetVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTTaskGetVersion.m; sourceTree = "<group>"; };
+		A6EC8E5721B12F3E00B69FDD /* UMTTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTTask.h; sourceTree = "<group>"; };
 		A6F178C321AEFDC90084D972 /* SS7AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SS7AppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -755,6 +767,12 @@
 				A634BC2621A40E7400852462 /* SS7GenericInstance_MAP_U_Abort_Req_Task.m */,
 				A634BC0F21A40E7100852462 /* SS7GenericInstance_MAP_Unidirectional_Ind_Task.h */,
 				A634BC1121A40E7200852462 /* SS7GenericInstance_MAP_Unidirectional_Ind_Task.m */,
+				A6EC8E5721B12F3E00B69FDD /* UMTTask.h */,
+				A6EC8E5421B12F3D00B69FDD /* UMTTask.m */,
+				A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */,
+				A6EC8E5621B12F3E00B69FDD /* UMTTaskGetVersion.m */,
+				A6EC8E5521B12F3D00B69FDD /* UMTTaskPing.h */,
+				A6EC8E5221B12F3D00B69FDD /* UMTTaskPing.m */,
 				A634BC0321A396B900852462 /* OutputFormat.h */,
 				A634BC0721A396C100852462 /* WebMacros.h */,
 				A6BC434820775064008C3CEB /* UMSS7ConfigAppDelegateProtocol.h */,
@@ -1138,6 +1156,7 @@
 				A6BC42FE20774F93008C3CEB /* UMSS7ConfigMTP3.h in Headers */,
 				A634BC3321A40E7400852462 /* SS7GenericInstance_MAP_U_Abort_Ind_Task.h in Headers */,
 				A6BC44D9207753ED008C3CEB /* UMSS7ApiTaskSCTP_modify.h in Headers */,
+				A6EC8E5921B12F3E00B69FDD /* UMTTaskGetVersion.h in Headers */,
 				A6BC431420774F93008C3CEB /* UMSS7ConfigMTP3FilterEntry.h in Headers */,
 				A6BC452F207753EE008C3CEB /* UMSS7ApiTaskMTP3Link_action.h in Headers */,
 				A6BC4537207753EE008C3CEB /* UMSS7ApiTaskSCTP_add.h in Headers */,
@@ -1146,6 +1165,7 @@
 				A6BC44FC207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_add.h in Headers */,
 				A6BC44FA207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_delete.h in Headers */,
 				A634BC3421A40E7400852462 /* SS7GenericInstance_MAP_ReturnError_Resp_Task.h in Headers */,
+				A6EC8E5B21B12F3E00B69FDD /* UMTTaskPing.h in Headers */,
 				A6BC42FC20774F93008C3CEB /* UMSS7ConfigTCAPFilter.h in Headers */,
 				A6BC4349207750B4008C3CEB /* UMSS7ConfigAppDelegateProtocol.h in Headers */,
 				A6BC433720774F93008C3CEB /* UMSS7ConfigHLR.h in Headers */,
@@ -1198,6 +1218,7 @@
 				A61FCE37219AD59B00A67026 /* SS7AppDelegate.h in Headers */,
 				A6BC451A207753EE008C3CEB /* UMSS7ApiTaskM3UAAS_action.h in Headers */,
 				A6BC44D3207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_status.h in Headers */,
+				A6EC8E5D21B12F3E00B69FDD /* UMTTask.h in Headers */,
 				A6BC42FB20774F93008C3CEB /* UMSS7ConfigStorage.h in Headers */,
 				A6BC453B207753EE008C3CEB /* UMSS7ApiTaskMTP3LinkSet_add.h in Headers */,
 				A6BC4522207753EE008C3CEB /* UMSS7ApiTaskSCTP_status.h in Headers */,
@@ -1355,6 +1376,7 @@
 				A6BC4532207753EE008C3CEB /* UMSS7ApiTaskSCCP_action.m in Sources */,
 				A6BC4535207753EE008C3CEB /* UMSS7ApiTaskM2PA_action.m in Sources */,
 				A6BC4506207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_add.m in Sources */,
+				A6EC8E5A21B12F3E00B69FDD /* UMTTask.m in Sources */,
 				A6BC4513207753EE008C3CEB /* UMSS7ApiTaskMTP3Link_delete.m in Sources */,
 				A6BC4542207753EE008C3CEB /* UMSS7ApiTaskM3UAAS_status.m in Sources */,
 				A6BC452E207753EE008C3CEB /* UMSS7ApiTask.m in Sources */,
@@ -1419,6 +1441,7 @@
 				A634BC3B21A40E7400852462 /* SS7GenericInstance_MAP_Reject_Resp_Task.m in Sources */,
 				A6BC44FF207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_list.m in Sources */,
 				A6BC44F8207753ED008C3CEB /* UMSS7ApiTaskMTP3_list.m in Sources */,
+				A6EC8E5821B12F3E00B69FDD /* UMTTaskPing.m in Sources */,
 				A6BC4512207753EE008C3CEB /* UMSS7ApiTaskMTP3LinkSet_action.m in Sources */,
 				A6BC4540207753EE008C3CEB /* UMSS7ApiTaskMTP3_read.m in Sources */,
 				A6BC4543207753EE008C3CEB /* UMSS7ApiTaskMTP3Link_read.m in Sources */,
@@ -1447,6 +1470,7 @@
 				A6BC431920774F93008C3CEB /* UMSS7ConfigTelnet.m in Sources */,
 				A6BC4528207753EE008C3CEB /* UMSS7ApiTaskSCCP_add.m in Sources */,
 				A6BC433C20774F93008C3CEB /* UMSS7ConfigM3UAAS.m in Sources */,
+				A6EC8E5C21B12F3E00B69FDD /* UMTTaskGetVersion.m in Sources */,
 				A6BC44E8207753ED008C3CEB /* UMSS7ApiTaskM2PA_add.m in Sources */,
 				A6BC430A20774F93008C3CEB /* UMSS7ConfigTCAPFilter.m in Sources */,
 				A6BC433920774F93008C3CEB /* UMSS7ConfigGeneral.m in Sources */,

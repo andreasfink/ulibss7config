@@ -68,7 +68,9 @@
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
-
+#import "UMTTask.h"
+#import "UMTTaskPing.h"
+#import "UMTTaskGetVersion.h"
 #import "SS7GenericInstance.h"
 #import "SS7GenericSession.h"
 #import "SS7AppTransportHandler.h"
@@ -345,6 +347,11 @@ static void signalHandler(int signum);
 	return @"ss7-product";
 }
 
+- (NSString *)productVersion
+{
+	return @"0.0.0";
+}
+
 - (void)processCommandLine:(int)argc argv:(const char **)argv
 {
 	NSDictionary    *appDefinition = [self appDefinition];
@@ -611,7 +618,7 @@ static void signalHandler(int signum);
 		}
 	}
 
-
+	[self.logFeed infoText:@"configuring syslog"];
 
 	/*****************************************************************/
 	/* Section Syslog */
@@ -663,6 +670,7 @@ static void signalHandler(int signum);
 	/* MTP3 */
 	/*****************************************************************/
 	names = [_runningConfig getMTP3Names];
+	NSLog(@"mtp3names = %@",names);
 	for(NSString *name in names)
 	{
 		UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
@@ -989,7 +997,9 @@ static void signalHandler(int signum);
 	for(NSString *name in names)
 	{
 		UMLayerMTP3 *mtp3 = [self getMTP3:name];
+		NSLog(@"mtp3 %@ starting",mtp3.layerName);
 		[mtp3 start];
+		NSLog(@"mtp3 %@ started",mtp3.layerName);
 	}
 }
 
@@ -1534,7 +1544,7 @@ static void signalHandler(int signum);
 	return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
 }
 
-+ (void)webHeader:(NSMutableString *)s title:(NSString *)t
+- (void)webHeader:(NSMutableString *)s title:(NSString *)t
 {
 	[s appendString:@"<html>\n"];
 	[s appendString:@"<header>\n"];
@@ -2454,6 +2464,681 @@ static void signalHandler(int signum);
 - (UMHTTPAuthenticationStatus)authenticateUser:(NSString *)user pass:(NSString *)pass
 {
     return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
+}
+
+
+- (NSString *)umtransportGetNewUserReference
+{
+	static int64_t lastUmtransportDialogId =1;
+	int64_t did;
+	[_umtransportLock lock];
+	lastUmtransportDialogId = (lastUmtransportDialogId + 1 ) % 0x7FFFFFFF;
+	did = lastUmtransportDialogId;
+	[_umtransportLock unlock];
+	return [NSString stringWithFormat:@"%08llX",(long long)did];
+}
+
+/* the UMTransportService tells us about a new dialog connecting to us */
+- (void)umtransportOpenIndication:(UMTransportOpen *)pdu
+					userReference:(NSString *)userDialogRef
+						 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+					remoteAddress:(SccpAddress *)address
+{
+	NSLog(@"UMTransport[%@] OpenIndication from %@",userDialogRef,[address stringValueE164]);
+	NSLog(@"PDU: %@",pdu.objectValue);
+}
+
+/* the UMTransportService tells us the dialog is closed now */
+- (void)umtransportCloseIndication:(UMTransportClose *)pdu
+					 userReference:(NSString *)userDialogRef
+						  dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+{
+	NSLog(@"UMTransport[%@] CloseIndication",userDialogRef);
+	NSLog(@"PDU: %@",pdu.objectValue);
+}
+
+/* the UMTransportService tells us the remote side has issued an invoke towards us which we should respond with a dialogTransportResponse */
+- (void)umtransportTransportIndication:(UMTransportRequest *)pdu
+						 userReference:(NSString *)userDialogRef
+							  dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+							  invokeId:(int64_t)invokeId
+{
+	NSLog(@"UMTransport[%@:%llu] TransportIndication",userDialogRef,(unsigned long long)invokeId);
+	NSLog(@"PDU: %@",pdu.objectValue);
+	switch(pdu.requestOperationCode)
+	{
+		case UMTransportCMD_Ping:
+			[self umtPing:pdu
+			userReference:userDialogRef
+				 dialogId:dialogId
+				 invokeId:invokeId];
+
+			break;
+		case UMTransportCMD_GetVersion:
+			[self umtGetVersion:pdu
+				  userReference:userDialogRef
+					   dialogId:dialogId
+					   invokeId:invokeId];
+			break;
+
+		case UMTransportCMD_ReportVersion:
+			[self umtReportVersion:pdu
+					 userReference:userDialogRef
+						  dialogId:dialogId
+						  invokeId:invokeId];
+
+			break;
+
+		case UMTransportCMD_GetHardware:
+			[self umtGetHardware:pdu
+				   userReference:userDialogRef
+						dialogId:dialogId
+						invokeId:invokeId];
+
+			break;
+
+		case UMTransportCMD_ReportHardware:
+			[self umtReportHardware:pdu
+					  userReference:userDialogRef
+						   dialogId:dialogId
+						   invokeId:invokeId];
+
+			break;
+
+		case UMTransportCMD_GetLicense:
+			[self umtGetLicense:pdu
+				  userReference:userDialogRef
+					   dialogId:dialogId
+					   invokeId:invokeId];
+
+			break;
+
+		case UMTransportCMD_ReportLicense:
+			[self umtReportLicense:pdu
+					 userReference:userDialogRef
+						  dialogId:dialogId
+						  invokeId:invokeId];
+
+			break;
+
+		case UMTransportCMD_UpdateLicense:
+			[self umtUpdateLicense:pdu
+					 userReference:userDialogRef
+						  dialogId:dialogId
+						  invokeId:invokeId];
+
+			break;
+	}
+}
+
+
+- (void)umtransportTransportConfirmation:(UMTransportResponse *)pdu
+						   userReference:(NSString *)userDialogRef
+								dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+								invokeId:(int64_t)invokeId
+{
+	NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
+	UMTTask *task = _pendingUMT[key];
+	[_pendingUMT removeObjectForKey:key];
+	[task processResponse:pdu];
+}
+
+
+- (void)umtPing:(UMTransportRequest *)pdu
+  userReference:(NSString *)userDialogRef
+	   dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+	   invokeId:(int64_t)invokeId
+{
+	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+	msg.response = [[UMTransportResponse alloc]init];
+	msg.response.requestReference = pdu.requestReference;
+	msg.response.requestOperationCode = pdu.requestOperationCode;
+	msg.response.responsePayload = pdu.requestPayload;
+	[_umtransportService umtransportTransportResponse:msg
+											 dialogId:dialogId
+											 invokeId:invokeId];
+}
+
+- (void)umtGetVersion:(UMTransportRequest *)pdu
+		userReference:(NSString *)userDialogRef
+			 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+			 invokeId:(int64_t)invokeId
+{
+	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+	msg.response = [[UMTransportResponse alloc]init];
+	msg.response.requestReference = pdu.requestReference;
+	msg.response.requestOperationCode = pdu.requestOperationCode;
+
+	UMTransportVersionResp *r = [[UMTransportVersionResp alloc]init];
+	r.product = [self productName];
+	r.version = [self productVersion];
+	msg.response.responsePayload = [r berEncoded];
+	[_umtransportService umtransportTransportResponse:msg
+											 dialogId:dialogId
+											 invokeId:invokeId];
+}
+
+- (void)umtReportVersion:(UMTransportRequest *)pdu
+		   userReference:(NSString *)userDialogRef
+				dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+				invokeId:(int64_t)invokeId
+{
+	UMTransportVersionResp *ver = [[UMTransportVersionResp alloc]initWithBerData:pdu.requestPayload];
+	NSLog(@"remote reports its version to be :%@",ver);
+
+	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+	msg.response = [[UMTransportResponse alloc]init];
+	msg.response.requestReference = pdu.requestReference;
+	msg.response.requestOperationCode = pdu.requestOperationCode;
+	msg.response.responsePayload = NULL;
+	[_umtransportService umtransportTransportResponse:msg
+											 dialogId:dialogId
+											 invokeId:invokeId];
+}
+
+- (void)umtGetHardware:(UMTransportRequest *)pdu
+		 userReference:(NSString *)userDialogRef
+			  dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+			  invokeId:(int64_t)invokeId
+{
+	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+	msg.response = [[UMTransportResponse alloc]init];
+	msg.response.requestReference = pdu.requestReference;
+	msg.response.requestOperationCode = pdu.requestOperationCode;
+
+	UMTransportHardwareIdentifierList *r = [[UMTransportHardwareIdentifierList alloc]init];
+
+	NSArray *macs = [UMUtil getArrayOfMacAddresses];
+	for(NSString *mac in macs)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.macAddress = mac;
+		[r addHardwareIdentifier:hi];
+	}
+
+	NSArray *ips = [UMUtil getNonLocalIPs];
+	for(NSString *ip in ips)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.ip = ip;
+		[r addHardwareIdentifier:hi];
+	}
+	NSString *serial = [UMUtil getMachineSerialNumber];
+	if(serial)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.serial = serial;
+		[r addHardwareIdentifier:hi];
+	}
+	NSString *uuid = [UMUtil getMachineUUID];
+	if(uuid)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.uuid = uuid;
+		[r addHardwareIdentifier:hi];
+	}
+
+	NSArray *cpus = [UMUtil getCPUSerialNumbers];
+	for(NSString *cpu in cpus)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.cpuId = cpu;
+		[r addHardwareIdentifier:hi];
+	}
+#if defined(__APPLE__)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.os = @"macos";
+		[r addHardwareIdentifier:hi];
+	}
+#endif
+#if defined(LINUX)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.os = @"linux";
+		[r addHardwareIdentifier:hi];
+	}
+#endif
+
+	NSString *sysname = [UMUtil sysName];
+	if(sysname)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.sysname = sysname;
+		[r addHardwareIdentifier:hi];
+	}
+	NSString *nodename = [UMUtil nodeName];
+	if(nodename)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.nodeName = nodename;
+		[r addHardwareIdentifier:hi];
+	}
+	NSString *osRelease = [UMUtil osRelease];
+	if(osRelease)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.osRelease = osRelease;
+		[r addHardwareIdentifier:hi];
+	}
+	NSString *osVersion = [UMUtil version];
+	if(osVersion)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.osVersion = osVersion;
+		[r addHardwareIdentifier:hi];
+	}
+	NSString *osMachine = [UMUtil machine];
+	if(osMachine)
+	{
+		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+		hi.osMachine = osMachine;
+		[r addHardwareIdentifier:hi];
+	}
+	msg.response.responsePayload = [r berEncoded];
+	[_umtransportService umtransportTransportResponse:msg
+											 dialogId:dialogId
+											 invokeId:invokeId];
+}
+
+- (void)umtReportHardware:(UMTransportRequest *)pdu
+			userReference:(NSString *)userDialogRef
+				 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+				 invokeId:(int64_t)invokeId
+{
+
+}
+- (void)umtGetLicense:(UMTransportRequest *)pdu
+		userReference:(NSString *)userDialogRef
+			 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+			 invokeId:(int64_t)invokeId
+{
+
+}
+
+- (void)umtReportLicense:(UMTransportRequest *)pdu
+		   userReference:(NSString *)userDialogRef
+				dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+				invokeId:(int64_t)invokeId
+{
+
+}
+
+- (void)umtUpdateLicense:(UMTransportRequest *)pdu
+		   userReference:(NSString *)userDialogRef
+				dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+				invokeId:(int64_t)invokeId
+{
+
+}
+
+
+/* the UMTransportService tells us about an answer to our request we sent to a remote */
+- (void)umtransportTransportConfirmation:(UMTransportResponse *)pdu
+						   userReference:(NSString *)userDialogRef
+								invokeId:(int64_t)invokeId
+{
+	NSLog(@"UMTransport[%@:%llu] TransportConfirmation",userDialogRef,(unsigned long long)invokeId);
+	NSLog(@"PDU: %@",pdu.objectValue);
+}
+
+- (NSString *)umtWebIndexForm
+{
+	static NSMutableString *s = NULL;
+
+	if(s)
+	{
+		return s;
+	}
+	s = [[NSMutableString alloc]init];
+	[self webHeader:s title:@"UMT Main Menu"];
+	[s appendString:@"<h2>UMT Main Menu</h2>\n"];
+	[s appendString:@"<UL>\n"];
+	[s appendString:@"<LI><a href=\"/umt/ping\">ping</a>\n"];
+	[s appendString:@"<LI><a href=\"/umt/get-version\">get-version</a>\n"];
+	[s appendString:@"<LI><a href=\"/umt/get-hardware\">get-hardware</a>\n"];
+	[s appendString:@"</UL>\n"];
+	[s appendString:@"</body>\n"];
+	[s appendString:@"</html>\n"];
+	return s;
+}
+
+
+- (void)webFormStart:(NSMutableString *)s title:(NSString *)t
+{
+	[self webHeader:s title:t];
+	[s appendString:@"\n"];
+	[s appendString:@"<a href=\"index.php\">menu</a>\n"];
+	[s appendFormat:@"<h2>%@</h2>\n",t];
+	[s appendString:@"<form method=\"get\">\n"];
+	[s appendString:@"<table>\n"];
+
+}
+
+- (void)webFormEnd:(NSMutableString *)s
+{
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td>&nbsp</td>\n"];
+	[s appendString:@"    <td><input type=submit></td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"</table>\n"];
+	[s appendString:@"</form>\n"];
+	[s appendString:@"</body>\n"];
+	[s appendString:@"</html>\n"];
+	[s appendString:@"\n"];
+}
+
+- (void)webMapTitle:(NSMutableString *)s
+{
+	[s appendString:@"<tr><td colspan=2 class=subtitle>GSMMAP Parameters:</td></tr>\n"];
+}
+
+- (void)webDialogTitle:(NSMutableString *)s
+{
+	[s appendString:@"<tr><td colspan=2 class=subtitle>Dialogue Parameters:</td></tr>\n"];
+}
+
+- (void)webDialogOptions:(NSMutableString *)s
+{
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>map-open-destination-msisdn</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"map-open-destination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open destination reference</td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>map-open-destination-imsi</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"map-open-destination-imsi\" type=text> imsi in map-open destination reference</td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>map-open-origination-msisdn</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"map-open-origination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open origination reference</td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>map-open-origination-imsi</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"map-open-origination-imsi\" type=text> imsi in map-open origination reference</td>\n"];
+	[s appendString:@"</tr>\n"];
+}
+
+- (void)webTcapTitle:(NSMutableString *)s
+{
+	[s appendString:@"<tr><td colspan=2 class=subtitle>TCAP Parameters:</td></tr>\n"];
+}
+
+- (void)webVariousTitle:(NSMutableString *)s
+{
+	[s appendString:@"<tr><td colspan=2 class=subtitle>Various Extensions:</td></tr>\n"];
+}
+
+- (void)webTcapOptions:(NSMutableString *)s
+			appContext:(NSString *)ac
+		appContextName:(NSString *)acn
+{
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>tcap-handshake</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"tcap-handshake\" type=\"text\" value=\"0\"> 0 |&nbsp;1</td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>timeout</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"timeout\" type=\"text\" value=\"30\"> timeout in seconds</td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>application-context</td>\n"];
+	[s appendFormat:@"    <td class=optional><input name=\"application-context\" type=\"text\" value=\"%@\"> %@</td>\n",ac,acn];
+	[s appendString:@"</tr>\n"];
+}
+
+- (void)webSccpTitle:(NSMutableString *)s
+{
+	[s appendString:@"<tr><td colspan=2 class=subtitle>SCCP Parameters:</td></tr>\n"];
+}
+
+- (void)webSccpOptions:(NSMutableString *)s
+		callingComment:(NSString *)callingComment
+		 calledComment:(NSString *)calledComment
+			callingSSN:(NSString *)callingSSN
+			 calledSSN:(NSString *)calledSSN
+{
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>calling-address</td>\n"];
+	[s appendFormat:@"    <td class=optional><input name=\"calling-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",callingComment];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>called-address</td>\n"];
+	[s appendFormat:@"    <td class=optional><input name=\"called-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",calledComment];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>calling-ssn</td>\n"];
+	[s appendFormat:@"    <td class=optional><input name=\"calling-ssn\" type=\"text\" value=\"%@\"></td>\n",callingSSN];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>called-ssn</td>\n"];
+	[s appendFormat:@"    <td class=optional><input name=\"called-ssn\" type=\"text\" value=\"%@\"></td>\n",calledSSN];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>calling-tt</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"calling-tt\" type=\"text\" value=\"0\"></td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>called-tt</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"called-tt\" type=\"text\" value=\"0\"></td>\n"];
+	[s appendString:@"</tr>\n"];
+}
+
+- (void)webMtp3Title:(NSMutableString *)s
+{
+	[s appendString:@"<tr><td colspan=2 class=subtitle>MTP3 Parameters:</td></tr>\n"];
+}
+
+- (void)webMtp3Options:(NSMutableString *)s
+{
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>opc</td>\n"];
+	[s appendFormat:@"    <td class=optional><input name=\"opc\" type=\"text\" placeholder=\"0-000-0\" value=\"default\">originating pointcode</td>\n"];
+	[s appendString:@"</tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>dpc</td>\n"];
+	[s appendFormat:@"    <td class=optional><input name=\"dpc\" type=\"text\" placeholder=\"0-000-0\" value=\"default\">destination pointcode</td>\n"];
+	[s appendString:@"</tr>\n"];
+}
+
+- (NSString *)umtPingForm:(int)variant
+{
+	static NSMutableString *s = NULL;
+
+	if(s)
+	{
+		return s;
+	}
+	s = [[NSMutableString alloc]init];
+
+	[self webFormStart:s title:@"UMT Ping"];
+
+	[s appendString:@"<tr><td colspan=2 class=subtitle>UMT Ping Destination:</td></tr>\n"];
+	[s appendString:@"<tr>\n"];
+	[s appendString:@"    <td class=optional>sccp-destination</td>\n"];
+	[s appendString:@"    <td class=optional><input name=\"sccp-destination\" type=text placeholder=\"+12345678\">(E.164 number))</td>\n"];
+	[s appendString:@"</tr>\n"];
+	[self webFormEnd:s];
+	return s;
+}
+
+- (void)  umtGetPost:(UMHTTPRequest *)req
+{
+	NSDictionary *p = req.params;
+	int pcount=0;
+	for(NSString *n in p.allKeys)
+	{
+		if(([n isEqualToString:@"user"])  || ([n isEqualToString:@"pass"]))
+		{
+			continue;
+		}
+		pcount++;
+	}
+
+	@autoreleasepool
+	{
+		@try
+		{
+			NSString *path = req.url.relativePath;
+
+			if([path hasSuffix:@".php"])
+			{
+				path = [path substringToIndex:path.length - 4];
+			}
+			if([path hasSuffix:@".html"])
+			{
+				path = [path substringToIndex:path.length - 5];
+			}
+			if([path hasSuffix:@"/"])
+			{
+				path = [path substringToIndex:path.length - 1];
+			}
+
+			if([path isEqualToStringCaseInsensitive:@"/umt/index"])
+			{
+				path = @"/umt";
+			}
+
+			if([path isEqualToStringCaseInsensitive:@"/umt"])
+			{
+				[req setResponseHtmlString:[self umtWebIndexForm]];
+			}
+			else if([path isEqualToStringCaseInsensitive:@"/umt/ping"])
+			{
+				if(pcount==0)
+				{
+					[req setResponseHtmlString:[self umtPingForm:0]];
+				}
+				else
+				{
+					NSString *addr = [p[@"sccp-destination"] urldecode];
+					UMTTaskPing *t = [[UMTTaskPing alloc]init];
+					t.req = req;
+					t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
+					t.transportService = _umtransportService;
+					[req makeAsyncWithTimeout:6];
+					[self.generalTaskQueue queueTask:t toQueueNumber:0];
+				}
+			}
+			else if([path isEqualToStringCaseInsensitive:@"/umt/get-version"])
+			{
+				if(pcount==0)
+				{
+					[req setResponseHtmlString:[self umtPingForm:0]];
+				}
+				else
+				{
+					/* FIXME: create a request and remember the req in a dict */
+					UMTTaskGetVersion *t = [[UMTTaskGetVersion alloc]init];
+					t.req = req;
+					NSString *addr = p[@"destination"];
+					t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
+					[self.generalTaskQueue queueTask:t toQueueNumber:0];
+				}
+			}
+		}
+		@catch(NSException *e)
+		{
+
+			NSMutableDictionary *d1 = [[NSMutableDictionary alloc]init];
+			if(e.name)
+			{
+				d1[@"name"] = e.name;
+			}
+			if(e.reason)
+			{
+				d1[@"reason"] = e.reason;
+			}
+			if(e.userInfo)
+			{
+				d1[@"user-info"] = e.userInfo;
+			}
+			NSDictionary *d =   @{ @"error" : @{ @"exception": d1 } };
+			[req setResponsePlainText:[d jsonString]];
+		}
+	}
+}
+
+- (UMTTask *)getPendingUMTTaskForDialog:(UMTCAP_UserDialogIdentifier *)dialogId
+							   invokeId:(int64_t)invokeId
+{
+	NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
+	UMTTask *task = _pendingUMT[key];
+	return task;
+}
+
+- (UMTTask *)getAndRemovePendingUMTTaskForDialog:(UMTCAP_UserDialogIdentifier *)dialogId
+										invokeId:(int64_t)invokeId
+{
+	NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
+	UMTTask *task = _pendingUMT[key];
+	[_pendingUMT removeObjectForKey:key];
+	return task;
+}
+
+- (void)addPendingUMTTask:(UMTask *)task
+				   dialog:(UMTCAP_UserDialogIdentifier *)_dialogId
+				 invokeId:(int64_t)_invokeId
+{
+	NSString *key = [NSString stringWithFormat:@"%@:%llu",_dialogId.dialogId,(unsigned long long)_invokeId];
+	_pendingUMT[key]=task;
+}
+
+
+- (void)umtransportOpenConfirmation:(UMTransportOpenAccept *)pdu
+						   dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+						   invokeId:(int64_t)invokeId
+{
+	UMTTask *task = [self getAndRemovePendingUMTTaskForDialog:dialogId invokeId:invokeId];
+	[task openConfirmation:pdu];
+}
+
+- (void)umtransportCloseConfirmation:(UMTransportCloseAccept *)pdu
+							dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+							invokeId:(int64_t)invokeId
+{
+	UMTTask *task = [self getAndRemovePendingUMTTaskForDialog:dialogId invokeId:invokeId];
+	[task closeConfirmation:pdu];
+}
+
+
+
+- (void)addSCCPTranslationTable:(NSDictionary *)config
+{
+	NSString *name = config[@"name"];
+	if(name)
+	{
+		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
+		if(sccp)
+		{
+			SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
+			[sccp.gttSelectorRegistry addEntry:selector];
+		}
+	}
+}
+
+
+- (void)  handleMtp3Status:(UMHTTPRequest *)req
+{
+	NSMutableString *status = [[NSMutableString alloc]init];
+	NSArray *keys = [_mtp3_dict allKeys];
+	for(NSString *key in keys)
+	{
+		UMLayerMTP3 *mtp3 = _mtp3_dict[key];
+		if(mtp3.ready)
+		{
+			[status appendFormat:@"MTP3-INSTANCE:%@:IS\n",mtp3.layerName];
+		}
+		else
+		{
+			[status appendFormat:@"MTP3-INSTANCE:%@:OOS\n",mtp3.layerName];
+
+		}
+
+		UMSynchronizedSortedDictionary *rt = mtp3.routingTable.objectValue;
+		[status appendFormat: @"Routes:\n%@",rt.jsonString];
+	}
+	[req setResponsePlainText:status];
+	return;
 }
 
 @end
