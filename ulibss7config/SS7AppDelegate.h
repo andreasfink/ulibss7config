@@ -124,10 +124,12 @@ UMSS7ConfigAppDelegateProtocol>
 
     id                          _mainMscInstance;
     id                          _mainHlrInstance;
+
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
 @property(readwrite,strong)     UMLogHandler    *logHandler;
+@property(readwrite,assign)     BOOL            startInStandby;
 
 
 @property(readwrite,strong)     NSDictionary		*enabledOptions;
@@ -168,5 +170,7 @@ UMSS7ConfigAppDelegateProtocol>
 - (int)defaultWebPort;
 - (NSString *)defaultWebUser;
 - (NSString *)defaultWebPassword;
+- (NSString *)productName;
+
 @end
 
