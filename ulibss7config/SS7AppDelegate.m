@@ -98,8 +98,8 @@ static void signalHandler(int signum);
 	{
 		_enabledOptions                 = options;
 		_logHandler                     = [[UMLogHandler alloc]initWithConsole];
-		self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler];
-		_logLevel                       = UMLOG_MAJOR;
+		self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"main"];
+		_logLevel                       = UMLOG_DEBUG;
 		_sctp_dict                      = [[UMSynchronizedDictionary alloc]init];
 		_m2pa_dict                      = [[UMSynchronizedDictionary alloc]init];
 		_mtp3_dict                      = [[UMSynchronizedDictionary alloc]init];
@@ -476,6 +476,8 @@ static void signalHandler(int signum);
 	/*****************************************************************/
 	/* Section GENERAL */
 	/*****************************************************************/
+	[self.logFeed infoText:@"creatingInstances"];
+
 
 	UMSS7ConfigGeneral *generalConfig = _runningConfig.generalConfig;
 	if(generalConfig.logDirectory.length > 0)
@@ -982,6 +984,7 @@ static void signalHandler(int signum);
 
 - (void)startInstances
 {
+	[self.logFeed infoText:@"Starting Instances"];
 	NSArray *names = [_mtp3_dict allKeys];
 	for(NSString *name in names)
 	{
@@ -992,11 +995,18 @@ static void signalHandler(int signum);
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	if(!_startInStandby)
+	if(!self.startInStandby)
 	{
+		[self.logFeed infoText:@"Stating instances"];
 		[self startInstances];
 	}
+	else
+	{
+		[self.logFeed infoText:@"Stating up in standby"];
+	}
 }
+
+
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
@@ -2383,6 +2393,7 @@ static void signalHandler(int signum);
     /* this initializes some stuff for the main run loop on Linux/GNUStep */
     
     [self applicationDidFinishLaunching:NULL];
+
     while(_must_quit==0)
     {
         @autoreleasepool
