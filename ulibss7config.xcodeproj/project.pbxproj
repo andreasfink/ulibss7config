@@ -318,11 +318,11 @@
 		A6D2D7CA21A4A01800B1895A /* SS7ConfigurationSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7C821A4A01800B1895A /* SS7ConfigurationSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6D2D7CB21A4A01800B1895A /* SS7ConfigurationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D2D7C921A4A01800B1895A /* SS7ConfigurationSession.m */; };
 		A6EC8E5821B12F3E00B69FDD /* UMTTaskPing.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5221B12F3D00B69FDD /* UMTTaskPing.m */; };
-		A6EC8E5921B12F3E00B69FDD /* UMTTaskGetVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */; };
+		A6EC8E5921B12F3E00B69FDD /* UMTTaskGetVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6EC8E5A21B12F3E00B69FDD /* UMTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5421B12F3D00B69FDD /* UMTTask.m */; };
-		A6EC8E5B21B12F3E00B69FDD /* UMTTaskPing.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5521B12F3D00B69FDD /* UMTTaskPing.h */; };
+		A6EC8E5B21B12F3E00B69FDD /* UMTTaskPing.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5521B12F3D00B69FDD /* UMTTaskPing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6EC8E5C21B12F3E00B69FDD /* UMTTaskGetVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5621B12F3E00B69FDD /* UMTTaskGetVersion.m */; };
-		A6EC8E5D21B12F3E00B69FDD /* UMTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5721B12F3E00B69FDD /* UMTTask.h */; };
+		A6EC8E5D21B12F3E00B69FDD /* UMTTask.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5721B12F3E00B69FDD /* UMTTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6F178C421AEFDC90084D972 /* SS7AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6F178C321AEFDC90084D972 /* SS7AppDelegate.m */; };
 /* End PBXBuildFile section */
 
