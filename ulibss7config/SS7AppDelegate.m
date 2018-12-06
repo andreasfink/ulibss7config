@@ -1666,7 +1666,8 @@ static void signalHandler(int signum);
 		m2pa.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m2pa"];
 		m2pa.logFeed.name = name;
 		[m2pa setConfig:config applicationContext:self];
-		_m2pa_dict[name] = m2pa;    }
+		_m2pa_dict[name] = m2pa;
+    }
 }
 
 - (void)deleteM2PA:(NSString *)name
