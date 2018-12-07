@@ -72,3 +72,6 @@
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
 #import "UMSS7ConfigIMSIPool.h"
+#import "UMTTask.h"
+#import "UMTTaskPing.h"
+#import "UMTTaskGetVersion.h"

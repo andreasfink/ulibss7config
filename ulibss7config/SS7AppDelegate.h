@@ -16,6 +16,7 @@
 #import "SS7TelnetSocketHelperProtocol.h"
 #import "SS7UserAuthenticateProtocol.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMTTask.h"
 
 @class HLRInstance;
 @class MSCInstance;
@@ -24,6 +25,7 @@
 @class UMSS7ConfigStorage;
 @class SccpDestination;
 @class SS7AppTransportHandler;
+@class ApiSession;
 
 typedef enum SchrittmacherMode
 {
@@ -124,10 +126,12 @@ UMSS7ConfigAppDelegateProtocol>
 
     id                          _mainMscInstance;
     id                          _mainHlrInstance;
+
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
 @property(readwrite,strong)     UMLogHandler    *logHandler;
+@property(readwrite,assign)     BOOL            startInStandby;
 
 
 @property(readwrite,strong)     NSDictionary		*enabledOptions;
@@ -168,5 +172,94 @@ UMSS7ConfigAppDelegateProtocol>
 - (int)defaultWebPort;
 - (NSString *)defaultWebUser;
 - (NSString *)defaultWebPassword;
+- (NSString *)productName;
+- (NSString *)productVersion;
+- (void)umobjectStat:(UMHTTPRequest *)req;
+- (void)ummutexStat:(UMHTTPRequest *)req;
+- (void)umtGetPost:(UMHTTPRequest *)req;
+- (void)webHeader:(NSMutableString *)s title:(NSString *)t;
+
+
+- (void)addPendingUMTTask:(UMTask *)task
+				   dialog:(UMTCAP_UserDialogIdentifier *)_dialogId
+				 invokeId:(int64_t)_invokeId;
+
+
+- (void)addApiSession:(ApiSession *)session;
+- (void)removeApiSession:(NSString *)sessionKey;
+- (UMSS7ApiSession *)getApiSession:(NSString *)sessionKey;
+
+- (NSString *)umtransportGetNewUserReference;
+
+- (UMTTask *)getPendingUMTTaskForDialog:(UMTCAP_UserDialogIdentifier *)dialogId
+							   invokeId:(int64_t)invokeId;
+- (UMTTask *)getAndRemovePendingUMTTaskForDialog:(UMTCAP_UserDialogIdentifier *)dialogId
+										invokeId:(int64_t)invokeId;
+
+
+
+/* @Description : Modifies a Routing Table for a specific SCCP Layer to Registry
+ @Param : New Configuration Object
+ @Param : Old Configuration Object
+ @see : Document q-713 SCCP Format Codes
+ **/
+- (UMSynchronizedSortedDictionary *)modifySCCPTranslationTable:(NSDictionary *)new_config
+														   old:(NSDictionary *)old_config;
+
+/* @Description : Activates/Deactivates a Routing Table
+ @Param : Name of SCCP Layer
+ @Param : Translation Type of Routing Table
+ @Param : Global Title Indicator
+ @Param : Numbering Plan
+ @Param : Nature of Address Indicator
+ @Param : on (YES or NO)
+ @see : Document q-713 SCCP Format Codes
+ **/
+- (UMSynchronizedSortedDictionary *)activateSCCPTranslationTable:(NSString *)name
+															  tt:(NSNumber *)tt
+															 gti:(NSNumber *)gti
+															  np:(NSNumber *)np
+															 nai:(NSNumber *)nai
+															  on:(BOOL)on;
+
+/* @Description : Clone a Routing Table for a specific SCCP Layer to Registry
+ @Param : Configuration Object
+ @see : Document q-713 SCCP Format Codes
+ **/
+- (UMSynchronizedSortedDictionary *)cloneSCCPTranslationTable:(NSDictionary *)config;
+
+/* @Description : Adds a Routing Table for a specific SCCP Layer to Registry
+ @Param : Configuration Object
+ @see : Document q-713 SCCP Format Codes
+ **/
+- (void)addSCCPTranslationTable:(NSDictionary *)config;
+
+
+
+
+/* @Description : Removes a Routing Table for a specific SCCP Layer from its Registry
+ @Param : Name of SCCP Layer
+ @Param : Translation Type of Routing Table
+ @Param : Global Title Indicator
+ @Param : Numbering Plan
+ @Param : Nature of Address Indicator
+ @see : Document q-713 SCCP Format Codes
+ **/
+- (void)deleteSCCPTranslationTable:(NSString *)name
+								tt:(NSNumber *)tt
+							   gti:(NSNumber *)gti
+								np:(NSNumber *)np
+							   nai:(NSNumber *)nai;
+
+/* @Description : Returns a Routing Table for a specific SCCP Layer from its Registry
+ @Param : Name of SCCP Layer
+ @Param : Translation Type of Routing Table
+ @Param : Global Title Indicator
+ @Param : Numbering Plan
+ @Param : Nature of Address Indicator
+ @see : Document q-713 SCCP Format Codes
+ **/
+
+
 @end
 
