@@ -26,6 +26,7 @@
 @class SccpDestination;
 @class SS7AppTransportHandler;
 @class ApiSession;
+@class SS7TemporaryImsiPool;
 
 typedef enum SchrittmacherMode
 {
@@ -106,6 +107,7 @@ UMSS7ConfigAppDelegateProtocol>
     UMSynchronizedDictionary    *_gsmscf_dict;
 	UMSynchronizedDictionary    *_gmlc_dict;
 	UMSynchronizedDictionary    *_estp_dict;
+
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
 	UMLicenseDirectory       	*_globalLicenseDirectory;
@@ -261,5 +263,17 @@ UMSS7ConfigAppDelegateProtocol>
  **/
 
 
+
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark IMSI Pool Service Functions
+/************************************************************/
+
+- (SS7TemporaryImsiPool *)getIMSIPool:(NSString *)name;
+- (void)addWithConfigIMSIPool:(NSDictionary *)config;
+- (void)deleteIMSIPool:(NSString *)name;
+- (void)renameIMSIPool:(NSString *)oldName to:(NSString *)newName;
 @end
 

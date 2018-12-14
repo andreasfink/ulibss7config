@@ -311,6 +311,10 @@
 		A6C0AFB12089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C0AFAF2089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m */; };
 		A6C0AFB42089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C0AFB22089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6C0AFB52089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C0AFB32089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.m */; };
+		A6C4164C21C4134B0033F993 /* SS7TemporaryImsiPool.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C4164A21C4134B0033F993 /* SS7TemporaryImsiPool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6C4164D21C4134B0033F993 /* SS7TemporaryImsiPool.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4164B21C4134B0033F993 /* SS7TemporaryImsiPool.m */; };
+		A6C4165021C4139F0033F993 /* SS7TemporaryImsiEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C4164E21C4139F0033F993 /* SS7TemporaryImsiEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6C4165121C4139F0033F993 /* SS7TemporaryImsiEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4164F21C4139F0033F993 /* SS7TemporaryImsiEntry.m */; };
 		A6D2D7BE21A4938400B1895A /* SS7UserAuthenticateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7BC21A4938400B1895A /* SS7UserAuthenticateProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6D2D7C221A49F1E00B1895A /* SS7TelnetSocketHelperProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7C021A49F1E00B1895A /* SS7TelnetSocketHelperProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6D2D7C621A49FA400B1895A /* SS7TelnetSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7C421A49FA400B1895A /* SS7TelnetSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -652,6 +656,10 @@
 		A6C0AFAF2089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPNumberTranslation.m; sourceTree = "<group>"; };
 		A6C0AFB22089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSCCPNumberTranslationEntry.h; sourceTree = "<group>"; };
 		A6C0AFB32089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPNumberTranslationEntry.m; sourceTree = "<group>"; };
+		A6C4164A21C4134B0033F993 /* SS7TemporaryImsiPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7TemporaryImsiPool.h; sourceTree = "<group>"; };
+		A6C4164B21C4134B0033F993 /* SS7TemporaryImsiPool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7TemporaryImsiPool.m; sourceTree = "<group>"; };
+		A6C4164E21C4139F0033F993 /* SS7TemporaryImsiEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7TemporaryImsiEntry.h; sourceTree = "<group>"; };
+		A6C4164F21C4139F0033F993 /* SS7TemporaryImsiEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7TemporaryImsiEntry.m; sourceTree = "<group>"; };
 		A6D2D7BC21A4938400B1895A /* SS7UserAuthenticateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7UserAuthenticateProtocol.h; sourceTree = "<group>"; };
 		A6D2D7C021A49F1E00B1895A /* SS7TelnetSocketHelperProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7TelnetSocketHelperProtocol.h; sourceTree = "<group>"; };
 		A6D2D7C421A49FA400B1895A /* SS7TelnetSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7TelnetSocket.h; sourceTree = "<group>"; };
@@ -767,6 +775,10 @@
 				A634BC2621A40E7400852462 /* SS7GenericInstance_MAP_U_Abort_Req_Task.m */,
 				A634BC0F21A40E7100852462 /* SS7GenericInstance_MAP_Unidirectional_Ind_Task.h */,
 				A634BC1121A40E7200852462 /* SS7GenericInstance_MAP_Unidirectional_Ind_Task.m */,
+				A6C4164A21C4134B0033F993 /* SS7TemporaryImsiPool.h */,
+				A6C4164B21C4134B0033F993 /* SS7TemporaryImsiPool.m */,
+				A6C4164E21C4139F0033F993 /* SS7TemporaryImsiEntry.h */,
+				A6C4164F21C4139F0033F993 /* SS7TemporaryImsiEntry.m */,
 				A6EC8E5721B12F3E00B69FDD /* UMTTask.h */,
 				A6EC8E5421B12F3D00B69FDD /* UMTTask.m */,
 				A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */,
@@ -1165,6 +1177,7 @@
 				A6BC44FC207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_add.h in Headers */,
 				A6BC44FA207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_delete.h in Headers */,
 				A634BC3421A40E7400852462 /* SS7GenericInstance_MAP_ReturnError_Resp_Task.h in Headers */,
+				A6C4165021C4139F0033F993 /* SS7TemporaryImsiEntry.h in Headers */,
 				A6EC8E5B21B12F3E00B69FDD /* UMTTaskPing.h in Headers */,
 				A6BC42FC20774F93008C3CEB /* UMSS7ConfigTCAPFilter.h in Headers */,
 				A6BC4349207750B4008C3CEB /* UMSS7ConfigAppDelegateProtocol.h in Headers */,
@@ -1239,6 +1252,7 @@
 				A6BC433520774F93008C3CEB /* UMSS7ConfigSCCPTranslationTable.h in Headers */,
 				A63DBFC020887D0E00CA6871 /* UMSS7ConfigVLR.h in Headers */,
 				A6BC430920774F93008C3CEB /* UMSS7ConfigSMSFilter.h in Headers */,
+				A6C4164C21C4134B0033F993 /* SS7TemporaryImsiPool.h in Headers */,
 				A634BC3721A40E7400852462 /* SS7GenericInstance_MAP_ReturnResult_Resp_Task.h in Headers */,
 				A6BC432520774F93008C3CEB /* UMSS7ConfigWebserver.h in Headers */,
 				A6BC434420774F93008C3CEB /* UMSS7ConfigTCAP.h in Headers */,
@@ -1352,6 +1366,7 @@
 				A6D2D7CB21A4A01800B1895A /* SS7ConfigurationSession.m in Sources */,
 				A6BC451B207753EE008C3CEB /* UMSS7ApiTaskSCCP_read.m in Sources */,
 				A6BB6A0221522FFE00749D40 /* UMSS7ApiTaskSCCPTranslationTable_action.m in Sources */,
+				A6C4164D21C4134B0033F993 /* SS7TemporaryImsiPool.m in Sources */,
 				A634BC2E21A40E7400852462 /* SS7GenericInstance_MAP_ReturnError_Resp_Task.m in Sources */,
 				A6BC4508207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_list.m in Sources */,
 				A6BC4520207753EE008C3CEB /* UMSS7ApiTaskMTP3LinkSet_add.m in Sources */,
@@ -1384,6 +1399,7 @@
 				A6BC450E207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_delete.m in Sources */,
 				A63DBFC920887E0A00CA6871 /* UMSS7ConfigGMLC.m in Sources */,
 				A634BBF821A38B3300852462 /* UMSS7ConfigServiceUser.m in Sources */,
+				A6C4165121C4139F0033F993 /* SS7TemporaryImsiEntry.m in Sources */,
 				A6BC44E5207753ED008C3CEB /* UMSS7ApiTaskM2PA_read.m in Sources */,
 				A6BC434320774F93008C3CEB /* UMSS7ConfigSyslogDestination.m in Sources */,
 				A6BC4549207753EE008C3CEB /* UMSS7ApiTaskMTP3_action.m in Sources */,

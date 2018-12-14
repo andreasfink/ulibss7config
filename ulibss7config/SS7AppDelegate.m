@@ -74,6 +74,7 @@
 #import "SS7GenericInstance.h"
 #import "SS7GenericSession.h"
 #import "SS7AppTransportHandler.h"
+#import "SS7TemporaryImsiPool.h"
 
 @class SS7AppDelegate;
 
@@ -119,7 +120,6 @@ static void signalHandler(int signum);
 		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
-		_imsi_pools_dict                = [[UMSynchronizedDictionary alloc]init];
 		if([_enabledOptions[@"msc"] boolValue])
 		{
 			_msc_dict = [[UMSynchronizedDictionary alloc]init];
@@ -148,6 +148,10 @@ static void signalHandler(int signum);
 		{
 			_estp_dict = [[UMSynchronizedDictionary alloc]init];
 		}
+        if([_enabledOptions[@"imsi-pool"] boolValue])
+        {
+            _imsi_pools_dict = [[UMSynchronizedDictionary alloc]init];
+        }
 
 		if(_enabledOptions[@"umtransport"])
 		{
@@ -908,7 +912,24 @@ static void signalHandler(int signum);
 		}
 	}
 
+    /*****************************************************************/
+    /* Section IMSI Pool */
+    /*****************************************************************/
+    if([_enabledOptions[@"imsi-pool"] boolValue])
+    {
+        names = [_runningConfig getIMSIPoolNames];
+        for(NSString *name in names)
+        {
+            UMSS7ConfigObject *co = [_runningConfig getIMSIPool:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
+            {
+                SS7TemporaryImsiPool *pool = [[SS7TemporaryImsiPool alloc]initWithConfig:config];
+                _imsi_pools_dict[pool.name] = pool;
 
+            }
+        }
+    }
 
 	/*****************************************************************/
 	/* Configuring ESTP and set up a ULibTransport entity for it     */
@@ -2216,6 +2237,40 @@ static void signalHandler(int signum);
     layer.layerName = newName;
     _gsmmap_dict[newName] = layer;
 }
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark IMSI Pool Service Functions
+/************************************************************/
+
+- (SS7TemporaryImsiPool *)getIMSIPool:(NSString *)name
+{
+    return _imsi_pools_dict[name];
+}
+
+
+- (void)addWithConfigIMSIPool:(NSDictionary *)config
+{
+
+    SS7TemporaryImsiPool *pool = [[SS7TemporaryImsiPool alloc]initWithConfig:config];
+    _imsi_pools_dict[pool.name] = pool;
+}
+
+- (void)deleteIMSIPool:(NSString *)name
+{
+    [_imsi_pools_dict removeObjectForKey:name];
+}
+
+- (void)renameIMSIPool:(NSString *)oldName to:(NSString *)newName
+{
+    SS7TemporaryImsiPool *pool = _imsi_pools_dict[oldName];
+    [_imsi_pools_dict removeObjectForKey:oldName];
+    pool.name = newName;
+    _imsi_pools_dict[pool.name] = pool;
+}
+
+
 
 
 

@@ -75,3 +75,6 @@
 #import "UMTTask.h"
 #import "UMTTaskPing.h"
 #import "UMTTaskGetVersion.h"
+#import "SS7TemporaryImsiPool.h"
+#import "SS7TemporaryImsiEntry.h"
+
