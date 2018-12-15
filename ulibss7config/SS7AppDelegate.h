@@ -13,7 +13,7 @@
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 
-#import "TemporaryImsiPool.h"
+#import "SS7TemporaryImsiPool.h"
 #import "TelnetSocketHelperProtocol.h"
 
 @class MSCInstance;
