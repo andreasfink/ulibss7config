@@ -18,14 +18,9 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
 
-<<<<<<< HEAD
 #import "SS7TemporaryImsiPool.h"
-#import "TelnetSocketHelperProtocol.h"
+#import "SS7TelnetSocketHelperProtocol.h"
 
-=======
-@class HLRInstance;
->>>>>>> 99f8f16ab2323af3c4537c6dfb6da7caa90f427b
-@class MSCInstance;
 @class ConfigurationSocket;
 @class SchrittmacherClient;
 @class UMSS7ConfigStorage;
