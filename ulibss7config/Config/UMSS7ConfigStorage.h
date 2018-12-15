@@ -14,7 +14,7 @@
 @class  UMSS7ConfigMTP3;
 @class  UMSS7ConfigMTP3Filter;
 @class  UMSS7ConfigMTP3FilterDict;
-@class  UMSS7ConfigMTP3Linkset;
+@class  UMSS7ConfigMTP3LinkSet;
 @class  UMSS7ConfigMTP3Link;
 @class  UMSS7ConfigM3UAAS;
 @class  UMSS7ConfigM3UAASP;
@@ -60,10 +60,10 @@
 
 @interface UMSS7ConfigStorage : UMObject
 {
-    BOOL _dirty;
-    NSArray *_commandLineArguments;
-    UMCommandLine *_commandLine;
-    UMSS7ConfigGeneral *_generalConfig;
+    BOOL                    _dirty;
+    NSArray                 *_commandLineArguments;
+    UMCommandLine           *_commandLine;
+    UMSS7ConfigGeneral      *_generalConfig;
 
     UMSynchronizedDictionary *_webserver_dict;
     UMSynchronizedDictionary *_telnet_dict;
@@ -208,11 +208,11 @@
 - (NSString *)replaceMTP3Link:(UMSS7ConfigMTP3Link *)mtp3_link;
 - (NSString *)deleteMTP3Link:(NSString *)name;
 
-- (NSArray *)getMTP3LinksetNames;
-- (UMSS7ConfigMTP3Linkset *)getMTP3Linkset:(NSString *)name;
-- (NSString *)addMTP3Linkset:(UMSS7ConfigMTP3Linkset*)mtp3_linkset;
-- (NSString *)replaceMTP3Linkset:(UMSS7ConfigMTP3Linkset *)mtp3_linkset;
-- (NSString *)deleteMTP3Linkset:(NSString *)name;
+- (NSArray *)getMTP3LinkSetNames;
+- (UMSS7ConfigMTP3LinkSet *)getMTP3LinkSet:(NSString *)name;
+- (NSString *)addMTP3LinkSet:(UMSS7ConfigMTP3LinkSet*)mtp3_linkset;
+- (NSString *)replaceMTP3LinkSet:(UMSS7ConfigMTP3LinkSet *)mtp3_linkset;
+- (NSString *)deleteMTP3LinkSet:(NSString *)name;
 
 - (NSArray *)getM3UAASNames;
 - (UMSS7ConfigM3UAAS *)getM3UAAS:(NSString *)name;

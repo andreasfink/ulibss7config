@@ -25,5 +25,11 @@
         [self sendErrorNotAuthenticated];
         return;
     }
+	
+	if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
 }
 @end

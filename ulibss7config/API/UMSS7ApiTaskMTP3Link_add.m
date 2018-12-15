@@ -26,6 +26,12 @@
         [self sendErrorNotAuthenticated];
         return;
     }
+	
+	if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
 
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
@@ -41,7 +47,7 @@
 		{
 			mtp3link = [[UMSS7ConfigMTP3Link alloc]initWithConfig:_webRequest.params];
 			UMSynchronizedSortedDictionary *config = mtp3link.config;
-			[_appDelegate addWithConfigMTP3_Link:config.dictionaryCopy];
+			[_appDelegate addWithConfigMTP3Link:config.dictionaryCopy];
 			[self sendResultObject:config];
 		}
         @catch(NSException *e)

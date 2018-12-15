@@ -41,7 +41,7 @@
 		{
 			m3uaas = [[UMSS7ConfigM3UAAS alloc]initWithConfig:_webRequest.params];
 			UMSynchronizedSortedDictionary *config = m3uaas.config;
-			[_appDelegate addWithConfigM3UA_AS:config.dictionaryCopy];
+			[_appDelegate addWithConfigM3UAAS:config.dictionaryCopy];
 			[self sendResultObject:config];
 		}
         @catch(NSException *e)

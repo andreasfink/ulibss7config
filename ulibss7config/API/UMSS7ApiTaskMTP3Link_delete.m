@@ -27,12 +27,19 @@
         [self sendErrorNotAuthenticated];
         return;
     }
+	
+	if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+	
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
     UMSS7ConfigMTP3Link *config_object = [cs getMTP3Link:name];
-    UMMTP3Link *instance = [_appDelegate getMTP3_Link:name];
+    UMMTP3Link *instance = [_appDelegate getMTP3Link:name];
     if((instance!=NULL) || (config_object==NULL))
     {
         [self sendErrorNotFound];

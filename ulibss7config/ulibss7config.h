@@ -9,6 +9,13 @@
 #import <ulib/ulib.h>
 
 #import "SS7AppDelegate.h"
+#import "SS7UserAuthenticateProtocol.h"
+#import "SS7GenericInstance.h"
+#import "SS7GenericSession.h"
+#import "SS7AppTransportHandler.h"
+#import "SS7TelnetSocketHelperProtocol.h"
+#import "SS7TelnetSocket.h"
+
 #import "UMSS7ConfigAppDelegateProtocol.h"
 
 #import "UMSS7ConfigObject.h"
@@ -24,7 +31,7 @@
 #import "UMSS7ConfigM2PA.h"
 #import "UMSS7ConfigMTP3.h"
 #import "UMSS7ConfigMTP3Link.h"
-#import "UMSS7ConfigMTP3Linkset.h"
+#import "UMSS7ConfigMTP3LinkSet.h"
 #import "UMSS7ConfigM3UAAS.h"
 #import "UMSS7ConfigM3UAASP.h"
 #import "UMSS7ConfigMTP3Filter.h"
@@ -65,3 +72,9 @@
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
 #import "UMSS7ConfigIMSIPool.h"
+#import "UMTTask.h"
+#import "UMTTaskPing.h"
+#import "UMTTaskGetVersion.h"
+#import "SS7TemporaryImsiPool.h"
+#import "SS7TemporaryImsiEntry.h"
+
