@@ -1017,7 +1017,9 @@ static void signalHandler(int signum);
 	NSArray *names = [_mtp3_dict allKeys];
 	for(NSString *name in names)
 	{
-		UMLayerMTP3 *mtp3 = [self getMTP3:name];
+        NSLog(@"name=%@",name);
+        UMLayerMTP3 *mtp3 = [self getMTP3:name];
+        NSLog(@"description=%@",mtp3.description);
 		NSLog(@"mtp3 %@ starting",mtp3.layerName);
 		[mtp3 start];
 		NSLog(@"mtp3 %@ started",mtp3.layerName);
