@@ -1063,15 +1063,8 @@ static void signalHandler(int signum);
 	@autoreleasepool
 	{
 		NSString *path = req.url.relativePath;
-		if([path hasPrefix:@"/msc"])
-		{
-			[_mainMscInstance httpGetPost:req];
-		}
-		else if([path hasPrefix:@"/hlr"])
-		{
-			[_mainHlrInstance httpGetPost:req];
-		}
-		else if([path isEqualToString:@"/css/style.css"])
+
+		if([path isEqualToString:@"/css/style.css"])
 		{
 			[req setResponseCssString:[SS7AppDelegate css]];
 		}

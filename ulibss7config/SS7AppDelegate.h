@@ -27,6 +27,7 @@
 @class SS7AppTransportHandler;
 @class ApiSession;
 @class SS7TemporaryImsiPool;
+@class SS7GenericInstance;
 
 typedef enum SchrittmacherMode
 {
@@ -126,9 +127,6 @@ UMSS7ConfigAppDelegateProtocol>
     UMSocketSCTPRegistry        *_registry;
     int                         _must_quit;
 
-    id                          _mainMscInstance;
-    id                          _mainHlrInstance;
-
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -146,7 +144,6 @@ UMSS7ConfigAppDelegateProtocol>
 @property(readwrite,strong)     UMTaskQueueMulti	*generalTaskQueue;
 @property(readwrite,strong)     NSDictionary		*staticWebPages;
 @property(readwrite,strong)     UMHTTPClient		*webClient;
-
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -265,6 +262,7 @@ UMSS7ConfigAppDelegateProtocol>
 
 
 
+- (NSNumber *)concurrentTasksForConfig:(UMSS7ConfigObject *)co;
 
 /************************************************************/
 #pragma mark -
