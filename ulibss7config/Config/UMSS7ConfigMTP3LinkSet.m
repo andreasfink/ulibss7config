@@ -39,6 +39,8 @@
     APPEND_CONFIG_STRING(s,@"apc",_apc);
     APPEND_CONFIG_STRING(s,@"opc",_opc);
     APPEND_CONFIG_DOUBLE(s,@"speed",_speed);
+    APPEND_CONFIG_INTEGER(s,@"override-network-indicator",_overrideNetworkIndicator);
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -48,6 +50,7 @@
     APPEND_DICT_STRING(dict,@"apc",_apc);
     APPEND_DICT_STRING(dict,@"opc",_opc);
     APPEND_DICT_DOUBLE(dict,@"speed",_speed);
+    APPEND_DICT_INTEGER(dict,@"override-network-indicator",_overrideNetworkIndicator);
 
     return dict;
 }
@@ -59,6 +62,7 @@
     SET_DICT_STRING(dict,@"apc",_apc);
     SET_DICT_STRING(dict,@"opc",_opc);
     SET_DICT_DOUBLE(dict,@"speed",_speed);
+    SET_DICT_INTEGER(dict,@"override-network-indicator",_overrideNetworkIndicator);
 }
 
 - (UMSS7ConfigMTP3LinkSet *)copyWithZone:(NSZone *)zone
