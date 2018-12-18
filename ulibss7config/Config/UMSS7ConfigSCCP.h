@@ -14,6 +14,9 @@
     NSString *_variant;
     NSString *_mode;
     NSString *_next_pc;
+    NSString *_next_pc1;
+    NSString *_next_pc2;
+    NSNumber *_ntt;
 }
 
 + (NSString *)type;
@@ -24,5 +27,8 @@
 @property(readwrite,strong,atomic)  NSString *variant;
 @property(readwrite,strong,atomic)  NSString *mode;
 @property(readwrite,strong,atomic)  NSString *next_pc;
+@property(readwrite,strong,atomic)  NSString *next_pc1;
+@property(readwrite,strong,atomic)  NSString *next_pc2;
+@property(readwrite,strong,atomic)  NSNumber *ntt;
 
 @end

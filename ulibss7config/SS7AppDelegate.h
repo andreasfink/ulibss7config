@@ -9,7 +9,6 @@
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibsms/ulibsms.h>
-#import <uliblicense/uliblicense.h>
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import "UMSS7ConfigObject.h"
@@ -17,6 +16,7 @@
 #import "SS7UserAuthenticateProtocol.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
+#import "/usr/local/include/uliblicense//uliblicense.h"
 
 @class HLRInstance;
 @class MSCInstance;
