@@ -14,6 +14,7 @@
     NSString *_apc;
     NSString *_opc;
     NSNumber *_speed;
+    NSNumber *_overrideNetworkIndicator;
 }
 
 + (NSString *)type;
@@ -24,5 +25,6 @@
 @property(readwrite,strong,atomic)  NSString *apc;
 @property(readwrite,strong,atomic)  NSString *opc;
 @property(readwrite,strong,atomic)  NSNumber *speed;
+@property(readwrite,strong,atomic)  NSNumber *overrideNetworkIndicator;
 
 @end

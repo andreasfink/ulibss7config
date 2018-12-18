@@ -120,6 +120,11 @@ static void signalHandler(int signum);
 		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
+
+        if(_enabledOptions[@"name"])
+        {
+            self.logFeed.name =_enabledOptions[@"name"];
+        }
 		if([_enabledOptions[@"msc"] boolValue])
 		{
 			_msc_dict = [[UMSynchronizedDictionary alloc]init];
@@ -1017,7 +1022,9 @@ static void signalHandler(int signum);
 	NSArray *names = [_mtp3_dict allKeys];
 	for(NSString *name in names)
 	{
-		UMLayerMTP3 *mtp3 = [self getMTP3:name];
+        NSLog(@"name=%@",name);
+        UMLayerMTP3 *mtp3 = [self getMTP3:name];
+        NSLog(@"description=%@",mtp3.description);
 		NSLog(@"mtp3 %@ starting",mtp3.layerName);
 		[mtp3 start];
 		NSLog(@"mtp3 %@ started",mtp3.layerName);
@@ -1063,15 +1070,8 @@ static void signalHandler(int signum);
 	@autoreleasepool
 	{
 		NSString *path = req.url.relativePath;
-		if([path hasPrefix:@"/msc"])
-		{
-			[_mainMscInstance httpGetPost:req];
-		}
-		else if([path hasPrefix:@"/hlr"])
-		{
-			[_mainHlrInstance httpGetPost:req];
-		}
-		else if([path isEqualToString:@"/css/style.css"])
+
+		if([path isEqualToString:@"/css/style.css"])
 		{
 			[req setResponseCssString:[SS7AppDelegate css]];
 		}
