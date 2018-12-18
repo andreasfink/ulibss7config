@@ -120,6 +120,11 @@ static void signalHandler(int signum);
 		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
+
+        if(_enabledOptions[@"name"])
+        {
+            self.logFeed.name =_enabledOptions[@"name"];
+        }
 		if([_enabledOptions[@"msc"] boolValue])
 		{
 			_msc_dict = [[UMSynchronizedDictionary alloc]init];
