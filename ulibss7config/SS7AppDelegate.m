@@ -182,7 +182,7 @@ static void signalHandler(int signum);
 		}
 		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
 		_umtransportLock = [[UMMutex alloc]init];
-		_umtransportService = [[UMTransportService alloc]init];
+		_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
 		_pendingUMT = [[UMSynchronizedDictionary alloc]init];
 
 	}
@@ -546,6 +546,10 @@ static void signalHandler(int signum);
                                                        numberOfQueues:UMLAYER_QUEUE_COUNT];
     _m2paTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"m2pa"
+                                                        enableLogging:NO
+                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+    _m3uaTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                 name:@"m3ua"
                                                         enableLogging:NO
                                                        numberOfQueues:UMLAYER_QUEUE_COUNT];
     _mtp3TaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
@@ -1916,7 +1920,7 @@ static void signalHandler(int signum);
         UMSS7ConfigM3UAAS *co = [[UMSS7ConfigM3UAAS alloc]initWithConfig:config];
         [_runningConfig addM3UAAS:co];
         
-        UMM3UAApplicationServerProcess *m3ua_asp = [[UMM3UAApplicationServerProcess alloc]init];
+        UMM3UAApplicationServerProcess *m3ua_asp = [[UMM3UAApplicationServerProcess alloc]initWithTaskQueueMulti:_m3uaTaskQueue];
         m3ua_asp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-asp"];
         m3ua_asp.logFeed.name = name;
         [m3ua_asp setConfig:config applicationContext:self];
