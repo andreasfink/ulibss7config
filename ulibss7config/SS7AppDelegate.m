@@ -2089,7 +2089,7 @@ static void signalHandler(int signum);
     {
         return _runningConfig.generalConfig.concurrentTasks;
     }
-    return @(ulib_cpu_count() * 2);
+    return @(ulib_cpu_count());
 }
 
 
