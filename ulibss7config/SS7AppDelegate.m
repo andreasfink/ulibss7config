@@ -158,9 +158,26 @@ static void signalHandler(int signum);
             _imsi_pools_dict = [[UMSynchronizedDictionary alloc]init];
         }
 
+        _concurrentThreads = ulib_cpu_count();
+        if(self.generalTaskQueue == NULL)
+        {
+            if(_runningConfig.generalConfig.concurrentTasks!=NULL)
+            {
+                _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
+            }
+            if(_concurrentThreads<3)
+            {
+                _concurrentThreads = 3;
+            }
+            _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                            name:@"general-task-queue"
+                                                                   enableLogging:NO
+                                                                  numberOfQueues:UMLAYER_QUEUE_COUNT];
+        }
+
 		if(_enabledOptions[@"umtransport"])
 		{
-			_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:self.generalTaskQueue];
+			_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
 			/* FIXME: _umtransportService.delegate = self;  */
 		}
 		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
@@ -495,6 +512,7 @@ static void signalHandler(int signum);
 	[self.logFeed infoText:@"creatingInstances"];
 
 
+
 	UMSS7ConfigGeneral *generalConfig = _runningConfig.generalConfig;
 	if(generalConfig.logDirectory.length > 0)
 	{
@@ -522,24 +540,30 @@ static void signalHandler(int signum);
 		_logLevel = UMLOG_MAJOR;
 	}
 
-	int concurrentThreads = ulib_cpu_count() * 2;
-	NSLog(@"cpu-count: %d",concurrentThreads);
-	if(self.generalTaskQueue == NULL)
-	{
-		if(_runningConfig.generalConfig.concurrentTasks!=NULL)
-		{
-			concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
-		}
-		if(_concurrentTasks<8)
-		{
-			_concurrentTasks = 8;
-		}
-		NSLog(@"concurrent-threads: %d",concurrentThreads);
-		self.generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentThreads
-																		name:@"general-task-queue"
-															   enableLogging:NO
-															  numberOfQueues:UMLAYER_QUEUE_COUNT];
-	}
+    _sctpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                 name:@"sctp"
+                                                        enableLogging:NO
+                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+    _m2paTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                 name:@"m2pa"
+                                                        enableLogging:NO
+                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+    _mtp3TaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                 name:@"mtp3"
+                                                        enableLogging:NO
+                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+    _sccpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                 name:@"sccp"
+                                                        enableLogging:NO
+                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+    _tcapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                 name:@"tcap"
+                                                        enableLogging:NO
+                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+    _gsmmapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                   name:@"gsmmap"
+                                                          enableLogging:NO
+                                                         numberOfQueues:UMLAYER_QUEUE_COUNT];
 
 	self.webClient = [[UMHTTPClient alloc]init];
 	if(generalConfig.hostname)
@@ -961,12 +985,6 @@ static void signalHandler(int signum);
 			tcapConfig[@"timeout"] = @(30);
 			tcapConfig[@"number"] =co.number;
 
-
-			int concurrentTasks = [[self concurrentTasksForConfig:NULL] intValue];
-			UMTaskQueueMulti *_tcapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-																						   name:@"tcap"
-																				  enableLogging:NO
-																				 numberOfQueues:UMLAYER_QUEUE_COUNT];
 
 			UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
 			tcap.logFeed = [[UMLogFeed alloc]initWithHandler:self.logHandler section:@"tcap"];
@@ -1645,13 +1663,6 @@ static void signalHandler(int signum);
 		[_runningConfig addSCTP:co];
 
 		config = co.config.dictionaryCopy;
-
-		int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
-		UMTaskQueueMulti *_sctpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-																					   name:@"sctp"
-																			  enableLogging:NO
-																			 numberOfQueues:UMLAYER_QUEUE_COUNT];
-
 		UMLayerSctp *sctp = [[UMLayerSctp alloc]initWithTaskQueueMulti:_sctpTaskQueue];
 		sctp.registry = _registry;
 		sctp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sctp"];
@@ -1695,14 +1706,6 @@ static void signalHandler(int signum);
 	{
 		UMSS7ConfigM2PA *co = [[UMSS7ConfigM2PA alloc]initWithConfig:config];
 		[_runningConfig addM2PA:co];
-
-
-		int concurrentTasks = [[self concurrentTasksForConfig:co]  intValue];
-		UMTaskQueueMulti *_m2paTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-																					   name:@"m2pa"
-																			  enableLogging:NO
-																			 numberOfQueues:UMLAYER_QUEUE_COUNT];
-
 		UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:_m2paTaskQueue];
 		m2pa.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m2pa"];
 		m2pa.logFeed.name = name;
@@ -1745,12 +1748,6 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigMTP3 *co = [[UMSS7ConfigMTP3 alloc]initWithConfig:config];
         [_runningConfig addMTP3:co];
-        
-        int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
-        UMTaskQueueMulti *_mtp3TaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-                                                                                       name:@"mtp3"
-                                                                              enableLogging:NO
-                                                                             numberOfQueues:UMLAYER_QUEUE_COUNT];
         
         UMLayerMTP3 *mtp3 = [[UMLayerMTP3 alloc]initWithTaskQueueMulti:_mtp3TaskQueue];
         mtp3.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3"];
@@ -1959,12 +1956,6 @@ static void signalHandler(int signum);
         UMSS7ConfigSCCP *co = [[UMSS7ConfigSCCP alloc]initWithConfig:config];
         [_runningConfig addSCCP:co];
         
-        int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
-        UMTaskQueueMulti *_sccpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-                                                                                       name:@"sccp"
-                                                                              enableLogging:NO
-                                                                             numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
         UMLayerSCCP *sccp = [[UMLayerSCCP alloc]initWithTaskQueueMulti:_sccpTaskQueue];
         sccp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sccp"];
         sccp.logFeed.name = name;
@@ -2126,12 +2117,6 @@ static void signalHandler(int signum);
         
         config = co.config.dictionaryCopy;
         
-        int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
-        UMTaskQueueMulti *_tcapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-                                                                                       name:@"tcap"
-                                                                              enableLogging:NO
-                                                                             numberOfQueues:UMLAYER_QUEUE_COUNT];
-        
         UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
         
         tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
@@ -2196,12 +2181,7 @@ static void signalHandler(int signum);
         [_runningConfig addGSMMAP:co];
         
         config = co.config.dictionaryCopy;
-        
-        int concurrentTasks = [[self concurrentTasksForConfig:co] intValue];
-        UMTaskQueueMulti *_gsmmapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentTasks
-                                                                                         name:@"gsmmap"
-                                                                                enableLogging:NO
-                                                                               numberOfQueues:UMLAYER_QUEUE_COUNT];
+
         
         UMLayerGSMMAP *gsmmap = [[UMLayerGSMMAP alloc]initWithTaskQueueMulti:_gsmmapTaskQueue];
         gsmmap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
@@ -2405,9 +2385,7 @@ static void signalHandler(int signum);
                       sccp:(UMLayerSCCP *)sccp
                     number:(NSString *)number
            transactionPool:(UMTCAP_TransactionIdPool *)pool
-{
-    int concurrentThreads = ulib_cpu_count() * 2;
-    
+{    
     NSMutableDictionary *tcapConfig = [[NSMutableDictionary alloc]init];
     NSString *tcapName = [NSString stringWithFormat:@"_ulibtransport-tcap-%@",sccp.layerName];
     tcapConfig[@"name"] = tcapName;
@@ -2416,10 +2394,6 @@ static void signalHandler(int signum);
     tcapConfig[@"subsystem"] = @(SCCP_SSN_ULIBTRANSPORT);
     tcapConfig[@"timeout"] = @(30);
     tcapConfig[@"number"] = number;
-    UMTaskQueueMulti *_tcapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentThreads
-                                                                                   name:@"tcap"
-                                                                          enableLogging:NO
-                                                                         numberOfQueues:UMLAYER_QUEUE_COUNT];
     UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:pool];
     tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
     tcap.logFeed.name = tcapName;

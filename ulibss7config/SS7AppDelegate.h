@@ -78,7 +78,6 @@ UMSS7ConfigAppDelegateProtocol>
     SchrittmacherMode           _schrittmacherMode;
     UMSS7ConfigStorage          *_startupConfig;
     UMSS7ConfigStorage          *_runningConfig;
-    UMTaskQueueMulti            *_generalTaskQueue;
     UMLogHandler                *_logHandler;
     UMLogLevel                  _logLevel;
     UMHTTPClient                *_webClient;
@@ -128,6 +127,14 @@ UMSS7ConfigAppDelegateProtocol>
     UMSocketSCTPRegistry        *_registry;
     int                         _must_quit;
 
+    int                         _concurrentThreads;
+    UMTaskQueueMulti            *_generalTaskQueue;
+    UMTaskQueueMulti            *_sctpTaskQueue;
+    UMTaskQueueMulti            *_m2paTaskQueue;
+    UMTaskQueueMulti            *_mtp3TaskQueue;
+    UMTaskQueueMulti            *_sccpTaskQueue;
+    UMTaskQueueMulti            *_tcapTaskQueue;
+    UMTaskQueueMulti            *_gsmmapTaskQueue;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
