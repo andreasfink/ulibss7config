@@ -16,30 +16,6 @@
 
 @implementation SS7GenericSession
 
-@synthesize gInstance;
-@synthesize userIdentifier;
-@synthesize localAddress;
-@synthesize remoteAddress;
-@synthesize req;
-@synthesize options;
-@synthesize applicationContext;
-@synthesize incomingApplicationContext;
-@synthesize sccp_sent;
-@synthesize sccp_received;
-@synthesize sccpDebugEnabled;
-@synthesize sccpTracefileEnabled;
-@synthesize dialogProtocolVersion;
-@synthesize dialogId;
-@synthesize opcode;
-@synthesize tcapVariant;
-@synthesize incomingOptions;
-@synthesize tcapLocalTransactionId;
-@synthesize tcapRemoteTransactionId;
-@synthesize doEnd;
-@synthesize pcap;
-@synthesize nowait;
-@synthesize undefinedSession;
-@synthesize sessionName;
 
 - (void)setOperation:(int64_t)xoperation
 {
@@ -195,20 +171,20 @@ else \
 
 - (void)genericInitialisation:(SS7GenericInstance *)inst operation:(int64_t)xoperation;
 {
-    userIdentifier = [inst getNewUserIdentifier];
+    _userIdentifier = [inst getNewUserIdentifier];
     _components = [[UMSynchronizedArray alloc]init];
     _gInstance = inst;
-    options = [[NSMutableDictionary alloc]init];
+    _options = [[NSMutableDictionary alloc]init];
     self.operation = xoperation;
     if(xoperation != UMGSMMAP_Opcode_noOpcode)
     {
-        opcode = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:xoperation];
+        _opcode = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:xoperation];
     }
 
-    undefinedSession = YES;
-    sessionName = [[self class] description];
-    name = sessionName; /* umtask name */
-    firstInvokeId = AUTO_ASSIGN_INVOKE_ID;
+    _undefinedSession = YES;
+    _sessionName = [[self class] description];
+    self.name = _sessionName; /* umtask name */
+    _firstInvokeId = AUTO_ASSIGN_INVOKE_ID;
     _timeoutInSeconds = inst.timeoutInSeconds;
     _startTime = [NSDate date];
     _lastActiveTime = [[UMAtomicDate alloc]initWithDate:_startTime];
@@ -216,7 +192,7 @@ else \
     _logLevel = UMLOG_MAJOR;
     _operationMutex = [[UMMutex alloc]init];
     _historyLog = [[UMHistoryLog alloc]init];
-    outputFormat = OutputFormat_json;
+    _outputFormat = OutputFormat_json;
 }
 
 - (SS7GenericSession *)init
@@ -248,11 +224,11 @@ else \
     self = [super init];
     if(self)
     {
-        req  = xreq;
+        _req  = xreq;
         [self genericInitialisation:inst operation:xoperation];
         [self setTimeouts];
         [self setOptions];
-        [req makeAsyncWithTimeout:_timeoutInSeconds delegate:_gInstance];
+        [_req makeAsyncWithTimeout:_timeoutInSeconds delegate:_gInstance];
     }
     return self;
 }
@@ -274,18 +250,18 @@ else \
     if(self)
     {
         [self genericInitialisation:xInstance operation:xop];
-        localAddress = src;
-        remoteAddress = dst;
-        req  = xreq;
-        applicationContext = xapplicationContext;
-        userInfo = xuserInfo;
+        _localAddress = src;
+        _remoteAddress = dst;
+        _req  = xreq;
+        _applicationContext = xapplicationContext;
+        _userInfo = xuserInfo;
         if(xoptions)
         {
-            options = [xoptions mutableCopy];
+            _options = [xoptions mutableCopy];
         }
         else
         {
-            options = [[NSMutableDictionary alloc]init];
+            _options = [[NSMutableDictionary alloc]init];
         }
         [self setTimeouts];
         [self setOptions];
@@ -301,37 +277,37 @@ else \
     if(self)
     {
         [self genericInitialisation:ot.gInstance operation:ot.opcode.operation];
-        userIdentifier = ot.userIdentifier;
+        _userIdentifier = ot.userIdentifier;
         _query = ot.query;
-        opcode = ot.opcode;
+        _opcode = ot.opcode;
         _gInstance = ot.gInstance;
-        localAddress = ot.localAddress;
-        remoteAddress = ot.remoteAddress;
-        req = ot.req;
-        options = [ot.options mutableCopy];
-        applicationContext = ot.applicationContext;
-        incomingApplicationContext = ot.incomingApplicationContext;
-        sccp_sent = ot.sccp_sent;
-        sccp_received = ot.sccp_received;
-        sccpDebugEnabled = ot.sccpDebugEnabled;
-        sccpTracefileEnabled = ot.sccpTracefileEnabled;
-        pcap = ot.pcap;
+        _localAddress = ot.localAddress;
+        _remoteAddress = ot.remoteAddress;
+        _req = ot.req;
+        _options = [ot.options mutableCopy];
+        _applicationContext = ot.applicationContext;
+        _incomingApplicationContext = ot.incomingApplicationContext;
+        _sccp_sent = ot.sccp_sent;
+        _sccp_received = ot.sccp_received;
+        _sccpDebugEnabled = ot.sccpDebugEnabled;
+        _sccpTracefileEnabled = ot.sccpTracefileEnabled;
+        _pcap = ot.pcap;
         _startTime = ot.startTime;
         _lastActiveTime = ot.lastActiveTime;
         _timeoutInSeconds = ot.timeoutInSeconds;
         _incoming_map_open = ot.incoming_map_open;
-        dialogId = ot.dialogId;
-        doEnd = ot.doEnd;
-        tcapVariant = ot.tcapVariant;
-        tcapLocalTransactionId = ot.tcapLocalTransactionId;
-        tcapRemoteTransactionId = ot.tcapRemoteTransactionId;
-        incomingOptions = ot.incomingOptions;
+        _dialogId = ot.dialogId;
+        _doEnd = ot.doEnd;
+        _tcapVariant = ot.tcapVariant;
+        _tcapLocalTransactionId = ot.tcapLocalTransactionId;
+        _tcapRemoteTransactionId = ot.tcapRemoteTransactionId;
+        _incomingOptions = ot.incomingOptions;
         _components = ot.components;
-        nowait = ot.nowait;
+        _nowait = ot.nowait;
         _historyLog = ot.historyLog;
         _incoming = ot.incoming;
         _outgoing = ot.outgoing;
-        outputFormat = ot->outputFormat;
+        _outputFormat = ot.outputFormat;
 
         _calling_ssn = ot->_calling_ssn;
         _called_ssn = ot->_called_ssn;
@@ -340,7 +316,7 @@ else \
         _calling_tt = ot->_calling_tt;
         _called_tt = ot->_called_tt;
 
-        undefinedSession = NO; /* we get called for overrided object here */
+        _undefinedSession = NO; /* we get called for overrided object here */
 
     }
     return self;
@@ -361,7 +337,7 @@ else \
                       options:(NSDictionary *)xoptions
 {
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Invoke_Ind (should be overriden)"];
-    hasReceivedInvokes++;
+    _hasReceivedInvokes++;
     /* this should be overriden */
 }
 
@@ -439,9 +415,9 @@ else \
 {
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnResult_Resp"];
 
-    VERIFY_UID(userIdentifier,xuserIdentifier);
-    VERIFY_DIALOG(dialogId,xdialogId);
-    VERIFY_SESSION(tcapLocalTransactionId,xtcapTransactionId);
+    VERIFY_UID(_userIdentifier,xuserIdentifier);
+    VERIFY_DIALOG(_dialogId,xdialogId);
+    VERIFY_SESSION(_tcapLocalTransactionId,xtcapTransactionId);
 
     UMSynchronizedSortedDictionary *info_sub = [[UMSynchronizedSortedDictionary alloc]init];
     UMSynchronizedSortedDictionary *info = [[UMSynchronizedSortedDictionary alloc]init];
@@ -489,9 +465,9 @@ else \
 {
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnError_Resp"];
 
-    VERIFY_UID(userIdentifier,xuserIdentifier);
-    VERIFY_DIALOG(dialogId,xdialogId);
-    VERIFY_SESSION(tcapLocalTransactionId,xtcapTransactionId);
+    VERIFY_UID(_userIdentifier,xuserIdentifier);
+    VERIFY_DIALOG(_dialogId,xdialogId);
+    VERIFY_SESSION(_tcapLocalTransactionId,xtcapTransactionId);
 
     if(_components==NULL)
     {
@@ -520,7 +496,7 @@ else \
     info[@"ReturnError"] = info_sub;
     comp[@"rx"] = info;
     [_components addObject:comp];
-    [self sessionMAP_Close_Ind:xuserIdentifier options:options];
+    [self sessionMAP_Close_Ind:xuserIdentifier options:_options];
 }
 
 - (void) sessionMAP_Reject_Resp:(UMASN1Object *)param
@@ -535,9 +511,9 @@ else \
 {
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Reject_Resp"];
 
-    VERIFY_UID(userIdentifier,xuserIdentifier);
-    VERIFY_DIALOG(dialogId,xdialogId);
-    VERIFY_SESSION(tcapLocalTransactionId,xtcapTransactionId);
+    VERIFY_UID(_userIdentifier,xuserIdentifier);
+    VERIFY_DIALOG(_dialogId,xdialogId);
+    VERIFY_SESSION(_tcapLocalTransactionId,xtcapTransactionId);
 
     UMSynchronizedSortedDictionary *info_sub = [[UMSynchronizedSortedDictionary alloc]init];
     UMSynchronizedSortedDictionary *info = [[UMSynchronizedSortedDictionary alloc]init];
@@ -561,10 +537,10 @@ else \
 - (void) sessionMAP_Close_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                       options:(NSDictionary *)xoptions
 {
-    VERIFY_UID(userIdentifier,xuserIdentifier);
+    VERIFY_UID(_userIdentifier,xuserIdentifier);
 
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Close_Req"];
-    [gInstance.gsmMap queueMAP_Close_Req:dialogId
+    [_gInstance.gsmMap queueMAP_Close_Req:_dialogId
                           callingAddress:NULL
                            calledAddress:NULL
                                  options:@{}
@@ -596,24 +572,24 @@ else \
         }
 
         UMSynchronizedSortedDictionary *sccp_info = [[UMSynchronizedSortedDictionary alloc]init];
-        if(remoteAddress)
+        if(_remoteAddress)
         {
-            sccp_info[@"sccp-remote-address"] = remoteAddress.objectValue;
+            sccp_info[@"sccp-remote-address"] = _remoteAddress.objectValue;
         }
-        if(localAddress)
+        if(_localAddress)
         {
-            sccp_info[@"sccp-local-address"] = localAddress.objectValue;
+            sccp_info[@"sccp-local-address"] = _localAddress.objectValue;
         }
         dict[@"sccp-info"] = sccp_info;
 
-        if((sccpDebugEnabled) && (xoptions[@"sccp-pdu"]))
+        if((_sccpDebugEnabled) && (xoptions[@"sccp-pdu"]))
         {
-            [sccp_received addObject:xoptions[@"sccp-pdu"]];
+            [_sccp_received addObject:xoptions[@"sccp-pdu"]];
         }
-        dict[@"user-identifier"] = userIdentifier;
-        dict[@"map-dialog-id"] = dialogId;
-        dict[@"tcap-transaction-id"] = tcapLocalTransactionId;
-        dict[@"tcap-remote-transaction-id"] = tcapRemoteTransactionId;
+        dict[@"user-identifier"] = _userIdentifier;
+        dict[@"map-dialog-id"] = _dialogId;
+        dict[@"tcap-transaction-id"] = _tcapLocalTransactionId;
+        dict[@"tcap-remote-transaction-id"] = _tcapRemoteTransactionId;
         dict[@"tcap-end-indicator"] = @(YES);
         [self outputResult2:dict];
     }
@@ -638,15 +614,15 @@ else \
              dialoguePortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion
                      options:(NSDictionary *)xoptions
 {
-    userIdentifier = xuserIdentifier;
-    remoteAddress = src;
-    localAddress = dst;
+    _userIdentifier = xuserIdentifier;
+    _remoteAddress = src;
+    _localAddress = dst;
     _startTime = [NSDate date];
-    dialogId = xdialogId;
-    tcapVariant = xvariant;
-    tcapLocalTransactionId = xtcapLocalTransactionId;
-    tcapRemoteTransactionId = xtcapRemoteTransactionId;
-    incomingOptions = xoptions;
+    _dialogId = xdialogId;
+    _tcapVariant = xvariant;
+    _tcapLocalTransactionId = xtcapLocalTransactionId;
+    _tcapRemoteTransactionId = xtcapRemoteTransactionId;
+    _incomingOptions = xoptions;
 }
 
 - (void) sessionMAP_Open_Resp:(UMGSMMAP_UserIdentifier *)userIdentifier
@@ -672,13 +648,13 @@ else \
             remoteTransactionId:(NSString *)xremoteTransactionId
                         options:(NSDictionary *)xoptions
 {
-    remoteAddress = src;
-    localAddress = dst;
+    _remoteAddress = src;
+    _localAddress = dst;
     [self touch];
-    if(hasReceivedInvokes==0)
+    if(_hasReceivedInvokes==0)
     {
         [_components addObject:@{@"rx" : @"tcap-continue"} ];
-        [gInstance.gsmMap queueMAP_Delimiter_Req:xdialogId
+        [_gInstance.gsmMap queueMAP_Delimiter_Req:xdialogId
                                   callingAddress:NULL
                                    calledAddress:NULL
                                          options:@{}
@@ -695,9 +671,9 @@ else \
            remoteTransactionId:(NSString *)remoteTransactionId
                        options:(NSDictionary *)options
 {
-    localAddress = dst;
-    remoteAddress = src;
-    if(gInstance.logLevel <= UMLOG_DEBUG)
+    _localAddress = dst;
+    _remoteAddress = src;
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
         [self.logFeed debugText:@"we got a sessionMAP_Continue_Ind"];
     }
@@ -721,7 +697,7 @@ else \
     [_operationMutex lock];
     @try
     {
-        VERIFY_UID(userIdentifier,xuserIdentifier);
+        VERIFY_UID(_userIdentifier,xuserIdentifier);
 
         /* now we can finish the HTTP request */
 
@@ -749,24 +725,24 @@ else \
         }
 
         UMSynchronizedSortedDictionary *sccp_info = [[UMSynchronizedSortedDictionary alloc]init];
-        if(remoteAddress)
+        if(_remoteAddress)
         {
-            sccp_info[@"sccp-remote-address"] = remoteAddress.objectValue;
+            sccp_info[@"sccp-remote-address"] = _remoteAddress.objectValue;
         }
-        if(localAddress)
+        if(_localAddress)
         {
-            sccp_info[@"sccp-local-address"] = localAddress.objectValue;
+            sccp_info[@"sccp-local-address"] = _localAddress.objectValue;
         }
         dict[@"sccp-info"] = sccp_info;
 
-        if((sccpDebugEnabled) && (xoptions[@"sccp-pdu"]))
+        if((_sccpDebugEnabled) && (xoptions[@"sccp-pdu"]))
         {
-            [sccp_received addObject:xoptions[@"sccp-pdu"]];
+            [_sccp_received addObject:xoptions[@"sccp-pdu"]];
         }
-        dict[@"user-identifier"] = userIdentifier;
-        dict[@"map-dialog-id"] = dialogId;
-        dict[@"tcap-transaction-id"] = tcapLocalTransactionId;
-        dict[@"tcap-remote-transaction-id"] = tcapRemoteTransactionId;
+        dict[@"user-identifier"] = _userIdentifier;
+        dict[@"map-dialog-id"] = _dialogId;
+        dict[@"tcap-transaction-id"] = _tcapLocalTransactionId;
+        dict[@"tcap-remote-transaction-id"] = _tcapRemoteTransactionId;
         dict[@"tcap-end-indicator"] = @(YES);
         [self outputResult2:dict];
         [self markForTermination];
@@ -783,7 +759,7 @@ else \
 {
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: markForTermination"];
-    [gInstance markSessionForTermination:self];
+    [_gInstance markSessionForTermination:self];
 }
 
 - (void)outputResult2:(UMSynchronizedSortedDictionary *)dict
@@ -801,15 +777,15 @@ else \
     {
         json = [NSString stringWithFormat:@"json-encoding problem %@",dict];
     }
-    [req setResponsePlainText:json];
-    [req resumePendingRequest];
+    [_req setResponsePlainText:json];
+    [_req resumePendingRequest];
     [self touch];
 }
 
 -(void) sessionMAP_U_Abort_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                        options:(NSDictionary *)options
 {
-    [gInstance.gsmMap queueMAP_U_Abort_Req:dialogId
+    [_gInstance.gsmMap queueMAP_U_Abort_Req:_dialogId
                                    options:@{}
                                     result:NULL
                                 diagnostic:NULL
@@ -833,7 +809,7 @@ else \
     [_operationMutex lock];
     @try
     {
-        VERIFY_UID(userIdentifier,xuserIdentifier);
+        VERIFY_UID(_userIdentifier,xuserIdentifier);
         /***/
         [self.logFeed infoText:@"sessionMAP_U_Abort_Ind"];
 
@@ -867,31 +843,31 @@ else \
          dict[@"dialogue-portion"] = xdialoguePortion;
          }*/
         UMSynchronizedSortedDictionary *sccp_info = [[UMSynchronizedSortedDictionary alloc]init];
-        if(remoteAddress)
+        if(_remoteAddress)
         {
-            sccp_info[@"sccp-remote-address"] = remoteAddress.objectValue;
+            sccp_info[@"sccp-remote-address"] = _remoteAddress.objectValue;
         }
-        if(localAddress)
+        if(_localAddress)
         {
-            sccp_info[@"sccp-local-address"] = localAddress.objectValue;
+            sccp_info[@"sccp-local-address"] = _localAddress.objectValue;
         }
         dict[@"sccp-info"] = sccp_info;
 
-        dict[@"user-identifier"] = userIdentifier;
-        dict[@"map-dialog-id"] = dialogId;
+        dict[@"user-identifier"] = _userIdentifier;
+        dict[@"map-dialog-id"] = _dialogId;
         if(xlocalTransactionId)
         {
-            if(tcapLocalTransactionId==NULL)
+            if(_tcapLocalTransactionId==NULL)
             {
-                tcapLocalTransactionId = xlocalTransactionId;
+                _tcapLocalTransactionId = xlocalTransactionId;
             }
             dict[@"tcap-transaction-id"] = xlocalTransactionId;
         }
         if(xremoteTransactionId)
         {
-            if(tcapRemoteTransactionId==NULL)
+            if(_tcapRemoteTransactionId==NULL)
             {
-                tcapRemoteTransactionId = xremoteTransactionId;
+                _tcapRemoteTransactionId = xremoteTransactionId;
             }
             dict[@"tcap-remote-transaction-id"] = xremoteTransactionId;
         }
@@ -920,7 +896,7 @@ else \
     [_operationMutex lock];
     @try
     {
-        VERIFY_UID(userIdentifier,xuserIdentifier);
+        VERIFY_UID(_userIdentifier,xuserIdentifier);
         [self.logFeed infoText:@"MAP_P_Abort_Ind"];
 
         /* now we can finish the HTTP request */
@@ -946,31 +922,31 @@ else \
             dict[@"MAP_P_Abort_Ind"] = @"YES";
         }
         UMSynchronizedSortedDictionary *sccp_info = [[UMSynchronizedSortedDictionary alloc]init];
-        if(remoteAddress)
+        if(_remoteAddress)
         {
-            sccp_info[@"sccp-remote-address"] = remoteAddress.objectValue;
+            sccp_info[@"sccp-remote-address"] = _remoteAddress.objectValue;
         }
-        if(localAddress)
+        if(_localAddress)
         {
-            sccp_info[@"sccp-local-address"] = localAddress.objectValue;
+            sccp_info[@"sccp-local-address"] = _localAddress.objectValue;
         }
         dict[@"sccp-info"] = sccp_info;
 
-        dict[@"user-identifier"] = userIdentifier;
-        dict[@"map-dialog-id"] = dialogId;
+        dict[@"user-identifier"] = _userIdentifier;
+        dict[@"map-dialog-id"] = _dialogId;
         if(xlocalTransactionId)
         {
-            if(tcapLocalTransactionId==NULL)
+            if(_tcapLocalTransactionId==NULL)
             {
-                tcapLocalTransactionId = xlocalTransactionId;
+                _tcapLocalTransactionId = xlocalTransactionId;
             }
             dict[@"tcap-transaction-id"] = xlocalTransactionId;
         }
         if(xremoteTransactionId)
         {
-            if(tcapRemoteTransactionId==NULL)
+            if(_tcapRemoteTransactionId==NULL)
             {
-                tcapRemoteTransactionId = xremoteTransactionId;
+                _tcapRemoteTransactionId = xremoteTransactionId;
             }
             dict[@"tcap-remote-transaction-id"] = xremoteTransactionId;
         }
@@ -1027,32 +1003,32 @@ else \
             dict[@"MAP_P_Abort_Ind"] = @"YES";
         }
         UMSynchronizedSortedDictionary *sccp_info = [[UMSynchronizedSortedDictionary alloc]init];
-        if(remoteAddress)
+        if(_remoteAddress)
         {
-            sccp_info[@"sccp-remote-address"] = remoteAddress.objectValue;
+            sccp_info[@"sccp-remote-address"] = _remoteAddress.objectValue;
         }
-        if(localAddress)
+        if(_localAddress)
         {
-            sccp_info[@"sccp-local-address"] = localAddress.objectValue;
+            sccp_info[@"sccp-local-address"] = _localAddress.objectValue;
         }
         sccp_info[@"sccp-reason"] = @(reason);
         sccp_info[@"sccp-reason-text"] =[UMLayerSCCP reasonString:reason];
 
         dict[@"sccp-info"] = sccp_info;
 
-        dict[@"user-identifier"] = userIdentifier;
-        dict[@"map-dialog-id"] = dialogId;
+        dict[@"user-identifier"] = _userIdentifier;
+        dict[@"map-dialog-id"] = _dialogId;
         if(localTransactionId)
         {
-            if(tcapLocalTransactionId==NULL)
+            if(_tcapLocalTransactionId==NULL)
             {
-                tcapLocalTransactionId = localTransactionId;
+                _tcapLocalTransactionId = localTransactionId;
             }
             dict[@"tcap-transaction-id"] = localTransactionId;
         }
-        if(tcapRemoteTransactionId)
+        if(_tcapRemoteTransactionId)
         {
-            dict[@"tcap-remote-transaction-id"] = tcapRemoteTransactionId;
+            dict[@"tcap-remote-transaction-id"] = _tcapRemoteTransactionId;
         }
         [self outputResult2:dict];
     }
@@ -1095,7 +1071,7 @@ else \
                           defaultCalledNumber:(NSString *)defaultCalled
                       defaultCalledNumberPlan:(int)numberplan
 {
-    NSDictionary *p = req.params;
+    NSDictionary *p = _req.params;
 
     _calling_ssn     = [p[@"calling-ssn"]urldecode];
     _called_ssn      = [p[@"called-ssn"]urldecode];
@@ -1228,7 +1204,7 @@ else \
 
 - (void)setDefaultApplicationContext:(NSString *)def
 {
-    NSDictionary *p = req.params;
+    NSDictionary *p = _req.params;
 
     NSString *context = def;
     if (p[@"application-context"])
@@ -1243,12 +1219,12 @@ else \
     {
         context = def;
     }
-    applicationContext =  [[UMTCAP_asn1_objectIdentifier alloc]initWithString:context];
+    _applicationContext =  [[UMTCAP_asn1_objectIdentifier alloc]initWithString:context];
 }
 
 - (void)setUserInfo_MAP_Open
 {
-    NSDictionary *p = req.params;
+    NSDictionary *p = _req.params;
 
     NSString *mapopen_origination_imsi;
     NSString *mapopen_origination_msisdn;
@@ -1262,7 +1238,7 @@ else \
     SET_OPTIONAL_PARAMETER(p,mapopen_origination_msisdn,@"map-open-origination-msisdn");
 
     /** MAP OPEN **/
-    userInfo = [[UMTCAP_asn1_userInformation alloc]init];
+    _userInfo = [[UMTCAP_asn1_userInformation alloc]init];
 
     UMTCAP_asn1_external *e = [[UMTCAP_asn1_external alloc]init];
     e.objectIdentifier = [[UMTCAP_asn1_objectIdentifier alloc]initWithString:@"04000001010101"];
@@ -1273,7 +1249,7 @@ else \
        (mapopen_origination_msisdn.length == 0))
 
     {
-        userInfo = NULL;
+        _userInfo = NULL;
     }
 
     UMGSMMAP_MAP_OpenInfo *map_open = [[UMGSMMAP_MAP_OpenInfo alloc]init];
@@ -1295,12 +1271,12 @@ else \
         map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithMsisdn:mapopen_origination_msisdn];
     }
     e.externalObject = map_open;
-    [userInfo addIdentification:e];
+    [_userInfo addIdentification:e];
 }
 
 -(void) setTimeouts
 {
-    NSDictionary *p = req.params;
+    NSDictionary *p = _req.params;
     NSString *to = [p[@"timeout"]urldecode];
 
     if(to.length > 0)
@@ -1311,8 +1287,8 @@ else \
 
 - (void) setOptions
 {
-    NSDictionary *p = req.params;
-    if(options==NULL)
+    NSDictionary *p = _req.params;
+    if(_options==NULL)
     {
         @throw(@"options not initialized!");
     }
@@ -1321,7 +1297,7 @@ else \
     {
         if([p[@"keep-sccp-calling-addr"] boolValue])
         {
-            options[@"keep-sccp-calling-addr"] = @(YES);
+            _options[@"keep-sccp-calling-addr"] = @(YES);
             _keepOriginalSccpAddressForTcapContinue=YES;
         }
     }
@@ -1330,147 +1306,147 @@ else \
     {
         if([p[@"tcap-handshake"] boolValue])
         {
-            options[@"tcap-handshake"] = @(YES);
+            _options[@"tcap-handshake"] = @(YES);
         }
     }
     if (p[@"sccp-xudt"])
     {
         if([p[@"sccp-xudt"] boolValue])
         {
-            options[@"sccp-xudt"] = @(YES);
+            _options[@"sccp-xudt"] = @(YES);
         }
     }
     if (p[@"sccp-segment"])
     {
         if([p[@"sccp-segment"] boolValue])
         {
-            options[@"sccp-segment"] = @(YES);
+            _options[@"sccp-segment"] = @(YES);
         }
     }
     if (p[@"invoke-count"])
     {
         int i = [p[@"invoke-count"] intValue];
-        options[@"invoke-count"] = @(i);
+        _options[@"invoke-count"] = @(i);
     }
 
     if(_opc)
     {
-        options[@"opc"] = _opc;
+        _options[@"opc"] = _opc;
     }
 
     if(_dpc)
     {
-        options[@"dpc"] = _dpc;
+        _options[@"dpc"] = _dpc;
     }
 
     if(p[@"nowait"]!=NULL)
     {
-        nowait = [p[@"nowait"] intValue];
+        _nowait = [p[@"nowait"] intValue];
     }
 }
 
 - (void)submit
 {
-    if(nowait)
+    if(_nowait)
     {
-        [req setResponsePlainText:@"Sent"];
-        [req resumePendingRequest];
+        [_req setResponsePlainText:@"Sent"];
+        [_req resumePendingRequest];
     }
     else
     {
-        [req makeAsyncWithTimeout:_timeoutInSeconds];
+        [_req makeAsyncWithTimeout:_timeoutInSeconds];
     }
     if(_opc)
     {
-        options[@"opc"] = _opc;
+        _options[@"opc"] = _opc;
     }
     if(_dpc)
     {
-        options[@"dpc"] = _dpc;
+        _options[@"dpc"] = _dpc;
     }
     if(_sls>=0)
     {
-        options[@"mtp3-sls"] = [NSString stringWithFormat:@"%d",_sls];
+        _options[@"mtp3-sls"] = [NSString stringWithFormat:@"%d",_sls];
     }
 
-    dialogId =  [gInstance.gsmMap executeMAP_Open_Req_forUser:gInstance
+    _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
                                                       variant:TCAP_VARIANT_DEFAULT
-                                               callingAddress:localAddress
-                                                calledAddress:remoteAddress
-                                           applicationContext:applicationContext
-                                                     userInfo:userInfo
-                                               userIdentifier:userIdentifier
-                                                      options:options];
-    [gInstance addSession:self userId:userIdentifier];
-    BOOL useHandshake =[options[@"tcap-handshake"] boolValue];
+                                               callingAddress:_localAddress
+                                                calledAddress:_remoteAddress
+                                           applicationContext:_applicationContext
+                                                     userInfo:_userInfo
+                                               userIdentifier:_userIdentifier
+                                                      options:_options];
+    [_gInstance addSession:self userId:_userIdentifier];
+    BOOL useHandshake = [_options[@"tcap-handshake"] boolValue];
 
     if(useHandshake)
     {
-        [gInstance.gsmMap executeMAP_Delimiter_Req:dialogId
+        [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                     callingAddress:NULL
                                      calledAddress:NULL
-                                           options:options
+                                           options:_options
                                             result:NULL
                                         diagnostic:NULL];
     }
 
     if((_firstInvokeOpcode) && (_firstInvoke))
     {
-        [gInstance.gsmMap executeMAP_Invoke_Req:_firstInvoke
-                                         dialog:dialogId
+        [_gInstance.gsmMap executeMAP_Invoke_Req:_firstInvoke
+                                         dialog:_dialogId
                                        invokeId:AUTO_ASSIGN_INVOKE_ID
                                        linkedId:TCAP_UNDEFINED_LINKED_ID
                                          opCode:_firstInvokeOpcode
                                            last:YES
-                                        options:options];
+                                        options:_options];
     }
 
     if((_firstResponseOpcode) && (_firstResponse))
     {
-        [gInstance.gsmMap executeMAP_ReturnResult_Req:_firstResponse
-                                               dialog:dialogId
+        [_gInstance.gsmMap executeMAP_ReturnResult_Req:_firstResponse
+                                               dialog:_dialogId
                                              invokeId:AUTO_ASSIGN_INVOKE_ID
                                              linkedId:TCAP_UNDEFINED_LINKED_ID
                                                opCode:_firstResponseOpcode
                                                  last:YES
-                                              options:options];
+                                              options:_options];
     }
-    [gInstance.gsmMap executeMAP_Invoke_Req:_query
-                                     dialog:dialogId
+    [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                     dialog:_dialogId
                                    invokeId:AUTO_ASSIGN_INVOKE_ID
                                    linkedId:TCAP_UNDEFINED_LINKED_ID
-                                     opCode:opcode
+                                     opCode:_opcode
                                        last:YES
-                                    options:options];
+                                    options:_options];
     if(_query2)
     {
-        [gInstance.gsmMap executeMAP_Invoke_Req:_query2
-                                         dialog:dialogId
+        [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                         dialog:_dialogId
                                        invokeId:AUTO_ASSIGN_INVOKE_ID
                                        linkedId:TCAP_UNDEFINED_LINKED_ID
                                          opCode:_opcode2
                                            last:YES
-                                        options:options];
+                                        options:_options];
 
     }
     if(_query3)
     {
-        [gInstance.gsmMap executeMAP_Invoke_Req:_query3
-                                         dialog:dialogId
+        [_gInstance.gsmMap executeMAP_Invoke_Req:_query3
+                                         dialog:_dialogId
                                        invokeId:AUTO_ASSIGN_INVOKE_ID
                                        linkedId:TCAP_UNDEFINED_LINKED_ID
                                          opCode:_opcode3
                                            last:YES
-                                        options:options];
+                                        options:_options];
 
     }
 
     if(!useHandshake)
     {
-        [gInstance.gsmMap executeMAP_Delimiter_Req:dialogId
+        [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                     callingAddress:NULL
                                      calledAddress:NULL
-                                           options:options
+                                           options:_options
                                             result:NULL
                                         diagnostic:NULL];
     }
@@ -1478,33 +1454,33 @@ else \
 
 - (void)submitApplicationContextTest
 {
-    if(nowait)
+    if(_nowait)
     {
-        [req setResponsePlainText:@"Sent"];
-        [req resumePendingRequest];
+        [_req setResponsePlainText:@"Sent"];
+        [_req resumePendingRequest];
     }
     else
     {
-        [req makeAsyncWithTimeout:_timeoutInSeconds];
+        [_req makeAsyncWithTimeout:_timeoutInSeconds];
     }
-    if(options==NULL)
+    if(_options==NULL)
     {
 
     }
-    dialogId =  [gInstance.gsmMap executeMAP_Open_Req_forUser:gInstance
+    _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
                                                       variant:TCAP_VARIANT_DEFAULT
-                                               callingAddress:localAddress
-                                                calledAddress:remoteAddress
-                                           applicationContext:applicationContext
-                                                     userInfo:userInfo
-                                               userIdentifier:userIdentifier
-                                                      options:options];
-    [gInstance addSession:self userId:userIdentifier];
+                                               callingAddress:_localAddress
+                                                calledAddress:_remoteAddress
+                                           applicationContext:_applicationContext
+                                                     userInfo:_userInfo
+                                               userIdentifier:_userIdentifier
+                                                      options:_options];
+    [_gInstance addSession:self userId:_userIdentifier];
 
-    [gInstance.gsmMap executeMAP_Delimiter_Req:dialogId
+    [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                 callingAddress:NULL
                                  calledAddress:NULL
-                                       options:options
+                                       options:_options
                                         result:NULL
                                     diagnostic:NULL];
 }
@@ -1526,9 +1502,9 @@ else \
     }
     NSDictionary *d =   @{ @"error" : @{ @"exception": d1 } };
     NSString *errString = [d jsonString];
-    [gInstance logMinorError:errString];
-    [req setResponsePlainText:errString];
-    [req resumePendingRequest];
+    [_gInstance logMinorError:errString];
+    [_req setResponsePlainText:errString];
+    [_req resumePendingRequest];
 }
 
 - (NSString *)description
@@ -1536,17 +1512,17 @@ else \
     NSMutableString *s = [[NSMutableString alloc]init];
     [s appendFormat:@"SS7GenericSession [%p]:\n",self];
     [s appendFormat:@"{\n"];
-    [s appendFormat:@"\tsessionName: %@\n",sessionName];
-    [s appendFormat:@"\tuserIdentifier: %@\n",userIdentifier];
-    [s appendFormat:@"\tdialogId: %@\n",dialogId];
-    [s appendFormat:@"\ttcapLocalTransactionId: %@\n",tcapLocalTransactionId];
-    [s appendFormat:@"\ttcapRemoteTransactionId: %@\n",tcapRemoteTransactionId];
-    [s appendFormat:@"\tgInstance: '%@'\n",gInstance.layerName];
-    [s appendFormat:@"\topcode %d\n",(int)opcode.operation];
-    [s appendFormat:@"\tlocalAddress %@\n",localAddress.description];
-    [s appendFormat:@"\tremoteAddress %@\n",remoteAddress.description];
-    [s appendFormat:@"\thttp request %p\n",req];
-    [s appendFormat:@"\tundefinedSession %@\n",undefinedSession ? @"YES" : @"NO"];
+    [s appendFormat:@"\tsessionName: %@\n",_sessionName];
+    [s appendFormat:@"\tuserIdentifier: %@\n",_userIdentifier];
+    [s appendFormat:@"\tdialogId: %@\n",_dialogId];
+    [s appendFormat:@"\ttcapLocalTransactionId: %@\n",_tcapLocalTransactionId];
+    [s appendFormat:@"\ttcapRemoteTransactionId: %@\n",_tcapRemoteTransactionId];
+    [s appendFormat:@"\tgInstance: '%@'\n",_gInstance.layerName];
+    [s appendFormat:@"\topcode %d\n",(int)_opcode.operation];
+    [s appendFormat:@"\tlocalAddress %@\n",_localAddress.description];
+    [s appendFormat:@"\tremoteAddress %@\n",_remoteAddress.description];
+    [s appendFormat:@"\thttp request %p\n",_req];
+    [s appendFormat:@"\tundefinedSession %@\n",_undefinedSession ? @"YES" : @"NO"];
     [s appendFormat:@"}\n"];
     return s;
 }
@@ -1554,10 +1530,10 @@ else \
 
 - (void)logWebSession
 {
-    if(gInstance.logLevel <= UMLOG_DEBUG)
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
-        NSString *s = [NSString stringWithFormat:@"%@: %@",sessionName,req.params ];
-        [gInstance logDebug:s];
+        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,_req.params ];
+        [_gInstance logDebug:s];
     }
 }
 
@@ -1722,7 +1698,7 @@ else \
     [self touch];
     [_historyLog addLogEntry:@"timeout"];
     [self abort];
-    [self writeTraceToDirectory:gInstance.timeoutTraceDirectory];
+    [self writeTraceToDirectory:_gInstance.timeoutTraceDirectory];
 
     [self.logFeed infoText:@"timeout"];
 
@@ -1731,17 +1707,17 @@ else \
     dict[@"timeout"] = @(YES);
 
     UMSynchronizedSortedDictionary *sccp_info = [[UMSynchronizedSortedDictionary alloc]init];
-    if(remoteAddress)
+    if(_remoteAddress)
     {
-        sccp_info[@"sccp-remote-address"] = remoteAddress.objectValue;
+        sccp_info[@"sccp-remote-address"] = _remoteAddress.objectValue;
     }
-    if(localAddress)
+    if(_localAddress)
     {
-        sccp_info[@"sccp-local-address"] = localAddress.objectValue;
+        sccp_info[@"sccp-local-address"] = _localAddress.objectValue;
     }
     dict[@"sccp-info"] = sccp_info;
-    dict[@"user-identifier"] = userIdentifier;
-    dict[@"map-dialog-id"] = dialogId;
+    dict[@"user-identifier"] = _userIdentifier;
+    dict[@"map-dialog-id"] = _dialogId;
 
     [_operationMutex lock];
     [self outputResult2:dict];
@@ -1754,21 +1730,21 @@ else \
 {
     if(dir)
     {
-        NSString *filename = [NSString stringWithFormat:@"%@/%@-%@-%@", dir, sessionName,
-                              tcapLocalTransactionId, (tcapRemoteTransactionId ? tcapRemoteTransactionId : @"none") ];
+        NSString *filename = [NSString stringWithFormat:@"%@/%@-%@-%@", dir, _sessionName,
+                              _tcapLocalTransactionId, (_tcapRemoteTransactionId ? _tcapRemoteTransactionId : @"none") ];
 
 
         NSMutableString *s = [[NSMutableString alloc]init];
 
-        [s appendFormat:@"UserIdentifier: %@\n",userIdentifier];
+        [s appendFormat:@"UserIdentifier: %@\n",_userIdentifier];
         [s appendFormat:@"hasEnded: %@\n",(_hasEnded ? @"YES" : @"NO")];
-        [s appendFormat:@"Opcode: %@\n",[opcode description]];
-        [s appendFormat:@"LocalSCCPAddress: %@\n",[localAddress description]];
-        [s appendFormat:@"RemoteSCCPAddress: %@\n",[remoteAddress description]];
+        [s appendFormat:@"Opcode: %@\n",[_opcode description]];
+        [s appendFormat:@"LocalSCCPAddress: %@\n",[_localAddress description]];
+        [s appendFormat:@"RemoteSCCPAddress: %@\n",[_remoteAddress description]];
         [s appendFormat:@"StartTime: %@\n",[_startTime description]];
         [s appendFormat:@"LastActive: %@\n",[_lastActiveTime description]];
         [s appendFormat:@"Now: %@\n",[[NSDate date] description]];
-        [s appendFormat:@"incomingApplicationContext: %@\n",incomingApplicationContext];
+        [s appendFormat:@"incomingApplicationContext: %@\n",_incomingApplicationContext];
         [s appendFormat:@"HistoryLog: %@\n",[_historyLog getLogForwardOrder]];
 
 
@@ -1799,13 +1775,13 @@ else \
         UMTCAP_asn1_Associate_result *r = [[UMTCAP_asn1_Associate_result alloc]initWithValue:0];
         UMTCAP_asn1_Associate_source_diagnostic *d = [[UMTCAP_asn1_Associate_source_diagnostic alloc]init];
         d.dialogue_service_user =[[UMASN1Integer alloc]initWithValue:0];
-        [gInstance.gsmMap queueMAP_U_Abort_Req:dialogId
+        [_gInstance.gsmMap queueMAP_U_Abort_Req:_dialogId
                                        options:@{}
                                         result:r
                                     diagnostic:d
                                       userInfo:NULL
                                          cause:UMTCAP_pAbortCause_unrecognizedMessageType];
-        [gInstance markSessionForTermination:self];
+        [_gInstance markSessionForTermination:self];
         _hasEnded = YES;
     }
     @catch(NSException *e)
@@ -1824,13 +1800,13 @@ else \
         UMTCAP_asn1_Associate_result *r = [[UMTCAP_asn1_Associate_result alloc]initWithValue:0];
         UMTCAP_asn1_Associate_source_diagnostic *d = [[UMTCAP_asn1_Associate_source_diagnostic alloc]init];
         d.dialogue_service_user =[[UMASN1Integer alloc]initWithValue:0];
-        [gInstance.gsmMap queueMAP_U_Abort_Req:dialogId
+        [_gInstance.gsmMap queueMAP_U_Abort_Req:_dialogId
                                        options:@{}
                                         result:r
                                     diagnostic:d
                                       userInfo:NULL
                                          cause:UMTCAP_pAbortCause_badlyFormattedTransactionPortion];
-        [gInstance markSessionForTermination:self];
+        [_gInstance markSessionForTermination:self];
         _hasEnded = YES;
     }
     @catch(NSException *e)
@@ -1857,25 +1833,25 @@ else \
 - (void)dump:(NSFileHandle *)filehandler
 {
     NSMutableString *s = [[NSMutableString alloc]init];
-    [s appendFormat:@"    userIdentifier: %@\n",userIdentifier];
+    [s appendFormat:@"    userIdentifier: %@\n",_userIdentifier];
     [s appendFormat:@"    hasEnded: %@\n",(_hasEnded ? @"YES" : @"NO")];
-    [s appendFormat:@"    opcode: %@\n",opcode.description];
-    [s appendFormat:@"    localAddress: %@\n",[localAddress description]];
-    [s appendFormat:@"    remoteAddress: %@\n",[remoteAddress description]];
+    [s appendFormat:@"    opcode: %@\n",_opcode.description];
+    [s appendFormat:@"    localAddress: %@\n",[_localAddress description]];
+    [s appendFormat:@"    remoteAddress: %@\n",[_remoteAddress description]];
     [s appendFormat:@"    startTime: %@\n",[_startTime description]];
     [s appendFormat:@"    lastActive: %@\n",[_lastActiveTime description]];
     [s appendFormat:@"    timeout: %8.2lfs\n",_timeoutInSeconds];
-    NSDictionary *d = [applicationContext objectValue];
+    NSDictionary *d = [_applicationContext objectValue];
     [s appendFormat:@"    applicationContext: %@\n",d[@"objectIdentifier"]];
-    d = [incomingApplicationContext objectValue];
+    d = [_incomingApplicationContext objectValue];
     [s appendFormat:@"    incomingApplicationContext: %@\n",d[@"objectIdentifier"]];
-    [s appendFormat:@"    doEnd: %@\n",(doEnd ? @"YES" : @"NO")];
-    [s appendFormat:@"    nowait: %@\n",(nowait ? @"YES" : @"NO")];
-    [s appendFormat:@"    undefinedSession: %@\n",(undefinedSession ? @"YES" : @"NO")];
-    [s appendFormat:@"    tcapLocalTransactionId: %@\n",tcapLocalTransactionId];
-    [s appendFormat:@"    tcapRemoteTransactionId: %@\n",tcapRemoteTransactionId];
-    [s appendFormat:@"    sessionName: %@\n",sessionName];
-    [s appendFormat:@"    firstInvokeId: %d\n",firstInvokeId];
+    [s appendFormat:@"    doEnd: %@\n",(_doEnd ? @"YES" : @"NO")];
+    [s appendFormat:@"    nowait: %@\n",(_nowait ? @"YES" : @"NO")];
+    [s appendFormat:@"    undefinedSession: %@\n",(_undefinedSession ? @"YES" : @"NO")];
+    [s appendFormat:@"    tcapLocalTransactionId: %@\n",_tcapLocalTransactionId];
+    [s appendFormat:@"    tcapRemoteTransactionId: %@\n",_tcapRemoteTransactionId];
+    [s appendFormat:@"    sessionName: %@\n",_sessionName];
+    [s appendFormat:@"    firstInvokeId: %d\n",_firstInvokeId];
     [s appendFormat:@"    mapVersion: %d\n",_mapVersion];
     [s appendFormat:@"    incoming: %@\n",(_incoming ? @"YES" : @"NO")];
     [s appendFormat:@"    outgoing: %@\n",(_outgoing ? @"YES" : @"NO")];
