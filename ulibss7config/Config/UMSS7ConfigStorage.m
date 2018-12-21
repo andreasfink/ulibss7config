@@ -28,6 +28,7 @@
 #import "UMSS7ConfigSCCPFilterEntry.h"
 #import "UMSS7ConfigSCCPTranslationTable.h"
 #import "UMSS7ConfigSCCPTranslationTableEntry.h"
+#import "UMSS7ConfigSCCPTranslationTableMap.h"
 #import "UMSS7ConfigSCCPDestination.h"
 #import "UMSS7ConfigSCCPDestinationEntry.h"
 #import "UMSS7ConfigTCAP.h"
@@ -84,6 +85,7 @@
     _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_translation_table_map_dict = [[UMSynchronizedDictionary alloc]init];
     _tcap_dict= [[UMSynchronizedDictionary alloc]init];
     _tcap_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _gsmmap_dict= [[UMSynchronizedDictionary alloc]init];
@@ -464,6 +466,16 @@
         if(sccp_translation_table.name.length  > 0)
         {
             _sccp_translation_table_dict[sccp_translation_table.name] = sccp_translation_table;
+        }
+    }
+
+    NSArray *sccp_translation_table_map_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableMap type]];
+    for(NSDictionary *sccp_translation_table_map_config in sccp_translation_table_map_configs)
+    {
+        UMSS7ConfigSCCPTranslationTableMap *sccp_translation_table_map = [[UMSS7ConfigSCCPTranslationTableMap alloc]initWithConfig:sccp_translation_table_map_config];
+        if(sccp_translation_table_map.name.length  > 0)
+        {
+            _sccp_translation_table_map_dict[sccp_translation_table_map.name] = sccp_translation_table_map;
         }
     }
 
@@ -1625,6 +1637,53 @@
     return @"ok";
 }
 
+/*
+**************************************************
+** SCCP-GTT Translation Table Map
+**************************************************
+*/
+#pragma mark -
+#pragma mark SCCP TranslationTableMap
+
+- (NSArray *)getSCCPTranslationTableMap
+{
+    return [_sccp_translation_table_map_dict allKeys];
+}
+
+- (UMSS7ConfigSCCPTranslationTableMap *)getSCCPTranslationTableMap:(NSString *)name
+{
+    return _sccp_translation_table_map_dict[name];
+
+}
+
+- (NSString *)addSCCPTranslationTableMap:(UMSS7ConfigSCCPTranslationTableMap *)sccp_translation_table_map
+{
+    if(_sccp_translation_table_map_dict[sccp_translation_table_map.name] == NULL)
+    {
+        _sccp_translation_table_dict[sccp_translation_table_map.name] = sccp_translation_table_map;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+
+}
+- (NSString *)replaceSCCPTranslationTableMap:(UMSS7ConfigSCCPTranslationTableMap *)sccp_translation_table_map
+{
+    _sccp_translation_table_map_dict[sccp_translation_table_map.name] = sccp_translation_table_map;
+    _dirty=YES;
+    return @"ok";
+
+}
+- (NSString *)deleteSCCPTranslationTableMap:(NSString *)name
+{
+    if(_sccp_translation_table_map_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_translation_table_map_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 /*
  **************************************************

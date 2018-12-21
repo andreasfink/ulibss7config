@@ -57,6 +57,7 @@
 @class UMSS7ConfigMAPI;
 @class UMSS7ConfigIMSIPool;
 @class UMSS7ConfigCdrWriter;
+@class UMSS7ConfigSCCPTranslationTableMap;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -81,6 +82,7 @@
     UMSynchronizedDictionary *_sccp_filter_dict;
     UMSynchronizedDictionary *_sccp_destination_dict;
     UMSynchronizedDictionary *_sccp_translation_table_dict;
+    UMSynchronizedDictionary *_sccp_translation_table_map_dict;
     UMSynchronizedDictionary *_tcap_dict;
     UMSynchronizedDictionary *_tcap_filter_dict;
     UMSynchronizedDictionary *_gsmmap_dict;
@@ -131,6 +133,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_filter_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_destination_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_map_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *tcap_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *tcap_filter_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *gsmmap_dict;
@@ -248,6 +251,12 @@
 - (NSString *)addSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable*)sccp_destination;
 - (NSString *)replaceSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable *)sccp_destination;
 - (NSString *)deleteSCCPTranslationTable:(NSString *)name;
+
+- (NSArray *)getSCCPTranslationTableMap;
+- (UMSS7ConfigSCCPTranslationTableMap *)getSCCPTranslationTableMap:(NSString *)name;
+- (NSString *)addSCCPTranslationTableMap:(UMSS7ConfigSCCPTranslationTableMap *)sccp_destination;
+- (NSString *)replaceSCCPTranslationTableMap:(UMSS7ConfigSCCPTranslationTableMap *)sccp_destination;
+- (NSString *)deleteSCCPTranslationTableMap:(NSString *)name;
 
 - (NSArray *)getTCAPNames;
 - (UMSS7ConfigTCAP *)getTCAP:(NSString *)name;

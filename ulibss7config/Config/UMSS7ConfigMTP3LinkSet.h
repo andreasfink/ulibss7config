@@ -15,6 +15,8 @@
     NSString *_opc;
     NSNumber *_speed;
     NSNumber *_overrideNetworkIndicator;
+    NSString *_ttmap_in;
+    NSString *_ttmap_out;
 }
 
 + (NSString *)type;
@@ -26,5 +28,7 @@
 @property(readwrite,strong,atomic)  NSString *opc;
 @property(readwrite,strong,atomic)  NSNumber *speed;
 @property(readwrite,strong,atomic)  NSNumber *overrideNetworkIndicator;
+@property(readwrite,strong,atomic)  NSString *ttmap_in;
+@property(readwrite,strong,atomic)  NSString *ttmap_out;
 
 @end

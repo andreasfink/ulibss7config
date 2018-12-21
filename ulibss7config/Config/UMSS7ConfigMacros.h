@@ -65,7 +65,7 @@ if(array!=NULL) \
     NSUInteger n= [array count]; \
     for(NSUInteger i=0;i<n;i++) \
     { \
-        EspConfigObject *o = array[i]; \
+        UMSS7ConfigObject *o = array[i]; \
         if(i==0) \
         { \
             [str appendFormat:@"%@=%@",name,o.name]; \
