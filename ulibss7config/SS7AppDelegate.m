@@ -1404,6 +1404,7 @@ static void signalHandler(int signum);
 			 linkset.readyLinks,
 			 linkset.activeLinks,
 			 linkset.totalLinks];
+            [status appendString:[linkset webStatus]];
 		}
 		else
 		{
@@ -1412,7 +1413,7 @@ static void signalHandler(int signum);
 			 linkset.readyLinks,
 			 linkset.activeLinks,
 			 linkset.totalLinks];
-
+            [status appendString:[linkset webStatus]];
 		}
 	}
 
