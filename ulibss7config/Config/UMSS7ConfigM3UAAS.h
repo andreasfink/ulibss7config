@@ -14,7 +14,7 @@
     NSNumber *_routingKey;
     NSString *_apc;
     NSString *_trafficMode;
-    NSNumber *_overrideNetworkIndicator;
+    NSString *_overrideNetworkIndicator;
 }
 
 + (NSString *)type;

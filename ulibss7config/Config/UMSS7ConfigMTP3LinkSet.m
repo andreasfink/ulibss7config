@@ -39,7 +39,7 @@
     APPEND_CONFIG_STRING(s,@"apc",_apc);
     APPEND_CONFIG_STRING(s,@"opc",_opc);
     APPEND_CONFIG_DOUBLE(s,@"speed",_speed);
-    APPEND_CONFIG_INTEGER(s,@"override-network-indicator",_overrideNetworkIndicator);
+    APPEND_CONFIG_STRING(s,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_CONFIG_STRING(s,@"tt-map-in",_ttmap_in);
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
 
@@ -52,7 +52,7 @@
     APPEND_DICT_STRING(dict,@"apc",_apc);
     APPEND_DICT_STRING(dict,@"opc",_opc);
     APPEND_DICT_DOUBLE(dict,@"speed",_speed);
-    APPEND_DICT_INTEGER(dict,@"override-network-indicator",_overrideNetworkIndicator);
+    APPEND_CONFIG_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
 
@@ -66,7 +66,7 @@
     SET_DICT_STRING(dict,@"apc",_apc);
     SET_DICT_STRING(dict,@"opc",_opc);
     SET_DICT_DOUBLE(dict,@"speed",_speed);
-    SET_DICT_INTEGER(dict,@"override-network-indicator",_overrideNetworkIndicator);
+    SET_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     SET_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
 }
