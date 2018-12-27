@@ -52,7 +52,7 @@
     APPEND_DICT_STRING(dict,@"apc",_apc);
     APPEND_DICT_STRING(dict,@"opc",_opc);
     APPEND_DICT_DOUBLE(dict,@"speed",_speed);
-    APPEND_CONFIG_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
+    APPEND_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
 
