@@ -1231,11 +1231,11 @@ else \
     NSString *mapopen_destination_imsi;
     NSString *mapopen_destination_msisdn;
 
-    SET_OPTIONAL_PARAMETER(p,mapopen_destination_imsi,@"map-open-destination-imsi");
-    SET_OPTIONAL_PARAMETER(p,mapopen_destination_msisdn,@"map-open-destination-msisdn");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_imsi,@"map-open-destination-imsi");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_msisdn,@"map-open-destination-msisdn");
 
-    SET_OPTIONAL_PARAMETER(p,mapopen_origination_imsi,@"map-open-origination-imsi");
-    SET_OPTIONAL_PARAMETER(p,mapopen_origination_msisdn,@"map-open-origination-msisdn");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_imsi,@"map-open-origination-imsi");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_msisdn,@"map-open-origination-msisdn");
 
     /** MAP OPEN **/
     _userInfo = [[UMTCAP_asn1_userInformation alloc]init];
