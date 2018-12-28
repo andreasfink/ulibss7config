@@ -119,6 +119,8 @@ static void signalHandler(int signum);
 		_gsmmap_dict                    = [[UMSynchronizedDictionary alloc]init];
 		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
+
+        _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
 
         if(_enabledOptions[@"name"])
