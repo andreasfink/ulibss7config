@@ -1957,7 +1957,7 @@ static void signalHandler(int signum);
 
 - (NSArray *)getSCCPNames
 {
-    return [_sccp_dict copy];
+    return [_sccp_dict allKeys];
 }
 
 - (void)addWithConfigSCCP:(NSDictionary *)config
