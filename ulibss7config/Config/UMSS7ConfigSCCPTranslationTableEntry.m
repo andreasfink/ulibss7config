@@ -35,17 +35,16 @@
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
-    [super appendConfigToString:s];
+    [super appendConfigToString:s withoutName:YES];
     APPEND_CONFIG_STRING(s,@"table",_translationTableName);
     APPEND_CONFIG_STRING(s,@"gta",_gta);
     APPEND_CONFIG_STRING(s,@"destination",_sccpDestination);
     APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
 }
 
-
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *dict = [super configWithoutName:YES];
     APPEND_DICT_STRING(dict,@"table",_translationTableName);
     APPEND_DICT_STRING(dict,@"gta",_gta);
     APPEND_DICT_STRING(dict,@"destination",_sccpDestination);
@@ -60,6 +59,7 @@
     SET_DICT_STRING(dict,@"gta",_gta);
     SET_DICT_FILTERED_STRING(dict,@"destination",_sccpDestination);
     SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
+    self.name = [NSString stringWithFormat:@"%@:%@",_translationTableName,_gta];
 }
 
 - (UMSS7ConfigSCCPTranslationTableEntry *)copyWithZone:(NSZone *)zone

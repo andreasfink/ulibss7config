@@ -48,8 +48,12 @@
 
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
+
+    NSString *gta = _webRequest.params[@"gta"];
+    gta = [UMSS7ConfigObject filterName:gta];
+    NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:name];
+    UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
 
     if(entry==NULL)
     {

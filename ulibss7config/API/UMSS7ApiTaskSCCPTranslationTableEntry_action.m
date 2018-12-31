@@ -18,25 +18,104 @@
     return @"/api/sccp-translation-table-entry-action";
 }
 
-
-- (SccpGttRoutingTableEntry *)getRoutingTableEntryByDigits
+- (void)main
 {
-    SccpGttRoutingTable *rt = [self getRoutingTable];
-    if(rt==NULL)
+    if(![self isAuthenticated])
     {
-        [self sendErrorNotFound:@"routing-table"];
-        return NULL;
+        [self sendErrorNotAuthenticated];
+        return;
     }
 
-    NSString *digits     = _webRequest.params[@"digits"];
-    if(digits.length==0)
+    if(![self isAuthorized])
     {
-        [self sendErrorNotFound:@"digits"];
-        return NULL;
+        [self sendErrorNotAuthorized];
+        return;
     }
 
-    SccpGttRoutingTableEntry *rte = [rt findEntryByDigits:digits];
-    return rte;
+    NSString *sccp_name     = _webRequest.params[@"sccp"];
+    if(sccp_name.length==0)
+    {
+        [self sendErrorMissingParameter:@"sccp"];
+        return;
+    }
+    NSString *table_name    = _webRequest.params[@"translation-table"];
+    if(table_name.length==0)
+    {
+        [self sendErrorMissingParameter:@"translation-table"];
+    }
+
+    NSString *gta = _webRequest.params[@"gta"];
+    gta = [UMSS7ConfigObject filterName:gta];
+    NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+    UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
+
+    NSString *action     = _webRequest.params[@"action"];
+    if(action.length==0)
+    {
+        [self sendErrorMissingParameter:@"action"];
+    }
+
+    if(entry==NULL)
+    {
+        [self sendErrorNotFound];
+    }
+    else
+    {
+        NSDictionary *oldConfig = entry.config.dictionaryCopy;
+        @try
+        {
+            UMLayerSCCP *sccp_instance = [_appDelegate getSCCP:sccp_name];
+            if(sccp_instance==NULL)
+            {
+                [self sendErrorNotFound:@"sccp"];
+                return;
+            }
+            SccpGttSelector *selector = [sccp_instance.gttSelectorRegistry getSelectorByName:table_name];
+            if(selector==NULL)
+            {
+                [self sendErrorNotFound:@"translation-table"];
+                return;
+            }
+
+            SccpGttRoutingTable *rt = selector.routingTable;
+            if(rt==NULL)
+            {
+                [self sendErrorNotFound:@"translation-table.routing-table"];
+                return;
+            }
+            SccpGttRoutingTableEntry *rte = [rt findEntryByName:name];
+            if(rte==NULL)
+            {
+                NSString *gta = oldConfig[@"gta"];
+                rte = [rt findEntryByDigits:gta];
+            }
+            if(rte==NULL)
+            {
+                [self sendErrorNotFound:@"translation-table-entry"];
+                return;
+            }
+            if([action isEqualToString:@"enable"])
+            {
+                rte.enabled=YES;
+            }
+            else if([action isEqualToString:@"disable"])
+            {
+                rte.enabled=NO;
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
+            [self sendResultOK];
+        }
+
+        @catch(NSException *e)
+        {
+            [entry setConfig:oldConfig];
+            [self sendException:e];
+        }
+    }
 }
 
 @end

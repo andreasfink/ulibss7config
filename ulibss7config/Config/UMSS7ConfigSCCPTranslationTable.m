@@ -51,7 +51,6 @@
         [s appendString:@"\n"];
         [e appendConfigToString:s];
     }
-
 }
 
 
