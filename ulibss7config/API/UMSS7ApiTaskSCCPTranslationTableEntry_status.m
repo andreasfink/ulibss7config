@@ -91,7 +91,7 @@
             }
 
             sccp.SccpL3RoutingTable
-            [self sendResultObject:[rte statusForL3RoutingTable:sccp.mtp3RoutingTable]];
+            [self sendResultObject:[rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable]];
         }
 
         @catch(NSException *e)
