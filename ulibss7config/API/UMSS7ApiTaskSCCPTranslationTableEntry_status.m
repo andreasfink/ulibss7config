@@ -90,7 +90,6 @@
                 return;
             }
 
-            sccp.SccpL3RoutingTable
             [self sendResultObject:[rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable]];
         }
 
