@@ -63,6 +63,7 @@ realm:(NSString **)realm;
 - (void)renameM3UAASP:(NSString *)old to:(NSString *)new;
 
 - (UMLayerSCCP *)getSCCP:(NSString *)name;
+- (NSArray *)getSCCPNames;
 - (void)addWithConfigSCCP:(NSDictionary *)config;
 - (void)deleteSCCP:(NSString *)name;
 - (void)renameSCCP:(NSString *)old to:(NSString *)new;

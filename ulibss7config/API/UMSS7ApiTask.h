@@ -7,6 +7,8 @@
 //
 
 #import <ulibgsmmap/ulibgsmmap.h>
+#import <ulibgt/ulibgt.h>
+#import <ulibsccp/ulibsccp.h>
 
 #import "UMSS7ConfigAppDelegateProtocol.h"
 @class UMSS7ApiSession;
@@ -24,6 +26,7 @@
 + (NSArray *)apiPathList;
 
 - (void)sendErrorNotFound;
+- (void)sendErrorNotFound:(NSString *)param;
 - (void)sendErrorAlreadyExisting;
 - (void)sendErrorNotImplemented;
 - (void)sendErrorUnknownAction;
@@ -31,8 +34,13 @@
 - (void)sendResultObject:(id)result;
 - (void)sendErrorNotAuthenticated;
 - (void)sendErrorNotAuthorized;
+- (void)sendErrorMissingParameter:(NSString *)param;
 - (BOOL) isAuthenticated;
 - (BOOL) isAuthorized;
 - (void)sendException:(NSException *)e;
+- (SccpGttSelector *)getGttSelector;
+- (SccpGttRoutingTable *)getRoutingTable;
+- (SccpGttRoutingTableEntry *)getRoutingTableEntryByDigits;
+- (SccpGttRoutingTableEntry *)getRoutingTableEntryByName;
 
 @end

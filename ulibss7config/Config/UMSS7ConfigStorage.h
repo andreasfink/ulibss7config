@@ -23,6 +23,7 @@
 @class  UMSS7ConfigSCCPFilter;
 @class  UMSS7ConfigSCCPFilterDict;
 @class  UMSS7ConfigSCCPTranslationTable;
+@class  UMSS7ConfigSCCPTranslationTableEntry;
 @class  UMSS7ConfigSCCPDestination;
 @class  UMSS7ConfigSCCPDestinationEntry;
 @class  UMSS7ConfigTCAP;
@@ -82,6 +83,7 @@
     UMSynchronizedDictionary *_sccp_filter_dict;
     UMSynchronizedDictionary *_sccp_destination_dict;
     UMSynchronizedDictionary *_sccp_translation_table_dict;
+    UMSynchronizedDictionary *_sccp_translation_table_entry_dict;
     UMSynchronizedDictionary *_sccp_translation_table_map_dict;
     UMSynchronizedDictionary *_tcap_dict;
     UMSynchronizedDictionary *_tcap_filter_dict;
@@ -133,6 +135,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_filter_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_destination_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_entry_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_map_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *tcap_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *tcap_filter_dict;
@@ -251,6 +254,12 @@
 - (NSString *)addSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable*)sccp_destination;
 - (NSString *)replaceSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable *)sccp_destination;
 - (NSString *)deleteSCCPTranslationTable:(NSString *)name;
+
+- (NSArray *)getSCCPTranslationTableEntryNames;
+- (UMSS7ConfigSCCPTranslationTableEntry *)getSCCPTranslationTableEntry:(NSString *)name;
+- (NSString *)addSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry;
+- (NSString *)replaceSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry;
+- (NSString *)deleteSCCPTranslationTableEntry:(NSString *)name;
 
 - (NSArray *)getSCCPTranslationTableMap;
 - (UMSS7ConfigSCCPTranslationTableMap *)getSCCPTranslationTableMap:(NSString *)name;

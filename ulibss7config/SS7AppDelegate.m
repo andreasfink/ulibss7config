@@ -1955,6 +1955,11 @@ static void signalHandler(int signum);
     return _sccp_dict[name];
 }
 
+- (NSArray *)getSCCPNames
+{
+    return [_sccp_dict copy];
+}
+
 - (void)addWithConfigSCCP:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
@@ -2311,7 +2316,11 @@ static void signalHandler(int signum);
 }
 
 
-- (UMSynchronizedSortedDictionary *)readSCCPTranslationTable:(NSString *)name tt:(NSNumber *)tt gti:(NSNumber *)gti np:(NSNumber *)np nai:(NSNumber *)nai
+- (UMSynchronizedSortedDictionary *)readSCCPTranslationTable:(NSString *)name
+                                                          tt:(NSNumber *)tt
+                                                         gti:(NSNumber *)gti
+                                                          np:(NSNumber *)np
+                                                         nai:(NSNumber *)nai
 {
     /*FIXME */
     return NULL;

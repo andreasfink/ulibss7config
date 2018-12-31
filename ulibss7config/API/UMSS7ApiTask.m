@@ -10,6 +10,7 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
+#import "ulibgt/ulibgt.h"
 
 @implementation UMSS7ApiTask
 
@@ -65,6 +66,33 @@
 - (void)sendErrorNotFound
 {
     [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];
+    [_webRequest resumePendingRequest];
+}
+
+- (void)sendErrorNotFound:(NSString *)param
+{
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];
+    if(param)
+    {
+        [_webRequest setResponseJsonObject:@{ @"error" : @"not-found", @"parameter" : param }];
+    }
+    else
+    {
+        [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];
+    }
+    [_webRequest resumePendingRequest];
+}
+
+- (void)sendErrorMissingParameter:(NSString *)param
+{
+    if(param)
+    {
+        [_webRequest setResponseJsonObject:@{ @"error" : @"missing-parameter", @"parameter" : param }];
+    }
+    else
+    {
+        [_webRequest setResponseJsonObject:@{ @"error" : @"missing-parameter" }];
+    }
     [_webRequest resumePendingRequest];
 }
 
@@ -148,6 +176,92 @@
 	
     [_webRequest setResponseJsonObject:@{ @"exception" : d }];
     [_webRequest resumePendingRequest];
+}
+
+
+
+- (SccpGttSelector *)getGttSelector
+{
+    NSString *sccp_name     = _webRequest.params[@"sccp"];
+    if(sccp_name.length==0)
+    {
+        [self sendErrorMissingParameter:@"sccp"];
+        return NULL;
+    }
+
+    UMLayerSCCP *sccp_instance = [_appDelegate getSCCP:sccp_name];
+    if(sccp_instance==NULL)
+    {
+        [self sendErrorNotFound:@"sccp"];
+        return NULL;
+    }
+    NSString *table_name    = _webRequest.params[@"translation-table"];
+    if(table_name.length==0)
+    {
+        [self sendErrorMissingParameter:@"translation-table"];
+        return NULL;
+    }
+
+    SccpGttSelector *selector = [sccp_instance.gttSelectorRegistry getSelectorByName:table_name];
+    if(selector==NULL)
+    {
+        [self sendErrorNotFound:@"translation-table"];
+        return NULL;
+    }
+    return selector;
+}
+
+- (SccpGttRoutingTable *)getRoutingTable
+{
+    SccpGttSelector *selector = [self getGttSelector];
+    if(selector==NULL)
+    {
+        return NULL;
+    }
+    SccpGttRoutingTable *rt = selector.routingTable;
+    if(rt==NULL)
+    {
+        [self sendErrorNotFound:@"translation-table.routing-table"];
+        return NULL;
+    }
+    return rt;
+}
+
+- (SccpGttRoutingTableEntry *)getRoutingTableEntryByDigits
+{
+    SccpGttRoutingTable *rt = [self getRoutingTable];
+    if(rt==NULL)
+    {
+        return NULL;
+    }
+
+    NSString *digits     = _webRequest.params[@"digits"];
+    if(digits.length==0)
+    {
+        [self sendErrorNotFound:@"digits"];
+        return NULL;
+    }
+    SccpGttRoutingTableEntry *rte = [rt findEntryByDigits:digits];
+    return rte;
+}
+
+
+- (SccpGttRoutingTableEntry *)getRoutingTableEntryByName
+{
+    SccpGttRoutingTable *rt = [self getRoutingTable];
+    if(rt==NULL)
+    {
+        return NULL;
+    }
+
+    NSString *name     = _webRequest.params[@"name"];
+    if(name.length==0)
+    {
+        [self sendErrorNotFound:@"name"];
+        return NULL;
+    }
+    SccpGttRoutingTableEntry *rte = [rt findEntryByName:name];
+    return rte;
 }
 
 @end

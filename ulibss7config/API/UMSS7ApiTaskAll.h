@@ -78,5 +78,20 @@
 #import "UMSS7ApiTaskSCCP_status.h"
 #import "UMSS7ApiTaskSCCP_action.h"
 
-#import "UMSS7ApiTaskSCCPTranslationTable_delete.h"
+#import "UMSS7ApiTaskSCCPTranslationTable_list.h"
 #import "UMSS7ApiTaskSCCPTranslationTable_read.h"
+#import "UMSS7ApiTaskSCCPTranslationTable_add.h"
+#import "UMSS7ApiTaskSCCPTranslationTable_modify.h"
+#import "UMSS7ApiTaskSCCPTranslationTable_delete.h"
+#import "UMSS7ApiTaskSCCPTranslationTable_status.h"
+#import "UMSS7ApiTaskSCCPTranslationTable_action.h"
+
+
+#import "UMSS7ApiTaskSCCPTranslationTableEntry_list.h"
+#import "UMSS7ApiTaskSCCPTranslationTableEntry_read.h"
+#import "UMSS7ApiTaskSCCPTranslationTableEntry_add.h"
+#import "UMSS7ApiTaskSCCPTranslationTableEntry_modify.h"
+#import "UMSS7ApiTaskSCCPTranslationTableEntry_delete.h"
+#import "UMSS7ApiTaskSCCPTranslationTableEntry_status.h"
+#import "UMSS7ApiTaskSCCPTranslationTableEntry_action.h"
+

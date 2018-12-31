@@ -282,5 +282,8 @@ UMSS7ConfigAppDelegateProtocol>
 - (void)addWithConfigIMSIPool:(NSDictionary *)config;
 - (void)deleteIMSIPool:(NSString *)name;
 - (void)renameIMSIPool:(NSString *)oldName to:(NSString *)newName;
+
+- (NSArray *)getSCCPNames;
+
 @end
 

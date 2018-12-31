@@ -85,6 +85,7 @@
     _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_translation_table_entry_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_translation_table_map_dict = [[UMSynchronizedDictionary alloc]init];
     _tcap_dict= [[UMSynchronizedDictionary alloc]init];
     _tcap_filter_dict= [[UMSynchronizedDictionary alloc]init];
@@ -1633,6 +1634,53 @@
         return @"not found";
     }
     [_sccp_translation_table_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+**************************************************
+** SCCP-GTT Translation Table Entries
+**************************************************
+*/
+#pragma mark -
+#pragma mark SCCP TranslationTableEntry
+
+- (NSArray *)getSCCPTranslationTableEntryNames
+{
+    return [_sccp_translation_table_entry_dict allKeys];
+}
+
+- (UMSS7ConfigSCCPTranslationTableEntry *)getSCCPTranslationTableEntry:(NSString *)name
+{
+    return _sccp_translation_table_entry_dict[name];
+}
+
+- (NSString *)addSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry
+{
+    if(_sccp_translation_table_entry_dict[entry.name] == NULL)
+    {
+        _sccp_translation_table_entry_dict[entry.name] = entry;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry
+{
+    _sccp_translation_table_entry_dict[entry.name] = entry;
+    _dirty=YES;
+    return @"ok";
+
+}
+- (NSString *)deleteSCCPTranslationTableEntry:(NSString *)name
+{
+    if(_sccp_translation_table_entry_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_translation_table_entry_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
