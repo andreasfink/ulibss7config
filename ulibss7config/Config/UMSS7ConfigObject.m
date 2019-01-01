@@ -46,9 +46,17 @@
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
+    return [self appendConfigToString:s withoutName:NO];
+
+}
+- (void)appendConfigToString:(NSMutableString *)s withoutName:(BOOL)withoutName
+{
     [s appendFormat:@"\n"];
     APPEND_CONFIG_STRING(s,@"group",self.type);
-    APPEND_CONFIG_STRING(s,@"name",_name);
+    if(withoutName==NO)
+    {
+        APPEND_CONFIG_STRING(s,@"name",_name);
+    }
     APPEND_CONFIG_STRING(s,@"description",_objectDescription);
     APPEND_CONFIG_BOOLEAN(s,@"enable",_enabled);
     APPEND_CONFIG_INTEGER(s,@"log-level",_logLevel);
@@ -58,9 +66,17 @@
 
 - (UMSynchronizedSortedDictionary *)config
 {
+    return [self configWithoutName:NO];
+}
+
+- (UMSynchronizedSortedDictionary *)configWithoutName:(BOOL)withoutName
+{
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     APPEND_DICT_STRING(dict,@"group",self.type);
-    APPEND_DICT_STRING(dict,@"name",_name);
+    if(withoutName==NO)
+    {
+        APPEND_DICT_STRING(dict,@"name",_name);
+    }
     APPEND_DICT_STRING(dict,@"description",_objectDescription);
     APPEND_DICT_BOOLEAN(dict,@"enable",_enabled);
     APPEND_DICT_INTEGER(dict,@"log-level",_logLevel);

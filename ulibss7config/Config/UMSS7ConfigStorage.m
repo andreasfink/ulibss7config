@@ -62,6 +62,7 @@
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
+#import "UMSS7ConfigApiUser.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -85,6 +86,7 @@
     _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_translation_table_entry_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_translation_table_map_dict = [[UMSynchronizedDictionary alloc]init];
     _tcap_dict= [[UMSynchronizedDictionary alloc]init];
     _tcap_filter_dict= [[UMSynchronizedDictionary alloc]init];
@@ -100,6 +102,7 @@
     _eir_dict= [[UMSynchronizedDictionary alloc]init];
     _smsc_dict= [[UMSynchronizedDictionary alloc]init];
     _admin_user_dict= [[UMSynchronizedDictionary alloc]init];
+    _api_user_dict= [[UMSynchronizedDictionary alloc]init];
     _database_pool_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
     _service_user_dict= [[UMSynchronizedDictionary alloc]init];
@@ -264,7 +267,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
     [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
-
+    [cfg allowMultiGroup:[UMSS7ConfigApiUser type]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -491,6 +494,9 @@
                 translation_table = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:@{ @"name" : sccp_translation_table_entry.translationTableName }];
             }
             [translation_table addSubEntry:sccp_translation_table_entry];
+
+            _sccp_translation_table_entry_dict[sccp_translation_table_entry.name] = sccp_translation_table_entry;
+
         }
     }
 
@@ -718,6 +724,17 @@
             _admin_user_dict[admin_user.name] = admin_user;
         }
     }
+
+    NSArray *api_user_configs = [cfg getMultiGroups:[UMSS7ConfigApiUser type]];
+    for(NSDictionary *api_user_config in api_user_configs)
+    {
+        UMSS7ConfigApiUser *api_user = [[UMSS7ConfigApiUser alloc]initWithConfig:api_user_config];
+        if(api_user.name.length  > 0)
+        {
+            _api_user_dict[api_user.name] = api_user;
+        }
+    }
+
     NSArray *database_pool_configs = [cfg getMultiGroups:[UMSS7ConfigDatabasePool type]];
     for(NSDictionary *database_pool_config in database_pool_configs)
     {
@@ -1633,6 +1650,53 @@
         return @"not found";
     }
     [_sccp_translation_table_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+**************************************************
+** SCCP-GTT Translation Table Entries
+**************************************************
+*/
+#pragma mark -
+#pragma mark SCCP TranslationTableEntry
+
+- (NSArray *)getSCCPTranslationTableEntryNames
+{
+    return [_sccp_translation_table_entry_dict allKeys];
+}
+
+- (UMSS7ConfigSCCPTranslationTableEntry *)getSCCPTranslationTableEntry:(NSString *)name
+{
+    return _sccp_translation_table_entry_dict[name];
+}
+
+- (NSString *)addSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry
+{
+    if(_sccp_translation_table_entry_dict[entry.name])
+    {
+        _sccp_translation_table_entry_dict[entry.name] = entry;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry
+{
+    _sccp_translation_table_entry_dict[entry.name] = entry;
+    _dirty=YES;
+    return @"ok";
+
+}
+- (NSString *)deleteSCCPTranslationTableEntry:(NSString *)name
+{
+    if(_sccp_translation_table_entry_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sccp_translation_table_entry_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
@@ -2771,8 +2835,55 @@
     _dirty=YES;
     return @"ok";
 }
-///
 
+
+/*
+ **************************************************
+ ** ApiUser
+ **************************************************
+ */
+#pragma mark -
+#pragma mark ApiUser
+
+- (NSArray *)getApiUserNames
+{
+    return [_api_user_dict allKeys];
+}
+
+- (UMSS7ConfigApiUser *)getApiUser:(NSString *)name
+{
+    return _api_user_dict[name];
+}
+
+- (NSString *)addApiUser:(UMSS7ConfigApiUser *)user
+{
+    if(_api_user_dict[user.name] == NULL)
+    {
+        _api_user_dict[user.name] = user;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceApiUser:(UMSS7ConfigApiUser *)user
+{
+    _api_user_dict[user.name] = user;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteApiUser:(NSString *)name
+{
+    if(_api_user_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_api_user_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+///
 /*
  **************************************************
  ** ServiceUser
@@ -2946,6 +3057,8 @@
     n.sccp_filter_dict = [_sccp_filter_dict copy];
     n.sccp_destination_dict = [_sccp_destination_dict copy];
     n.sccp_translation_table_dict = [_sccp_translation_table_dict copy];
+    n.sccp_translation_table_entry_dict = [_sccp_translation_table_entry_dict copy];
+    n.sccp_translation_table_map_dict = [_sccp_translation_table_map_dict copy];
     n.tcap_dict = [_tcap_dict copy];
     n.tcap_filter_dict = [_tcap_filter_dict copy];
     n.gsmmap_dict = [_gsmmap_dict copy];
@@ -2960,6 +3073,7 @@
     n.eir_dict = [_eir_dict copy];
     n.smsc_dict = [_smsc_dict copy];
     n.admin_user_dict = [_admin_user_dict copy];
+    n.api_user_dict = [_api_user_dict copy];
     n.database_pool_dict = [_database_pool_dict copy];
     n.sccp_number_translation_dict = [_sccp_number_translation_dict copy];
     n.service_user_dict = [_service_user_dict copy];

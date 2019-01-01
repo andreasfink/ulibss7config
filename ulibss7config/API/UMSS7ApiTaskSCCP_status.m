@@ -39,10 +39,10 @@
 	
 	if(sccp)
 	{
-		UMSynchronizedSortedDictionary *dict = [sccp statisticalInfo];
-        NSString *json = [dict jsonString];
-        NSLog(@"%@",json);
-		[self sendResultObject:dict];
+        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+        dict[@"routing-table"] = [sccp.mtp3RoutingTable status];
+        dict[@"statistics"] = [sccp statisticalInfo];
+        [self sendResultObject:dict];
 	}
 	else
 	{

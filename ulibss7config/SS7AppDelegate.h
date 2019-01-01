@@ -180,6 +180,10 @@ UMSS7ConfigAppDelegateProtocol>
 - (int)defaultWebPort;
 - (NSString *)defaultWebUser;
 - (NSString *)defaultWebPassword;
+
+- (NSString *)defaultApiUser;
+- (NSString *)defaultApiPassword;
+
 - (NSString *)productName;
 - (NSString *)productVersion;
 - (void)umobjectStat:(UMHTTPRequest *)req;
@@ -282,5 +286,8 @@ UMSS7ConfigAppDelegateProtocol>
 - (void)addWithConfigIMSIPool:(NSDictionary *)config;
 - (void)deleteIMSIPool:(NSString *)name;
 - (void)renameIMSIPool:(NSString *)oldName to:(NSString *)newName;
+
+- (NSArray *)getSCCPNames;
+
 @end
 

@@ -34,21 +34,45 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
-	name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-	
-    UMLayerSCCP *instance = [_appDelegate getSCCP:name];
-    UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
-	if(co==NULL || instance==NULL)
+    NSString *sccp_name = _webRequest.params[@"sccp"];
+	sccp_name = [UMSS7ConfigObject filterName:sccp_name];
+
+    NSString *selector_name = _webRequest.params[@"name"];
+    selector_name = [UMSS7ConfigObject filterName:selector_name];
+
+    if(sccp_name.length ==0)
+    {
+        [self sendErrorMissingParameter:@"sccp"];
+    }
+    if(selector_name.length ==0)
+    {
+        [self sendErrorMissingParameter:@"name"];
+    }
+
+    UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
+	if(instance==NULL)
     {
         [self sendErrorNotFound];
     }
     else
     {
-		// Find sccp layer by name and then return RoutingTable  by _gti, _np, _nai, _tt
-		UMSynchronizedSortedDictionary *dict = [_appDelegate readSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
-		[self sendResultObject:dict];
+        UMSynchronizedSortedDictionary *config = [instance.gttSelectorRegistry config];
+        if(config==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            UMSynchronizedSortedDictionary *dict = config[selector_name];
+            if(dict ==NULL)
+            {
+                [self sendErrorNotFound];
+            }
+            else
+            {
+                [self sendResultObject:dict];
+            }
+        }
     }
 }
 

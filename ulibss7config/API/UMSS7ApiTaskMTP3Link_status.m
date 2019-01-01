@@ -40,7 +40,7 @@
     if(mtp3Link)
     {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-        switch(mtp3Link.m2pa_status)
+        switch(mtp3Link.m2pa.m2pa_status)
         {
             case  M2PA_STATUS_UNUSED:
                 dict[@"m2pa-status"] = @"unused";

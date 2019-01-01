@@ -14,7 +14,7 @@
     NSNumber *_routingKey;
     NSString *_apc;
     NSString *_trafficMode;
-    NSNumber *_overrideNetworkIndicator;
+    NSString *_overrideNetworkIndicator;
 }
 
 + (NSString *)type;
@@ -25,6 +25,6 @@
 @property(readwrite,strong,atomic)  NSNumber *routingKey;
 @property(readwrite,strong,atomic)  NSString *apc;
 @property(readwrite,strong,atomic)  NSString *trafficMode;
-@property(readwrite,strong,atomic)  NSNumber *overrideNetworkIndicator;
+@property(readwrite,strong,atomic)  NSString *overrideNetworkIndicator;
 
 @end

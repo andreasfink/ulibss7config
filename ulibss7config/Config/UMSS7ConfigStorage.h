@@ -23,6 +23,7 @@
 @class  UMSS7ConfigSCCPFilter;
 @class  UMSS7ConfigSCCPFilterDict;
 @class  UMSS7ConfigSCCPTranslationTable;
+@class  UMSS7ConfigSCCPTranslationTableEntry;
 @class  UMSS7ConfigSCCPDestination;
 @class  UMSS7ConfigSCCPDestinationEntry;
 @class  UMSS7ConfigTCAP;
@@ -58,6 +59,7 @@
 @class UMSS7ConfigIMSIPool;
 @class UMSS7ConfigCdrWriter;
 @class UMSS7ConfigSCCPTranslationTableMap;
+@class UMSS7ConfigApiUser;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -82,6 +84,7 @@
     UMSynchronizedDictionary *_sccp_filter_dict;
     UMSynchronizedDictionary *_sccp_destination_dict;
     UMSynchronizedDictionary *_sccp_translation_table_dict;
+    UMSynchronizedDictionary *_sccp_translation_table_entry_dict;
     UMSynchronizedDictionary *_sccp_translation_table_map_dict;
     UMSynchronizedDictionary *_tcap_dict;
     UMSynchronizedDictionary *_tcap_filter_dict;
@@ -97,6 +100,7 @@
     UMSynchronizedDictionary *_eir_dict;
     UMSynchronizedDictionary *_smsc_dict;
     UMSynchronizedDictionary *_admin_user_dict;
+    UMSynchronizedDictionary *_api_user_dict;
     UMSynchronizedDictionary *_database_pool_dict;
     UMSynchronizedDictionary *_sccp_number_translation_dict;
     UMSynchronizedDictionary *_service_user_dict;
@@ -133,6 +137,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_filter_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_destination_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_entry_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_translation_table_map_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *tcap_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *tcap_filter_dict;
@@ -148,6 +153,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *eir_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *admin_user_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *api_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *database_pool_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_number_translation_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *service_user_dict;
@@ -251,6 +257,12 @@
 - (NSString *)addSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable*)sccp_destination;
 - (NSString *)replaceSCCPTranslationTable:(UMSS7ConfigSCCPTranslationTable *)sccp_destination;
 - (NSString *)deleteSCCPTranslationTable:(NSString *)name;
+
+- (NSArray *)getSCCPTranslationTableEntryNames;
+- (UMSS7ConfigSCCPTranslationTableEntry *)getSCCPTranslationTableEntry:(NSString *)name;
+- (NSString *)addSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry;
+- (NSString *)replaceSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry;
+- (NSString *)deleteSCCPTranslationTableEntry:(NSString *)name;
 
 - (NSArray *)getSCCPTranslationTableMap;
 - (UMSS7ConfigSCCPTranslationTableMap *)getSCCPTranslationTableMap:(NSString *)name;
@@ -417,5 +429,12 @@
 - (NSString *)addCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
 - (NSString *)replaceCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
 - (NSString *)deleteCdrWriter:(NSString *)cdrw;
+
+
+- (NSArray *)getApiUserNames;
+- (UMSS7ConfigApiUser *)getApiUser:(NSString *)name;
+- (NSString *)addApiUser:(UMSS7ConfigApiUser *)user;
+- (NSString *)replaceApiUser:(UMSS7ConfigApiUser *)user;
+- (NSString *)deleteApiUser:(NSString *)name;
 
 @end

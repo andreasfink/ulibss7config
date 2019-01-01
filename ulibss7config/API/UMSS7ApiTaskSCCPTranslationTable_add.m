@@ -15,6 +15,7 @@
 
 @implementation UMSS7ApiTaskSCCPTranslationTable_add
 
+
 + (NSString *)apiPath
 {
     return @"/api/sccp-translation-table-add";

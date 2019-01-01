@@ -119,6 +119,8 @@ static void signalHandler(int signum);
 		_gsmmap_dict                    = [[UMSynchronizedDictionary alloc]init];
 		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
+
+        _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
 
         if(_enabledOptions[@"name"])
@@ -368,6 +370,16 @@ static void signalHandler(int signum);
 	return @"admin";
 }
 
+
+- (NSString *)defaultApiUser
+{
+    return @"admin";
+}
+- (NSString *)defaultApiPassword
+{
+    return @"admin";
+}
+
 - (NSString *)productName
 {
 	return @"ss7-product";
@@ -603,6 +615,19 @@ static void signalHandler(int signum);
 		[_runningConfig addAdminUser:user];
 	}
 
+    /* make sure we have at least one default user */
+    names = [_runningConfig getApiUserNames];
+    if(names.count == 0)
+    {
+        UMSS7ConfigApiUser *user = [[UMSS7ConfigApiUser alloc]initWithConfig:
+                                      @{
+                                        @"group":@"user",
+                                        @"name": [self defaultApiUser],
+                                        @"password": [self defaultApiPassword],
+                                        }
+                                      ];
+        [_runningConfig addApiUser:user];
+    }
 	/* Webserver */
 	names = [_runningConfig getWebserverNames];
 	if(names.count == 0)
@@ -1404,6 +1429,7 @@ static void signalHandler(int signum);
 			 linkset.readyLinks,
 			 linkset.activeLinks,
 			 linkset.totalLinks];
+            [status appendString:[linkset webStatus]];
 		}
 		else
 		{
@@ -1412,7 +1438,7 @@ static void signalHandler(int signum);
 			 linkset.readyLinks,
 			 linkset.activeLinks,
 			 linkset.totalLinks];
-
+            [status appendString:[linkset webStatus]];
 		}
 	}
 
@@ -1917,8 +1943,8 @@ static void signalHandler(int signum);
     NSString *name = config[@"name"];
     if(name)
     {
-        UMSS7ConfigM3UAAS *co = [[UMSS7ConfigM3UAAS alloc]initWithConfig:config];
-        [_runningConfig addM3UAAS:co];
+        UMSS7ConfigM3UAASP *co = [[UMSS7ConfigM3UAASP alloc]initWithConfig:config];
+        [_runningConfig addM3UAASP:co];
         
         UMM3UAApplicationServerProcess *m3ua_asp = [[UMM3UAApplicationServerProcess alloc]initWithTaskQueueMulti:_m3uaTaskQueue];
         m3ua_asp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-asp"];
@@ -1950,6 +1976,11 @@ static void signalHandler(int signum);
 - (UMLayerSCCP *)getSCCP:(NSString *)name
 {
     return _sccp_dict[name];
+}
+
+- (NSArray *)getSCCPNames
+{
+    return [_sccp_dict allKeys];
 }
 
 - (void)addWithConfigSCCP:(NSDictionary *)config
@@ -2308,7 +2339,11 @@ static void signalHandler(int signum);
 }
 
 
-- (UMSynchronizedSortedDictionary *)readSCCPTranslationTable:(NSString *)name tt:(NSNumber *)tt gti:(NSNumber *)gti np:(NSNumber *)np nai:(NSNumber *)nai
+- (UMSynchronizedSortedDictionary *)readSCCPTranslationTable:(NSString *)name
+                                                          tt:(NSNumber *)tt
+                                                         gti:(NSNumber *)gti
+                                                          np:(NSNumber *)np
+                                                         nai:(NSNumber *)nai
 {
     /*FIXME */
     return NULL;
