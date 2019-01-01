@@ -105,6 +105,7 @@
                 if(string.length==0)
                 {
                     NSLog(@"can not serialize dict: %@",dict);
+                    NSLog(@"writer.error: %@",writer.error);
                 }
                 else
                 {
