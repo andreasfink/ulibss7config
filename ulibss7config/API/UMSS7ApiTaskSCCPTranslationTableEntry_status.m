@@ -96,7 +96,17 @@
             NSLog(@"sccp_instance.mtp3RoutingTable=%@",sccp_instance.mtp3RoutingTable);
 
             UMSynchronizedSortedDictionary *dict = [rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable];
-            NSLog(@"dict=%@",dict);
+            UMJsonWriter *writer = [[UMJsonWriter alloc]init];
+            writer.humanReadable = YES;
+            NSString *string =  [writer stringWithObject:dict];
+            if(string.length==0)
+            {
+                NSLog(@"can not serialize dict: %@",dict);
+            }
+            else
+            {
+                NSLog(@"json response: %@",string);
+            }
             if(dict)
             {
                 [self sendResultObject:dict];
