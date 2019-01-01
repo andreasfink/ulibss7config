@@ -153,6 +153,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *eir_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *smsc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *admin_user_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *api_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *database_pool_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_number_translation_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *service_user_dict;

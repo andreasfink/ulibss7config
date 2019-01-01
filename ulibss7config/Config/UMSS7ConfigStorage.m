@@ -3054,6 +3054,8 @@
     n.sccp_filter_dict = [_sccp_filter_dict copy];
     n.sccp_destination_dict = [_sccp_destination_dict copy];
     n.sccp_translation_table_dict = [_sccp_translation_table_dict copy];
+    n.sccp_translation_table_entry_dict = [_sccp_translation_table_entry_dict copy];
+    n.sccp_translation_table_map_dict = [_sccp_translation_table_map_dict copy];
     n.tcap_dict = [_tcap_dict copy];
     n.tcap_filter_dict = [_tcap_filter_dict copy];
     n.gsmmap_dict = [_gsmmap_dict copy];
@@ -3068,6 +3070,7 @@
     n.eir_dict = [_eir_dict copy];
     n.smsc_dict = [_smsc_dict copy];
     n.admin_user_dict = [_admin_user_dict copy];
+    n.api_user_dict = [_api_user_dict copy];
     n.database_pool_dict = [_database_pool_dict copy];
     n.sccp_number_translation_dict = [_sccp_number_translation_dict copy];
     n.service_user_dict = [_service_user_dict copy];
