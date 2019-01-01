@@ -494,6 +494,9 @@
                 translation_table = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:@{ @"name" : sccp_translation_table_entry.translationTableName }];
             }
             [translation_table addSubEntry:sccp_translation_table_entry];
+
+            _sccp_translation_table_entry_dict[sccp_translation_table_entry.name] = sccp_translation_table_entry;
+
         }
     }
 
@@ -1671,7 +1674,7 @@
 
 - (NSString *)addSCCPTranslationTableEntry:(UMSS7ConfigSCCPTranslationTableEntry *)entry
 {
-    if(_sccp_translation_table_entry_dict[entry.name] == NULL)
+    if(_sccp_translation_table_entry_dict[entry.name])
     {
         _sccp_translation_table_entry_dict[entry.name] = entry;
         _dirty=YES;

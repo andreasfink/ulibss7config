@@ -37,21 +37,22 @@
 
     NSString *sccp_name = _webRequest.params[@"sccp"];
     sccp_name = [UMSS7ConfigObject filterName:sccp_name];
+
     NSArray *sccp_names;
     if(sccp_name.length == 0)
     {
-        sccp_names = @[sccp_name];
+        sccp_names = [_appDelegate getSCCPNames];
     }
     else
     {
-        sccp_names = [_appDelegate getSCCPNames];
+        sccp_names = @[sccp_name];
     }
 
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     for(sccp_name in sccp_names)
     {
         UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
-        dict[sccp_names] = [instance.gttSelectorRegistry listSelectorNames];
+        dict[sccp_name] = [instance.gttSelectorRegistry listSelectorNames];
     }
     [self sendResultObject:dict];
 }

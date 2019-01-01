@@ -8,6 +8,7 @@
 
 #import "UMSS7ConfigSCCPTranslationTableEntry.h"
 #import "UMSS7ConfigMacros.h"
+#import <ulibgt/ulibgt.h>
 
 @implementation UMSS7ConfigSCCPTranslationTableEntry
 
@@ -59,13 +60,13 @@
     SET_DICT_STRING(dict,@"gta",_gta);
     SET_DICT_FILTERED_STRING(dict,@"destination",_sccpDestination);
     SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
-    self.name = [NSString stringWithFormat:@"%@:%@",_translationTableName,_gta];
+    _name = [SccpGttRoutingTableEntry entryNameForGta:_gta tableName:_translationTableName];
 }
 
 - (UMSS7ConfigSCCPTranslationTableEntry *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigSCCPTranslationTableEntry allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return  [[UMSS7ConfigSCCPTranslationTableEntry allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

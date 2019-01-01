@@ -78,7 +78,14 @@
                 [self sendErrorNotFound:@"translation-table.routing-table"];
                 return;
             }
-            SccpGttRoutingTableEntry *rte = [rt findEntryByName:name];
+
+
+            NSString *gta = _webRequest.params[@"gta"];
+            gta = [UMSS7ConfigObject filterName:gta];
+            NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+
+
+            SccpGttRoutingTableEntry *rte = [rt findEntryByName:entryName];
             if(rte==NULL)
             {
                 NSString *gta = oldConfig[@"gta"];

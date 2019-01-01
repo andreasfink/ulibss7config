@@ -38,7 +38,7 @@
 	sccp_name = [UMSS7ConfigObject filterName:sccp_name];
 
     NSString *selector_name = _webRequest.params[@"name"];
-    selector_name = [UMSS7ConfigObject filterName:sccp_name];
+    selector_name = [UMSS7ConfigObject filterName:selector_name];
 
     if(sccp_name.length ==0)
     {
@@ -49,7 +49,7 @@
         [self sendErrorMissingParameter:@"name"];
     }
 
-    UMLayerSCCP *instance = [_appDelegate getSCCP:name];
+    UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
 	if(instance==NULL)
     {
         [self sendErrorNotFound];

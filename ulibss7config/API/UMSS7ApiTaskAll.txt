@@ -88,5 +88,6 @@ API(UMSS7ApiTaskSCCPTranslationTableEntry_read)
 API(UMSS7ApiTaskSCCPTranslationTableEntry_add)
 API(UMSS7ApiTaskSCCPTranslationTableEntry_modify)
 API(UMSS7ApiTaskSCCPTranslationTableEntry_delete)
+API(UMSS7ApiTaskSCCPTranslationTableEntry_status)
 API(UMSS7ApiTaskSCCPTranslationTableEntry_action)
 
