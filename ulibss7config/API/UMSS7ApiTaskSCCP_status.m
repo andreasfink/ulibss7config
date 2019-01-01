@@ -40,8 +40,8 @@
 	if(sccp)
 	{
         UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
-        dict[@"statistics"] = [sccp statisticalInfo];
         dict[@"routing-table"] = [sccp.mtp3RoutingTable status];
+        dict[@"statistics"] = [sccp statisticalInfo];
         [self sendResultObject:dict];
 	}
 	else
