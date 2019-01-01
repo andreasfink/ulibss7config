@@ -180,6 +180,10 @@ UMSS7ConfigAppDelegateProtocol>
 - (int)defaultWebPort;
 - (NSString *)defaultWebUser;
 - (NSString *)defaultWebPassword;
+
+- (NSString *)defaultApiUser;
+- (NSString *)defaultApiPassword;
+
 - (NSString *)productName;
 - (NSString *)productVersion;
 - (void)umobjectStat:(UMHTTPRequest *)req;

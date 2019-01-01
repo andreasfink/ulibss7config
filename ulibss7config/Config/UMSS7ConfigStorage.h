@@ -59,6 +59,7 @@
 @class UMSS7ConfigIMSIPool;
 @class UMSS7ConfigCdrWriter;
 @class UMSS7ConfigSCCPTranslationTableMap;
+@class UMSS7ConfigApiUser;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -99,6 +100,7 @@
     UMSynchronizedDictionary *_eir_dict;
     UMSynchronizedDictionary *_smsc_dict;
     UMSynchronizedDictionary *_admin_user_dict;
+    UMSynchronizedDictionary *_api_user_dict;
     UMSynchronizedDictionary *_database_pool_dict;
     UMSynchronizedDictionary *_sccp_number_translation_dict;
     UMSynchronizedDictionary *_service_user_dict;
@@ -426,5 +428,12 @@
 - (NSString *)addCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
 - (NSString *)replaceCdrWriter:(UMSS7ConfigCdrWriter *)cdrw;
 - (NSString *)deleteCdrWriter:(NSString *)cdrw;
+
+
+- (NSArray *)getApiUserNames;
+- (UMSS7ConfigApiUser *)getApiUser:(NSString *)name;
+- (NSString *)addApiUser:(UMSS7ConfigApiUser *)user;
+- (NSString *)replaceApiUser:(UMSS7ConfigApiUser *)user;
+- (NSString *)deleteApiUser:(NSString *)name;
 
 @end

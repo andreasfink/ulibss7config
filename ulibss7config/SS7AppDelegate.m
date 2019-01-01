@@ -370,6 +370,16 @@ static void signalHandler(int signum);
 	return @"admin";
 }
 
+
+- (NSString *)defaultApiUser
+{
+    return @"admin";
+}
+- (NSString *)defaultApiPassword
+{
+    return @"admin";
+}
+
 - (NSString *)productName
 {
 	return @"ss7-product";
@@ -605,6 +615,19 @@ static void signalHandler(int signum);
 		[_runningConfig addAdminUser:user];
 	}
 
+    /* make sure we have at least one default user */
+    names = [_runningConfig getApiUserNames];
+    if(names.count == 0)
+    {
+        UMSS7ConfigApiUser *user = [[UMSS7ConfigApiUser alloc]initWithConfig:
+                                      @{
+                                        @"group":@"user",
+                                        @"name": [self defaultApiUser],
+                                        @"password": [self defaultApiPassword],
+                                        }
+                                      ];
+        [_runningConfig addApiUser:user];
+    }
 	/* Webserver */
 	names = [_runningConfig getWebserverNames];
 	if(names.count == 0)

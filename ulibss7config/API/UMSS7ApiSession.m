@@ -10,7 +10,7 @@
 
 @implementation UMSS7ApiSession
 
--(UMSS7ApiSession *)initWithHttpRequest:(UMHTTPRequest *)req user:(UMSS7ConfigAdminUser *)user
+-(UMSS7ApiSession *)initWithHttpRequest:(UMHTTPRequest *)req user:(UMSS7ConfigApiUser *)user
 {
     self = [super init];
     if(self)

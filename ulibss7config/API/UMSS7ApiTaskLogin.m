@@ -12,7 +12,7 @@
 
 #import "UMSS7ApiSession.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
-#import "UMSS7ConfigAdminUser.h"
+#import "UMSS7ConfigApiUser.h"
 
 @implementation UMSS7ApiTaskLogin
 
@@ -25,7 +25,7 @@
 {
     NSString *username = _webRequest.params[@"username"];
     NSString *password = _webRequest.params[@"password"];
-    UMSS7ConfigAdminUser *user = [_appDelegate.runningConfig getAdminUser:username];
+    UMSS7ConfigApiUser *user = [_appDelegate.runningConfig getApiUser:username];
     if(user)
     {
         if([password isEqualToString:user.password])

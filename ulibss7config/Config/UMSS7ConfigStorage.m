@@ -62,6 +62,7 @@
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
+#import "UMSS7ConfigApiUser.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -101,6 +102,7 @@
     _eir_dict= [[UMSynchronizedDictionary alloc]init];
     _smsc_dict= [[UMSynchronizedDictionary alloc]init];
     _admin_user_dict= [[UMSynchronizedDictionary alloc]init];
+    _api_user_dict= [[UMSynchronizedDictionary alloc]init];
     _database_pool_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
     _service_user_dict= [[UMSynchronizedDictionary alloc]init];
@@ -265,7 +267,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
     [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
-
+    [cfg allowMultiGroup:[UMSS7ConfigApiUser type]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -719,6 +721,17 @@
             _admin_user_dict[admin_user.name] = admin_user;
         }
     }
+
+    NSArray *api_user_configs = [cfg getMultiGroups:[UMSS7ConfigApiUser type]];
+    for(NSDictionary *api_user_config in api_user_configs)
+    {
+        UMSS7ConfigApiUser *api_user = [[UMSS7ConfigApiUser alloc]initWithConfig:api_user_config];
+        if(api_user.name.length  > 0)
+        {
+            _api_user_dict[api_user.name] = api_user;
+        }
+    }
+
     NSArray *database_pool_configs = [cfg getMultiGroups:[UMSS7ConfigDatabasePool type]];
     for(NSDictionary *database_pool_config in database_pool_configs)
     {
@@ -2819,8 +2832,55 @@
     _dirty=YES;
     return @"ok";
 }
-///
 
+
+/*
+ **************************************************
+ ** ApiUser
+ **************************************************
+ */
+#pragma mark -
+#pragma mark ApiUser
+
+- (NSArray *)getApiUserNames
+{
+    return [_api_user_dict allKeys];
+}
+
+- (UMSS7ConfigApiUser *)getApiUser:(NSString *)name
+{
+    return _api_user_dict[name];
+}
+
+- (NSString *)addApiUser:(UMSS7ConfigApiUser *)user
+{
+    if(_api_user_dict[user.name] == NULL)
+    {
+        _api_user_dict[user.name] = user;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceApiUser:(UMSS7ConfigApiUser *)user
+{
+    _api_user_dict[user.name] = user;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteApiUser:(NSString *)name
+{
+    if(_api_user_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_api_user_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+///
 /*
  **************************************************
  ** ServiceUser

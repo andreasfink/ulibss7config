@@ -11,6 +11,8 @@
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
 #import "ulibgt/ulibgt.h"
+#import "UMSS7ConfigApiUser.h"
+#import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTask
 
@@ -140,8 +142,25 @@
 
 - (BOOL)isAuthenticated
 {
+    NSString *username = _webRequest.params[@"username"];
+    NSString *password = _webRequest.params[@"password"];
     NSString *session_key = _webRequest.params[@"session-key"];
-    _apiSession = [_appDelegate getApiSession:session_key];
+    if(session_key.length > 0)
+    {
+        _apiSession = [_appDelegate getApiSession:session_key];
+    }
+    else if((session_key.length == 0)  && (username.length > 0) && (password.length > 0))
+    {
+        UMSS7ConfigApiUser *user = [_appDelegate.runningConfig getApiUser:username];
+        if(user)
+        {
+            if([password isEqualToString:user.password])
+            {
+                _apiSession = [[UMSS7ApiSession alloc]initWithHttpRequest:_webRequest user:user];
+                [_appDelegate addApiSession:_apiSession];
+            }
+        }
+    }
     if(_apiSession)
     {
         [_apiSession touch];
