@@ -1943,8 +1943,8 @@ static void signalHandler(int signum);
     NSString *name = config[@"name"];
     if(name)
     {
-        UMSS7ConfigM3UAAS *co = [[UMSS7ConfigM3UAAS alloc]initWithConfig:config];
-        [_runningConfig addM3UAAS:co];
+        UMSS7ConfigM3UAASP *co = [[UMSS7ConfigM3UAASP alloc]initWithConfig:config];
+        [_runningConfig addM3UAASP:co];
         
         UMM3UAApplicationServerProcess *m3ua_asp = [[UMM3UAApplicationServerProcess alloc]initWithTaskQueueMulti:_m3uaTaskQueue];
         m3ua_asp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-asp"];
