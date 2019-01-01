@@ -65,6 +65,12 @@
 }
 
 
+- (void)sendError:(NSString *)err
+{
+    [_webRequest setResponseJsonObject:@{ @"error" : err }];
+    [_webRequest resumePendingRequest];
+}
+
 - (void)sendErrorNotFound
 {
     [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];

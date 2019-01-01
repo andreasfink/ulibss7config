@@ -25,6 +25,7 @@
 + (UMSS7ApiTask *)apiFactory:(UMHTTPRequest *)req appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad;
 + (NSArray *)apiPathList;
 
+- (void)sendError:(NSString *)err;
 - (void)sendErrorNotFound;
 - (void)sendErrorNotFound:(NSString *)param;
 - (void)sendErrorAlreadyExisting;

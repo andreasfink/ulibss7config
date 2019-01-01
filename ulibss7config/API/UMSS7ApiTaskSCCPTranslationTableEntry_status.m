@@ -56,7 +56,6 @@
     }
     else
     {
-        NSDictionary *oldConfig = entry.config.dictionaryCopy;
         @try
         {
             UMLayerSCCP *sccp_instance = [_appDelegate getSCCP:sccp_name];
@@ -79,7 +78,6 @@
                 return;
             }
 
-
             NSString *gta = _webRequest.params[@"gta"];
             gta = [UMSS7ConfigObject filterName:gta];
             NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
@@ -88,7 +86,6 @@
             SccpGttRoutingTableEntry *rte = [rt findEntryByName:entryName];
             if(rte==NULL)
             {
-                NSString *gta = oldConfig[@"gta"];
                 rte = [rt findEntryByDigits:gta];
             }
             if(rte==NULL)
@@ -96,13 +93,22 @@
                 [self sendErrorNotFound:@"translation-table-entry"];
                 return;
             }
+            NSLog(@"sccp_instance.mtp3RoutingTable=%@",sccp_instance.mtp3RoutingTable);
 
-            [self sendResultObject:[rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable]];
+            UMSynchronizedSortedDictionary *dict = [rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable];
+            NSLog(@"dict=%@",dict);
+            if(dict)
+            {
+                [self sendResultObject:dict];
+            }
+            else
+            {
+                [self sendError:@"statusForL3RoutingTable returns NULL"];
+            }
         }
 
         @catch(NSException *e)
         {
-            [entry setConfig:oldConfig];
             [self sendException:e];
         }
     }
