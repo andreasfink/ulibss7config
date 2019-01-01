@@ -3180,6 +3180,8 @@ static void signalHandler(int signum);
 		if(sccp)
 		{
 			SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
+            selector.logLevel = self.logLevel;
+            selector.logFeed = self.logFeed;
 			[sccp.gttSelectorRegistry addEntry:selector];
 		}
 	}
