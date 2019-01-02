@@ -1131,6 +1131,11 @@ static void signalHandler(int signum);
 			NSString *s = [self webIndex];
 			[req setResponseHtmlString:s];
 		}
+        else if([path isEqualToString:@"/route-test"])
+        {
+            [self handleRouteTest:req];
+        }
+
 		else if([path isEqualToString:@"/debug"])
 		{
 			NSString *s = [self webIndexDebug];
@@ -1365,7 +1370,8 @@ static void signalHandler(int signum);
 
 	[s appendString:@"<h2>Main Menu</h2>\n"];
 	[s appendString:@"<UL>\n"];
-	[s appendString:@"<LI><a href=\"/status\">status</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/status\">status</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/route-test\">route-test</a></LI>\n"];
 	/* FIXME
 	 if(mainMscInstance)
 	 {
@@ -1389,6 +1395,70 @@ static void signalHandler(int signum);
 	[s appendString:@"</body>\n"];
 	[s appendString:@"</html>\n"];
 	return s;
+}
+
+- (NSString *)routeTestForm:(NSString *)err
+{
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [SS7GenericInstance webHeader:s title:@"Route Test"];
+
+    [s appendString:@"<h2>Route Test</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">main-menu</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
+
+    if(err)
+    {
+        [s appendFormat:@"<p>%@</p>\n",err];
+    }
+    [s appendString:@"<pre>\n"];
+    [s appendString:@"<form>\n"];
+    [s appendString:@"SCCP:   <select name=\"sccp\">"];
+    NSArray *sccpNames = [self getSCCPNames];
+    for(NSString *name in sccpNames)
+    {
+        [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+    }
+    [s appendString:@"</select>\n"];
+    [s appendString:@"MSISDN: <input name=\"msisdn\">\n"];
+    [s appendString:@"TT:     <input name=\"tt\" value=0>\n"];
+    [s appendString:@"        <input type=submit>\n"];
+
+    [s appendString:@"</form>\n"];
+    [s appendString:@"</pre>\n"];
+
+
+    [s appendString:@"</body>\n"];
+    [s appendString:@"</html>\n"];
+    return s;
+}
+
+- (void)handleRouteTest:(UMHTTPRequest *)req
+{
+    NSDictionary *p = req.params;
+    NSString *msisdn    =    [[p[@"msisdn"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *sccp_name = [[p[@"sccp"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    int tt        = [p[@"tt"] intValue];
+
+
+    if((msisdn.length == 0) || (sccp_name.length == 0))
+    {
+        [req setResponseHtmlString:[self routeTestForm:NULL] ];
+        return;
+    }
+
+    UMLayerSCCP *sccp = [self getSCCP:sccp_name];
+    if(sccp==NULL)
+    {
+        [req setResponseHtmlString:[self routeTestForm:@"can not find SCCP object"] ];
+        return;
+    }
+
+    UMSynchronizedSortedDictionary *resutlDict = [sccp routeTestForMSISDN:msisdn
+                                                          translationType:tt
+                                                                fromLocal:NO];
+    [req setResponseJsonObject:resutlDict];
+    return;
 }
 
 - (void)  handleStatus:(UMHTTPRequest *)req

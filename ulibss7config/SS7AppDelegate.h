@@ -190,6 +190,7 @@ UMSS7ConfigAppDelegateProtocol>
 - (void)ummutexStat:(UMHTTPRequest *)req;
 - (void)umtGetPost:(UMHTTPRequest *)req;
 - (void)webHeader:(NSMutableString *)s title:(NSString *)t;
+- (void)handleRouteTest:(UMHTTPRequest *)req;
 
 
 - (void)addPendingUMTTask:(UMTask *)task
