@@ -836,7 +836,6 @@ else \
         else
         {
             dict[@"MAP_U_Abort_Ind"] = @(YES);
-
         }
         /*  if(xdialoguePortion)
          {
