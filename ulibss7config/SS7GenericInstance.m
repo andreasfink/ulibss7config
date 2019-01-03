@@ -671,7 +671,7 @@
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
-        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Delimiter_Ind for unknown userIdentifier %@",userIdentifier]];
+        [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming MAP_Close_Ind for unknown userIdentifier %@",userIdentifier]];
         return;
     }
     [t sessionMAP_Close_Ind:userIdentifier

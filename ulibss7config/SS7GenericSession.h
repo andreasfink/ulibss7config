@@ -33,7 +33,9 @@
     UMLayerGSMMAP_OpCode    *_firstResponseOpcode;
     UMLayerGSMMAP_OpCode    *_firstInvokeOpcode;
     SS7GenericInstance      *_gInstance;
+    SccpAddress             *_initialLocalAddress;
     SccpAddress             *_localAddress;
+    SccpAddress             *_initialRemoteAddress;
     SccpAddress             *_remoteAddress;
 
     UMHTTPRequest           *_req;
@@ -101,6 +103,8 @@
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstResponseOpcode;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstInvokeOpcode;
 @property(readwrite,strong,atomic)    SS7GenericInstance      *gInstance;
+@property(readwrite,strong,atomic)    SccpAddress             *initialLocalAddress;
+@property(readwrite,strong,atomic)    SccpAddress             *initialRemoteAddress;
 @property(readwrite,strong,atomic)    SccpAddress             *localAddress;
 @property(readwrite,strong,atomic)    SccpAddress             *remoteAddress;
 @property(readwrite,strong,atomic)    UMHTTPRequest           *req;
@@ -169,8 +173,8 @@
 
 - (SS7GenericSession *)initWithInstance:(SS7GenericInstance *)inst operation:(int64_t) xoperation;
 - (SS7GenericSession *)initWithHttpReq:(UMHTTPRequest *)xreq
-                          operation:(int64_t)op
-                           instance:(SS7GenericInstance *)inst;
+                             operation:(int64_t)op
+                              instance:(SS7GenericInstance *)inst;
 
 - (void) handleSccpAddressesDefaultCallingSsn:(NSString *)defaultCallingSsn
                              defaultCalledSsn:(NSString *)defaultCalledSsn
@@ -188,7 +192,7 @@
 - (SS7GenericSession *)initWithSession:(SS7GenericSession *)ot;
 - (void)markForTermination;
 
-//--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
 -(void) sessionMAP_Invoke_Ind:(UMASN1Object *)param
                        userId:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                        dialog:(UMGSMMAP_DialogIdentifier *)xdialogId
@@ -298,10 +302,10 @@
                     options:(NSDictionary *)xoptions;
 - (void) sessionMAP_Close_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                       options:(NSDictionary *)xoptions;
-/*
- -(void) sessionMAP_U_Abort_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
- options:(NSDictionary *)options;
- */
+    /*
+     -(void) sessionMAP_U_Abort_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
+     options:(NSDictionary *)options;
+     */
 -(void)sessionMAP_U_Abort_Ind:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                callingAddress:(SccpAddress *)src
                 calledAddress:(SccpAddress *)dst
@@ -327,7 +331,7 @@
                       options:(NSDictionary *)options;
 
 
-//--------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------
 
 - (void)logWebSession;
 
@@ -362,5 +366,6 @@
 - (BOOL)isTimedOut;
 - (void)writeTraceToDirectory:(NSString *)dir;
 - (void)dump:(NSFileHandle *)filehandler;
-@end
+    @end
+
 

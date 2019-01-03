@@ -252,6 +252,8 @@ else \
         [self genericInitialisation:xInstance operation:xop];
         _localAddress = src;
         _remoteAddress = dst;
+        _initialLocalAddress = src;
+        _initialRemoteAddress = dst;
         _req  = xreq;
         _applicationContext = xapplicationContext;
         _userInfo = xuserInfo;
@@ -419,6 +421,17 @@ else \
     VERIFY_DIALOG(_dialogId,xdialogId);
     VERIFY_SESSION(_tcapLocalTransactionId,xtcapTransactionId);
 
+
+    SccpAddress *calling = xoptions[@"sccp-calling-address"];
+    SccpAddress *called = xoptions[@"sccp-called-address"];
+    if(called)
+    {
+        _localAddress = called;
+    }
+    if(calling)
+    {
+        _remoteAddress = calling;
+    }
     UMSynchronizedSortedDictionary *info_sub = [[UMSynchronizedSortedDictionary alloc]init];
     UMSynchronizedSortedDictionary *info = [[UMSynchronizedSortedDictionary alloc]init];
     UMSynchronizedSortedDictionary *comp = [[UMSynchronizedSortedDictionary alloc]init];
@@ -468,6 +481,16 @@ else \
     VERIFY_UID(_userIdentifier,xuserIdentifier);
     VERIFY_DIALOG(_dialogId,xdialogId);
     VERIFY_SESSION(_tcapLocalTransactionId,xtcapTransactionId);
+    SccpAddress *calling = xoptions[@"sccp-calling-address"];
+    SccpAddress *called = xoptions[@"sccp-called-address"];
+    if(called)
+    {
+        _localAddress = called;
+    }
+    if(calling)
+    {
+        _remoteAddress = calling;
+    }
 
     if(_components==NULL)
     {
@@ -514,6 +537,16 @@ else \
     VERIFY_UID(_userIdentifier,xuserIdentifier);
     VERIFY_DIALOG(_dialogId,xdialogId);
     VERIFY_SESSION(_tcapLocalTransactionId,xtcapTransactionId);
+    SccpAddress *calling = xoptions[@"sccp-calling-address"];
+    SccpAddress *called = xoptions[@"sccp-called-address"];
+    if(called)
+    {
+        _localAddress = called;
+    }
+    if(calling)
+    {
+        _remoteAddress = calling;
+    }
 
     UMSynchronizedSortedDictionary *info_sub = [[UMSynchronizedSortedDictionary alloc]init];
     UMSynchronizedSortedDictionary *info = [[UMSynchronizedSortedDictionary alloc]init];
@@ -538,6 +571,17 @@ else \
                       options:(NSDictionary *)xoptions
 {
     VERIFY_UID(_userIdentifier,xuserIdentifier);
+
+    SccpAddress *calling = xoptions[@"sccp-calling-address"];
+    SccpAddress *called = xoptions[@"sccp-called-address"];
+    if(called)
+    {
+        _localAddress = called;
+    }
+    if(calling)
+    {
+        _remoteAddress = calling;
+    }
 
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Close_Req"];
     [_gInstance.gsmMap queueMAP_Close_Req:_dialogId
@@ -648,8 +692,9 @@ else \
             remoteTransactionId:(NSString *)xremoteTransactionId
                         options:(NSDictionary *)xoptions
 {
-    _remoteAddress = src;
-    _localAddress = dst;
+    _localAddress = src;
+    _remoteAddress = dst;
+
     [self touch];
     if(_hasReceivedInvokes==0)
     {
@@ -977,7 +1022,7 @@ else \
     [_operationMutex lock];
     @try
     {
-        [self.logFeed infoText:@"MAP_P_Abort_Ind"];
+        [self.logFeed infoText:@"UDTS"];
 
         /* now we can finish the HTTP request */
         UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
@@ -993,6 +1038,7 @@ else \
         {
             dict[@"query3"] =  _query3.objectValue;
         }
+
         if(_components)
         {
             dict[@"MAP_P_Abort_Ind"] = _components;
@@ -1520,6 +1566,8 @@ else \
     [s appendFormat:@"\topcode %d\n",(int)_opcode.operation];
     [s appendFormat:@"\tlocalAddress %@\n",_localAddress.description];
     [s appendFormat:@"\tremoteAddress %@\n",_remoteAddress.description];
+    [s appendFormat:@"\tinitialLocalAddress %@\n",_initialLocalAddress.description];
+    [s appendFormat:@"\tinitialRemoteAddress %@\n",_initialRemoteAddress.description];
     [s appendFormat:@"\thttp request %p\n",_req];
     [s appendFormat:@"\tundefinedSession %@\n",_undefinedSession ? @"YES" : @"NO"];
     [s appendFormat:@"}\n"];
