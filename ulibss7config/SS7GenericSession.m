@@ -1250,7 +1250,10 @@ else \
 - (void)setDefaultApplicationContext:(NSString *)def
 {
     NSDictionary *p = _req.params;
-
+	if(def.length == 0)
+	{
+		def = NULL;
+	}
     NSString *context = def;
     if (p[@"application-context"])
     {
@@ -1264,7 +1267,14 @@ else \
     {
         context = def;
     }
-    _applicationContext =  [[UMTCAP_asn1_objectIdentifier alloc]initWithString:context];
+	if(context.length > 0)
+	{
+    	_applicationContext =  [[UMTCAP_asn1_objectIdentifier alloc]initWithString:context];
+	}
+	else
+	{
+		_applicationContext = NULL;
+	}
 }
 
 - (void)setUserInfo_MAP_Open
