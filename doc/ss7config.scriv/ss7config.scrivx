@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.0.3-3024" Device="macropolis" Author="Andreas Fink" Modified="2018-10-09 13:51:13 +0200" ModID="59CA41B3-6588-4F01-9707-C5684F839530">
+<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.1-9907" Device="macropolis" Author="Andreas Fink" Modified="2019-01-22 09:30:43 +0100" ModID="D4DAB3B0-C08B-43F6-92AE-3B4565FB5065">
     <Binder>
         <BinderItem UUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628" Type="Text" Created="2007-01-15 00:04:52 +0100" Modified="2017-12-06 17:59:26 +0100">
             <Title>START HERE</Title>
             <MetaData>
                 <IncludeInCompile>Yes</IncludeInCompile>
-                <IconFileName>Information.tiff</IconFileName>
+                <IconFileName>Information</IconFileName>
             </MetaData>
             <TextSettings>
                 <TextSelection>0,0</TextSelection>
@@ -15,13 +15,13 @@
             <Title>Key Concepts</Title>
             <MetaData>
                 <IncludeInCompile>Yes</IncludeInCompile>
-                <IconFileName>Lectern.tiff</IconFileName>
+                <IconFileName>Lectern</IconFileName>
             </MetaData>
             <TextSettings>
                 <TextSelection>0,0</TextSelection>
             </TextSettings>
             <Bookmarks>
-                <Bookmark BinderUUID="E7DB0738-0BBB-4E6B-B7FB-64227742B570"></Bookmark>
+                <Bookmark BinderUUID="E7DB0738-0BBB-4E6B-B7FB-64227742B570"/>
             </Bookmarks>
         </BinderItem>
         <BinderItem UUID="888F1919-172B-4C86-AF9C-3EBCAE603299" Type="DraftFolder" Created="2005-10-18 22:12:20 +0200" Modified="2005-10-18 22:12:20 +0200">
@@ -35,7 +35,7 @@
                     <Title>The Basics</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
-                        <IconFileName>Book (Yellow Book).tiff</IconFileName>
+                        <IconFileName>Book (Yellow Book)</IconFileName>
                     </MetaData>
                     <TextSettings>
                         <TextSelection>0,0</TextSelection>
@@ -124,7 +124,7 @@
                                                         <TextSelection>0,0</TextSelection>
                                                     </TextSettings>
                                                     <Bookmarks>
-                                                        <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"></Bookmark>
+                                                        <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"/>
                                                     </Bookmarks>
                                                 </BinderItem>
                                                 <BinderItem UUID="E7DB0738-0BBB-4E6B-B7FB-64227742B570" Type="Text" Created="2010-09-15 15:32:27 +0200" Modified="2017-06-27 17:44:48 +0200">
@@ -139,9 +139,9 @@
                                                         <KeywordID>6</KeywordID>
                                                     </Keywords>
                                                     <Bookmarks>
-                                                        <Bookmark BinderUUID="B670E26B-2CFC-4870-936E-C3A94D4242A4"></Bookmark>
-                                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"></Bookmark>
-                                                        <Bookmark BinderUUID="8F8FB976-2A48-4916-A2B2-DE4260CF807A"></Bookmark>
+                                                        <Bookmark BinderUUID="B670E26B-2CFC-4870-936E-C3A94D4242A4"/>
+                                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"/>
+                                                        <Bookmark BinderUUID="8F8FB976-2A48-4916-A2B2-DE4260CF807A"/>
                                                     </Bookmarks>
                                                 </BinderItem>
                                                 <BinderItem UUID="840DAD6E-BA31-47D6-ABC2-0BF52F9BBA2B" Type="Text" Created="2010-09-15 15:31:31 +0200" Modified="2017-06-27 17:44:48 +0200">
@@ -165,7 +165,7 @@
                                                         <TextSelection>0,0</TextSelection>
                                                     </TextSettings>
                                                     <Bookmarks>
-                                                        <Bookmark BinderUUID="14EC56C7-3A95-4D72-B5C6-769BAE050160"></Bookmark>
+                                                        <Bookmark BinderUUID="14EC56C7-3A95-4D72-B5C6-769BAE050160"/>
                                                     </Bookmarks>
                                                 </BinderItem>
                                                 <BinderItem UUID="F64228FD-29DA-4C83-83C0-074D2917DC19" Type="Text" Created="2010-09-15 16:36:42 +0200" Modified="2017-12-07 21:23:24 +0100">
@@ -190,7 +190,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="D21BA91E-2D0F-4F85-AFEC-807FB3C625EE"></Bookmark>
+                                        <Bookmark BinderUUID="D21BA91E-2D0F-4F85-AFEC-807FB3C625EE"/>
                                     </Bookmarks>
                                 </BinderItem>
                             </Children>
@@ -223,13 +223,13 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="56417016-C1F8-4D6B-991A-8F17529FC70C"></Bookmark>
-                                        <Bookmark BinderUUID="7182E87F-7F90-4143-B2F6-46984140486D"></Bookmark>
-                                        <Bookmark BinderUUID="14EC56C7-3A95-4D72-B5C6-769BAE050160"></Bookmark>
-                                        <Bookmark BinderUUID="BD51CEFB-04E0-4CC3-9DCA-728DE9DA40A9"></Bookmark>
-                                        <Bookmark BinderUUID="7180274A-A764-4EE6-B878-BC76E18C105A"></Bookmark>
-                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"></Bookmark>
-                                        <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"></Bookmark>
+                                        <Bookmark BinderUUID="56417016-C1F8-4D6B-991A-8F17529FC70C"/>
+                                        <Bookmark BinderUUID="7182E87F-7F90-4143-B2F6-46984140486D"/>
+                                        <Bookmark BinderUUID="14EC56C7-3A95-4D72-B5C6-769BAE050160"/>
+                                        <Bookmark BinderUUID="BD51CEFB-04E0-4CC3-9DCA-728DE9DA40A9"/>
+                                        <Bookmark BinderUUID="7180274A-A764-4EE6-B878-BC76E18C105A"/>
+                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"/>
+                                        <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="EB4BBF2C-22F0-4B17-8064-ABF88AB2FF4F" Type="Text" Created="2010-09-17 15:12:55 +0200" Modified="2018-02-19 17:09:11 +0100">
@@ -250,10 +250,10 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="BD51CEFB-04E0-4CC3-9DCA-728DE9DA40A9"></Bookmark>
-                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"></Bookmark>
-                                        <Bookmark BinderUUID="7180274A-A764-4EE6-B878-BC76E18C105A"></Bookmark>
-                                        <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"></Bookmark>
+                                        <Bookmark BinderUUID="BD51CEFB-04E0-4CC3-9DCA-728DE9DA40A9"/>
+                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"/>
+                                        <Bookmark BinderUUID="7180274A-A764-4EE6-B878-BC76E18C105A"/>
+                                        <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40" Type="Text" Created="2006-08-23 22:44:43 +0200" Modified="2017-11-23 15:07:33 +0100">
@@ -265,9 +265,9 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="BD51CEFB-04E0-4CC3-9DCA-728DE9DA40A9"></Bookmark>
-                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"></Bookmark>
-                                        <Bookmark BinderUUID="536EEE38-3356-4886-B6B9-EF5EE9B4FBD5"></Bookmark>
+                                        <Bookmark BinderUUID="BD51CEFB-04E0-4CC3-9DCA-728DE9DA40A9"/>
+                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"/>
+                                        <Bookmark BinderUUID="536EEE38-3356-4886-B6B9-EF5EE9B4FBD5"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="3DD85496-5040-41AA-9A19-306C115FE576" Type="Text" Created="2006-08-23 22:13:20 +0200" Modified="2016-10-28 19:14:06 +0200">
@@ -299,7 +299,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="EAC1A67A-FFE2-40CB-8E2C-DBFBB8963E51"></Bookmark>
+                                        <Bookmark BinderUUID="EAC1A67A-FFE2-40CB-8E2C-DBFBB8963E51"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="D4509A7C-2354-48F1-9908-9439E1F7E866" Type="Text" Created="2006-08-23 23:07:52 +0200" Modified="2017-11-22 11:54:52 +0100">
@@ -311,9 +311,9 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="6FDDE308-B6F7-4DE9-87EE-C555B6DCAFCD"></Bookmark>
-                                        <Bookmark BinderUUID="1C068D6E-9707-4C0E-A19C-3C256EC6479A"></Bookmark>
-                                        <Bookmark BinderUUID="56421FB1-8CEF-4276-A0B0-3380A639818E"></Bookmark>
+                                        <Bookmark BinderUUID="6FDDE308-B6F7-4DE9-87EE-C555B6DCAFCD"/>
+                                        <Bookmark BinderUUID="1C068D6E-9707-4C0E-A19C-3C256EC6479A"/>
+                                        <Bookmark BinderUUID="56421FB1-8CEF-4276-A0B0-3380A639818E"/>
                                     </Bookmarks>
                                 </BinderItem>
                             </Children>
@@ -353,7 +353,7 @@
                     <Title>Going Further</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
-                        <IconFileName>Book (Yellow Book).tiff</IconFileName>
+                        <IconFileName>Book (Yellow Book)</IconFileName>
                     </MetaData>
                     <TextSettings>
                         <TextSelection>0,0</TextSelection>
@@ -396,10 +396,10 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="88C7FD9F-FFC7-46FB-80C2-F9C95320D431"></Bookmark>
-                                        <Bookmark BinderUUID="3331E0D0-AA13-4653-B607-A1CE10DE1096"></Bookmark>
-                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"></Bookmark>
-                                        <Bookmark BinderUUID="8F8FB976-2A48-4916-A2B2-DE4260CF807A"></Bookmark>
+                                        <Bookmark BinderUUID="88C7FD9F-FFC7-46FB-80C2-F9C95320D431"/>
+                                        <Bookmark BinderUUID="3331E0D0-AA13-4653-B607-A1CE10DE1096"/>
+                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"/>
+                                        <Bookmark BinderUUID="8F8FB976-2A48-4916-A2B2-DE4260CF807A"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="3331E0D0-AA13-4653-B607-A1CE10DE1096" Type="Text" Created="2016-09-08 19:59:51 +0200" Modified="2017-12-05 12:47:37 +0100">
@@ -411,7 +411,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"></Bookmark>
+                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"/>
                                     </Bookmarks>
                                 </BinderItem>
                             </Children>
@@ -465,8 +465,8 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="56417016-C1F8-4D6B-991A-8F17529FC70C"></Bookmark>
-                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"></Bookmark>
+                                        <Bookmark BinderUUID="56417016-C1F8-4D6B-991A-8F17529FC70C"/>
+                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="B808BCAD-8BCD-440D-ACD7-1C502CEBEF94" Type="Text" Created="2016-09-08 19:57:21 +0200" Modified="2016-09-22 21:04:18 +0200">
@@ -507,7 +507,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="09034A09-BA25-49F6-8FB6-C6A90ACA0EDF"></Bookmark>
+                                        <Bookmark BinderUUID="09034A09-BA25-49F6-8FB6-C6A90ACA0EDF"/>
                                     </Bookmarks>
                                 </BinderItem>
                             </Children>
@@ -549,7 +549,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="38933B3B-0969-4B98-B9BF-FF8E37C800AA"></Bookmark>
+                                        <Bookmark BinderUUID="38933B3B-0969-4B98-B9BF-FF8E37C800AA"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="F6325D7B-081D-4C0E-9050-FEC3F0F2A3AC" Type="Text" Created="2016-09-08 19:58:18 +0200" Modified="2016-09-22 16:41:53 +0200">
@@ -570,9 +570,9 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"></Bookmark>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
-                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"></Bookmark>
+                                                <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"/>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
+                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"/>
                                             </Bookmarks>
                                         </BinderItem>
                                         <BinderItem UUID="25F7B676-0FCD-4DF2-964F-395A3302979E" Type="Text" Created="2016-09-12 22:01:59 +0200" Modified="2016-09-22 18:23:59 +0200">
@@ -584,8 +584,8 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
-                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"></Bookmark>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
+                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"/>
                                             </Bookmarks>
                                         </BinderItem>
                                         <BinderItem UUID="7180274A-A764-4EE6-B878-BC76E18C105A" Type="Text" Created="2016-09-08 19:59:23 +0200" Modified="2017-01-05 14:13:44 +0100">
@@ -597,7 +597,7 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
                                             </Bookmarks>
                                         </BinderItem>
                                         <BinderItem UUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB" Type="Text" Created="2016-09-08 19:59:28 +0200" Modified="2016-09-22 22:05:42 +0200">
@@ -609,7 +609,7 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
                                             </Bookmarks>
                                         </BinderItem>
                                     </Children>
@@ -673,9 +673,9 @@
                                     </TextSettings>
                                     <Bookmarks>
                                         <Bookmark BinderUUID="D765AB88-FA38-4BC1-A382-5F8BD522716F" Destination="[Internal Link]">Step 1: Beginnings</Bookmark>
-                                        <Bookmark BinderUUID="D765AB88-FA38-4BC1-A382-5F8BD522716F"></Bookmark>
-                                        <Bookmark BinderUUID="96DB1647-D83F-4215-A304-07255B4000C7"></Bookmark>
-                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"></Bookmark>
+                                        <Bookmark BinderUUID="D765AB88-FA38-4BC1-A382-5F8BD522716F"/>
+                                        <Bookmark BinderUUID="96DB1647-D83F-4215-A304-07255B4000C7"/>
+                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="96DB1647-D83F-4215-A304-07255B4000C7" Type="Text" Created="2010-09-28 11:25:24 +0200" Modified="2017-11-23 15:22:01 +0100">
@@ -687,7 +687,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"></Bookmark>
+                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="F91DAC04-7547-4945-A851-D1FF12D21E1F" Type="Text" Created="2016-09-08 20:01:33 +0200" Modified="2016-09-20 15:06:41 +0200">
@@ -716,7 +716,7 @@
                     <Title>SS7 Config options</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
-                        <IconFileName>Book (Yellow Book).tiff</IconFileName>
+                        <IconFileName>Book (Yellow Book)</IconFileName>
                     </MetaData>
                     <TextSettings>
                         <TextSelection>0,0</TextSelection>
@@ -726,7 +726,7 @@
                             <Title>Remember...</Title>
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
-                                <IconFileName>Warning.tiff</IconFileName>
+                                <IconFileName>Warning</IconFileName>
                             </MetaData>
                             <TextSettings>
                                 <TextSelection>0,0</TextSelection>
@@ -759,10 +759,10 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="88C7FD9F-FFC7-46FB-80C2-F9C95320D431"></Bookmark>
-                                        <Bookmark BinderUUID="3331E0D0-AA13-4653-B607-A1CE10DE1096"></Bookmark>
-                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"></Bookmark>
-                                        <Bookmark BinderUUID="8F8FB976-2A48-4916-A2B2-DE4260CF807A"></Bookmark>
+                                        <Bookmark BinderUUID="88C7FD9F-FFC7-46FB-80C2-F9C95320D431"/>
+                                        <Bookmark BinderUUID="3331E0D0-AA13-4653-B607-A1CE10DE1096"/>
+                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"/>
+                                        <Bookmark BinderUUID="8F8FB976-2A48-4916-A2B2-DE4260CF807A"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="52126918-5BB9-44C6-B32F-78E65E6124D8" Type="Text" Created="2016-09-08 19:59:51 +0200" Modified="2017-12-05 12:47:37 +0100">
@@ -774,7 +774,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"></Bookmark>
+                                        <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"/>
                                     </Bookmarks>
                                 </BinderItem>
                             </Children>
@@ -828,8 +828,8 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="56417016-C1F8-4D6B-991A-8F17529FC70C"></Bookmark>
-                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"></Bookmark>
+                                        <Bookmark BinderUUID="56417016-C1F8-4D6B-991A-8F17529FC70C"/>
+                                        <Bookmark BinderUUID="0635F927-8EEF-4FD5-BF0C-164182D81343"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="6CDC5D91-08E1-47F1-A8C4-1CAD53B65051" Type="Text" Created="2016-09-08 19:57:21 +0200" Modified="2016-09-22 21:04:18 +0200">
@@ -870,7 +870,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="09034A09-BA25-49F6-8FB6-C6A90ACA0EDF"></Bookmark>
+                                        <Bookmark BinderUUID="09034A09-BA25-49F6-8FB6-C6A90ACA0EDF"/>
                                     </Bookmarks>
                                 </BinderItem>
                             </Children>
@@ -912,7 +912,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="38933B3B-0969-4B98-B9BF-FF8E37C800AA"></Bookmark>
+                                        <Bookmark BinderUUID="38933B3B-0969-4B98-B9BF-FF8E37C800AA"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="B1BC4016-F92C-45FF-BF9E-6050E39685EF" Type="Text" Created="2016-09-08 19:58:18 +0200" Modified="2016-09-22 16:41:53 +0200">
@@ -933,9 +933,9 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"></Bookmark>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
-                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"></Bookmark>
+                                                <Bookmark BinderUUID="A09F929F-B49E-4D39-AD15-CB4B2E6132AB"/>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
+                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"/>
                                             </Bookmarks>
                                         </BinderItem>
                                         <BinderItem UUID="E647904F-2681-4F09-B9C2-AC5DF3EBF973" Type="Text" Created="2016-09-12 22:01:59 +0200" Modified="2016-09-22 18:23:59 +0200">
@@ -947,8 +947,8 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
-                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"></Bookmark>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
+                                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"/>
                                             </Bookmarks>
                                         </BinderItem>
                                         <BinderItem UUID="84806898-0AAC-4B20-9384-1F3587BE6BA4" Type="Text" Created="2016-09-08 19:59:23 +0200" Modified="2017-01-05 14:13:44 +0100">
@@ -960,7 +960,7 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
                                             </Bookmarks>
                                         </BinderItem>
                                         <BinderItem UUID="CF0F3603-A572-4C91-B561-6F34D116CDB1" Type="Text" Created="2016-09-08 19:59:28 +0200" Modified="2016-09-22 22:05:42 +0200">
@@ -972,7 +972,7 @@
                                                 <TextSelection>0,0</TextSelection>
                                             </TextSettings>
                                             <Bookmarks>
-                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"></Bookmark>
+                                                <Bookmark BinderUUID="98A4BBC2-8817-430A-BC25-4CA8C3359A73"/>
                                             </Bookmarks>
                                         </BinderItem>
                                     </Children>
@@ -1036,9 +1036,9 @@
                                     </TextSettings>
                                     <Bookmarks>
                                         <Bookmark BinderUUID="D765AB88-FA38-4BC1-A382-5F8BD522716F" Destination="[Internal Link]">Step 1: Beginnings</Bookmark>
-                                        <Bookmark BinderUUID="D765AB88-FA38-4BC1-A382-5F8BD522716F"></Bookmark>
-                                        <Bookmark BinderUUID="96DB1647-D83F-4215-A304-07255B4000C7"></Bookmark>
-                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"></Bookmark>
+                                        <Bookmark BinderUUID="D765AB88-FA38-4BC1-A382-5F8BD522716F"/>
+                                        <Bookmark BinderUUID="96DB1647-D83F-4215-A304-07255B4000C7"/>
+                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="E0C54E1D-2585-4B20-95BA-0F7E4898FE3C" Type="Text" Created="2010-09-28 11:25:24 +0200" Modified="2017-11-23 15:22:01 +0100">
@@ -1050,7 +1050,7 @@
                                         <TextSelection>0,0</TextSelection>
                                     </TextSettings>
                                     <Bookmarks>
-                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"></Bookmark>
+                                        <Bookmark BinderUUID="F91DAC04-7547-4945-A851-D1FF12D21E1F"/>
                                     </Bookmarks>
                                 </BinderItem>
                                 <BinderItem UUID="240CD05B-23F0-4FCB-8395-53A2D03E6174" Type="Text" Created="2016-09-08 20:01:33 +0200" Modified="2016-09-20 15:06:41 +0200">
@@ -1084,13 +1084,33 @@
                         <TextSelection>0,0</TextSelection>
                     </TextSettings>
                     <Children>
-                        <BinderItem UUID="0CE11253-E8F4-4D5A-ACAB-DE939245D6F5" Type="Text" Created="2018-07-09 11:09:36 +0200" Modified="2018-07-09 12:01:01 +0200">
+                        <BinderItem UUID="0CE11253-E8F4-4D5A-ACAB-DE939245D6F5" Type="Text" Created="2018-07-09 11:09:36 +0200" Modified="2019-01-22 09:27:15 +0100">
                             <Title>sctp</Title>
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>471,0</TextSelection>
+                                <TextSelection>1520,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="061A587E-23F1-412E-B4D4-8126D00CEC82" Type="Folder" Created="2018-07-09 11:09:13 +0200" Modified="2019-01-22 09:29:03 +0100">
+                    <Title>m2pa</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="2DBD1580-CB10-498F-B5B7-CDBF1EFEA460" Type="Text" Created="2018-07-09 11:09:36 +0200" Modified="2019-01-22 09:30:43 +0100">
+                            <Title>sctp</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>419,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
                     </Children>
@@ -1117,7 +1137,7 @@
                     <Title>Tips</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
-                        <IconFileName>Light Bulb.tiff</IconFileName>
+                        <IconFileName>Light Bulb</IconFileName>
                     </MetaData>
                     <TextSettings>
                         <TextSelection>0,0</TextSelection>
@@ -1168,7 +1188,7 @@
                                 <TextSelection>0,0</TextSelection>
                             </TextSettings>
                             <Bookmarks>
-                                <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"></Bookmark>
+                                <Bookmark BinderUUID="25F7B676-0FCD-4DF2-964F-395A3302979E"/>
                             </Bookmarks>
                         </BinderItem>
                         <BinderItem UUID="7182E87F-7F90-4143-B2F6-46984140486D" Type="Text" Created="2016-09-12 20:13:57 +0200" Modified="2017-02-07 16:59:21 +0100">
@@ -1234,7 +1254,7 @@
                                 <TextSelection>0,0</TextSelection>
                             </TextSettings>
                             <Bookmarks>
-                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"></Bookmark>
+                                <Bookmark BinderUUID="0DEBB538-3525-4F8C-8437-4FBD035E0B40"/>
                             </Bookmarks>
                         </BinderItem>
                         <BinderItem UUID="5D6E24A0-1CA1-4370-A4C7-A6C0B79D9E8C" Type="Text" Created="2016-09-16 15:42:30 +0200" Modified="2016-12-20 13:36:14 +0100">
@@ -1336,7 +1356,7 @@
                                 <TextSelection>0,0</TextSelection>
                             </TextSettings>
                             <Bookmarks>
-                                <Bookmark BinderUUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628"></Bookmark>
+                                <Bookmark BinderUUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628"/>
                             </Bookmarks>
                         </BinderItem>
                     </Children>
@@ -1522,18 +1542,18 @@
         </StatusItems>
     </StatusSettings>
     <ProjectBookmarks>
-        <Bookmark BinderUUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628"></Bookmark>
+        <Bookmark BinderUUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628"/>
     </ProjectBookmarks>
     <ProjectTargets Notify="No">
         <DraftTarget Type="Words" CountIncludedOnly="Yes" CurrentCompileGroupOnly="Yes" Deadline="2011-06-30 22:12:08 +0200" IgnoreDeadline="Yes">0</DraftTarget>
         <SessionTarget Type="Words" CountDraftOnly="Yes" AllowNegatives="Yes" ResetType="Time" ResetTime="00:00" DeterminedFromDeadline="No" WritingDays="" CanWriteOnDeadlineDate="No">0</SessionTarget>
-        <PreviousSession Words="0" Characters="0" Date="2018-10-09 13:51:04 +0200"></PreviousSession>
+        <PreviousSession Words="48" Characters="317" Date="2019-01-22 09:24:28 +0100"/>
     </ProjectTargets>
-    <RecentWritingHistory Date="2018-10-09 00:00:00 +0200">
-        <DraftWordCount>0</DraftWordCount>
-        <DraftCharCount>0</DraftCharCount>
+    <RecentWritingHistory Date="2019-01-22 00:00:00 +0100">
+        <DraftWordCount>48</DraftWordCount>
+        <DraftCharCount>317</DraftCharCount>
         <OtherWordCount>0</OtherWordCount>
         <OtherCharCount>0</OtherCharCount>
     </RecentWritingHistory>
-    <PrintSettings PaperSize="595.275564,841.889771" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
+    <PrintSettings PaperSize="595.275564,841.889771" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"/>
 </ScrivenerProject>

@@ -110,8 +110,8 @@
 	</array>
 	<key>binderSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {272, 1231}}</string>
-		<string>{{273, 0}, {1119, 1231}}</string>
+		<string>{{0, 0}, {272, 928}}</string>
+		<string>{{273, 0}, {1119, 928}}</string>
 	</array>
 	<key>binderState</key>
 	<array>
@@ -251,7 +251,7 @@
 	<integer>4</integer>
 	<key>inspectorSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {640, 1221}}</string>
+		<string>{{0, 0}, {336, 918}}</string>
 	</array>
 	<key>inspectorSynopsisIsCollapsed</key>
 	<false/>
@@ -362,7 +362,7 @@
 	<key>mainDocumentEditor.outlinerVisible</key>
 	<false/>
 	<key>mainDocumentEditor.scrollRect</key>
-	<string>{{0, 0}, {620, 1145}}</string>
+	<string>{{0, 0}, {620, 842}}</string>
 	<key>mainDocumentEditor.selectedItemUUIDs</key>
 	<array/>
 	<key>mainDocumentEditor.selectedRanges</key>
@@ -387,7 +387,7 @@
 	<key>mainDocumentView</key>
 	<string>supportingDocumentEditor</string>
 	<key>mainWindowFrame</key>
-	<string>846 300 1392 1253 0 0 3200 1777 </string>
+	<string>264 77 1392 950 0 0 1680 1027 </string>
 	<key>metaDataModeAutosaveName</key>
 	<integer>0</integer>
 	<key>projectStatsSheet</key>
@@ -558,7 +558,7 @@
 		<string>{{0, 593}, {834, 593}}</string>
 	</array>
 	<key>supportingDocumentEditor.scrollRect</key>
-	<string>{{0, 0}, {606, 294}}</string>
+	<string>{{0, 0}, {620, 294}}</string>
 	<key>supportingDocumentEditor.selectedItemIDs</key>
 	<array/>
 	<key>supportingDocumentEditor.textEditorState</key>

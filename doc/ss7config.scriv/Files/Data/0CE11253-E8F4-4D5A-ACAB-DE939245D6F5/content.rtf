@@ -1,6 +1,6 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Roman;\f2\fnil\fcharset0 Menlo-Regular;
-\f3\fnil\fcharset0 Menlo-Italic;}
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Bold;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Italic;\f4\froman\fcharset0 Palatino-Roman;}
 {\colortbl;\red255\green255\blue255;\red16\green133\blue214;}
 {\*\expandedcolortbl;;\csgenericrgb\c6275\c52157\c83922;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb300\sa120\pardirnatural\partightenfactor0
@@ -16,7 +16,7 @@ name =
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\i0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 name of the object. Internally converted to lowercase. only a-z, 0-9 and . - _ + , = allowed. Maximum length 255 characters.
+\f4\fs22 name of the object. Internally converted to lowercase. only a-z, 0-9 and . - _ + , = allowed. Maximum length 255 characters.
 \fs28 \
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
@@ -26,7 +26,7 @@ name =
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\i0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 descriptive text for internal documentation purposes\
+\f4\fs22 descriptive text for internal documentation purposes\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Cs::2><!$Scr_Ps::1>
@@ -36,19 +36,20 @@ enable =
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\i0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 If set to NO, then the whole section is completely ignored. Defaults to YES\
+\f4\fs22 If set to NO, then the whole section is completely ignored. Defaults to YES\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Ps::1>
-\f1\fs22 \
+\f4\fs22 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
-\f0\fs24 <$Scr_Cs::2>
+\f0\fs24 \cf0 <$Scr_Cs::2>
 \f2\fs22 log-level = 
 \f3\i \{log-level\}\
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\i0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 log level has the following values:\
+\f4\fs22 log level has the following values:\
 0 = debug\
 1 = info\
 2 = warning\
@@ -58,28 +59,30 @@ enable =
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Ps::1>
-\f1\fs28 \
+\f4\fs28 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
-\f0\fs24 <$Scr_Cs::2>
+\f0\fs24 \cf0 <$Scr_Cs::2>
 \f2\fs22 log-file = 
 \f3\i \{filename\}\
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\i0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 logfile name\
+\f4\fs22 logfile name\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Ps::1>
-\f1\fs28 \
+\f4\fs28 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
-\f0\fs24 <$Scr_Cs::2>
+\f0\fs24 \cf0 <$Scr_Cs::2>
 \f2\fs22 local-ip = 
 \f3\i \{ip-addresses\}
 \f2\i0 \
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses\
+\f4\fs22 local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses.  line can also appear multiple times.\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Cs::2><!$Scr_Ps::1>
@@ -90,18 +93,19 @@ local-port =
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 sctp port on the local side\
+\f4\fs22 sctp port on the local side\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Cs::2><!$Scr_Ps::1>
 \f2\fs22 \
-remote-ip 
+remote-ip = 
 \f3\i \{ip-address(es)\}
 \f2\i0 \
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses\
+\f4\fs22 local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses. line can also appear multiple times.
+\fs28 \
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Cs::2>
@@ -111,25 +115,26 @@ remote-ip
 \f0\fs24 \cf0 <!$Scr_Ps::1>
 \f2\fs22 remote-port = \{integer\}
 \f0\fs24 <!$Scr_Cs::2>
-\f1\fs28 \
+\f4\fs28 \
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f1\fs22 sccp port of the remote side\
+\f4\fs22 sccp port of the remote side\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Ps::1>
-\f1\fs28 \
+\f4\fs28 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
-\f0\fs24 <$Scr_Cs::2>
+\f0\fs24 \cf0 <$Scr_Cs::2>
 \f2\fs22 passive = 
 \f3\i \{boolean\}
 \f0\i0\fs24 <!$Scr_Cs::2>
-\f1\fs28 \
+\f4\fs28 \
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f1\fs22 If passive is set to YES, then no active outbound connection is established. but incoming connections are accepted. If passive is set to NO, the connection is established inbound and outbound. Defaults to NO\
+\f4\fs22 If passive is set to YES, then no active outbound connection is established. but incoming connections are accepted. If passive is set to NO, the connection is established inbound and outbound. Defaults to NO\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Cs::2><!$Scr_Ps::1>
@@ -140,9 +145,21 @@ heartbeat =
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
-\f1\fs22 If heartbeat is set to a value above 0, the SCTP layer is instructed to run a heartbeat on the SCTP connection. The default is 30 seconds.
+\f4\fs22 If heartbeat is set to a value above 0, the SCTP layer is instructed to run a heartbeat on the SCTP connection. The default is 30 seconds.
 \f0\fs24 <$Scr_Cs::2>
 \f2\fs22 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Cs::2><!$Scr_Ps::1>
+\f4\fs28 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Cs::2>
+\f2\fs22 mtu = 
+\f3\i \{bytes\}
+\f2\i0 \
 \pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 <!$Scr_Ps::1><!$Scr_Cs::2>}
+\f0\fs24 \cf0 <!$Scr_Cs::2><$Scr_Ps::1>
+\f4\fs22 If mtu is set, the maximum packet size for outgoing IP packets is set to this value. Normally it is automatically negotiated. setting this value actually
+\f0\fs24 <!$Scr_Ps::1>}

@@ -717,6 +717,9 @@ You can also choose New Link… from Edit &gt; Link to Document to bring up a sh
 Clicking on a document link opens the linked document in the other editor by default, creating a split if necessary. (Try clicking on the “split” in the previous sentence to see what I mean).
 You can change this behaviour in the “Behaviors” pane of the Preferences, choosing where you would like links opened.</Text>
         </Document>
+        <Document ID="061A587E-23F1-412E-B4D4-8126D00CEC82">
+            <Title>m2pa</Title>
+        </Document>
         <Document ID="B808BCAD-8BCD-440D-ACD7-1C502CEBEF94">
             <Title>Inline Notes</Title>
             <Text>When covering “The Basics”, we saw how we could add comments and footnotes to text that are displayed in the inspector. Another way of adding footnotes and comments is to insert them inline. The text of inline annotations and footnotes appears right inside your text (as opposed to inspector comments and footnotes, the text of which is hidden away in the inspector).
@@ -1268,6 +1271,55 @@ Feel free to play around with the cards (but don’t hit “Commit” unless you
             <Title>Writing and Editing</Title>
             <Synopsis>Learn more about Scrivener’s writing tools.</Synopsis>
         </Document>
+        <Document ID="2DBD1580-CB10-498F-B5B7-CDBF1EFEA460">
+            <Title>sctp</Title>
+            <Text>M2PA Config Options
+group = m2pa
+name = {object-name}
+name of the object. Internally converted to lowercase. only a-z, 0-9 and . - _ + , = allowed. Maximum length 255 characters.
+
+description = {text}
+descriptive text for internal documentation purposes
+
+category = {text}
+category text for internal documentation purposes
+
+enable = {boolean}
+If set to NO, then the whole section is completely ignored. Defaults to YES
+
+log-level = {log-level}
+log level has the following values:
+0 = debug
+1 = info
+2 = warning
+3 = minor
+4 = major
+5 = panic
+
+log-file = {filename}
+logfile name
+
+local-ip = {ip-addresses}
+local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses.  line can also appear multiple times.
+
+local-port = {integer}
+sctp port on the local side
+
+remote-ip = {ip-address(es)}
+local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses. line can also appear multiple times.
+
+remote-port = {integer}
+sccp port of the remote side
+
+passive = {boolean}
+If passive is set to YES, then no active outbound connection is established. but incoming connections are accepted. If passive is set to NO, the connection is established inbound and outbound. Defaults to NO
+
+heartbeat = {seconds}
+If heartbeat is set to a value above 0, the SCTP layer is instructed to run a heartbeat on the SCTP connection. The default is 30 seconds.
+
+mtu = {bytes}
+If mtu is set, the maximum packet size for outgoing IP packets is set to this value. Normally it is automatically negotiated. setting this value actually</Text>
+        </Document>
         <Document ID="98A4BBC2-8817-430A-BC25-4CA8C3359A73">
             <Title>The Corkboard</Title>
             <Text>The corkboard shows the immediate subdocuments of the selected document. To see this in action:
@@ -1374,13 +1426,13 @@ log-file = {filename}
 logfile name
 
 local-ip = {ip-addresses}
-local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses
+local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses.  line can also appear multiple times.
 
 local-port = {integer}
 sctp port on the local side
 
-remote-ip {ip-address(es)}
-local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses
+remote-ip = {ip-address(es)}
+local ip address or addresses, separated by space, tab or semicolon. Can be IPv4 as well as IPv6 addresses. line can also appear multiple times.
 
 remote-port = {integer}
 sccp port of the remote side
@@ -1390,7 +1442,9 @@ If passive is set to YES, then no active outbound connection is established. but
 
 heartbeat = {seconds}
 If heartbeat is set to a value above 0, the SCTP layer is instructed to run a heartbeat on the SCTP connection. The default is 30 seconds.
-</Text>
+
+mtu = {bytes}
+If mtu is set, the maximum packet size for outgoing IP packets is set to this value. Normally it is automatically negotiated. setting this value actually</Text>
         </Document>
         <Document ID="FF0BD158-38E5-4001-9159-D503B752C92F">
             <Title>Remember...</Title>

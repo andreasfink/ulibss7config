@@ -82,6 +82,7 @@
     APPEND_DICT_INTEGER(dict,@"log-level",_logLevel);
     APPEND_DICT_STRING(dict,@"log-file",_logFile);
     APPEND_DICT_ARRAY(dict,@"comment",_comments);
+    APPEND_DICT_ARRAY(dict,@"comment",_comments);
     return dict;
 }
 
