@@ -70,10 +70,6 @@ if [[ "$CXX" == "" ]]
 then 
 	CXX=clang++
 fi
-<<<<<<< HEAD
-	
-=======
->>>>>>> 68f3852ae7796d0f0fc8c7b4d3859f4483d4009e
 case "$host" in
   *apple-darwin*) 
 	ARCH="-arch x86_64"
