@@ -78,7 +78,7 @@
 
 @class SS7AppDelegate;
 
-static SS7AppDelegate *g_app_delegate;
+static SS7AppDelegate *ss7_app_delegate;
 static int _signal_sigint = 0;
 static int _signal_sighup = 0;
 static int _signal_sigusr1 = 0;
@@ -99,6 +99,7 @@ static void signalHandler(int signum);
 	self = [super init];
 	if(self)
 	{
+        ss7_app_delegate = self;
 		_enabledOptions                 = options;
 		_logHandler                     = [[UMLogHandler alloc]initWithConsole];
 		self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"main"];
