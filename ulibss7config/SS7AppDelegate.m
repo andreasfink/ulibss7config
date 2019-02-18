@@ -160,28 +160,10 @@ static void signalHandler(int signum);
             _imsi_pools_dict = [[UMSynchronizedDictionary alloc]init];
         }
 
-        _concurrentThreads = ulib_cpu_count();
-        if(self.generalTaskQueue == NULL)
+        if(_enabledOptions[@"umtransport"])
         {
-            if(_runningConfig.generalConfig.concurrentTasks!=NULL)
-            {
-                _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
-            }
-            if(_concurrentThreads<3)
-            {
-                _concurrentThreads = 3;
-            }
-            _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
-                                                                            name:@"general-task-queue"
-                                                                   enableLogging:NO
-                                                                  numberOfQueues:UMLAYER_QUEUE_COUNT];
+            _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
-
-		if(_enabledOptions[@"umtransport"])
-		{
-			_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
-			/* FIXME: _umtransportService.delegate = self;  */
-		}
 		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
 		_umtransportLock = [[UMMutex alloc]init];
 		_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
@@ -408,6 +390,26 @@ static void signalHandler(int signum);
 	{
 		[_runningConfig startDirtyTimer];
 	}
+
+    _concurrentThreads = ulib_cpu_count();
+    if(self.generalTaskQueue == NULL)
+    {
+        if(_runningConfig.generalConfig.concurrentTasks!=NULL)
+        {
+            _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
+        }
+        if(_concurrentThreads<3)
+        {
+            _concurrentThreads = 3;
+        }
+        _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                        name:@"general-task-queue"
+                                                               enableLogging:NO
+                                                              numberOfQueues:UMLAYER_QUEUE_COUNT];
+    }
+
+    _umtransportService.delegate = self;
+
 	BOOL actionDone=NO;
 	NSDictionary *params = _commandLine.params;
 	if(params[@"pid-file"])
