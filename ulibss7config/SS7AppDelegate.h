@@ -83,7 +83,7 @@ UMSS7ConfigAppDelegateProtocol>
     NSNumber                    *_guard2;
     UMLogHandler                *_logHandler;
     NSNumber                    *_guard3;
-    UMLogLevel                  *_logLevel;
+    UMLogLevel                  _logLevel;
     UMHTTPClient                *_webClient;
     
     UMSynchronizedDictionary    *_sctp_dict;
