@@ -76,10 +76,14 @@ UMSS7ConfigAppDelegateProtocol>
     SchrittmacherClient         *_schrittmacherClient;
     NSString                    *_schrittmacherResourceID;
     SchrittmacherMode           _schrittmacherMode;
+    NSNumber                    *_guard0;
     UMSS7ConfigStorage          *_startupConfig;
+    NSNumber                    *_guard1;
     UMSS7ConfigStorage          *_runningConfig;
+    NSNumber                    *_guard2;
     UMLogHandler                *_logHandler;
-    UMLogLevel                  _logLevel;
+    NSNumber                    *_guard3
+    UMLogLevel                  *_logLevel;
     UMHTTPClient                *_webClient;
     
     UMSynchronizedDictionary    *_sctp_dict;
