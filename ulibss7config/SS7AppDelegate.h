@@ -125,7 +125,6 @@ UMSS7ConfigAppDelegateProtocol>
     UMTaskQueueMulti            *_tcapTaskQueue;
     UMTaskQueueMulti            *_gsmmapTaskQueue;
 
-
     SchrittmacherMode           _schrittmacherMode;
     UMLogLevel                  _logLevel;
     int                         _must_quit;
