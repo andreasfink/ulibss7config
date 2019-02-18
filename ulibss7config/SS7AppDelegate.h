@@ -82,7 +82,7 @@ UMSS7ConfigAppDelegateProtocol>
     UMSS7ConfigStorage          *_runningConfig;
     NSNumber                    *_guard2;
     UMLogHandler                *_logHandler;
-    NSNumber                    *_guard3
+    NSNumber                    *_guard3;
     UMLogLevel                  *_logLevel;
     UMHTTPClient                *_webClient;
     
