@@ -76,7 +76,7 @@
 #import "SS7AppTransportHandler.h"
 #import "SS7TemporaryImsiPool.h"
 
-@class SS7AppDelegate;
+//@class SS7AppDelegate;
 
 static SS7AppDelegate *ss7_app_delegate;
 static int _signal_sigint = 0;
