@@ -53,7 +53,8 @@ UMLayerTCAPApplicationContextProtocol,
 UMLayerGSMMAPApplicationContextProtocol,
 SS7TelnetSocketHelperProtocol,
 SS7UserAuthenticateProtocol,
-UMSS7ConfigAppDelegateProtocol>
+UMSS7ConfigAppDelegateProtocol,
+UMTransportUserProtocol>
 #else
 @interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
@@ -67,7 +68,8 @@ UMLayerTCAPApplicationContextProtocol,
 UMLayerGSMMAPApplicationContextProtocol,
 SS7TelnetSocketHelperProtocol,
 SS7UserAuthenticateProtocol,
-UMSS7ConfigAppDelegateProtocol>
+UMSS7ConfigAppDelegateProtocol,
+UMTransportUserProtocol>
 #endif
 {
     /* first all pointers... then integers. Workaround for a bug in clang...? */
