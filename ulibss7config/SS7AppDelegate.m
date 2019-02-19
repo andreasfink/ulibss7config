@@ -584,7 +584,7 @@ static void signalHandler(int signum);
                                                           enableLogging:NO
                                                          numberOfQueues:UMLAYER_QUEUE_COUNT];
 
-	self.webClient = [[UMHTTPClient alloc]init];
+	_webClient = [[UMHTTPClient alloc]init];
 	if(generalConfig.hostname)
 	{
 		_hostname = generalConfig.hostname;
