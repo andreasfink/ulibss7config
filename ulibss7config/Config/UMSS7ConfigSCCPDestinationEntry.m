@@ -39,7 +39,8 @@
     APPEND_CONFIG_STRING(s,@"destination",_destination);
     APPEND_CONFIG_STRING(s,@"point-code",_dpc);
     APPEND_CONFIG_STRING(s,@"application-server",_applicationServer);
-    APPEND_CONFIG_INTEGER(s,@"priority",_priority);
+    APPEND_CONFIG_INTEGER(s,@"cost",_cost);
+    APPEND_CONFIG_INTEGER(s,@"weigth",_weigth);
     APPEND_CONFIG_INTEGER(s,@"subsystem",_subsystem);
     APPEND_CONFIG_INTEGER(s,@"ntt",_ntt);
     APPEND_CONFIG_STRING(s,@"add-prefix",_addPrefix);
@@ -51,7 +52,8 @@
     APPEND_DICT_STRING(dict,@"destination",_destination);
     APPEND_DICT_STRING(dict,@"point-code",_dpc);
     APPEND_DICT_STRING(dict,@"application-server",_applicationServer);
-    APPEND_DICT_INTEGER(dict,@"priority",_priority);
+    APPEND_DICT_INTEGER(dict,@"cost",_cost);
+    APPEND_DICT_INTEGER(dict,@"weight",_weigth);
     APPEND_DICT_INTEGER(dict,@"subsystem",_subsystem);
     APPEND_DICT_INTEGER(dict,@"ntt",_ntt);
     APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
@@ -64,7 +66,8 @@
     SET_DICT_FILTERED_STRING(dict,@"destination",_destination);
     SET_DICT_STRING(dict,@"point-code",_dpc);
     SET_DICT_FILTERED_STRING(dict,@"application-server",_applicationServer);
-    SET_DICT_INTEGER(dict,@"priority",_priority);
+    SET_DICT_INTEGER(dict,@"cost",_weight);
+    SET_DICT_INTEGER(dict,@"weigth",_weight);
     SET_DICT_INTEGER(dict,@"subsystem",_subsystem);
     SET_DICT_INTEGER(dict,@"ntt",_ntt);
     SET_DICT_STRING(dict,@"add-prefix",_addPrefix);

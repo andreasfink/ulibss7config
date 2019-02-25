@@ -1,5 +1,5 @@
 //
-//  SS7SS7GenericInstance.m
+//  SS7GenericInstance.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 20.11.18.

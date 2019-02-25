@@ -2069,6 +2069,8 @@ static void signalHandler(int signum);
         sccp.logFeed.name = name;
         [sccp setConfig:config applicationContext:self];
         _sccp_dict[name] = sccp;
+        sccp.sccp_number_translations_dict = _sccp_number_translations_dict;
+        sccp.sccp_destinations_dict = _sccp_destinations_dict;
     }
 }
 
