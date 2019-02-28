@@ -1461,8 +1461,8 @@ static void signalHandler(int signum);
 - (void)  handleStatus:(UMHTTPRequest *)req
 {
 	NSMutableString *status = [[NSMutableString alloc]init];
-
-	NSArray *keys = [_sctp_dict allKeys];
+    NSArray *keys = [_sctp_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerSctp *sctp = _sctp_dict[key];
