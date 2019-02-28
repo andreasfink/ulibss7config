@@ -948,12 +948,6 @@ static void signalHandler(int signum);
 		{
 			selector.postTranslation = _sccp_number_translations_dict[selector.postTranslationName];
 		}
-
-		if(selector.defaultEntryName.length > 0)
-		{
-			selector.defaultEntry = [self getSCCPDestination:selector.defaultEntryName];
-		}
-
 		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
 		[sccp.gttSelectorRegistry addEntry:selector];
 
