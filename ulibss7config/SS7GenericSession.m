@@ -1104,11 +1104,26 @@ else \
 
 }
 
-- (void)sccpTraceDroppedPdu:(NSData *)data options:(NSDictionary *)options
+- (void)sccpTraceDroppedPdu:(NSData *)data
+                    options:(NSDictionary *)options
 {
 
 }
 
+- (void)sccpTraceDroppedSccpPacket:(UMSCCP_Packet *)packet
+                       options:(NSDictionary *)options
+{
+}
+
+- (void)sccpTraceReceivedSccpPacket:(UMSCCP_Packet *)packet
+                        options:(NSDictionary *)options
+{
+}
+
+- (void)sccpTraceSentSccpPacket:(UMSCCP_Packet *)packet
+                    options:(NSDictionary *)options
+{
+}
 
 - (void) handleSccpAddressesDefaultCallingSsn:(NSString *)defaultCallingSsn
                              defaultCalledSsn:(NSString *)defaultCalledSsn
