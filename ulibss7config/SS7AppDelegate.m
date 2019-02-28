@@ -1470,6 +1470,8 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_m2pa_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
+
 	for(NSString *key in keys)
 	{
 		UMLayerM2PA *m2pa = _m2pa_dict[key];
@@ -1485,6 +1487,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_mtp3_linkset_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMMTP3LinkSet *linkset = _mtp3_linkset_dict[key];
@@ -1510,6 +1513,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_m3ua_asp_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMM3UAApplicationServerProcess *m3ua_asp = _m3ua_asp_dict[key];
@@ -1517,6 +1521,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_m3ua_as_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMM3UAApplicationServer *as = _m3ua_as_dict[key];
@@ -1526,6 +1531,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_mtp3_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerMTP3 *mtp3 = _mtp3_dict[key];
@@ -1540,6 +1546,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_sccp_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerSCCP *sccp = _sccp_dict[key];
@@ -1547,6 +1554,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_tcap_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerTCAP *tcap = _tcap_dict[key];
@@ -1554,6 +1562,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_gsmmap_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerGSMMAP *map = _gsmmap_dict[key];
@@ -1561,13 +1570,12 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_camel_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerCamel *map = _camel_dict[key];
 		[status appendFormat:@"CAMEL-INSTANCE:%@:%@\n",map.layerName,map.status];
 	}
-
-
 	[req setResponsePlainText:status];
 	return;
 }
