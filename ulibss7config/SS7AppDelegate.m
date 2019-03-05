@@ -89,6 +89,11 @@ static void signalHandler(int signum);
 
 @implementation SS7AppDelegate
 
+- (NSString *)layerName
+{
+    return @"SS7AppDelegate";
+}
+
 - (SS7AppDelegate *)init
 {
 	return [self initWithOptions:@{}];
@@ -944,11 +949,6 @@ static void signalHandler(int signum);
 		if(selector.postTranslationName.length > 0)
 		{
 			selector.postTranslation = _sccp_number_translations_dict[selector.postTranslationName];
-		}
-
-		if(selector.defaultEntryName.length > 0)
-		{
-			selector.defaultEntry = [self getSCCPDestination:selector.defaultEntryName];
 		}
 
 		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
