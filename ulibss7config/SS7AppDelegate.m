@@ -88,6 +88,10 @@ static void signalHandler(int signum);
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
 @implementation SS7AppDelegate
+- (NSString *)layerName
+{
+		return @"SS7AppDelegate";
+}
 
 - (SS7AppDelegate *)init
 {
