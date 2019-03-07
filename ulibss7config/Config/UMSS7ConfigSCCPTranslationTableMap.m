@@ -39,7 +39,7 @@
     for(int i=0;i<256;i++)
     {
         NSNumber *value = _map[i];
-        if(value)
+        if(value!=NULL)
         {
             [s appendFormat:@"%d=%@\n",i,value];
         }
@@ -52,7 +52,7 @@
     UMSynchronizedSortedDictionary *dict = [super config];
     for(int i=0;i<256;i++)
     {
-        if(_map[i])
+        if(_map[i]!=NULL)
         {
             NSString *n = [NSString stringWithFormat:@"%d",i];
             dict[n] = [_map[i] copy];

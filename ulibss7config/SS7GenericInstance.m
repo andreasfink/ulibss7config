@@ -40,7 +40,8 @@
                                                  object:NULL
                                                 seconds:1.1
                                                    name:@"housekeeping"
-                                                repeats:YES];
+                                                repeats:YES
+                                        runInForeground:NO];
     [_houseKeepingTimer start];
 }
 
@@ -86,7 +87,8 @@
                                                      object:NULL
                                                     seconds:1.1 /* every sec */
                                                        name:@"housekeeping"
-                                                    repeats:YES];
+                                                    repeats:YES
+                                            runInForeground:NO];
         [_houseKeepingTimer start];
     }
     return self;

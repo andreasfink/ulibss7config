@@ -541,7 +541,7 @@ static void signalHandler(int signum);
 	{
 		_logDirectory = [self defaultLogDirectory];
 	}
-	if(generalConfig.logRotations)
+	if(generalConfig.logRotations!=NULL)
 	{
 		_logRotations = [generalConfig.logRotations intValue];
 	}
@@ -550,7 +550,7 @@ static void signalHandler(int signum);
 		_logRotations = 5;
 	}
 
-	if(generalConfig.logLevel)
+	if(generalConfig.logLevel!=NULL)
 	{
 		_logLevel = [generalConfig.logLevel intValue];
 	}
@@ -598,7 +598,7 @@ static void signalHandler(int signum);
 		_hostname = [UMHost localHostName];
 	}
 
-	if(generalConfig.queueHardLimit)
+	if(generalConfig.queueHardLimit!=NULL)
 	{
 		_queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
 	}
@@ -991,7 +991,7 @@ static void signalHandler(int signum);
     }
 
 	/*****************************************************************/
-	/* Configuring ESTP and set up a ULibTransport entity for it     */
+	/* Configuring App and set up a ULibTransport entity for it     */
 	/*****************************************************************/
 	if([_enabledOptions[@"estp"] boolValue])
 	{
@@ -2197,7 +2197,7 @@ static void signalHandler(int signum);
 - (NSNumber *)concurrentTasksForConfig:(UMSS7ConfigObject *)co
 {
     NSNumber *n =  [co concurrentTasks];
-    if(n)
+    if(n!=NULL)
     {
         return n;
     }
