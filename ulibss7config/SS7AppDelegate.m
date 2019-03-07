@@ -955,6 +955,7 @@ static void signalHandler(int signum);
 		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
 		[sccp.gttSelectorRegistry addEntry:selector];
 
+
 		NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
 		for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
 		{
