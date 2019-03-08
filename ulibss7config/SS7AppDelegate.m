@@ -1151,6 +1151,26 @@ static void signalHandler(int signum);
 		{
 			[self ummutexStat:req];
 		}
+        else if([path isEqualToString:@"/status/sccp/route"])
+        {
+            [self hanldeSCCPRouteStatus:req];
+        }
+        else if([path isEqualToString:@"/status/mtp3/route"])
+        {
+            [self handleMTP3RouteStatus:req];
+        }
+        else if([path isEqualToString:@"/status/m2pa"])
+        {
+            [self handleM2PAStatus:req];
+        }
+        else if([path isEqualToString:@"/status/m3ua"])
+        {
+            [self handleM3UAStatus:req];
+        }
+        else if([path isEqualToString:@"/status/sctp"])
+        {
+            [self handleSCTPStatus:req];
+        }
 		else
 		{
 			NSString *s = @"Result: Error\nReason: Unknown request\n";
@@ -1240,6 +1260,40 @@ static void signalHandler(int signum);
 	[s appendString:@"</body>\r\n"];
 	[s appendString:@"</html>\r\n"];
 	[req setResponseHtmlString:s];
+}
+
+- (void)hanldeSCCPRouteStatus:(UMHTTPRequest *)req
+{
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_sccp_dict allKeys];
+    for(NSString *name in names)
+    {
+        UMLayerSCCP *sccp = _sccp_dict[name];
+        d[name] = [sccp routeStatus];
+    }
+    [req setResponseJsonString:[d jsonString]];
+}
+
+- (void)handleMTP3RouteStatus:(UMHTTPRequest *)req
+{
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_mtp3_dict allKeys];
+    for(NSString *name in names)
+    {
+        UMLayerMTP3 *mtp3 = _mtp3_dict[name];
+        d[name] = [mtp3 routeStatus];
+    }
+    [req setResponseJsonString:[d jsonString]];
+
+}
+- (void)handleM2PAStatus:(UMHTTPRequest *)req
+{
+}
+- (void)handleM3UAStatus:(UMHTTPRequest *)req
+{
+}
+- (void)handleSCTPStatus:(UMHTTPRequest *)req
+{
 }
 
 - (void)ummutexStat:(UMHTTPRequest *)req
