@@ -1827,7 +1827,8 @@ static void signalHandler(int signum);
 		[_runningConfig addSCTP:co];
 
 		config = co.config.dictionaryCopy;
-		UMLayerSctp *sctp = [[UMLayerSctp alloc]initWithTaskQueueMulti:_sctpTaskQueue];
+        NSString *name = [config[@"name"]stringValue];
+        UMLayerSctp *sctp = [[UMLayerSctp alloc]initWithTaskQueueMulti:_sctpTaskQueue name:name];
 		sctp.registry = _registry;
 		sctp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sctp"];
 		sctp.logFeed.name = name;
