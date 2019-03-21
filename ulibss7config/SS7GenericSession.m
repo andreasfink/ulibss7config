@@ -1109,14 +1109,6 @@ else \
 {
 }
 
-- (void)sccpTraceDroppedSccpPacket:(UMSCCP_Packet *)packet options:(NSDictionary *)options
-{
-}
-
-
-- (void)sccpTraceReceivedSccpPacket:(UMSCCP_Packet *)packet options:(NSDictionary *)options
-{
-}
 
 - (void)sccpTraceDroppedSccpPacket:(UMSCCP_Packet *)packet
                        options:(NSDictionary *)options
@@ -1133,9 +1125,6 @@ else \
 {
 }
 
-- (void)sccpTraceSentSccpPacket:(UMSCCP_Packet *)packet options:(NSDictionary *)options
-{
-}
 
 
 

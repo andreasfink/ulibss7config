@@ -93,11 +93,6 @@ static void signalHandler(int signum);
 		return @"SS7AppDelegate";
 }
 
-- (NSString *)layerName
-{
-    return @"SS7AppDelegate";
-}
-
 - (SS7AppDelegate *)init
 {
 	return [self initWithOptions:@{}];
@@ -957,10 +952,6 @@ static void signalHandler(int signum);
 		{
 			selector.postTranslation = _sccp_number_translations_dict[selector.postTranslationName];
 		}
-<<<<<<< HEAD
-
-=======
->>>>>>> fe1652e8f76d956a7b4eb59295e75b05f4c1e8ab
 		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
 		[sccp.gttSelectorRegistry addEntry:selector];
 
