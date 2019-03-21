@@ -86,7 +86,7 @@
                 [entry setConfig:oldConfig];
                 return;
             }
-            SccpGttRoutingTableEntry *rte = [rt findEntryByName:name];
+            SccpGttRoutingTableEntry *rte = [rt findEntryByName:entryName];
             if(rte==NULL)
             {
                 NSString *gta = newConfig[@"gta"];
