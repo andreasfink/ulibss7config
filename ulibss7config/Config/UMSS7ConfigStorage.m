@@ -119,7 +119,8 @@
                                           object:NULL
                                          seconds:10.0
                                             name:@"dirty-config-timer"
-                                         repeats:YES];
+                                         repeats:YES
+                                 runInForeground:NO];
     _productName = @"UniversalSS7";
 }
 

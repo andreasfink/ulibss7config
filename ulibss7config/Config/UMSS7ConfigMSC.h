@@ -15,6 +15,7 @@
     NSString *_number;
     NSString *_smsForwardUrl;
     NSNumber *_answerTranslationType;
+    NSString *_imsiPool;
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;
@@ -22,6 +23,7 @@
 @property(readwrite,strong,atomic)   NSString *number;
 @property(readwrite,strong,atomic)   NSString *smsForwardUrl;
 @property(readwrite,strong,atomic)   NSNumber *answerTranslationType;
+@property(readwrite,strong,atomic)   NSString *imsiPool;
 
 
 + (NSString *)type;

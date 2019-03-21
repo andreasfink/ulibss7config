@@ -1104,7 +1104,8 @@ else \
 
 }
 
-- (void)sccpTraceDroppedPdu:(NSData *)data options:(NSDictionary *)options
+- (void)sccpTraceDroppedPdu:(NSData *)data
+                    options:(NSDictionary *)options
 {
 }
 
@@ -1117,6 +1118,20 @@ else \
 {
 }
 
+- (void)sccpTraceDroppedSccpPacket:(UMSCCP_Packet *)packet
+                       options:(NSDictionary *)options
+{
+}
+
+- (void)sccpTraceReceivedSccpPacket:(UMSCCP_Packet *)packet
+                        options:(NSDictionary *)options
+{
+}
+
+- (void)sccpTraceSentSccpPacket:(UMSCCP_Packet *)packet
+                    options:(NSDictionary *)options
+{
+}
 
 - (void)sccpTraceSentSccpPacket:(UMSCCP_Packet *)packet options:(NSDictionary *)options
 {

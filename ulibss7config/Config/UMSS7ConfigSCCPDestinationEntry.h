@@ -13,7 +13,8 @@
     NSString *_destination;
     NSString *_dpc;
     NSString *_applicationServer;
-    NSNumber *_priority;
+    NSNumber *_cost;
+    NSNumber *_weight;
     NSNumber *_subsystem;
     NSNumber *_ntt;
     NSString *_addPrefix;
@@ -26,7 +27,8 @@
 @property(readwrite,strong,atomic)  NSString *destination;
 @property(readwrite,strong,atomic)  NSString *dpc;
 @property(readwrite,strong,atomic)  NSString *applicationServer;
-@property(readwrite,strong,atomic)  NSNumber *priority;
+@property(readwrite,strong,atomic)  NSNumber *cost;
+@property(readwrite,strong,atomic)  NSNumber *weigth;
 @property(readwrite,strong,atomic)  NSNumber *subsystem;
 @property(readwrite,strong,atomic)  NSNumber *ntt;
 @property(readwrite,strong,atomic)  NSString *addPrefix;

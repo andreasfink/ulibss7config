@@ -37,7 +37,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"imsi-prefix",_imsiPrefix);
-    APPEND_CONFIG_DOUBLE(s,@"cache-cache",_cacheTimer);
+    APPEND_CONFIG_DOUBLE(s,@"cache-timer",_cacheTimer);
 }
 
 
@@ -46,7 +46,7 @@
     UMSynchronizedSortedDictionary *dict = [super config];
     
     APPEND_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
-    APPEND_DICT_DOUBLE(dict,@"cache-cache",_cacheTimer);
+    APPEND_DICT_DOUBLE(dict,@"cache-timer",_cacheTimer);
     return dict;
 }
 

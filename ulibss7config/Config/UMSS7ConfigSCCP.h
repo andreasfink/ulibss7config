@@ -13,10 +13,11 @@
     NSString *_attachTo;
     NSString *_variant;
     NSString *_mode;
-    NSString *_next_pc;
+    NSArray<NSString *> *_next_pc;
     NSString *_next_pc1;
     NSString *_next_pc2;
     NSNumber *_ntt;
+    NSArray<NSString *> *_gtFiles;
 }
 
 + (NSString *)type;
@@ -26,9 +27,10 @@
 @property(readwrite,strong,atomic)  NSString *attachTo;
 @property(readwrite,strong,atomic)  NSString *variant;
 @property(readwrite,strong,atomic)  NSString *mode;
-@property(readwrite,strong,atomic)  NSString *next_pc;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *next_pc;
 @property(readwrite,strong,atomic)  NSString *next_pc1;
 @property(readwrite,strong,atomic)  NSString *next_pc2;
 @property(readwrite,strong,atomic)  NSNumber *ntt;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *gtFiles;
 
 @end

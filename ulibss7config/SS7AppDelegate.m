@@ -76,9 +76,9 @@
 #import "SS7AppTransportHandler.h"
 #import "SS7TemporaryImsiPool.h"
 
-@class SS7AppDelegate;
+//@class SS7AppDelegate;
 
-static SS7AppDelegate *g_app_delegate;
+static SS7AppDelegate *ss7_app_delegate;
 static int _signal_sigint = 0;
 static int _signal_sighup = 0;
 static int _signal_sigusr1 = 0;
@@ -88,6 +88,10 @@ static void signalHandler(int signum);
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
 @implementation SS7AppDelegate
+- (NSString *)layerName
+{
+		return @"SS7AppDelegate";
+}
 
 - (NSString *)layerName
 {
@@ -104,6 +108,7 @@ static void signalHandler(int signum);
 	self = [super init];
 	if(self)
 	{
+        ss7_app_delegate = self;
 		_enabledOptions                 = options;
 		_logHandler                     = [[UMLogHandler alloc]initWithConsole];
 		self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"main"];
@@ -165,28 +170,10 @@ static void signalHandler(int signum);
             _imsi_pools_dict = [[UMSynchronizedDictionary alloc]init];
         }
 
-        _concurrentThreads = ulib_cpu_count();
-        if(self.generalTaskQueue == NULL)
+        if(_enabledOptions[@"umtransport"])
         {
-            if(_runningConfig.generalConfig.concurrentTasks!=NULL)
-            {
-                _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
-            }
-            if(_concurrentThreads<3)
-            {
-                _concurrentThreads = 3;
-            }
-            _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
-                                                                            name:@"general-task-queue"
-                                                                   enableLogging:NO
-                                                                  numberOfQueues:UMLAYER_QUEUE_COUNT];
+            _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
-
-		if(_enabledOptions[@"umtransport"])
-		{
-			_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
-			/* FIXME: _umtransportService.delegate = self;  */
-		}
 		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
 		_umtransportLock = [[UMMutex alloc]init];
 		_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
@@ -413,6 +400,26 @@ static void signalHandler(int signum);
 	{
 		[_runningConfig startDirtyTimer];
 	}
+
+    _concurrentThreads = ulib_cpu_count();
+    if(self.generalTaskQueue == NULL)
+    {
+        if(_runningConfig.generalConfig.concurrentTasks!=NULL)
+        {
+            _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
+        }
+        if(_concurrentThreads<3)
+        {
+            _concurrentThreads = 3;
+        }
+        _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                        name:@"general-task-queue"
+                                                               enableLogging:NO
+                                                              numberOfQueues:UMLAYER_QUEUE_COUNT];
+    }
+
+    _umtransportService.delegate = self;
+
 	BOOL actionDone=NO;
 	NSDictionary *params = _commandLine.params;
 	if(params[@"pid-file"])
@@ -539,7 +546,7 @@ static void signalHandler(int signum);
 	{
 		_logDirectory = [self defaultLogDirectory];
 	}
-	if(generalConfig.logRotations)
+	if(generalConfig.logRotations!=NULL)
 	{
 		_logRotations = [generalConfig.logRotations intValue];
 	}
@@ -548,7 +555,7 @@ static void signalHandler(int signum);
 		_logRotations = 5;
 	}
 
-	if(generalConfig.logLevel)
+	if(generalConfig.logLevel!=NULL)
 	{
 		_logLevel = [generalConfig.logLevel intValue];
 	}
@@ -586,7 +593,7 @@ static void signalHandler(int signum);
                                                           enableLogging:NO
                                                          numberOfQueues:UMLAYER_QUEUE_COUNT];
 
-	self.webClient = [[UMHTTPClient alloc]init];
+	_webClient = [[UMHTTPClient alloc]init];
 	if(generalConfig.hostname)
 	{
 		_hostname = generalConfig.hostname;
@@ -596,7 +603,7 @@ static void signalHandler(int signum);
 		_hostname = [UMHost localHostName];
 	}
 
-	if(generalConfig.queueHardLimit)
+	if(generalConfig.queueHardLimit!=NULL)
 	{
 		_queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
 	}
@@ -950,9 +957,13 @@ static void signalHandler(int signum);
 		{
 			selector.postTranslation = _sccp_number_translations_dict[selector.postTranslationName];
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe1652e8f76d956a7b4eb59295e75b05f4c1e8ab
 		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
 		[sccp.gttSelectorRegistry addEntry:selector];
+
 
 		NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
 		for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
@@ -990,7 +1001,7 @@ static void signalHandler(int signum);
     }
 
 	/*****************************************************************/
-	/* Configuring ESTP and set up a ULibTransport entity for it     */
+	/* Configuring App and set up a ULibTransport entity for it     */
 	/*****************************************************************/
 	if([_enabledOptions[@"estp"] boolValue])
 	{
@@ -1149,6 +1160,26 @@ static void signalHandler(int signum);
 		{
 			[self ummutexStat:req];
 		}
+        else if([path isEqualToString:@"/status/sccp/route"])
+        {
+            [self hanldeSCCPRouteStatus:req];
+        }
+        else if([path isEqualToString:@"/status/mtp3/route"])
+        {
+            [self handleMTP3RouteStatus:req];
+        }
+        else if([path isEqualToString:@"/status/m2pa"])
+        {
+            [self handleM2PAStatus:req];
+        }
+        else if([path isEqualToString:@"/status/m3ua"])
+        {
+            [self handleM3UAStatus:req];
+        }
+        else if([path isEqualToString:@"/status/sctp"])
+        {
+            [self handleSCTPStatus:req];
+        }
 		else
 		{
 			NSString *s = @"Result: Error\nReason: Unknown request\n";
@@ -1238,6 +1269,40 @@ static void signalHandler(int signum);
 	[s appendString:@"</body>\r\n"];
 	[s appendString:@"</html>\r\n"];
 	[req setResponseHtmlString:s];
+}
+
+- (void)hanldeSCCPRouteStatus:(UMHTTPRequest *)req
+{
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_sccp_dict allKeys];
+    for(NSString *name in names)
+    {
+        UMLayerSCCP *sccp = _sccp_dict[name];
+        d[name] = [sccp routeStatus];
+    }
+    [req setResponseJsonString:[d jsonString]];
+}
+
+- (void)handleMTP3RouteStatus:(UMHTTPRequest *)req
+{
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_mtp3_dict allKeys];
+    for(NSString *name in names)
+    {
+        UMLayerMTP3 *mtp3 = _mtp3_dict[name];
+        d[name] = [mtp3 routeStatus];
+    }
+    [req setResponseJsonString:[d jsonString]];
+
+}
+- (void)handleM2PAStatus:(UMHTTPRequest *)req
+{
+}
+- (void)handleM3UAStatus:(UMHTTPRequest *)req
+{
+}
+- (void)handleSCTPStatus:(UMHTTPRequest *)req
+{
 }
 
 - (void)ummutexStat:(UMHTTPRequest *)req
@@ -1464,8 +1529,8 @@ static void signalHandler(int signum);
 - (void)  handleStatus:(UMHTTPRequest *)req
 {
 	NSMutableString *status = [[NSMutableString alloc]init];
-
-	NSArray *keys = [_sctp_dict allKeys];
+    NSArray *keys = [_sctp_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerSctp *sctp = _sctp_dict[key];
@@ -1473,6 +1538,8 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_m2pa_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
+
 	for(NSString *key in keys)
 	{
 		UMLayerM2PA *m2pa = _m2pa_dict[key];
@@ -1488,6 +1555,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_mtp3_linkset_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMMTP3LinkSet *linkset = _mtp3_linkset_dict[key];
@@ -1513,6 +1581,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_m3ua_asp_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMM3UAApplicationServerProcess *m3ua_asp = _m3ua_asp_dict[key];
@@ -1520,6 +1589,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_m3ua_as_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMM3UAApplicationServer *as = _m3ua_as_dict[key];
@@ -1529,6 +1599,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_mtp3_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerMTP3 *mtp3 = _mtp3_dict[key];
@@ -1543,6 +1614,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_sccp_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerSCCP *sccp = _sccp_dict[key];
@@ -1550,6 +1622,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_tcap_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerTCAP *tcap = _tcap_dict[key];
@@ -1557,6 +1630,7 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_gsmmap_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerGSMMAP *map = _gsmmap_dict[key];
@@ -1564,13 +1638,12 @@ static void signalHandler(int signum);
 	}
 
 	keys = [_camel_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	for(NSString *key in keys)
 	{
 		UMLayerCamel *map = _camel_dict[key];
 		[status appendFormat:@"CAMEL-INSTANCE:%@:%@\n",map.layerName,map.status];
 	}
-
-
 	[req setResponsePlainText:status];
 	return;
 }
@@ -1763,7 +1836,8 @@ static void signalHandler(int signum);
 		[_runningConfig addSCTP:co];
 
 		config = co.config.dictionaryCopy;
-		UMLayerSctp *sctp = [[UMLayerSctp alloc]initWithTaskQueueMulti:_sctpTaskQueue];
+        NSString *name = [config[@"name"]stringValue];
+        UMLayerSctp *sctp = [[UMLayerSctp alloc]initWithTaskQueueMulti:_sctpTaskQueue name:name];
 		sctp.registry = _registry;
 		sctp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sctp"];
 		sctp.logFeed.name = name;
@@ -2066,6 +2140,8 @@ static void signalHandler(int signum);
         sccp.logFeed.name = name;
         [sccp setConfig:config applicationContext:self];
         _sccp_dict[name] = sccp;
+        sccp.sccp_number_translations_dict = _sccp_number_translations_dict;
+        sccp.sccp_destinations_dict = _sccp_destinations_dict;
     }
 }
 
@@ -2186,7 +2262,7 @@ static void signalHandler(int signum);
 - (NSNumber *)concurrentTasksForConfig:(UMSS7ConfigObject *)co
 {
     NSNumber *n =  [co concurrentTasks];
-    if(n)
+    if(n!=NULL)
     {
         return n;
     }
@@ -2941,7 +3017,6 @@ static void signalHandler(int signum);
 	[s appendString:@"</html>\n"];
 	return s;
 }
-
 
 - (void)webFormStart:(NSMutableString *)s title:(NSString *)t
 {

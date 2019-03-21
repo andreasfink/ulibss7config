@@ -53,7 +53,8 @@ UMLayerTCAPApplicationContextProtocol,
 UMLayerGSMMAPApplicationContextProtocol,
 SS7TelnetSocketHelperProtocol,
 SS7UserAuthenticateProtocol,
-UMSS7ConfigAppDelegateProtocol>
+UMSS7ConfigAppDelegateProtocol,
+UMTransportUserProtocol>
 #else
 @interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
@@ -67,21 +68,20 @@ UMLayerTCAPApplicationContextProtocol,
 UMLayerGSMMAPApplicationContextProtocol,
 SS7TelnetSocketHelperProtocol,
 SS7UserAuthenticateProtocol,
-UMSS7ConfigAppDelegateProtocol>
+UMSS7ConfigAppDelegateProtocol,
+UMTransportUserProtocol>
 #endif
 {
+    /* first all pointers... then integers. Workaround for a bug in clang...? */
     NSDictionary                *_enabledOptions;
     UMSynchronizedDictionary    *_smscSessions;
     UMCommandLine               *_commandLine;
     SchrittmacherClient         *_schrittmacherClient;
     NSString                    *_schrittmacherResourceID;
-    SchrittmacherMode           _schrittmacherMode;
     UMSS7ConfigStorage          *_startupConfig;
     UMSS7ConfigStorage          *_runningConfig;
     UMLogHandler                *_logHandler;
-    UMLogLevel                  _logLevel;
     UMHTTPClient                *_webClient;
-    
     UMSynchronizedDictionary    *_sctp_dict;
     UMSynchronizedDictionary    *_m2pa_dict;
     UMSynchronizedDictionary    *_mtp3_dict;
@@ -108,26 +108,16 @@ UMSS7ConfigAppDelegateProtocol>
     UMSynchronizedDictionary    *_gsmscf_dict;
 	UMSynchronizedDictionary    *_gmlc_dict;
 	UMSynchronizedDictionary    *_estp_dict;
-
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
 	UMLicenseDirectory       	*_globalLicenseDirectory;
 	UMTransportService       	*_umtransportService;
 	UMMutex                  	*_umtransportLock;
-
     NSString                    *_logDirectory;
-    int                         _logRotations;
-    int                         _concurrentTasks;
     NSString                    *_hostname;
-    NSUInteger                  _queueHardLimit;
     UMTCAP_TransactionIdPool    *_tidPool;
     ConfigurationSocket         *_csListener;
-    BOOL                        _startInStandby;
-    
     UMSocketSCTPRegistry        *_registry;
-    int                         _must_quit;
-
-    int                         _concurrentThreads;
     UMTaskQueueMulti            *_generalTaskQueue;
     UMTaskQueueMulti            *_sctpTaskQueue;
     UMTaskQueueMulti            *_m2paTaskQueue;
@@ -136,6 +126,17 @@ UMSS7ConfigAppDelegateProtocol>
     UMTaskQueueMulti            *_sccpTaskQueue;
     UMTaskQueueMulti            *_tcapTaskQueue;
     UMTaskQueueMulti            *_gsmmapTaskQueue;
+
+    SchrittmacherMode           _schrittmacherMode;
+    UMLogLevel                  _logLevel;
+    int                         _must_quit;
+    int                         _logRotations;
+    int                         _concurrentThreads;
+    int                         _concurrentTasks;
+    NSUInteger                  _queueHardLimit;
+    BOOL                        _startInStandby;
+
+
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -289,6 +290,13 @@ UMSS7ConfigAppDelegateProtocol>
 - (void)renameIMSIPool:(NSString *)oldName to:(NSString *)newName;
 
 - (NSArray *)getSCCPNames;
+
+
+- (void)hanldeSCCPRouteStatus:(UMHTTPRequest *)req;
+- (void)handleMTP3RouteStatus:(UMHTTPRequest *)req;
+- (void)handleM2PAStatus:(UMHTTPRequest *)req;
+- (void)handleM3UAStatus:(UMHTTPRequest *)req;
+- (void)handleSCTPStatus:(UMHTTPRequest *)req;
 
 @end
 

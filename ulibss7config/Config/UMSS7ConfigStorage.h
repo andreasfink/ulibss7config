@@ -63,7 +63,6 @@
 
 @interface UMSS7ConfigStorage : UMObject
 {
-    BOOL                    _dirty;
     NSArray                 *_commandLineArguments;
     UMCommandLine           *_commandLine;
     UMSS7ConfigGeneral      *_generalConfig;
@@ -111,13 +110,12 @@
     UMSynchronizedDictionary *_mapi_dict;
     UMSynchronizedDictionary *_imsi_pool_dict;
     UMSynchronizedDictionary *_cdr_writer_dict;
-
-    NSString *_rwconfigFile;
-    UMTimer *_dirtyTimer;
-    NSString *_productName;
+    NSString                 *_rwconfigFile;
+    UMTimer                  *_dirtyTimer;
+    NSString                 *_productName;
+    BOOL                    _dirty;
 }
 
-@property(readwrite,assign,atomic)  BOOL dirty;
 @property(readwrite,strong,atomic)  NSArray *commandLineArguments;
 @property(readwrite,strong,atomic)  UMCommandLine *commandLine;
 @property(readwrite,strong,atomic)  UMSS7ConfigGeneral *generalConfig;
@@ -166,7 +164,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *cdr_writer_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
-
+@property(readwrite,assign,atomic)  BOOL dirty;
 
 - (void)startDirtyTimer;
 - (void)stopDirtyTimer;

@@ -42,7 +42,6 @@
     APPEND_CONFIG_BOOLEAN(s,@"passive",_passive);
     APPEND_CONFIG_DOUBLE(s,@"heartbeat",_heartbeat);
     APPEND_CONFIG_INTEGER(s,@"mtu",_mtu);
-
 }
 
 

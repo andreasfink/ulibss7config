@@ -54,7 +54,6 @@
 		A634BC4A21A4143100852462 /* SS7AppTransportHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BC4821A4143100852462 /* SS7AppTransportHandler.m */; };
 		A634BC4D21A414EA00852462 /* SS7AppTransportSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BC4B21A414EA00852462 /* SS7AppTransportSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BC4E21A414EA00852462 /* SS7AppTransportSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BC4C21A414EA00852462 /* SS7AppTransportSession.m */; };
-		A634BC5021A415FB00852462 /* schrittmacherclient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A634BC4F21A415FA00852462 /* schrittmacherclient.framework */; };
 		A634BC5221A4180500852462 /* schrittmacherclient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A634BC5121A4180500852462 /* schrittmacherclient.framework */; };
 		A634BC5421A418B700852462 /* ulibasn1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A634BC5321A418B700852462 /* ulibasn1.framework */; };
 		A634BC5621A4196300852462 /* ulibsccp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A634BC5521A4196300852462 /* ulibsccp.framework */; };
@@ -726,7 +725,6 @@
 				A6BC4550207755BA008C3CEB /* ulibm2pa.framework in Frameworks */,
 				A634BC5821A419E800852462 /* ulibtransport.framework in Frameworks */,
 				A634BC5621A4196300852462 /* ulibsccp.framework in Frameworks */,
-				A634BC5021A415FB00852462 /* schrittmacherclient.framework in Frameworks */,
 				A6BC4554207755BA008C3CEB /* ulibgsmmap.framework in Frameworks */,
 				A6BC4551207755BA008C3CEB /* ulibgt.framework in Frameworks */,
 				A6BC434720774FD0008C3CEB /* ulib.framework in Frameworks */,
@@ -1378,7 +1376,7 @@
 		A684E38E20774ADA000F3F70 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Andreas Fink";
 				TargetAttributes = {
 					A684E39620774ADA000F3F70 = {

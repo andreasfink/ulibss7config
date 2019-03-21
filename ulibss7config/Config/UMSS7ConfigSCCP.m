@@ -39,10 +39,9 @@
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
     APPEND_CONFIG_STRING(s,@"variant",_variant);
     APPEND_CONFIG_STRING(s,@"mode",_mode);
-    APPEND_CONFIG_STRING(s,@"next-pc",_next_pc);
-    APPEND_CONFIG_STRING(s,@"next-pc1",_next_pc1);
-    APPEND_CONFIG_STRING(s,@"next-pc2",_next_pc2);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"next-pc",_next_pc);
     APPEND_CONFIG_INTEGER(s,@"ntt",_ntt);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"gt-file",_gtFiles);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -52,10 +51,9 @@
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
     APPEND_DICT_STRING(dict,@"variant",_variant);
     APPEND_DICT_STRING(dict,@"mode",_mode);
-    APPEND_DICT_STRING(dict,@"next-pc",_next_pc);
-    APPEND_DICT_STRING(dict,@"next-pc1",_next_pc1);
-    APPEND_DICT_STRING(dict,@"next-pc2",_next_pc2);
+    APPEND_DICT_ARRAY(dict,@"next-pc",_next_pc);
     APPEND_DICT_INTEGER(dict,@"ntt",_ntt);
+    APPEND_DICT_ARRAY(dict,@"gt-file",_gtFiles);
 
     return dict;
 }
@@ -66,10 +64,10 @@
     SET_DICT_FILTERED_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_STRING(dict,@"variant",_variant);
     SET_DICT_STRING(dict,@"mode",_mode);
-    SET_DICT_STRING(dict,@"next-pc",_next_pc);
-    SET_DICT_STRING(dict,@"next-pc1",_next_pc1);
-    SET_DICT_STRING(dict,@"next-pc2",_next_pc2);
+    SET_DICT_ARRAY(dict,@"next-pc",_next_pc);
     SET_DICT_INTEGER(dict,@"ntt",_ntt);
+    SET_DICT_ARRAY(dict,@"gt-file",_gtFiles);
+
 }
 
 - (UMSS7ConfigSCCP *)copyWithZone:(NSZone *)zone
