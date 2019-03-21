@@ -127,7 +127,7 @@ static void signalHandler(int signum);
 
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
-        _registry.logLevel =            UMLOG_DEBUG; /* temporary */
+        _registry.logLevel =            UMLOG_MINOR;
 
         if(_enabledOptions[@"name"])
         {
