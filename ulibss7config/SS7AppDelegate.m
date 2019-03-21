@@ -3009,7 +3009,6 @@ static void signalHandler(int signum);
 	return s;
 }
 
-
 - (void)webFormStart:(NSMutableString *)s title:(NSString *)t
 {
 	[self webHeader:s title:t];
