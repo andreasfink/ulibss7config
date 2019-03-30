@@ -739,6 +739,19 @@ else \
 -(void)sessionMAP_Close_Ind:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                     options:(NSDictionary *)xoptions
 {
+
+    SccpAddress *calling = xoptions[@"sccp-calling-address"];
+    SccpAddress *called = xoptions[@"sccp-called-address"];
+    if(called)
+    {
+        _localAddress = called;
+    }
+    if(calling)
+    {
+        _remoteAddress = calling;
+    }
+
+
     [_operationMutex lock];
     @try
     {

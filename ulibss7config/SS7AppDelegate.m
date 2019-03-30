@@ -116,7 +116,6 @@ static void signalHandler(int signum);
 		_m3ua_as_dict                   = [[UMSynchronizedDictionary alloc]init];
 		_m3ua_asp_dict                  = [[UMSynchronizedDictionary alloc]init];
 		_sccp_dict                      = [[UMSynchronizedDictionary alloc]init];
-		_sccp_destinations_dict         = [[UMSynchronizedDictionary alloc]init];
 		_webserver_dict                 = [[UMSynchronizedDictionary alloc]init];
 		_telnet_dict                    = [[UMSynchronizedDictionary alloc]init];
 		_syslog_destination_dict        = [[UMSynchronizedDictionary alloc]init];
@@ -965,10 +964,11 @@ static void signalHandler(int signum);
 			{
 				entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
 			}
+            /*
 			if(entry.routeToName)
 			{
 				entry.routeTo = [self getSCCPDestination: entry.routeToName];
-			}
+			}*/
 			[selector.routingTable addEntry:entry];
 		}
 	}
@@ -1042,8 +1042,7 @@ static void signalHandler(int signum);
 											   @"ssn"  : @(SCCP_SSN_ULIBTRANSPORT) }
 																		  variant:UMMTP3Variant_ITU];
 			[dstgrp addEntry:destination];
-			_sccp_destinations_dict[name] = dstgrp;
-
+            [sccp.gttSelectorRegistry addDestinationGroup:dstgrp];
 			/*****************************************************************************/
 			/* we add a GT route to the destination                                      */
 			/*****************************************************************************/
@@ -2133,7 +2132,6 @@ static void signalHandler(int signum);
         [sccp setConfig:config applicationContext:self];
         _sccp_dict[name] = sccp;
         sccp.sccp_number_translations_dict = _sccp_number_translations_dict;
-        sccp.sccp_destinations_dict = _sccp_destinations_dict;
     }
 }
 
@@ -2157,9 +2155,10 @@ static void signalHandler(int signum);
 #pragma mark SCCP Destinations Functions
 /************************************************************/
 
-- (SccpDestinationGroup *)getSCCPDestination:(NSString *)name
+- (SccpDestinationGroup *)getSCCPDestination:(NSString *)name sccpInstance:(NSString *)sccp_name
 {
-    return _sccp_destinations_dict[name];
+    UMLayerSCCP *sccp = [self getSCCP:sccp_name];
+    return [sccp.gttSelectorRegistry getDestinationGroupByName:name];
 }
 
 - (void)addWithConfigSCCPDestination:(NSDictionary *)config
@@ -2169,21 +2168,24 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigSCCPDestination *co = [[UMSS7ConfigSCCPDestination alloc]initWithConfig:config];
         [_runningConfig addSCCPDestination:co];
-        
+        UMLayerSCCP *sccp = [self getSCCP:co.sccp];
         SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
         [dstgrp setConfig:config applicationContext:self];
-        _sccp_destinations_dict[name] = dstgrp;
+        [sccp.gttSelectorRegistry addDestinationGroup:dstgrp];
     }
 }
 
-- (void)addWithConfigSCCPDestination:(NSDictionary *)config subConfigs:(NSArray<NSDictionary *>*)subConfigs variant:(UMMTP3Variant)variant
+- (void)addWithConfigSCCPDestination:(NSDictionary *)config
+                          subConfigs:(NSArray<NSDictionary *>*)subConfigs
+                             variant:(UMMTP3Variant)variant
 {
     NSString *name = config[@"name"];
     if(name)
     {
         UMSS7ConfigSCCPDestination *co = [[UMSS7ConfigSCCPDestination alloc]initWithConfig:config];
         [_runningConfig addSCCPDestination:co];
-        
+        UMLayerSCCP *sccp = [self getSCCP:co.sccp];
+
         SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
         [dstgrp setConfig:config applicationContext:self];
         for(NSDictionary *subConfig in subConfigs)
@@ -2193,21 +2195,26 @@ static void signalHandler(int signum);
             [dstgrp addEntry:destination];
             [co addSubEntry:coe];
         }
-        _sccp_destinations_dict[name] = dstgrp;
+        [sccp.gttSelectorRegistry addDestinationGroup:dstgrp];
     }
 }
 
-- (void)deleteSCCPDestination:(NSString *)name
+- (void)deleteSCCPDestination:(NSString *)name sccpInstance:(NSString *)sccp_name
 {
-    [_sccp_destinations_dict removeObjectForKey:name];
+    UMLayerSCCP *sccp = [self getSCCP:sccp_name];
+    [sccp.gttSelectorRegistry removeDestinationGroup:name];
 }
 
 - (void)renameSCCPDestination:(NSString *)oldName to:(NSString *)newName
 {
+    /* FIXME: this is now moved into SCCP gttSelectorRegistry */
+#if 0
+
     SccpDestinationGroup *dst =  _sccp_destinations_dict[oldName];
     [_sccp_destinations_dict removeObjectForKey:oldName];
     dst.name = newName;
     _sccp_destinations_dict[newName] = dst;
+#endif
 }
 
 /************************************************************/
@@ -2215,27 +2222,39 @@ static void signalHandler(int signum);
 #pragma mark SCCP Destination Entry Functions
 /************************************************************/
 
-- (SccpDestination *)getSCCPDestinationEntry:(NSString *)name index:(int)idx
+- (SccpDestination *)getSCCPDestinationEntry:(NSString *)name sccpName:(NSString *)sccp_name index:(int)idx
 {
+    /* FIXME: this is now moved into SCCP gttSelectorRegistry */
+#if 0
+
     SccpDestinationGroup *dst =  _sccp_destinations_dict[name];
     if(dst)
     {
         return [dst entryAtIndex:idx];
     }
+#endif
     return NULL;
 }
 
-- (void)deleteSCCPDestinationEntry:(NSString *)name
+- (void)deleteSCCPDestinationEntry:(NSString *)name sccpName:(NSString *)sccp_name
 {
+    /* FIXME: this is now moved into SCCP gttSelectorRegistry */
+#if 0
+    _registry
     [_sccp_destinations_dict removeObjectForKey:name];
+#endif
 }
 
 - (void)renameSCCPDestinationEntry:(NSString *)oldName to:(NSString *)newName
 {
+    /* FIXME: this is now moved into SCCP gttSelectorRegistry */
+
+#if 0
     SccpDestinationGroup *dst =  _sccp_destinations_dict[oldName];
     [_sccp_destinations_dict removeObjectForKey:oldName];
     dst.name = newName;
     _sccp_destinations_dict[newName] = dst;
+#endif
 }
 
 

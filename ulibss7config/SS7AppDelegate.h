@@ -86,7 +86,6 @@ UMTransportUserProtocol>
     UMSynchronizedDictionary    *_m2pa_dict;
     UMSynchronizedDictionary    *_mtp3_dict;
     UMSynchronizedDictionary    *_sccp_dict;
-    UMSynchronizedDictionary    *_sccp_destinations_dict;
     UMSynchronizedDictionary    *_sccp_number_translations_dict;
     UMSynchronizedDictionary    *_mtp3_link_dict;
     UMSynchronizedDictionary    *_mtp3_linkset_dict;

@@ -670,6 +670,7 @@
 -(void) executeMAP_Close_Ind:(UMGSMMAP_UserIdentifier *)userIdentifier
                      options:(NSDictionary *)options
 {
+
     SS7GenericSession *t = [self sessionById:userIdentifier];
     if(t==NULL)
     {
