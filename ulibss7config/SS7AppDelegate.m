@@ -104,6 +104,8 @@ static void signalHandler(int signum);
 	if(self)
 	{
         ss7_app_delegate = self;
+
+        _applicationStart = [NSDate new];
 		_enabledOptions                 = options;
 		_logHandler                     = [[UMLogHandler alloc]initWithConsole];
 		self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"main"];
@@ -136,6 +138,11 @@ static void signalHandler(int signum);
 		{
 			_msc_dict = [[UMSynchronizedDictionary alloc]init];
 		}
+        if([_enabledOptions[@"smsc"] boolValue])
+        {
+            _smsc_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+
 		if([_enabledOptions[@"hlr"] boolValue])
 		{
 			_hlr_dict = [[UMSynchronizedDictionary alloc]init];

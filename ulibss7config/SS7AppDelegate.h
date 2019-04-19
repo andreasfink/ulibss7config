@@ -102,6 +102,7 @@ UMTransportUserProtocol>
     UMSynchronizedDictionary    *_imsi_pools_dict;
     UMSynchronizedDictionary    *_hlr_dict;
     UMSynchronizedDictionary    *_msc_dict;
+    UMSynchronizedDictionary    *_smsc_dict;
     UMSynchronizedDictionary    *_vlr_dict;
     UMSynchronizedDictionary    *_eir_dict;
     UMSynchronizedDictionary    *_gsmscf_dict;
@@ -135,7 +136,7 @@ UMTransportUserProtocol>
     NSUInteger                  _queueHardLimit;
     BOOL                        _startInStandby;
 
-
+    NSDate                      *_applicationStart;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -153,6 +154,7 @@ UMTransportUserProtocol>
 @property(readwrite,strong)     UMTaskQueueMulti	*generalTaskQueue;
 @property(readwrite,strong)     NSDictionary		*staticWebPages;
 @property(readwrite,strong)     UMHTTPClient		*webClient;
+@property(readwrite,strong)     NSDate              *applicationStart;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
