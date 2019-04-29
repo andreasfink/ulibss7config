@@ -10,10 +10,15 @@
 
 @interface UMSS7ConfigSCCPFilter : UMSS7ConfigObject
 {
-    NSString *_defaultResult;
+    NSString *_filterFileName;
+    NSString *_configFileName;
+    NSString *_applicationPoint;
 }
 
-@property(readwrite,strong,atomic)      NSString *defaultResult;
+@property(readwrite,strong,atomic)          NSString *filterFileName;
+@property(readwrite,strong,atomic)          NSString *configFileName;
+@property(readwrite,strong,atomic)          NSString *applicationPoint;
+
 
 + (NSString *)type;
 - (NSString *)type;
