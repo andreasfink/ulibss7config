@@ -44,7 +44,7 @@
 @class  UMSS7ConfigGSMSCF;
 @class  UMSS7ConfigGMLC;
 @class  UMSS7ConfigSMSC;
-@class  UMSS7ConfigSMSproxy;
+@class  UMSS7ConfigSMSProxy;
 @class  UMSS7ConfigAdminUser;
 @class  UMSS7ConfigDatabasePool;
 @class UMSS7ConfigGSMSCF;

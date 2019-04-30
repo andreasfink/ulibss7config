@@ -18,8 +18,8 @@
 @class SS7GenericSession;
 
 @interface SS7GenericInstance : UMLayer<UMLayerGSMMAP_UserProtocol,
-UMHTTPServerHttpGetPostDelegate,
-UMHTTPRequest_TimeoutProtocol
+                                UMHTTPServerHttpGetPostDelegate,
+                                UMHTTPRequest_TimeoutProtocol
 /* AuthenticationDelegateProtocol */>
 {
     NSString                    *_instanceAddress;

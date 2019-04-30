@@ -110,6 +110,7 @@ UMTransportUserProtocol>
 	UMSynchronizedDictionary    *_estp_dict;
     UMSynchronizedDictionary    *_diameter_connections_dict;
     UMSynchronizedDictionary    *_dra_dict;
+    UMSynchronizedDictionary    *_smsproxy_dict;
 
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;

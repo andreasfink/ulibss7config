@@ -144,6 +144,10 @@ static void signalHandler(int signum);
         {
             _smsc_dict = [[UMSynchronizedDictionary alloc]init];
         }
+        if([_enabledOptions[@"smsproxy"] boolValue])
+        {
+            _smsproxy_dict = [[UMSynchronizedDictionary alloc]init];
+        }
 
 		if([_enabledOptions[@"hlr"] boolValue])
 		{
