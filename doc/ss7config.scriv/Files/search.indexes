@@ -702,6 +702,9 @@ Drag keywords from the panel to the inspector list to assign them to the current
 Try dragging the keyword entitled “Assign this one” from the keywords panel to the keywords list in the inspector now.
 Okay, on to “Snapshots”.</Text>
         </Document>
+        <Document ID="061A587E-23F1-412E-B4D4-8126D00CEC82">
+            <Title>m2pa</Title>
+        </Document>
         <Document ID="778656CD-ABAE-4BCF-97E4-A671D54B13AC">
             <Title>Document Links</Title>
             <Text>Document links work much like web hyperlinks, except that they link to other documents in the project.
@@ -716,9 +719,6 @@ To create a document link:
 You can also choose New Link… from Edit &gt; Link to Document to bring up a sheet that allows you to create a new document to which to link.
 Clicking on a document link opens the linked document in the other editor by default, creating a split if necessary. (Try clicking on the “split” in the previous sentence to see what I mean).
 You can change this behaviour in the “Behaviors” pane of the Preferences, choosing where you would like links opened.</Text>
-        </Document>
-        <Document ID="061A587E-23F1-412E-B4D4-8126D00CEC82">
-            <Title>m2pa</Title>
         </Document>
         <Document ID="B808BCAD-8BCD-440D-ACD7-1C502CEBEF94">
             <Title>Inline Notes</Title>

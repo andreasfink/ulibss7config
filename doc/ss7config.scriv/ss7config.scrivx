@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.1-9907" Device="macropolis" Author="Andreas Fink" Modified="2019-01-22 09:30:43 +0100" ModID="D4DAB3B0-C08B-43F6-92AE-3B4565FB5065">
+<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="macropolis" Author="Andreas Fink" Modified="2019-01-22 09:30:43 +0100" ModID="D4DAB3B0-C08B-43F6-92AE-3B4565FB5065">
     <Binder>
         <BinderItem UUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628" Type="Text" Created="2007-01-15 00:04:52 +0100" Modified="2017-12-06 17:59:26 +0100">
             <Title>START HERE</Title>
@@ -1547,11 +1547,11 @@
     <ProjectTargets Notify="No">
         <DraftTarget Type="Words" CountIncludedOnly="Yes" CurrentCompileGroupOnly="Yes" Deadline="2011-06-30 22:12:08 +0200" IgnoreDeadline="Yes">0</DraftTarget>
         <SessionTarget Type="Words" CountDraftOnly="Yes" AllowNegatives="Yes" ResetType="Time" ResetTime="00:00" DeterminedFromDeadline="No" WritingDays="" CanWriteOnDeadlineDate="No">0</SessionTarget>
-        <PreviousSession Words="48" Characters="317" Date="2019-01-22 09:24:28 +0100"/>
+        <PreviousSession Words="0" Characters="0" Date="2019-04-12 13:00:19 +0200"/>
     </ProjectTargets>
-    <RecentWritingHistory Date="2019-01-22 00:00:00 +0100">
-        <DraftWordCount>48</DraftWordCount>
-        <DraftCharCount>317</DraftCharCount>
+    <RecentWritingHistory Date="2019-04-15 00:00:00 +0200">
+        <DraftWordCount>0</DraftWordCount>
+        <DraftCharCount>0</DraftCharCount>
         <OtherWordCount>0</OtherWordCount>
         <OtherCharCount>0</OtherCharCount>
     </RecentWritingHistory>

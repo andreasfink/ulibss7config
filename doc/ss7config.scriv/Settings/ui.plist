@@ -110,8 +110,8 @@
 	</array>
 	<key>binderSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {272, 928}}</string>
-		<string>{{273, 0}, {1119, 928}}</string>
+		<string>{{0, 0}, {272, 927}}</string>
+		<string>{{273, 0}, {1119, 927}}</string>
 	</array>
 	<key>binderState</key>
 	<array>
@@ -362,7 +362,7 @@
 	<key>mainDocumentEditor.outlinerVisible</key>
 	<false/>
 	<key>mainDocumentEditor.scrollRect</key>
-	<string>{{0, 0}, {620, 842}}</string>
+	<string>{{0, 1}, {620, 841}}</string>
 	<key>mainDocumentEditor.selectedItemUUIDs</key>
 	<array/>
 	<key>mainDocumentEditor.selectedRanges</key>
@@ -387,7 +387,7 @@
 	<key>mainDocumentView</key>
 	<string>supportingDocumentEditor</string>
 	<key>mainWindowFrame</key>
-	<string>264 77 1392 950 0 0 1680 1027 </string>
+	<string>264 78 1392 949 0 0 1680 1027 </string>
 	<key>metaDataModeAutosaveName</key>
 	<integer>0</integer>
 	<key>projectStatsSheet</key>
