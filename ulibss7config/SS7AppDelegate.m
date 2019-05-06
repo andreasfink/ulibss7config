@@ -32,7 +32,6 @@
 #import "UMSS7ConfigM3UAASP.h"
 #import "UMSS7ConfigSCCP.h"
 #import "UMSS7ConfigSCCPFilter.h"
-#import "UMSS7ConfigSCCPFilterEntry.h"
 #import "UMSS7ConfigSCCPTranslationTable.h"
 #import "UMSS7ConfigSCCPTranslationTableEntry.h"
 #import "UMSS7ConfigSCCPDestination.h"
@@ -68,6 +67,7 @@
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
+#import "UMSS7ConfigDiameterConnection.h"
 #import "UMTTask.h"
 #import "UMTTaskPing.h"
 #import "UMTTaskGetVersion.h"
@@ -104,6 +104,8 @@ static void signalHandler(int signum);
 	if(self)
 	{
         ss7_app_delegate = self;
+
+        _applicationStart = [NSDate new];
 		_enabledOptions                 = options;
 		_logHandler                     = [[UMLogHandler alloc]initWithConsole];
 		self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"main"];
@@ -123,6 +125,8 @@ static void signalHandler(int signum);
 		_gsmmap_dict                    = [[UMSynchronizedDictionary alloc]init];
 		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
+        _diameter_connections_dict      = [[UMSynchronizedDictionary alloc]init];
+        _dra_dict                       = [[UMSynchronizedDictionary alloc]init];
 
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
@@ -136,6 +140,15 @@ static void signalHandler(int signum);
 		{
 			_msc_dict = [[UMSynchronizedDictionary alloc]init];
 		}
+        if([_enabledOptions[@"smsc"] boolValue])
+        {
+            _smsc_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+        if([_enabledOptions[@"smsproxy"] boolValue])
+        {
+            _smsproxy_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+
 		if([_enabledOptions[@"hlr"] boolValue])
 		{
 			_hlr_dict = [[UMSynchronizedDictionary alloc]init];
@@ -183,7 +196,7 @@ static void signalHandler(int signum);
 	return @{
 			 @"version" : @"0.0.0",
 			 @"executable" : @"ss7-app",
-			 @"copyright" : @"© 2018 Andreas Fink",
+			 @"copyright" : @"© 2019 Andreas Fink",
 			 };
 }
 

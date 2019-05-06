@@ -44,7 +44,7 @@
 @class  UMSS7ConfigGSMSCF;
 @class  UMSS7ConfigGMLC;
 @class  UMSS7ConfigSMSC;
-@class  UMSS7ConfigSMSproxy;
+@class  UMSS7ConfigSMSProxy;
 @class  UMSS7ConfigAdminUser;
 @class  UMSS7ConfigDatabasePool;
 @class UMSS7ConfigGSMSCF;
@@ -60,6 +60,7 @@
 @class UMSS7ConfigCdrWriter;
 @class UMSS7ConfigSCCPTranslationTableMap;
 @class UMSS7ConfigApiUser;
+@class UMSS7ConfigDiameterConnection;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -110,6 +111,7 @@
     UMSynchronizedDictionary *_mapi_dict;
     UMSynchronizedDictionary *_imsi_pool_dict;
     UMSynchronizedDictionary *_cdr_writer_dict;
+    UMSynchronizedDictionary *_diameter_connection_dict;
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
     NSString                 *_productName;
@@ -162,6 +164,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mapi_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *imsi_pool_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *cdr_writer_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *diameter_connection_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 @property(readwrite,assign,atomic)  BOOL dirty;
@@ -434,5 +437,12 @@
 - (NSString *)addApiUser:(UMSS7ConfigApiUser *)user;
 - (NSString *)replaceApiUser:(UMSS7ConfigApiUser *)user;
 - (NSString *)deleteApiUser:(NSString *)name;
+
+
+- (NSArray *)getDiameterConnectionNames;
+- (UMSS7ConfigDiameterConnection *)getDiameterConnection:(NSString *)name;
+- (NSString *)addDiameterConnection:(UMSS7ConfigDiameterConnection*)dc;
+- (NSString *)replaceDiameterConnection:(UMSS7ConfigDiameterConnection *)dc;
+- (NSString *)deleteDiameterConnection:(NSString *)name;
 
 @end

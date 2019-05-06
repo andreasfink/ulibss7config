@@ -25,7 +25,6 @@
 #import "UMSS7ConfigM3UAASP.h"
 #import "UMSS7ConfigSCCP.h"
 #import "UMSS7ConfigSCCPFilter.h"
-#import "UMSS7ConfigSCCPFilterEntry.h"
 #import "UMSS7ConfigSCCPTranslationTable.h"
 #import "UMSS7ConfigSCCPTranslationTableEntry.h"
 #import "UMSS7ConfigSCCPTranslationTableMap.h"
@@ -63,6 +62,7 @@
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
 #import "UMSS7ConfigApiUser.h"
+#import "UMSS7ConfigDiameterConnection.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -76,18 +76,19 @@
     _sctp_dict= [[UMSynchronizedDictionary alloc]init];
     _m2pa_dict= [[UMSynchronizedDictionary alloc]init];
     _mtp3_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_route_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _mtp3_link_dict= [[UMSynchronizedDictionary alloc]init];
     _mtp3_linkset_dict= [[UMSynchronizedDictionary alloc]init];
     _m3ua_as_dict= [[UMSynchronizedDictionary alloc]init];
     _m3ua_asp_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_filter_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_route_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_translation_table_entry_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_translation_table_entry_dict= [[UMSynchronizedDictionary alloc]init]; /* do we need this or should this be above */
     _sccp_translation_table_map_dict = [[UMSynchronizedDictionary alloc]init];
+    _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
+    _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
     _tcap_dict= [[UMSynchronizedDictionary alloc]init];
     _tcap_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _gsmmap_dict= [[UMSynchronizedDictionary alloc]init];
@@ -97,22 +98,23 @@
     _hlr_dict= [[UMSynchronizedDictionary alloc]init];
     _msc_dict= [[UMSynchronizedDictionary alloc]init];
     _vlr_dict= [[UMSynchronizedDictionary alloc]init];
+    _eir_dict= [[UMSynchronizedDictionary alloc]init];
     _gsmscf_dict= [[UMSynchronizedDictionary alloc]init];
     _gmlc_dict= [[UMSynchronizedDictionary alloc]init];
-    _eir_dict= [[UMSynchronizedDictionary alloc]init];
     _smsc_dict= [[UMSynchronizedDictionary alloc]init];
+    _smsproxy_dict= [[UMSynchronizedDictionary alloc]init];
+    _estp_dict= [[UMSynchronizedDictionary alloc]init];
     _admin_user_dict= [[UMSynchronizedDictionary alloc]init];
     _api_user_dict= [[UMSynchronizedDictionary alloc]init];
     _database_pool_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
     _service_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _service_billing_entity_dict= [[UMSynchronizedDictionary alloc]init];
     _service_user_profile_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsproxy_dict= [[UMSynchronizedDictionary alloc]init];
-    _estp_dict= [[UMSynchronizedDictionary alloc]init];
-    _mapi_dict= [[UMSynchronizedDictionary alloc]init];
+    _service_billing_entity_dict= [[UMSynchronizedDictionary alloc]init];
     _imsi_pool_dict= [[UMSynchronizedDictionary alloc]init];
     _cdr_writer_dict= [[UMSynchronizedDictionary alloc]init];
+    _diameter_connection_dict =  [[UMSynchronizedDictionary alloc]init];
+    _estp_dict= [[UMSynchronizedDictionary alloc]init];
+    _mapi_dict= [[UMSynchronizedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -230,16 +232,22 @@
     [cfg allowMultiGroup:[UMSS7ConfigSCTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigM2PA type]];
     [cfg allowMultiGroup:[UMSS7ConfigMTP3 type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3LinkSet type]];
     [cfg allowMultiGroup:[UMSS7ConfigMTP3Link type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3Route type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3LinkSet type]];
     [cfg allowMultiGroup:[UMSS7ConfigM3UAAS type]];
     [cfg allowMultiGroup:[UMSS7ConfigM3UAASP type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Filter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3FilterEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Route type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCP type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestination type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPDestinationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTable type]];
     [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableEntry type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableMap type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPFilter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigTCAP type]];
     [cfg allowMultiGroup:[UMSS7ConfigTCAPFilter type]];
     [cfg allowMultiGroup:[UMSS7ConfigTCAPFilterEntry type]];
@@ -252,23 +260,21 @@
     [cfg allowMultiGroup:[UMSS7ConfigHLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigMSC type]];
     [cfg allowMultiGroup:[UMSS7ConfigVLR type]];
+    [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigGSMSCF type]];
     [cfg allowMultiGroup:[UMSS7ConfigGMLC type]];
-    [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
+    [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigAdminUser type]];
+    [cfg allowMultiGroup:[UMSS7ConfigApiUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
-    [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigServiceUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigServiceUserProfile type]];
     [cfg allowMultiGroup:[UMSS7ConfigServiceBillingEntity type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
-    [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
-    [cfg allowMultiGroup:[UMSS7ConfigApiUser type]];
+    [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -508,20 +514,6 @@
         if(sccp_filter.name.length  > 0)
         {
             _sccp_filter_dict[sccp_filter.name] = sccp_filter;
-        }
-    }
-
-    NSArray *sccp_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPFilterEntry type]];
-    for(NSDictionary *sccp_filter_entry_config in sccp_filter_entry_configs)
-    {
-        UMSS7ConfigSCCPFilterEntry *sccp_filter_entry = [[UMSS7ConfigSCCPFilterEntry alloc]initWithConfig:sccp_filter_entry_config];
-        if(sccp_filter_entry.filter.length  > 0)
-        {
-            UMSS7ConfigSCCPFilter *filter = _sccp_filter_dict[sccp_filter_entry.filter];
-            if(filter)
-            {
-                [filter addSubEntry:sccp_filter_entry];
-            }
         }
     }
 
@@ -819,6 +811,16 @@
         }
         _cdr_writer_dict[co.name] = co;
     }
+
+    NSArray *diameter_connection_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterConnection type]];
+    for(NSDictionary *diameter_connection_config in diameter_connection_configs)
+    {
+        UMSS7ConfigDiameterConnection *dc = [[UMSS7ConfigDiameterConnection alloc]initWithConfig:diameter_connection_config];
+        if(dc.name.length  > 0)
+        {
+            _diameter_connection_dict[dc.name] = dc;
+        }
+    }
 }
 
 
@@ -906,30 +908,56 @@
 
 - (void)configStringAppendSubsections:(NSMutableString *)s
 {
-    [self appendSection:s dict:_webserver_dict sectionName:@"webserver"];
-    [self appendSection:s dict:_telnet_dict sectionName:@"telnet"];
-    [self appendSection:s dict:_syslog_destination_dict sectionName:@"syslog-destination"];
-    [self appendSection:s dict:_sctp_dict sectionName:@"sctp"];
-    [self appendSection:s dict:_m2pa_dict sectionName:@"m2pa"];
-    [self appendSection:s dict:_mtp3_dict sectionName:@"mtp3"];
-    [self appendSection:s dict:_mtp3_linkset_dict sectionName:@"mtp3-linkset"];
-    [self appendSection:s dict:_mtp3_link_dict sectionName:@"mtp3-link"];
-    [self appendSection:s dict:_m3ua_as_dict sectionName:@"m3ua-as"];
-    [self appendSection:s dict:_m3ua_asp_dict sectionName:@"m3ua-asp"];
-    [self appendSection:s dict:_mtp3_filter_dict sectionName:@"mtp3-filter"];
-    [self appendSection:s dict:_mtp3_route_dict sectionName:@"mtp3-route"];
-    [self appendSection:s dict:_sccp_dict sectionName:@"sccp"];
-    [self appendSectionWithEntries:s dict:_sccp_destination_dict sectionName:@"sccp-destination"];
-    [self appendSection:s dict:_sccp_filter_dict sectionName:@"sccp-filter"];
-    [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:@"sccp-number-translation"];
-    [self appendSectionWithEntries:s dict:_sccp_translation_table_dict sectionName:@"sccp-translation-table"];
-    [self appendSection:s dict:_tcap_dict sectionName:@"tcap"];
-    [self appendSectionWithEntries:s dict:_tcap_filter_dict sectionName:@"tcap-filter"];
-    [self appendSection:s dict:_gsmmap_dict sectionName:@"gsmmap"];
-    [self appendSectionWithEntries:s dict:_gsmmap_filter_dict sectionName:@"gsmmap-filter"];
-    [self appendSection:s dict:_sms_dict sectionName:@"sms"];
-    [self appendSectionWithEntries:s dict:_sms_filter_dict sectionName:@"sms-filter"];
-    [self appendSection:s dict:_imsi_pool_dict sectionName:@"imsi-pool"];
+    [self appendSection:s dict:_webserver_dict sectionName:[UMSS7ConfigWebserver type]];
+    [self appendSection:s dict:_telnet_dict sectionName:[UMSS7ConfigTelnet type]];
+    [self appendSection:s dict:_syslog_destination_dict sectionName:[UMSS7ConfigSyslogDestination type]];
+     [self appendSection:s dict:_sctp_dict sectionName:[UMSS7ConfigSCTP type]];
+     [self appendSection:s dict:_m2pa_dict sectionName:[UMSS7ConfigM2PA type]];
+     [self appendSection:s dict:_mtp3_dict sectionName:[UMSS7ConfigMTP3 type]];
+     [self appendSection:s dict:_mtp3_link_dict sectionName:[UMSS7ConfigMTP3Link type]];
+     [self appendSection:s dict:_mtp3_linkset_dict sectionName:[UMSS7ConfigMTP3LinkSet type]];
+     [self appendSection:s dict:_m3ua_as_dict sectionName:[UMSS7ConfigM3UAAS type]];
+     [self appendSection:s dict:_m3ua_asp_dict sectionName:[UMSS7ConfigM3UAASP type]];
+     [self appendSection:s dict:_mtp3_filter_dict sectionName:[UMSS7ConfigMTP3Filter type]];
+     /* UMSS7ConfigMTP3FilterEntry */
+     [self appendSection:s dict:_mtp3_route_dict sectionName:[UMSS7ConfigMTP3Route type]];
+     [self appendSection:s dict:_sccp_dict sectionName:[UMSS7ConfigSCCP type]];
+     [self appendSectionWithEntries:s dict:_sccp_destination_dict sectionName:[UMSS7ConfigSCCPDestination type]];
+      /* UMSS7ConfigSCCPDestinationEntry */
+      [self appendSectionWithEntries:s dict:_sccp_translation_table_dict sectionName:[UMSS7ConfigSCCPTranslationTable type]];
+      /* UMSS7ConfigSCCPTranslationTableEntry */
+      [self appendSectionWithEntries:s dict:_sccp_translation_table_map_dict sectionName:[UMSS7ConfigSCCPTranslationTableMap type]];
+      [self appendSection:s dict:_sccp_filter_dict sectionName:[UMSS7ConfigSCCPFilter type]];
+      [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:[UMSS7ConfigSCCPNumberTranslation type]];
+      /* UMSS7ConfigSCCPNumberTranslationEntry */
+      [self appendSection:s dict:_tcap_dict sectionName:[UMSS7ConfigTCAP type]];
+      [self appendSectionWithEntries:s dict:_tcap_filter_dict sectionName:[UMSS7ConfigTCAPFilter type]];
+      /* [UMSS7ConfigTCAPFilterEntry */
+      [self appendSection:s dict:_gsmmap_dict sectionName:[UMSS7ConfigGSMMAP type]];
+      [self appendSectionWithEntries:s dict:_gsmmap_filter_dict sectionName:[UMSS7ConfigGSMMAPFilter type]];
+      /* UMSS7ConfigGSMMAPFilterEntry */
+      [self appendSection:s dict:_sms_dict sectionName:[UMSS7ConfigSMS type]];
+      [self appendSectionWithEntries:s dict:_sms_filter_dict sectionName:[UMSS7ConfigSMSFilter type]];
+      /* UMSS7ConfigSMSFilterEntry */
+      [self appendSection:s dict:_hlr_dict sectionName:[UMSS7ConfigHLR type]];
+      [self appendSection:s dict:_msc_dict sectionName:[UMSS7ConfigMSC type]];
+      [self appendSection:s dict:_vlr_dict sectionName:[UMSS7ConfigVLR type]];
+      [self appendSection:s dict:_eir_dict sectionName:[UMSS7ConfigEIR type]];
+      [self appendSection:s dict:_gsmscf_dict sectionName:[UMSS7ConfigGSMSCF type]];
+      [self appendSection:s dict:_gmlc_dict sectionName:[UMSS7ConfigGMLC type]];
+      [self appendSection:s dict:_smsc_dict sectionName:[UMSS7ConfigSMSC type]];
+      [self appendSection:s dict:_smsproxy_dict sectionName:[UMSS7ConfigSMSProxy type]];
+      [self appendSection:s dict:_estp_dict sectionName:[UMSS7ConfigESTP type]];
+      [self appendSection:s dict:_admin_user_dict sectionName:[UMSS7ConfigAdminUser type]];
+      [self appendSection:s dict:_api_user_dict sectionName:[UMSS7ConfigApiUser type]];
+      [self appendSection:s dict:_database_pool_dict sectionName:[UMSS7ConfigDatabasePool type]];
+      [self appendSection:s dict:_service_user_dict sectionName:[UMSS7ConfigServiceUser type]];
+      [self appendSection:s dict:_service_user_profile_dict sectionName:[UMSS7ConfigServiceUserProfile type]];
+      [self appendSection:s dict:_service_billing_entity_dict sectionName:[UMSS7ConfigServiceBillingEntity type]];
+      [self appendSection:s dict:_imsi_pool_dict sectionName:[UMSS7ConfigIMSIPool type]];
+      [self appendSection:s dict:_cdr_writer_dict sectionName:[UMSS7ConfigCdrWriter type]];
+      [self appendSection:s dict:_diameter_connection_dict sectionName:[UMSS7ConfigDiameterConnection type]];
+
 }
 
 - (void)writeConfigToDirectory:(NSString *)dir usingFilename:(NSString *)main_config_file_name  singleFile:(BOOL)compact
@@ -3029,6 +3057,55 @@
     return @"ok";
 }
 
+
+/*
+ **************************************************
+ ** DiameterConnection
+ **************************************************
+ */
+#pragma mark -
+#pragma mark DiameterConnection
+
+- (NSArray *)getDiameterConnectionNames
+{
+    return [_diameter_connection_dict allKeys];
+}
+- (UMSS7ConfigDiameterConnection *)getDiameterConnection:(NSString *)name
+{
+    return _diameter_connection_dict [name];
+}
+
+- (NSString *)addDiameterConnection:(UMSS7ConfigDiameterConnection *)dc
+{
+    if(_diameter_connection_dict[dc.name] == NULL)
+    {
+        _diameter_connection_dict[dc.name] = dc;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceDiameterConnection:(UMSS7ConfigDiameterConnection *)dc
+{
+    _diameter_connection_dict[dc.name] = dc;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteDiameterConnection:(NSString *)name
+{
+    if(_diameter_connection_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_diameter_connection_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+
 /***************************************************/
 #pragma mark -
 
@@ -3081,6 +3158,7 @@
     n.service_billing_entity_dict = [_service_billing_entity_dict copy];
     n.service_user_profile_dict = [_service_user_profile_dict copy];
     n.smsproxy_dict = [_smsproxy_dict copy];
+    n.diameter_connection_dict = [_diameter_connection_dict copy];
     n.estp_dict = [_estp_dict copy];
     n.mapi_dict = [_mapi_dict copy];
     n.imsi_pool_dict = [_imsi_pool_dict copy];

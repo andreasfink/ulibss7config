@@ -14,6 +14,9 @@
 }
 
 + (NSString *)type;
+- (NSString *)type;
+
+- (UMSS7ConfigSCCPTranslationTableMap *)initWithConfig:(NSDictionary *)dict;
 
 @end
 

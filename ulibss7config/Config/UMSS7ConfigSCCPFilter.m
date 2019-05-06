@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigSCCPFilter.h"
-#import "UMSS7ConfigSCCPFilterEntry.h"
+//#import "UMSS7ConfigSCCPFilterEntry.h"
 #import "UMSS7ConfigMacros.h"
 
 @implementation UMSS7ConfigSCCPFilter
@@ -35,45 +35,34 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"default-result",_defaultResult);
-    for(UMSS7ConfigSCCPFilterEntry *e in _subEntries)
-    {
-        [s appendString:@"\n"];
-        [e appendConfigToString:s];
-    }
-
+    APPEND_CONFIG_STRING(s,@"file",_filterFileName);
+    APPEND_CONFIG_STRING(s,@"config",_configFileName);
+    APPEND_CONFIG_STRING(s,@"application-point",_applicationPoint);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"default-result",_defaultResult);
+    APPEND_DICT_STRING(dict,@"file",_filterFileName);
+    APPEND_DICT_STRING(dict,@"config",_configFileName);
+    APPEND_DICT_STRING(dict,@"application-point",_applicationPoint);
     return dict;
 }
 
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"default-result",_defaultResult);
+    SET_DICT_STRING(dict,@"file",_filterFileName);
+    SET_DICT_STRING(dict,@"config",_configFileName);
+    SET_DICT_STRING(dict,@"application-point",_applicationPoint);
 }
-
-- (void)setSubConfig:(NSArray *)configs
-{
-    for(NSDictionary *config in configs)
-    {
-        UMSS7ConfigSCCPFilterEntry *entry = [[UMSS7ConfigSCCPFilterEntry alloc]initWithConfig:config];
-        [_subEntries addObject:entry];
-    }
-}
-
 
 - (UMSS7ConfigSCCPFilter *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
     return [[UMSS7ConfigSCCPFilter allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
-
 
 @end
 

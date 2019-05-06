@@ -43,7 +43,6 @@
 #import "UMSS7ConfigSCCPDestination.h"
 #import "UMSS7ConfigSCCPDestinationEntry.h"
 #import "UMSS7ConfigSCCPFilter.h"
-#import "UMSS7ConfigSCCPFilterEntry.h"
 #import "UMSS7ConfigTCAP.h"
 #import "UMSS7ConfigTCAPFilter.h"
 #import "UMSS7ConfigTCAPFilterEntry.h"
