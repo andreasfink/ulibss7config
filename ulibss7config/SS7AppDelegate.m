@@ -1242,8 +1242,11 @@ static void signalHandler(int signum);
 	[s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
 	[s appendString:@"</UL>\n"];
 
+
+
 	if(umobject_object_stat_is_enabled())
 	{
+
 		[s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
 
 		NSArray *arr = umobject_object_stat(NO);
@@ -1254,13 +1257,17 @@ static void signalHandler(int signum);
 		[s appendString:@"        <th class=\"object_title\">Dealloc Count</th>\r\n"];
 		[s appendString:@"        <th class=\"object_title\">Currently Allocated</th>\r\n"];
 		[s appendString:@"    </tr>\r\n"];
-		for(UMObjectStat *entry in arr)
+		for(UMObjectStatisticEntry *entry in arr)
 		{
 			[s appendString:@"    <tr>\r\n"];
-			[s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n", entry.name];
-			[s appendFormat:@"        <td class=\"object_value\">%lld</td>\r\n",(long long)entry.alloc_count];
-			[s appendFormat:@"        <td class=\"object_value\">%lld</td>\r\n",(long long)entry.dealloc_count];
-			[s appendFormat:@"        <td class=\"object_value\">%lld</td>\r\n",(long long)entry.inUse_count];
+			long long allocCounter = entry.allocCounter;
+			long long deallocCounter = entry.deallocCounter;
+			long long inUseCounter 	 =  entry.inUseCounter;
+
+			[s appendFormat:@"        <td class=\"smsc_value\">%s</th>\r\n", entry.name];
+			[s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",allocCounter];
+			[s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",deallocCounter];
+			[s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",inUseCounter];
 			[s appendString:@"    </tr>\r\n"];
 
 		}
