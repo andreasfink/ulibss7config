@@ -21,7 +21,7 @@
     self = [super init];
     if(self)
     {
-        _uidMutex = [[UMMutex alloc]init];
+        _uidMutex = [[UMMutex alloc]initWithName:@"SS7AppTransportHandler_uidMutex"];
         int concurrentThreads = ulib_cpu_count() * 2;
         UMTaskQueueMulti *tq = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentThreads
                                                                            name:@"app-transport-queue"
