@@ -183,7 +183,7 @@ static void signalHandler(int signum);
             _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
 		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
-		_umtransportLock = [[UMMutex alloc]init];
+        _umtransportLock = [[UMMutex alloc]initWithName:@"SS7AppDelegate_umtransportLock"];
 		_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
 		_pendingUMT = [[UMSynchronizedDictionary alloc]init];
 

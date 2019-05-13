@@ -31,9 +31,9 @@
 {
     _sessions = [[UMSynchronizedDictionary alloc]init];
     _timeoutInSeconds = 80;
-    _operationMutex = [[UMMutex alloc]initWithName:@"operation-mutext"];
-    _uidMutex = [[UMMutex alloc]init];
-    _housekeeping_lock = [[UMMutex alloc]init];
+    _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_operationMutext"];
+    _uidMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_uidMutex"];
+    _housekeeping_lock = [[UMMutex alloc]initWithName:@"SS7GenericInstance_housekeepingLock"];
     _houseKeepingTimerRun = [[UMAtomicDate alloc]init];
     _houseKeepingTimer = [[UMTimer alloc]initWithTarget:self
                                                selector:@selector(housekeeping)
@@ -79,8 +79,8 @@
     {
         _sessions = [[UMSynchronizedDictionary alloc]init];
         _timeoutInSeconds = 80;
-        _operationMutex = [[UMMutex alloc]init];
-        _uidMutex = [[UMMutex alloc]init];
+        _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_operationMutex"];
+        _uidMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_uidMutex"];
         _houseKeepingTimerRun = [[UMAtomicDate alloc]init];
         _houseKeepingTimer = [[UMTimer alloc]initWithTarget:self
                                                    selector:@selector(housekeeping)

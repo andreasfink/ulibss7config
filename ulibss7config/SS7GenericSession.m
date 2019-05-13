@@ -190,7 +190,7 @@ else \
     _lastActiveTime = [[UMAtomicDate alloc]initWithDate:_startTime];
     self.logFeed = inst.logFeed;
     _logLevel = UMLOG_MAJOR;
-    _operationMutex = [[UMMutex alloc]init];
+    _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericSession_operationMutex"];
     _historyLog = [[UMHistoryLog alloc]init];
     _outputFormat = OutputFormat_json;
 }
