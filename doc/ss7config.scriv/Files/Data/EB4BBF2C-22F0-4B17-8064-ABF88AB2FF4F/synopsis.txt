@@ -1,1 +1,0 @@
-How to switch between the editor, corkboard and outliner, and how to view multiple documents as though they were a single text.

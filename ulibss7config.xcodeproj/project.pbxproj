@@ -436,6 +436,7 @@
 		A63DBFC720887E0A00CA6871 /* UMSS7ConfigGMLC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigGMLC.m; sourceTree = "<group>"; };
 		A63DBFCA2088892400CA6871 /* UMSS7ConfigEIR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigEIR.h; sourceTree = "<group>"; };
 		A63DBFCB2088892400CA6871 /* UMSS7ConfigEIR.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigEIR.m; sourceTree = "<group>"; };
+		A63EF6BA228D981F00E4F190 /* ss7config.scriv */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ss7config.scriv; sourceTree = "<group>"; };
 		A67B8BE421CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSCCPTranslationTableMap.h; sourceTree = "<group>"; };
 		A67B8BE521CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPTranslationTableMap.m; sourceTree = "<group>"; };
 		A684E39720774ADA000F3F70 /* ulibss7config.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ulibss7config.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -744,9 +745,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A63EF6B9228D981F00E4F190 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				A63EF6BA228D981F00E4F190 /* ss7config.scriv */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
 		A684E38D20774ADA000F3F70 = {
 			isa = PBXGroup;
 			children = (
+				A63EF6B9228D981F00E4F190 /* doc */,
 				A6BC434520774FB6008C3CEB /* Frameworks */,
 				A684E39920774ADA000F3F70 /* ulibss7config */,
 				A684E3A420774ADB000F3F70 /* ulibss7configTests */,

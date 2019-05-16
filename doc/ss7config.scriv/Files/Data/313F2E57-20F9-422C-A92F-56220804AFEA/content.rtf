@@ -1,0 +1,175 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Roman;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Bold;\f4\fnil\fcharset0 Menlo-Italic;}
+{\colortbl;\red255\green255\blue255;\red16\green133\blue214;}
+{\*\expandedcolortbl;;\csgenericrgb\c6275\c52157\c83922;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb300\sa120\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 <$Scr_H::1><$Scr_Ps::0>
+\f1\b\fs36 SS7 Filter Rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 <!$Scr_H::1><$Scr_Cs::2><!$Scr_Ps::0><$Scr_Ps::1>
+\f2\fs22 group = 
+\f3\b ss7-filte-rule
+\f2\b0 \
+name = 
+\f4\i \{object-name\}\
+
+\f2\i0 description = 
+\f4\i \{text\}
+\f2\i0 \
+status = 
+\f4\i \{ on | off |\'a0monitor \}\
+
+\f2\i0 engine = 
+\f4\i \{name-of-filter-engine\}
+\f2\i0 \
+pass-action = \{name-of-filter-action\}\
+drop-action = \{name-of-filter-action\}\
+reroute-action = \{name-of-filter-action\}\
+log-action = \{name-of-filter-action\}\
+engine-config = \{config\}\
+\
+Defalt values for the actions are \'93pass\'94, \'93drop\'94, \'93reroute\'94,\'94log\'94 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Cs::2><!$Scr_Ps::1>
+\f1\fs28 As API calls\
+To add a new filtering rule
+\f2\fs22 \
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/filter-rule-add?name=
+\f4\i \{name\}\
+	
+\f2\i0 &description=
+\f4\i \{description\}
+\f2\i0 &status=
+\f4\i \{status\}\
+
+\f2\i0 	&engine=
+\f4\i \{name-of-engine\}\
+	
+\f2\i0 &pass-action=
+\f4\i \{name-of-filter-action\}\
+	
+\f2\i0 &drop-action=
+\f4\i \{name-of-filter-action\}\
+	
+\f2\i0 &reroute-action=
+\f4\i \{name-of-filter-action\}\
+	
+\f2\i0 &log-action=
+\f4\i \{name-of-filter-action\}\
+	
+\f2\i0 &engine-config=
+\f4\i \{config\}
+\f2\i0 \
+\
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To remove a filtering rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/ss7-filter-rule-delete?name=
+\f4\i \{name\}
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To activate a rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/ss7-filter-rule-modify?name=
+\f4\i \{name\}
+\f2\i0 &status=
+\f0\fs24 <$Scr_Cs::2>
+\f4\i\fs22 on\
+
+\f0\i0\fs24 <!$Scr_Cs::2>
+\f2\fs22 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To deactivate a rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/ss7-filter-rule-modify?name=
+\f4\i \{name\}
+\f2\i0 &status=
+\f0\fs24 <$Scr_Cs::2>
+\f4\i\fs22 off\
+\
+
+\f0\i0\fs24 <!$Scr_Cs::2>
+\f2\fs22 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To put rule in monitoring mode\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/ss7-filter-rule-modify?name=
+\f4\i \{name\}
+\f2\i0 &status=
+\f0\fs24 <$Scr_Cs::2>
+\f4\i\fs22 monitor\
+
+\f0\i0\fs24 <!$Scr_Cs::2>
+\f2\fs22 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To read the list of  known rules in the config\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/ss7-filter-rule-list\
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To read the current rules config\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/ss7-filter-rule-read?name=
+\f4\i \{name\}
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To read the current rule status\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/filter-rule-status?name=
+\f4\i \{name\}
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f1\fs28 To send an action to the rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <$Scr_Ps::1>
+\f2\fs22 /api/filter-rule-action?name=
+\f4\i \{name\}&action=\{action\}
+\f2\i0 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!$Scr_Ps::1>
+\f2\fs22 \
+}

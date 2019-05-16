@@ -1,1 +1,0 @@
-Open documents in more splits and in other windows.

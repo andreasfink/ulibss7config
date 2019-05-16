@@ -32,34 +32,6 @@
 	<real>1</real>
 	<key>QRPanelSettings</key>
 	<dict>
-		<key>D4509A7C-2354-48F1-9908-9439E1F7E866</key>
-		<dict>
-			<key>BinderUUID</key>
-			<string>D4509A7C-2354-48F1-9908-9439E1F7E866</string>
-			<key>CurrentMetaData</key>
-			<integer>-1</integer>
-			<key>MainPaneWidth</key>
-			<real>475</real>
-			<key>ShowsFormatBar</key>
-			<true/>
-			<key>ShowsMetaData</key>
-			<false/>
-			<key>SplitInfo</key>
-			<array>
-				<string>{{0, 277}, {475, 167}}</string>
-			</array>
-			<key>TextSettings</key>
-			<dict>
-				<key>hasMultiplePages</key>
-				<false/>
-				<key>textScaleFactor</key>
-				<real>1</real>
-				<key>usesFacingPages</key>
-				<false/>
-			</dict>
-			<key>WindowFrame</key>
-			<string>1042 693 475 522 0 0 2560 1417 </string>
-		</dict>
 		<key>D6A13B52-F190-4530-9C60-7D4C6DCDE628</key>
 		<dict>
 			<key>BinderUUID</key>
@@ -134,9 +106,19 @@
 	<dict>
 		<key>hasMultiplePages</key>
 		<false/>
+		<key>isRulerVisible</key>
+		<false/>
+		<key>lineNumberingInterval</key>
+		<integer>1</integer>
+		<key>showsLineNumbers</key>
+		<false/>
+		<key>textFocusMode</key>
+		<integer>0</integer>
 		<key>textScaleFactor</key>
 		<real>1</real>
 		<key>usesFacingPages</key>
+		<false/>
+		<key>usesTypewriterScrolling</key>
 		<false/>
 	</dict>
 	<key>bookmarksSelection</key>
@@ -147,6 +129,16 @@
 		<integer>0</integer>
 		<key>E7DB0738-0BBB-4E6B-B7FB-64227742B570</key>
 		<integer>0</integer>
+	</dict>
+	<key>bookmarksSelectionInfo</key>
+	<dict>
+		<key>Project</key>
+		<dict>
+			<key>DocID</key>
+			<string>D6A13B52-F190-4530-9C60-7D4C6DCDE628</string>
+			<key>Row</key>
+			<integer>0</integer>
+		</dict>
 	</dict>
 	<key>closedSuccessfully</key>
 	<true/>
@@ -251,7 +243,7 @@
 	<integer>4</integer>
 	<key>inspectorSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {336, 918}}</string>
+		<string>{{0, 0}, {384, 917}}</string>
 	</array>
 	<key>inspectorSynopsisIsCollapsed</key>
 	<false/>
@@ -259,6 +251,8 @@
 	<real>227</real>
 	<key>lastDocumentSplitType</key>
 	<integer>0</integer>
+	<key>mainDocumentEditor.PDFAutoScales</key>
+	<false/>
 	<key>mainDocumentEditor.QTBackTrack</key>
 	<false/>
 	<key>mainDocumentEditor.binderDocuments</key>
@@ -362,7 +356,7 @@
 	<key>mainDocumentEditor.outlinerVisible</key>
 	<false/>
 	<key>mainDocumentEditor.scrollRect</key>
-	<string>{{0, 1}, {620, 841}}</string>
+	<string>{{0, 0}, {620, 841}}</string>
 	<key>mainDocumentEditor.selectedItemUUIDs</key>
 	<array/>
 	<key>mainDocumentEditor.selectedRanges</key>
@@ -387,7 +381,7 @@
 	<key>mainDocumentView</key>
 	<string>supportingDocumentEditor</string>
 	<key>mainWindowFrame</key>
-	<string>264 78 1392 949 0 0 1680 1027 </string>
+	<string>468 108 1392 949 0 0 1920 1057 </string>
 	<key>metaDataModeAutosaveName</key>
 	<integer>0</integer>
 	<key>projectStatsSheet</key>

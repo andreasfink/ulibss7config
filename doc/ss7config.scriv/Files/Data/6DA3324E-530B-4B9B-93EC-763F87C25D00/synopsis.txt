@@ -1,1 +1,0 @@
-View two documents alongside one another.

@@ -1,0 +1,44 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Calibri;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\deftab593
+\pard\pardeftab593\partightenfactor0
+
+\f0\fs24 \cf0 Terminology\
+\
+A 
+\b filter-engine
+\b0  is a piece of code which can do certain type of filtering.\
+\
+A 
+\b filter-config
+\b0  is a set of parameters which configure a filter-engine. Filter-config are specific to the engine type while they share some common parameters.\
+\
+A 
+\b filter-rule
+\b0  is a combination of a filter-engine with a specific filter-config\
+\
+A 
+\b filter-set
+\b0  is a list of filter-rules in a specific order.\
+\
+An 
+\b application-point
+\b0  is the point in the message flow where the filters are being placed on. It can be on a specific inbound link or on a specific outbound link or in the routing phase.\
+\
+A 
+\b filter-action
+\b0  is a trigger which is telling  the system what to do with this packet. Some filter-actions are exclusive (like route it to a specific output port) some could be applicable multiple times such as send a copy of the packet to a debug log A and to debug log B.\
+\
+\
+A 
+\b named-list 
+\b0 is a list of items with a name. Such a list can be used in multiple places for multiple different types.\
+For example you can make a list of specific numbers to monitor and refer to this list in multiple places through its name.\
+\
+When a filter-set is put into action at an application-point, then the sequence of filter-rules is being processed and filter-actions are being collected and applied along the way.\
+\
+\
+The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.\
+}
