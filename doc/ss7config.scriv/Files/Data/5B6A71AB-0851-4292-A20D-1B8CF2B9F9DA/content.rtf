@@ -6,7 +6,7 @@
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb300\sa120\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf2 <$Scr_H::1><$Scr_Ps::0>
-\f1\b\fs36 SS7 Filter Action\
+\f1\b\fs36 SS7 Filter Action List\
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\b0\fs24 \cf0 <!$Scr_H::1><!$Scr_Ps::0>
@@ -16,25 +16,27 @@ In the config file:\
 
 \f0\fs24 \cf0 <$Scr_Cs::2><$Scr_Ps::1>
 \f2\fs22 group = 
-\f3\b ss7-filte-action
+\f3\b ss7-filte-action-list
 \f2\b0 \
 name = 
 \f4\i \{object-name\}\
-\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
-\f0\i0\fs24 \cf0 <!$Scr_Cs::2>
-\f2\fs22 action = 
-\f4\i \{ \'93pass\'94 | \'93drop\'94 | \'93log\'94 \\ \'93reroute\'94 \}
-\f2\i0 \
+\f0\i0\fs24 <!$Scr_Cs::2>
+\f2\fs22 action = \{ \'93pass\'94 | \'93drop\'94 | \'93abort\'94 | \'93reject\'94 | \'93error\'94 | \'93continue\'94 | \'93log\'94  |\'a0\'93reroute\'94 | \'93set-category\'94 | \'93clear-category\'94 \}\
 log = 
-\f4\i \{ss7-logfile-object-name\}
+\f4\i \{ss7-logfile-object-name\}\
+
+\f2\i0 error
+\f4\i  = \{errorcode\}
 \f2\i0 \
-reroute =  \{sccp-destination-name\}\
+reroute-destination =  \{sccp-destination-name\}\
+reroute-called-address = \{new-sccp-called-address\}\
+reroute-called-address-prefix = \{new-sccp-called-address-prefix\}\
+category = \{category-name\}\
 description = \{text\}\
 \
-\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 <$Scr_Cs::2>
+\f0\fs24 <$Scr_Cs::2>
 \f2\fs22 \
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
@@ -45,21 +47,23 @@ To add a new filter-action
 \pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f2\fs22 /api/ss7-filter-action-add?name=
+\f2\fs22 /api/ss7-filter-actionlist-add?name=
 \f4\i \{name\}\
 	
 \f2\i0 &action=
 \f4\i \{ \'93pass\'94 | \'93drop\'94 | \'93log\'94 \\ \'93reroute\'94 \}
 \f2\i0 \
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
-\f4\i 	
+\f4\i \cf0 	
 \f2\i0 &log=
 \f4\i \{ss7-logfile-object-name\}
 \f2\i0 \
 
 \f4\i 	
 \f2\i0 &reroute=
-\f4\i \{sccp-destination-name\}
+\f4\i \{sccp-destination-name\}\
+	&category=\{category-name\}
 \f2\i0 \
 \
 \
@@ -70,7 +74,7 @@ To add a new filter-action
 \pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f2\fs22 /api/ss7-filter-action-delete?name=
+\f2\fs22 /api/ss7-filter-actionlist-delete?name=
 \f4\i \{name\}
 \f2\i0 \
 \
@@ -81,9 +85,10 @@ To add a new filter-action
 \pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f2\fs22 /api/ss7-filter-action-list\
+\f2\fs22 /api/ss7-filter-actionlist-list\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
-\f1\fs28 \
+\f1\fs28 \cf0 \
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <!$Scr_Ps::1>
@@ -91,7 +96,7 @@ To add a new filter-action
 \pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f2\fs22 /api/ss7-filter-action-read?name=
+\f2\fs22 /api/ss7-filter-actionlist-read?name=
 \f4\i \{name\}
 \f2\i0 \
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
@@ -103,7 +108,7 @@ To add a new filter-action
 \pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f2\fs22 /api/filter-action-status?name=
+\f2\fs22 /api/filter-actionlist-status?name=
 \f4\i \{name\}
 \f2\i0 \
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
@@ -115,7 +120,7 @@ To add a new filter-action
 \pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
-\f2\fs22 /api/filter-action-action?name=
+\f2\fs22 /api/filter-actionlist-action?name=
 \f4\i \{name\}&action=\{action\}
 \f2\i0 \
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0

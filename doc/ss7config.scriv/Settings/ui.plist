@@ -82,8 +82,8 @@
 	</array>
 	<key>binderSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {272, 927}}</string>
-		<string>{{273, 0}, {1119, 927}}</string>
+		<string>{{0, 0}, {272, 667}}</string>
+		<string>{{273, 0}, {1107, 667}}</string>
 	</array>
 	<key>binderState</key>
 	<array>
@@ -172,7 +172,7 @@
 	<false/>
 	<key>editorSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {859, 380}}</string>
+		<string>{{0, 0}, {1107, 318}}</string>
 	</array>
 	<key>editorSplitType</key>
 	<integer>0</integer>
@@ -381,7 +381,7 @@
 	<key>mainDocumentView</key>
 	<string>supportingDocumentEditor</string>
 	<key>mainWindowFrame</key>
-	<string>468 108 1392 949 0 0 1920 1057 </string>
+	<string>483 368 1380 689 0 0 1920 1057 </string>
 	<key>metaDataModeAutosaveName</key>
 	<integer>0</integer>
 	<key>projectStatsSheet</key>

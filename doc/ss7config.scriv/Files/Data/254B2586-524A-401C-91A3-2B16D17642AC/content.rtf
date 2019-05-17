@@ -17,7 +17,10 @@ name =
 \f4\i \{object-name\}\
 
 \f2\i0 description = 
-\f4\i \{text\}
+\f4\i \{text\}\
+
+\f2\i0 filter-set = 
+\f4\i \{object-name\}
 \f2\i0 \
 status = 
 \f4\i \{ on | off |\'a0monitor \}\
@@ -49,6 +52,12 @@ To add a new filtering rule
 \f4\i \{description\}
 \f2\i0 &status=
 \f4\i \{status\}\
+   &
+\f0\i0\fs24 <$Scr_Cs::2>
+\f2\fs22 filter-set = 
+\f4\i \{object-name\}
+\f0\i0\fs24 <!$Scr_Cs::2>
+\f4\i\fs22 \
 
 \f2\i0 	&engine=
 \f4\i \{name-of-engine\}\
@@ -78,7 +87,7 @@ To add a new filtering rule
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
 \f2\fs22 /api/ss7-filter-rule-delete?name=
-\f4\i \{name\}
+\f4\i \{name\}&filter-set=\{name\}
 \f2\i0 \
 \
 \pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
@@ -89,7 +98,7 @@ To add a new filtering rule
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
 \f2\fs22 /api/ss7-filter-rule-modify?name=
-\f4\i \{name\}
+\f4\i \{name\}&filter-set=\{name\}
 \f2\i0 &status=
 \f0\fs24 <$Scr_Cs::2>
 \f4\i\fs22 on\
@@ -104,7 +113,7 @@ To add a new filtering rule
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
 \f2\fs22 /api/ss7-filter-rule-modify?name=
-\f4\i \{name\}
+\f4\i \{name\}&filter-set=\{name\}
 \f2\i0 &status=
 \f0\fs24 <$Scr_Cs::2>
 \f4\i\fs22 off\
@@ -120,7 +129,7 @@ To add a new filtering rule
 
 \f0\fs24 \cf0 <$Scr_Ps::1>
 \f2\fs22 /api/ss7-filter-rule-modify?name=
-\f4\i \{name\}
+\f4\i \{name\}&filter-set=\{name\}
 \f2\i0 &status=
 \f0\fs24 <$Scr_Cs::2>
 \f4\i\fs22 monitor\

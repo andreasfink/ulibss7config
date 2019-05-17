@@ -299,8 +299,8 @@
 <hr class="afterTitle"/>
 <ul>
 <li>
-<p class="itemTextStart">Terminology</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemTitle">Terminology</p>
+<p class="itemText">Terminology</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">A filter-engine is a piece of code which can do certain type of filtering.</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p1"><span class="s1">A filter-config is a set of parameters which configure a filter-engine. Filter-config are specific to the engine type while they share some common parameters.</span></p></p>
@@ -309,7 +309,7 @@
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p1"><span class="s1">A filter-set is a list of filter-rules in a specific order.</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">An application-point is the point in the message flow where the filters are being placed on. It can be on a s...</p>
+<p class="itemText"><p class="p1"><span class="s1">An application-point is the point in the message flow where the filters are being placed on. It can be on a sp...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-staging-area</p>
@@ -335,7 +335,7 @@
 <p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-engine</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">name = {object-name}<br></p>
-<p class="itemText">file = {filename}<br></p>
+<p class="itemText">filename = {filename}<br></p>
 <p class="itemText">enable = {boolean}</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
@@ -353,7 +353,7 @@
 <p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-modify?name={name}&amp;enable=NO</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p1"><span class="s1">To list the current engine names</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-...</p>
+<p class="itemText"><p class="p1"><span class="s1">/api/...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-rule</p>
@@ -377,30 +377,52 @@
 <p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;description={description}&amp;stat...</p>
 </li>
 <li>
-<p class="itemTitle">ss7-filter-action</p>
-<p class="itemText">SS7 Filter Action</span></p></p>
+<p class="itemTitle">ss7-filter-action-list</p>
+<p class="itemText">SS7 Filter Action List</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-action</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-action-list</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">action = { “pass” | “drop” | “log” \ “reroute” }</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">action = { “pass” | “drop” | “abort” | “reject” | “error” | “continue” | “log”<span class="Apple-converted-space">  </span>| “reroute” | “set-category” | “clear-category” }</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">log = {ss7-logfile-object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">reroute =<span class="Apple-converted-space">  </span>{sccp-destination-name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">error = {errorcode}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">reroute-destination =<span class="Apple-converted-space">  </span>{sccp-destination-name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">reroute-called-address = {new-sccp-called-address}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">reroute-called-address-prefix = {new-sccp-called-address-prefix}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">category = {category-name}</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new filter-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-action-add?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;action={ “pass” | “drop” | “log” \ “reroute” }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;log={ss7-logfile-object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;reroute={sccp-destination-name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">As API cal...</p>
+</li>
+<li>
+<p class="itemTitle">builtin-ss7-filter-actions</p>
+<p class="itemText">Built in SS7 Filter Actions</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">There are several predefined actions.</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">pass<span class="Apple-converted-space"> </span></span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset procesing is stopped and the packet is forwarded normally</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To remove a filter-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-action-delete?name={name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">drop</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To list all...</p>
+<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset procesisng is stopped and the packet is dropped.</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">abort</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset processing is stopped and a tcap abort message is sent back.</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">reject</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset processing is stopped and a tcap end with a gsmmap reject message is sent back.</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">error(errorcode)</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset processing is stopped...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-log-file</p>
@@ -431,6 +453,59 @@
 <p class="itemText"><p class="p1"><span class="s1">To stop logging</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">/api/ss7-log-file...</p>
 </li>
+<li>
+<p class="folderTitle">engine-blacklist</p>
+</li>
+<hr class="afterTitle"/>
+<ul>
+<li>
+<p class="itemTitle">ss7-filter-engine-blacklist</p>
+<p class="itemText">SS7 Filter engine “blacklist”</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">The configuration of the blacklist engine is a json dictionary with the following objects</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>category = {category}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>categories = {category1,category2,….}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom1 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom2 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom3 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom4 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom5 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom6 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom7 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom8 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom9 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom10 = {value}</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code = {int}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code-list = {named-list}</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context = {int}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-contex...</p>
+</li>
+<li>
+<p class="itemTitle">ss7-filter-engine-sms</p>
+<p class="itemText">SS7 Filter engine “sms”</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">The configuration of the sms engine is a json dictionary with the following fileds</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>category = {category}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>categories = {category1,category2,….}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom1 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom2 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom3 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom4 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom5 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom6 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom7 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom8 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom9 = {value}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom10 = {value}</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code = {int}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code-list = {named-list}</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context = {int}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context-list = {name...</p>
+</li>
+</ul>
 </ul>
 </ul>
 
