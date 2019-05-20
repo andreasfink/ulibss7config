@@ -1,0 +1,133 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Bold;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Bold;\f4\fnil\fcharset0 Menlo-Italic;\f5\froman\fcharset0 Palatino-Roman;
+}
+{\colortbl;\red255\green255\blue255;\red16\green133\blue214;}
+{\*\expandedcolortbl;;\csgenericrgb\c6275\c52157\c83922;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb300\sa120\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 <$Scr_H::1>
+\f1\b\fs36 SS7 Filter Ruleset\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 <!$Scr_H::1>
+\f2\fs22 group = 
+\f3\b ss7-filte-ruleset\
+
+\f2\b0 name = 
+\f4\i \{object-name\}
+\f2\i0 \
+description = 
+\f4\i \{text\}\
+
+\f2\i0 status = 
+\f4\i \{ on | off |\'a0monitor \}
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 As API calls\
+To add a new filtering ruleset
+\f2\fs22 \
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+\cf0 /api/filter-ruleset-add?name = 
+\f4\i \{object-name\}\
+	
+\f2\i0 &description=
+\f4\i \{description\}\
+   
+\f2\i0 &status=
+\f4\i \{status\}\
+
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 To remove a filtering ruleset\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/ss7-filter-ruleset-delete?
+\f4\i name=\{name\}
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 To activate a rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/ss7-filter-ruleset-modify?
+\f4\i name=\{name\}\
+	
+\f2\i0 &status=
+\f4\i on\
+\
+This switches all individual filtering rules to status on.\
+
+\f2\i0 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 To deactivate a rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/ss7-filter-ruleset-modify?
+\f4\i name=\{name\}
+\f2\i0 &status=
+\f4\i off\
+\
+This switches all individual filtering rules to status pff.\
+
+\f2\i0 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 To put rule in monitoring mode\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/ss7-filter-ruleset-modify?
+\f4\i name=\{name\}
+\f2\i0 &status=
+\f4\i monitor\
+
+\f2\i0 \
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f4\i \cf0 This switches all individual filtering rules to status pff.\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\i0 \cf0 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 In monitor mode, all actions do take the monitor-action-list instead of the active-action-list. If status is set to off, the bypass-action-list is taken which defaults to continue.\
+To read the list of  known rulesets in the config\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/ss7-filter-ruleset-list\
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 To read the current ruleset config\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/ss7-filter-ruleset-read?
+\f4\i name=\{name\}
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 To read the current rule status\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/filter-ruleset-status?
+\f4\i name=\{name\}
+\f2\i0 \
+\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f5\fs28 \cf0 To send an action to the rule\
+\pard\tx720\tx1080\tx1440\tx1800\tx2160\li720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf0 /api/filter-ruleset-action?
+\f4\i name=\{name\}&action=\{action\}
+\f2\i0 \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+\cf0 \
+}
