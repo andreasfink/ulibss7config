@@ -131,7 +131,6 @@
     return [self initWithFileName:NULL];
 }
 
-
 - (void)touch
 {
     _dirty = YES;

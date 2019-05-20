@@ -11,6 +11,7 @@
 @interface UMSS7ConfigSS7FilterEngine : UMSS7ConfigObject
 {
 	NSString *_filename;
+    UMPluginHandler *_pluginHandler;
 }
 
 @property(readwrite,strong,atomic)	NSString *filename;
