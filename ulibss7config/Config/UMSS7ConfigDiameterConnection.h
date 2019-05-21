@@ -6,7 +6,7 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/ulibss7config.h>
+#import "UMSS7ConfigObject.h"
 
 
 @interface UMSS7ConfigDiameterConnection : UMSS7ConfigObject

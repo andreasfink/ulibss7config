@@ -95,10 +95,58 @@ To send an action to the filter action
 
 </Text>
         </Document>
-        <Document ID="3BE2E524-FBE2-4E4C-BBB8-7015A3A780DB">
-            <Title>Name &amp; Address in Templates</Title>
-            <Text>Some project templates use information from Contacts to populate title pages with your name and address. By default, it takes this information from “My Card” in Contacts. If you would like Scrivener to use a different Contacts card, simply type “(Scrivener:UseMe)” (with no spaces and including the parentheses) somewhere in the “note” area of the entry in Contacts you wish to use.
-Even easier: Go to Scrivener &gt; Preferences and enter your details in the “Author Information” section of the “General” pane.</Text>
+        <Document ID="34DF7338-9EA3-45FA-AD07-133E8AC4F870">
+            <Title>builtin-ss7-filter-actions</Title>
+            <Text>Built in SS7 Filter Actions
+
+There are several predefined actions.
+
+	pass	
+
+the filtering ruleset procesing is stopped and the packet is forwarded normally
+
+
+	drop
+
+the filtering ruleset procesisng is stopped and the packet is dropped.
+
+
+	abort
+
+the filtering ruleset processing is stopped and a tcap abort message is sent back.
+
+
+	reject
+
+the filtering ruleset processing is stopped and a tcap end with a gsmmap reject message is sent back.
+
+	error(errorcode)
+
+the filtering ruleset processing is stopped and a tcap end with a gsmmap ReturnError message is sent back with an indicated eror
+
+	continue
+
+the filtering ruleset is continued on the next filtering rule.
+
+	log(logfile)
+
+the packet is logged to the indicated logfile object.
+
+	reroute(destination,new-called-address)
+
+the packet is rerouted to another destination and the called address is replaced if set.
+
+	add-tag(tag)
+	clear-tag(tag)
+	clear-all-tags
+
+the tag is set or cleared. Note a packet can have multiple tags.  clear-all-tags would clear them all;                              
+
+
+	set-custom(customvar,value)
+
+sets a custom field to a specific value.
+</Text>
         </Document>
         <Document ID="CEEBA583-25B7-4CBC-964C-1D8118AE1D68">
             <Title>Inserting Images</Title>
@@ -167,6 +215,31 @@ If heartbeat is set to a value above 0, the SCTP layer is instructed to run a he
 mtu = {bytes}
 If mtu is set, the maximum packet size for outgoing IP packets is set to this value. Normally it is automatically negotiated. setting this value actually</Text>
         </Document>
+        <Document ID="B6AB4BEE-9C02-494E-9CFA-C27CBF9EC34B">
+            <Text>Terminology
+
+A filter-engine is a piece of code which can do certain type of filtering.
+
+A filter-config is a set of parameters which configure a filter-engine. Filter-config are specific to the engine type while they share some common parameters.
+
+A filter-rule is a combination of a filter-engine with a specific filter-config
+
+A filter-set is a list of filter-rules in a specific order.
+
+An application-point is the point in the message flow where the filters are being placed on. It can be on a specific inbound link or on a specific outbound link or in the routing phase.
+
+A filter-action is a trigger which is telling  the system what to do with this packet. Some filter-actions are exclusive (like route it to a specific output port) some could be applicable multiple times such as send a copy of the packet to a debug log A and to debug log B.
+
+
+A named-list is a list of items with a name. Such a list can be used in multiple places for multiple different types.
+For example you can make a list of specific numbers to monitor and refer to this list in multiple places through its name.
+
+When a filter-set is put into action at an application-point, then the sequence of filter-rules is being processed and filter-actions are being collected and applied along the way.
+
+
+The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.
+</Text>
+        </Document>
         <Document ID="F3AFB259-EAF0-4413-8466-484C3829A913">
             <Title>Default Formatting</Title>
             <Text>Changing the Default Formatting for New Documents
@@ -189,49 +262,6 @@ Setting the default formatting in the Preferences or Project Settings has no eff
 	1.	In the binder, select the documents you want to update.
 	2.	From the main menu, select Documents &gt; Convert &gt; Text to Default Formatting…
 	3.	Check the options in the panel that appears and then click “OK”.
-</Text>
-        </Document>
-        <Document ID="2C374A60-A214-4EC8-B992-D22EC23805C6">
-            <Title>ss7-log-file</Title>
-            <Text>SS7 Log File
-
-In the config file:
-group = ss7-log-file
-name = {object-name}
-file = {filename}
-format = { pcap | text }
-rotate-minutes = {minutes}
-rotate-packets = {packets-count}
-enable = {boolean}
-
-
-As API calls
-To add a new log file object
-/api/ss7-log-file-add?name={name}
-	&amp;file={filename}
-	&amp;format={“text” | “pcap”}
-	&amp;rotate-minutes={minutes}
-	&amp;rotate-packets={packets-count}
-	&amp;enable={boolean}
-
-To start logging
-/api/ss7-log-file-modify?name={name}&amp;enable=YES
-
-To stop logging
-/api/ss7-log-file-modify?name={name}&amp;enable=NO
-
-To remove a log-file-object
-/api/ss7-log-file-remove?name={name}
-
-To list all log-file objects
-	/api/ss7-log-file-list
-To read the current log-file-object config
-/api/ss7-log-file-read?name={name}
-
-To send an action to the log-file-object
-/api/ss7-log-file-action?name={name}&amp;action={action}
-
-Action can be “reopen”
 </Text>
         </Document>
         <Document ID="55F73956-608F-4C02-A38F-E183FC87F5A5">
@@ -276,256 +306,6 @@ To send an action to the log-file-object
 Action can be “reopen”
 </Text>
         </Document>
-        <Document ID="5D8E0756-3F6F-4987-9145-6E701AEB2F5B">
-            <Title>Name Generator</Title>
-            <Text>Having problems coming up with character names? Scrivener comes with a name generator, available from Edit &gt; Writing Tools &gt; Name Generator…</Text>
-        </Document>
-        <Document ID="7182E87F-7F90-4143-B2F6-46984140486D">
-            <Title>Transcription</Title>
-            <Text>Transcribing audio and media files in Scrivener is easy with the split view. Try the following:
-	1.	Split the editor vertically or horizontally.
-	2.	Click into one of the editors.
-	3.	In the binder, select “ThisIsBuzzAldrin” inside the “Research” folder so that it loads in the editor. “ThisIsBuzzAldrin” is an audio file, so you won’t see much other than the play controls when you mouse over the editor. (Actually, that audio file is the beginning of the coolest phone message I ever picked up; sadly, the message was not for me).
-Now you can play the audio file in one editor while typing in the other.
-You can control the media file using the keyboard shortcuts defined in the Navigate &gt; Media menu. Cmd-Return will play or pause the file, for instance, without your having to click away from your typing.
-Also note the button in the left of the media file’s footer bar:
-#
-
-That is the “pause and rewind” button. If you click it, it will turn blue, indicating that it is on. When “pause and rewind” is turned on, whenever you pause the media file it will automatically be rewound a couple of seconds (you can determine exactly how many seconds it gets rewound in the Behaviors pane of the Preferences, under “Playback”). This is very useful for transcription.</Text>
-            <Comments>it was for my wife, a journalist, who was to interview him. Still, Buzz Aldrin! Calling my phone! Well, it impressed me.</Comments>
-        </Document>
-        <Document ID="8CFD9FCD-5399-44E3-B956-B43B9A817176">
-            <Title>ss7-filter-staging-area</Title>
-            <Text>SS7-Filter Staging Area
-A staging area is a environment where modifications on to objects can be done while not being used.
-A staging area can become a  live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.
-
-
-
-As API calls
-To create a new staging area
-	/api/ss7—filter-staging-area-add?name={name}
-
-To delete a staging area
-/api/ss7-filter-staging-area--delete?name={name}
-
-To copy a staging area to another
-/api/ss7-filter-staging-area--action?name={source-name}
-	&amp;action=copy
-	&amp;destination-to={destination-name}
-
-To activate a current staging area
-/api/ss7-filter-staging-area-action?name={name}
-	&amp;action=activate
-
-To list current staging areas
-/api/ss7-filter-staging-area-list
-
-To select the staging area to edit  engine status
-/api/ss7-filter-staging-area-action?name={name}
-	&amp;action=select
-
-</Text>
-        </Document>
-        <Document ID="B6AB4BEE-9C02-494E-9CFA-C27CBF9EC34B">
-            <Text>Terminology
-
-A filter-engine is a piece of code which can do certain type of filtering.
-
-A filter-config is a set of parameters which configure a filter-engine. Filter-config are specific to the engine type while they share some common parameters.
-
-A filter-rule is a combination of a filter-engine with a specific filter-config
-
-A filter-set is a list of filter-rules in a specific order.
-
-An application-point is the point in the message flow where the filters are being placed on. It can be on a specific inbound link or on a specific outbound link or in the routing phase.
-
-A filter-action is a trigger which is telling  the system what to do with this packet. Some filter-actions are exclusive (like route it to a specific output port) some could be applicable multiple times such as send a copy of the packet to a debug log A and to debug log B.
-
-
-A named-list is a list of items with a name. Such a list can be used in multiple places for multiple different types.
-For example you can make a list of specific numbers to monitor and refer to this list in multiple places through its name.
-
-When a filter-set is put into action at an application-point, then the sequence of filter-rules is being processed and filter-actions are being collected and applied along the way.
-
-
-The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.
-</Text>
-        </Document>
-        <Document ID="56421FB1-8CEF-4276-A0B0-3380A639818E">
-            <Title>*** Syncing with iOS</Title>
-            <Text>Sometimes you will want numbers to appear in the text whose value may change depending on the arrangement of the text. For instance, you might want to title a document “Chapter 1”, but if you move it later, it might become “Chapter 2”. For this, you can use “placeholders”.
-To insert an auto-number placeholder, go to Insert &gt; Auto-Number in the main menu and pick a number type. A tag will be inserted into the text. For example, if you select “1, 2, 3, 4, 5…”, the following tag will be inserted:
-&lt;$n&gt;
-This tag will be replaced with a number when using Compile. There are many other placeholders you can use in Scrivener—a full list is available from Help &gt; List of All Placeholders…
-You can use placeholders in the text, in document titles, or in your own Compile formats. Many of the Compile formats provided with Scrivener use placeholders to insert chapter numbering. To see this, try the following:
-	1.	Go to File &gt; Compile…
-	2.	Select “Manuscript (Times)” from the Formats sidebar.
-	3.	Click on the “+” button in the footer.
-	4.	Select “Duplicate &amp; Edit Format…” from the menu that appears. The Compile window will change to show the options for creating a format.
-	5.	Ensure “Section Layouts” is selected in the sidebar.
-	6.	Select “Chapter Heading” in the section layouts list.
-	7.	Select the “Title Options” tab.
-You will see that the “Title Prefix” text box contains the following text:
-Chapter &lt;$t:chapter&gt;
-
-This is what adds “Chapter One”, “Chapter Two” and so on to the start of each chapter when you use the “Manuscript (Times)” format to compile your manuscript.</Text>
-        </Document>
-        <Document ID="C330BA89-15FA-4CF2-8950-53C47B8417BA">
-            <Title>ss7-filter-action</Title>
-            <Text>SS7 Filter Action
-
-In the config file:
-group = ss7-filte-action
-name = {object-name}
-action = { “pass” | “drop” | “log” \ “reroute” }
-log = {ss7-logfile-object-name}
-reroute =  {sccp-destination-name}
-description = {text}
-
-
-As API calls
-To add a new filter-action
-/api/ss7-filter-action-add?name={name}
-	&amp;action={ “pass” | “drop” | “log” \ “reroute” }
-	&amp;log={ss7-logfile-object-name}
-	&amp;reroute={sccp-destination-name}
-
-
-To remove a filter-action
-/api/ss7-filter-action-delete?name={name}
-
-To list all filter-actions in the system
-/api/ss7-filter-action-list
-
-To read the filter-action-config
-/api/ss7-filter-action-read?name={name}
-
-To read the current engine status
-/api/filter-action-status?name={name}
-
-To send an action to the filter action
-/api/filter-action-action?name={name}&amp;action={action}
-
-</Text>
-        </Document>
-        <Document ID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9">
-            <Title>ss7-filter-engine</Title>
-            <Text>SS7 Filter Engine 
-
-In the config file:
-group = ss7-filte-engine
-name = {object-name} filename = {filename} enable = {boolean}
-
-As API calls
-To add a new engine from a shared libary file:
-/api/ss7-filter-engine-add?name={name}
-	&amp;file={filename}
-
-To remove an engine
-/api/ss7-filter-engine-delete?name={name}
-
-To activate an engine
-/api/ss7-filter-engine-modify?name={name}&amp;enable=YES
-
-To deactivate an engine
-/api/ss7-filter-engine-modify?name={name}&amp;enable=NO
-
-To list the current engine names
-/api/ss7-filter-engine-list
-
-To read the current engine config
-/api/ss7-filter-engine-read?name={name}
-
-To read the current engine status
-/api/ss7-filter-engine-status?name={name}
-
-To reload a new version of the engine file
-	/api/ss7-filter-engine-action?name={name}&amp;action=reload
-</Text>
-        </Document>
-        <Document ID="EAC1A67A-FFE2-40CB-8E2C-DBFBB8963E51">
-            <Title>Multiple Books in One Project</Title>
-            <Text>Generally, Scrivener is set up to assume that each project contains a single book (or writing project): when you compile, you compile the entire Draft folder into a single manuscript. However, you don’t have to work this way. Perhaps you are working on a series of books that rely on the same research, for instance—in that case, you might want to set up a project to contain multiple books. Here’s how:
-	1.	Inside the Draft folder, setup a subfolder for each book.
-	2.	Treat each subfolder inside the Draft folder as though it were the Draft folder for one of your books, creating your chapters for each book inside the book subfolder.
-	3.	Adjust the section type settings under “Default Types by Structure” in Project Settings as necessary, so that they correctly reflect the updated structure.
-Then, when you want to compile one of the books:
-	1.	Go to File &gt; Compile…
-	2.	Above the list of documents on the right side of the Compile panel, click on the pop-up menu next to where it says “Compile” (this pop-up normally shows the name of your Draft folder).
-	3.	Select the folder containing the book you wish to compile.
-	4.	Tick “Treat compile group as complete manuscript”. This tells Scrivener that the folder you are compiling should be treated as though it is a complete book and not part of a larger draft.
-	5.	Ensure “Include text of containing group” is not ticked.
-</Text>
-        </Document>
-        <Document ID="283A710B-DE5F-4B32-9F7A-47F08B8E8C3A">
-            <Title>Resetting the Tutorial</Title>
-            <Text>If at any time you decide you want to wipe all of your edits and restore the tutorial to its original state, follow these steps:
-	1.	Ctrl-click or right-click on the project title right at the very top of the tutorial project window. A menu will appear showing the path to the project.
-	2.	Click on the second item in the menu, which will be the folder in which the tutorial project is stored. This will open a Finder window.
-	3.	Close the tutorial project in Scrivener.
-	4.	In the Finder window that opened in (2), move the tutorial project to the Trash in your Dock.
-	5.	Back in Scrivener, go to Help &gt; Interactive Tutorial… You will be prompted to create a fresh tutorial project.</Text>
-        </Document>
-        <Document ID="AD5A950A-4FB6-448E-BAFD-06D01A94FB2F">
-            <Title>Focus on Dialogue</Title>
-            <Text>Scrivener features a “Linguistic Focus” feature that allows you to fade out other text in the editor except for certain speech types. For instance, you can fade out everything except your adverbs, to check for overuse.
-You can bring up the Linguistic Focus panel by going to Edit &gt; Writing Tools &gt; Linguistic Focus… in the main menu. Then simply select a part of speech to focus on.
-This feature uses linguistic analysis tools that are built into macOS, but it also adds something else: dialogue focus. Selecting “Direct Speech” as the focus will fade out all text except for that contained between speech marks. If you are writing a novel or story, this is a great way of checking the flow of a conversation you have written without being distracted by all of the action and attributions.</Text>
-        </Document>
-        <Document ID="34DF7338-9EA3-45FA-AD07-133E8AC4F870">
-            <Title>builtin-ss7-filter-actions</Title>
-            <Text>Built in SS7 Filter Actions
-
-There are several predefined actions.
-
-	pass	
-
-the filtering ruleset procesing is stopped and the packet is forwarded normally
-
-
-	drop
-
-the filtering ruleset procesisng is stopped and the packet is dropped.
-
-
-	abort
-
-the filtering ruleset processing is stopped and a tcap abort message is sent back.
-
-
-	reject
-
-the filtering ruleset processing is stopped and a tcap end with a gsmmap reject message is sent back.
-
-	error(errorcode)
-
-the filtering ruleset processing is stopped and a tcap end with a gsmmap ReturnError message is sent back with an indicated eror
-
-	continue
-
-the filtering ruleset is continued on the next filtering rule.
-
-	log(logfile)
-
-the packet is logged to the indicated logfile object.
-
-	reroute(destination,new-called-address)
-
-the packet is rerouted to another destination and the called address is replaced if set.
-
-	add-tag(tag)
-	clear-tag(tag)
-	clear-all-tags
-
-the tag is set or cleared. Note a packet can have multiple tags.  clear-all-tags would clear them all;                              
-
-
-	set-custom(customvar,value)
-
-sets a custom field to a specific value.
-</Text>
-        </Document>
         <Document ID="49285E78-17D8-48C9-BF56-A08381016832">
             <Title>ss7-filter-engine-screening</Title>
             <Text>SS7 Filter engine “screening”
@@ -561,6 +341,9 @@ The configuration of the blacklist engine is a json dictionary with the followin
 	sccp-called-address-npi = {integer}
 	sccp-called-address-number-list = {namedlist-name}
 	sccp-called-address-prefix-list = {namedlist-name}
+
+	originating-pointcode-list = {namedlist-name}
+	destination-pointcode-list = {namedlist-name}
 
 	imsi-prefix-list = {namedlist-name}
 
@@ -622,6 +405,170 @@ To send an action to the rule
 
 </Text>
         </Document>
+        <Document ID="7182E87F-7F90-4143-B2F6-46984140486D">
+            <Title>Transcription</Title>
+            <Text>Transcribing audio and media files in Scrivener is easy with the split view. Try the following:
+	1.	Split the editor vertically or horizontally.
+	2.	Click into one of the editors.
+	3.	In the binder, select “ThisIsBuzzAldrin” inside the “Research” folder so that it loads in the editor. “ThisIsBuzzAldrin” is an audio file, so you won’t see much other than the play controls when you mouse over the editor. (Actually, that audio file is the beginning of the coolest phone message I ever picked up; sadly, the message was not for me).
+Now you can play the audio file in one editor while typing in the other.
+You can control the media file using the keyboard shortcuts defined in the Navigate &gt; Media menu. Cmd-Return will play or pause the file, for instance, without your having to click away from your typing.
+Also note the button in the left of the media file’s footer bar:
+#
+
+That is the “pause and rewind” button. If you click it, it will turn blue, indicating that it is on. When “pause and rewind” is turned on, whenever you pause the media file it will automatically be rewound a couple of seconds (you can determine exactly how many seconds it gets rewound in the Behaviors pane of the Preferences, under “Playback”). This is very useful for transcription.</Text>
+            <Comments>it was for my wife, a journalist, who was to interview him. Still, Buzz Aldrin! Calling my phone! Well, it impressed me.</Comments>
+        </Document>
+        <Document ID="283A710B-DE5F-4B32-9F7A-47F08B8E8C3A">
+            <Title>Resetting the Tutorial</Title>
+            <Text>If at any time you decide you want to wipe all of your edits and restore the tutorial to its original state, follow these steps:
+	1.	Ctrl-click or right-click on the project title right at the very top of the tutorial project window. A menu will appear showing the path to the project.
+	2.	Click on the second item in the menu, which will be the folder in which the tutorial project is stored. This will open a Finder window.
+	3.	Close the tutorial project in Scrivener.
+	4.	In the Finder window that opened in (2), move the tutorial project to the Trash in your Dock.
+	5.	Back in Scrivener, go to Help &gt; Interactive Tutorial… You will be prompted to create a fresh tutorial project.</Text>
+        </Document>
+        <Document ID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9">
+            <Title>ss7-filter-engine</Title>
+            <Text>SS7 Filter Engine 
+
+In the config file:
+group = ss7-filte-engine
+name = {object-name} filename = {filename} enable = {boolean}
+
+As API calls
+To add a new engine from a shared libary file:
+/api/ss7-filter-engine-add?name={name}
+	&amp;file={filename}
+
+To remove an engine
+/api/ss7-filter-engine-delete?name={name}
+
+To activate an engine
+/api/ss7-filter-engine-modify?name={name}&amp;enable=YES
+
+To deactivate an engine
+/api/ss7-filter-engine-modify?name={name}&amp;enable=NO
+
+To list the current engine names
+/api/ss7-filter-engine-list
+
+To read the current engine config
+/api/ss7-filter-engine-read?name={name}
+
+To read the current engine status
+/api/ss7-filter-engine-status?name={name}
+
+To reload a new version of the engine file
+	/api/ss7-filter-engine-action?name={name}&amp;action=reload
+</Text>
+        </Document>
+        <Document ID="C330BA89-15FA-4CF2-8950-53C47B8417BA">
+            <Title>ss7-filter-action</Title>
+            <Text>SS7 Filter Action
+
+In the config file:
+group = ss7-filte-action
+name = {object-name}
+action = { “pass” | “drop” | “log” \ “reroute” }
+log = {ss7-logfile-object-name}
+reroute =  {sccp-destination-name}
+description = {text}
+
+
+As API calls
+To add a new filter-action
+/api/ss7-filter-action-add?name={name}
+	&amp;action={ “pass” | “drop” | “log” \ “reroute” }
+	&amp;log={ss7-logfile-object-name}
+	&amp;reroute={sccp-destination-name}
+
+
+To remove a filter-action
+/api/ss7-filter-action-delete?name={name}
+
+To list all filter-actions in the system
+/api/ss7-filter-action-list
+
+To read the filter-action-config
+/api/ss7-filter-action-read?name={name}
+
+To read the current engine status
+/api/filter-action-status?name={name}
+
+To send an action to the filter action
+/api/filter-action-action?name={name}&amp;action={action}
+
+</Text>
+        </Document>
+        <Document ID="3BE2E524-FBE2-4E4C-BBB8-7015A3A780DB">
+            <Title>Name &amp; Address in Templates</Title>
+            <Text>Some project templates use information from Contacts to populate title pages with your name and address. By default, it takes this information from “My Card” in Contacts. If you would like Scrivener to use a different Contacts card, simply type “(Scrivener:UseMe)” (with no spaces and including the parentheses) somewhere in the “note” area of the entry in Contacts you wish to use.
+Even easier: Go to Scrivener &gt; Preferences and enter your details in the “Author Information” section of the “General” pane.</Text>
+        </Document>
+        <Document ID="EAC1A67A-FFE2-40CB-8E2C-DBFBB8963E51">
+            <Title>Multiple Books in One Project</Title>
+            <Text>Generally, Scrivener is set up to assume that each project contains a single book (or writing project): when you compile, you compile the entire Draft folder into a single manuscript. However, you don’t have to work this way. Perhaps you are working on a series of books that rely on the same research, for instance—in that case, you might want to set up a project to contain multiple books. Here’s how:
+	1.	Inside the Draft folder, setup a subfolder for each book.
+	2.	Treat each subfolder inside the Draft folder as though it were the Draft folder for one of your books, creating your chapters for each book inside the book subfolder.
+	3.	Adjust the section type settings under “Default Types by Structure” in Project Settings as necessary, so that they correctly reflect the updated structure.
+Then, when you want to compile one of the books:
+	1.	Go to File &gt; Compile…
+	2.	Above the list of documents on the right side of the Compile panel, click on the pop-up menu next to where it says “Compile” (this pop-up normally shows the name of your Draft folder).
+	3.	Select the folder containing the book you wish to compile.
+	4.	Tick “Treat compile group as complete manuscript”. This tells Scrivener that the folder you are compiling should be treated as though it is a complete book and not part of a larger draft.
+	5.	Ensure “Include text of containing group” is not ticked.
+</Text>
+        </Document>
+        <Document ID="2C374A60-A214-4EC8-B992-D22EC23805C6">
+            <Title>ss7-log-file</Title>
+            <Text>SS7 Log File
+
+In the config file:
+group = ss7-log-file
+name = {object-name}
+file = {filename}
+format = { pcap | text }
+rotate-minutes = {minutes}
+rotate-packets = {packets-count}
+enable = {boolean}
+
+
+As API calls
+To add a new log file object
+/api/ss7-log-file-add?name={name}
+	&amp;file={filename}
+	&amp;format={“text” | “pcap”}
+	&amp;rotate-minutes={minutes}
+	&amp;rotate-packets={packets-count}
+	&amp;enable={boolean}
+
+To start logging
+/api/ss7-log-file-modify?name={name}&amp;enable=YES
+
+To stop logging
+/api/ss7-log-file-modify?name={name}&amp;enable=NO
+
+To remove a log-file-object
+/api/ss7-log-file-remove?name={name}
+
+To list all log-file objects
+	/api/ss7-log-file-list
+To read the current log-file-object config
+/api/ss7-log-file-read?name={name}
+
+To send an action to the log-file-object
+/api/ss7-log-file-action?name={name}&amp;action={action}
+
+Action can be “reopen”
+</Text>
+        </Document>
+        <Document ID="AD5A950A-4FB6-448E-BAFD-06D01A94FB2F">
+            <Title>Focus on Dialogue</Title>
+            <Text>Scrivener features a “Linguistic Focus” feature that allows you to fade out other text in the editor except for certain speech types. For instance, you can fade out everything except your adverbs, to check for overuse.
+You can bring up the Linguistic Focus panel by going to Edit &gt; Writing Tools &gt; Linguistic Focus… in the main menu. Then simply select a part of speech to focus on.
+This feature uses linguistic analysis tools that are built into macOS, but it also adds something else: dialogue focus. Selecting “Direct Speech” as the focus will fade out all text except for that contained between speech marks. If you are writing a novel or story, this is a great way of checking the flow of a conversation you have written without being distracted by all of the action and attributions.</Text>
+        </Document>
         <Document ID="6D828CCA-4E77-4351-8232-37CEC74267EF">
             <Title>ss7-filter-engine-location</Title>
             <Text>SS7 Filter engine “location”
@@ -633,6 +580,62 @@ Location process could be enhanced by adding some checks at the reception of a n
  - Correlate the LocationUpdate (or UpdateGPRSLocation) with MAP messages generated earlier in order to verify that VLRid is not faked, like a successful authentication on the same MSC /VLR or SGSN/VLR (SendAuthenticationInfo). 
 The configuration of this module is still under review. This is a stateful filter which is a tricky one.
 </Text>
+        </Document>
+        <Document ID="8CFD9FCD-5399-44E3-B956-B43B9A817176">
+            <Title>ss7-filter-staging-area</Title>
+            <Text>SS7-Filter Staging Area
+A staging area is a environment where modifications on to objects can be done while not being used.
+A staging area can become a  live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.
+
+
+
+As API calls
+To create a new staging area
+	/api/ss7—filter-staging-area-add?name={name}
+
+To delete a staging area
+/api/ss7-filter-staging-area--delete?name={name}
+
+To copy a staging area to another
+/api/ss7-filter-staging-area--action?name={source-name}
+	&amp;action=copy
+	&amp;destination-to={destination-name}
+
+To activate a current staging area
+/api/ss7-filter-staging-area-action?name={name}
+	&amp;action=activate
+
+To list current staging areas
+/api/ss7-filter-staging-area-list
+
+To select the staging area to edit  engine status
+/api/ss7-filter-staging-area-action?name={name}
+	&amp;action=select
+
+</Text>
+        </Document>
+        <Document ID="56421FB1-8CEF-4276-A0B0-3380A639818E">
+            <Title>*** Syncing with iOS</Title>
+            <Text>Sometimes you will want numbers to appear in the text whose value may change depending on the arrangement of the text. For instance, you might want to title a document “Chapter 1”, but if you move it later, it might become “Chapter 2”. For this, you can use “placeholders”.
+To insert an auto-number placeholder, go to Insert &gt; Auto-Number in the main menu and pick a number type. A tag will be inserted into the text. For example, if you select “1, 2, 3, 4, 5…”, the following tag will be inserted:
+&lt;$n&gt;
+This tag will be replaced with a number when using Compile. There are many other placeholders you can use in Scrivener—a full list is available from Help &gt; List of All Placeholders…
+You can use placeholders in the text, in document titles, or in your own Compile formats. Many of the Compile formats provided with Scrivener use placeholders to insert chapter numbering. To see this, try the following:
+	1.	Go to File &gt; Compile…
+	2.	Select “Manuscript (Times)” from the Formats sidebar.
+	3.	Click on the “+” button in the footer.
+	4.	Select “Duplicate &amp; Edit Format…” from the menu that appears. The Compile window will change to show the options for creating a format.
+	5.	Ensure “Section Layouts” is selected in the sidebar.
+	6.	Select “Chapter Heading” in the section layouts list.
+	7.	Select the “Title Options” tab.
+You will see that the “Title Prefix” text box contains the following text:
+Chapter &lt;$t:chapter&gt;
+
+This is what adds “Chapter One”, “Chapter Two” and so on to the start of each chapter when you use the “Manuscript (Times)” format to compile your manuscript.</Text>
+        </Document>
+        <Document ID="5D8E0756-3F6F-4987-9145-6E701AEB2F5B">
+            <Title>Name Generator</Title>
+            <Text>Having problems coming up with character names? Scrivener comes with a name generator, available from Edit &gt; Writing Tools &gt; Name Generator…</Text>
         </Document>
         <Document ID="AF26B6D2-5440-468E-B462-50F944603E0B">
             <Title>ss7-filter-staging-area</Title>
@@ -716,14 +719,6 @@ Scrivener also makes some clipping features available via the global macOS Servi
 	5.	Scroll down to the “Scrivener” services in the list and tick any that you wish to enable.
 </Text>
         </Document>
-        <Document ID="CA2F1450-D23F-42D7-B8B3-8DE3411C0090">
-            <Title>Keywords</Title>
-            <Text>When assigning keywords to documents from the keywords panel, you can simultaneously assign the groups to which they belong by holding down the Option key while dragging. Try this:
-	1.	Open the inspector and select the Metadata tab, ensuring the Keywords pane is visible.
-	2.	Open the keywords panel (Project &gt; Show Project Keywords).
-	3.	Click on the triangle next to “Characters” in the panel to reveal the names of some characters.
-	4.	If you were to drag one of these character keywords to the inspector keywords list, only the dragged keyword would be assigned. However, try holding down the Option key whilst dragging “John” to the inspector. Note how not only the keyword “John” gets added, but also the name of its group, “Characters”.</Text>
-        </Document>
         <Document ID="7C6A5CF9-DF49-44E4-803E-21290A6F8012">
             <Title>Index Card Images</Title>
             <Text>The index card in the inspector can be used to show an image instead of a synopsis. If an image is used instead of a synopsis, then the image will also be used on the corkboard. This could be useful if you have a document about a character and want a photo to represent the character on the corkboard, for instance.
@@ -733,6 +728,14 @@ To use an image in the index card for a document:
 	3.	In the synopsis header bar, click on the icon of the picture. The synopsis area will be replaced with a grey area saying “Drop an image here.”
 	4.	Locate the image you wish to use in the Finder and drag it into the grey area.
 To switch back to the synopsis, click on the index card icon in the synopsis header bar (this will not remove the image, but just toggle back to displaying the synopsis).</Text>
+        </Document>
+        <Document ID="CA2F1450-D23F-42D7-B8B3-8DE3411C0090">
+            <Title>Keywords</Title>
+            <Text>When assigning keywords to documents from the keywords panel, you can simultaneously assign the groups to which they belong by holding down the Option key while dragging. Try this:
+	1.	Open the inspector and select the Metadata tab, ensuring the Keywords pane is visible.
+	2.	Open the keywords panel (Project &gt; Show Project Keywords).
+	3.	Click on the triangle next to “Characters” in the panel to reveal the names of some characters.
+	4.	If you were to drag one of these character keywords to the inspector keywords list, only the dragged keyword would be assigned. However, try holding down the Option key whilst dragging “John” to the inspector. Note how not only the keyword “John” gets added, but also the name of its group, “Characters”.</Text>
         </Document>
         <Document ID="C19C143F-1BCA-4008-AEF6-82E30C58689D">
             <Title>Tips</Title>

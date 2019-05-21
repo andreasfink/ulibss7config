@@ -35,9 +35,7 @@
 - (void)startDirtyTimer;
 - (void)stopDirtyTimer;
 
-- (void)touch;
 - (UMSS7ConfigStagingAreaStorage *)copyWithZone:(NSZone *)zone;
-
 - (UMSS7ConfigStagingAreaStorage *)initWithPath:(NSString *)path;
 
 

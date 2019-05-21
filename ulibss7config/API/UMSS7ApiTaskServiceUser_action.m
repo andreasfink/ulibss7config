@@ -17,7 +17,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/serviceuser-read";
+    return @"/api/serviceuser-action";
 }
 
 - (void)main
@@ -27,14 +27,19 @@
         [self sendErrorNotAuthenticated];
         return;
     }
-
+    if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+    
     NSString *name = _webRequest.params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigServiceUser *obj = [cs getServiceUser:name];
     if(obj)
     {
-        [self sendResultObject:obj.config];
+        [self sendErrorNotImplemented];
     }
     else
     {

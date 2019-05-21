@@ -59,10 +59,10 @@
 
 }
 
-- (UMSS7ConfigM2PA *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigDiameterConnection *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigM2PA allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigDiameterConnection allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

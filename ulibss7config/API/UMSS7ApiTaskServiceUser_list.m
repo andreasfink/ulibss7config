@@ -7,12 +7,34 @@
 //
 
 #import "UMSS7ApiTaskServiceUser_list.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigServiceUser.h"
+#import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTaskServiceUser_list
 
 + (NSString *)apiPath
 {
     return @"/api/serviceuser-list";
+}
+
+- (void)main
+{
+    if(![self isAuthenticated])
+    {
+        [self sendErrorNotAuthenticated];
+        return;
+    }
+
+    if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+
+    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+    NSArray *names = [cs getServiceUserNames];
+    [self sendResultObject:names];
 }
 
 @end
