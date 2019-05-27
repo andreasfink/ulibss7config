@@ -309,7 +309,7 @@ Action can be “reopen”
         <Document ID="49285E78-17D8-48C9-BF56-A08381016832">
             <Title>ss7-filter-engine-screening</Title>
             <Text>SS7 Filter engine “screening”
-The configuration of the blacklist engine is a json dictionary with the following objects
+The configuration of the screening engine is a json dictionary with the following objects
 
 	tag = {tag1,tag2,…}
 	custom1 = {value}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="Minotaur" Author="Andreas Fink" Modified="2019-05-20 09:25:39 +0200" ModID="5DBB85B0-983E-4C28-A250-CC2172452184">
+<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="Minotaur" Author="Andreas Fink" Modified="2019-05-27 16:51:33 +0200" ModID="DAE64916-43E6-4E28-B6CC-D098C944E3D4">
     <Binder>
         <BinderItem UUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628" Type="Text" Created="2007-01-15 00:04:52 +0100" Modified="2017-12-06 17:59:26 +0100">
             <Title>START HERE</Title>
@@ -113,7 +113,7 @@
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>0,1790</TextSelection>
+                                <TextSelection>881,319</TextSelection>
                             </TextSettings>
                         </BinderItem>
                         <BinderItem UUID="5B6A71AB-0851-4292-A20D-1B8CF2B9F9DA" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-17 11:31:03 +0200">
@@ -154,13 +154,13 @@
                         <TextSelection>0,0</TextSelection>
                     </TextSettings>
                     <Children>
-                        <BinderItem UUID="49285E78-17D8-48C9-BF56-A08381016832" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-20 09:25:00 +0200">
+                        <BinderItem UUID="49285E78-17D8-48C9-BF56-A08381016832" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-27 16:51:33 +0200">
                             <Title>ss7-filter-engine-screening</Title>
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>1025,0</TextSelection>
+                                <TextSelection>121,21</TextSelection>
                             </TextSettings>
                         </BinderItem>
                         <BinderItem UUID="0FCDC80B-6DA4-4CE2-BE72-81C6BEC48DF2" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-20 09:12:00 +0200">
@@ -596,11 +596,11 @@
     <ProjectTargets Notify="No">
         <DraftTarget Type="Words" CountIncludedOnly="Yes" CurrentCompileGroupOnly="Yes" Deadline="2011-06-30 22:12:08 +0200" IgnoreDeadline="Yes">0</DraftTarget>
         <SessionTarget Type="Words" CountDraftOnly="Yes" AllowNegatives="Yes" ResetType="Time" ResetTime="00:00" DeterminedFromDeadline="No" WritingDays="" CanWriteOnDeadlineDate="No">0</SessionTarget>
-        <PreviousSession Words="-32" Characters="-535" Date="2019-05-20 09:24:29 +0200"/>
+        <PreviousSession Words="0" Characters="0" Date="2019-05-27 17:03:44 +0200"/>
     </ProjectTargets>
-    <RecentWritingHistory Date="2019-05-20 00:00:00 +0200">
-        <DraftWordCount>-32</DraftWordCount>
-        <DraftCharCount>-535</DraftCharCount>
+    <RecentWritingHistory Date="2019-05-27 00:00:00 +0200">
+        <DraftWordCount>0</DraftWordCount>
+        <DraftCharCount>0</DraftCharCount>
         <OtherWordCount>0</OtherWordCount>
         <OtherCharCount>0</OtherCharCount>
     </RecentWritingHistory>

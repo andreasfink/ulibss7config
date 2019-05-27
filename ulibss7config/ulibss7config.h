@@ -68,6 +68,8 @@
 #import "UMSS7ConfigServiceUser.h"
 #import "UMSS7ConfigServiceUserProfile.h"
 #import "UMSS7ConfigServiceBillingEntity.h"
+#import "UMSS7ConfigDiameterRouter.h"
+#import "UMSS7ConfigDiameterConnection.h"
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
 #import "UMSS7ConfigIMSIPool.h"

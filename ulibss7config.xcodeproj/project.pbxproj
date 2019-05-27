@@ -10,13 +10,13 @@
 		A611732920FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h in Headers */ = {isa = PBXBuildFile; fileRef = A611732720FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A611732A20FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m in Sources */ = {isa = PBXBuildFile; fileRef = A611732820FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m */; };
 		A61FCE37219AD59B00A67026 /* SS7AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A61FCE35219AD59B00A67026 /* SS7AppDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A62B183E226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = A62B183C226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.h */; };
+		A62B183E226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = A62B183C226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A62B183F226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A62B183D226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.m */; };
-		A634BBF521A38B3300852462 /* UMSS7ConfigServiceUser.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBEF21A38B3200852462 /* UMSS7ConfigServiceUser.h */; };
+		A634BBF521A38B3300852462 /* UMSS7ConfigServiceUser.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBEF21A38B3200852462 /* UMSS7ConfigServiceUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBF621A38B3300852462 /* UMSS7ConfigServiceBillingEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */; };
-		A634BBF721A38B3300852462 /* UMSS7ConfigServiceBillingEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */; };
+		A634BBF721A38B3300852462 /* UMSS7ConfigServiceBillingEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBF821A38B3300852462 /* UMSS7ConfigServiceUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF221A38B3200852462 /* UMSS7ConfigServiceUser.m */; };
-		A634BBF921A38B3300852462 /* UMSS7ConfigServiceUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF321A38B3300852462 /* UMSS7ConfigServiceUserProfile.h */; };
+		A634BBF921A38B3300852462 /* UMSS7ConfigServiceUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF321A38B3300852462 /* UMSS7ConfigServiceUserProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBFA21A38B3300852462 /* UMSS7ConfigServiceUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF421A38B3300852462 /* UMSS7ConfigServiceUserProfile.m */; };
 		A634BBFD21A3954000852462 /* SS7GenericInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBFB21A3954000852462 /* SS7GenericInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBFE21A3954000852462 /* SS7GenericInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBFC21A3954000852462 /* SS7GenericInstance.m */; };
@@ -68,7 +68,7 @@
 		A63DBFC920887E0A00CA6871 /* UMSS7ConfigGMLC.m in Sources */ = {isa = PBXBuildFile; fileRef = A63DBFC720887E0A00CA6871 /* UMSS7ConfigGMLC.m */; };
 		A63DBFCC2088892400CA6871 /* UMSS7ConfigEIR.h in Headers */ = {isa = PBXBuildFile; fileRef = A63DBFCA2088892400CA6871 /* UMSS7ConfigEIR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A63DBFCD2088892400CA6871 /* UMSS7ConfigEIR.m in Sources */ = {isa = PBXBuildFile; fileRef = A63DBFCB2088892400CA6871 /* UMSS7ConfigEIR.m */; };
-		A6679E53229172E1001819AC /* UMSS7ConfigStagingAreaStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = A6679E51229172E1001819AC /* UMSS7ConfigStagingAreaStorage.h */; };
+		A6679E53229172E1001819AC /* UMSS7ConfigStagingAreaStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = A6679E51229172E1001819AC /* UMSS7ConfigStagingAreaStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6679E54229172E1001819AC /* UMSS7ConfigStagingAreaStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = A6679E52229172E1001819AC /* UMSS7ConfigStagingAreaStorage.m */; };
 		A67B8BE621CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A67B8BE421CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A67B8BE721CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A67B8BE521CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m */; };
@@ -421,20 +421,23 @@
 		A6BF3141229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF313F229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.m */; };
 		A6BF31442294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31422294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.h */; };
 		A6BF31452294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31432294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.m */; };
-		A6BF3174229443DE0000578B /* UMSS7ConfigSS7FilterLogFile.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3166229443DC0000578B /* UMSS7ConfigSS7FilterLogFile.h */; };
-		A6BF3175229443DE0000578B /* UMSS7ConfigSS7FilterRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3167229443DC0000578B /* UMSS7ConfigSS7FilterRuleset.h */; };
-		A6BF3176229443DE0000578B /* UMSS7ConfigSS7FilterRule.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3168229443DC0000578B /* UMSS7ConfigSS7FilterRule.h */; };
+		A6BF3174229443DE0000578B /* UMSS7ConfigSS7FilterLogFile.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3166229443DC0000578B /* UMSS7ConfigSS7FilterLogFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6BF3175229443DE0000578B /* UMSS7ConfigSS7FilterRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3167229443DC0000578B /* UMSS7ConfigSS7FilterRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6BF3176229443DE0000578B /* UMSS7ConfigSS7FilterRule.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3168229443DC0000578B /* UMSS7ConfigSS7FilterRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF3177229443DE0000578B /* UMSS7ConfigSS7FilterRule.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3169229443DD0000578B /* UMSS7ConfigSS7FilterRule.m */; };
 		A6BF3178229443DE0000578B /* UMSS7ConfigSS7FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF316A229443DD0000578B /* UMSS7ConfigSS7FilterAction.m */; };
-		A6BF3179229443DE0000578B /* UMSS7ConfigSS7FilterActionList.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF316B229443DD0000578B /* UMSS7ConfigSS7FilterActionList.h */; };
+		A6BF3179229443DE0000578B /* UMSS7ConfigSS7FilterActionList.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF316B229443DD0000578B /* UMSS7ConfigSS7FilterActionList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF317A229443DE0000578B /* UMSS7ConfigSS7FilterRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF316C229443DD0000578B /* UMSS7ConfigSS7FilterRuleset.m */; };
 		A6BF317B229443DE0000578B /* UMSS7ConfigSS7FilterStagingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF316D229443DD0000578B /* UMSS7ConfigSS7FilterStagingArea.m */; };
 		A6BF317C229443DE0000578B /* UMSS7ConfigSS7FilterLogFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF316E229443DD0000578B /* UMSS7ConfigSS7FilterLogFile.m */; };
-		A6BF317D229443DE0000578B /* UMSS7ConfigSS7FilterStagingArea.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF316F229443DD0000578B /* UMSS7ConfigSS7FilterStagingArea.h */; };
+		A6BF317D229443DE0000578B /* UMSS7ConfigSS7FilterStagingArea.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF316F229443DD0000578B /* UMSS7ConfigSS7FilterStagingArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF317E229443DE0000578B /* UMSS7ConfigSS7FilterActionList.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3170229443DE0000578B /* UMSS7ConfigSS7FilterActionList.m */; };
-		A6BF317F229443DE0000578B /* UMSS7ConfigSS7FilterEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3171229443DE0000578B /* UMSS7ConfigSS7FilterEngine.h */; };
-		A6BF3180229443DE0000578B /* UMSS7ConfigSS7FilterAction.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3172229443DE0000578B /* UMSS7ConfigSS7FilterAction.h */; };
+		A6BF317F229443DE0000578B /* UMSS7ConfigSS7FilterEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3171229443DE0000578B /* UMSS7ConfigSS7FilterEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6BF3180229443DE0000578B /* UMSS7ConfigSS7FilterAction.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3172229443DE0000578B /* UMSS7ConfigSS7FilterAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF3181229443DE0000578B /* UMSS7ConfigSS7FilterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3173229443DE0000578B /* UMSS7ConfigSS7FilterEngine.m */; };
+		A6BF3183229BBAFC0000578B /* ulibdiameter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BF3182229BBAFC0000578B /* ulibdiameter.framework */; };
+		A6BF3186229BC1020000578B /* UMSS7ConfigDiameterRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3184229BC1020000578B /* UMSS7ConfigDiameterRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6BF3187229BC1020000578B /* UMSS7ConfigDiameterRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3185229BC1020000578B /* UMSS7ConfigDiameterRouter.m */; };
 		A6C0AFB02089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C0AFAE2089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6C0AFB12089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C0AFAF2089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m */; };
 		A6C0AFB42089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C0AFB22089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -518,7 +521,6 @@
 		A634BC4821A4143100852462 /* SS7AppTransportHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7AppTransportHandler.m; sourceTree = "<group>"; };
 		A634BC4B21A414EA00852462 /* SS7AppTransportSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7AppTransportSession.h; sourceTree = "<group>"; };
 		A634BC4C21A414EA00852462 /* SS7AppTransportSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7AppTransportSession.m; sourceTree = "<group>"; };
-		A634BC4F21A415FA00852462 /* schrittmacherclient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = schrittmacherclient.framework; path = /Library/Frameworks/schrittmacherclient.framework; sourceTree = "<absolute>"; };
 		A634BC5121A4180500852462 /* schrittmacherclient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = schrittmacherclient.framework; path = ../../../../../../Library/Frameworks/schrittmacherclient.framework; sourceTree = "<group>"; };
 		A634BC5321A418B700852462 /* ulibasn1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibasn1.framework; path = ../../../../../../Library/Frameworks/ulibasn1.framework; sourceTree = "<group>"; };
 		A634BC5521A4196300852462 /* ulibsccp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibsccp.framework; path = /Library/Frameworks/ulibsccp.framework; sourceTree = "<absolute>"; };
@@ -903,6 +905,9 @@
 		A6BF3171229443DE0000578B /* UMSS7ConfigSS7FilterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSS7FilterEngine.h; sourceTree = "<group>"; };
 		A6BF3172229443DE0000578B /* UMSS7ConfigSS7FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSS7FilterAction.h; sourceTree = "<group>"; };
 		A6BF3173229443DE0000578B /* UMSS7ConfigSS7FilterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSS7FilterEngine.m; sourceTree = "<group>"; };
+		A6BF3182229BBAFC0000578B /* ulibdiameter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibdiameter.framework; path = ../../../../../../Library/Frameworks/ulibdiameter.framework; sourceTree = "<group>"; };
+		A6BF3184229BC1020000578B /* UMSS7ConfigDiameterRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigDiameterRouter.h; sourceTree = "<group>"; };
+		A6BF3185229BC1020000578B /* UMSS7ConfigDiameterRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigDiameterRouter.m; sourceTree = "<group>"; };
 		A6C0AFAE2089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSCCPNumberTranslation.h; sourceTree = "<group>"; };
 		A6C0AFAF2089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPNumberTranslation.m; sourceTree = "<group>"; };
 		A6C0AFB22089E88E00DAB157 /* UMSS7ConfigSCCPNumberTranslationEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSCCPNumberTranslationEntry.h; sourceTree = "<group>"; };
@@ -936,6 +941,7 @@
 				A634BC5221A4180500852462 /* schrittmacherclient.framework in Frameworks */,
 				A6BC4550207755BA008C3CEB /* ulibm2pa.framework in Frameworks */,
 				A634BC5821A419E800852462 /* ulibtransport.framework in Frameworks */,
+				A6BF3183229BBAFC0000578B /* ulibdiameter.framework in Frameworks */,
 				A634BC5621A4196300852462 /* ulibsccp.framework in Frameworks */,
 				A6BC4554207755BA008C3CEB /* ulibgsmmap.framework in Frameworks */,
 				A6BC4551207755BA008C3CEB /* ulibgt.framework in Frameworks */,
@@ -1424,16 +1430,18 @@
 				A6BC42D320774F8F008C3CEB /* UMSS7ConfigAdminUser.m */,
 				A6BC42D620774F8F008C3CEB /* UMSS7ConfigWebserver.h */,
 				A6BC42DE20774F90008C3CEB /* UMSS7ConfigWebserver.m */,
-				A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */,
-				A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */,
-				A634BBEF21A38B3200852462 /* UMSS7ConfigServiceUser.h */,
-				A634BBF221A38B3200852462 /* UMSS7ConfigServiceUser.m */,
 				A6B011CB21DB82DD00B1B4B5 /* UMSS7ConfigApiUser.h */,
 				A6B011CC21DB82DD00B1B4B5 /* UMSS7ConfigApiUser.m */,
+				A634BBEF21A38B3200852462 /* UMSS7ConfigServiceUser.h */,
+				A634BBF221A38B3200852462 /* UMSS7ConfigServiceUser.m */,
+				A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */,
+				A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */,
 				A634BBF321A38B3300852462 /* UMSS7ConfigServiceUserProfile.h */,
 				A634BBF421A38B3300852462 /* UMSS7ConfigServiceUserProfile.m */,
 				A62B183C226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.h */,
 				A62B183D226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.m */,
+				A6BF3184229BC1020000578B /* UMSS7ConfigDiameterRouter.h */,
+				A6BF3185229BC1020000578B /* UMSS7ConfigDiameterRouter.m */,
 				A6679E51229172E1001819AC /* UMSS7ConfigStagingAreaStorage.h */,
 				A6679E52229172E1001819AC /* UMSS7ConfigStagingAreaStorage.m */,
 				A6BF3172229443DE0000578B /* UMSS7ConfigSS7FilterAction.h */,
@@ -1457,11 +1465,11 @@
 		A6BC434520774FB6008C3CEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A6BF3182229BBAFC0000578B /* ulibdiameter.framework */,
 				A634BC5721A419E700852462 /* ulibtransport.framework */,
 				A634BC5521A4196300852462 /* ulibsccp.framework */,
 				A634BC5321A418B700852462 /* ulibasn1.framework */,
 				A634BC5121A4180500852462 /* schrittmacherclient.framework */,
-				A634BC4F21A415FA00852462 /* schrittmacherclient.framework */,
 				A6BC434620774FD0008C3CEB /* ulib.framework */,
 				A6BC454C207755B9008C3CEB /* ulibsctp.framework */,
 				A6BC454E207755B9008C3CEB /* ulibgsmmap.framework */,
@@ -1634,6 +1642,7 @@
 				A6BC44E2207753ED008C3CEB /* UMSS7ApiTaskSCCP_read.h in Headers */,
 				A634BC3521A40E7400852462 /* SS7GenericInstance_MAP_Open_Resp_Task.h in Headers */,
 				A6BC44FE207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_status.h in Headers */,
+				A6BF3186229BC1020000578B /* UMSS7ConfigDiameterRouter.h in Headers */,
 				A6BB6A0421522FFE00749D40 /* UMSS7ApiTaskSCCPTranslationTable_action.h in Headers */,
 				A6BC4518207753EE008C3CEB /* UMSS7ApiTaskVersion.h in Headers */,
 				A6BF307B229430350000578B /* UMSS7ApiTaskServiceUser_action.h in Headers */,
@@ -1991,6 +2000,7 @@
 				A634BC3E21A40E7400852462 /* SS7GenericInstance_MAP_U_Abort_Ind_Task.m in Sources */,
 				A6BC4504207753ED008C3CEB /* UMSS7ApiTaskVersion.m in Sources */,
 				A6BC431920774F93008C3CEB /* UMSS7ConfigTelnet.m in Sources */,
+				A6BF3187229BC1020000578B /* UMSS7ConfigDiameterRouter.m in Sources */,
 				A6BC4528207753EE008C3CEB /* UMSS7ApiTaskSCCP_add.m in Sources */,
 				A6BC433C20774F93008C3CEB /* UMSS7ConfigM3UAAS.m in Sources */,
 				A6EC8E5C21B12F3E00B69FDD /* UMTTaskGetVersion.m in Sources */,

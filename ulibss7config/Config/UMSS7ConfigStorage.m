@@ -63,6 +63,8 @@
 #import "UMSS7ConfigCdrWriter.h"
 #import "UMSS7ConfigApiUser.h"
 #import "UMSS7ConfigDiameterConnection.h"
+#import "UMSS7ConfigDiameterRouter.h"
+#import "UMSS7ConfigDiameterRouter.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -113,6 +115,7 @@
     _imsi_pool_dict= [[UMSynchronizedDictionary alloc]init];
     _cdr_writer_dict= [[UMSynchronizedDictionary alloc]init];
     _diameter_connection_dict =  [[UMSynchronizedDictionary alloc]init];
+    _diameter_router_dict =  [[UMSynchronizedDictionary alloc]init];
     _estp_dict= [[UMSynchronizedDictionary alloc]init];
     _mapi_dict= [[UMSynchronizedDictionary alloc]init];
 
@@ -820,6 +823,17 @@
             _diameter_connection_dict[dc.name] = dc;
         }
     }
+
+    NSArray *diameter_router_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterRouter type]];
+    for(NSDictionary *diameter_router_config in diameter_router_configs)
+    {
+        UMSS7ConfigDiameterRouter *dr = [[UMSS7ConfigDiameterRouter alloc]initWithConfig:diameter_router_config];
+        if(dr.name.length  > 0)
+        {
+            _diameter_router_dict[dr.name] = dr;
+        }
+    }
+
 }
 
 
@@ -3103,6 +3117,52 @@
     return @"ok";
 }
 
+/*
+ **************************************************
+ ** DiameterRouter
+ **************************************************
+ */
+#pragma mark -
+#pragma mark DiameterRouter
+
+- (NSArray *)getDiameterRouterNames
+{
+    return [_diameter_router_dict allKeys];
+}
+
+- (UMSS7ConfigDiameterRouter *)getDiameterRouter:(NSString *)name
+{
+    return _diameter_router_dict [name];
+}
+
+- (NSString *)addDiameterRouter:(UMSS7ConfigDiameterRouter *)dc
+{
+    if(_diameter_router_dict[dc.name] == NULL)
+    {
+        _diameter_router_dict[dc.name] = dc;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceDiameterRouter:(UMSS7ConfigDiameterRouter *)dc
+{
+    _diameter_router_dict[dc.name] = dc;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteDiameterRouter:(NSString *)name
+{
+    if(_diameter_router_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_diameter_router_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 
 /***************************************************/

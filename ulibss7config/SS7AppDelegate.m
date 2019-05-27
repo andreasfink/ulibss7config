@@ -10,6 +10,7 @@
 
 #import <ulibtransport/ulibtransport.h>
 #import <ulibcamel/ulibcamel.h>
+#import <ulibdiameter/ulibdiameter.h>
 #import <ulibmtp3/ulibmtp3.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import "UMSS7ConfigStorage.h"
@@ -126,7 +127,7 @@ static void signalHandler(int signum);
 		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
         _diameter_connections_dict      = [[UMSynchronizedDictionary alloc]init];
-        _dra_dict                       = [[UMSynchronizedDictionary alloc]init];
+        _diameter_router_dict           = [[UMSynchronizedDictionary alloc]init];
 
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
@@ -601,6 +602,12 @@ static void signalHandler(int signum);
                                                           enableLogging:NO
                                                          numberOfQueues:UMLAYER_QUEUE_COUNT];
 
+    _diameterTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                   name:@"diameter"
+                                                          enableLogging:NO
+                                                         numberOfQueues:UMLAYER_QUEUE_COUNT];
+
+
 	_webClient = [[UMHTTPClient alloc]init];
 	if(generalConfig.hostname)
 	{
@@ -926,6 +933,7 @@ static void signalHandler(int signum);
 		}
 	}
 
+
 	/*********************************/
 	/* Setup SccpNumberTranslations  */
 	/*********************************/
@@ -1076,6 +1084,42 @@ static void signalHandler(int signum);
 			CONFIG_ERROR(@"One and only one ESTP config section is required and it must have a name");
 		}
 	}
+
+
+    /*****************************************************************/
+    /* DiameterRouter */
+    /*****************************************************************/
+    names = [_runningConfig getDiameterRouterNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getDiameterRouter:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigDiameterRouter:config];
+        }
+    }
+
+    /*****************************************************************/
+    /* DiameterConnections */
+    /*****************************************************************/
+    names = [_runningConfig getDiameterConnectionNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getDiameterConnection:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigDiameterConnection:config];
+            NSString *routerName = [config[@"router"] stringValue];
+            UMDiameterRouter *router = [self getDiameterRouter:routerName];
+            if(router==NULL)
+            {
+                NSString *s = [NSString stringWithFormat:@"diameter connection '%@' points to non existing router '%@'",name,routerName];
+                CONFIG_ERROR(s);
+            }
+        }
+    }
 }
 
 - (void)startInstances
@@ -1084,13 +1128,20 @@ static void signalHandler(int signum);
 	NSArray *names = [_mtp3_dict allKeys];
 	for(NSString *name in names)
 	{
-        NSLog(@"name=%@",name);
         UMLayerMTP3 *mtp3 = [self getMTP3:name];
-        NSLog(@"description=%@",mtp3.description);
 		NSLog(@"mtp3 %@ starting",mtp3.layerName);
 		[mtp3 start];
 		NSLog(@"mtp3 %@ started",mtp3.layerName);
 	}
+
+    names = [_diameter_router_dict allKeys];
+    for(NSString *name in names)
+    {
+        UMDiameterRouter *dr = [self getDiameterRouter:name];
+        NSLog(@"diameter %@ starting",dr.layerName);
+        [dr start];
+        NSLog(@"diameter %@ started",dr.layerName);
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -2428,6 +2479,99 @@ static void signalHandler(int signum);
     [_gsmmap_dict removeObjectForKey:oldName];
     layer.layerName = newName;
     _gsmmap_dict[newName] = layer;
+}
+
+/************************************************************/
+#pragma mark -
+#pragma mark Diameter Connection Functions
+/************************************************************/
+
+- (UMDiameterPeer *)getDiameterConnection:(NSString *)name
+{
+    return _diameter_connections_dict[name];
+}
+
+- (NSArray *)getDiameterConnectionNames
+{
+    return [_diameter_connections_dict allKeys];
+}
+
+- (void)addWithConfigDiameterConnection:(NSDictionary *)config
+{
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMSS7ConfigDiameterConnection *co = [[UMSS7ConfigDiameterConnection alloc]initWithConfig:config];
+        [_runningConfig addDiameterConnection:co];
+
+        UMDiameterPeer *peer = [[UMDiameterPeer alloc]initWithTaskQueueMulti:_diameterTaskQueue];
+        peer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"diameter-connection"];
+        peer.logFeed.name = name;
+        [peer setConfig:config applicationContext:self];
+        _diameter_connections_dict[name] = peer;
+    }
+}
+
+- (void)deleteDiameterConnection:(NSString *)name
+{
+    UMDiameterPeer *peer = _diameter_connections_dict[name];
+    [_diameter_connections_dict removeObjectForKey:name];
+    [peer stopDetachAndDestroy];
+}
+
+- (void)renameDiameterConnection:(NSString *)oldName to:(NSString *)newName
+{
+    UMDiameterPeer *peer =  _diameter_connections_dict[oldName];
+    [_diameter_connections_dict removeObjectForKey:oldName];
+    peer.layerName = newName;
+    _diameter_connections_dict[newName] = peer;
+}
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Diameter Router Functions
+/************************************************************/
+
+- (UMDiameterRouter *)getDiameterRouter:(NSString *)name
+{
+    return _diameter_router_dict[name];
+}
+
+- (NSArray *)getDiameterRouterNames
+{
+    return [_diameter_router_dict allKeys];
+}
+
+- (void)addWithConfigDiameterRouter:(NSDictionary *)config
+{
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMSS7ConfigDiameterRouter *co = [[UMSS7ConfigDiameterRouter alloc]initWithConfig:config];
+        [_runningConfig addDiameterRouter:co];
+
+        UMDiameterRouter *router = [[UMDiameterRouter alloc]initWithTaskQueueMulti:_diameterTaskQueue];
+        router.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"diameter-router"];
+        router.logFeed.name = name;
+        [router setConfig:config applicationContext:self];
+        _diameter_router_dict[name] = router;
+    }
+}
+
+- (void)deleteDiameterRouter:(NSString *)name
+{
+    UMDiameterRouter *router = _diameter_router_dict[name];
+    [_diameter_connections_dict removeObjectForKey:name];
+    [router stopDetachAndDestroy];
+}
+
+- (void)renameDiameterRouter:(NSString *)oldName to:(NSString *)newName
+{
+    UMDiameterRouter *peer =  _diameter_connections_dict[oldName];
+    [_diameter_connections_dict removeObjectForKey:oldName];
+    peer.layerName = newName;
+    _diameter_connections_dict[newName] = peer;
 }
 
 

@@ -61,6 +61,7 @@
 @class UMSS7ConfigSCCPTranslationTableMap;
 @class UMSS7ConfigApiUser;
 @class UMSS7ConfigDiameterConnection;
+@class UMSS7ConfigDiameterRouter;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -112,6 +113,7 @@
     UMSynchronizedDictionary *_imsi_pool_dict;
     UMSynchronizedDictionary *_cdr_writer_dict;
     UMSynchronizedDictionary *_diameter_connection_dict;
+    UMSynchronizedDictionary *_diameter_router_dict;
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
     NSString                 *_productName;
@@ -165,6 +167,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *imsi_pool_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *cdr_writer_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *diameter_connection_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *diameter_router_dict;
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 @property(readwrite,assign,atomic)  BOOL dirty;
@@ -444,5 +447,11 @@
 - (NSString *)addDiameterConnection:(UMSS7ConfigDiameterConnection*)dc;
 - (NSString *)replaceDiameterConnection:(UMSS7ConfigDiameterConnection *)dc;
 - (NSString *)deleteDiameterConnection:(NSString *)name;
+
+- (NSArray *)getDiameterRouterNames;
+- (UMSS7ConfigDiameterRouter *)getDiameterRouter:(NSString *)name;
+- (NSString *)addDiameterRouter:(UMSS7ConfigDiameterRouter *)dc;
+- (NSString *)replaceDiameterRouter:(UMSS7ConfigDiameterRouter *)dc;
+- (NSString *)deleteDiameterRouter:(NSString *)name;
 
 @end
