@@ -157,3 +157,11 @@
 #import "UMSS7ApiTaskSS7FilterLogFile_delete.h"
 #import "UMSS7ApiTaskSS7FilterLogFile_status.h"
 #import "UMSS7ApiTaskSS7FilterLogFile_action.h"
+
+#import "UMSS7ApiTaskNamedlist_list.h"
+#import "UMSS7ApiTaskNamedlist_read.h"
+#import "UMSS7ApiTaskNamedlist_add.h"
+#import "UMSS7ApiTaskNamedlist_modify.h"
+#import "UMSS7ApiTaskNamedlist_delete.h"
+#import "UMSS7ApiTaskNamedlist_status.h"
+#import "UMSS7ApiTaskNamedlist_action.h"

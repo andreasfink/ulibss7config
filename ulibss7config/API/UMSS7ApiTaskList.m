@@ -18,11 +18,13 @@
 
 - (void)main
 {
+    /*
     if(![self isAuthenticated])
     {
         [self sendErrorNotAuthenticated];
         return;
     }
+     */
     [self sendResultObject:[UMSS7ApiTask apiPathList]];
 }
 
