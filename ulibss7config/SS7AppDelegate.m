@@ -76,7 +76,9 @@
 #import "SS7GenericSession.h"
 #import "SS7AppTransportHandler.h"
 #import "SS7TemporaryImsiPool.h"
-
+#import "UMSS7ConfigApiUser.h"
+#import "UMSS7ConfigDiameterRouter.h"
+#import "UMSS7ApiSession.h"
 //@class SS7AppDelegate;
 
 static SS7AppDelegate *ss7_app_delegate;
@@ -1092,7 +1094,7 @@ static void signalHandler(int signum);
     names = [_runningConfig getDiameterRouterNames];
     for(NSString *name in names)
     {
-        UMSS7ConfigObject *co = [_runningConfig getDiameterRouter:name];
+        UMSS7ConfigDiameterRouter *co = [_runningConfig getDiameterRouter:name];
         NSDictionary *config = co.config.dictionaryCopy;
         if( [config configEnabledWithYesDefault])
         {

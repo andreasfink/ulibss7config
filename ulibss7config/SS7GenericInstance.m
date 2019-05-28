@@ -22,7 +22,7 @@
 #import "SS7GenericInstance_MAP_U_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_P_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_Notice_Ind_Task.h"
-
+ 
 #include <sys/stat.h>
 
 @implementation SS7GenericInstance

@@ -6,12 +6,12 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/ulibss7config.h>
+#import "UMSS7ApiTask.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface UMSS7ApiTaskApiUser_action : UMSS7ApiTask
 
 @end
 
-NS_ASSUME_NONNULL_END
+
