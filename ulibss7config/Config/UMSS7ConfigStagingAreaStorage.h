@@ -8,8 +8,8 @@
 
 #import <ulib/ulib.h>
 
-@class  UMSS7ConfigFilterRuleSet;
-@class  UMSS7ConfigFilterRule;
+@class  UMSS7ConfigSS7FilterRuleset;
+@class  UMSS7ConfigSS7FilterRule;
 @class  UMSS7ConfigFilterEngine;
 @class  UMSS7ConfigFilterActionList;
 @class  UMSS7ConfigFilterLog;
@@ -17,6 +17,7 @@
 
 @interface UMSS7ConfigStagingAreaStorage : UMObject
 {
+    NSString                 *_name;
     NSString                 *_path;
     UMSynchronizedDictionary *_filter_rule_set_dict;
     UMSynchronizedDictionary *_filter_engines_dict;
@@ -25,6 +26,7 @@
     UMTimer                 *_dirtyTimer;
 }
 
+@property(readwrite,strong,atomic)  NSString                 *name;
 @property(readwrite,strong,atomic)  NSString                 *path;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_rule_set_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_engines_dict;

@@ -11,6 +11,27 @@
 
 @implementation UMSS7ConfigSS7FilterActionList
 
+- (UMSS7ConfigSS7FilterActionList *)init
+{
+    self = [super init];
+    if(self)
+    {
+        _entries = [[UMSynchronizedArray alloc]init];
+    }
+    return self;
+}
+
+- (UMSS7ConfigSS7FilterActionList *)initWithConfig:(NSDictionary *)dict
+{
+    self = [super initWithConfig:dict];
+    if(self)
+    {
+        _entries = [[UMSynchronizedArray alloc]init];
+        [self setConfig:dict];
+    }
+    return self;
+}
+
 + (NSString *)type
 {
 	return @"ss7-filter-action-list";
@@ -21,15 +42,6 @@
 	return [UMSS7ConfigSS7FilterActionList type];
 }
 
-- (UMSS7ConfigSS7FilterActionList *)initWithConfig:(NSDictionary *)dict
-{
-	self = [super initWithConfig:dict];
-	if(self)
-	{
-		[self setConfig:dict];
-	}
-	return self;
-}
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
@@ -75,6 +87,37 @@
 {
 	UMSynchronizedSortedDictionary *currentConfig = [self config];
 	return [[UMSS7ConfigSS7FilterActionList allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+}
+
+- (UMSS7ConfigSS7FilterAction *)getActionAtIndex:(NSInteger)idx
+{
+    return _entries[idx];
+}
+
+- (void)setAction:(UMSS7ConfigSS7FilterAction *)action atIndex:(NSInteger)idx
+{
+    _entries[idx] = action;
+}
+
+- (void)insertAction:(UMSS7ConfigSS7FilterAction *)action  atIndex:(NSInteger)idx
+{
+    [_entries insertObject:action atIndex:idx];
+}
+
+- (void)appendAction:(UMSS7ConfigSS7FilterAction *)rule
+{
+    [_entries addObject:rule];
+}
+
+- (void)removeActionAtIndex:(NSInteger)idx
+{
+    [_entries removeObjectAtIndex:idx];
+
+}
+
+- (NSArray<UMSS7ConfigSS7FilterAction *> *)getAllActions
+{
+    return [_entries arrayCopy];
 }
 
 @end

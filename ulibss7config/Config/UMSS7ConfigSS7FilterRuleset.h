@@ -21,6 +21,7 @@
 - (UMSS7ConfigSS7FilterRule *)getRuleAtIndex:(NSInteger)idx;
 - (void)setRule:(UMSS7ConfigSS7FilterRule *)rule atIndex:(NSInteger)idx;
 - (void)insertRule:(UMSS7ConfigSS7FilterRule *)rule  atIndex:(NSInteger)idx;
+- (void)appendRule:(UMSS7ConfigSS7FilterRule *)rule;
 - (void)removeRuleAtIndex:(NSInteger)idx;
 - (NSArray<UMSS7ConfigSS7FilterRule *> *)getAllRules;
 

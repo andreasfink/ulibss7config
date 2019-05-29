@@ -134,6 +134,9 @@ static void signalHandler(int signum);
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
         _registry.logLevel =            UMLOG_MINOR;
+        _stagingAreaPath                =  @"/opt/ulibss7/ss7-filter/";
+        _filterEnginesPath              =  @"/opt/ulibss7/ss7-filter-engines/";
+        _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
 
         if(_enabledOptions[@"name"])
         {
@@ -395,149 +398,181 @@ static void signalHandler(int signum);
 
 - (void)processCommandLine:(int)argc argv:(const char **)argv
 {
-	NSDictionary    *appDefinition = [self appDefinition];
-	NSArray         *commandLineDefinition = [self commandLineSyntax];
-
-	_commandLine = [[UMCommandLine alloc]initWithCommandLineDefintion:commandLineDefinition
-														appDefinition:appDefinition
-																 argc:argc
-																 argv:argv];
-	[_commandLine handleStandardArguments];
-	_startupConfig = [[UMSS7ConfigStorage alloc]initWithCommandLine:_commandLine
-											  defaultConfigFileName:[self defaultConfigFile]];
-	_startupConfig.productName = [self productName];
-	_runningConfig = [_startupConfig copy];
-	if(_runningConfig.rwconfigFile.length > 0)
-	{
-		[_runningConfig startDirtyTimer];
-	}
-
-    _concurrentThreads = ulib_cpu_count();
-    if(self.generalTaskQueue == NULL)
+    @autoreleasepool
     {
-        if(_runningConfig.generalConfig.concurrentTasks!=NULL)
+        NSDictionary    *appDefinition = [self appDefinition];
+        NSArray         *commandLineDefinition = [self commandLineSyntax];
+
+        _commandLine = [[UMCommandLine alloc]initWithCommandLineDefintion:commandLineDefinition
+                                                            appDefinition:appDefinition
+                                                                     argc:argc
+                                                                     argv:argv];
+        [_commandLine handleStandardArguments];
+        _startupConfig = [[UMSS7ConfigStorage alloc]initWithCommandLine:_commandLine
+                                                  defaultConfigFileName:[self defaultConfigFile]];
+        _startupConfig.productName = [self productName];
+        _runningConfig = [_startupConfig copy];
+        if(_runningConfig.rwconfigFile.length > 0)
         {
-            _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
+            [_runningConfig startDirtyTimer];
         }
-        if(_concurrentThreads<3)
+
+        _concurrentThreads = ulib_cpu_count();
+        if(self.generalTaskQueue == NULL)
         {
-            _concurrentThreads = 3;
+            if(_runningConfig.generalConfig.concurrentTasks!=NULL)
+            {
+                _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
+            }
+            if(_concurrentThreads<3)
+            {
+                _concurrentThreads = 3;
+            }
+            _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                            name:@"general-task-queue"
+                                                                   enableLogging:NO
+                                                                  numberOfQueues:UMLAYER_QUEUE_COUNT];
         }
-        _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
-                                                                        name:@"general-task-queue"
-                                                               enableLogging:NO
-                                                              numberOfQueues:UMLAYER_QUEUE_COUNT];
+
+        _umtransportService.delegate = self;
+
+        BOOL actionDone=NO;
+        NSDictionary *params = _commandLine.params;
+        if(params[@"pid-file"])
+        {
+            for(NSString *filename in  params[@"pid-file"])
+            {
+                pid_t pid = getpid();
+                NSError *e = NULL;
+                NSString *s = [NSString stringWithFormat:@"%llu",(unsigned long long)pid];
+                [s writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:&e];
+                if(e)
+                {
+                    NSLog(@"Error %@",e);
+                }
+            }
+        }
+
+        if(params[@"staging-area"])
+        {
+            NSArray *a = params[@"staging-area"];
+            NSString *path = a[a.count-1];
+            _stagingAreaPath = path;
+            NSFileManager * fm = [NSFileManager defaultManager];
+            NSError *e = NULL;
+            [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:NULL error:&e];
+            if(e)
+            {
+                NSLog(@"Error while creating directory %@\n%@",path,e);
+            }
+        }
+
+        if(params[@"ss7-filters"])
+        {
+            for(NSString *path in params[@"ss7-filters"])
+            {
+                [self loadSS7FilterEnginesFromDirectory:path];
+            }
+        }
+        else
+        {
+            [self loadSS7FilterEnginesFromDirectory:_filterEnginesPath];
+        }
+
+        if(params[@"print-config"])
+        {
+            NSError *e = NULL;
+            NSString *s = [_startupConfig configString];
+            [s writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:&e];
+            if(e)
+            {
+                NSLog(@"Error %@",e);
+            }
+            actionDone = YES;
+        }
+        if(params[@"write-compact-config"])
+        {
+            for(NSString *filename in  params[@"write-compact-config"])
+            {
+                NSError *e = NULL;
+                NSString *s = [_startupConfig configString];
+                fprintf(stderr,"writing compact config to %s\n",filename.UTF8String);
+                [s writeToFile:filename atomically:NO encoding:NSUTF8StringEncoding error:&e];
+                if(e)
+                {
+                    NSLog(@"Error %@",e);
+                }
+                actionDone = YES;
+            }
+        }
+        if(params[@"write-split-config"])
+        {
+            for(NSString *filename in  params[@"write-split-config"])
+            {
+                NSString *configFile = [filename stringByStandardizingPath];
+                NSString *dir = [configFile stringByDeletingLastPathComponent];
+                fprintf(stderr,"writing split config to %s\n",filename.UTF8String);
+                [_startupConfig writeConfigToDirectory:dir usingFilename:configFile singleFile:NO];
+                actionDone = YES;
+            }
+        }
+        if([params[@"umobject-stat"] boolValue])
+        {
+            umobject_enable_object_stat();
+        }
+        if([params[@"ummutex-stat"] boolValue])
+        {
+            ummutex_stat_enable();
+        }
+        if((!params[@"schrittmacher-id"]) && (params[@"schrittmacher-port"]))
+        {
+            NSLog(@"schrittmacher-port specified but no schrittmacher-id. Ignoring");
+        }
+
+        if(params[@"schrittmacher-id"])
+        {
+            int schrittmacherPort =7700;
+            NSArray<NSString *> *a = params[@"schrittmacher-id"];
+            NSString *schrittmacherResourceId = a[0];
+            if(params[@"schrittmacher-port"])
+            {
+                NSArray<NSString *> *a2 = params[@"schrittmacher-port"];
+                NSString *s = a2[0];
+                schrittmacherPort = [s intValue];
+            }
+            _schrittmacherClient              = [[SchrittmacherClient alloc]init];
+            _schrittmacherClient.resourceId   = schrittmacherResourceId;
+            _schrittmacherClient.port         = schrittmacherPort;
+            _schrittmacherClient.addressType  = 4;
+            [_schrittmacherClient start];
+            if(params[@"standby"])
+            {
+                _schrittmacherMode = SchrittmacherMode_standby;
+                [_schrittmacherClient heartbeatStandby];
+                _startInStandby = YES;
+            }
+            else if(params[@"hot"])
+            {
+                _schrittmacherMode = SchrittmacherMode_hot;
+                [_schrittmacherClient heartbeatHot];
+                _startInStandby = NO;
+            }
+            else
+            {
+                _schrittmacherMode = SchrittmacherMode_unknown;
+                [_schrittmacherClient heartbeatUnknown];
+            }
+        }
+
+        if(actionDone)
+        {
+            exit(0);
+        }
+        [self createInstances];
     }
-
-    _umtransportService.delegate = self;
-
-	BOOL actionDone=NO;
-	NSDictionary *params = _commandLine.params;
-	if(params[@"pid-file"])
-	{
-		for(NSString *filename in  params[@"pid-file"])
-		{
-			pid_t pid = getpid();
-			NSError *e = NULL;
-			NSString *s = [NSString stringWithFormat:@"%llu",(unsigned long long)pid];
-			[s writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:&e];
-			if(e)
-			{
-				NSLog(@"Error %@",e);
-			}
-		}
-	}
-	if(params[@"print-config"])
-	{
-		NSError *e = NULL;
-		NSString *s = [_startupConfig configString];
-		[s writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:&e];
-		if(e)
-		{
-			NSLog(@"Error %@",e);
-		}
-		actionDone = YES;
-	}
-	if(params[@"write-compact-config"])
-	{
-		for(NSString *filename in  params[@"write-compact-config"])
-		{
-			NSError *e = NULL;
-			NSString *s = [_startupConfig configString];
-			fprintf(stderr,"writing compact config to %s\n",filename.UTF8String);
-			[s writeToFile:filename atomically:NO encoding:NSUTF8StringEncoding error:&e];
-			if(e)
-			{
-				NSLog(@"Error %@",e);
-			}
-			actionDone = YES;
-		}
-	}
-	if(params[@"write-split-config"])
-	{
-		for(NSString *filename in  params[@"write-split-config"])
-		{
-			NSString *configFile = [filename stringByStandardizingPath];
-			NSString *dir = [configFile stringByDeletingLastPathComponent];
-			fprintf(stderr,"writing split config to %s\n",filename.UTF8String);
-			[_startupConfig writeConfigToDirectory:dir usingFilename:configFile singleFile:NO];
-			actionDone = YES;
-		}
-	}
-	if([params[@"umobject-stat"] boolValue])
-	{
-		umobject_enable_object_stat();
-	}
-	if([params[@"ummutex-stat"] boolValue])
-	{
-		ummutex_stat_enable();
-	}
-	if((!params[@"schrittmacher-id"]) && (params[@"schrittmacher-port"]))
-	{
-		NSLog(@"schrittmacher-port specified but no schrittmacher-id. Ignoring");
-	}
-
-	if(params[@"schrittmacher-id"])
-	{
-		int schrittmacherPort =7700;
-		NSArray<NSString *> *a = params[@"schrittmacher-id"];
-		NSString *schrittmacherResourceId = a[0];
-		if(params[@"schrittmacher-port"])
-		{
-			NSArray<NSString *> *a2 = params[@"schrittmacher-port"];
-			NSString *s = a2[0];
-			schrittmacherPort = [s intValue];
-		}
-		_schrittmacherClient              = [[SchrittmacherClient alloc]init];
-		_schrittmacherClient.resourceId   = schrittmacherResourceId;
-		_schrittmacherClient.port         = schrittmacherPort;
-		_schrittmacherClient.addressType  = 4;
-		[_schrittmacherClient start];
-		if(params[@"standby"])
-		{
-			_schrittmacherMode = SchrittmacherMode_standby;
-			[_schrittmacherClient heartbeatStandby];
-			_startInStandby = YES;
-		}
-		else if(params[@"hot"])
-		{
-			_schrittmacherMode = SchrittmacherMode_hot;
-			[_schrittmacherClient heartbeatHot];
-			_startInStandby = NO;
-		}
-		else
-		{
-			_schrittmacherMode = SchrittmacherMode_unknown;
-			[_schrittmacherClient heartbeatUnknown];
-		}
-	}
-
-	if(actionDone)
-	{
-		exit(0);
-	}
-	[self createInstances];
 }
+
+
 
 - (void)createInstances
 {
@@ -545,8 +580,6 @@ static void signalHandler(int signum);
 	/* Section GENERAL */
 	/*****************************************************************/
 	[self.logFeed infoText:@"creatingInstances"];
-
-
 
 	UMSS7ConfigGeneral *generalConfig = _runningConfig.generalConfig;
 	if(generalConfig.logDirectory.length > 0)
@@ -2790,7 +2823,8 @@ static void signalHandler(int signum);
     [self setupSignalHandlers];
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
     [self processCommandLine:argc argv:argv];
-    
+
+
     [NSOperationQueue mainQueue];
     /* this initializes some stuff for the main run loop on Linux/GNUStep */
     
@@ -3532,6 +3566,71 @@ static void signalHandler(int signum);
 	}
 	[req setResponsePlainText:status];
 	return;
+}
+
+- (void)createSS7FilterStagingArea:(NSString *)name
+{
+    /* FIXME */
+}
+
+- (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId
+{
+    /* FIXME */
+}
+
+- (void)deleteSS7FilterStagingArea:(NSString *)name
+{
+    /* FIXME */
+}
+
+- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId
+{
+    return NULL;
+}
+
+- (void)makeStagingAreaCurrent:(NSString *)name
+{
+    /* FIXME */
+}
+
+- (NSArray<NSString *> *)getSS7FilterStagingAreaNames
+{
+    /* FIXME */
+    return NULL;
+}
+
+- (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
+{
+    /* FIXME */
+}
+
+- (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname
+{
+    /* FIXME */
+}
+
+- (void)loadSS7FilterEnginesFromDirectory:(NSString *)path
+{
+    NSFileManager * fm = [NSFileManager defaultManager];
+    NSError *e = NULL;
+    NSArray<NSString *> *a = [fm contentsOfDirectoryAtPath:path  error:&e];
+    if(e)
+    {
+        NSLog(@"Error while parsing directory %@\n%@",path,e);
+    }
+    for(NSString *filename in a)
+    {
+        NSString *filepath = [NSString stringWithFormat:@"%@/%@",path,filename];
+        UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
+        if(ph)
+        {
+            [ph open];
+            NSDictionary *info = ph.info;
+            NSString *type = info[@"type"];
+            if([type isEqualToString:@"ss7-filter"])
+            _ss7FilterEngines[ph.name] = ph;
+        }
+    }
 }
 
 @end

@@ -25,6 +25,7 @@
 @class ConfigurationSocket;
 @class SchrittmacherClient;
 @class UMSS7ConfigStorage;
+@class UMSS7ConfigStagingAreaStorage;
 @class SccpDestination;
 @class SS7AppTransportHandler;
 @class ApiSession;
@@ -130,8 +131,10 @@ UMDiameterRouterAppDelegateProtocol>
     int                         _concurrentTasks;
     NSUInteger                  _queueHardLimit;
     BOOL                        _startInStandby;
-
+    NSString                    *_stagingAreaPath;
+    NSString                    *_filterEnginesPath;
     NSDate                      *_applicationStart;
+    UMSynchronizedDictionary    *_ss7FilterEngines;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -158,6 +161,8 @@ UMDiameterRouterAppDelegateProtocol>
 @property(readwrite,strong)     NSDictionary		*staticWebPages;
 @property(readwrite,strong)     UMHTTPClient		*webClient;
 @property(readwrite,strong)     NSDate              *applicationStart;
+@property(readwrite,strong)     NSString            *stagingAreaPath;
+@property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -325,6 +330,24 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)handleM2PAStatus:(UMHTTPRequest *)req;
 - (void)handleM3UAStatus:(UMHTTPRequest *)req;
 - (void)handleSCTPStatus:(UMHTTPRequest *)req;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Staging Area Service Functions
+/************************************************************/
+
+
+- (void)createSS7FilterStagingArea:(NSString *)name;
+- (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId;
+- (void)deleteSS7FilterStagingArea:(NSString *)name;
+- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId;
+- (void)makeStagingAreaCurrent:(NSString *)name;
+- (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
+- (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
+- (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
+
+- (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
 
 @end
 

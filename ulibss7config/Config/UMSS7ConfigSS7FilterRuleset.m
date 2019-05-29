@@ -11,7 +11,26 @@
 
 @implementation UMSS7ConfigSS7FilterRuleset
 
+- (UMSS7ConfigSS7FilterRuleset *)init
+{
+    self = [super init];
+    if(self)
+    {
+        _entries = [[UMSynchronizedArray alloc]init];
+    }
+    return self;
+}
 
+- (UMSS7ConfigSS7FilterRuleset *)initWithConfig:(NSDictionary *)dict
+{
+    self = [super initWithConfig:dict];
+    if(self)
+    {
+        _entries = [[UMSynchronizedArray alloc]init];
+        [self setConfig:dict];
+    }
+    return self;
+}
 
 - (UMSS7ConfigSS7FilterRule *)getRuleAtIndex:(NSInteger)idx
 {
@@ -27,6 +46,12 @@
 {
     [_entries insertObject:rule atIndex:idx];
 }
+
+- (void)appendRule:(UMSS7ConfigSS7FilterRule *)rule
+{
+    [_entries addObject:rule];
+}
+
 - (void)removeRuleAtIndex:(NSInteger)idx
 {
     [_entries removeObjectAtIndex:idx];
