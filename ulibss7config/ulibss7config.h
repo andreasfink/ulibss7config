@@ -78,4 +78,6 @@
 #import "UMTTaskGetVersion.h"
 #import "SS7TemporaryImsiPool.h"
 #import "SS7TemporaryImsiEntry.h"
+#import "DiameterGenericInstance.h"
+#import "DiameterGenericSession.h"
 

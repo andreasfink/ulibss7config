@@ -79,6 +79,8 @@
 #import "UMSS7ConfigApiUser.h"
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ApiSession.h"
+#import "DiameterGenericInstance.h"
+
 //@class SS7AppDelegate;
 
 static SS7AppDelegate *ss7_app_delegate;
@@ -137,6 +139,7 @@ static void signalHandler(int signum);
         _stagingAreaPath                =  @"/opt/ulibss7/ss7-filter/";
         _filterEnginesPath              =  @"/opt/ulibss7/ss7-filter-engines/";
         _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
+        _mainDiameterInstance           = [[DiameterGenericInstance alloc]init];
 
         if(_enabledOptions[@"name"])
         {
@@ -1141,18 +1144,25 @@ static void signalHandler(int signum);
     names = [_runningConfig getDiameterConnectionNames];
     for(NSString *name in names)
     {
-        UMSS7ConfigObject *co = [_runningConfig getDiameterConnection:name];
+        UMSS7ConfigDiameterConnection *co = [_runningConfig getDiameterConnection:name];
         NSDictionary *config = co.config.dictionaryCopy;
         if( [config configEnabledWithYesDefault])
         {
             [self addWithConfigDiameterConnection:config];
-            NSString *routerName = [config[@"router"] stringValue];
+            NSString *routerName = co.router;
             UMDiameterRouter *router = [self getDiameterRouter:routerName];
             if(router==NULL)
             {
                 NSString *s = [NSString stringWithFormat:@"diameter connection '%@' points to non existing router '%@'",name,routerName];
                 CONFIG_ERROR(s);
             }
+
+            UMDiameterPeer *peer = [[UMDiameterPeer alloc]initWithTaskQueueMulti:_diameterTaskQueue];
+            peer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"diameter-connection"];
+            peer.logFeed.name = name;
+            [peer setConfig:config applicationContext:self];
+            [router addPeer:peer];
+            _diameter_connections_dict[name] = peer;
         }
     }
 }
@@ -2538,12 +2548,6 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigDiameterConnection *co = [[UMSS7ConfigDiameterConnection alloc]initWithConfig:config];
         [_runningConfig addDiameterConnection:co];
-
-        UMDiameterPeer *peer = [[UMDiameterPeer alloc]initWithTaskQueueMulti:_diameterTaskQueue];
-        peer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"diameter-connection"];
-        peer.logFeed.name = name;
-        [peer setConfig:config applicationContext:self];
-        _diameter_connections_dict[name] = peer;
     }
 }
 
@@ -3609,6 +3613,53 @@ static void signalHandler(int signum);
     /* FIXME */
 }
 
+
+
+- (NSArray *)getSS7FilterEngineNames
+{
+    return [_ss7FilterEngines allKeys];
+}
+
+- (void)addWithConfigSS7FilterEngine:(NSDictionary *)config /* can throw exceptions */
+{
+    NSString *filename = config[@"filename"];
+    NSString *filepath = [NSString stringWithFormat:@"%@/%@",_filterEnginesPath,filename];
+    UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
+    if(ph==NULL)
+    {
+        @throw([NSException exceptionWithName:@"PLUGIN-ERROR"
+                                       reason:@"can not allocate plugin handler"
+                                     userInfo:NULL]);
+    }
+
+    [ph open];
+    NSString *err = ph.error;
+    if(err.length> 0)
+    {
+        [ph close];
+        @throw([NSException exceptionWithName:@"LOADING-ERROR"
+                                       reason:err
+                                     userInfo:NULL]);
+    }
+
+    NSDictionary *info = ph.info;
+    NSString *type = info[@"type"];
+    if([type isEqualToString:@"ss7-filter"])
+    {
+        _ss7FilterEngines[ph.name] = ph;
+
+    }
+    else
+    {
+        [ph close];
+        NSString *s = [NSString stringWithFormat:@"was expecting plugin-type 'ss7-filter but got plugin-type '%@'",type];
+        @throw([NSException exceptionWithName:@"WRONG-TYPE"
+                                       reason:s
+                                     userInfo:NULL]);
+
+    }
+}
+
 - (void)loadSS7FilterEnginesFromDirectory:(NSString *)path
 {
     NSFileManager * fm = [NSFileManager defaultManager];
@@ -3630,11 +3681,20 @@ static void signalHandler(int signum);
             if([type isEqualToString:@"ss7-filter"])
             _ss7FilterEngines[ph.name] = ph;
         }
+        else
+        {
+            [ph close];
+        }
     }
 }
 
-@end
+- (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name
+{
+    return _ss7FilterEngines[name];
+}
 
+
+@end
 
 static void signalHandler(int signum)
 {

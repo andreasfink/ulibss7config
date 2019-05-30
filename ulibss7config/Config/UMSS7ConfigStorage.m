@@ -276,6 +276,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigServiceBillingEntity type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigDiameterRouter type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
     [cfg read];
     [self processConfig:cfg];
@@ -3222,7 +3223,8 @@
     n.mapi_dict = [_mapi_dict copy];
     n.imsi_pool_dict = [_imsi_pool_dict copy];
     n.cdr_writer_dict = [_cdr_writer_dict copy];
-
+    n.diameter_connection_dict = [_diameter_connection_dict copy];
+    n.diameter_router_dict = [_diameter_router_dict copy];
     n.rwconfigFile = _rwconfigFile;
     return n;
 
