@@ -11,6 +11,7 @@
 
 @class UMSS7ConfigStorage;
 @class UMSS7ApiSession;
+@class UMSS7ConfigStagingAreaStorage;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -111,5 +112,14 @@ realm:(NSString **)realm;
                                                               on:(BOOL)on;
 
 - (UMSynchronizedSortedDictionary *)cloneSCCPTranslationTable:(NSDictionary *)config;
+
+- (void)createSS7FilterStagingArea:(NSString *)name;
+- (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId;
+- (void)deleteSS7FilterStagingArea:(NSString *)name;
+- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId;
+- (void)makeStagingAreaCurrent:(NSString *)name;
+- (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
+- (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
+- (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
 
 @end
