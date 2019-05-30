@@ -6,12 +6,10 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/ulibss7config.h>
+#import "DiameterGenericSession.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface DiameterSession3GPP_SRR : DiameterGenericSession
 
 @end
 
-NS_ASSUME_NONNULL_END

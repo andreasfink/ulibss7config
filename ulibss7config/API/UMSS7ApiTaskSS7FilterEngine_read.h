@@ -6,9 +6,7 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/ulibss7config.h>
-
-
+#import "UMSS7ApiTask.h"
 
 @interface UMSS7ApiTaskSS7FilterEngine_read : UMSS7ApiTask
 
