@@ -35,6 +35,7 @@
         return;
     }
 	
+	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate runningConfig];
 	UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 	UMSS7ConfigM2PA *stagingArea = NULL;
     /* TODO : Add To AppDelegate a new method : getStagingArea
