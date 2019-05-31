@@ -28,8 +28,6 @@
 
 }
 
-
-
 - (void)umtransportOpenConfirmation:(UMTransportOpenAccept *)pdu
                            invokeId:(int64_t)invokeId
 {

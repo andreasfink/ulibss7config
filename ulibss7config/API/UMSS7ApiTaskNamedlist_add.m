@@ -13,7 +13,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/snamedlist-add";
+    return @"/api/namedlist-add";
 }
 
 - (void)main

@@ -28,7 +28,6 @@
     if(self)
     {
         [self setConfig:dict];
-
     }
     return self;
 }

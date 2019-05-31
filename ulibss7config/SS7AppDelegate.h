@@ -31,6 +31,7 @@
 @class ApiSession;
 @class SS7TemporaryImsiPool;
 @class SS7GenericInstance;
+@class DiameterGenericInstance;
 
 typedef enum SchrittmacherMode
 {
@@ -135,6 +136,7 @@ UMDiameterRouterAppDelegateProtocol>
     NSString                    *_filterEnginesPath;
     NSDate                      *_applicationStart;
     UMSynchronizedDictionary    *_ss7FilterEngines;
+    DiameterGenericInstance     *_mainDiameterInstance;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -163,6 +165,7 @@ UMDiameterRouterAppDelegateProtocol>
 @property(readwrite,strong)     NSDate              *applicationStart;
 @property(readwrite,strong)     NSString            *stagingAreaPath;
 @property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
+@property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -338,6 +341,8 @@ UMDiameterRouterAppDelegateProtocol>
 /************************************************************/
 
 
+
+
 - (void)createSS7FilterStagingArea:(NSString *)name;
 - (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
@@ -347,7 +352,15 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
 
-- (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
 
+/************************************************************/
+#pragma mark -
+#pragma mark Filter Engine Functions
+/************************************************************/
+
+- (NSArray *)getSS7FilterEngineNames;
+- (void)addWithConfigSS7FilterEngine:(NSDictionary *)config; /* can throw exceptions */
+- (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
+- (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name;
 @end
 

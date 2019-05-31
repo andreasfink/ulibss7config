@@ -122,4 +122,9 @@ realm:(NSString **)realm;
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
 
+- (NSArray *)getSS7FilterEngineNames;
+- (void)addWithConfigSS7FilterEngine:(NSDictionary *)config; /* can throw exceptions */
+- (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
+- (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name;
+
 @end

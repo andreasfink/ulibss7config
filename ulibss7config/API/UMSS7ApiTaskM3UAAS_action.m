@@ -39,13 +39,13 @@
 
         else if([action isEqualToString:@"activate"])
         {
-            [m3ua_as aspActive:NULL];
+            [m3ua_as activate];
             [self sendResultOK];
 
         }
         else if([action isEqualToString:@"deactivate"])
         {
-            [m3ua_as aspInactive:NULL];
+            [m3ua_as deactivate];
             [self sendResultOK];
         }
         else if([action isEqualToString:@"start"])
