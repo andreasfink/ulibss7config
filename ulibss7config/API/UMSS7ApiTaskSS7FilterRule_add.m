@@ -41,7 +41,7 @@
 	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession.sessionKey];
 	if(stagingArea == NULL)
     {
-        [self sendErrorNotFound];
+        [self sendErrorNotFound:@"Staging-Area"];
     }
     else
     {
@@ -56,9 +56,16 @@
 			UMSS7ConfigSS7FilterRuleset* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
 			
 			// 4. Verify if engine exists && rule-set exists
-			if(engine == NULL || rSet == NULL)
+			if(engine == NULL)
 			{
-				[self sendErrorNotFound];
+				// 4a. Not found
+				[self sendErrorNotFound:engine_name];
+				
+			}
+			else if(rSet == NULL)
+			{
+				// 4b. Not found
+				[self sendErrorNotFound:ruleset_name];
 			}
 			else
 			{

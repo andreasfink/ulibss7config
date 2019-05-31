@@ -40,7 +40,7 @@
 	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession.sessionKey];
 	if(stagingArea == NULL)
     {
-        [self sendErrorNotFound];
+        [self sendErrorNotFound:@"Staging-Area"];
     }
     else
     {
@@ -58,24 +58,35 @@
 			NSString *idx = _webRequest.params[@"entry-nr"];
 			
 			// 5. Verify if engine, rule-set, rule exist
-			if(engine == NULL || rSet == NULL || idx == NULL)
+			if(engine == NULL)
 			{
 				// 5a. Not found
-				[self sendErrorNotFound];
+				[self sendErrorNotFound:engine_name];
+				
+			}
+			else if(rSet == NULL)
+			{
+				// 5b. Not found
+				[self sendErrorNotFound:ruleset_name];
+			}
+			else if(idx == NULL)
+			{
+				// 5c. Not found
+				[self sendErrorNotFound:@"Rule Position"];
 			}
 			else
 			{
-				// 5b. Get rule
+				// 5d. Get rule
 				NSInteger i = [idx integerValue];
 				UMSS7ConfigSS7FilterRule* filterRule = [rSet getRuleAtIndex:i];
 				if(filterRule == NULL)
 				{
-				    // 5b-1. Rule not found
-					[self sendErrorNotFound];
+				    // 5d-1. Rule not found
+					[self sendErrorNotFound:@"Rule"];
 				}
 				else
 				{
-					// 5b-2. OK
+					// 5d-2. OK
 					[self sendResultOK];
 				}
 			}
