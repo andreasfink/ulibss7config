@@ -47,32 +47,40 @@
     {
 		@try
 		{
-			// 1. Get All rule-sets from this staging area & scan them 
+			// 2. Get Engine  
+			NSString *engine_name = _webRequest.params[@"engine"];
+			UMPluginHandler *engine = [_appDelegate getSS7FilterEngineHandler:engine_name];
+			
+			// 3. Get Rule-Set 
 			NSString *ruleset_name = _webRequest.params[@"filter-ruleset"];
-			UMSynchronizedDictionary* ruleSet = stagingArea.filter_rule_set_dict;
-			NSArray *keys = [ruleSet allKeys];
-			for(NSString *key in keys)
+			UMSS7ConfigSS7FilterRuleset* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
+			
+			// 4. Verify if engine exists && rule-set exists
+			if(engine == NULL || rSet == NULL)
 			{
-				 UMSS7ConfigSS7FilterRuleset* rSet = ruleSet[key];
-				 
-				 // 2. If found append rule else skip
-				 if(ruleset_name == rSet.name)
-				 {
-					  // 3. Create Rule from end-user input coming from outside
-					 UMSS7ConfigSS7FilterRule* filterRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_webRequest.params];
-					 
-					 // 4. Append Rule
-					 [rSet appendRule:filterRule];
+				[self sendErrorNotFound];
+			}
+			else
+			{
+				// 5. Create Rule from end-user input coming from outside
+				UMSS7ConfigSS7FilterRule* filterRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_webRequest.params];	 
+				NSString *idx = _webRequest.params[@"entry-nr"];
+				if(idx == NULL)
+				{
+					// 5a. Append Rule
+					[rSet appendRule:filterRule];
+				}
+				else
+				{
+					// 5b. Insert Rule
+					NSInteger i = [idx integerValue];
+					[rSet insertRule:filterRule atIndex:i];
+				}
 
-					 // 5. Return result
-					  UMSynchronizedSortedDictionary *config = filterRule.config;
-					 [self sendResultObject:config];
-				 } 
-				 else
-				 {
-					 // skip
-				 }
-			}	 
+				// 6. Return result
+				UMSynchronizedSortedDictionary *config = filterRule.config;
+				[self sendResultObject:config];
+			}
 		}
 		@catch(NSException *e)
 		{

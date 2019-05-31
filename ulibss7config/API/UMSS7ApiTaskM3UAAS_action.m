@@ -39,14 +39,16 @@
 
         else if([action isEqualToString:@"activate"])
         {
-            [m3ua_as activate];
-            [self sendResultOK];
+            //[m3ua_as activate];
+            //[self sendResultOK];
+			[self sendErrorNotImplemented];
 
         }
         else if([action isEqualToString:@"deactivate"])
         {
-            [m3ua_as deactivate];
-            [self sendResultOK];
+            //[m3ua_as deactivate];
+            //[self sendResultOK];
+			[self sendErrorNotImplemented];
         }
         else if([action isEqualToString:@"start"])
         {
