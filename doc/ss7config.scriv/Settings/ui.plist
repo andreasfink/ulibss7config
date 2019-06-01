@@ -243,7 +243,7 @@
 	<integer>4</integer>
 	<key>inspectorSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {384, 917}}</string>
+		<string>{{0, 0}, {336, 917}}</string>
 	</array>
 	<key>inspectorSynopsisIsCollapsed</key>
 	<false/>
