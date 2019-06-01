@@ -16,11 +16,9 @@
     NSString *_tableName;
     NSNumber *_autoCreate;
     NSString *_poolName;
-
     NSNumber *_reopenTime;
     NSNumber *_cdrQueueLimit;
     NSString *_cdrFilePrefix;
-
 }
 
 @property(readwrite,strong,atomic)  NSString *attachTo;

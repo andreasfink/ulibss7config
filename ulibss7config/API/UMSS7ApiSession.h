@@ -15,13 +15,14 @@
     UMSS7ConfigApiUser *_currentUser;
     NSString *_connectedFromIp;
     UMAtomicDate *_lastUsed;
-    NSTimeInterval timeout;
+    NSTimeInterval _timeout;
 }
 
 @property(readwrite,strong,atomic) NSString *sessionKey;
 @property(readwrite,strong,atomic) UMSS7ConfigApiUser *currentUser;
 @property(readwrite,strong,atomic) NSString *connectedFromIp;
 @property(readwrite,strong,atomic) UMAtomicDate *lastUsed;
+@property(readwrite,assign,atomic) NSTimeInterval timeout;
 
 - (UMSS7ApiSession *)initWithHttpRequest:(UMHTTPRequest *)req user:(UMSS7ConfigApiUser *)user;
 - (void)touch;

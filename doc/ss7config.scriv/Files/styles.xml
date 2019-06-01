@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Styles>
-    <Style Name="Title" ID="AEDE8205-4292-4E34-A5A6-37A7F8C22486" Type="Para+Char" FontChange="Size">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+    <Style Name="Title" ID="7990FED7-5424-4624-80B1-3D40CD2700BB" Type="Para+Char" FontChange="Size">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
 {\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb260\pardirnatural\partightenfactor0
 
-\f0\fs56 \cf0 Attributes}]]></Format>
+\f0\fs56 \cf0 <$ScrKeepWithNext>Attributes}]]></Format>
     </Style>
-    <Style Name="Heading 1" ID="640A541E-95A4-4026-AF24-014B25E855AE" Type="Para+Char" FontChange="Size" Shortcut="4">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Roman;}
-{\colortbl;\red255\green255\blue255;\red16\green133\blue214;}
-{\*\expandedcolortbl;;\csgenericrgb\c6275\c52157\c83922;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb300\sa120\pardirnatural\partightenfactor0
+    <Style Name="Heading 1" ID="17F1DF62-2E52-4CE2-90D3-06A6E2512EF3" Type="Para+Char" FontChange="Size" Shortcut="4">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Bold;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb260\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf2 <$Scr_H::1>
+\f0\fs24 \cf0 <$ScrKeepWithNext><$Scr_H::1>
 \f1\b\fs36 Attributes
 \f0\b0\fs24 <!$Scr_H::1>}]]></Format>
     </Style>
-    <Style Name="Heading 2" ID="5571A407-6C68-4E7C-8074-444B2CD93FD0" Type="Para+Char" FontChange="Size" Shortcut="5">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
-{\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
-{\colortbl;\red255\green255\blue255;\red127\green127\blue127;}
-{\*\expandedcolortbl;;\csgenericrgb\c49804\c49804\c49804;}
-\pard\tx720\sl264\slmult1\sb120\pardirnatural\partightenfactor0
+    <Style Name="Heading 2" ID="A4005238-6F3F-4AF5-81EE-D5C43288523F" Type="Para+Char" FontChange="Size" Shortcut="5">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Bold;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb260\pardirnatural\partightenfactor0
 
-\f0\b\fs32 \cf2 Attributes}]]></Format>
+\f0\fs24 \cf0 <$ScrKeepWithNext><$Scr_H::2>
+\f1\b\fs26 Attributes
+\f0\b0\fs24 <!$Scr_H::2>}]]></Format>
     </Style>
-    <Style Name="Block Quote" ID="A4264D11-AFAA-450D-9FD7-3A809EF4BBF4" Type="Para" FontChange="Size" Shortcut="2">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+    <Style Name="Centered Text" ID="49671E2A-931E-46A1-80CD-CD4F50190A61" Type="Para" Shortcut="1">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
 {\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
+\pard\tx360\tx720\tx1080\tx1440\tx1800\tx2160\tx2880\tx3600\tx4320\sl264\slmult1\pardirnatural\qc\partightenfactor0
 
-\f0\fs22 \cf0 Attributes}]]></Format>
+\f0\fs26 \cf0 Attributes}]]></Format>
     </Style>
-    <Style Name="Attribution" ID="3B2C4FEC-2D5F-4272-BAF0-E550919C7472" Type="Para" FontChange="Size" Shortcut="2">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+    <Style Name="Block Quote" ID="8B5316CA-C579-4CC2-A44A-1B09C2AD1A7B" Type="Para" FontChange="Size" Shortcut="2">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
 {\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\pard\tx720\tx1080\tx1440\li720\sl264\slmult1\pardirnatural\partightenfactor0
+\pard\tx720\tx1080\tx1440\li720\sl264\slmult1\sb240\sa240\pardirnatural\partightenfactor0
 
-\f0\fs22 \cf0 Attributes}]]></Format>
+\f0\fs24 \cf0 Attributes}]]></Format>
     </Style>
-    <Style Name="Code Block" ID="E9C0EB2A-E0EA-47E2-B1AB-389EB54E6C57" Type="Para+Char" FontChange="Face+Size" Next="E9C0EB2A-E0EA-47E2-B1AB-389EB54E6C57">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+    <Style Name="Attribution" ID="B8A2CD90-4654-4CE0-8E37-CE8A7590CB11" Type="Para" FontChange="Size" Shortcut="">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx720\tx1080\tx1440\li720\sl264\slmult1\sa240\pardirnatural\qr\partightenfactor0
+
+\f0\fs24 \cf0 Attributes}]]></Format>
+    </Style>
+    <Style Name="Code Block" ID="34794EE4-0F8E-4B58-8151-3E2B6A42514D" Type="Para+Char" FontChange="Face+Size" Next="34794EE4-0F8E-4B58-8151-3E2B6A42514D">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
 {\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
@@ -56,8 +67,17 @@
 
 \f0\fs22 \cf0 Attributes}]]></Format>
     </Style>
-    <Style Name="Code Span" ID="FD80B778-B01A-4A70-89EE-1B441986FD6B" Type="Char" FontChange="Face+Size">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+    <Style Name="Verse" ID="093355B8-2995-4381-974F-B2BD76B4AC44" Type="Para" FontChange="Size" Next="093355B8-2995-4381-974F-B2BD76B4AC44">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\sl264\slmult1\pardirnatural\qc\partightenfactor0
+
+\f0\fs24 \cf0 Attributes}]]></Format>
+    </Style>
+    <Style Name="Code Span" ID="C881EC11-BD84-4E3D-9CD2-44756C0D6308" Type="Char" FontChange="Face+Size">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
 {\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
@@ -65,8 +85,8 @@
 
 \f0\fs22 \cf0 Attributes}]]></Format>
     </Style>
-    <Style Name="Caption" ID="AB8422F4-1FA1-4E84-B794-F19ED7216B0D" Type="Para" FontChange="Size" Shortcut="3">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+    <Style Name="Caption" ID="CC9A9405-5D47-47D5-89AA-31A0E3E894BB" Type="Para" FontChange="Size" Shortcut="3">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
 {\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
@@ -74,35 +94,13 @@
 
 \f0\fs26 \cf0 Attributes}]]></Format>
     </Style>
-    <Style Name="Emphasis" ID="588060D9-5757-4C0D-B6EC-3B7DF230EA1E" Type="Char">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
-{\fonttbl\f0\froman\fcharset0 Palatino-Roman;}
+    <Style Name="Emphasis" ID="BB0993E9-1BB2-4057-8EAA-1D87B075A885" Type="Char">
+        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\froman\fcharset0 Palatino-Italic;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
 \pard\tx360\tx720\tx1080\tx1440\tx1800\tx2160\tx2880\tx3600\tx4320\fi360\sl264\slmult1\pardirnatural\partightenfactor0
 
 \f0\i\fs26 \cf0 Attributes}]]></Format>
-    </Style>
-    <Style Name="Menu Item" ID="FB90E4F7-270A-483E-ACAD-49784C05219C" Type="Char" FontChange="Face+Size">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
-{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
-{\colortbl;\red255\green255\blue255;\red16\green133\blue214;}
-{\*\expandedcolortbl;;\csgenericrgb\c6275\c52157\c83922;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\fi560\slleading120\pardirnatural\partightenfactor0
-
-\f0\b\fs24 \cf2 Attributes}]]></Format>
-    </Style>
-    <Style Name="Note Prefix" ID="237F9B12-47DD-441B-BD24-83EB9078CDE8" Type="Char" FontChange="Face+Size">
-        <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
-{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
-{\colortbl;\red255\green255\blue255;\red127\green127\blue127;}
-{\*\expandedcolortbl;;\csgenericrgb\c49804\c49804\c49804;}
-\pard\tx940\tx1440\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1440\fi-1440\slleading120\pardirnatural\partightenfactor0
-
-\f0\i\b\fs24 \cf2 Attributes}]]></Format>
-        <Lists>
-            <ListItem>{decimal}.</ListItem>
-            <ListItem>{hyphen}</ListItem>
-        </Lists>
     </Style>
 </Styles>

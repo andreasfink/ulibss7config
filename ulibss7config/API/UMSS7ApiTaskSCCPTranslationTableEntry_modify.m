@@ -18,7 +18,6 @@
     return @"/api/sccp-translation-table-entry-modify";
 }
 
-
 - (void)main
 {
     if(![self isAuthenticated])

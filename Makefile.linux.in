@@ -21,7 +21,7 @@ HFILES =  $(wildcard @PROJECT_NAME@/*.h) $(wildcard @PROJECT_NAME@/*/*.h)
 MOFILES  = $(MFILES:.m=.m.o)
 OFILES = $(MOFILES)
 
-INCLUDEDIRS=-I ulibss7config -I ulibss7config/API -I ulibss7config/Config
+INCLUDEDIRS=-I ulibss7config -I ulibss7config/API -I ulibss7config/Config -I ulibss7config/DiameterSessions
 
 lib@PROJECT_NAME@.so: ${OFILES}
 	${CC} -shared -o ${LIB}  ${LDFLAGS} ${OFILES} ${LIBS} ${STATIC_LIBS}

@@ -12,7 +12,7 @@
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
-#import <ulibss7config/ulibss7config.h>
+#import "UMSS7ConfigObject.h"
 #import "SS7UserAuthenticateProtocol.h"
 
 @class SS7GenericSession;

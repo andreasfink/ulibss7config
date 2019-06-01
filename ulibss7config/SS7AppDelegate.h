@@ -8,6 +8,7 @@
 
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
+#import <ulibdiameter/ulibdiameter.h>
 #import <ulibsms/ulibsms.h>
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
@@ -16,7 +17,7 @@
 #import "SS7UserAuthenticateProtocol.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
-#import "/usr/local/include/uliblicense//uliblicense.h"
+#import "/usr/local/include/uliblicense/uliblicense.h"
 
 #import "SS7TemporaryImsiPool.h"
 #import "SS7TelnetSocketHelperProtocol.h"
@@ -24,11 +25,13 @@
 @class ConfigurationSocket;
 @class SchrittmacherClient;
 @class UMSS7ConfigStorage;
+@class UMSS7ConfigStagingAreaStorage;
 @class SccpDestination;
 @class SS7AppTransportHandler;
 @class ApiSession;
 @class SS7TemporaryImsiPool;
 @class SS7GenericInstance;
+@class DiameterGenericInstance;
 
 typedef enum SchrittmacherMode
 {
@@ -40,37 +43,27 @@ typedef enum SchrittmacherMode
 #ifdef __APPLE__
 /* this is for unit tests to work in Xcode */
 #import <cocoa/cocoa.h>
-@interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
-UMHTTPServerAuthenticateRequestDelegate,
-UMLayerUserProtocol,
-NSApplicationDelegate,
-UMHTTPServerHttpOptionsDelegate,
-UMLayerSctpApplicationContextProtocol,
-UMLayerM2PAApplicationContextProtocol,
-UMLayerMTP3ApplicationContextProtocol,
-UMLayerSCCPApplicationContextProtocol,
-UMLayerTCAPApplicationContextProtocol,
-UMLayerGSMMAPApplicationContextProtocol,
-SS7TelnetSocketHelperProtocol,
-SS7UserAuthenticateProtocol,
-UMSS7ConfigAppDelegateProtocol,
-UMTransportUserProtocol>
-#else
-@interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
-UMHTTPServerAuthenticateRequestDelegate,
-UMLayerUserProtocol,
-UMHTTPServerHttpOptionsDelegate,
-UMLayerSctpApplicationContextProtocol,
-UMLayerM2PAApplicationContextProtocol,
-UMLayerMTP3ApplicationContextProtocol,
-UMLayerSCCPApplicationContextProtocol,
-UMLayerTCAPApplicationContextProtocol,
-UMLayerGSMMAPApplicationContextProtocol,
-SS7TelnetSocketHelperProtocol,
-SS7UserAuthenticateProtocol,
-UMSS7ConfigAppDelegateProtocol,
-UMTransportUserProtocol>
 #endif
+
+@interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
+UMHTTPServerAuthenticateRequestDelegate,
+UMLayerUserProtocol,
+#ifdef __APPLE__
+NSApplicationDelegate,
+#endif
+UMHTTPServerHttpOptionsDelegate,
+UMLayerSctpApplicationContextProtocol,
+UMLayerM2PAApplicationContextProtocol,
+UMLayerMTP3ApplicationContextProtocol,
+UMLayerSCCPApplicationContextProtocol,
+UMLayerTCAPApplicationContextProtocol,
+UMLayerGSMMAPApplicationContextProtocol,
+SS7TelnetSocketHelperProtocol,
+SS7UserAuthenticateProtocol,
+UMSS7ConfigAppDelegateProtocol,
+UMTransportUserProtocol,
+UMDiameterPeerAppDelegateProtocol,
+UMDiameterRouterAppDelegateProtocol>
 {
     /* first all pointers... then integers. Workaround for a bug in clang...? */
     NSDictionary                *_enabledOptions;
@@ -109,7 +102,7 @@ UMTransportUserProtocol>
 	UMSynchronizedDictionary    *_gmlc_dict;
 	UMSynchronizedDictionary    *_estp_dict;
     UMSynchronizedDictionary    *_diameter_connections_dict;
-    UMSynchronizedDictionary    *_dra_dict;
+    UMSynchronizedDictionary    *_diameter_router_dict;
     UMSynchronizedDictionary    *_smsproxy_dict;
 
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
@@ -130,7 +123,7 @@ UMTransportUserProtocol>
     UMTaskQueueMulti            *_sccpTaskQueue;
     UMTaskQueueMulti            *_tcapTaskQueue;
     UMTaskQueueMulti            *_gsmmapTaskQueue;
-
+    UMTaskQueueMulti            *_diameterTaskQueue;
     SchrittmacherMode           _schrittmacherMode;
     UMLogLevel                  _logLevel;
     int                         _must_quit;
@@ -139,8 +132,11 @@ UMTransportUserProtocol>
     int                         _concurrentTasks;
     NSUInteger                  _queueHardLimit;
     BOOL                        _startInStandby;
-
+    NSString                    *_stagingAreaPath;
+    NSString                    *_filterEnginesPath;
     NSDate                      *_applicationStart;
+    UMSynchronizedDictionary    *_ss7FilterEngines;
+    DiameterGenericInstance     *_mainDiameterInstance;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -155,10 +151,21 @@ UMTransportUserProtocol>
 @property(readwrite,assign)     SchrittmacherMode   schrittmacherMode;
 @property(readwrite,strong)     UMSS7ConfigStorage	*startupConfig;
 @property(readwrite,strong)     UMSS7ConfigStorage	*runningConfig;
-@property(readwrite,strong)     UMTaskQueueMulti	*generalTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *generalTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *sctpTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *m2paTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *m3uaTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *mtp3TaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *sccpTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *tcapTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *gsmmapTaskQueue;
+@property(readwrite,strong)     UMTaskQueueMulti    *diameterTaskQueue;
 @property(readwrite,strong)     NSDictionary		*staticWebPages;
 @property(readwrite,strong)     UMHTTPClient		*webClient;
 @property(readwrite,strong)     NSDate              *applicationStart;
+@property(readwrite,strong)     NSString            *stagingAreaPath;
+@property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
+@property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -284,6 +291,30 @@ UMTransportUserProtocol>
 
 - (NSNumber *)concurrentTasksForConfig:(UMSS7ConfigObject *)co;
 
+
+/************************************************************/
+#pragma mark -
+#pragma mark Diameter Peer Functions
+/************************************************************/
+
+- (UMDiameterPeer *)getDiameterConnection:(NSString *)name;
+- (NSArray *)getDiameterConnectionNames;
+- (void)addWithConfigDiameterConnection:(NSDictionary *)config;
+- (void)deleteDiameterConnection:(NSString *)name;
+- (void)renameDiameterConnection:(NSString *)oldName to:(NSString *)newName;
+
+/************************************************************/
+#pragma mark -
+#pragma mark Diameter Router Functions
+/************************************************************/
+
+- (UMDiameterRouter *)getDiameterRouter:(NSString *)name;
+- (NSArray *)getDiameterRouterNames;
+- (void)addWithConfigDiameterRouter:(NSDictionary *)config;
+- (void)deleteDiameterRouter:(NSString *)name;
+- (void)renameDiameterRouter:(NSString *)oldName to:(NSString *)newName;
+
+
 /************************************************************/
 #pragma mark -
 #pragma mark IMSI Pool Service Functions
@@ -303,5 +334,33 @@ UMTransportUserProtocol>
 - (void)handleM3UAStatus:(UMHTTPRequest *)req;
 - (void)handleSCTPStatus:(UMHTTPRequest *)req;
 
+
+/************************************************************/
+#pragma mark -
+#pragma mark Staging Area Service Functions
+/************************************************************/
+
+
+
+
+- (void)createSS7FilterStagingArea:(NSString *)name;
+- (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId;
+- (void)deleteSS7FilterStagingArea:(NSString *)name;
+- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId;
+- (void)makeStagingAreaCurrent:(NSString *)name;
+- (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
+- (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
+- (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Filter Engine Functions
+/************************************************************/
+
+- (NSArray *)getSS7FilterEngineNames;
+- (void)addWithConfigSS7FilterEngine:(NSDictionary *)config; /* can throw exceptions */
+- (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
+- (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name;
 @end
 

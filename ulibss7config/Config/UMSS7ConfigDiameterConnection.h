@@ -6,18 +6,16 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/ulibss7config.h>
+#import "UMSS7ConfigObject.h"
 
 
 @interface UMSS7ConfigDiameterConnection : UMSS7ConfigObject
 {
     NSString *_attachTo;
-	NSString *_tcpRemoteHost;
-	NSNumber *_tcpRemotePort;
+    NSString *_router;
 }
 @property(readwrite,strong,atomic)      NSString *attachTo;
-@property(readwrite,strong,atomic)      NSString *tcpRemoteHost;
-@property(readwrite,strong,atomic)      NSNumber *tcpRemotePort;
+@property(readwrite,strong,atomic)      NSString *router;
 
 + (NSString *)type;
 - (NSString *)type;

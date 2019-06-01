@@ -35,18 +35,16 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
-	APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
-	APPEND_CONFIG_STRING(s,@"tcp-remote-host",_tcpRemoteHost);
-	APPEND_CONFIG_INTEGER(s,@"tcp-remote-port",_tcpRemotePort);
+    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(s,@"router",_router);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
-	APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
-	APPEND_DICT_STRING(dict,@"tcp-remote-host",_tcpRemoteHost);
-	APPEND_DICT_INTEGER(dict,@"tcp-remote-port",_tcpRemotePort);
+    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(dict,@"router",_router);
     return dict;
 }
 
@@ -54,15 +52,13 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
-	SET_DICT_STRING(dict,@"tcp-remote-host",_tcpRemoteHost);
-	SET_DICT_INTEGER(dict,@"tcp-remote-port",_tcpRemotePort);
-
+    SET_DICT_STRING(dict,@"router",_router);
 }
 
-- (UMSS7ConfigM2PA *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigDiameterConnection *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigM2PA allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigDiameterConnection allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

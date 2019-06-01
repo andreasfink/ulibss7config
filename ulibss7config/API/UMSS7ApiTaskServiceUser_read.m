@@ -7,6 +7,9 @@
 //
 
 #import "UMSS7ApiTaskServiceUser_read.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigServiceUser.h"
+#import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTaskServiceUser_read
 

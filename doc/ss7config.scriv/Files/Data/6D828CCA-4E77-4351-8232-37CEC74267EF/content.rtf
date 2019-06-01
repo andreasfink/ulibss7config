@@ -1,0 +1,25 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Palatino-Bold;\f2\froman\fcharset0 Palatino-Roman;
+}
+{\colortbl;\red255\green255\blue255;\red16\green133\blue214;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgenericrgb\c6275\c52157\c83922;\cssrgb\c0\c0\c0;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sb300\sa120\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 <$Scr_H::1>
+\f1\b\fs36 SS7 Filter engine \'93location\'94\
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 <!$Scr_H::1>
+\f2\fs28 This filter engine wll check the location\
+\cf3 \expnd0\expndtw0\kerning0
+Location process could be enhanced by adding some checks at the reception of a new LocationUpdate (or UpdateGPRSLocation). \
+\pard\pardeftab720\sl340\sa240\partightenfactor0
+\cf3 \'93Check Location\'94 could be implemented in various ways: \
+\pard\pardeftab720\sl300\sa240\partightenfactor0
+\cf3  - Compare with the previous location: analyse if it is physically possible to move from the previous country to this new one\uc0\u8232 - Check the status on the previous VLR by sending, for example, a PSI message to the old VLR and check that the user is no longer active on this old VLR before sending the CancelLocation \
+\pard\pardeftab720\sl340\sa240\partightenfactor0
+\cf3 -  Update the VLR address in the HLR database before sending the LocationUpdate Ack or at TCAP-End\up13 \
+\up0 \uc0\u8232 - Correlate the LocationUpdate (or UpdateGPRSLocation) with MAP messages generated earlier in order to verify that VLRid is not faked, like a successful authentication on the same MSC /VLR or SGSN/VLR (SendAuthenticationInfo). \
+\pard\tx720\sl264\slmult1\sa360\pardirnatural\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 The configuration of this module is still under review. This is a stateful filter which is a tricky one.\
+}

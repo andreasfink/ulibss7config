@@ -11,6 +11,6 @@ Libs: -l:libulibss7config.@SHARED_LIBRARY_EXTENSION@.@MAJORVER@.@MINORVER@
 Name: ulibss7config
 Description: universal SS7 configuration library
 Version: @VERSION@
-Requires: ulib ulibgsmmap
+Requires: ulib ulibgsmmap ulibdiameter
 
 
