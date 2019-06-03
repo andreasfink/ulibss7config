@@ -81,10 +81,12 @@
 -(DiameterGenericSession *)setHttpRequest:(UMHTTPRequest *)xreq
                                  instance:(DiameterGenericInstance *)inst
 {
+
     [_historyLog addLogEntry:@"DiameterGenericSession: setHttpRequest"];
     [self genericInitialisation:inst];
     [self setTimeouts];
     [self setOptions];
+    _req = xreq;
     [_req makeAsyncWithTimeout:_timeoutInSeconds delegate:_gInstance];
     return self;
 }
