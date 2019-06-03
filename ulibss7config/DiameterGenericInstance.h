@@ -12,7 +12,7 @@
 
 @class DiameterGenericSession;
 
-@interface DiameterGenericInstance : UMLayer<UMHTTPServerHttpGetPostDelegate,UMHTTPRequest_TimeoutProtocol>
+@interface DiameterGenericInstance : UMLayer<UMHTTPServerHttpGetPostDelegate,UMHTTPRequest_TimeoutProtocol,UMDiameterLocalUserProtocol>
 {
     NSString                    *_instanceAddress;
     UMSynchronizedDictionary    *_sessions;
@@ -60,5 +60,21 @@
 - (UMHTTPAuthenticationStatus)authenticateUser:(NSString *)user pass:(NSString *)pass;
 - (NSUInteger)sessionsCount;
 - (void)housekeeping;
+- (void)processIncomingRequestPacket:(UMDiameterPacket *)packet
+                              router:(UMDiameterRouter *)router
+                                peer:(UMDiameterPeer *)peer;
+
+- (void)processIncomingErrorPacket:(UMDiameterPacket *)packet
+                            router:(UMDiameterRouter *)router
+                              peer:(UMDiameterPeer *)peer;
+
+- (void)processIncomingResponsePacket:(UMDiameterPacket *)packet
+                               router:(UMDiameterRouter *)router
+                                 peer:(UMDiameterPeer *)peer;
+
+
+- (void)sendOutgoingRequestPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
+- (void)sendOutgoingErrorPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
+- (void)sendOutgoingResponsePacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
 
 @end

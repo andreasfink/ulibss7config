@@ -512,10 +512,16 @@
                     }
                     pcount++;
                 }
+                NSArray *sa = [s componentsSeparatedByString:@"?"];
+                if(sa.count>1)
+                {
+                    s = sa[0];
+                }
                 DiameterGenericSession *session = [self sessionFactory:s];
                 if(pcount==0)
                 {
                     [req setResponseHtmlString:[session webForm]];
+                    [resumeRequest];
                 }
                 else
                 {
@@ -655,6 +661,45 @@
     }
 }
 
+- (void)processIncomingRequestPacket:(UMDiameterPacket *)packet
+                              router:(UMDiameterRouter *)router
+                                peer:(UMDiameterPeer *)peer
+{
+}
+
+- (void)processIncomingErrorPacket:(UMDiameterPacket *)packet
+                            router:(UMDiameterRouter *)router
+                              peer:(UMDiameterPeer *)peer
+{
+}
+
+- (void)processIncomingResponsePacket:(UMDiameterPacket *)packet
+                               router:(UMDiameterRouter *)router
+                                 peer:(UMDiameterPeer *)peer
+{
+}
+
+
+- (void)sendOutgoingRequestPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer
+{
+    packet.commandFlags |= DIAMETER_COMMAND_FLAG_REQUEST;
+    packet.commandFlags &= ~DIAMETER_COMMAND_FLAG_ERROR;
+    [_diameterRouter localSendPacket:packet toPeer:peer];
+}
+
+- (void)sendOutgoingErrorPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer
+{
+    packet.commandFlags |= DIAMETER_COMMAND_FLAG_ERROR;
+    packet.commandFlags &= ~DIAMETER_COMMAND_FLAG_REQUEST;
+
+    [_diameterRouter localSendPacket:packet toPeer:peer];
+}
+
+- (void)sendOutgoingResponsePacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer
+{
+    packet.commandFlags &= ~(DIAMETER_COMMAND_FLAG_REQUEST | DIAMETER_COMMAND_FLAG_ERROR);
+    [_diameterRouter localSendPacket:packet toPeer:peer];
+}
 
 @end
 
