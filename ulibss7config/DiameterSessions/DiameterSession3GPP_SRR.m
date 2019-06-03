@@ -99,7 +99,7 @@
         VERIFY_EITHER_OR(imsi,msisdn);
 
         UMDiameterPacket *pkt = [[UMDiameterPacket alloc]init];
-        pkt.commandCode = UMDiameterCommandCode_3GPP_TS_29_338_SR;
+        pkt.commandCode = _commandCode = UMDiameterCommandCode_3GPP_TS_29_338_SR;
         pkt.commandFlags = 0;
 
         [self setApplicationId:pkt default:UMDiameterApplicationId_3GPP_S6c];

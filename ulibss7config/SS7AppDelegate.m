@@ -2593,6 +2593,9 @@ static void signalHandler(int signum);
         UMDiameterRouter *router = [[UMDiameterRouter alloc]initWithTaskQueueMulti:_diameterTaskQueue name:@"diameter-router"];
         router.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"diameter-router"];
         router.logFeed.name = name;
+        router.localUser = _mainDiameterInstance;
+        _mainDiameterInstance.diameterRouter = router;
+
         [router setConfig:config applicationContext:self];
         _diameter_router_dict[name] = router;
     }
