@@ -243,7 +243,11 @@
 	<integer>4</integer>
 	<key>inspectorSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {512, 1295}}</string>
+<<<<<<< HEAD
+		<string>{{0, 0}, {336, 917}}</string>
+=======
+		<string>{{0, 0}, {512, 953}}</string>
+>>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 	</array>
 	<key>inspectorSynopsisIsCollapsed</key>
 	<false/>
@@ -356,7 +360,7 @@
 	<key>mainDocumentEditor.outlinerVisible</key>
 	<false/>
 	<key>mainDocumentEditor.scrollRect</key>
-	<string>{{0, 0}, {620, 877}}</string>
+	<string>{{0, 46}, {620, 877}}</string>
 	<key>mainDocumentEditor.selectedItemUUIDs</key>
 	<array/>
 	<key>mainDocumentEditor.selectedRanges</key>
@@ -381,7 +385,7 @@
 	<key>mainDocumentView</key>
 	<string>supportingDocumentEditor</string>
 	<key>mainWindowFrame</key>
-	<string>100 432 1256 985 0 0 2560 1417 </string>
+	<string>305 115 1256 985 0 0 2560 1417 </string>
 	<key>metaDataModeAutosaveName</key>
 	<integer>0</integer>
 	<key>projectStatsSheet</key>
