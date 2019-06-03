@@ -521,7 +521,6 @@
                 if(pcount==0)
                 {
                     [req setResponseHtmlString:[session webForm]];
-                    [resumeRequest];
                 }
                 else
                 {
