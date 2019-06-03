@@ -7,8 +7,6 @@
         </Document>
         <Document ID="061A587E-23F1-412E-B4D4-8126D00CEC82">
             <Title>m2pa</Title>
-<<<<<<< HEAD
-=======
         </Document>
         <Document ID="0FCDC80B-6DA4-4CE2-BE72-81C6BEC48DF2">
             <Title>ss7-filter-engine-sms</Title>
@@ -58,7 +56,6 @@ If application-context is set, then this rule only applies to packets with this 
 sccp-calling-address-blacklist-action is the action taken if the sccp-calling-address-blacklist test is failing. The
 The sccp-calling-address-blacklist will call the action “drop” or the actionif the SCCP calling address is found in the list with the indicated name. This requires an exact match.
 The sccp-calling-prefix-blacklist will call the action “drop” if a prefix is found in the named list which is matching the beginning of the SCCP calling address.</Text>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
         </Document>
         <Document ID="5B6A71AB-0851-4292-A20D-1B8CF2B9F9DA">
             <Title>ss7-filter-action</Title>
@@ -94,7 +91,6 @@ To read the current engine status
 /api/ss7-filter-action-status?name={name}
 
 To send an action to the filter action
-<<<<<<< HEAD
 /api/ss7-filter-action-action?name={name}&amp;action={action}
 
 </Text>
@@ -131,7 +127,6 @@ name of the object. Internally converted to lowercase. only a-z, 0-9 and . - _ +
 
 description = {text}
 descriptive text for internal documentation purposes
-=======
 /api/filter-action-action?name={name}&amp;action={action}
 
 </Text>
@@ -145,12 +140,10 @@ There are several predefined actions.
 	pass	
 
 the filtering ruleset procesing is stopped and the packet is forwarded normally
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 
 category = {text}
 category text for internal documentation purposes
 
-<<<<<<< HEAD
 enable = {boolean}
 If set to NO, then the whole section is completely ignored. Defaults to YES
 
@@ -190,7 +183,6 @@ If mtu is set, the maximum packet size for outgoing IP packets is set to this va
         <Document ID="B6AB4BEE-9C02-494E-9CFA-C27CBF9EC34B">
             <Title>Terminology</Title>
             <Text>Terminology
-=======
 	drop
 
 the filtering ruleset procesisng is stopped and the packet is dropped.
@@ -208,7 +200,6 @@ the filtering ruleset processing is stopped and a tcap end with a gsmmap reject 
 	error(errorcode)
 
 the filtering ruleset processing is stopped and a tcap end with a gsmmap ReturnError message is sent back with an indicated eror
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 
 	continue
 
@@ -231,7 +222,6 @@ the tag is set or cleared. Note a packet can have multiple tags.  clear-all-tags
 
 	set-custom(customvar,value)
 
-<<<<<<< HEAD
 The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.
 </Text>
         </Document>
@@ -265,7 +255,6 @@ Setting the default formatting in the Preferences or Project Settings has no eff
 
 In the config file:
 group = ss7-log-file
-=======
 sets a custom field to a specific value.
 </Text>
         </Document>
@@ -291,7 +280,6 @@ Note that you do not use File &gt; Import &gt; Files… or drag images into the 
             <Title>sctp</Title>
             <Text>M2PA Config Options
 group = m2pa
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 name = {object-name}
 file = {filename}
 format = { pcap | text }
@@ -386,7 +374,6 @@ Also note the button in the left of the media file’s footer bar:
 That is the “pause and rewind” button. If you click it, it will turn blue, indicating that it is on. When “pause and rewind” is turned on, whenever you pause the media file it will automatically be rewound a couple of seconds (you can determine exactly how many seconds it gets rewound in the Behaviors pane of the Preferences, under “Playback”). This is very useful for transcription.</Text>
             <Comments>it was for my wife, a journalist, who was to interview him. Still, Buzz Aldrin! Calling my phone! Well, it impressed me.</Comments>
         </Document>
-<<<<<<< HEAD
         <Document ID="283A710B-DE5F-4B32-9F7A-47F08B8E8C3A">
             <Title>Resetting the Tutorial</Title>
             <Text>If at any time you decide you want to wipe all of your edits and restore the tutorial to its original state, follow these steps:
@@ -738,7 +725,6 @@ To send an action to the log-file-object
 
 Action can be “reopen”
 </Text>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
         </Document>
         <Document ID="49285E78-17D8-48C9-BF56-A08381016832">
             <Title>ss7-filter-engine-screening</Title>
@@ -835,7 +821,6 @@ To read the current rule status
 /api/filter-ruleset-status?name={name}
 
 To send an action to the rule
-<<<<<<< HEAD
 /api/filter-rule-action?name={name}&amp;action={action}
 
 </Text>
@@ -980,10 +965,8 @@ When a filter-set is put into action at an application-point, then the sequence 
 
 
 The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.
-=======
 /api/filter-ruleset-action?name={name}&amp;action={action}
 
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 </Text>
         </Document>
         <Document ID="B670E26B-2CFC-4870-936E-C3A94D4242A4">
@@ -1004,10 +987,7 @@ Every document in a Scrivener project is associated with a synopsis and notes (a
 If the idea of outlines makes you shudder, never fear: Scrivener imposes no fixed approach to writing and outlining. You might start by creating a bunch of folders and empty text files, creating synopses for each one in the corkboard or outliner. Then you might go through and fill in the text files, referring to the synopses as a prompt for what you need to write. Conversely, you might write like crazy and worry about all the structural stuff only when your first draft is complete. In that case, you can just type away, creating new text documents as and when you feel like it, and you can split things apart and rearrange everything only much later in the process. Or you can use a combination of both methods.
 So let’s dive in. In the binder sidebar, you will see a folder entitled “Draft”. Beneath this, indented, you will see “The Basics”, “Get Oriented”, “Main Interface” and more. To get started, click on “Main Interface”. </Text>
         </Document>
-<<<<<<< HEAD
         <Document ID="17454FBE-71E8-491A-A0C8-144B81D37AAE">
-=======
-        <Document ID="283A710B-DE5F-4B32-9F7A-47F08B8E8C3A">
             <Title>Resetting the Tutorial</Title>
             <Text>If at any time you decide you want to wipe all of your edits and restore the tutorial to its original state, follow these steps:
 	1.	Ctrl-click or right-click on the project title right at the very top of the tutorial project window. A menu will appear showing the path to the project.
@@ -1017,18 +997,12 @@ So let’s dive in. In the binder sidebar, you will see a folder entitled “Dra
 	5.	Back in Scrivener, go to Help &gt; Interactive Tutorial… You will be prompted to create a fresh tutorial project.</Text>
         </Document>
         <Document ID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9">
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
             <Title>ss7-filter-engine</Title>
             <Text>SS7 Filter Engine 
 
 In the config file:
-<<<<<<< HEAD
 group = ss7-filter-engine
 name = {object-name} file = {filename} enable = {boolean}
-=======
-group = ss7-filte-engine
-name = {object-name} filename = {filename} enable = {boolean}
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 
 As API calls
 To add a new engine from a shared libary file:
@@ -1057,7 +1031,6 @@ To reload a new version of the engine file
 	/api/ss7-filter-engine-action?name={name}&amp;action=reload
 </Text>
         </Document>
-<<<<<<< HEAD
         <Document ID="254B2586-524A-401C-91A3-2B16D17642AC">
             <Title>ss7-filter-rule</Title>
             <Text>SS7 Filter Rule
@@ -1252,15 +1225,12 @@ This is what adds “Chapter One”, “Chapter Two” and so on to the start of
 A staging area is a environment where modifications on to objects can be done while not being used.
 A staging area can become a  live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.
 
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 
 Defalt values for the actions are “pass”, “drop”, “reroute”,”log” 
 
 As API calls
-<<<<<<< HEAD
 To add a new filtering rule
 /api/ss7-filter-rule-add?name={name}
-=======
 To create a new staging area
 	/api/ss7—filter-staging-area-add?name={name}
 
@@ -1389,7 +1359,6 @@ Defalt values for the actions are “pass”, “drop”, “reroute”,”log�
 As API calls
 To add a new filtering rule
 /api/filter-rule-add?name={name}
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 	&amp;description={description}&amp;status={status}
 	&amp;engine={name-of-engine}
 	&amp;pass-action={name-of-filter-action}
@@ -1397,8 +1366,7 @@ To add a new filtering rule
 	&amp;reroute-action={name-of-filter-action}
 	&amp;log-action={name-of-filter-action}
 	&amp;engine-config={config}
-<<<<<<< HEAD
-=======
+
 
 
 To remove a filtering rule
@@ -1533,7 +1501,6 @@ There are two ways of manually creating a backup of a project:
         </Document>
         <Document ID="0012BC9E-4B00-4A74-AE17-630E4A8171AD">
             <Text>Terminology
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 
 
 To remove a filtering rule
@@ -1563,8 +1530,6 @@ To send an action to the rule
 
 </Text>
         </Document>
-<<<<<<< HEAD
-=======
         <Document ID="B670E26B-2CFC-4870-936E-C3A94D4242A4">
             <Title>Key Concepts</Title>
             <Text>What is Scrivener?
@@ -1686,6 +1651,5 @@ To send an action to the rule
 
 </Text>
         </Document>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
     </Documents>
 </SearchIndexes>

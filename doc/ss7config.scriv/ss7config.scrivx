@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="macropolis" Author="Andreas Fink" Modified="2019-05-23 10:38:49 +0200" ModID="F94405D8-A737-448E-8A86-C1CED5951AA5">
-=======
-<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="Minotaur" Author="Andreas Fink" Modified="2019-05-27 16:51:33 +0200" ModID="DAE64916-43E6-4E28-B6CC-D098C944E3D4">
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
+<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="macropolis" Author="Andreas Fink" Modified="2019-05-23 10:38:30 +0200" ModID="5174EDF8-90FE-4B4A-A92F-870AEF5AD801">
     <Binder>
         <BinderItem UUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628" Type="Text" Created="2007-01-15 00:04:52 +0100" Modified="2017-12-06 17:59:26 +0100">
             <Title>START HERE</Title>
@@ -34,12 +30,18 @@
             <Children>
                 <BinderItem UUID="311F10A6-1428-476D-A6E7-5A996C0F47A7" Type="Folder" Created="2018-07-09 11:09:13 +0200" Modified="2018-07-09 11:09:18 +0200">
                     <Title>sctp</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
                     <TextSettings>
                         <TextSelection>0,0</TextSelection>
                     </TextSettings>
                     <Children>
                         <BinderItem UUID="0CE11253-E8F4-4D5A-ACAB-DE939245D6F5" Type="Text" Created="2018-07-09 11:09:36 +0200" Modified="2019-01-22 09:27:15 +0100">
                             <Title>sctp</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
                             <TextSettings>
                                 <TextSelection>0,1520</TextSelection>
                             </TextSettings>
@@ -48,12 +50,18 @@
                 </BinderItem>
                 <BinderItem UUID="061A587E-23F1-412E-B4D4-8126D00CEC82" Type="Folder" Created="2018-07-09 11:09:13 +0200" Modified="2019-01-22 09:29:03 +0100">
                     <Title>m2pa</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
                     <TextSettings>
                         <TextSelection>0,0</TextSelection>
                     </TextSettings>
                     <Children>
                         <BinderItem UUID="2DBD1580-CB10-498F-B5B7-CDBF1EFEA460" Type="Text" Created="2018-07-09 11:09:36 +0200" Modified="2019-01-22 09:30:43 +0100">
                             <Title>sctp</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
                             <TextSettings>
                                 <TextSelection>419,0</TextSelection>
                             </TextSettings>
@@ -62,6 +70,9 @@
                 </BinderItem>
                 <BinderItem UUID="C9C10484-38F7-46B7-89AC-6AC96191B0C3" Type="Folder" Created="2018-07-09 11:09:23 +0200" Modified="2018-07-09 11:09:25 +0200">
                     <Title>m3ua</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
                     <TextSettings>
                         <TextSelection>0,0</TextSelection>
                     </TextSettings>
@@ -75,80 +86,7 @@
                         <TextSelection>0,0</TextSelection>
                     </TextSettings>
                     <Children>
-<<<<<<< HEAD
                         <BinderItem UUID="0012BC9E-4B00-4A74-AE17-630E4A8171AD" Type="Text" Created="2019-05-16 15:11:07 +0200" Modified="2019-05-16 16:14:38 +0200">
-=======
-                        <BinderItem UUID="B6AB4BEE-9C02-494E-9CFA-C27CBF9EC34B" Type="Text" Created="2019-05-16 15:11:07 +0200" Modified="2019-05-17 10:56:56 +0200">
-                            <Title>Terminology</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
-                            <MetaData>
-                                <IncludeInCompile>Yes</IncludeInCompile>
-                            </MetaData>
-                            <TextSettings>
-                                <TextSelection>1441,0</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-<<<<<<< HEAD
-                        <BinderItem UUID="AF26B6D2-5440-468E-B462-50F944603E0B" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-16 16:28:52 +0200">
-=======
-                        <BinderItem UUID="AF26B6D2-5440-468E-B462-50F944603E0B" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-20 09:09:46 +0200">
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
-                            <Title>ss7-filter-staging-area</Title>
-                            <MetaData>
-                                <IncludeInCompile>Yes</IncludeInCompile>
-                            </MetaData>
-                            <TextSettings>
-                                <TextSelection>664,0</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-<<<<<<< HEAD
-                        <BinderItem UUID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-16 15:58:35 +0200">
-=======
-                        <BinderItem UUID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-20 09:06:52 +0200">
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
-                            <Title>ss7-filter-engine</Title>
-                            <MetaData>
-                                <IncludeInCompile>Yes</IncludeInCompile>
-                            </MetaData>
-                            <TextSettings>
-                                <TextSelection>776,0</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-<<<<<<< HEAD
-                        <BinderItem UUID="313F2E57-20F9-422C-A92F-56220804AFEA" Type="Text" Created="2019-05-16 15:19:07 +0200" Modified="2019-05-16 15:57:39 +0200">
-                            <Title>ss7-filter-rule</Title>
-=======
-                        <BinderItem UUID="450A4A7B-5E13-4317-B127-B1D2C02B9F98" Type="Text" Created="2019-05-19 13:08:06 +0200" Modified="2019-05-20 09:16:10 +0200">
-                            <Title>ss7-filter-rulesset</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
-                            <MetaData>
-                                <IncludeInCompile>Yes</IncludeInCompile>
-                            </MetaData>
-                            <TextSettings>
-                                <TextSelection>1234,0</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-<<<<<<< HEAD
-                        <BinderItem UUID="C330BA89-15FA-4CF2-8950-53C47B8417BA" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-16 15:59:23 +0200">
-                            <Title>ss7-filter-action</Title>
-=======
-                        <BinderItem UUID="254B2586-524A-401C-91A3-2B16D17642AC" Type="Text" Created="2019-05-16 15:19:07 +0200" Modified="2019-05-19 13:13:47 +0200">
-                            <Title>ss7-filter-rule</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
-                            <MetaData>
-                                <IncludeInCompile>Yes</IncludeInCompile>
-                            </MetaData>
-                            <TextSettings>
-                                <TextSelection>881,319</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-<<<<<<< HEAD
-                        <BinderItem UUID="55F73956-608F-4C02-A38F-E183FC87F5A5" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-16 16:06:51 +0200">
-                            <Title>ss7-log-file</Title>
-=======
-                        <BinderItem UUID="5B6A71AB-0851-4292-A20D-1B8CF2B9F9DA" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-17 11:31:03 +0200">
-                            <Title>ss7-filter-action-list</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
@@ -156,7 +94,51 @@
                                 <TextSelection>1095,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
-<<<<<<< HEAD
+                        <BinderItem UUID="AF26B6D2-5440-468E-B462-50F944603E0B" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-16 16:28:52 +0200">
+                            <Title>ss7-filter-staging-area</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>916,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-16 15:58:35 +0200">
+                            <Title>ss7-filter-engine</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>0,19</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="313F2E57-20F9-422C-A92F-56220804AFEA" Type="Text" Created="2019-05-16 15:19:07 +0200" Modified="2019-05-16 15:57:39 +0200">
+                            <Title>ss7-filter-rule</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1090,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C330BA89-15FA-4CF2-8950-53C47B8417BA" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-16 15:59:23 +0200">
+                            <Title>ss7-filter-action</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>420,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="55F73956-608F-4C02-A38F-E183FC87F5A5" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-16 16:06:51 +0200">
+                            <Title>ss7-log-file</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>823,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
                     </Children>
                 </BinderItem>
                 <BinderItem UUID="1E9B9217-E3BC-4C91-BB43-E856FBFC37F6" Type="Folder" Created="2018-07-09 11:09:30 +0200" Modified="2019-05-16 16:29:50 +0200">
@@ -168,107 +150,57 @@
                         <TextSelection>0,0</TextSelection>
                     </TextSettings>
                     <Children>
-                        <BinderItem UUID="B6AB4BEE-9C02-494E-9CFA-C27CBF9EC34B" Type="Text" Created="2019-05-16 15:11:07 +0200" Modified="2019-05-23 10:38:44 +0200">
-                            <Title>Terminology</Title>
-=======
-                        <BinderItem UUID="34DF7338-9EA3-45FA-AD07-133E8AC4F870" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-20 09:10:46 +0200">
-                            <Title>builtin-ss7-filter-actions</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
+                        <BinderItem UUID="B6AB4BEE-9C02-494E-9CFA-C27CBF9EC34B" Type="Text" Created="2019-05-16 15:11:07 +0200" Modified="2019-05-16 16:14:38 +0200">
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>1121,0</TextSelection>
+                                <TextSelection>1095,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
-<<<<<<< HEAD
                         <BinderItem UUID="8CFD9FCD-5399-44E3-B956-B43B9A817176" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-16 16:28:52 +0200">
                             <Title>ss7-filter-staging-area</Title>
-=======
-                        <BinderItem UUID="55F73956-608F-4C02-A38F-E183FC87F5A5" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-20 09:08:10 +0200">
-                            <Title>ss7-log-file</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>846,0</TextSelection>
+                                <TextSelection>916,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
-<<<<<<< HEAD
                         <BinderItem UUID="17454FBE-71E8-491A-A0C8-144B81D37AAE" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-23 10:38:30 +0200">
                             <Title>ss7-filter-engine</Title>
-=======
-                    </Children>
-                </BinderItem>
-                <BinderItem UUID="1E9B9217-E3BC-4C91-BB43-E856FBFC37F6" Type="Folder" Created="2018-07-09 11:09:30 +0200" Modified="2019-05-16 16:29:50 +0200">
-                    <Title>ss7-filter-engines</Title>
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>0,0</TextSelection>
-                    </TextSettings>
-                    <Children>
-                        <BinderItem UUID="49285E78-17D8-48C9-BF56-A08381016832" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-27 16:51:33 +0200">
-                            <Title>ss7-filter-engine-screening</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-<<<<<<< HEAD
                                 <TextSelection>58,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
                         <BinderItem UUID="254B2586-524A-401C-91A3-2B16D17642AC" Type="Text" Created="2019-05-16 15:19:07 +0200" Modified="2019-05-23 10:38:25 +0200">
                             <Title>ss7-filter-rule</Title>
-=======
-                                <TextSelection>121,21</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-                        <BinderItem UUID="0FCDC80B-6DA4-4CE2-BE72-81C6BEC48DF2" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-20 09:12:00 +0200">
-                            <Title>ss7-filter-engine-sms</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-<<<<<<< HEAD
                                 <TextSelection>34,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
                         <BinderItem UUID="5B6A71AB-0851-4292-A20D-1B8CF2B9F9DA" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-23 10:38:11 +0200">
                             <Title>ss7-filter-action</Title>
-=======
-                                <TextSelection>578,0</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-                        <BinderItem UUID="6D828CCA-4E77-4351-8232-37CEC74267EF" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-20 08:42:16 +0200">
-                            <Title>ss7-filter-engine-location</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-<<<<<<< HEAD
                                 <TextSelection>759,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
                         <BinderItem UUID="2C374A60-A214-4EC8-B992-D22EC23805C6" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-16 16:06:51 +0200">
                             <Title>ss7-log-file</Title>
-=======
-                                <TextSelection>998,0</TextSelection>
-                            </TextSettings>
-                        </BinderItem>
-                        <BinderItem UUID="0BFF42D5-0065-4975-BFDF-62E8263F84AA" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-20 08:45:56 +0200">
-                            <Title>ss7-filter-engine-cap</Title>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>202,0</TextSelection>
+                                <TextSelection>823,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
                     </Children>
@@ -507,68 +439,6 @@
                         </BinderItem>
                     </Children>
                 </BinderItem>
-                <BinderItem UUID="0012BC9E-4B00-4A74-AE17-630E4A8171AD" Type="Text" Created="2019-05-16 15:11:07 +0200" Modified="2019-05-16 16:14:38 +0200">
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>1095,0</TextSelection>
-                    </TextSettings>
-                </BinderItem>
-                <BinderItem UUID="8CFD9FCD-5399-44E3-B956-B43B9A817176" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-16 16:28:52 +0200">
-                    <Title>ss7-filter-staging-area</Title>
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>373,0</TextSelection>
-                    </TextSettings>
-                </BinderItem>
-                <BinderItem UUID="17454FBE-71E8-491A-A0C8-144B81D37AAE" Type="Text" Created="2019-05-16 15:20:31 +0200" Modified="2019-05-17 11:27:40 +0200">
-                    <Title>ss7-filter-engine</Title>
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>0,776</TextSelection>
-                    </TextSettings>
-                </BinderItem>
-                <BinderItem UUID="C330BA89-15FA-4CF2-8950-53C47B8417BA" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-16 15:59:23 +0200">
-                    <Title>ss7-filter-action</Title>
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>420,0</TextSelection>
-                    </TextSettings>
-                </BinderItem>
-                <BinderItem UUID="F7522BE9-F8CB-4BB1-A80F-DC60FE32B49A" Type="Folder" Created="2019-05-17 08:28:09 +0200" Modified="2019-05-20 08:40:03 +0200">
-                    <Title>ss7-filter-engines</Title>
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>0,0</TextSelection>
-                    </TextSettings>
-                </BinderItem>
-                <BinderItem UUID="2C374A60-A214-4EC8-B992-D22EC23805C6" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-16 16:06:51 +0200">
-                    <Title>ss7-log-file</Title>
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>0,847</TextSelection>
-                    </TextSettings>
-                </BinderItem>
-                <BinderItem UUID="313F2E57-20F9-422C-A92F-56220804AFEA" Type="Text" Created="2019-05-16 15:19:07 +0200" Modified="2019-05-16 15:57:39 +0200">
-                    <Title>ss7-filter-rule</Title>
-                    <MetaData>
-                        <IncludeInCompile>Yes</IncludeInCompile>
-                    </MetaData>
-                    <TextSettings>
-                        <TextSelection>1090,0</TextSelection>
-                    </TextSettings>
-                </BinderItem>
             </Children>
         </BinderItem>
     </Binder>
@@ -677,19 +547,11 @@
     <ProjectTargets Notify="No">
         <DraftTarget Type="Words" CountIncludedOnly="Yes" CurrentCompileGroupOnly="Yes" Deadline="2011-06-30 22:12:08 +0200" IgnoreDeadline="Yes">0</DraftTarget>
         <SessionTarget Type="Words" CountDraftOnly="Yes" AllowNegatives="Yes" ResetType="Time" ResetTime="00:00" DeterminedFromDeadline="No" WritingDays="" CanWriteOnDeadlineDate="No">0</SessionTarget>
-<<<<<<< HEAD
         <PreviousSession Words="0" Characters="23" Date="2019-05-23 10:37:29 +0200"/>
     </ProjectTargets>
     <RecentWritingHistory Date="2019-05-23 00:00:00 +0200">
         <DraftWordCount>0</DraftWordCount>
         <DraftCharCount>23</DraftCharCount>
-=======
-        <PreviousSession Words="0" Characters="0" Date="2019-05-30 20:47:15 +0200"/>
-    </ProjectTargets>
-    <RecentWritingHistory Date="2019-05-30 00:00:00 +0200">
-        <DraftWordCount>0</DraftWordCount>
-        <DraftCharCount>0</DraftCharCount>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
         <OtherWordCount>0</OtherWordCount>
         <OtherCharCount>0</OtherCharCount>
     </RecentWritingHistory>

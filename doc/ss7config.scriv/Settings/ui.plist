@@ -243,11 +243,7 @@
 	<integer>4</integer>
 	<key>inspectorSplitFrames</key>
 	<array>
-<<<<<<< HEAD
 		<string>{{0, 0}, {336, 917}}</string>
-=======
-		<string>{{0, 0}, {512, 953}}</string>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 	</array>
 	<key>inspectorSynopsisIsCollapsed</key>
 	<false/>

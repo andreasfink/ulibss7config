@@ -43,14 +43,11 @@
     <Day dwc="0" dcc="-30" owc="0" occ="0">2018-01-08</Day>
     <Day dwc="196" dcc="1273" owc="0" occ="0">2018-07-09</Day>
     <Day dwc="48" dcc="317" owc="0" occ="0">2019-01-22</Day>
-<<<<<<< HEAD
     <Day dwc="190" dcc="1096" owc="0" occ="0">2019-05-16</Day>
     <Day dwc="599" dcc="4167" dtwc="0" owc="0" occ="0" dtcc="0">2019-05-15</Day>
-    <Day dwc="0" dcc="8" owc="0" occ="0">2019-05-23</Day>
-=======
+    <Day dwc="0" dcc="8" owc="0" occ="0">2019-05-23</Day>=======
     <Day dwc="398" dcc="3195" dtwc="0" owc="0" occ="0" dtcc="0">2019-05-16</Day>
     <Day dwc="98" dcc="732" owc="0" occ="0">2019-05-17</Day>
     <Day dwc="10" dcc="20" dtwc="2377" owc="0" occ="0" dtcc="17987">2019-05-19</Day>
     <Day dwc="7" dcc="47" owc="0" occ="0">2019-05-20</Day>
->>>>>>> 475bd378d30fae49c8723360e261367d1e61daea
 </WritingHistory>
