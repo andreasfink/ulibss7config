@@ -10,6 +10,8 @@
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterStagingArea_modify
 
@@ -32,6 +34,28 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+    
+	// 1. Get Staging Area
+	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession.sessionKey];
+	if(stagingArea == NULL)
+    {
+        [self sendErrorNotFound:@"Staging-Area"];
+    }
+    else
+    {
+		@try
+		{
+			NSString *old_name = _webRequest.params[@"name"];
+			NSString *new_name = _webRequest.params[@"destination"];
+			
+			[_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
+			[self sendResultOK];
+		}
+		@catch(NSException *e)
+		{
+			[self sendException:e];
+		}
+    }
+	
 }
 @end
