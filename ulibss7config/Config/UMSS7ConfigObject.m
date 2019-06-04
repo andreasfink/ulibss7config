@@ -160,9 +160,9 @@
     }
     char out[256];
     const char *in = str.UTF8String;
-    size_t i;
-    size_t j=0;
-    size_t n=strlen(in);
+    NSInteger i;
+    NSInteger j=0;
+    NSInteger n=str.length;
     if(n>255)
     {
         n = 255;
@@ -170,7 +170,7 @@
     memset(out,0x00,sizeof(out));
     for(i=0;i<n;i++)
     {
-        char c = in[i];
+        unichar c = [str characterAtIndex:i];
         if((c>='a') && (c<='z'))
         {
             out[j++]=c;
