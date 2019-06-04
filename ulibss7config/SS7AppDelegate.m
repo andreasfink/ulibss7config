@@ -3588,6 +3588,10 @@ static void signalHandler(int signum);
                                        reason:@"can not allocate staging area"
                                      userInfo:NULL]);
     }
+	else
+	{
+	   _ss7FilterStagingAreas_dict[name] = st;
+	}
 }
 
 - (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId
@@ -3623,7 +3627,7 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames
 {
-	return _ss7FilterStagingAreas_dict;
+	return [_ss7FilterStagingAreas_dict allKeys];
 }
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
