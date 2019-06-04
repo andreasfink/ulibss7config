@@ -256,17 +256,15 @@
 
     _query.commandCode = _commandCode;
     _query.endToEndIdentifier = _endToEndIdentifier;
-    _userIdentifier = [NSString stringWithFormat:@"%08lX",(long)_endToEndIdentifier];
+    _userIdentifier = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:_endToEndIdentifier];
     [_gInstance addSession:self userId:_userIdentifier];
     [_gInstance sendOutgoingRequestPacket:_query peer:NULL];
 }
 
-- (void)responsePaket:(UMDiameterPacket *)pkt
+- (void)responsePacket:(UMDiameterPacket *)pkt
 {
-    UMSynchronizedSortedDictionary *dict = pkt.objectValue;
-
-    [self touch];
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+    [self touch];
     dict[@"query"] =  _query.objectValue;
     dict[@"response"] = pkt.objectValue;
     [_operationMutex lock];
@@ -275,15 +273,16 @@
     [_operationMutex unlock];
 }
 
-    [_gInstance markSessionForTermination:self];
-}
-
 - (void)responseError:(UMDiameterPacket *)pkt
 {
-    UMSynchronizedSortedDictionary *dict = pkt.objectValue;
-    [_req setResponsePlainText:dict.jsonString];
-    [_req resumePendingRequest];
-    [_gInstance markSessionForTermination:self];
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+    [self touch];
+    dict[@"query"] =  _query.objectValue;
+    dict[@"error"] = pkt.objectValue;
+    [_operationMutex lock];
+    [self outputResult2:dict];
+    [self markForTermination];
+    [_operationMutex unlock];
 }
 
 - (void)webException:(NSException *)e

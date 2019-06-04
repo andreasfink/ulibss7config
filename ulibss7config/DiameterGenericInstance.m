@@ -100,7 +100,6 @@
     return self;
 }
 
-
 - (DiameterGenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq
 {
     self = [super initWithTaskQueueMulti:tq];
@@ -671,12 +670,18 @@
                             router:(UMDiameterRouter *)router
                               peer:(UMDiameterPeer *)peer
 {
+    NSString *key = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:packet.endToEndIdentifier];
+    DiameterGenericSession *session = _sessions[key];
+    [session responseError:packet];
 }
 
 - (void)processIncomingResponsePacket:(UMDiameterPacket *)packet
                                router:(UMDiameterRouter *)router
                                  peer:(UMDiameterPeer *)peer
 {
+    NSString *key = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:packet.endToEndIdentifier];
+    DiameterGenericSession *session = _sessions[key];
+    [session responsePacket:packet];
 }
 
 
@@ -699,6 +704,16 @@
 {
     packet.commandFlags &= ~(DIAMETER_COMMAND_FLAG_REQUEST | DIAMETER_COMMAND_FLAG_ERROR);
     [_diameterRouter localSendPacket:packet toPeer:peer];
+}
+
++ (NSString *)localIdentifierFromEndToEndIdentifier:(uint32_t)e2e
+{
+    return [NSString stringWithFormat:@"%08X@local",e2e];
+}
+
++ (NSString *)remoteIdentifierFromEndToEndIdentifier:(uint32_t)e2e host:(NSString *)host
+{
+    return [NSString stringWithFormat:@"%08X@%@",e2e,host];
 }
 
 @end

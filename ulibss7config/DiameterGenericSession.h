@@ -117,6 +117,9 @@
 - (void)setHostAndRealms:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p;
 - (void)setMandatorySessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p;
 
+- (void)responsePacket:(UMDiameterPacket *)pkt;
+- (void)responseError:(UMDiameterPacket *)pkt;
+
 @end
 
 

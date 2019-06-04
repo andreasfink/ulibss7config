@@ -77,4 +77,7 @@
 - (void)sendOutgoingErrorPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
 - (void)sendOutgoingResponsePacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
 
++ (NSString *)localIdentifierFromEndToEndIdentifier:(uint32_t)e2e;
++ (NSString *)remoteIdentifierFromEndToEndIdentifier:(uint32_t)e2e host:(NSString *)host;
+
 @end
