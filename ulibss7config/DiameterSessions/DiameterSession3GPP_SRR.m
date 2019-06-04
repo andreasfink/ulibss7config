@@ -113,10 +113,10 @@
         //  < Send-Routing-Info-for-SM-Request > ::= < Diameter Header: 8388647, REQ, PXY, 16777312 >
         UMDiameterPacket *pkt = [[UMDiameterPacket alloc]init];
         pkt.commandCode = _commandCode = UMDiameterCommandCode_3GPP_TS_29_338_SR;
-        pkt.commandFlags = DIAMETER_COMMAND_FLAG_REQUEST;
+        pkt.commandFlags = DIAMETER_COMMAND_FLAG_REQUEST | DIAMETER_COMMAND_FLAG_PROXIABLE;
 
         [self setMandatorySessionId:pkt fromParams:p];
-        [self setApplicationId:pkt default:UMDiameterApplicationId_3GPP_S6c];
+        [self setApplicationId:pkt default:UMDiameterApplicationId_3GPP_S6a_S6d];
         [self setHostAndRealms:pkt fromParams:0];
 
         // [ DRMP ]
