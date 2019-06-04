@@ -114,6 +114,8 @@
 - (void)timeout; /* gets called when timeouts occur */
 - (BOOL)isTimedOut;
 - (void)submit;
+- (void)setHostAndRealms:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p;
+- (void)setMandatorySessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p;
 
 @end
 

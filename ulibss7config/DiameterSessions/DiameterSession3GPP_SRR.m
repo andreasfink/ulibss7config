@@ -24,6 +24,16 @@
     [self webApplicationParameters:s defaultApplicationId:UMDiameterApplicationId_3GPP_S6c comment:@"3GPP S6c"];
 
     [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>session-id</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"session-id\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>drmp-id</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"drmp\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+
+    [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>msisdn</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"msisdn\" type=text placeholder=\"+12345678\">(E,164 number)</td>\n"];
     [s appendString:@"</tr>\n"];
@@ -69,14 +79,16 @@
     [s appendString:@"</tr>\n"];
 }
 
+
 - (void)main
 {
     @try
     {
         NSDictionary *p = _req.params;
-        NSString *application_id;
+
+        NSString *drmp;
         NSString *msisdn;
-        NSString *imsi;
+        NSString *userName;
         NSString *smsmi_correlation_id;
         NSString *smsc;
         NSString *sm_rp_mti;
@@ -85,9 +97,9 @@
         NSString *sm_delivery_not_intended;
         NSString *supported_features;
 
-        SET_OPTIONAL_CLEAN_PARAMETER(p,application_id,@"application-id");
+        SET_OPTIONAL_CLEAN_PARAMETER(p,drmp,@"drmp");
         SET_OPTIONAL_CLEAN_PARAMETER(p,msisdn,@"msisdn");
-        SET_OPTIONAL_CLEAN_PARAMETER(p,imsi,@"imsi");
+        SET_OPTIONAL_CLEAN_PARAMETER(p,userName,@"user-name");
         SET_OPTIONAL_CLEAN_PARAMETER(p,smsmi_correlation_id,@"smsmi-correlation-id");
         SET_OPTIONAL_CLEAN_PARAMETER(p,smsc,@"smsc");
         SET_OPTIONAL_CLEAN_PARAMETER(p,sm_rp_mti,@"sm-rp-mti");
@@ -96,13 +108,67 @@
         SET_OPTIONAL_CLEAN_PARAMETER(p,sm_delivery_not_intended,@"sm-delivery-not-intended");
         SET_OPTIONAL_CLEAN_PARAMETER(p,supported_features,@"supported-features");
 
-        VERIFY_EITHER_OR(imsi,msisdn);
+        VERIFY_EITHER_OR(userName,msisdn);
 
+        //  < Send-Routing-Info-for-SM-Request > ::= < Diameter Header: 8388647, REQ, PXY, 16777312 >
         UMDiameterPacket *pkt = [[UMDiameterPacket alloc]init];
         pkt.commandCode = _commandCode = UMDiameterCommandCode_3GPP_TS_29_338_SR;
-        pkt.commandFlags = 0;
+        pkt.commandFlags = DIAMETER_COMMAND_FLAG_REQUEST;
 
+        [self setMandatorySessionId:pkt fromParams:p];
         [self setApplicationId:pkt default:UMDiameterApplicationId_3GPP_S6c];
+        [self setHostAndRealms:pkt fromParams:0];
+
+        // [ DRMP ]
+
+
+        // [ MSISDN ]
+        if(msisdn.length > 0)
+        {
+            // < Session-Id >
+            UMDiameterAvpMSISDN *avp = [[UMDiameterAvpMSISDN alloc]init];
+            [avp setFlagMandatory:YES];
+            [avp setValue:msisdn];
+            [pkt appendAvp:avp];
+        }
+
+        // [ User-Name ]
+        if(userName.length > 0)
+        {
+            UMDiameterAvpUserName *avp = [[UMDiameterAvpUserName alloc]init];
+            [avp setFlagMandatory:YES];
+            avp.value = userName;
+            [pkt appendAvp:avp];
+        }
+
+        //  [ SMSMI-Correlation-ID ]
+        if(smsmi_correlation_id.length > 0)
+        {
+            UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+            [avp setFlagMandatory:YES];
+            avp.value = msisdn;
+            [pkt appendAvp:avp];
+        }
+
+        // *[ Supported-Features ]
+        // [ SC-Address ]
+        /*
+        if(smsc.length > 0)
+        {
+            // < Session-Id >
+            UMDiameterAvpSCAddress *avp = [[UMDiameterAvpSCAddress alloc]init];
+            [avp setFlagMandatory:YES];
+            [avp setValue:msisdn];
+            [pkt appendAvp:avp];
+        }
+         */
+        // [ SM-RP-MTI ]
+        // [ SM-RP-SMEA ]
+        // [ SRR-Flags ]
+        // [ SM-Delivery-Not-Intended ]
+        // *[ AVP ]
+        // *[ Proxy-Info ]
+        // *[ Route-Record ]
         self.query = pkt;
         [self submit];
     }

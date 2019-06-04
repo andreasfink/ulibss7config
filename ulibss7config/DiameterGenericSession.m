@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#import "WebMacros.h"
 
 @implementation DiameterGenericSession
 
@@ -449,6 +449,25 @@
     [s appendString:@"    <td class=mandatory>application-id</td>\n"];
     [s appendFormat:@"    <td class=mandatory><input name=\"application-id\" type=text value=%u>(%@)</td>\n",dai,comment];
     [s appendString:@"</tr>\n"];
+
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>origin-host</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"origin-host\" type=text value=\"%@\"></td>\n",_gInstance.diameterRouter.localHostName];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>origin-realm</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"origin-realm\" type=text value=\"%@\"></td>\n",_gInstance.diameterRouter.localRealm];
+    [s appendString:@"</tr>\n"];
+
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>destination-host</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"destination-host\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>destination-realm</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"destination-realm\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+
 }
 
 - (void)webDiameterParameters:(NSMutableString *)s
@@ -502,6 +521,67 @@
     else
     {
         pkt.applicationId = def;
+    }
+}
+
+- (void)setHostAndRealms:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *originHost;
+    NSString *originRealm;
+    NSString *destinationHost;
+    NSString *destinationRealm;
+    SET_OPTIONAL_CLEAN_PARAMETER(p,originHost,@"origin-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationHost,@"destination-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,originRealm,@"origin-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationRealm,@"destination-host");
+
+    if(originHost.length > 0)
+    {
+        // { Origin-Host }
+        UMDiameterAvpOriginHost *avp = [[UMDiameterAvpOriginHost alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[originHost dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+    // { Origin-Realm }
+    if(originRealm.length > 0)
+    {
+        UMDiameterAvpOriginRealm *avp = [[UMDiameterAvpOriginRealm alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[originRealm  dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+
+    if(destinationHost.length > 0)
+    {
+        // { Destination-Host }
+        UMDiameterAvpOriginHost *avp = [[UMDiameterAvpOriginHost alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[destinationHost dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+    // { Restination-Realm }
+    if(destinationRealm.length > 0)
+    {
+        UMDiameterAvpOriginRealm *avp = [[UMDiameterAvpOriginRealm alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[destinationRealm  dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+}
+
+- (void)setMandatorySessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *sessionId;
+    SET_MANDATORY_PARAMETER(p,sessionId,@"session-id");
+
+    if(sessionId.length > 0)
+    {
+        // < Session-Id >
+        UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.value = sessionId;
+        [packet appendAvp:avp];
     }
 }
 
