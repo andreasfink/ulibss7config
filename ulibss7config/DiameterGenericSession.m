@@ -559,7 +559,7 @@
     if(destinationHost.length > 0)
     {
         // { Destination-Host }
-        UMDiameterAvpOriginHost *avp = [[UMDiameterAvpOriginHost alloc]init];
+        UMDiameterAvpDestinationHost *avp = [[UMDiameterAvpDestinationHost alloc]init];
         [avp setFlagMandatory:YES];
         avp.avpData =[destinationHost dataUsingEncoding:NSUTF8StringEncoding];
         [packet appendAvp:avp];
@@ -567,7 +567,7 @@
     // { Restination-Realm }
     if(destinationRealm.length > 0)
     {
-        UMDiameterAvpOriginRealm *avp = [[UMDiameterAvpOriginRealm alloc]init];
+        UMDiameterAvpDestinationRealm *avp = [[UMDiameterAvpDestinationRealm alloc]init];
         [avp setFlagMandatory:YES];
         avp.avpData =[destinationRealm  dataUsingEncoding:NSUTF8StringEncoding];
         [packet appendAvp:avp];
