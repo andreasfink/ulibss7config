@@ -537,7 +537,7 @@
     SET_OPTIONAL_CLEAN_PARAMETER(p,originHost,@"origin-host");
     SET_OPTIONAL_CLEAN_PARAMETER(p,destinationHost,@"destination-host");
     SET_OPTIONAL_CLEAN_PARAMETER(p,originRealm,@"origin-host");
-    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationRealm,@"destination-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationRealm,@"destination-realm");
 
     if(originHost.length > 0)
     {
