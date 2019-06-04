@@ -81,10 +81,12 @@
 -(DiameterGenericSession *)setHttpRequest:(UMHTTPRequest *)xreq
                                  instance:(DiameterGenericInstance *)inst
 {
+
     [_historyLog addLogEntry:@"DiameterGenericSession: setHttpRequest"];
     [self genericInitialisation:inst];
     [self setTimeouts];
     [self setOptions];
+    _req = xreq;
     [_req makeAsyncWithTimeout:_timeoutInSeconds delegate:_gInstance];
     return self;
 }
@@ -250,13 +252,34 @@
     {
         [_req makeAsyncWithTimeout:_timeoutInSeconds];
     }
+
+    if(_endToEndIdentifier == 0)
+    {
+        _endToEndIdentifier = [_gInstance.diameterRouter nextEndToEndIdentifier];
+    }
+
     _query.commandCode = _commandCode;
     _query.endToEndIdentifier = _endToEndIdentifier;
     _userIdentifier = [NSString stringWithFormat:@"%08lX",(long)_endToEndIdentifier];
     [_gInstance addSession:self userId:_userIdentifier];
-    [[_gInstance diameterRouter] localSendPacket:_query toPeer:NULL];
+    [_gInstance sendOutgoingRequestPacket:_query peer:NULL];
 }
 
+- (void)responsePaket:(UMDiameterPacket *)pkt
+{
+    UMSynchronizedSortedDictionary *dict = pkt.objectValue;
+    [_req setResponsePlainText:dict.jsonString];
+    [_req resumePendingRequest];
+    [_gInstance markSessionForTermination:self];
+}
+
+- (void)responseError:(UMDiameterPacket *)pkt
+{
+    UMSynchronizedSortedDictionary *dict = pkt.objectValue;
+    [_req setResponsePlainText:dict.jsonString];
+    [_req resumePendingRequest];
+    [_gInstance markSessionForTermination:self];
+}
 
 - (void)webException:(NSException *)e
 {
@@ -329,7 +352,6 @@
     [s appendString:@"\n"];
 }
 
-
 + (void)webVariousTitle:(NSMutableString *)s
 {
     [s appendString:@"<tr><td colspan=2 class=subtitle>Various Extensions:</td></tr>\n"];
@@ -385,11 +407,9 @@
     [_operationMutex unlock];
 }
 
-
 - (void)writeTraceToDirectory:(NSString *)dir
 {
 }
-
 
 - (BOOL)isTimedOut
 {
