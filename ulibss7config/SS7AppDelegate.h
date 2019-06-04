@@ -104,6 +104,7 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary    *_diameter_connections_dict;
     UMSynchronizedDictionary    *_diameter_router_dict;
     UMSynchronizedDictionary    *_smsproxy_dict;
+	UMSynchronizedDictionary 	*_ss7FilterStagingAreas_dict;
 
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
@@ -136,7 +137,7 @@ UMDiameterRouterAppDelegateProtocol>
     NSString                    *_filterEnginesPath;
     NSDate                      *_applicationStart;
     UMSynchronizedDictionary    *_ss7FilterEngines;
-    DiameterGenericInstance     *_mainDiameterInstance;
+    DiameterGenericInstance     *_mainDiameterInstance;	
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -351,7 +352,6 @@ UMDiameterRouterAppDelegateProtocol>
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
-
 
 /************************************************************/
 #pragma mark -

@@ -80,6 +80,7 @@
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ApiSession.h"
 #import "DiameterGenericInstance.h"
+#import "UMSS7ConfigStagingAreaStorage.h"
 
 //@class SS7AppDelegate;
 
@@ -132,6 +133,7 @@ static void signalHandler(int signum);
 		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
         _diameter_connections_dict      = [[UMSynchronizedDictionary alloc]init];
         _diameter_router_dict           = [[UMSynchronizedDictionary alloc]init];
+		_ss7FilterStagingAreas_dict     = [[UMSynchronizedDictionary alloc]init];
 
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 		_registry                       = [[UMSocketSCTPRegistry alloc]init];
@@ -3577,7 +3579,15 @@ static void signalHandler(int signum);
 
 - (void)createSS7FilterStagingArea:(NSString *)name
 {
-    /* FIXME */
+	NSString *filename = [UMSS7ConfigObject filterName:name];
+    NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename];
+    UMSS7ConfigStagingAreaStorage *st = [[UMSS7ConfigStagingAreaStorage alloc]initWithPath:filepath];
+    if(st==NULL)
+    {
+        @throw([NSException exceptionWithName:@"CREATE-STAGING-ERROR"
+                                       reason:@"can not allocate staging area"
+                                     userInfo:NULL]);
+    }
 }
 
 - (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId
@@ -3592,7 +3602,18 @@ static void signalHandler(int signum);
 
 - (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId
 {
-    return NULL;
+	UMSS7ApiSession *session = [self getApiSession:sessionId];
+    if(session)
+	{
+		NSString *name = session.currentStorageAreaName;
+		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
+		
+		return stagingArea;
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 - (void)makeStagingAreaCurrent:(NSString *)name
@@ -3602,8 +3623,7 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames
 {
-    /* FIXME */
-    return NULL;
+	return _ss7FilterStagingAreas_dict;
 }
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
