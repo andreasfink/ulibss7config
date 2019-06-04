@@ -21,7 +21,7 @@
 - (void)webDiameterParameters:(NSMutableString *)s
 {
 
-    [self webApplicationParameters:s defaultApplicationId:UMDiameterApplicationId_3GPP_S6c comment:@"3GPP S6c"];
+    [self webApplicationParameters:s defaultApplicationId:UMDiameterApplicationId_3GPP_S6a_S6d comment:@"3GPP S6a/S6d"];
 
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>session-id</td>\n"];
