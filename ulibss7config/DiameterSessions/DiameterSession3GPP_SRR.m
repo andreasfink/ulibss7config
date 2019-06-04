@@ -117,7 +117,7 @@
 
         [self setMandatorySessionId:pkt fromParams:p];
         [self setApplicationId:pkt default:UMDiameterApplicationId_3GPP_S6a_S6d];
-        [self setHostAndRealms:pkt fromParams:0];
+        [self setHostAndRealms:pkt fromParams:p];
 
         // [ DRMP ]
 
@@ -126,7 +126,7 @@
         if(msisdn.length > 0)
         {
             // < Session-Id >
-            UMDiameterAvpMSISDN *avp = [[UMDiameterAvpMSISDN alloc]init];
+            UMDiameterAvp3GPP_MSISDN *avp = [[UMDiameterAvp3GPP_MSISDN alloc]init];
             [avp setFlagMandatory:YES];
             [avp setValue:msisdn];
             [pkt appendAvp:avp];

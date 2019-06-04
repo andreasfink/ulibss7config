@@ -27,7 +27,6 @@
 
 - (void)genericInitialisation:(DiameterGenericInstance *)inst
 {
-    _userIdentifier = [inst getNewUserIdentifier];
     _gInstance = inst;
     _options = [[NSMutableDictionary alloc]init];
     _sessionName = [[self class] description];
@@ -92,7 +91,6 @@
 }
 
 - (DiameterGenericSession *)initWithQuery:(UMDiameterPacket *)packet
-                           userIdentifier:(NSString *)uid
                                       req:(UMHTTPRequest *)xreq
                               commandCode:(uint32_t) cc
                              localAddress:(NSString *)la
@@ -102,8 +100,7 @@
                                  instance:(DiameterGenericInstance *)xInstance
                                   options:(NSDictionary *) xoptions
 {
-    [_historyLog addLogEntry:@"SS7GenericSession: initWithQuery"];
-
+    [_historyLog addLogEntry:@"DiameterGenericSession: initWithQuery"];
     self = [super init];
     if(self)
     {
@@ -137,7 +134,6 @@
     {
         [self genericInitialisation:ot.gInstance];
         _commandCode = ot.commandCode;
-        _userIdentifier = ot.userIdentifier;
         _query = ot.query;
         _gInstance = ot.gInstance;
         _localAddress = ot.localAddress;
@@ -180,7 +176,7 @@
     }
     @catch(id err)
     {
-        [self.logFeed majorErrorText:[NSString stringWithFormat:@"DiameterSession: Sending U_Abort due to exception: %@",err]];
+        [self.logFeed majorErrorText:[NSString stringWithFormat:@"DiameterSession: exception: %@",err]];
     }
     if(!json)
     {
@@ -268,8 +264,17 @@
 - (void)responsePaket:(UMDiameterPacket *)pkt
 {
     UMSynchronizedSortedDictionary *dict = pkt.objectValue;
-    [_req setResponsePlainText:dict.jsonString];
-    [_req resumePendingRequest];
+
+    [self touch];
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+    dict[@"query"] =  _query.objectValue;
+    dict[@"response"] = pkt.objectValue;
+    [_operationMutex lock];
+    [self outputResult2:dict];
+    [self markForTermination];
+    [_operationMutex unlock];
+}
+
     [_gInstance markSessionForTermination:self];
 }
 
