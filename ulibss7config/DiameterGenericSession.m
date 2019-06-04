@@ -588,6 +588,20 @@
         [packet appendAvp:avp];
     }
 }
+- (void)setSessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *sessionId;
+    SET_OPTIONAL_CLEAN_PARAMETER(p,sessionId,@"session-id");
+
+    if(sessionId.length > 0)
+    {
+        // < Session-Id >
+        UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.value = sessionId;
+        [packet appendAvp:avp];
+    }
+}
 
 @end
 

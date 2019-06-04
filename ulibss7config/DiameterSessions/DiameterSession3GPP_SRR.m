@@ -115,7 +115,7 @@
         pkt.commandCode = _commandCode = UMDiameterCommandCode_3GPP_TS_29_338_SR;
         pkt.commandFlags = DIAMETER_COMMAND_FLAG_REQUEST | DIAMETER_COMMAND_FLAG_PROXIABLE;
 
-        [self setMandatorySessionId:pkt fromParams:p];
+        [self setSessionId:pkt fromParams:p];
         [self setApplicationId:pkt default:UMDiameterApplicationId_3GPP_S6a_S6d];
         [self setHostAndRealms:pkt fromParams:p];
 
