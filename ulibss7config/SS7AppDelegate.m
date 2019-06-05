@@ -3606,13 +3606,13 @@ static void signalHandler(int signum);
 
 - (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(UMSS7ApiSession *)session
 {
-	NSLog(@"[getStagingAreaForSession][session] = %@",session);
-	NSString *name = session.currentStorageAreaName;
-	NSLog(@"[getStagingAreaForSession][currentStorageAreaName] = %@",name);
-	UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
-	NSLog(@"[getStagingAreaForSession][UMSS7ConfigStagingAreaStorage] = %@",stagingArea);
-	
-	return stagingArea;
+    NSString *name = session.currentStorageAreaName;
+    if(name==NULL)
+    {
+        return NULL;
+    }
+    UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[session.currentStorageAreaName];
+    return stagingArea;
 }
 
 - (void)makeStagingAreaCurrent:(NSString *)name

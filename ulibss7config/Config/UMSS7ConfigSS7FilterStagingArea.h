@@ -9,6 +9,13 @@
 #import "UMSS7ConfigObject.h"
 
 @interface UMSS7ConfigSS7FilterStagingArea : UMSS7ConfigObject
+{
+    NSDate                 *_createdTimestamp;
+    NSDate                 *_modifiedTimestamp;
+}
+
+@property(readwrite,strong)    NSDate   *createdTimestamp;
+@property(readwrite,strong)    NSDate   *modifiedTimestamp;
 
 @end
 
