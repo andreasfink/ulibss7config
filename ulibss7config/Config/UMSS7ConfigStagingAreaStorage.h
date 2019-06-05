@@ -7,6 +7,7 @@
 //
 
 #import <ulib/ulib.h>
+#import "UMSS7ConfigObject.h"
 
 @class  UMSS7ConfigSS7FilterRuleset;
 @class  UMSS7ConfigSS7FilterRule;
@@ -15,24 +16,23 @@
 @class  UMSS7ConfigFilterLog;
 
 
-@interface UMSS7ConfigStagingAreaStorage : UMObject
+@interface UMSS7ConfigStagingAreaStorage : UMSS7ConfigObject
 {
-    NSString                 *_name;
     NSString                 *_path;
     UMSynchronizedDictionary *_filter_rule_set_dict;
     UMSynchronizedDictionary *_filter_engines_dict;
     UMSynchronizedDictionary *_filter_action_list_dict;
-    BOOL                    _dirty;
     UMTimer                 *_dirtyTimer;
+    NSDate                 *_createdTimestamp;
+    NSDate                 *_modifiedTimestamp;
 }
 
-@property(readwrite,strong,atomic)  NSString                 *name;
 @property(readwrite,strong,atomic)  NSString                 *path;
+@property(readwrite,strong,atomic)    NSDate   *createdTimestamp;
+@property(readwrite,strong,atomic)    NSDate   *modifiedTimestamp;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_rule_set_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_engines_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_action_list_dict;
-
-@property(readwrite,assign,atomic)  BOOL dirty;
 
 - (void)startDirtyTimer;
 - (void)stopDirtyTimer;

@@ -7,6 +7,7 @@
 //
 
 #import "UMSS7ConfigStagingAreaStorage.h"
+#import "UMSS7ConfigMacros.h"
 
 @implementation UMSS7ConfigStagingAreaStorage
 
@@ -32,9 +33,57 @@
 }
 
 
++ (NSString *)type
+{
+    return @"ss7-filter-staging-area";
+}
+- (NSString *)type
+{
+    return [UMSS7ConfigStagingAreaStorage type];
+}
+
+- (UMSS7ConfigStagingAreaStorage *)initWithConfig:(NSDictionary *)dict
+{
+    self = [super initWithConfig:dict];
+    if(self)
+    {
+        [self setConfig:dict];
+    }
+    return self;
+}
+
+
+- (void)appendConfigToString:(NSMutableString *)s
+{
+    [super appendConfigToString:s];
+    APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp );
+    APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
+    APPEND_CONFIG_STRING(s,@"path",_path);
+}
+
+
+- (UMSynchronizedSortedDictionary *)config
+{
+    UMSynchronizedSortedDictionary *dict = [super config];
+    APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
+    APPEND_DICT_STRING(dict,@"path",_path);
+
+    return dict;
+}
+
+- (void)setConfig:(NSDictionary *)dict
+{
+    SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
+    SET_DICT_STRING(dict,@"path",_path);
+
+}
+
 - (UMSS7ConfigStagingAreaStorage *)copyWithZone:(NSZone *)zone
 {
-    UMSS7ConfigStagingAreaStorage *c = [[UMSS7ConfigStagingAreaStorage allocWithZone:zone]initWithPath:_path];
+    UMSynchronizedSortedDictionary *currentConfig = [self config];
+    UMSS7ConfigStagingAreaStorage *c =  [[UMSS7ConfigStagingAreaStorage allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
     c.filter_rule_set_dict = [_filter_rule_set_dict copy];
     c.filter_engines_dict = [_filter_engines_dict copy];
     c.filter_action_list_dict = [_filter_action_list_dict copy];
@@ -64,5 +113,8 @@
 
 - (void)writeConfig
 {
+    /* FIXME */
 }
+
+
 @end

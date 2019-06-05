@@ -13,15 +13,6 @@
 @interface UMSS7ConfigSS7FilterActionList : UMSS7ConfigObject
 {
     UMSynchronizedArray      *_entries;
-
-	NSString *_action;
-	NSString *_log;
-	NSNumber *_error;
-	NSString *_rerouteDestination;
-	NSString *_rerouteCalledAddress;
-	NSString *_rerouteCalledAddressPrefix;
-	NSString *_category;
-	NSString *_userDescription;
 }
 
 @property(readwrite,strong,atomic)    UMSynchronizedArray      *entries;
@@ -43,7 +34,6 @@
 - (void)appendAction:(UMSS7ConfigSS7FilterAction *)action;
 - (void)removeActionAtIndex:(NSInteger)idx;
 - (NSArray<UMSS7ConfigSS7FilterAction *> *)getAllActions;
-
 
 @end
 
