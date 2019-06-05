@@ -3601,18 +3601,7 @@ static void signalHandler(int signum);
 
 - (void)deleteSS7FilterStagingArea:(NSString *)name
 {
-    (NSArray<NSString *> *) names = [self getSS7FilterStagingAreaNames];
-	for(NSString *n in names)
-	{
-		if(n == name)
-		{
-			UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[n];
-			[_ss7FilterStagingAreas_dict removeObjectForKey:n];
-			//[instance stopDetachAndDestroy];
-			
-			break;
-		}
-	}
+    [_ss7FilterStagingAreas_dict removeObjectForKey:name];
 }
 
 - (UMSS7ConfigSS7FilterStagingArea *)getStagingAreaForSession:(UMSS7ApiSession *)session
@@ -3628,7 +3617,8 @@ static void signalHandler(int signum);
 
 - (void)makeStagingAreaCurrent:(NSString *)name
 {
-    /* FIXME */
+    /* FIXME: here we load a staging area into a filter. */
+    /* TODO FINK */
 }
 
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames
@@ -3638,10 +3628,10 @@ static void signalHandler(int signum);
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
 {
-    (NSArray<NSString *> *) names = [self getSS7FilterStagingAreaNames];
+    NSArray<NSString *> *names = [self getSS7FilterStagingAreaNames];
 	for(NSString *name in names)
 	{
-		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
+		UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[name];
 		if(name == oldname)
 		{
 			stagingArea.name = newname;
@@ -3652,16 +3642,21 @@ static void signalHandler(int signum);
 
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname
 {
-    (NSArray<NSString *> *) names = [self getSS7FilterStagingAreaNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
-		if(name == oldname)
-		{
-			[self createSS7FilterStagingArea:newname];
-			break;
-		}
-	}
+    if([newname isEqualToString:oldname])
+    {
+        return;
+    }
+    UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[oldname];
+    if(stagingArea == NULL)
+    {
+        stagingArea =  [[UMSS7ConfigSS7FilterStagingArea alloc]init];
+    }
+    else
+    {
+        stagingArea = [stagingArea copy];
+    }
+    stagingArea.name = newname;
+    _ss7FilterStagingAreas_dict[newname] = stagingArea;
 }
 
 - (NSArray *)getSS7FilterEngineNames
