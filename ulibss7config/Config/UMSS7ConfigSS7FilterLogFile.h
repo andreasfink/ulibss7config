@@ -9,6 +9,11 @@
 #import "UMSS7ConfigObject.h"
 
 @interface UMSS7ConfigSS7FilterLogFile : UMSS7ConfigObject
+{
+    NSString *_filename;
+}
+
+@property(readwrite,strong,atomic)  NSString *filename;
 
 @end
 

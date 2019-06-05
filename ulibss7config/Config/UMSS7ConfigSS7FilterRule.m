@@ -37,6 +37,8 @@
 	[super appendConfigToString:s];
 
 	APPEND_CONFIG_STRING(s,@"filter-set",_filterSet);
+    APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
+    APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
 	APPEND_CONFIG_STRING(s,@"status",_status);
 	APPEND_CONFIG_STRING(s,@"engine",_engine);
 	APPEND_CONFIG_STRING(s,@"pass-action",_passAction);
@@ -50,6 +52,8 @@
 {
 	UMSynchronizedSortedDictionary *dict = [super config];
 	APPEND_DICT_STRING(dict,@"filter-set",_filterSet);
+    APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
 	APPEND_DICT_STRING(dict,@"action",_status);
 	APPEND_DICT_STRING(dict,@"engine",_engine);
 	APPEND_DICT_STRING(dict,@"pass-action",_passAction);
@@ -64,6 +68,8 @@
 {
 	[self setSuperConfig:dict];
 	SET_DICT_STRING(dict,@"filter-set",_filterSet);
+    SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
 	SET_DICT_STRING(dict,@"status",_status);
 	SET_DICT_STRING(dict,@"engine",_engine);
 	SET_DICT_STRING(dict,@"pass-action",_passAction);

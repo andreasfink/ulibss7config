@@ -11,7 +11,7 @@
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigSS7FilterRule.h"
-#import "UMSS7ConfigStagingAreaStorage.h"
+#import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigSS7FilterActionList.h"
 #import "UMSS7ApiSession.h"
 
@@ -37,7 +37,7 @@
     }
     
 	// 1. Get Staging Area
-	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession.sessionKey];
+	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
     {
         [self sendErrorNotFound:@"Staging-Area"];

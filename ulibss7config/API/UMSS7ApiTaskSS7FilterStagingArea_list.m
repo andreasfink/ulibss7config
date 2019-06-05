@@ -36,7 +36,7 @@
     }
     
 	// 1. Get Staging Area
-	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
     {
         [self sendErrorNotFound:@"Staging-Area"];

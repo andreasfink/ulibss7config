@@ -25,7 +25,7 @@
 @class ConfigurationSocket;
 @class SchrittmacherClient;
 @class UMSS7ConfigStorage;
-@class UMSS7ConfigStagingAreaStorage;
+@class UMSS7ConfigSS7FilterStagingArea;
 @class SccpDestination;
 @class SS7AppTransportHandler;
 @class ApiSession;
@@ -345,7 +345,7 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)createSS7FilterStagingArea:(NSString *)name;
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
-- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(UMSS7ApiSession *)session;
+- (UMSS7ConfigSS7FilterStagingArea *)getStagingAreaForSession:(UMSS7ApiSession *)session;
 - (void)makeStagingAreaCurrent:(NSString *)name;
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;

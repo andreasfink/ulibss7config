@@ -39,7 +39,7 @@
 	NSString *name = _webRequest.params[@"name"];
 	_apiSession.currentStorageAreaName = name;
 	
-	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea != NULL)
     {
         [self sendErrorAlreadyExisting];

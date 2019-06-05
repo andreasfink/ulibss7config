@@ -28,7 +28,13 @@ if(value!=NULL) \
 #define APPEND_CONFIG_STRING(str,name,value) \
 if(value!=NULL) \
 { \
-    [str appendFormat:@"%@=%@\n",name,value]; \
+    [str appendFormat:@"%@=%@\n",name,value.stringValue]; \
+}
+
+#define APPEND_CONFIG_DATE(str,name,value) \
+if(value!=NULL) \
+{ \
+    [str appendFormat:@"%@=%@\n",name,value.stringValue]; \
 }
 
 #define APPEND_CONFIG_ARRAY_COMPACT(str,name,array) \
@@ -102,6 +108,11 @@ if(value!=NULL) \
     dict[name] = value.stringValue; \
 }
 
+#define APPEND_DICT_DATE(dict,name,value) \
+if(value!=NULL) \
+{ \
+    dict[name] = value.stringValue; \
+}
 
 #define APPEND_DICT_ARRAY(dict,name,array) \
 if(array!=NULL) \
@@ -175,6 +186,24 @@ if(dict[name]!=NULL) \
     else if([o isKindOfClass:[NSArray class]]) \
     { \
          value = [((NSArray *)o) componentsJoinedByString:@";"]; \
+    } \
+}
+
+#define SET_DICT_DATE(dict,name,value) \
+if(dict[name]!=NULL) \
+{ \
+    id o = dict[name]; \
+    if([o isKindOfClass:[NSString class]]) \
+    { \
+        value = [o dateValue]; \
+    } \
+    else if([o isKindOfClass:[NSDate class]]) \
+    { \
+        value = o; \
+    } \
+    else if([o isKindOfClass:[NSNumber class]]) \
+    { \
+        value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[o doubleValue]]; \
     } \
 }
 

@@ -80,7 +80,7 @@
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ApiSession.h"
 #import "DiameterGenericInstance.h"
-#import "UMSS7ConfigStagingAreaStorage.h"
+#import "UMSS7ConfigSS7FilterStagingArea.h"
 
 //@class SS7AppDelegate;
 
@@ -3581,7 +3581,7 @@ static void signalHandler(int signum);
 {
 	NSString *filename = [UMSS7ConfigObject filterName:name];
     NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename];
-    UMSS7ConfigStagingAreaStorage *st = [[UMSS7ConfigStagingAreaStorage alloc]initWithPath:filepath];
+    UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
     if(st==NULL)
     {
         @throw([NSException exceptionWithName:@"CREATE-STAGING-ERROR"
@@ -3615,15 +3615,15 @@ static void signalHandler(int signum);
 	}
 }
 
-- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(UMSS7ApiSession *)session
+- (UMSS7ConfigSS7FilterStagingArea *)getStagingAreaForSession:(UMSS7ApiSession *)session
 {
-	NSLog(@"[getStagingAreaForSession][session] = %@",session);
-	NSString *name = session.currentStorageAreaName;
-	NSLog(@"[getStagingAreaForSession][currentStorageAreaName] = %@",name);
-	UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
-	NSLog(@"[getStagingAreaForSession][UMSS7ConfigStagingAreaStorage] = %@",stagingArea);
-	
-	return stagingArea;
+    NSString *name = session.currentStorageAreaName;
+    if(name==NULL)
+    {
+        return NULL;
+    }
+    UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[session.currentStorageAreaName];
+    return stagingArea;
 }
 
 - (void)makeStagingAreaCurrent:(NSString *)name
