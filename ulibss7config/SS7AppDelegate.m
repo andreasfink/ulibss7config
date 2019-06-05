@@ -3602,12 +3602,14 @@ static void signalHandler(int signum);
 - (void)deleteSS7FilterStagingArea:(NSString *)name
 {
     (NSArray<NSString *> *) names = [self getSS7FilterStagingAreaNames];
-	for(NSString *name in names)
+	for(NSString *n in names)
 	{
-		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
-		if(name == oldname)
+		if(n == name)
 		{
-			stagingArea.name = newname;
+			UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[n];
+			[_ss7FilterStagingAreas_dict removeObjectForKey:n];
+			//[instance stopDetachAndDestroy];
+			
 			break;
 		}
 	}
