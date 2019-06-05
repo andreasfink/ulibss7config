@@ -3601,7 +3601,16 @@ static void signalHandler(int signum);
 
 - (void)deleteSS7FilterStagingArea:(NSString *)name
 {
-    /* FIXME */
+    (NSArray<NSString *> *) names = [self getSS7FilterStagingAreaNames];
+	for(NSString *name in names)
+	{
+		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
+		if(name == oldname)
+		{
+			stagingArea.name = newname;
+			break;
+		}
+	}
 }
 
 - (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(UMSS7ApiSession *)session
@@ -3627,12 +3636,30 @@ static void signalHandler(int signum);
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
 {
-    /* FIXME */
+    (NSArray<NSString *> *) names = [self getSS7FilterStagingAreaNames];
+	for(NSString *name in names)
+	{
+		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
+		if(name == oldname)
+		{
+			stagingArea.name = newname;
+			break;
+		}
+	}
 }
 
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname
 {
-    /* FIXME */
+    (NSArray<NSString *> *) names = [self getSS7FilterStagingAreaNames];
+	for(NSString *name in names)
+	{
+		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
+		if(name == oldname)
+		{
+			[self createSS7FilterStagingArea:newname];
+			break;
+		}
+	}
 }
 
 - (NSArray *)getSS7FilterEngineNames
