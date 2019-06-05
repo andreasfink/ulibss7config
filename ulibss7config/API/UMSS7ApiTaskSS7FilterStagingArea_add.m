@@ -36,7 +36,10 @@
     }
     
 	// 1. Get Staging Area
-	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession.sessionKey];
+	NSString *name = _webRequest.params[@"name"];
+	_apiSession.currentStorageAreaName = name;
+	
+	UMSS7ConfigStagingAreaStorage *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea != NULL)
     {
         [self sendErrorAlreadyExisting];
@@ -45,7 +48,6 @@
     {
 		@try
 		{
-			NSString *name = _webRequest.params[@"name"];
 			[_appDelegate createSS7FilterStagingArea:name];
 			[self sendResultOK];
 		}

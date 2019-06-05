@@ -114,9 +114,9 @@ realm:(NSString **)realm;
 - (UMSynchronizedSortedDictionary *)cloneSCCPTranslationTable:(NSDictionary *)config;
 
 - (void)createSS7FilterStagingArea:(NSString *)name;
-- (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId;
+- (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
-- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId;
+- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(UMSS7ApiSession *)session;
 - (void)makeStagingAreaCurrent:(NSString *)name;
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;

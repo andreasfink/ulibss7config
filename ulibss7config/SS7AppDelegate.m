@@ -3594,7 +3594,7 @@ static void signalHandler(int signum);
 	}
 }
 
-- (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId
+- (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)sessionId
 {
     /* FIXME */
 }
@@ -3604,20 +3604,15 @@ static void signalHandler(int signum);
     /* FIXME */
 }
 
-- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId
+- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(UMSS7ApiSession *)session
 {
-	UMSS7ApiSession *session = [self getApiSession:sessionId];
-    if(session)
-	{
-		NSString *name = session.currentStorageAreaName;
-		UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
-		
-		return stagingArea;
-	}
-	else
-	{
-		return NULL;
-	}
+	NSLog(@"[getStagingAreaForSession][session] = %@",session);
+	NSString *name = session.currentStorageAreaName;
+	NSLog(@"[getStagingAreaForSession][currentStorageAreaName] = %@",name);
+	UMSS7ConfigStagingAreaStorage *stagingArea = _ss7FilterStagingAreas_dict[name];
+	NSLog(@"[getStagingAreaForSession][UMSS7ConfigStagingAreaStorage] = %@",stagingArea);
+	
+	return stagingArea;
 }
 
 - (void)makeStagingAreaCurrent:(NSString *)name
@@ -3639,8 +3634,6 @@ static void signalHandler(int signum);
 {
     /* FIXME */
 }
-
-
 
 - (NSArray *)getSS7FilterEngineNames
 {
