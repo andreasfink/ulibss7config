@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#import "WebMacros.h"
 
 @implementation DiameterGenericSession
 
@@ -27,7 +27,6 @@
 
 - (void)genericInitialisation:(DiameterGenericInstance *)inst
 {
-    _userIdentifier = [inst getNewUserIdentifier];
     _gInstance = inst;
     _options = [[NSMutableDictionary alloc]init];
     _sessionName = [[self class] description];
@@ -92,7 +91,6 @@
 }
 
 - (DiameterGenericSession *)initWithQuery:(UMDiameterPacket *)packet
-                           userIdentifier:(NSString *)uid
                                       req:(UMHTTPRequest *)xreq
                               commandCode:(uint32_t) cc
                              localAddress:(NSString *)la
@@ -102,8 +100,7 @@
                                  instance:(DiameterGenericInstance *)xInstance
                                   options:(NSDictionary *) xoptions
 {
-    [_historyLog addLogEntry:@"SS7GenericSession: initWithQuery"];
-
+    [_historyLog addLogEntry:@"DiameterGenericSession: initWithQuery"];
     self = [super init];
     if(self)
     {
@@ -137,7 +134,6 @@
     {
         [self genericInitialisation:ot.gInstance];
         _commandCode = ot.commandCode;
-        _userIdentifier = ot.userIdentifier;
         _query = ot.query;
         _gInstance = ot.gInstance;
         _localAddress = ot.localAddress;
@@ -180,7 +176,7 @@
     }
     @catch(id err)
     {
-        [self.logFeed majorErrorText:[NSString stringWithFormat:@"DiameterSession: Sending U_Abort due to exception: %@",err]];
+        [self.logFeed majorErrorText:[NSString stringWithFormat:@"DiameterSession: exception: %@",err]];
     }
     if(!json)
     {
@@ -260,25 +256,33 @@
 
     _query.commandCode = _commandCode;
     _query.endToEndIdentifier = _endToEndIdentifier;
-    _userIdentifier = [NSString stringWithFormat:@"%08lX",(long)_endToEndIdentifier];
+    _userIdentifier = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:_endToEndIdentifier];
     [_gInstance addSession:self userId:_userIdentifier];
     [_gInstance sendOutgoingRequestPacket:_query peer:NULL];
 }
 
-- (void)responsePaket:(UMDiameterPacket *)pkt
+- (void)responsePacket:(UMDiameterPacket *)pkt
 {
-    UMSynchronizedSortedDictionary *dict = pkt.objectValue;
-    [_req setResponsePlainText:dict.jsonString];
-    [_req resumePendingRequest];
-    [_gInstance markSessionForTermination:self];
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+    [self touch];
+    dict[@"query"] =  _query.objectValue;
+    dict[@"response"] = pkt.objectValue;
+    [_operationMutex lock];
+    [self outputResult2:dict];
+    [self markForTermination];
+    [_operationMutex unlock];
 }
 
 - (void)responseError:(UMDiameterPacket *)pkt
 {
-    UMSynchronizedSortedDictionary *dict = pkt.objectValue;
-    [_req setResponsePlainText:dict.jsonString];
-    [_req resumePendingRequest];
-    [_gInstance markSessionForTermination:self];
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+    [self touch];
+    dict[@"query"] =  _query.objectValue;
+    dict[@"error"] = pkt.objectValue;
+    [_operationMutex lock];
+    [self outputResult2:dict];
+    [self markForTermination];
+    [_operationMutex unlock];
 }
 
 - (void)webException:(NSException *)e
@@ -449,6 +453,25 @@
     [s appendString:@"    <td class=mandatory>application-id</td>\n"];
     [s appendFormat:@"    <td class=mandatory><input name=\"application-id\" type=text value=%u>(%@)</td>\n",dai,comment];
     [s appendString:@"</tr>\n"];
+
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>origin-host</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"origin-host\" type=text value=\"%@\"></td>\n",_gInstance.diameterRouter.localHostName];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>origin-realm</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"origin-realm\" type=text value=\"%@\"></td>\n",_gInstance.diameterRouter.localRealm];
+    [s appendString:@"</tr>\n"];
+
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>destination-host</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"destination-host\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>destination-realm</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"destination-realm\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+
 }
 
 - (void)webDiameterParameters:(NSMutableString *)s
@@ -502,6 +525,81 @@
     else
     {
         pkt.applicationId = def;
+    }
+}
+
+- (void)setHostAndRealms:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *originHost;
+    NSString *originRealm;
+    NSString *destinationHost;
+    NSString *destinationRealm;
+    SET_OPTIONAL_CLEAN_PARAMETER(p,originHost,@"origin-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationHost,@"destination-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,originRealm,@"origin-realm");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationRealm,@"destination-realm");
+
+    if(originHost.length > 0)
+    {
+        // { Origin-Host }
+        UMDiameterAvpOriginHost *avp = [[UMDiameterAvpOriginHost alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[originHost dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+    // { Origin-Realm }
+    if(originRealm.length > 0)
+    {
+        UMDiameterAvpOriginRealm *avp = [[UMDiameterAvpOriginRealm alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[originRealm  dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+
+    if(destinationHost.length > 0)
+    {
+        // { Destination-Host }
+        UMDiameterAvpDestinationHost *avp = [[UMDiameterAvpDestinationHost alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[destinationHost dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+    // { Restination-Realm }
+    if(destinationRealm.length > 0)
+    {
+        UMDiameterAvpDestinationRealm *avp = [[UMDiameterAvpDestinationRealm alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[destinationRealm  dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+}
+
+- (void)setMandatorySessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *sessionId;
+    SET_MANDATORY_PARAMETER(p,sessionId,@"session-id");
+
+    if(sessionId.length > 0)
+    {
+        // < Session-Id >
+        UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.value = sessionId;
+        [packet appendAvp:avp];
+    }
+}
+- (void)setSessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *sessionId;
+    SET_OPTIONAL_CLEAN_PARAMETER(p,sessionId,@"session-id");
+
+    if(sessionId.length > 0)
+    {
+        // < Session-Id >
+        UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.value = sessionId;
+        [packet appendAvp:avp];
     }
 }
 
