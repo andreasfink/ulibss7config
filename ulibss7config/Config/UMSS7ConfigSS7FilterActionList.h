@@ -17,14 +17,9 @@
 
 @property(readwrite,strong,atomic)    UMSynchronizedArray      *entries;
 
-@property(readwrite,strong,atomic)	NSString *action;
-@property(readwrite,strong,atomic)	NSString *log;
-@property(readwrite,strong,atomic)	NSNumber *error;
-@property(readwrite,strong,atomic)	NSString *rerouteDestination;
-@property(readwrite,strong,atomic)	NSString *rerouteCalledAddress;
-@property(readwrite,strong,atomic)	NSString *rerouteCalledAddressPrefix;
-@property(readwrite,strong,atomic)	NSString *category;
-@property(readwrite,strong,atomic)	NSString *userDescription;
+@property(readwrite,strong,atomic)    NSDate *createdTimestamp;
+@property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
+
 
 
 - (UMSS7ConfigSS7FilterActionList *)initWithConfig:(NSDictionary *)dict;

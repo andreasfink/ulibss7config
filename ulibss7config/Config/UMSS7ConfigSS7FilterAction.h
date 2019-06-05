@@ -18,6 +18,8 @@
     NSString *_rerouteCalledAddressPrefix;
     NSString *_tag;
     NSString *_userDescription;
+    NSDate                 *_createdTimestamp;
+    NSDate                 *_modifiedTimestamp;
 }
 
 @property(readwrite,strong,atomic)  NSString *action;
@@ -28,6 +30,9 @@
 @property(readwrite,strong,atomic)  NSString *rerouteCalledAddressPrefix;
 @property(readwrite,strong,atomic)  NSString *tag;
 @property(readwrite,strong,atomic)  NSString *userDescription;
+@property(readwrite,strong,atomic)    NSDate *createdTimestamp;
+@property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
+
 
 @end
 

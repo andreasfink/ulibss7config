@@ -16,7 +16,7 @@
 @class  UMSS7ConfigFilterLog;
 
 
-@interface UMSS7ConfigStagingAreaStorage : UMSS7ConfigObject
+@interface UMSS7ConfigSS7FilterStagingArea : UMSS7ConfigObject
 {
     NSString                 *_path;
     UMSynchronizedDictionary *_filter_rule_set_dict;
@@ -37,8 +37,8 @@
 - (void)startDirtyTimer;
 - (void)stopDirtyTimer;
 
-- (UMSS7ConfigStagingAreaStorage *)copyWithZone:(NSZone *)zone;
-- (UMSS7ConfigStagingAreaStorage *)initWithPath:(NSString *)path;
+- (UMSS7ConfigSS7FilterStagingArea *)copyWithZone:(NSZone *)zone;
+- (UMSS7ConfigSS7FilterStagingArea *)initWithPath:(NSString *)path;
 
 
 @end

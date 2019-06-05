@@ -6,12 +6,12 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigStagingAreaStorage.h"
+#import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigStagingAreaStorage
+@implementation UMSS7ConfigSS7FilterStagingArea
 
-- (UMSS7ConfigStagingAreaStorage *)initWithPath:(NSString *)path
+- (UMSS7ConfigSS7FilterStagingArea *)initWithPath:(NSString *)path
 {
     self = [super init];
     if(self)
@@ -39,10 +39,10 @@
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigStagingAreaStorage type];
+    return [UMSS7ConfigSS7FilterStagingArea type];
 }
 
-- (UMSS7ConfigStagingAreaStorage *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigSS7FilterStagingArea *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -80,10 +80,10 @@
 
 }
 
-- (UMSS7ConfigStagingAreaStorage *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigSS7FilterStagingArea *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    UMSS7ConfigStagingAreaStorage *c =  [[UMSS7ConfigStagingAreaStorage allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    UMSS7ConfigSS7FilterStagingArea *c =  [[UMSS7ConfigSS7FilterStagingArea allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
     c.filter_rule_set_dict = [_filter_rule_set_dict copy];
     c.filter_engines_dict = [_filter_engines_dict copy];
     c.filter_action_list_dict = [_filter_action_list_dict copy];

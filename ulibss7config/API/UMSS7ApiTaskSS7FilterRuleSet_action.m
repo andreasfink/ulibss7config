@@ -8,7 +8,7 @@
 
 #import "UMSS7ApiTaskSS7FilterRuleSet_action.h"
 #import "UMSS7ConfigObject.h"
-#import "UMSS7ConfigStagingAreaStorage.h"
+#import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTaskSS7FilterRuleSet_action

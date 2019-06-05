@@ -25,6 +25,8 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
+    APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
+    APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
     APPEND_CONFIG_STRING(s,@"action",_action);
     APPEND_CONFIG_STRING(s,@"log",_log);
     APPEND_CONFIG_INTEGER(s,@"error",_error);
@@ -38,6 +40,8 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
+    APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     APPEND_DICT_STRING(dict,@"action",_action);
     APPEND_DICT_STRING(dict,@"log",_log);
     APPEND_DICT_INTEGER(dict,@"error",_error);
@@ -52,6 +56,8 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+    SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     SET_DICT_STRING(dict,@"action",_action);
     SET_DICT_STRING(dict,@"log",_log);
     SET_DICT_INTEGER(dict,@"error",_error);

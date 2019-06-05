@@ -8,8 +8,20 @@
 
 #import "UMSS7ConfigSS7FilterRuleset.h"
 #import "UMSS7ConfigSS7FilterRule.h"
+#import "UMSS7ConfigMacros.h"
 
 @implementation UMSS7ConfigSS7FilterRuleset
+
+
++ (NSString *)type
+{
+    return @"ss7-filter-ruleset";
+}
+
+- (NSString *)type
+{
+    return [UMSS7ConfigSS7FilterRuleset type];
+}
 
 - (UMSS7ConfigSS7FilterRuleset *)init
 {
@@ -30,6 +42,31 @@
         [self setConfig:dict];
     }
     return self;
+}
+
+
+
+- (void)appendConfigToString:(NSMutableString *)s
+{
+    [super appendConfigToString:s];
+
+    APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
+    APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
+}
+
+- (UMSynchronizedSortedDictionary *)config
+{
+    UMSynchronizedSortedDictionary *dict = [super config];
+    APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
+    return dict;
+}
+
+- (void)setConfig:(NSDictionary *)dict
+{
+    [self setSuperConfig:dict];
+    SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
+    SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
 }
 
 - (UMSS7ConfigSS7FilterRule *)getRuleAtIndex:(NSInteger)idx

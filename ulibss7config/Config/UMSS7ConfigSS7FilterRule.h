@@ -19,6 +19,9 @@
 	NSString *_rerouteAction;
 	NSString *_logAction;
 	NSString *_engineConfig;
+    NSDate                 *_createdTimestamp;
+    NSDate                 *_modifiedTimestamp;
+
 }
 
 @property(readwrite,strong,atomic)	NSString *filterSet;
@@ -29,6 +32,8 @@
 @property(readwrite,strong,atomic)	NSString *rerouteAction;
 @property(readwrite,strong,atomic)	NSString *logAction;
 @property(readwrite,strong,atomic)	NSString *engineConfig;
+@property(readwrite,strong,atomic)    NSDate *createdTimestamp;
+@property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
 
 @end
 
