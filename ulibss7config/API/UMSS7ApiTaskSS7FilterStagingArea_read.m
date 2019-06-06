@@ -35,6 +35,7 @@
     }
     
 	// 1. Get Staging Area
+	_apiSession.currentStorageAreaName = _webRequest.params[@"name"];
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
     {
@@ -44,7 +45,9 @@
     {
 		@try
 		{
-			[self sendResultObject:stagingArea];
+			NSLog(@"[OUT: stagingArea.path] = %@",stagingArea.config);
+			
+			[self sendResultObject:stagingArea.config];
 		}
 		@catch(NSException *e)
 		{

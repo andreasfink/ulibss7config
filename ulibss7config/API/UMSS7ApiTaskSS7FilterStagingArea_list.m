@@ -34,24 +34,16 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			NSArray<NSString *> *areas = [_appDelegate getSS7FilterStagingAreaNames];
-			[self sendResultObject:areas];
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
-    }
+
+	@try
+	{
+		// Just whatever there is into list because _apiSession.currentStorageAreaName may be NULL
+		NSArray<NSString *> *areas = [_appDelegate getSS7FilterStagingAreaNames];
+		[self sendResultObject:areas];
+	}
+	@catch(NSException *e)
+	{
+		[self sendException:e];
+	}
 }
 @end

@@ -68,7 +68,24 @@
     APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     APPEND_DICT_STRING(dict,@"path",_path);
-
+	
+	NSArray *names = [_filter_rule_set_dict allKeys];
+    for(NSString *name in names)
+    {
+		APPEND_DICT_STRING(dict,@"rule-set",name);
+	}
+	
+	names = [_filter_engines_dict allKeys];
+    for(NSString *name in names)
+    {
+		APPEND_DICT_STRING(dict,@"engine",name);
+	}
+	
+	names = [_filter_action_list_dict allKeys];
+    for(NSString *name in names)
+    {
+		APPEND_DICT_STRING(dict,@"action-list",name);
+	}
     return dict;
 }
 
@@ -77,7 +94,6 @@
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     SET_DICT_STRING(dict,@"path",_path);
-
 }
 
 - (UMSS7ConfigSS7FilterStagingArea *)copyWithZone:(NSZone *)zone
