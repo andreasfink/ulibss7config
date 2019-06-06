@@ -3594,9 +3594,9 @@ static void signalHandler(int signum);
 	}
 }
 
-- (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)sessionId
+- (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session
 {
-    /* FIXME */
+    session.currentStorageAreaName = name;		
 }
 
 - (void)deleteSS7FilterStagingArea:(NSString *)name
