@@ -56,7 +56,7 @@
 				}
 			}
 			
-			if(exist)
+			if(exist == YES)
 			{
 				[self sendResultOK];
 			}
