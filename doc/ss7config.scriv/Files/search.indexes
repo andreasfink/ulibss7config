@@ -36,8 +36,258 @@ To reload a new version of the engine file
 	/api/ss7-filter-engine-action?name={name}&amp;action=reload
 </Text>
         </Document>
-        <Document ID="FEFF1BE0-0533-4736-8DCC-69D77CDEADA7">
-            <Title>Writing History</Title>
+        <Document ID="CAEC143A-CA50-4EFB-875A-6AF3B056A119">
+            <Title>Printing</Title>
+        </Document>
+        <Document ID="450A4A7B-5E13-4317-B127-B1D2C02B9F98">
+            <Title>ss7-filter-rulesset</Title>
+            <Text>SS7 Filter Ruleset
+group = ss7-filte-ruleset
+name = {object-name}
+description = {text}
+status = { on | off | monitor }
+
+As API calls
+To add a new filtering ruleset
+/api/filter-ruleset-add?name = {object-name}
+	&amp;description={description}
+   &amp;status={status}
+
+
+To remove a filtering ruleset
+/api/ss7-filter-ruleset-delete?name={name}
+
+To activate a rule
+/api/ss7-filter-ruleset-modify?name={name}
+	&amp;status=on
+
+This switches all individual filtering rules to status on.
+
+To deactivate a rule
+/api/ss7-filter-ruleset-modify?name={name}&amp;status=off
+
+This switches all individual filtering rules to status pff.
+
+To put rule in monitoring mode
+/api/ss7-filter-ruleset-modify?name={name}&amp;status=monitor
+
+This switches all individual filtering rules to status pff.
+
+In monitor mode, all actions do take the monitor-action-list instead of the active-action-list. If status is set to off, the bypass-action-list is taken which defaults to continue.
+To read the list of  known rulesets in the config
+/api/ss7-filter-ruleset-list
+
+To read the current ruleset config
+/api/ss7-filter-ruleset-read?name={name}
+
+To read the current rule status
+/api/filter-ruleset-status?name={name}
+
+To send an action to the rule
+/api/filter-ruleset-action?name={name}&amp;action={action}
+
+</Text>
+        </Document>
+        <Document ID="2C374A60-A214-4EC8-B992-D22EC23805C6">
+            <Title>ss7-log-file</Title>
+            <Text>SS7 Log File
+
+In the config file:
+group = ss7-log-file
+name = {object-name}
+file = {filename}
+format = { pcap | text }
+rotate-minutes = {minutes}
+rotate-packets = {packets-count}
+enable = {boolean}
+
+
+As API calls
+To add a new log file object
+/api/ss7-log-file-add?name={name}
+	&amp;file={filename}
+	&amp;format={“text” | “pcap”}
+	&amp;rotate-minutes={minutes}
+	&amp;rotate-packets={packets-count}
+	&amp;enable={boolean}
+
+To start logging
+/api/ss7-log-file-modify?name={name}&amp;enable=YES
+
+To stop logging
+/api/ss7-log-file-modify?name={name}&amp;enable=NO
+
+To remove a log-file-object
+/api/ss7-log-file-remove?name={name}
+
+To list all log-file objects
+	/api/ss7-log-file-list
+To read the current log-file-object config
+/api/ss7-log-file-read?name={name}
+
+To send an action to the log-file-object
+/api/ss7-log-file-action?name={name}&amp;action={action}
+
+Action can be “reopen”
+</Text>
+        </Document>
+        <Document ID="0CE11253-E8F4-4D5A-ACAB-DE939245D6F5">
+            <Title>sctp</Title>
+        </Document>
+        <Document ID="254B2586-524A-401C-91A3-2B16D17642AC">
+            <Title>ss7-filter-rule</Title>
+            <Text>SS7 Filter Rule
+group = ss7-filte-rule
+filter-ruleset = {object-name}
+entry-nr = {integer}
+description = {text}
+status = { on | off | monitor }
+engine = {name-of-filter-engine}
+engine-config = {config}
+filter-action-list = {action-list-name}
+bypass-action-list = {action-list-name}
+monitor-action-list = {action-list-name} 
+
+
+As API calls
+To add a new filtering rule
+/api/filter-rule-add?filter-ruleset = {object-name}
+	&amp;entry-nr={integer}
+	&amp;description={description}
+   &amp;status={status}
+	&amp;engine={name-of-engine}
+	&amp;engine-config={config}
+	&amp;bypass-action-list={action-list-name}
+	&amp;filter-action-list={action-list-name}
+	&amp;monitor-action-list={action-list-name}
+
+If  the conditions of the specific engine does match, then the actions are taken which are specified in the action list.
+
+
+To remove a filtering rule
+/api/ss7-filter-rule-delete?filter-ruleset={name}&amp;entry-nr={integer}
+
+To activate a rule
+/api/ss7-filter-rule-modify?filter-ruleset={name}&amp;entry-nr={integer}&amp;status=on
+
+To deactivate a rule
+/api/ss7-filter-rule-modify?filter-ruleset={name}&amp;entry-nr={integer}&amp;status=off
+
+
+To put rule in monitoring mode
+/api/ss7-filter-rule-modify?filter-ruleset={name}&amp;entry-nr={integer}
+	&amp;status=monitor
+
+
+In monitor mode, all actions do take the monitor-action-list instead of the active-action-list. If status is set to off, the bypass-action-list is taken which defaults to continue.
+To read the list of  known rules in the config
+/api/ss7-filter-rule-list=filter-ruleset={name}
+
+To read the current rules config
+/api/ss7-filter-rule-read?filter-ruleset={name}&amp;entry-nr={integer}
+
+To read the current rule status
+/api/filter-rule-status?filter-ruleset={name}&amp;entry-nr={integer}
+
+To send an action to the rule
+/api/filter-rule-action?filter-ruleset={name}&amp;entry-nr={integer}&amp;action={action}
+
+</Text>
+        </Document>
+        <Document ID="56421FB1-8CEF-4276-A0B0-3380A639818E">
+            <Title>Chapter Numbering and Placeholders</Title>
+        </Document>
+        <Document ID="0635F927-8EEF-4FD5-BF0C-164182D81343">
+            <Title>Opening Bookmarks and Links</Title>
+        </Document>
+        <Document ID="EAC1A67A-FFE2-40CB-8E2C-DBFBB8963E51">
+            <Title>Multiple Books in One Project</Title>
+        </Document>
+        <Document ID="55F73956-608F-4C02-A38F-E183FC87F5A5">
+            <Title>ss7-log-file</Title>
+            <Text>SS7 Log File
+In the config file:
+group = ss7-log-file
+name = {object-name}
+file = {filename}
+format = { pcap | text }
+rotate-minutes = {minutes}
+rotate-packets = {packets-count}
+enable = {boolean}
+
+
+As API calls
+To add a new log file object
+/api/ss7-log-file-add?name={name}
+	&amp;file={filename}
+	&amp;format={“text” | “pcap”}
+	&amp;rotate-minutes={minutes}
+	&amp;rotate-packets={packets-count}
+	&amp;enable={boolean}
+
+To start logging
+/api/ss7-log-file-modify?name={name}&amp;enable=YES
+
+To stop logging
+/api/ss7-log-file-modify?name={name}&amp;enable=NO
+
+To remove a log-file-object
+/api/ss7-log-file-remove?name={name}
+
+To list all log-file objects
+	/api/ss7-log-file-list
+To read the current log-file-object config
+/api/ss7-log-file-read?name={name}
+
+To send an action to the log-file-object
+/api/ss7-log-file-action?name={name}&amp;action={action}
+
+Action can be “reopen”
+</Text>
+        </Document>
+        <Document ID="C330BA89-15FA-4CF2-8950-53C47B8417BA">
+            <Title>ss7-filter-action</Title>
+            <Text>SS7 Filter Action
+
+In the config file:
+group = ss7-filte-action
+name = {object-name}
+action = { “pass” | “drop” | “log” \ “reroute” }
+log = {ss7-logfile-object-name}
+reroute =  {sccp-destination-name}
+description = {text}
+
+
+As API calls
+To add a new filter-action
+/api/ss7-filter-action-add?name={name}
+	&amp;action={ “pass” | “drop” | “log” \ “reroute” }
+	&amp;log={ss7-logfile-object-name}
+	&amp;reroute={sccp-destination-name}
+
+
+To remove a filter-action
+/api/ss7-filter-action-delete?name={name}
+
+To list all filter-actions in the system
+/api/ss7-filter-action-list
+
+To read the filter-action-config
+/api/ss7-filter-action-read?name={name}
+
+To read the current engine status
+/api/filter-action-status?name={name}
+
+To send an action to the filter action
+/api/filter-action-action?name={name}&amp;action={action}
+
+</Text>
+        </Document>
+        <Document ID="536EEE38-3356-4886-B6B9-EF5EE9B4FBD5">
+            <Title>Dragging in the Binder &amp; Outliner</Title>
+        </Document>
+        <Document ID="B670E26B-2CFC-4870-936E-C3A94D4242A4">
+            <Title>Key Concepts</Title>
         </Document>
         <Document ID="061A587E-23F1-412E-B4D4-8126D00CEC82">
             <Title>m2pa</Title>
@@ -91,6 +341,89 @@ sccp-calling-address-blacklist-action is the action taken if the sccp-calling-ad
 The sccp-calling-address-blacklist will call the action “drop” or the actionif the SCCP calling address is found in the list with the indicated name. This requires an exact match.
 The sccp-calling-prefix-blacklist will call the action “drop” if a prefix is found in the named list which is matching the beginning of the SCCP calling address.</Text>
         </Document>
+        <Document ID="0012BC9E-4B00-4A74-AE17-630E4A8171AD">
+            <Text>Terminology
+
+A filter-engine is a piece of code which can do certain type of filtering.
+
+A filter-config is a set of parameters which configure a filter-engine. Filter-config are specific to the engine type while they share some common parameters.
+
+A filter-rule is a combination of a filter-engine with a specific filter-config
+
+A filter-set is a list of filter-rules in a specific order.
+
+An application-point is the point in the message flow where the filters are being placed on. It can be on a specific inbound link or on a specific outbound link or in the routing phase.
+
+A filter-action is a trigger which is telling  the system what to do with this packet. Some filter-actions are exclusive (like route it to a specific output port) some could be applicable multiple times such as send a copy of the packet to a debug log A and to debug log B.
+
+
+A named-list is a list of items with a name. Such a list can be used in multiple places for multiple different types.
+For example you can make a list of specific numbers to monitor and refer to this list in multiple places through its name.
+
+When a filter-set is put into action at an application-point, then the sequence of filter-rules is being processed and filter-actions are being collected and applied along the way.
+
+
+The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.
+</Text>
+        </Document>
+        <Document ID="AF621794-7D82-4A10-A93C-092DDCDFFBF4">
+            <Title>Locking the Editor</Title>
+        </Document>
+        <Document ID="F7522BE9-F8CB-4BB1-A80F-DC60FE32B49A">
+            <Title>ss7-filter-engines</Title>
+        </Document>
+        <Document ID="FEFF1BE0-0533-4736-8DCC-69D77CDEADA7">
+            <Title>Writing History</Title>
+        </Document>
+        <Document ID="283A710B-DE5F-4B32-9F7A-47F08B8E8C3A">
+            <Title>Resetting the Tutorial</Title>
+        </Document>
+        <Document ID="34E08C43-0F95-488D-99CB-2195BBBB69C7">
+            <Title>Backing Up</Title>
+        </Document>
+        <Document ID="3516C900-1F86-42C8-908F-1A528FA25B1E">
+            <Title>ss7-filter-action</Title>
+            <Text>SS7 Filter Action List
+
+In the config file:
+group = ss7-filte-action
+name = {object-name}
+action = { “pass” | “drop” | “abort” | “reject” | “error” | “continue” | “log”  | “reroute” | “set-category” | “clear-category” }
+log = {ss7-logfile-object-name}
+error = {errorcode}
+reroute-destination =  {sccp-destination-name}
+reroute-called-address = {new-sccp-called-address}
+reroute-called-address-prefix = {new-sccp-called-address-prefix}
+category = {category-name}
+description = {text}
+
+
+As API calls
+To add a new filter-action
+/api/ss7-filter-actionlist-add?name={name}
+	&amp;action={ “pass” | “drop” | “log” \ “reroute” }
+	&amp;log={ss7-logfile-object-name}
+	&amp;reroute={sccp-destination-name}
+	&amp;category={category-name}
+
+
+To remove a filter-action
+/api/ss7-filter-actionlist-delete?name={name}
+
+To list all filter-actions in the system
+/api/ss7-filter-actionlist-list
+
+To read the filter-action-config
+/api/ss7-filter-actionlist-read?name={name}
+
+To read the current engine status
+/api/filter-actionlist-status?name={name}
+
+To send an action to the filter action
+/api/filter-actionlist-action?name={name}&amp;action={action}
+
+</Text>
+        </Document>
         <Document ID="5B6A71AB-0851-4292-A20D-1B8CF2B9F9DA">
             <Title>ss7-filter-action-list</Title>
             <Text>SS7 Filter Action List
@@ -98,7 +431,7 @@ The sccp-calling-prefix-blacklist will call the action “drop” if a prefix is
 In the config file:
 group = ss7-filte-action-list
 name = {object-name}
-action = { “pass” | “drop” | “abort” | “reject” | “error” | “continue” | “log”  | “reroute” | “set-category” | “clear-category” }
+a }
 log = {ss7-logfile-object-name}
 error = {errorcode}
 reroute-destination =  {sccp-destination-name}
@@ -187,14 +520,16 @@ the tag is set or cleared. Note a packet can have multiple tags.  clear-all-tags
 sets a custom field to a specific value.
 </Text>
         </Document>
-        <Document ID="CEEBA583-25B7-4CBC-964C-1D8118AE1D68">
-            <Title>Inserting Images</Title>
+        <Document ID="0BFF42D5-0065-4975-BFDF-62E8263F84AA">
+            <Title>ss7-filter-engine-cap</Title>
+            <Text>SS7 Filter engine “cap”
+This filter engine wll check CAMEL messages
+It compares current VLR and calling SCCP address
+It is a stateful message as it has to remember the VLR (from previous UpdateLocation)
+The configuration of this module is still under review. </Text>
         </Document>
-        <Document ID="8BD52013-34A8-4BB8-9949-68E924397D3B">
-            <Title>Editor Text Width</Title>
-        </Document>
-        <Document ID="2DBD1580-CB10-498F-B5B7-CDBF1EFEA460">
-            <Title>sctp</Title>
+        <Document ID="AD5A950A-4FB6-448E-BAFD-06D01A94FB2F">
+            <Title>Focus on Dialogue</Title>
         </Document>
         <Document ID="B6AB4BEE-9C02-494E-9CFA-C27CBF9EC34B">
             <Title>Terminology</Title>
@@ -221,150 +556,6 @@ When a filter-set is put into action at an application-point, then the sequence 
 The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.
 </Text>
         </Document>
-        <Document ID="F3AFB259-EAF0-4413-8466-484C3829A913">
-            <Title>Default Formatting</Title>
-        </Document>
-        <Document ID="55F73956-608F-4C02-A38F-E183FC87F5A5">
-            <Title>ss7-log-file</Title>
-            <Text>SS7 Log File
-In the config file:
-group = ss7-log-file
-name = {object-name}
-file = {filename}
-format = { pcap | text }
-rotate-minutes = {minutes}
-rotate-packets = {packets-count}
-enable = {boolean}
-
-
-As API calls
-To add a new log file object
-/api/ss7-log-file-add?name={name}
-	&amp;file={filename}
-	&amp;format={“text” | “pcap”}
-	&amp;rotate-minutes={minutes}
-	&amp;rotate-packets={packets-count}
-	&amp;enable={boolean}
-
-To start logging
-/api/ss7-log-file-modify?name={name}&amp;enable=YES
-
-To stop logging
-/api/ss7-log-file-modify?name={name}&amp;enable=NO
-
-To remove a log-file-object
-/api/ss7-log-file-remove?name={name}
-
-To list all log-file objects
-	/api/ss7-log-file-list
-To read the current log-file-object config
-/api/ss7-log-file-read?name={name}
-
-To send an action to the log-file-object
-/api/ss7-log-file-action?name={name}&amp;action={action}
-
-Action can be “reopen”
-</Text>
-        </Document>
-        <Document ID="49285E78-17D8-48C9-BF56-A08381016832">
-            <Title>ss7-filter-engine-screening</Title>
-            <Text>SS7 Filter engine “screening”
-The configuration of the screening engine is a json dictionary with the following objects
-
-	tag = {tag1,tag2,…}
-	custom1 = {value}
-	custom2 = {value}
-	custom3 = {value}
-	custom4 = {value}
-	custom5 = {value}
-	custom6 = {value}
-	custom7 = {value}
-	custom8 = {value}
-	custom9 = {value}
-	custom10 = {value}
-
-	gsm-map-operation-code = {int}
-	gsm-map-operation-code-list = {named-list}
-
-	application-context = {int}
-	application-context-list = {named-list}
-
-	application-context-version = {int}
-	application-context-version-list = {named-list}
-
-	sccp-calling-address-ton = {integer}
-	sccp-calling-address-npi = {integer}
-	sccp-calling-address-number-list = {namedlist-name}
-	sccp-calling-address-prefix-list = {namedlist-name}
-
-	sccp-called-address-ton = {integer}
-	sccp-called-address-npi = {integer}
-	sccp-called-address-number-list = {namedlist-name}
-	sccp-called-address-prefix-list = {namedlist-name}
-
-	originating-pointcode-list = {namedlist-name}
-	destination-pointcode-list = {namedlist-name}
-
-	imsi-prefix-list = {namedlist-name}
-
-
-The tag is a element which can be set by other filters. If it is set and not set to “any” then the filter would only apply if the tag matches.
-If a tag name is set with a ! in front, this means the tag must not be present. Individual tags are separated by a comma and all the conditions listed in the tag statement must apply.
-custom1 .. custom10 are similar field which can be used in results.
-If gsm-map-operation-code is set, then this rule only applies to packets with this operation code. Otherwise it applies to all. Operation codes can also be negated by having a “!” in front of them.
-If application-context is set, then this rule only applies to packets with this application-contex. Otherwise it applies to all. It can also be negated by having “!” in front of the entries.
-
-</Text>
-        </Document>
-        <Document ID="450A4A7B-5E13-4317-B127-B1D2C02B9F98">
-            <Title>ss7-filter-rulesset</Title>
-            <Text>SS7 Filter Ruleset
-group = ss7-filte-ruleset
-name = {object-name}
-description = {text}
-status = { on | off | monitor }
-
-As API calls
-To add a new filtering ruleset
-/api/filter-ruleset-add?name = {object-name}
-	&amp;description={description}
-   &amp;status={status}
-
-
-To remove a filtering ruleset
-/api/ss7-filter-ruleset-delete?name={name}
-
-To activate a rule
-/api/ss7-filter-ruleset-modify?name={name}
-	&amp;status=on
-
-This switches all individual filtering rules to status on.
-
-To deactivate a rule
-/api/ss7-filter-ruleset-modify?name={name}&amp;status=off
-
-This switches all individual filtering rules to status pff.
-
-To put rule in monitoring mode
-/api/ss7-filter-ruleset-modify?name={name}&amp;status=monitor
-
-This switches all individual filtering rules to status pff.
-
-In monitor mode, all actions do take the monitor-action-list instead of the active-action-list. If status is set to off, the bypass-action-list is taken which defaults to continue.
-To read the list of  known rulesets in the config
-/api/ss7-filter-ruleset-list
-
-To read the current ruleset config
-/api/ss7-filter-ruleset-read?name={name}
-
-To read the current rule status
-/api/filter-ruleset-status?name={name}
-
-To send an action to the rule
-/api/filter-ruleset-action?name={name}&amp;action={action}
-
-</Text>
-        </Document>
         <Document ID="7182E87F-7F90-4143-B2F6-46984140486D">
             <Title>Transcription</Title>
             <Comments>it was for my wife, a journalist, who was to interview him. Still, Buzz Aldrin! Calling my phone! Well, it impressed me.</Comments>
@@ -381,239 +572,14 @@ Location process could be enhanced by adding some checks at the reception of a n
 The configuration of this module is still under review. This is a stateful filter which is a tricky one.
 </Text>
         </Document>
-        <Document ID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9">
-            <Title>ss7-filter-engine</Title>
-            <Text>SS7 Filter Engine 
-
-In the config file:
-group = ss7-filte-engine
-name = {object-name} filename = {filename} enable = {boolean}
-
-As API calls
-To add a new engine from a shared libary file:
-/api/ss7-filter-engine-add?name={name}
-	&amp;file={filename}
-
-To remove an engine
-/api/ss7-filter-engine-delete?name={name}
-
-To activate an engine
-/api/ss7-filter-engine-modify?name={name}&amp;enable=YES
-
-To deactivate an engine
-/api/ss7-filter-engine-modify?name={name}&amp;enable=NO
-
-To list the current engine names
-/api/ss7-filter-engine-list
-
-To read the current engine config
-/api/ss7-filter-engine-read?name={name}
-
-To read the current engine status
-/api/ss7-filter-engine-status?name={name}
-
-To reload a new version of the engine file
-	/api/ss7-filter-engine-action?name={name}&amp;action=reload
-</Text>
-        </Document>
-        <Document ID="56421FB1-8CEF-4276-A0B0-3380A639818E">
-            <Title>Chapter Numbering and Placeholders</Title>
-        </Document>
         <Document ID="5D8E0756-3F6F-4987-9145-6E701AEB2F5B">
             <Title>Name Generator</Title>
-        </Document>
-        <Document ID="EAC1A67A-FFE2-40CB-8E2C-DBFBB8963E51">
-            <Title>Multiple Books in One Project</Title>
-        </Document>
-        <Document ID="1E9B9217-E3BC-4C91-BB43-E856FBFC37F6">
-            <Title>ss7-filter-engines</Title>
-        </Document>
-        <Document ID="AD5A950A-4FB6-448E-BAFD-06D01A94FB2F">
-            <Title>Focus on Dialogue</Title>
-        </Document>
-        <Document ID="3BE2E524-FBE2-4E4C-BBB8-7015A3A780DB">
-            <Title>Name &amp; Address in Templates</Title>
-        </Document>
-        <Document ID="283A710B-DE5F-4B32-9F7A-47F08B8E8C3A">
-            <Title>Resetting the Tutorial</Title>
-        </Document>
-        <Document ID="8CFD9FCD-5399-44E3-B956-B43B9A817176">
-            <Title>ss7-filter-staging-area</Title>
-            <Text>SS7-Filter Staging Area
-A staging area is a environment where modifications on to objects can be done while not being used.
-A staging area can become a  live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.
-
-
-
-As API calls
-To create a new staging area
-	/api/ss7—filter-staging-area-add?name={name}
-
-To delete a staging area
-/api/ss7-filter-staging-area--delete?name={name}
-
-To copy a staging area to another
-/api/ss7-filter-staging-area--action?name={source-name}
-	&amp;action=copy
-	&amp;destination-to={destination-name}
-
-To activate a current staging area
-/api/ss7-filter-staging-area-action?name={name}
-	&amp;action=activate
-
-To list current staging areas
-/api/ss7-filter-staging-area-list
-
-To select the staging area to edit  engine status
-/api/ss7-filter-staging-area-action?name={name}
-	&amp;action=select
-
-</Text>
-        </Document>
-        <Document ID="C330BA89-15FA-4CF2-8950-53C47B8417BA">
-            <Title>ss7-filter-action</Title>
-            <Text>SS7 Filter Action
-
-In the config file:
-group = ss7-filte-action
-name = {object-name}
-action = { “pass” | “drop” | “log” \ “reroute” }
-log = {ss7-logfile-object-name}
-reroute =  {sccp-destination-name}
-description = {text}
-
-
-As API calls
-To add a new filter-action
-/api/ss7-filter-action-add?name={name}
-	&amp;action={ “pass” | “drop” | “log” \ “reroute” }
-	&amp;log={ss7-logfile-object-name}
-	&amp;reroute={sccp-destination-name}
-
-
-To remove a filter-action
-/api/ss7-filter-action-delete?name={name}
-
-To list all filter-actions in the system
-/api/ss7-filter-action-list
-
-To read the filter-action-config
-/api/ss7-filter-action-read?name={name}
-
-To read the current engine status
-/api/filter-action-status?name={name}
-
-To send an action to the filter action
-/api/filter-action-action?name={name}&amp;action={action}
-
-</Text>
-        </Document>
-        <Document ID="F7522BE9-F8CB-4BB1-A80F-DC60FE32B49A">
-            <Title>ss7-filter-engines</Title>
-        </Document>
-        <Document ID="2C374A60-A214-4EC8-B992-D22EC23805C6">
-            <Title>ss7-log-file</Title>
-            <Text>SS7 Log File
-
-In the config file:
-group = ss7-log-file
-name = {object-name}
-file = {filename}
-format = { pcap | text }
-rotate-minutes = {minutes}
-rotate-packets = {packets-count}
-enable = {boolean}
-
-
-As API calls
-To add a new log file object
-/api/ss7-log-file-add?name={name}
-	&amp;file={filename}
-	&amp;format={“text” | “pcap”}
-	&amp;rotate-minutes={minutes}
-	&amp;rotate-packets={packets-count}
-	&amp;enable={boolean}
-
-To start logging
-/api/ss7-log-file-modify?name={name}&amp;enable=YES
-
-To stop logging
-/api/ss7-log-file-modify?name={name}&amp;enable=NO
-
-To remove a log-file-object
-/api/ss7-log-file-remove?name={name}
-
-To list all log-file objects
-	/api/ss7-log-file-list
-To read the current log-file-object config
-/api/ss7-log-file-read?name={name}
-
-To send an action to the log-file-object
-/api/ss7-log-file-action?name={name}&amp;action={action}
-
-Action can be “reopen”
-</Text>
-        </Document>
-        <Document ID="AF26B6D2-5440-468E-B462-50F944603E0B">
-            <Title>ss7-filter-staging-area</Title>
-            <Text>SS7-Filter Staging Area
-A staging area is a environment where modifications on to objects can be done while not being used.
-A staging area can become a  live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.
-
-
-
-As API calls
-To create a new staging area
-	/api/ss7—filter-staging-area-add?name={name}
-
-To delete a staging area
-/api/ss7-filter-staging-area-delete?name={name}
-
-To copy a staging area to another
-/api/ss7-filter-staging-area-action?name={source-name}
-	&amp;action=copy
-	&amp;destination={destination-name}
-
-To activate a current staging area
-/api/ss7-filter-staging-area-action?name={name}
-	&amp;action=activate
-
-To list current staging areas
-/api/ss7-filter-staging-area-list
-
-To select the staging area to edit  engine status
-/api/ss7-filter-staging-area-action?name={name}
-	&amp;action=select
-
-Note: the selected staging area is specific to the current session.
-</Text>
-        </Document>
-        <Document ID="536EEE38-3356-4886-B6B9-EF5EE9B4FBD5">
-            <Title>Dragging in the Binder &amp; Outliner</Title>
-        </Document>
-        <Document ID="D6A13B52-F190-4530-9C60-7D4C6DCDE628">
-            <Title>START HERE</Title>
-        </Document>
-        <Document ID="AF621794-7D82-4A10-A93C-092DDCDFFBF4">
-            <Title>Locking the Editor</Title>
-        </Document>
-        <Document ID="C9C10484-38F7-46B7-89AC-6AC96191B0C3">
-            <Title>m3ua</Title>
-        </Document>
-        <Document ID="CA2F1450-D23F-42D7-B8B3-8DE3411C0090">
-            <Title>Keywords</Title>
-        </Document>
-        <Document ID="7C6A5CF9-DF49-44E4-803E-21290A6F8012">
-            <Title>Index Card Images</Title>
         </Document>
         <Document ID="4106C7BE-5736-448C-AF81-6BD69AC89E17">
             <Title>Scratch Pad and Clippings</Title>
         </Document>
-        <Document ID="C19C143F-1BCA-4008-AEF6-82E30C58689D">
-            <Title>Tips</Title>
-        </Document>
-        <Document ID="14EC56C7-3A95-4D72-B5C6-769BAE050160">
-            <Title>Viewing Snapshots in the Editor</Title>
+        <Document ID="B1A3F8BD-741C-4128-971C-FF37445A5CD5">
+            <Title>Adding Project Bookmarks</Title>
         </Document>
         <Document ID="313F2E57-20F9-422C-A92F-56220804AFEA">
             <Title>ss7-filter-rule</Title>
@@ -670,128 +636,205 @@ To send an action to the rule
 
 </Text>
         </Document>
-        <Document ID="0CE11253-E8F4-4D5A-ACAB-DE939245D6F5">
+        <Document ID="AF26B6D2-5440-468E-B462-50F944603E0B">
+            <Title>ss7-filter-staging-area</Title>
+            <Text>SS7-Filter Staging Area
+A staging area is a environment where modifications on to objects can be done while not being used.
+A staging area can become a  live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.
+
+
+
+As API calls
+To create a new staging area
+	/api/ss7—filter-staging-area-add?name={name}
+
+To delete a staging area
+/api/ss7-filter-staging-area-delete?name={name}
+
+To copy a staging area to another
+/api/ss7-filter-staging-area-action?name={source-name}
+	&amp;action=copy
+	&amp;destination={destination-name}
+
+To activate a current staging area
+/api/ss7-filter-staging-area-action?name={name}
+	&amp;action=activate
+
+To list current staging areas
+/api/ss7-filter-staging-area-list
+
+To select the staging area to edit  engine status
+/api/ss7-filter-staging-area-action?name={name}
+	&amp;action=select
+
+Note: the selected staging area is specific to the current session.
+</Text>
+        </Document>
+        <Document ID="5D6E24A0-1CA1-4370-A4C7-A6C0B79D9E8C">
+            <Title>Drag Text to and from Binder</Title>
+        </Document>
+        <Document ID="49285E78-17D8-48C9-BF56-A08381016832">
+            <Title>ss7-filter-engine-screening</Title>
+            <Text>SS7 Filter engine “screening”
+The configuration of the screening engine is a json dictionary with the following objects
+
+	tag = {tag1,tag2,…}
+	custom1 = {value}
+	custom2 = {value}
+	custom3 = {value}
+	custom4 = {value}
+	custom5 = {value}
+	custom6 = {value}
+	custom7 = {value}
+	custom8 = {value}
+	custom9 = {value}
+	custom10 = {value}
+
+	gsm-map-operation-code = {int}
+	gsm-map-operation-code-list = {named-list}
+
+	application-context = {int}
+	application-context-list = {named-list}
+
+	application-context-version = {int}
+	application-context-version-list = {named-list}
+
+	sccp-calling-address-ton = {integer}
+	sccp-calling-address-npi = {integer}
+	sccp-calling-address-number-list = {namedlist-name}
+	sccp-calling-address-prefix-list = {namedlist-name}
+
+	sccp-called-address-ton = {integer}
+	sccp-called-address-npi = {integer}
+	sccp-called-address-number-list = {namedlist-name}
+	sccp-called-address-prefix-list = {namedlist-name}
+
+	originating-pointcode-list = {namedlist-name}
+	destination-pointcode-list = {namedlist-name}
+
+	imsi-prefix-list = {namedlist-name}
+
+
+The tag is a element which can be set by other filters. If it is set and not set to “any” then the filter would only apply if the tag matches.
+If a tag name is set with a ! in front, this means the tag must not be present. Individual tags are separated by a comma and all the conditions listed in the tag statement must apply.
+custom1 .. custom10 are similar field which can be used in results.
+If gsm-map-operation-code is set, then this rule only applies to packets with this operation code. Otherwise it applies to all. Operation codes can also be negated by having a “!” in front of them.
+If application-context is set, then this rule only applies to packets with this application-contex. Otherwise it applies to all. It can also be negated by having “!” in front of the entries.
+
+</Text>
+        </Document>
+        <Document ID="7C6A5CF9-DF49-44E4-803E-21290A6F8012">
+            <Title>Index Card Images</Title>
+        </Document>
+        <Document ID="311F10A6-1428-476D-A6E7-5A996C0F47A7">
             <Title>sctp</Title>
         </Document>
         <Document ID="7B567107-6479-4738-9753-A408C9BACCAF">
             <Title>Saving UI Settings with Layouts</Title>
         </Document>
-        <Document ID="B1A3F8BD-741C-4128-971C-FF37445A5CD5">
-            <Title>Adding Project Bookmarks</Title>
+        <Document ID="3BE2E524-FBE2-4E4C-BBB8-7015A3A780DB">
+            <Title>Name &amp; Address in Templates</Title>
         </Document>
-        <Document ID="0635F927-8EEF-4FD5-BF0C-164182D81343">
-            <Title>Opening Bookmarks and Links</Title>
+        <Document ID="F3AFB259-EAF0-4413-8466-484C3829A913">
+            <Title>Default Formatting</Title>
         </Document>
-        <Document ID="CAEC143A-CA50-4EFB-875A-6AF3B056A119">
-            <Title>Printing</Title>
+        <Document ID="CEEBA583-25B7-4CBC-964C-1D8118AE1D68">
+            <Title>Inserting Images</Title>
         </Document>
-        <Document ID="5D6E24A0-1CA1-4370-A4C7-A6C0B79D9E8C">
-            <Title>Drag Text to and from Binder</Title>
+        <Document ID="1E9B9217-E3BC-4C91-BB43-E856FBFC37F6">
+            <Title>ss7-filter-engines</Title>
         </Document>
-        <Document ID="311F10A6-1428-476D-A6E7-5A996C0F47A7">
-            <Title>sctp</Title>
+        <Document ID="C9C10484-38F7-46B7-89AC-6AC96191B0C3">
+            <Title>m3ua</Title>
         </Document>
-        <Document ID="0BFF42D5-0065-4975-BFDF-62E8263F84AA">
-            <Title>ss7-filter-engine-cap</Title>
-            <Text>SS7 Filter engine “cap”
-This filter engine wll check CAMEL messages
-It compares current VLR and calling SCCP address
-It is a stateful message as it has to remember the VLR (from previous UpdateLocation)
-The configuration of this module is still under review. </Text>
-        </Document>
-        <Document ID="B670E26B-2CFC-4870-936E-C3A94D4242A4">
-            <Title>Key Concepts</Title>
-        </Document>
-        <Document ID="E1D207DB-9A66-42C9-B388-11C52427809A">
-            <Title>ss7-filter</Title>
-        </Document>
-        <Document ID="34E08C43-0F95-488D-99CB-2195BBBB69C7">
-            <Title>Backing Up</Title>
-        </Document>
-        <Document ID="0012BC9E-4B00-4A74-AE17-630E4A8171AD">
-            <Text>Terminology
+        <Document ID="ADBA31A8-074A-4575-B8CF-3E39F39B44B9">
+            <Title>ss7-filter-engine</Title>
+            <Text>SS7 Filter Engine 
 
-A filter-engine is a piece of code which can do certain type of filtering.
+In the config file:
+group = ss7-filte-engine
+name = {object-name} filename = {filename} enable = {boolean}
 
-A filter-config is a set of parameters which configure a filter-engine. Filter-config are specific to the engine type while they share some common parameters.
+As API calls
+To add a new engine from a shared libary file:
+/api/ss7-filter-engine-add?name={name}
+	&amp;file={filename}
 
-A filter-rule is a combination of a filter-engine with a specific filter-config
+To remove an engine
+/api/ss7-filter-engine-delete?name={name}
 
-A filter-set is a list of filter-rules in a specific order.
+To activate an engine
+/api/ss7-filter-engine-modify?name={name}&amp;enable=YES
 
-An application-point is the point in the message flow where the filters are being placed on. It can be on a specific inbound link or on a specific outbound link or in the routing phase.
+To deactivate an engine
+/api/ss7-filter-engine-modify?name={name}&amp;enable=NO
 
-A filter-action is a trigger which is telling  the system what to do with this packet. Some filter-actions are exclusive (like route it to a specific output port) some could be applicable multiple times such as send a copy of the packet to a debug log A and to debug log B.
+To list the current engine names
+/api/ss7-filter-engine-list
 
+To read the current engine config
+/api/ss7-filter-engine-read?name={name}
 
-A named-list is a list of items with a name. Such a list can be used in multiple places for multiple different types.
-For example you can make a list of specific numbers to monitor and refer to this list in multiple places through its name.
+To read the current engine status
+/api/ss7-filter-engine-status?name={name}
 
-When a filter-set is put into action at an application-point, then the sequence of filter-rules is being processed and filter-actions are being collected and applied along the way.
-
-
-The folowing section descripe the parameters of each object. The objects will be manageable by a generic API wihere the parameters are named exactly the same way.
+To reload a new version of the engine file
+	/api/ss7-filter-engine-action?name={name}&amp;action=reload
 </Text>
         </Document>
-        <Document ID="254B2586-524A-401C-91A3-2B16D17642AC">
-            <Title>ss7-filter-rule</Title>
-            <Text>SS7 Filter Rule
-group = ss7-filte-rule
-filter-ruleset = {object-name}
-entry-nr = {integer}
-description = {text}
-status = { on | off | monitor }
-engine = {name-of-filter-engine}
-engine-config = {config}
-filter-action-list = {action-list-name}
-bypass-action-list = {action-list-name}
-monitor-action-list = {action-list-name} 
+        <Document ID="CA2F1450-D23F-42D7-B8B3-8DE3411C0090">
+            <Title>Keywords</Title>
+        </Document>
+        <Document ID="2DBD1580-CB10-498F-B5B7-CDBF1EFEA460">
+            <Title>sctp</Title>
+        </Document>
+        <Document ID="C19C143F-1BCA-4008-AEF6-82E30C58689D">
+            <Title>Tips</Title>
+        </Document>
+        <Document ID="8BD52013-34A8-4BB8-9949-68E924397D3B">
+            <Title>Editor Text Width</Title>
+        </Document>
+        <Document ID="14EC56C7-3A95-4D72-B5C6-769BAE050160">
+            <Title>Viewing Snapshots in the Editor</Title>
+        </Document>
+        <Document ID="D6A13B52-F190-4530-9C60-7D4C6DCDE628">
+            <Title>START HERE</Title>
+        </Document>
+        <Document ID="8CFD9FCD-5399-44E3-B956-B43B9A817176">
+            <Title>ss7-filter-staging-area</Title>
+            <Text>SS7-Filter Staging Area
+A staging area is a environment where modifications on to objects can be done while not being used.
+A staging area can become a  live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.
+
 
 
 As API calls
-To add a new filtering rule
-/api/filter-rule-add?filter-ruleset = {object-name}
-	&amp;entry-nr={integer}
-	&amp;description={description}
-   &amp;status={status}
-	&amp;engine={name-of-engine}
-	&amp;engine-config={config}
-	&amp;bypass-action-list={action-list-name}
-	&amp;filter-action-list={action-list-name}
-	&amp;monitor-action-list={action-list-name}
+To create a new staging area
+	/api/ss7—filter-staging-area-add?name={name}
 
-If  the conditions of the specific engine does match, then the actions are taken which are specified in the action list.
+To delete a staging area
+/api/ss7-filter-staging-area--delete?name={name}
 
+To copy a staging area to another
+/api/ss7-filter-staging-area--action?name={source-name}
+	&amp;action=copy
+	&amp;destination-to={destination-name}
 
-To remove a filtering rule
-/api/ss7-filter-rule-delete?filter-ruleset={name}&amp;entry-nr={integer}
+To activate a current staging area
+/api/ss7-filter-staging-area-action?name={name}
+	&amp;action=activate
 
-To activate a rule
-/api/ss7-filter-rule-modify?filter-ruleset={name}&amp;entry-nr={integer}&amp;status=on
+To list current staging areas
+/api/ss7-filter-staging-area-list
 
-To deactivate a rule
-/api/ss7-filter-rule-modify?filter-ruleset={name}&amp;entry-nr={integer}&amp;status=off
-
-
-To put rule in monitoring mode
-/api/ss7-filter-rule-modify?filter-ruleset={name}&amp;entry-nr={integer}
-	&amp;status=monitor
-
-
-In monitor mode, all actions do take the monitor-action-list instead of the active-action-list. If status is set to off, the bypass-action-list is taken which defaults to continue.
-To read the list of  known rules in the config
-/api/ss7-filter-rule-list=filter-ruleset={name}
-
-To read the current rules config
-/api/ss7-filter-rule-read?filter-ruleset={name}&amp;entry-nr={integer}
-
-To read the current rule status
-/api/filter-rule-status?filter-ruleset={name}&amp;entry-nr={integer}
-
-To send an action to the rule
-/api/filter-rule-action?filter-ruleset={name}&amp;entry-nr={integer}&amp;action={action}
+To select the staging area to edit  engine status
+/api/ss7-filter-staging-area-action?name={name}
+	&amp;action=select
 
 </Text>
+        </Document>
+        <Document ID="E1D207DB-9A66-42C9-B388-11C52427809A">
+            <Title>ss7-filter</Title>
         </Document>
     </Documents>
 </SearchIndexes>
