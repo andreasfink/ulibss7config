@@ -49,14 +49,14 @@
 			BOOL exist = NO;
 			for(NSString *n in names)
 			{
-				if(n == name)
+				if([n isEqualToString:name])
 				{
 					exist = YES;
 					break;
 				}
 			}
 			
-			if(exist == YES)
+			if(exist)
 			{
 				[self sendResultOK];
 			}
