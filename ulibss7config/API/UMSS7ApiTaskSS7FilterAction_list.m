@@ -60,7 +60,7 @@
 			else
 			{
 				// 3b. list actions
-				(NSArray<UMSS7ConfigSS7FilterAction *> *) *actions = [list getAllActions];
+				NSArray<UMSS7ConfigSS7FilterAction *> *actions = [list getAllActions];
 				[self sendResultObject:actions];
 			}
 		}
