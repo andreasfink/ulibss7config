@@ -1,6 +1,6 @@
 /*
 
-this file can be included to do somethign with all API calls
+this file can be included to do something with all API calls
 simply define a macro API(classname) and let it do what you need to do and
 then include this file and undefine API() again
 
