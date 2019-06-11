@@ -40,15 +40,22 @@
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
     {
-        [self sendErrorNotFound:@"Staging-Area"];
+        [self sendErrorNotFound:@"staging-area"];
     }
     else
     {
 		@try
 		{
 			NSString *name = _webRequest.params[@"name"];
-			[stagingArea.filter_rule_set_dict removeObjectForKey:name];
-			[self sendResultOK];
+            if(stagingArea.filter_rule_set_dict[name]== 0)
+            {
+                [self sendErrorNotFound:name];
+            }
+            else
+            {
+                [stagingArea.filter_rule_set_dict removeObjectForKey:name];
+                [self sendResultOK];
+            }
 		}
 		@catch(NSException *e)
 		{

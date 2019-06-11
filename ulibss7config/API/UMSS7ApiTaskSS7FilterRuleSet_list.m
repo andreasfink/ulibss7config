@@ -40,21 +40,20 @@
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
     {
-        [self sendErrorNotFound:@"Staging-Area"];
+        [self sendErrorNotFound:@"staging-area"];
     }
     else
     {
 		@try
 		{
-			NSString *name = _webRequest.params[@"name"];
-			UMSynchronizedDictionary *rule_set_dict = stagingArea.filter_rule_set_dict[name];
-			if(rule_set_dict == NULL)
+			UMSS7ConfigSS7FilterRuleset *rule_set = stagingArea.filter_rule_set_dict[name];
+			if(rule_set == NULL)
 			{
 				[self sendErrorNotFound:name];
 			}
 			else
 			{
-				NSArray<NSString *> *names = [rule_set_dict allKeys];
+				NSArray<NSString *> *names = [stagingArea.filter_rule_set_dic allKeys];
 				[self sendResultObject:names];
 			}
 		}

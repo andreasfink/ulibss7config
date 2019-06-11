@@ -47,13 +47,15 @@
 		@try
 		{
 			NSString *name = _webRequest.params[@"name"];
-			UMSynchronizedDictionary *rule_set_dict = stagingArea.filter_rule_set_dict[name];
-			if(rule_set_dict == NULL)
+			UMSS7ConfigSS7FilterRuleset *rs = stagingArea.filter_rule_set_dict[name];
+			if(rs == NULL)
 			{
 				[self sendErrorNotFound:name];
 			}
 			else
 			{
+                /* we shoudl now call the live API to get some status for this object. */
+                /* FIXME Andreas */
 				[self sendResultOK];
 			}
 		}
