@@ -16,7 +16,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-actionlist-add";
+    return @"/api/ss7-filter-action-list-add";
 }
 
 - (void)main

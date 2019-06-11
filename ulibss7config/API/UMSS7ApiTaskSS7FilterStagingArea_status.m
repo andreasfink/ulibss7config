@@ -44,7 +44,26 @@
     {
 		@try
 		{
-			[self sendResultOK];
+			NSString *name = _webRequest.params[@"name"];
+			NSArray<NSString *> *names = [_appDelegate getSS7FilterStagingAreaNames];
+			BOOL exist = NO;
+			for(NSString *n in names)
+			{
+				if([n isEqualToString:name])
+				{
+					exist = YES;
+					break;
+				}
+			}
+			
+			if(exist)
+			{
+				[self sendResultOK];
+			}
+			else
+			{
+				[self sendErrorNotFound:name];
+			}
 		}
 		@catch(NSException *e)
 		{

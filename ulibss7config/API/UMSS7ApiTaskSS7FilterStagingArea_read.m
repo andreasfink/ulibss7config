@@ -45,8 +45,6 @@
     {
 		@try
 		{
-			NSLog(@"[OUT: stagingArea.path] = %@",stagingArea.config);
-			
 			[self sendResultObject:stagingArea.config];
 		}
 		@catch(NSException *e)

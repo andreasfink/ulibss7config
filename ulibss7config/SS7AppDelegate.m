@@ -3585,7 +3585,7 @@ static void signalHandler(int signum);
 - (void)createSS7FilterStagingArea:(NSString *)name
 {
 	NSString *filename = [UMSS7ConfigObject filterName:name];
-    NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename];
+    NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
     if(st==NULL)
     {
