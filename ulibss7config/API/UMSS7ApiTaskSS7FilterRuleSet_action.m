@@ -46,9 +46,9 @@
 		@try
 		{
 			NSString *name = _webRequest.params[@"name"];
-			NSString *action = _webRequest.params[@"action"];
+			//NSString *action = _webRequest.params[@"action"];
 			UMSS7ConfigSS7FilterRuleset *rs = stagingArea.filter_rule_set_dict[name];
-			if(rule_set_dict == NULL)
+			if(rs == NULL)
 			{
 				[self sendErrorNotFound:name];
 			}

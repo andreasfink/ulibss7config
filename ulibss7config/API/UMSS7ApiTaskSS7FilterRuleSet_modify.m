@@ -9,7 +9,10 @@
 #import "UMSS7ApiTaskSS7FilterRuleSet_modify.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterRuleSet_modify
 
@@ -50,7 +53,7 @@
             }
             else
             {
-                [rs setConfig:_webRequest];
+                [rs setConfig:_webRequest.params];
                 [self sendResultObject:rs.config];
             }
         }
