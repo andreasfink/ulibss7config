@@ -231,6 +231,29 @@
 <p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-action-list</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">a }</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">log = {ss7-logfile-object-name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">error = {errorcode}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">reroute-destination =<span class="Apple-converted-space">  </span>{sccp-destination-name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">reroute-called-address = {new-sccp-called-address}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">reroute-called-address-prefix = {new-sccp-called-address-prefix}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">category = {category-name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">To add a new filter-action</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-actionlist-add?name={name}</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;action={ “pass” | “drop” | “log” \ “reroute” }</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;lo...</p>
+</li>
+<li>
+<p class="itemTitle">ss7-filter-action</p>
+<p class="itemText">SS7 Filter Action List</span></p></p>
+<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
+<p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-action</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">action = { “pass” | “drop” | “abort” | “reject” | “error” | “continue” | “log”<span class="Apple-converted-space">  </span>| “reroute” | “set-category” | “clear-category” }</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">log = {ss7-logfile-object-name}</span></p></p>
 <p class="itemText"><p class="p1"><span class="s1">error = {errorcode}</span></p></p>
@@ -241,7 +264,8 @@
 <p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
 <p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API cal...</p>
+<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
+<p class="itemText"><p class="p1"><span class="s1">To...</p>
 </li>
 <li>
 <p class="itemTitle">builtin-ss7-filter-actions</p>
