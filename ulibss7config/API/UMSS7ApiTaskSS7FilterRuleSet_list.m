@@ -46,6 +46,7 @@
     {
 		@try
 		{
+			NSString *name = _webRequest.params[@"name"];
 			UMSS7ConfigSS7FilterRuleset *rule_set = stagingArea.filter_rule_set_dict[name];
 			if(rule_set == NULL)
 			{
@@ -53,7 +54,7 @@
 			}
 			else
 			{
-				NSArray<NSString *> *names = [stagingArea.filter_rule_set_dic allKeys];
+				NSArray<NSString *> *names = [stagingArea.filter_rule_set_dict allKeys];
 				[self sendResultObject:names];
 			}
 		}
