@@ -62,7 +62,6 @@
             [self sendException:e];
         }
     }
-    [self sendErrorNotImplemented];
 }
 
 @end
