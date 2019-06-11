@@ -38,9 +38,7 @@
     
 	// 1. Get Rule-Set external parameters
 	NSString *name = _webRequest.params[@"name"];
-	NSString *description = _webRequest.params[@"description"];
-	NSString *status = _webRequest.params[@"status"];
-	
+
 	// 2. call appDelegate getStagingAreaForSession:  to get current staging area storage.
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
@@ -52,9 +50,8 @@
 		@try
 		{
 			// 3. use filter_rule_set_dict property and add the ruleset to the dictionary with rulese.name as key
-			UMSS7ConfigSS7FilterRuleset *rule_set = [[UMSS7ConfigSS7FilterRuleset alloc]init];
-			stagingArea.filter_rule_set_dict[name] = rule_set;
-
+			UMSS7ConfigSS7FilterRuleset *rule_set = [[UMSS7ConfigSS7FilterRuleset alloc]initWithConfig:_webRequest.params];
+			stagingArea.filter_rule_set_dict[ruleset.name] = rule_set;
 			[self sendResultOK];
 		}
 		@catch(NSException *e)

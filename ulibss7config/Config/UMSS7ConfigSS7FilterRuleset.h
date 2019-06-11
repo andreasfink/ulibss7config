@@ -18,7 +18,7 @@
     NSDate                 *_modifiedTimestamp;
 }
 
-@property(readwrite,strong,atomic)  NSString *file;
+@property(readwrite,strong,atomic)      NSString *file;
 @property(readwrite,strong,atomic)    NSDate *createdTimestamp;
 @property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
 
