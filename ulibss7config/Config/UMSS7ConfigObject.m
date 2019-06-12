@@ -120,7 +120,10 @@
             &&(![group isEqualToString:@"mtp3-route"])
             &&(![group isEqualToString:@"sccp-number-translation-entry"])
             &&(![group isEqualToString:@"tcap-filter-entry"])
-            &&(![group isEqualToString:@"sccp-translation-table-entry"]))
+            &&(![group isEqualToString:@"sccp-translation-table-entry"])
+            &&(![group isEqualToString:@"sccp-destination-entry"])
+            &&(![group isEqualToString:@"sccp-filter"])
+            &&(![group isEqualToString:@"cdr-writer"]))
         {
             NSLog(@"Warning: object of type %@ without a name",group);
         }

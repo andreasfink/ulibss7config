@@ -480,8 +480,6 @@ static void signalHandler(int signum);
             NSLog(@"Error while creating directory %@\n%@",_stagingAreaPath,e);
         }
 
-
-
         if(params[@"named-lists-path"])
         {
             NSArray *a = params[@"named-lists-path"];
@@ -495,6 +493,9 @@ static void signalHandler(int signum);
         {
             NSLog(@"Error while creating directory %@\n%@",_namedListsDirectory,e);
         }
+
+
+        [self loadNamedLists:_namedListsDirectory];
 
         if(params[@"ss7-filters"])
         {
@@ -2767,6 +2768,7 @@ static void signalHandler(int signum);
             }
         }
     }
+    [self namedlist_flushAll];
 }
 
 - (void)addAccessControlAllowOriginHeaders:(UMHTTPRequest *)req
