@@ -127,4 +127,19 @@ realm:(NSString **)realm;
 - (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
 - (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name;
 
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Named Lists Functions
+/************************************************************/
+
+- (UMSynchronizedArray *)namedlist_lists;
+- (void)namedlist_add:(NSString *)listName value:(NSString *)value;
+- (void)namedlist_remove:(NSString *)listName value:(NSString *)value;
+- (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value;
+- (void)loadNamedLists:(NSString *)directory;
+- (void)namedlist_flush:(NSString *)listNameUrlEncoded;
+- (void)namedlist_flushAll;
+- (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
 @end
