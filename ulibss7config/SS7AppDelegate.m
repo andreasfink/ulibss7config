@@ -142,6 +142,9 @@ static void signalHandler(int signum);
         _filterEnginesPath              =  @"/opt/ulibss7/ss7-filter-engines/";
         _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
         _mainDiameterInstance           = [[DiameterGenericInstance alloc]init];
+        _namedLists = [[UMSynchronizedDictionary alloc]init];
+        _namedListLock = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
+        _namedListsDirectory            = @"/opt/ulibss7/named-lists/";
 
         if(_enabledOptions[@"name"])
         {
@@ -458,18 +461,39 @@ static void signalHandler(int signum);
             }
         }
 
+        /* path parameters */
+
+        NSFileManager * fm = [NSFileManager defaultManager];
+        NSError *e = NULL;
+
+
         if(params[@"staging-area"])
         {
             NSArray *a = params[@"staging-area"];
             NSString *path = a[a.count-1];
             _stagingAreaPath = path;
-            NSFileManager * fm = [NSFileManager defaultManager];
-            NSError *e = NULL;
-            [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:NULL error:&e];
-            if(e)
-            {
-                NSLog(@"Error while creating directory %@\n%@",path,e);
-            }
+        }
+
+        [fm createDirectoryAtPath:_stagingAreaPath withIntermediateDirectories:YES attributes:NULL error:&e];
+        if(e)
+        {
+            NSLog(@"Error while creating directory %@\n%@",_stagingAreaPath,e);
+        }
+
+
+
+        if(params[@"named-lists-path"])
+        {
+            NSArray *a = params[@"named-lists-path"];
+            NSString *path = a[a.count-1];
+            _namedListsDirectory = path;
+        }
+
+        e = NULL;
+        [fm createDirectoryAtPath:_namedListsDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
+        if(e)
+        {
+            NSLog(@"Error while creating directory %@\n%@",_namedListsDirectory,e);
         }
 
         if(params[@"ss7-filters"])
@@ -3742,6 +3766,140 @@ static void signalHandler(int signum);
     return _ss7FilterEngines[name];
 }
 
+
+
+#pragma mark -
+#pragma handle namedlists
+
+- (UMSynchronizedArray *)namedlist_lists
+{
+    UMSynchronizedArray *list = [[UMSynchronizedArray alloc]initWithArray:[_namedLists allKeys]];
+    return list;
+}
+
+
+- (void)namedlist_add:(NSString *)listName value:(NSString *)value
+{
+    if((value) && (listName))
+    {
+        [_namedListLock lock];
+        UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
+        if(list == NULL)
+        {
+            list = [[UMSynchronizedDictionary alloc]init];
+            _namedLists[listName.urlencode] = list;
+        }
+        list[value] = value;
+        list[@"_dirty"]= @(YES);
+        [_namedListLock unlock];
+    }
+}
+
+- (void)namedlist_remove:(NSString *)listName value:(NSString *)value
+{
+    if((value) && (listName))
+    {
+        [_namedListLock lock];
+        UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
+        if(list)
+        {
+            [list removeObjectForKey:value];
+            list[@"_dirty"]= @(YES);
+        }
+        [_namedListLock unlock];
+    }
+}
+
+- (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value
+{
+    BOOL returnValue = NO;
+    if((value) && (listName))
+    {
+        [_namedListLock lock];
+        UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
+        if((list) && (list[value]))
+        {
+            returnValue =  YES;
+        }
+        [_namedListLock unlock];
+    }
+    return returnValue;;
+}
+
+
+- (void)loadNamedLists:(NSString *)directory
+{
+    NSFileManager *mgr = [NSFileManager defaultManager];
+    for (NSString *filePath in [mgr enumeratorAtPath:directory])
+    {
+        NSString *absolutePath = [NSString stringWithFormat:@"%@/%@",directory,filePath];
+        [self namedlist_replaceList:filePath withContentsOfFile:absolutePath];
+    }
+}
+
+- (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename
+{
+    NSError *err = NULL;
+    NSString *s = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&err];
+    if(err)
+    {
+        NSLog(@"Error while opening file %@: %@",filename,err);
+        return;
+    }
+    NSArray *lines = [s componentsSeparatedByString:@"\n"];
+
+    UMSynchronizedDictionary *list = [[UMSynchronizedDictionary alloc]init];
+    for(NSString *line in lines)
+    {
+        NSString *value = [line stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+        if(value.length > 0) /* we skip empty lines */
+        {
+            list[value]=value;
+            list[@"_dirty"]= @(NO);
+        }
+    }
+    [_namedListLock lock];
+    _namedLists[listName] = list;
+    [_namedListLock unlock];
+}
+
+- (void)namedlist_flushAll
+{
+    NSArray *allListNames = [_namedLists allKeys];
+    for(NSString *listName in allListNames)
+    {
+        [self namedlist_flush:listName];
+    }
+}
+
+- (void)namedlist_flush:(NSString *)listNameUrlEncoded
+{
+    NSString *path = [NSString stringWithFormat:@"%@/%@",_namedListsDirectory,listNameUrlEncoded];
+
+    [_namedListLock lock];
+    UMSynchronizedDictionary *list = _namedLists[listNameUrlEncoded];
+    if([list[@"_dirty"] boolValue]==YES)
+    {
+        NSMutableString *output = [[NSMutableString alloc]init];
+        NSArray *keys = [list allKeys];
+        for(NSString *key in keys)
+        {
+            if([key isEqualToString:@"_dirty"])
+            {
+                continue;
+            }
+            [output appendFormat:@"%@\n",key];
+        }
+        NSError *err = NULL;
+        [output writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err];
+        if(err)
+        {
+            NSLog(@"Error while writing namedlist %@ to %@: %@",listNameUrlEncoded,path,err);
+        }
+        list[@"_dirty"]= @(NO);
+    }
+    [_namedListLock unlock];
+}
 
 @end
 

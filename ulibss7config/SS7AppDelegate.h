@@ -137,7 +137,10 @@ UMDiameterRouterAppDelegateProtocol>
     NSString                    *_filterEnginesPath;
     NSDate                      *_applicationStart;
     UMSynchronizedDictionary    *_ss7FilterEngines;
-    DiameterGenericInstance     *_mainDiameterInstance;	
+    DiameterGenericInstance     *_mainDiameterInstance;
+    UMSynchronizedDictionary     *_namedLists;
+    UMMutex                     *_namedListLock;
+    NSString                    *_namedListsDirectory;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -167,6 +170,7 @@ UMDiameterRouterAppDelegateProtocol>
 @property(readwrite,strong)     NSString            *stagingAreaPath;
 @property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
 @property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
+@property(readwrite,strong)     UMSynchronizedDictionary     *namedLists;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -360,5 +364,21 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)addWithConfigSS7FilterEngine:(NSDictionary *)config; /* can throw exceptions */
 - (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
 - (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Named Lists Functions
+/************************************************************/
+
+- (UMSynchronizedArray *)namedlist_lists;
+- (void)namedlist_add:(NSString *)listName value:(NSString *)value;
+- (void)namedlist_remove:(NSString *)listName value:(NSString *)value;
+- (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value;
+- (void)loadNamedLists:(NSString *)directory;
+- (void)namedlist_flush:(NSString *)listNameUrlEncoded;
+- (void)namedlist_flushAll;
+- (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
+
 @end
 
