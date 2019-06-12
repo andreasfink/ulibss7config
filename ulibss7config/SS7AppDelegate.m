@@ -3865,6 +3865,20 @@ static void signalHandler(int signum);
     [_namedListLock unlock];
 }
 
+- (NSArray *)namedlist_get:(NSString *)listName
+{
+    if(listName == NULL)
+    {
+        return @[];
+    }
+
+    [_namedListLock lock];
+    UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
+    NSArray *a = [list allKeys];
+    [_namedListLock unlock];
+    return a;
+}
+
 - (void)namedlist_flushAll
 {
     NSArray *allListNames = [_namedLists allKeys];

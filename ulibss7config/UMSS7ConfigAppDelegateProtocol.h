@@ -142,4 +142,6 @@ realm:(NSString **)realm;
 - (void)namedlist_flush:(NSString *)listNameUrlEncoded;
 - (void)namedlist_flushAll;
 - (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
+- (NSArray *)namedlist_get:(NSString *)listName;
+
 @end
