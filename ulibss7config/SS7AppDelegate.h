@@ -32,6 +32,7 @@
 @class SS7TemporaryImsiPool;
 @class SS7GenericInstance;
 @class DiameterGenericInstance;
+@class UMSS7ConfigSS7FilterLogFile;
 
 typedef enum SchrittmacherMode
 {
@@ -380,6 +381,23 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)namedlist_flushAll;
 - (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
 - (NSArray *)namedlist_get:(NSString *)listName;
+
+/************************************************************/
+#pragma mark -
+#pragma mark Log File Functions
+/************************************************************/
+
+- (UMSynchronizedArray *)logfile_lists;
+- (void)logfile_remove:(NSString *)name;
+- (void)logfile_enable:(NSString *)name enable:(BOOL)enable;
+- (UMSS7ConfigSS7FilterLogFile *)logfile_get:(NSString *)listName;
+- (void)logfile_action:(NSString *)name action:(NSString *)enable;
+- (void)logfile_add:(NSString *)name 
+					file:(NSString *)file
+					format:(NSString *)format
+					rotate_minutes:(NSNumber *)minutes
+					rotate_packets:(NSNumber *)packets_count
+					enable:(BOOL)enable;
 
 @end
 

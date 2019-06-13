@@ -81,6 +81,7 @@
 #import "UMSS7ApiSession.h"
 #import "DiameterGenericInstance.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
+#import "UMSS7ConfigSS7FilterLogFile.h"
 
 //@class SS7AppDelegate;
 
@@ -3915,6 +3916,40 @@ static void signalHandler(int signum);
         list[@"_dirty"]= @(NO);
     }
     [_namedListLock unlock];
+}
+
+
+- (UMSynchronizedArray *)logfile_list
+{
+	/* fix-me*/
+	return NULL;
+}
+
+- (void)logfile_remove:(NSString *)name
+{
+	/* fix-me*/
+}
+
+- (void)logfile_enable:(NSString *)name enable:(BOOL)enable
+{
+	/* fix-me*/
+}
+
+- (UMSS7ConfigSS7FilterLogFile *)logfile_get:(NSString *)listName
+{
+	/* fix-me*/
+	return NULL;
+}
+
+- (void)logfile_action:(NSString *)name action:(NSString *)enable
+{
+	/* fix-me*/
+}
+
+- (void)logfile_add:(NSString *)name file:(NSString *)file format:(NSString *)format 
+					rotate_minutes:(NSNumber *)minutes rotate_packets:(NSNumber *)packets_count enable:(BOOL)enable
+{
+	/* fix-me*/				
 }
 
 @end

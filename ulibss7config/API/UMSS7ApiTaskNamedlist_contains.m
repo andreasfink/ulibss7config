@@ -58,8 +58,9 @@
 		else
 		{
 			// 2. Checking if value is contained in list
-			[_appDelegate namedlist_contains:listName value:value];
-			[self sendResultOK];
+			BOOL ok = [_appDelegate namedlist_contains:listName value:value];
+			NSString *reply = ok ? @"YES" : @"NO";
+			[self sendResultObject:reply];
 		}
 	}
 	@catch(NSException *e)

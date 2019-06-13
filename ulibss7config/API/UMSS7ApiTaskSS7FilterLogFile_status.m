@@ -8,8 +8,9 @@
 
 #import "UMSS7ApiTaskSS7FilterLogFile_status.h"
 #import "UMSS7ConfigObject.h"
-#import "UMSS7ConfigSS7FilterLogFile.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterLogFile_status
 
@@ -31,7 +32,29 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+    
+	@try
+	{
+		// 1. Get external parameters
+		NSString *name = _webRequest.params[@"name"];
+		NSDictionary *d = [NSDictionary dictionary];
+		if(name.length==0)
+		{
+			d = @{@"error" : @"missing-parameter", @"reason" :@"the name parameter is not passed"}; 
+			[self sendError:[d jsonString]];
+		}
+		else
+		{
+			// 2. Status ?
+			//[_appDelegate logfile_getstatus:name];
+			[self sendErrorNotImplemented];
+		}
+	}
+	@catch(NSException *e)
+	{
+		[self sendException:e];
+	}
+	
 }
 
 @end

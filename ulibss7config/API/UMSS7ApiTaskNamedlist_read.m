@@ -47,8 +47,8 @@
 		else
 		{
 			// 2. Read
-			[_appDelegate namedlist_get:listName];
-			[self sendResultOK];
+			NSArray *ls = [_appDelegate namedlist_get:listName];
+			[self sendResultObject:ls];
 		}
 	}
 	@catch(NSException *e)
