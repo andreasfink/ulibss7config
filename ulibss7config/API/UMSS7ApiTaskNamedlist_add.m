@@ -9,7 +9,6 @@
 #import "UMSS7ApiTaskNamedlist_add.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
-#import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
 
@@ -58,18 +57,9 @@
 		}
 		else
 		{
-			// 2. call appDelegate getStagingAreaForSession:  to get current staging area storage.
-			UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-			if(stagingArea == NULL)
-			{
-				[self sendErrorNotFound:@"Staging-Area"];
-			}
-			else
-			{
-				// 3. adding
-				[_appDelegate namedlist_add:listName value:value];
-				[self sendResultOK];
-			}
+			// 2. adding
+			[_appDelegate namedlist_add:listName value:value];
+			[self sendResultOK];
 		}
 	}
 	@catch(NSException *e)
