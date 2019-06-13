@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="Minotaur" Author="Andreas Fink" Modified="2019-06-05 16:20:28 +0200" ModID="9A44CB99-57AB-4DF0-ABE2-C9DFFA3F482B">
+<ScrivenerProject Identifier="23086F20-C28D-4C33-A7C6-299257640CFD" Version="2.0" Creator="SCRMAC-3.1.2-10885" Device="Minotaur" Author="Andreas Fink" Modified="2019-06-12 16:48:36 +0200" ModID="9D696F11-3D9B-4842-BF9C-4F2778CDD968">
     <Binder>
         <BinderItem UUID="D6A13B52-F190-4530-9C60-7D4C6DCDE628" Type="Text" Created="2007-01-15 00:04:52 +0100" Modified="2017-12-06 17:59:26 +0100">
             <Title>START HERE</Title>
@@ -125,13 +125,13 @@
                                 <TextSelection>95,4</TextSelection>
                             </TextSettings>
                         </BinderItem>
-                        <BinderItem UUID="3516C900-1F86-42C8-908F-1A528FA25B1E" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-06-05 16:20:13 +0200">
+                        <BinderItem UUID="3516C900-1F86-42C8-908F-1A528FA25B1E" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-06-12 16:48:36 +0200">
                             <Title>ss7-filter-action</Title>
                             <MetaData>
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>68,0</TextSelection>
+                                <TextSelection>871,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
                         <BinderItem UUID="34DF7338-9EA3-45FA-AD07-133E8AC4F870" Type="Text" Created="2019-05-16 15:23:45 +0200" Modified="2019-05-20 09:10:46 +0200">
@@ -169,7 +169,7 @@
                                 <IncludeInCompile>Yes</IncludeInCompile>
                             </MetaData>
                             <TextSettings>
-                                <TextSelection>121,21</TextSelection>
+                                <TextSelection>1850,0</TextSelection>
                             </TextSettings>
                         </BinderItem>
                         <BinderItem UUID="0FCDC80B-6DA4-4CE2-BE72-81C6BEC48DF2" Type="Text" Created="2019-05-17 08:28:30 +0200" Modified="2019-05-20 09:12:00 +0200">
@@ -605,13 +605,13 @@
     <ProjectTargets Notify="No">
         <DraftTarget Type="Words" CountIncludedOnly="Yes" CurrentCompileGroupOnly="Yes" Deadline="2011-06-30 22:12:08 +0200" IgnoreDeadline="Yes">0</DraftTarget>
         <SessionTarget Type="Words" CountDraftOnly="Yes" AllowNegatives="Yes" ResetType="Time" ResetTime="00:00" DeterminedFromDeadline="No" WritingDays="" CanWriteOnDeadlineDate="No">0</SessionTarget>
-        <PreviousSession Words="0" Characters="0" Date="2019-06-11 13:16:13 +0200"/>
+        <PreviousSession Words="0" Characters="-20" Date="2019-06-12 16:46:36 +0200"/>
     </ProjectTargets>
-    <RecentWritingHistory Date="2019-06-11 00:00:00 +0200">
+    <RecentWritingHistory Date="2019-06-12 00:00:00 +0200">
         <DraftWordCount>0</DraftWordCount>
-        <DraftCharCount>0</DraftCharCount>
+        <DraftCharCount>-20</DraftCharCount>
         <OtherWordCount>0</OtherWordCount>
         <OtherCharCount>0</OtherCharCount>
     </RecentWritingHistory>
-    <PrintSettings PaperSize="595.0,842.0" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"/>
+    <PrintSettings PaperSize="595.275564,841.889771" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"/>
 </ScrivenerProject>

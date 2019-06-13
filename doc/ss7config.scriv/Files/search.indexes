@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SearchIndexes Version="1.0">
     <Documents>
+        <Document ID="CAEC143A-CA50-4EFB-875A-6AF3B056A119">
+            <Title>Printing</Title>
+        </Document>
         <Document ID="17454FBE-71E8-491A-A0C8-144B81D37AAE">
             <Title>ss7-filter-engine</Title>
             <Text>SS7 Filter Engine 
@@ -36,8 +39,48 @@ To reload a new version of the engine file
 	/api/ss7-filter-engine-action?name={name}&amp;action=reload
 </Text>
         </Document>
-        <Document ID="CAEC143A-CA50-4EFB-875A-6AF3B056A119">
-            <Title>Printing</Title>
+        <Document ID="2C374A60-A214-4EC8-B992-D22EC23805C6">
+            <Title>ss7-log-file</Title>
+            <Text>SS7 Log File
+
+In the config file:
+group = ss7-log-file
+name = {object-name}
+file = {filename}
+format = { pcap | text }
+rotate-minutes = {minutes}
+rotate-packets = {packets-count}
+enable = {boolean}
+
+
+As API calls
+To add a new log file object
+/api/ss7-log-file-add?name={name}
+	&amp;file={filename}
+	&amp;format={“text” | “pcap”}
+	&amp;rotate-minutes={minutes}
+	&amp;rotate-packets={packets-count}
+	&amp;enable={boolean}
+
+To start logging
+/api/ss7-log-file-modify?name={name}&amp;enable=YES
+
+To stop logging
+/api/ss7-log-file-modify?name={name}&amp;enable=NO
+
+To remove a log-file-object
+/api/ss7-log-file-remove?name={name}
+
+To list all log-file objects
+	/api/ss7-log-file-list
+To read the current log-file-object config
+/api/ss7-log-file-read?name={name}
+
+To send an action to the log-file-object
+/api/ss7-log-file-action?name={name}&amp;action={action}
+
+Action can be “reopen”
+</Text>
         </Document>
         <Document ID="450A4A7B-5E13-4317-B127-B1D2C02B9F98">
             <Title>ss7-filter-rulesset</Title>
@@ -86,49 +129,6 @@ To read the current rule status
 To send an action to the rule
 /api/filter-ruleset-action?name={name}&amp;action={action}
 
-</Text>
-        </Document>
-        <Document ID="2C374A60-A214-4EC8-B992-D22EC23805C6">
-            <Title>ss7-log-file</Title>
-            <Text>SS7 Log File
-
-In the config file:
-group = ss7-log-file
-name = {object-name}
-file = {filename}
-format = { pcap | text }
-rotate-minutes = {minutes}
-rotate-packets = {packets-count}
-enable = {boolean}
-
-
-As API calls
-To add a new log file object
-/api/ss7-log-file-add?name={name}
-	&amp;file={filename}
-	&amp;format={“text” | “pcap”}
-	&amp;rotate-minutes={minutes}
-	&amp;rotate-packets={packets-count}
-	&amp;enable={boolean}
-
-To start logging
-/api/ss7-log-file-modify?name={name}&amp;enable=YES
-
-To stop logging
-/api/ss7-log-file-modify?name={name}&amp;enable=NO
-
-To remove a log-file-object
-/api/ss7-log-file-remove?name={name}
-
-To list all log-file objects
-	/api/ss7-log-file-list
-To read the current log-file-object config
-/api/ss7-log-file-read?name={name}
-
-To send an action to the log-file-object
-/api/ss7-log-file-action?name={name}&amp;action={action}
-
-Action can be “reopen”
 </Text>
         </Document>
         <Document ID="0CE11253-E8F4-4D5A-ACAB-DE939245D6F5">
@@ -388,13 +388,13 @@ The folowing section descripe the parameters of each object. The objects will be
 In the config file:
 group = ss7-filte-action
 name = {object-name}
-action = { “pass” | “drop” | “abort” | “reject” | “error” | “continue” | “log”  | “reroute” | “set-category” | “clear-category” }
+action = { “pass” | “drop” | “abort” | “reject” | “error” | “continue” | “log”  | “reroute” | “set-tag” | “clear-tag” }
 log = {ss7-logfile-object-name}
 error = {errorcode}
 reroute-destination =  {sccp-destination-name}
 reroute-called-address = {new-sccp-called-address}
 reroute-called-address-prefix = {new-sccp-called-address-prefix}
-category = {category-name}
+tag = {tag-name}
 description = {text}
 
 

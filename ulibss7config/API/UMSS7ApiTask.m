@@ -43,6 +43,18 @@
 {
     NSString *path = req.url.relativePath;
 
+
+    /*
+        backwards compatibility. In old SMSProxy4 the API calls things where named with an underscore
+        ex /api/namedlist_add instead of /api/namedlist-add
+        So we rename calls to old API with new API name
+     */
+
+    if([path hasPrefix:@"/api/namedlist_"])
+    {
+        path = [NSString stringWithFormat:@"/api/namedlist-%@", [path substringFromIndex:15]];
+    }
+
 #define API(APICLASS) \
     if([path isEqualTo:[APICLASS apiPath]]) \
     { \

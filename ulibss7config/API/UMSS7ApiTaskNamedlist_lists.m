@@ -1,19 +1,19 @@
 //
-//  UMSS7ApiTaskNamedlist_status.m
+//  UMSS7ApiTaskNamedlist_lists.m
 //  ulibss7config
 //
-//  Created by Andreas Fink on 28.05.19.
+//  Created by Andreas Fink on 12.06.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskNamedlist_status.h"
+#import "UMSS7ApiTaskNamedlist_lists.h"
 
-@implementation UMSS7ApiTaskNamedlist_status
+@implementation UMSS7ApiTaskNamedlist_lists
 
 
 + (NSString *)apiPath
 {
-    return @"/api/namedlist-status";
+    return @"/api/namedlist-lists";
 }
 
 - (void)main
@@ -23,7 +23,7 @@
         [self sendErrorNotAuthenticated];
         return;
     }
-    
+
     if(![self isAuthorized])
     {
         [self sendErrorNotAuthorized];
