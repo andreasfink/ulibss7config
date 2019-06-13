@@ -57,7 +57,7 @@
 		}
 		else
 		{
-			// 2. Checking if value is contained in list
+			// 2. Remove if value is contained in list
 			[_appDelegate namedlist_remove:listName value:value];
 			[self sendResultOK];
 		}

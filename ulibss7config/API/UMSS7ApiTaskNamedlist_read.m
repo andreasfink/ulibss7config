@@ -46,7 +46,7 @@
 		}
 		else
 		{
-			// 2. adding
+			// 2. Read
 			[_appDelegate namedlist_get:listName];
 			[self sendResultOK];
 		}
