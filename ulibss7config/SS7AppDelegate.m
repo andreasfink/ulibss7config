@@ -3949,7 +3949,9 @@ static void signalHandler(int signum);
 - (void)logfile_add:(NSString *)name file:(NSString *)file format:(NSString *)format 
 					rotate_minutes:(NSNumber *)minutes rotate_packets:(NSNumber *)packets_count enable:(BOOL)enable
 {
-	/* fix-me*/				
+	/* fix-me*/	
+	NSString *en = enable ? @"YES" : @"NO";
+	NSLog(@"logfile_add: %@ , %@, %@, %@, %@ , %@", name, file, format, minutes, packets_count, en );	
 }
 
 @end
