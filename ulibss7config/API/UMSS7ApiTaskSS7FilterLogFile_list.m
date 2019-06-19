@@ -8,8 +8,9 @@
 
 #import "UMSS7ApiTaskSS7FilterLogFile_list.h"
 #import "UMSS7ConfigObject.h"
-#import "UMSS7ConfigSS7FilterLogFile.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterLogFile_list
 
@@ -31,7 +32,10 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+    
+	// Return an array
+	UMSynchronizedArray *ls = [_appDelegate logfile_lists];
+	[self sendResultObject:ls];
 }
 
 @end

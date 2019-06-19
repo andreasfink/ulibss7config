@@ -12,6 +12,7 @@
 @class UMSS7ConfigStorage;
 @class UMSS7ApiSession;
 @class UMSS7ConfigSS7FilterStagingArea;
+@class UMSS7ConfigSS7FilterLogFile;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -113,6 +114,11 @@ realm:(NSString **)realm;
 
 - (UMSynchronizedSortedDictionary *)cloneSCCPTranslationTable:(NSDictionary *)config;
 
+/************************************************************/
+#pragma mark -
+#pragma mark Staging Area Functions
+/************************************************************/
+
 - (void)createSS7FilterStagingArea:(NSString *)name;
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
@@ -122,12 +128,15 @@ realm:(NSString **)realm;
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
 
+/************************************************************/
+#pragma mark -
+#pragma mark Filter Engine Functions
+/************************************************************/
+
 - (NSArray *)getSS7FilterEngineNames;
 - (void)addWithConfigSS7FilterEngine:(NSDictionary *)config; /* can throw exceptions */
 - (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
 - (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name;
-
-
 
 /************************************************************/
 #pragma mark -
@@ -143,5 +152,25 @@ realm:(NSString **)realm;
 - (void)namedlist_flushAll;
 - (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
 - (NSArray *)namedlist_get:(NSString *)listName;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Log File Functions
+/************************************************************/
+
+- (UMSynchronizedArray *)logfile_lists;
+- (void)logfile_remove:(NSString *)name;
+- (void)logfile_enable:(NSString *)name enable:(BOOL)enable;
+- (UMSS7ConfigSS7FilterLogFile *)logfile_get:(NSString *)listName;
+- (void)logfile_action:(NSString *)name action:(NSString *)enable;
+- (void)logfile_add:(NSString *)name 
+					file:(NSString *)file
+					format:(NSString *)format
+					rotate_minutes:(NSNumber *)minutes
+					rotate_packets:(NSNumber *)packets_count
+					enable:(BOOL)enable;
+
+
 
 @end

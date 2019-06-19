@@ -7,6 +7,10 @@
 //
 
 #import "UMSS7ApiTaskNamedlist_lists.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskNamedlist_lists
 
@@ -29,6 +33,17 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+    
+	@try
+	{
+		// 1. list
+		UMSynchronizedArray *names = [_appDelegate namedlist_lists];
+		[self sendResultObject:names];
+	}
+	@catch(NSException *e)
+	{
+		[self sendException:e];
+	}
+	
 }
 @end
