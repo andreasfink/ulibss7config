@@ -69,6 +69,9 @@
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
 #import "UMSS7ConfigDiameterConnection.h"
+#import "UMSS7ConfigDiameterRoute.h"
+#import "UMSS7ConfigDiameterRouter.h"
+
 #import "UMTTask.h"
 #import "UMTTaskPing.h"
 #import "UMTTaskGetVersion.h"
@@ -1162,6 +1165,28 @@ static void signalHandler(int signum);
         if( [config configEnabledWithYesDefault])
         {
             [self addWithConfigDiameterRouter:config];
+        }
+    }
+
+    /*****************************************************************/
+    /* DiameterRoutes */
+    /*****************************************************************/
+    names = [_runningConfig getDiameterRoutes];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigDiameterRoute *routeconfig = [_runningConfig getDiameterRoute:name];
+        UMSynchronizedSortedDictionary *d = [routeconfig config];
+        NSDictionary *dict = [d dictionaryCopy];
+        if( [dict configEnabledWithYesDefault])
+        {
+            UMDiameterRouter *router = [self getDiameterRouter:routeconfig.router];
+            if(router==NULL)
+            {
+                NSString *s = [NSString stringWithFormat:@"Can not find router '%@'",router];
+                CONFIG_ERROR(s);
+            }
+            UMDiameterRoute *route = [[UMDiameterRoute alloc]initWithConfig:dict];
+            [router addRoute:route];
         }
     }
 
@@ -2635,19 +2660,13 @@ static void signalHandler(int signum);
 
 - (void)deleteDiameterRouter:(NSString *)name
 {
-    UMDiameterRouter *router = _diameter_router_dict[name];
-    [_diameter_connections_dict removeObjectForKey:name];
-    [router stopDetachAndDestroy];
+    /* FIXME */
 }
 
 - (void)renameDiameterRouter:(NSString *)oldName to:(NSString *)newName
 {
-    UMDiameterRouter *peer =  _diameter_connections_dict[oldName];
-    [_diameter_connections_dict removeObjectForKey:oldName];
-    peer.layerName = newName;
-    _diameter_connections_dict[newName] = peer;
+    /* FIXME */
 }
-
 
 /************************************************************/
 #pragma mark -

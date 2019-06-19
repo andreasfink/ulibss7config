@@ -64,7 +64,7 @@
 #import "UMSS7ConfigApiUser.h"
 #import "UMSS7ConfigDiameterConnection.h"
 #import "UMSS7ConfigDiameterRouter.h"
-#import "UMSS7ConfigDiameterRouter.h"
+#import "UMSS7ConfigDiameterRoute.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -116,6 +116,7 @@
     _cdr_writer_dict= [[UMSynchronizedDictionary alloc]init];
     _diameter_connection_dict =  [[UMSynchronizedDictionary alloc]init];
     _diameter_router_dict =  [[UMSynchronizedDictionary alloc]init];
+    _diameter_route_dict =  [[UMSynchronizedDictionary alloc]init];
     _estp_dict= [[UMSynchronizedDictionary alloc]init];
     _mapi_dict= [[UMSynchronizedDictionary alloc]init];
 
@@ -277,10 +278,13 @@
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterRouter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigDiameterRoute type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
     [cfg read];
     [self processConfig:cfg];
 }
+
+
 
 - (void)processConfig:(UMConfig *)cfg
 {
@@ -835,6 +839,15 @@
         }
     }
 
+    NSArray *diameter_route_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterRoute type]];
+    for(NSDictionary *diameter_route_config in diameter_route_configs)
+    {
+        UMSS7ConfigDiameterRoute *dr = [[UMSS7ConfigDiameterRoute alloc]initWithConfig:diameter_route_config];
+        if(dr.name.length  > 0)
+        {
+            _diameter_route_dict[dr.name] = dr;
+        }
+    }
 }
 
 
@@ -3165,6 +3178,51 @@
     return @"ok";
 }
 
+/*
+ **************************************************
+ ** DiameterRouter
+ **************************************************
+ */
+#pragma mark -
+#pragma mark DiameterRoute
+
+- (NSArray *)getDiameterRoutes
+{
+    return [_diameter_route_dict allKeys];
+}
+
+- (UMSS7ConfigDiameterRoute *)getDiameterRoute:(NSString *)name
+{
+    return _diameter_route_dict [name];
+}
+- (NSString *)addDiameterRoute:(UMSS7ConfigDiameterRoute *)dc
+{
+    if(_diameter_route_dict[dc.name] == NULL)
+    {
+        _diameter_route_dict[dc.name] = dc;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceDiameterRoute:(UMSS7ConfigDiameterRoute *)dc
+{
+    _diameter_route_dict[dc.name] = dc;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteDiameterRoute:(NSString *)name
+{
+    if(_diameter_route_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_diameter_route_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 /***************************************************/
 #pragma mark -
@@ -3225,6 +3283,7 @@
     n.cdr_writer_dict = [_cdr_writer_dict copy];
     n.diameter_connection_dict = [_diameter_connection_dict copy];
     n.diameter_router_dict = [_diameter_router_dict copy];
+    n.diameter_route_dict = [_diameter_route_dict copy];
     n.rwconfigFile = _rwconfigFile;
     return n;
 

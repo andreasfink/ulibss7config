@@ -123,7 +123,8 @@
             &&(![group isEqualToString:@"sccp-translation-table-entry"])
             &&(![group isEqualToString:@"sccp-destination-entry"])
             &&(![group isEqualToString:@"sccp-filter"])
-            &&(![group isEqualToString:@"cdr-writer"]))
+            &&(![group isEqualToString:@"cdr-writer"])
+            &&(![group isEqualToString:@"diameter-route"]))
         {
             NSLog(@"Warning: object of type %@ without a name",group);
         }
