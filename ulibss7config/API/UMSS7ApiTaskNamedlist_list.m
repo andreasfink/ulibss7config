@@ -48,7 +48,26 @@
 		{
 			// 2. list namedlists
 			[_appDelegate loadNamedLists:listName];
-			[self sendResultOK];
+			UMSynchronizedArray *names = [_appDelegate namedlist_lists];
+			NSArray *list = [names arrayCopy];
+			BOOL ok = NO;
+			for(NSString *ls in list)
+			{
+				if([ls isEqualToString:listName] )
+				{
+					ok = YES;
+					break;
+				}
+			}
+			
+			if(ok)
+			{
+				[self sendResultObject:listName];
+			}
+			else
+			{
+				[self sendErrorNotFound:listName];
+			}
 		}
 	}
 	@catch(NSException *e)
