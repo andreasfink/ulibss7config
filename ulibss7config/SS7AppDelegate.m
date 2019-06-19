@@ -212,8 +212,6 @@ static void signalHandler(int signum);
                                                           name:@"api-housekeeping"
                                                        repeats:YES
                                                runInForeground:NO];
-
-
 	}
 	return self;
 }
