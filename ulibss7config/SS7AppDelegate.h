@@ -142,6 +142,7 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary     *_namedLists;
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
+    UMTimer                     *_apiHousekeepingTimer;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;

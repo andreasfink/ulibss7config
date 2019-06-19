@@ -205,6 +205,15 @@ static void signalHandler(int signum);
 		_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
 		_pendingUMT = [[UMSynchronizedDictionary alloc]init];
 
+        _apiHousekeepingTimer = [[UMTimer alloc]initWithTarget:self
+                                                      selector:@selector(apiHousekeeping)
+                                                        object:NULL
+                                                       seconds:6
+                                                          name:@"api-housekeeping"
+                                                       repeats:YES
+                                               runInForeground:NO];
+
+
 	}
 	return self;
 }
