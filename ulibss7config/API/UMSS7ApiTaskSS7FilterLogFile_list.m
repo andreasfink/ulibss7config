@@ -34,7 +34,7 @@
     }
     
 	// Return an array
-	UMSynchronizedArray *ls = [_appDelegate logfile_lists];
+	UMSynchronizedArray *ls = [_appDelegate logfile_list];
 	[self sendResultObject:ls];
 }
 

@@ -147,10 +147,8 @@ realm:(NSString **)realm;
 - (void)namedlist_add:(NSString *)listName value:(NSString *)value;
 - (void)namedlist_remove:(NSString *)listName value:(NSString *)value;
 - (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value;
-- (void)loadNamedLists:(NSString *)directory;
-- (void)namedlist_flush:(NSString *)listNameUrlEncoded;
+- (void)loadNamedListsFromPath:(NSString *)directory;
 - (void)namedlist_flushAll;
-- (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
 - (NSArray *)namedlist_get:(NSString *)listName;
 
 
@@ -159,7 +157,7 @@ realm:(NSString **)realm;
 #pragma mark Log File Functions
 /************************************************************/
 
-- (UMSynchronizedArray *)logfile_lists;
+- (UMSynchronizedArray *)logfile_list;
 - (void)logfile_remove:(NSString *)name;
 - (void)logfile_enable:(NSString *)name enable:(BOOL)enable;
 - (UMSS7ConfigSS7FilterLogFile *)logfile_get:(NSString *)listName;
@@ -170,7 +168,5 @@ realm:(NSString **)realm;
 					rotate_minutes:(NSNumber *)minutes
 					rotate_packets:(NSNumber *)packets_count
 					enable:(BOOL)enable;
-
-
 
 @end

@@ -142,6 +142,11 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary     *_namedLists;
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
+
+    UMSynchronizedDictionary    *_ss7TraceFiles;
+    UMMutex                     *_ss7TraceFilesLock;
+    NSString                    *_ss7TraceFilesDirectory;
+
     UMTimer                     *_apiHousekeepingTimer;
 }
 
@@ -377,10 +382,7 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)namedlist_add:(NSString *)listName value:(NSString *)value;
 - (void)namedlist_remove:(NSString *)listName value:(NSString *)value;
 - (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value;
-- (void)loadNamedLists:(NSString *)directory;
-- (void)namedlist_flush:(NSString *)listNameUrlEncoded;
 - (void)namedlist_flushAll;
-- (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
 - (NSArray *)namedlist_get:(NSString *)listName;
 
 /************************************************************/

@@ -103,44 +103,45 @@ static void signalHandler(int signum);
 		return @"SS7AppDelegate";
 }
 
+
 - (SS7AppDelegate *)init
 {
-	return [self initWithOptions:@{}];
+    return [self initWithOptions:@{}];
 }
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options
 {
-	self = [super init];
-	if(self)
-	{
+    self = [super init];
+    if(self)
+    {
         ss7_app_delegate = self;
 
         _applicationStart = [NSDate new];
-		_enabledOptions                 = options;
-		_logHandler                     = [[UMLogHandler alloc]initWithConsole];
-		self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"main"];
-		_logLevel                       = UMLOG_DEBUG;
-		_sctp_dict                      = [[UMSynchronizedDictionary alloc]init];
-		_m2pa_dict                      = [[UMSynchronizedDictionary alloc]init];
-		_mtp3_dict                      = [[UMSynchronizedDictionary alloc]init];
-		_mtp3_link_dict                 = [[UMSynchronizedDictionary alloc]init];
-		_mtp3_linkset_dict              = [[UMSynchronizedDictionary alloc]init];
-		_m3ua_as_dict                   = [[UMSynchronizedDictionary alloc]init];
-		_m3ua_asp_dict                  = [[UMSynchronizedDictionary alloc]init];
-		_sccp_dict                      = [[UMSynchronizedDictionary alloc]init];
-		_webserver_dict                 = [[UMSynchronizedDictionary alloc]init];
-		_telnet_dict                    = [[UMSynchronizedDictionary alloc]init];
-		_syslog_destination_dict        = [[UMSynchronizedDictionary alloc]init];
-		_tcap_dict                      = [[UMSynchronizedDictionary alloc]init];
-		_gsmmap_dict                    = [[UMSynchronizedDictionary alloc]init];
-		_camel_dict                     = [[UMSynchronizedDictionary alloc]init];
-		_sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
+        _enabledOptions                 = options;
+        _logHandler                     = [[UMLogHandler alloc]initWithConsole];
+        self.logFeed                    = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"main"];
+        _logLevel                       = UMLOG_DEBUG;
+        _sctp_dict                      = [[UMSynchronizedDictionary alloc]init];
+        _m2pa_dict                      = [[UMSynchronizedDictionary alloc]init];
+        _mtp3_dict                      = [[UMSynchronizedDictionary alloc]init];
+        _mtp3_link_dict                 = [[UMSynchronizedDictionary alloc]init];
+        _mtp3_linkset_dict              = [[UMSynchronizedDictionary alloc]init];
+        _m3ua_as_dict                   = [[UMSynchronizedDictionary alloc]init];
+        _m3ua_asp_dict                  = [[UMSynchronizedDictionary alloc]init];
+        _sccp_dict                      = [[UMSynchronizedDictionary alloc]init];
+        _webserver_dict                 = [[UMSynchronizedDictionary alloc]init];
+        _telnet_dict                    = [[UMSynchronizedDictionary alloc]init];
+        _syslog_destination_dict        = [[UMSynchronizedDictionary alloc]init];
+        _tcap_dict                      = [[UMSynchronizedDictionary alloc]init];
+        _gsmmap_dict                    = [[UMSynchronizedDictionary alloc]init];
+        _camel_dict                     = [[UMSynchronizedDictionary alloc]init];
+        _sccp_number_translations_dict  = [[UMSynchronizedDictionary alloc]init];
         _diameter_connections_dict      = [[UMSynchronizedDictionary alloc]init];
         _diameter_router_dict           = [[UMSynchronizedDictionary alloc]init];
-		_ss7FilterStagingAreas_dict     = [[UMSynchronizedDictionary alloc]init];
+        _ss7FilterStagingAreas_dict     = [[UMSynchronizedDictionary alloc]init];
 
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
-		_registry                       = [[UMSocketSCTPRegistry alloc]init];
+        _registry                       = [[UMSocketSCTPRegistry alloc]init];
         _registry.logLevel =            UMLOG_MINOR;
         _stagingAreaPath                =  @"/opt/ulibss7/ss7-filter/";
         _filterEnginesPath              =  @"/opt/ulibss7/ss7-filter-engines/";
@@ -150,14 +151,19 @@ static void signalHandler(int signum);
         _namedListLock = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
         _namedListsDirectory            = @"/opt/ulibss7/named-lists/";
 
+        _ss7TraceFiles = [[UMSynchronizedDictionary alloc]init];
+        _ss7TraceFilesLock = [[UMMutex alloc]initWithName:@"ss7tracefiles-mutex"];
+        _ss7TraceFilesDirectory            = @"/opt/ulibss7/tracefiles/";
+
+
         if(_enabledOptions[@"name"])
         {
             self.logFeed.name =_enabledOptions[@"name"];
         }
-		if([_enabledOptions[@"msc"] boolValue])
-		{
-			_msc_dict = [[UMSynchronizedDictionary alloc]init];
-		}
+        if([_enabledOptions[@"msc"] boolValue])
+        {
+            _msc_dict = [[UMSynchronizedDictionary alloc]init];
+        }
         if([_enabledOptions[@"smsc"] boolValue])
         {
             _smsc_dict = [[UMSynchronizedDictionary alloc]init];
@@ -167,30 +173,30 @@ static void signalHandler(int signum);
             _smsproxy_dict = [[UMSynchronizedDictionary alloc]init];
         }
 
-		if([_enabledOptions[@"hlr"] boolValue])
-		{
-			_hlr_dict = [[UMSynchronizedDictionary alloc]init];
-		}
-		if([_enabledOptions[@"vlr"] boolValue])
-		{
-			_vlr_dict = [[UMSynchronizedDictionary alloc]init];
-		}
-		if([_enabledOptions[@"eir"] boolValue])
-		{
-			_eir_dict = [[UMSynchronizedDictionary alloc]init];
-		}
-		if([_enabledOptions[@"gsmscf"] boolValue])
-		{
-			_gsmscf_dict = [[UMSynchronizedDictionary alloc]init];
-		}
-		if([_enabledOptions[@"gmlc"] boolValue])
-		{
-			_gmlc_dict = [[UMSynchronizedDictionary alloc]init];
-		}
-		if([_enabledOptions[@"estp"] boolValue])
-		{
-			_estp_dict = [[UMSynchronizedDictionary alloc]init];
-		}
+        if([_enabledOptions[@"hlr"] boolValue])
+        {
+            _hlr_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+        if([_enabledOptions[@"vlr"] boolValue])
+        {
+            _vlr_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+        if([_enabledOptions[@"eir"] boolValue])
+        {
+            _eir_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+        if([_enabledOptions[@"gsmscf"] boolValue])
+        {
+            _gsmscf_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+        if([_enabledOptions[@"gmlc"] boolValue])
+        {
+            _gmlc_dict = [[UMSynchronizedDictionary alloc]init];
+        }
+        if([_enabledOptions[@"estp"] boolValue])
+        {
+            _estp_dict = [[UMSynchronizedDictionary alloc]init];
+        }
         if([_enabledOptions[@"imsi-pool"] boolValue])
         {
             _imsi_pools_dict = [[UMSynchronizedDictionary alloc]init];
@@ -200,10 +206,10 @@ static void signalHandler(int signum);
         {
             _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
-		_tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
+        _tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000];
         _umtransportLock = [[UMMutex alloc]initWithName:@"SS7AppDelegate_umtransportLock"];
-		_umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
-		_pendingUMT = [[UMSynchronizedDictionary alloc]init];
+        _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
+        _pendingUMT = [[UMSynchronizedDictionary alloc]init];
 
         _apiHousekeepingTimer = [[UMTimer alloc]initWithTarget:self
                                                       selector:@selector(apiHousekeeping)
@@ -212,187 +218,187 @@ static void signalHandler(int signum);
                                                           name:@"api-housekeeping"
                                                        repeats:YES
                                                runInForeground:NO];
-	}
-	return self;
+    }
+    return self;
 }
 
 - (NSDictionary *)appDefinition
 {
-	return @{
-			 @"version" : @"0.0.0",
-			 @"executable" : @"ss7-app",
-			 @"copyright" : @"© 2019 Andreas Fink",
-			 };
+    return @{
+             @"version" : @"0.0.0",
+             @"executable" : @"ss7-app",
+             @"copyright" : @"© 2019 Andreas Fink",
+             };
 }
 
 - (NSArray *)commandLineSyntax
 {
-	return @[
-			 @{
-				 @"name"  : @"version",
-				 @"short" : @"-V",
-				 @"long"  : @"--version",
-				 @"help"  : @"shows the software version"
-				 },
-			 @{
-				 @"name"  : @"verbose",
-				 @"short" : @"-v",
-				 @"long"  : @"--verbose",
-				 @"help"  : @"enables verbose mode"
-				 },
-			 @{
-				 @"name"  : @"help",
-				 @"short" : @"-h",
-				 @"long" : @"--help",
-				 @"help"  : @"shows the help screen",
-				 },
-			 @{
-				 @"name"  : @"config",
-				 @"short" : @"-c",
-				 @"long"  : @"--read-config",
-				 @"multi" : @(YES),
-				 @"argument" : @"filename",
-				 @"help"  : @"reads the indicated config (defaults to /etc/estp/estp.conf)",
-				 },
-			 @{
-				 @"name"  : @"readwriteconfig",
-				 @"short" : @"-C",
-				 @"long"  : @"--read-write-config",
-				 @"multi" : @(YES),
-				 @"argument" : @"filename",
-				 @"help"  : @"reads the indicated config and also writes changes to it",
-				 },
-			 @{
-				 @"name"  : @"print-config",
-				 @"short" : @"",
-				 @"long"  : @"--print-config",
-				 @"help"  : @"prints the combined config to stdout",
-				 },
-			 @{
-				 @"name"  : @"write-compact-config",
-				 @"short" : @"",
-				 @"long"  : @"--write-compact-config",
-				 @"argument" : @"filename",
-				 @"help"  : @"writes the combined config to a file",
-				 },
-			 @{
-				 @"name"  : @"write-split-config",
-				 @"short" : @"",
-				 @"long"  : @"--write-split-config",
-				 @"argument" : @"filename",
-				 @"help"  : @"writes the config to a file and the subsections to files in subdirectories at the same location",
-				 },
-			 @{
-				 @"name"  : @"pid-file",
-				 @"short" : @"",
-				 @"long"  : @"--pid-file",
-				 @"argument" : @"filename",
-				 @"help"  : @"writes the process-id to the indicated file",
-				 },
-			 @{
-				 @"name"  : @"quiet",
-				 @"short" : @"-q",
-				 @"long"  : @"--quiet",
-				 @"help"  : @"silences output",
-				 },
-			 @{
-				 @"name"  : @"debug",
-				 @"short" : @"-d",
-				 @"long"  : @"--debug",
-				 @"argument" : @"debug-option",
-				 @"multi" : @(YES),
-				 @"help"  : @"enables the named debug option(s)",
-				 },
-			 @{
-				 @"name"  : @"standby",
-				 @"short" : @"-s",
-				 @"long"  : @"--standby",
-				 @"help"  : @"start up in inactive standby mode",
-				 },
-			 @{
-				 @"name"  : @"hot",
-				 @"short" : @"-H",
-				 @"long"  : @"--hot",
-				 @"help"  : @"start up in active hot mode",
-				 },
-			 @{
-				 @"name"  : @"umobject-stat",
-				 @"short" : @"",
-				 @"long"  : @"--umobject-stat",
-				 @"help"  : @"Enable object statistics",
-				 },
-			 @{
-				 @"name"  : @"ummutex-stat",
-				 @"short" : @"",
-				 @"long"  : @"--ummutex-stat",
-				 @"help"  : @"Enable mutex statistics",
-				 },
-			 @{
-				 @"name"  : @"schrittmacher-id",
-				 @"short" : @"-i",
-				 @"long"  : @"--schrittmacher-id",
-				 @"argument" : @"id",
-				 @"help"  : @"set the schrittmacher id",
-				 },
-			 @{
-				 @"name"  : @"schrittmacher-port",
-				 @"short" : @"-p",
-				 @"long"  : @"--schrittmacher-port",
-				 @"argument" : @"port",
-				 @"help"  : @"set the schrittmacher udp port",
-				 },
-			 @{
-				 @"name"  : @"admin-http-port",
-				 @"short" : @"",
-				 @"long"  : @"--admin-http-port",
-				 @"argument" : @"port",
-				 @"help"  : @"enable a http admin interface on this port"
-				 },
-			 @{
-				 @"name"  : @"admin-https-port",
-				 @"short" : @"",
-				 @"long"  : @"--admin-https-port",
-				 @"argument" : @"port",
-				 @"help"  : @"enable a https admin interface on this port"
-				 },
-			 @{
-				 @"name"  : @"admin-https-key",
-				 @"short" : @"",
-				 @"long"  : @"--admin-http-port",
-				 @"argument" : @"filename",
-				 @"help"  : @"specify the SSL key file for the https admin interface"
-				 },
-			 @{
-				 @"name"  : @"admin-https-cert",
-				 @"short" : @"",
-				 @"long"  : @"--admin-https-cert",
-				 @"argument" : @"filename",
-				 @"help"  : @"specify the SSL certificate for the https admin interface"
-				 }
-			 ];
+    return @[
+             @{
+                 @"name"  : @"version",
+                 @"short" : @"-V",
+                 @"long"  : @"--version",
+                 @"help"  : @"shows the software version"
+                 },
+             @{
+                 @"name"  : @"verbose",
+                 @"short" : @"-v",
+                 @"long"  : @"--verbose",
+                 @"help"  : @"enables verbose mode"
+                 },
+             @{
+                 @"name"  : @"help",
+                 @"short" : @"-h",
+                 @"long" : @"--help",
+                 @"help"  : @"shows the help screen",
+                 },
+             @{
+                 @"name"  : @"config",
+                 @"short" : @"-c",
+                 @"long"  : @"--read-config",
+                 @"multi" : @(YES),
+                 @"argument" : @"filename",
+                 @"help"  : @"reads the indicated config (defaults to /etc/estp/estp.conf)",
+                 },
+             @{
+                 @"name"  : @"readwriteconfig",
+                 @"short" : @"-C",
+                 @"long"  : @"--read-write-config",
+                 @"multi" : @(YES),
+                 @"argument" : @"filename",
+                 @"help"  : @"reads the indicated config and also writes changes to it",
+                 },
+             @{
+                 @"name"  : @"print-config",
+                 @"short" : @"",
+                 @"long"  : @"--print-config",
+                 @"help"  : @"prints the combined config to stdout",
+                 },
+             @{
+                 @"name"  : @"write-compact-config",
+                 @"short" : @"",
+                 @"long"  : @"--write-compact-config",
+                 @"argument" : @"filename",
+                 @"help"  : @"writes the combined config to a file",
+                 },
+             @{
+                 @"name"  : @"write-split-config",
+                 @"short" : @"",
+                 @"long"  : @"--write-split-config",
+                 @"argument" : @"filename",
+                 @"help"  : @"writes the config to a file and the subsections to files in subdirectories at the same location",
+                 },
+             @{
+                 @"name"  : @"pid-file",
+                 @"short" : @"",
+                 @"long"  : @"--pid-file",
+                 @"argument" : @"filename",
+                 @"help"  : @"writes the process-id to the indicated file",
+                 },
+             @{
+                 @"name"  : @"quiet",
+                 @"short" : @"-q",
+                 @"long"  : @"--quiet",
+                 @"help"  : @"silences output",
+                 },
+             @{
+                 @"name"  : @"debug",
+                 @"short" : @"-d",
+                 @"long"  : @"--debug",
+                 @"argument" : @"debug-option",
+                 @"multi" : @(YES),
+                 @"help"  : @"enables the named debug option(s)",
+                 },
+             @{
+                 @"name"  : @"standby",
+                 @"short" : @"-s",
+                 @"long"  : @"--standby",
+                 @"help"  : @"start up in inactive standby mode",
+                 },
+             @{
+                 @"name"  : @"hot",
+                 @"short" : @"-H",
+                 @"long"  : @"--hot",
+                 @"help"  : @"start up in active hot mode",
+                 },
+             @{
+                 @"name"  : @"umobject-stat",
+                 @"short" : @"",
+                 @"long"  : @"--umobject-stat",
+                 @"help"  : @"Enable object statistics",
+                 },
+             @{
+                 @"name"  : @"ummutex-stat",
+                 @"short" : @"",
+                 @"long"  : @"--ummutex-stat",
+                 @"help"  : @"Enable mutex statistics",
+                 },
+             @{
+                 @"name"  : @"schrittmacher-id",
+                 @"short" : @"-i",
+                 @"long"  : @"--schrittmacher-id",
+                 @"argument" : @"id",
+                 @"help"  : @"set the schrittmacher id",
+                 },
+             @{
+                 @"name"  : @"schrittmacher-port",
+                 @"short" : @"-p",
+                 @"long"  : @"--schrittmacher-port",
+                 @"argument" : @"port",
+                 @"help"  : @"set the schrittmacher udp port",
+                 },
+             @{
+                 @"name"  : @"admin-http-port",
+                 @"short" : @"",
+                 @"long"  : @"--admin-http-port",
+                 @"argument" : @"port",
+                 @"help"  : @"enable a http admin interface on this port"
+                 },
+             @{
+                 @"name"  : @"admin-https-port",
+                 @"short" : @"",
+                 @"long"  : @"--admin-https-port",
+                 @"argument" : @"port",
+                 @"help"  : @"enable a https admin interface on this port"
+                 },
+             @{
+                 @"name"  : @"admin-https-key",
+                 @"short" : @"",
+                 @"long"  : @"--admin-http-port",
+                 @"argument" : @"filename",
+                 @"help"  : @"specify the SSL key file for the https admin interface"
+                 },
+             @{
+                 @"name"  : @"admin-https-cert",
+                 @"short" : @"",
+                 @"long"  : @"--admin-https-cert",
+                 @"argument" : @"filename",
+                 @"help"  : @"specify the SSL certificate for the https admin interface"
+                 }
+             ];
 }
 
 - (NSString *)defaultConfigFile
 {
-	return @"/etc/ss7.conf";
+    return @"/etc/ss7.conf";
 }
 
 - (NSString *)defaultLogDirectory
 {
-	return @"/var/log";
+    return @"/var/log";
 }
 
 - (int)defaultWebPort
 {
-	return 8080;
+    return 8080;
 }
 - (NSString *)defaultWebUser
 {
-	return @"admin";
+    return @"admin";
 }
 - (NSString *)defaultWebPassword
 {
-	return @"admin";
+    return @"admin";
 }
 
 
@@ -407,12 +413,12 @@ static void signalHandler(int signum);
 
 - (NSString *)productName
 {
-	return @"ss7-product";
+    return @"ss7-product";
 }
 
 - (NSString *)productVersion
 {
-	return @"0.0.0";
+    return @"0.0.0";
 }
 
 - (void)processCommandLine:(int)argc argv:(const char **)argv
@@ -505,8 +511,8 @@ static void signalHandler(int signum);
             NSLog(@"Error while creating directory %@\n%@",_namedListsDirectory,e);
         }
 
-
-        [self loadNamedLists:_namedListsDirectory];
+        _namedLists = [[UMSynchronizedDictionary alloc]init];
+        [self loadNamedListsFromPath:_namedListsDirectory];
 
         if(params[@"ss7-filters"])
         {
@@ -617,37 +623,37 @@ static void signalHandler(int signum);
 
 - (void)createInstances
 {
-	/*****************************************************************/
-	/* Section GENERAL */
-	/*****************************************************************/
-	[self.logFeed infoText:@"creatingInstances"];
+    /*****************************************************************/
+    /* Section GENERAL */
+    /*****************************************************************/
+    [self.logFeed infoText:@"creatingInstances"];
 
-	UMSS7ConfigGeneral *generalConfig = _runningConfig.generalConfig;
-	if(generalConfig.logDirectory.length > 0)
-	{
-		_logDirectory = generalConfig.logDirectory;
-	}
-	else
-	{
-		_logDirectory = [self defaultLogDirectory];
-	}
-	if(generalConfig.logRotations!=NULL)
-	{
-		_logRotations = [generalConfig.logRotations intValue];
-	}
-	else
-	{
-		_logRotations = 5;
-	}
+    UMSS7ConfigGeneral *generalConfig = _runningConfig.generalConfig;
+    if(generalConfig.logDirectory.length > 0)
+    {
+        _logDirectory = generalConfig.logDirectory;
+    }
+    else
+    {
+        _logDirectory = [self defaultLogDirectory];
+    }
+    if(generalConfig.logRotations!=NULL)
+    {
+        _logRotations = [generalConfig.logRotations intValue];
+    }
+    else
+    {
+        _logRotations = 5;
+    }
 
-	if(generalConfig.logLevel!=NULL)
-	{
-		_logLevel = [generalConfig.logLevel intValue];
-	}
-	else
-	{
-		_logLevel = UMLOG_MAJOR;
-	}
+    if(generalConfig.logLevel!=NULL)
+    {
+        _logLevel = [generalConfig.logLevel intValue];
+    }
+    else
+    {
+        _logLevel = UMLOG_MAJOR;
+    }
 
     _sctpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"sctp"
@@ -679,396 +685,396 @@ static void signalHandler(int signum);
                                                          numberOfQueues:UMLAYER_QUEUE_COUNT];
 
     _diameterTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
-                                                                   name:@"diameter"
-                                                          enableLogging:NO
-                                                         numberOfQueues:UMLAYER_QUEUE_COUNT];
+                                                                     name:@"diameter"
+                                                            enableLogging:NO
+                                                           numberOfQueues:UMLAYER_QUEUE_COUNT];
 
 
-	_webClient = [[UMHTTPClient alloc]init];
-	if(generalConfig.hostname)
-	{
-		_hostname = generalConfig.hostname;
-	}
-	else
-	{
-		_hostname = [UMHost localHostName];
-	}
+    _webClient = [[UMHTTPClient alloc]init];
+    if(generalConfig.hostname)
+    {
+        _hostname = generalConfig.hostname;
+    }
+    else
+    {
+        _hostname = [UMHost localHostName];
+    }
 
-	if(generalConfig.queueHardLimit!=NULL)
-	{
-		_queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
-	}
+    if(generalConfig.queueHardLimit!=NULL)
+    {
+        _queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
+    }
 
-	/*****************************************************************/
-	/* Section USER */
-	/*****************************************************************/
+    /*****************************************************************/
+    /* Section USER */
+    /*****************************************************************/
 
-	NSArray *names;
-	/* make sure we have at least one default user */
-	names = [_runningConfig getAdminUserNames];
-	if(names.count == 0)
-	{
-		UMSS7ConfigAdminUser *user = [[UMSS7ConfigAdminUser alloc]initWithConfig:
-									  @{
-										@"group":@"user",
-										@"name": [self defaultWebUser],
-										@"password": [self defaultWebPassword],
-										}
-									  ];
-		[_runningConfig addAdminUser:user];
-	}
+    NSArray *names;
+    /* make sure we have at least one default user */
+    names = [_runningConfig getAdminUserNames];
+    if(names.count == 0)
+    {
+        UMSS7ConfigAdminUser *user = [[UMSS7ConfigAdminUser alloc]initWithConfig:
+                                      @{
+                                        @"group":@"user",
+                                        @"name": [self defaultWebUser],
+                                        @"password": [self defaultWebPassword],
+                                        }
+                                      ];
+        [_runningConfig addAdminUser:user];
+    }
 
     /* make sure we have at least one default user */
     names = [_runningConfig getApiUserNames];
     if(names.count == 0)
     {
         UMSS7ConfigApiUser *user = [[UMSS7ConfigApiUser alloc]initWithConfig:
-                                      @{
-                                        @"group":@"user",
-                                        @"name": [self defaultApiUser],
-                                        @"password": [self defaultApiPassword],
-                                        }
-                                      ];
+                                    @{
+                                      @"group":@"user",
+                                      @"name": [self defaultApiUser],
+                                      @"password": [self defaultApiPassword],
+                                      }
+                                    ];
         [_runningConfig addApiUser:user];
     }
-	/* Webserver */
-	names = [_runningConfig getWebserverNames];
-	if(names.count == 0)
-	{
-		/* no config at all? lets set up a safe default on port 8086 */
-		UMSS7ConfigWebserver *ws = [[UMSS7ConfigWebserver alloc]initWithConfig:
-									@{ @"group" : @"webserver",
-									   @"name"  : @"default-webserver",
-									   @"port"  : @([self defaultWebPort]),
-									   }];
-		[_runningConfig addWebserver:ws];
-		names = @[@"default-webserver"];
-	}
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getWebserver:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			UMHTTPServer *webServer = NULL;
-			int webPort = [[config configEntry:@"port"] intValue];
-			if(webPort == 0)
-			{
-				webPort = 8086;
-			}
-			if([[config configEntry:@"https"] boolValue])
-			{
-				NSString *keyFile = [[config configEntry:@"https-key-file"] stringValue];
-				NSString *certFile = [[config configEntry:@"https-cert-file"] stringValue];
-				webServer = [[UMHTTPSServer alloc]initWithPort:webPort
-													sslKeyFile:keyFile
-												   sslCertFile:certFile];
-			}
-			else
-			{
-				webServer = [[UMHTTPServer alloc]initWithPort:webPort];
-			}
-			if(webServer)
-			{
-				webServer.enableKeepalive = YES;
-				webServer.httpGetPostDelegate = self;
-				webServer.httpOptionsDelegate = self;
-				webServer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"http"];
-				webServer.logFeed.name = name;
-				_webserver_dict[name] = webServer;
-				webServer.authenticateRequestDelegate = self;
-				[webServer start];
-			}
-			_webserver_dict[name] = webServer;
-		}
-	}
+    /* Webserver */
+    names = [_runningConfig getWebserverNames];
+    if(names.count == 0)
+    {
+        /* no config at all? lets set up a safe default on port 8086 */
+        UMSS7ConfigWebserver *ws = [[UMSS7ConfigWebserver alloc]initWithConfig:
+                                    @{ @"group" : @"webserver",
+                                       @"name"  : @"default-webserver",
+                                       @"port"  : @([self defaultWebPort]),
+                                       }];
+        [_runningConfig addWebserver:ws];
+        names = @[@"default-webserver"];
+    }
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getWebserver:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            UMHTTPServer *webServer = NULL;
+            int webPort = [[config configEntry:@"port"] intValue];
+            if(webPort == 0)
+            {
+                webPort = 8086;
+            }
+            if([[config configEntry:@"https"] boolValue])
+            {
+                NSString *keyFile = [[config configEntry:@"https-key-file"] stringValue];
+                NSString *certFile = [[config configEntry:@"https-cert-file"] stringValue];
+                webServer = [[UMHTTPSServer alloc]initWithPort:webPort
+                                                    sslKeyFile:keyFile
+                                                   sslCertFile:certFile];
+            }
+            else
+            {
+                webServer = [[UMHTTPServer alloc]initWithPort:webPort];
+            }
+            if(webServer)
+            {
+                webServer.enableKeepalive = YES;
+                webServer.httpGetPostDelegate = self;
+                webServer.httpOptionsDelegate = self;
+                webServer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"http"];
+                webServer.logFeed.name = name;
+                _webserver_dict[name] = webServer;
+                webServer.authenticateRequestDelegate = self;
+                [webServer start];
+            }
+            _webserver_dict[name] = webServer;
+        }
+    }
 
-	[self.logFeed infoText:@"configuring syslog"];
+    [self.logFeed infoText:@"configuring syslog"];
 
-	/*****************************************************************/
-	/* Section Syslog */
-	/*****************************************************************/
-	names = [_runningConfig getSyslogDestinationNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getSyslogDestination:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			UMMTP3SyslogClient *syslog = [[UMMTP3SyslogClient alloc]init];
-			/* FIXME: we shall do something here */
-			_syslog_destination_dict[name] = syslog;
-		}
-	}
-
-
-	/*****************************************************************/
-	/* SCTP */
-	/*****************************************************************/
-	names = [_runningConfig getSCTPNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getSCTP:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigSCTP:config];
-		}
-	}
+    /*****************************************************************/
+    /* Section Syslog */
+    /*****************************************************************/
+    names = [_runningConfig getSyslogDestinationNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getSyslogDestination:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            UMMTP3SyslogClient *syslog = [[UMMTP3SyslogClient alloc]init];
+            /* FIXME: we shall do something here */
+            _syslog_destination_dict[name] = syslog;
+        }
+    }
 
 
-	/*****************************************************************/
-	/* M2PA */
-	/*****************************************************************/
-	names = [_runningConfig getM2PANames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getM2PA:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigM2PA:config];
-		}
-	}
-
-	/*****************************************************************/
-	/* MTP3 */
-	/*****************************************************************/
-	names = [_runningConfig getMTP3Names];
-	NSLog(@"mtp3names = %@",names);
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigMTP3:config];
-		}
-	}
-
-	/*****************************************************************/
-	/* MTP3 LinkSet*/
-	/*****************************************************************/
-	names = [_runningConfig getMTP3LinkSetNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigMTP3LinkSet:config];
-		}
-	}
-
-	/*****************************************************************/
-	/* MTP3 Link */
-	/*****************************************************************/
-	names = [_runningConfig getMTP3LinkNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigMTP3Link:config];
-		}
-	}
+    /*****************************************************************/
+    /* SCTP */
+    /*****************************************************************/
+    names = [_runningConfig getSCTPNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getSCTP:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigSCTP:config];
+        }
+    }
 
 
+    /*****************************************************************/
+    /* M2PA */
+    /*****************************************************************/
+    names = [_runningConfig getM2PANames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getM2PA:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigM2PA:config];
+        }
+    }
 
-	/*****************************************************************/
-	/* M3UAAS */
-	/*****************************************************************/
-	names = [_runningConfig getM3UAASNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getM3UAAS:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigM3UAAS:config];
-		}
-	}
+    /*****************************************************************/
+    /* MTP3 */
+    /*****************************************************************/
+    names = [_runningConfig getMTP3Names];
+    NSLog(@"mtp3names = %@",names);
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigMTP3:config];
+        }
+    }
 
+    /*****************************************************************/
+    /* MTP3 LinkSet*/
+    /*****************************************************************/
+    names = [_runningConfig getMTP3LinkSetNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigMTP3LinkSet:config];
+        }
+    }
 
-	/*****************************************************************/
-	/* M3UAASP */
-	/*****************************************************************/
-	names = [_runningConfig getM3UAASPNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getM3UAASP:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigM3UAASP:config];
-		}
-	}
+    /*****************************************************************/
+    /* MTP3 Link */
+    /*****************************************************************/
+    names = [_runningConfig getMTP3LinkNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigMTP3Link:config];
+        }
+    }
 
 
 
-	/*****************************************************************/
-	/* MTP3Routes */
-	/*****************************************************************/
-
-	names = [_runningConfig getMTP3RouteNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getMTP3Route:name];
-		NSDictionary *cfg = co.config.dictionaryCopy;
-		if( [cfg configEnabledWithYesDefault])
-		{
-			NSString *instance = [[cfg configEntry:@"mtp3"] stringValue];
-			NSString *route = [[cfg configEntry:@"dpc"] stringValue];
-			NSString *linkset = [[cfg configEntry:@"ls"] stringValue];
-			NSString *as = [[cfg configEntry:@"as"] stringValue];
-			if(linkset==NULL)
-			{
-				linkset = as;
-			}
-
-			UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
-			if(mtp3_instance)
-			{
-				UMMTP3LinkSet *mtp3_linkset = [mtp3_instance getLinkSetByName:linkset];
-				if(mtp3_linkset)
-				{
-					if([route isEqualToString:@"default"])
-					{
-						route = @"0/0";
-					}
-					NSArray *a = [route componentsSeparatedByString:@"/"];
-					if([a count] == 1)
-					{
-						UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-						[mtp3_linkset.routingTable updateRouteAvailable:pc mask:0 linksetName:linkset];
-					}
-					else if([a count]==2)
-					{
-						UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-						[mtp3_linkset.routingTable updateRouteAvailable:pc mask:(pc.maxmask - [a[1] intValue]) linksetName:linkset];
-					}
-				}
-			}
-		}
-	}
-
-	/*****************************************************************/
-	/* SCCP */
-	/*****************************************************************/
-	names = [_runningConfig getSCCPNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getSCCP:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigSCCP:config];
-		}
-	}
-
-	/* SCCP Destinations */
-	names = [_runningConfig getSCCPDestinationNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getSCCPDestination:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
-			[self addWithConfigSCCPDestination:config subConfigs:co.subConfigs variant:sccp.mtp3.variant];
-		}
-	}
-	/* FIXME: check if there's more in ESTP which we should add here */
-
-	/*****************************************************************/
-	/* TCAP */
-	/*****************************************************************/
-	names = [_runningConfig getTCAPNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getTCAP:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigTCAP:config];
-		}
-	}
-
-	/*****************************************************************/
-	/* GSMMAP */
-	/*****************************************************************/
-	names = [_runningConfig getGSMMAPNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigObject *co = [_runningConfig getGSMMAP:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-		if( [config configEnabledWithYesDefault])
-		{
-			[self addWithConfigGSMMAP:config];
-		}
-	}
+    /*****************************************************************/
+    /* M3UAAS */
+    /*****************************************************************/
+    names = [_runningConfig getM3UAASNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getM3UAAS:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigM3UAAS:config];
+        }
+    }
 
 
-	/*********************************/
-	/* Setup SccpNumberTranslations  */
-	/*********************************/
-
-	names = [_runningConfig getSCCPNumberTranslationNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigSCCPNumberTranslation *co = [_runningConfig getSCCPNumberTranslation:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-
-		SccpNumberTranslation *translation = [[SccpNumberTranslation alloc]initWithConfig:config];
-		NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
-		for(UMSS7ConfigSCCPNumberTranslationEntry *e in entries)
-		{
-			SccpNumberTranslationEntry *entry = [[SccpNumberTranslationEntry alloc]initWithConfig:e.config.dictionaryCopy];
-			[translation addEntry:entry];
-		}
-		_sccp_number_translations_dict[translation.name] = translation;
-	}
-
-	/*****************************/
-	/* Setup GTT Routing Tables  */
-	/*****************************/
-
-	names = [_runningConfig getSCCPTranslationTableNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigSCCPTranslationTable *co = [_runningConfig getSCCPTranslationTable:name];
-		NSDictionary *config = co.config.dictionaryCopy;
-
-		SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
-		if(selector.preTranslationName.length > 0)
-		{
-			selector.preTranslation = _sccp_number_translations_dict[selector.preTranslationName];
-		}
-		if(selector.postTranslationName.length > 0)
-		{
-			selector.postTranslation = _sccp_number_translations_dict[selector.postTranslationName];
-		}
-		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
-		[sccp.gttSelectorRegistry addEntry:selector];
+    /*****************************************************************/
+    /* M3UAASP */
+    /*****************************************************************/
+    names = [_runningConfig getM3UAASPNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getM3UAASP:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigM3UAASP:config];
+        }
+    }
 
 
-		NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
-		for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
-		{
-			SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
-			if(entry.postTranslationName)
-			{
-				entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
-			}
+
+    /*****************************************************************/
+    /* MTP3Routes */
+    /*****************************************************************/
+
+    names = [_runningConfig getMTP3RouteNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getMTP3Route:name];
+        NSDictionary *cfg = co.config.dictionaryCopy;
+        if( [cfg configEnabledWithYesDefault])
+        {
+            NSString *instance = [[cfg configEntry:@"mtp3"] stringValue];
+            NSString *route = [[cfg configEntry:@"dpc"] stringValue];
+            NSString *linkset = [[cfg configEntry:@"ls"] stringValue];
+            NSString *as = [[cfg configEntry:@"as"] stringValue];
+            if(linkset==NULL)
+            {
+                linkset = as;
+            }
+
+            UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
+            if(mtp3_instance)
+            {
+                UMMTP3LinkSet *mtp3_linkset = [mtp3_instance getLinkSetByName:linkset];
+                if(mtp3_linkset)
+                {
+                    if([route isEqualToString:@"default"])
+                    {
+                        route = @"0/0";
+                    }
+                    NSArray *a = [route componentsSeparatedByString:@"/"];
+                    if([a count] == 1)
+                    {
+                        UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
+                        [mtp3_linkset.routingTable updateRouteAvailable:pc mask:0 linksetName:linkset];
+                    }
+                    else if([a count]==2)
+                    {
+                        UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
+                        [mtp3_linkset.routingTable updateRouteAvailable:pc mask:(pc.maxmask - [a[1] intValue]) linksetName:linkset];
+                    }
+                }
+            }
+        }
+    }
+
+    /*****************************************************************/
+    /* SCCP */
+    /*****************************************************************/
+    names = [_runningConfig getSCCPNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getSCCP:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigSCCP:config];
+        }
+    }
+
+    /* SCCP Destinations */
+    names = [_runningConfig getSCCPDestinationNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getSCCPDestination:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
+            [self addWithConfigSCCPDestination:config subConfigs:co.subConfigs variant:sccp.mtp3.variant];
+        }
+    }
+    /* FIXME: check if there's more in ESTP which we should add here */
+
+    /*****************************************************************/
+    /* TCAP */
+    /*****************************************************************/
+    names = [_runningConfig getTCAPNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getTCAP:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigTCAP:config];
+        }
+    }
+
+    /*****************************************************************/
+    /* GSMMAP */
+    /*****************************************************************/
+    names = [_runningConfig getGSMMAPNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getGSMMAP:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigGSMMAP:config];
+        }
+    }
+
+
+    /*********************************/
+    /* Setup SccpNumberTranslations  */
+    /*********************************/
+
+    names = [_runningConfig getSCCPNumberTranslationNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigSCCPNumberTranslation *co = [_runningConfig getSCCPNumberTranslation:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+
+        SccpNumberTranslation *translation = [[SccpNumberTranslation alloc]initWithConfig:config];
+        NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
+        for(UMSS7ConfigSCCPNumberTranslationEntry *e in entries)
+        {
+            SccpNumberTranslationEntry *entry = [[SccpNumberTranslationEntry alloc]initWithConfig:e.config.dictionaryCopy];
+            [translation addEntry:entry];
+        }
+        _sccp_number_translations_dict[translation.name] = translation;
+    }
+
+    /*****************************/
+    /* Setup GTT Routing Tables  */
+    /*****************************/
+
+    names = [_runningConfig getSCCPTranslationTableNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigSCCPTranslationTable *co = [_runningConfig getSCCPTranslationTable:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+
+        SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
+        if(selector.preTranslationName.length > 0)
+        {
+            selector.preTranslation = _sccp_number_translations_dict[selector.preTranslationName];
+        }
+        if(selector.postTranslationName.length > 0)
+        {
+            selector.postTranslation = _sccp_number_translations_dict[selector.postTranslationName];
+        }
+        UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
+        [sccp.gttSelectorRegistry addEntry:selector];
+
+
+        NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
+        for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
+        {
+            SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
+            if(entry.postTranslationName)
+            {
+                entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
+            }
             /*
-			if(entry.routeToName)
-			{
-				entry.routeTo = [self getSCCPDestination: entry.routeToName];
-			}*/
-			[selector.routingTable addEntry:entry];
-		}
-	}
+             if(entry.routeToName)
+             {
+             entry.routeTo = [self getSCCPDestination: entry.routeToName];
+             }*/
+            [selector.routingTable addEntry:entry];
+        }
+    }
 
     /*****************************************************************/
     /* Section IMSI Pool */
@@ -1089,77 +1095,77 @@ static void signalHandler(int signum);
         }
     }
 
-	/*****************************************************************/
-	/* Configuring App and set up a ULibTransport entity for it     */
-	/*****************************************************************/
-	if([_enabledOptions[@"estp"] boolValue])
-	{
-		names = [_runningConfig getESTPNames];
-		if(names.count==1)
-		{
-			NSString *name = names[0];
-			UMSS7ConfigESTP *co = [_runningConfig getESTP:name];
-			UMLayerSCCP *sccp  = [self getSCCP:co.sccp];
-			if(sccp==NULL)
-			{
-				CONFIG_ERROR(@"can not find sccp entry for estp config");
-			}
+    /*****************************************************************/
+    /* Configuring App and set up a ULibTransport entity for it     */
+    /*****************************************************************/
+    if([_enabledOptions[@"estp"] boolValue])
+    {
+        names = [_runningConfig getESTPNames];
+        if(names.count==1)
+        {
+            NSString *name = names[0];
+            UMSS7ConfigESTP *co = [_runningConfig getESTP:name];
+            UMLayerSCCP *sccp  = [self getSCCP:co.sccp];
+            if(sccp==NULL)
+            {
+                CONFIG_ERROR(@"can not find sccp entry for estp config");
+            }
 
-			NSMutableDictionary *tcapConfig = [[NSMutableDictionary alloc]init];
-			NSString *tcapName = [NSString stringWithFormat:@"_ulibtransport-tcap-%@",co.sccp];
-			tcapConfig[@"name"] = tcapName;
-			tcapConfig[@"attach-to"] = co.sccp;
-			tcapConfig[@"variant"] = @"itu";
-			tcapConfig[@"subsystem"] = @(SCCP_SSN_ULIBTRANSPORT);
-			tcapConfig[@"timeout"] = @(30);
-			tcapConfig[@"number"] =co.number;
+            NSMutableDictionary *tcapConfig = [[NSMutableDictionary alloc]init];
+            NSString *tcapName = [NSString stringWithFormat:@"_ulibtransport-tcap-%@",co.sccp];
+            tcapConfig[@"name"] = tcapName;
+            tcapConfig[@"attach-to"] = co.sccp;
+            tcapConfig[@"variant"] = @"itu";
+            tcapConfig[@"subsystem"] = @(SCCP_SSN_ULIBTRANSPORT);
+            tcapConfig[@"timeout"] = @(30);
+            tcapConfig[@"number"] =co.number;
 
 
-			UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
-			tcap.logFeed = [[UMLogFeed alloc]initWithHandler:self.logHandler section:@"tcap"];
-			tcap.logFeed.name = tcapName;
-			tcap.attachedLayer = sccp;
-			[tcap setConfig:tcapConfig applicationContext:self];
-			_tcap_dict[tcapName] = tcap;
-			_umtransportService.tcap = tcap;
+            UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
+            tcap.logFeed = [[UMLogFeed alloc]initWithHandler:self.logHandler section:@"tcap"];
+            tcap.logFeed.name = tcapName;
+            tcap.attachedLayer = sccp;
+            [tcap setConfig:tcapConfig applicationContext:self];
+            _tcap_dict[tcapName] = tcap;
+            _umtransportService.tcap = tcap;
 
-			SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_ULIBTRANSPORT];
-			SccpAddress *sccpAddr =  [[SccpAddress alloc] initWithHumanReadableString:co.number sccpVariant:sccp.sccpVariant mtp3Variant:sccp.mtp3.variant];
-			_umtransportService.localAddress = sccpAddr;
-			[sccp setUser:tcap forSubsystem:ssn number:sccpAddr];
-			[sccp setUser:tcap forSubsystem:ssn];
+            SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_ULIBTRANSPORT];
+            SccpAddress *sccpAddr =  [[SccpAddress alloc] initWithHumanReadableString:co.number sccpVariant:sccp.sccpVariant mtp3Variant:sccp.mtp3.variant];
+            _umtransportService.localAddress = sccpAddr;
+            [sccp setUser:tcap forSubsystem:ssn number:sccpAddr];
+            [sccp setUser:tcap forSubsystem:ssn];
 
-			/*****************************************************************************/
-			/* we are creating a destination group for umtransport                       */
-			/*****************************************************************************/
-			SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
-			[dstgrp setConfig:@{ @"name" : @"_umtransport" } applicationContext:self];
-			SccpDestination *destination = [[SccpDestination alloc]initWithConfig:
-											@{ @"name" : @"_umtransport-1",
-											   @"ssn"  : @(SCCP_SSN_ULIBTRANSPORT) }
-																		  variant:UMMTP3Variant_ITU];
-			[dstgrp addEntry:destination];
+            /*****************************************************************************/
+            /* we are creating a destination group for umtransport                       */
+            /*****************************************************************************/
+            SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
+            [dstgrp setConfig:@{ @"name" : @"_umtransport" } applicationContext:self];
+            SccpDestination *destination = [[SccpDestination alloc]initWithConfig:
+                                            @{ @"name" : @"_umtransport-1",
+                                               @"ssn"  : @(SCCP_SSN_ULIBTRANSPORT) }
+                                                                          variant:UMMTP3Variant_ITU];
+            [dstgrp addEntry:destination];
             [sccp.gttSelectorRegistry addDestinationGroup:dstgrp];
-			/*****************************************************************************/
-			/* we add a GT route to the destination                                      */
-			/*****************************************************************************/
-			NSMutableDictionary *sConfig = [[NSMutableDictionary alloc]init];
-			sConfig[@"gta"] = co.number;
-			sConfig[@"destination"] = co.number;
-			SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:
-											   @{ @"gta" : co.number, @"destination" : @"_umtransport" }];
-			SccpGttSelector *selector = [sccp.gttSelectorRegistry selectorForInstance:co.sccp
-																				   tt:0
-																				  gti:4
-																				   np:1
-																				  nai:4];
-			[selector.routingTable addEntry:entry];
-		}
-		else
-		{
-			CONFIG_ERROR(@"One and only one ESTP config section is required and it must have a name");
-		}
-	}
+            /*****************************************************************************/
+            /* we add a GT route to the destination                                      */
+            /*****************************************************************************/
+            NSMutableDictionary *sConfig = [[NSMutableDictionary alloc]init];
+            sConfig[@"gta"] = co.number;
+            sConfig[@"destination"] = co.number;
+            SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:
+                                               @{ @"gta" : co.number, @"destination" : @"_umtransport" }];
+            SccpGttSelector *selector = [sccp.gttSelectorRegistry selectorForInstance:co.sccp
+                                                                                   tt:0
+                                                                                  gti:4
+                                                                                   np:1
+                                                                                  nai:4];
+            [selector.routingTable addEntry:entry];
+        }
+        else
+        {
+            CONFIG_ERROR(@"One and only one ESTP config section is required and it must have a name");
+        }
+    }
 
 
     /*****************************************************************/
@@ -1229,15 +1235,15 @@ static void signalHandler(int signum);
 
 - (void)startInstances
 {
-	[self.logFeed infoText:@"Starting Instances"];
-	NSArray *names = [_mtp3_dict allKeys];
-	for(NSString *name in names)
-	{
+    [self.logFeed infoText:@"Starting Instances"];
+    NSArray *names = [_mtp3_dict allKeys];
+    for(NSString *name in names)
+    {
         UMLayerMTP3 *mtp3 = [self getMTP3:name];
-		NSLog(@"mtp3 %@ starting",mtp3.layerName);
-		[mtp3 start];
-		NSLog(@"mtp3 %@ started",mtp3.layerName);
-	}
+        NSLog(@"mtp3 %@ starting",mtp3.layerName);
+        [mtp3 start];
+        NSLog(@"mtp3 %@ started",mtp3.layerName);
+    }
 
     names = [_diameter_router_dict allKeys];
     for(NSString *name in names)
@@ -1251,31 +1257,31 @@ static void signalHandler(int signum);
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	if(!self.startInStandby)
-	{
-		[self.logFeed infoText:@"Stating instances"];
-		[self startInstances];
-	}
-	else
-	{
-		[self.logFeed infoText:@"Stating up in standby"];
-	}
+    if(!self.startInStandby)
+    {
+        [self.logFeed infoText:@"Stating instances"];
+        [self startInstances];
+    }
+    else
+    {
+        [self.logFeed infoText:@"Stating up in standby"];
+    }
 }
 
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-	// Insert code here to tear down your application
+    // Insert code here to tear down your application
 }
 
 - (void)applicationGoToHot
 {
-	/* FIXME: do something */
+    /* FIXME: do something */
 }
 - (void)applicationGoToStandby
 {
-	/* FIXME: do something */
+    /* FIXME: do something */
 }
 
 /************************************************************/
@@ -1285,41 +1291,41 @@ static void signalHandler(int signum);
 
 - (void)  httpGetPost:(UMHTTPRequest *)req
 {
-	@autoreleasepool
-	{
-		NSString *path = req.url.relativePath;
+    @autoreleasepool
+    {
+        NSString *path = req.url.relativePath;
 
-		if([path isEqualToString:@"/css/style.css"])
-		{
-			[req setResponseCssString:[SS7AppDelegate css]];
-		}
-		else if([path isEqualToString:@"/status"])
-		{
-			[self handleStatus:req];
-		}
-		else if([path isEqualToString:@"/"])
-		{
-			NSString *s = [self webIndex];
-			[req setResponseHtmlString:s];
-		}
+        if([path isEqualToString:@"/css/style.css"])
+        {
+            [req setResponseCssString:[SS7AppDelegate css]];
+        }
+        else if([path isEqualToString:@"/status"])
+        {
+            [self handleStatus:req];
+        }
+        else if([path isEqualToString:@"/"])
+        {
+            NSString *s = [self webIndex];
+            [req setResponseHtmlString:s];
+        }
         else if([path isEqualToString:@"/route-test"])
         {
             [self handleRouteTest:req];
         }
 
-		else if([path isEqualToString:@"/debug"])
-		{
-			NSString *s = [self webIndexDebug];
-			[req setResponseHtmlString:s];
-		}
-		else if([path isEqualToString:@"/debug/umobject-stat"])
-		{
-			[self umobjectStat:req];
-		}
-		else if([path isEqualToString:@"/debug/ummutex-stat"])
-		{
-			[self ummutexStat:req];
-		}
+        else if([path isEqualToString:@"/debug"])
+        {
+            NSString *s = [self webIndexDebug];
+            [req setResponseHtmlString:s];
+        }
+        else if([path isEqualToString:@"/debug/umobject-stat"])
+        {
+            [self umobjectStat:req];
+        }
+        else if([path isEqualToString:@"/debug/ummutex-stat"])
+        {
+            [self ummutexStat:req];
+        }
         else if([path isEqualToString:@"/status/sccp/route"])
         {
             [self hanldeSCCPRouteStatus:req];
@@ -1340,102 +1346,102 @@ static void signalHandler(int signum);
         {
             [self handleSCTPStatus:req];
         }
-		else
-		{
-			NSString *s = @"Result: Error\nReason: Unknown request\n";
-			[req setResponseTypeText];
-			req.responseData = [s dataUsingEncoding:NSUTF8StringEncoding];
-			req.responseCode =  404;
-		}
-	}
+        else
+        {
+            NSString *s = @"Result: Error\nReason: Unknown request\n";
+            [req setResponseTypeText];
+            req.responseData = [s dataUsingEncoding:NSUTF8StringEncoding];
+            req.responseCode =  404;
+        }
+    }
 }
 
 - (void)umobjectStat:(UMHTTPRequest *)req
 {
-	NSDictionary *p = req.params;
-	if (p[@"disable"])
-	{
-		if(umobject_object_stat_is_enabled())
-		{
-			umobject_disable_object_stat();
-			NSString *path = req.path;
-			NSArray *a = [path componentsSeparatedByString:@"?"];
-			if(a.count > 1)
-			{
-				path=a[0];
-			}
-			[req redirect:path];
-			return;
-		}
-	}
-	if (p[@"enable"])
-	{
-		if(umobject_object_stat_is_enabled()==NO)
-		{
-			umobject_enable_object_stat();
-			NSString *path = req.path;
-			NSArray *a = [path componentsSeparatedByString:@"?"];
-			if(a.count > 1)
-			{
-				path=a[0];
-			}
-			[req redirect:path];
-			return;
-		}
-	}
+    NSDictionary *p = req.params;
+    if (p[@"disable"])
+    {
+        if(umobject_object_stat_is_enabled())
+        {
+            umobject_disable_object_stat();
+            NSString *path = req.path;
+            NSArray *a = [path componentsSeparatedByString:@"?"];
+            if(a.count > 1)
+            {
+                path=a[0];
+            }
+            [req redirect:path];
+            return;
+        }
+    }
+    if (p[@"enable"])
+    {
+        if(umobject_object_stat_is_enabled()==NO)
+        {
+            umobject_enable_object_stat();
+            NSString *path = req.path;
+            NSArray *a = [path componentsSeparatedByString:@"?"];
+            if(a.count > 1)
+            {
+                path=a[0];
+            }
+            [req redirect:path];
+            return;
+        }
+    }
 
-	NSMutableString *s = [[NSMutableString alloc]init];
-	[s appendString:@"<html>\n"];
-	[s appendString:@"<header>\n"];
-	[s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
-	[s appendFormat:@"    <title>Debug: UMObject Statistic</title>\n"];
-	[s appendString:@"</header>\n"];
-	[s appendString:@"<body>\n"];
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<header>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>Debug: UMObject Statistic</title>\n"];
+    [s appendString:@"</header>\n"];
+    [s appendString:@"<body>\n"];
 
-	[s appendString:@"<h2>Debug: UMObject Statistic</h2>\n"];
-	[s appendString:@"<UL>\n"];
-	[s appendString:@"<LI><a href=\"/\">main</a></LI>\n"];
-	[s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
-	[s appendString:@"</UL>\n"];
+    [s appendString:@"<h2>Debug: UMObject Statistic</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">main</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
 
 
 
-	if(umobject_object_stat_is_enabled())
-	{
+    if(umobject_object_stat_is_enabled())
+    {
 
-		[s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
+        [s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
 
-		NSArray *arr = umobject_object_stat(NO);
-		[s appendString:@"<table class=\"object_table\">\n"];
-		[s appendString:@"    <tr>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Object Type</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Alloc Count</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Dealloc Count</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Currently Allocated</th>\r\n"];
-		[s appendString:@"    </tr>\r\n"];
-		for(UMObjectStatisticEntry *entry in arr)
-		{
-			[s appendString:@"    <tr>\r\n"];
-			long long allocCounter = entry.allocCounter;
-			long long deallocCounter = entry.deallocCounter;
-			long long inUseCounter 	 =  entry.inUseCounter;
+        NSArray *arr = umobject_object_stat(NO);
+        [s appendString:@"<table class=\"object_table\">\n"];
+        [s appendString:@"    <tr>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Object Type</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Alloc Count</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Dealloc Count</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Currently Allocated</th>\r\n"];
+        [s appendString:@"    </tr>\r\n"];
+        for(UMObjectStatisticEntry *entry in arr)
+        {
+            [s appendString:@"    <tr>\r\n"];
+            long long allocCounter = entry.allocCounter;
+            long long deallocCounter = entry.deallocCounter;
+            long long inUseCounter      =  entry.inUseCounter;
 
-			[s appendFormat:@"        <td class=\"smsc_value\">%s</th>\r\n", entry.name];
-			[s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",allocCounter];
-			[s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",deallocCounter];
-			[s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",inUseCounter];
-			[s appendString:@"    </tr>\r\n"];
+            [s appendFormat:@"        <td class=\"smsc_value\">%s</th>\r\n", entry.name];
+            [s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",allocCounter];
+            [s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",deallocCounter];
+            [s appendFormat:@"        <td class=\"smsc_value\">%lld</th>\r\n",inUseCounter];
+            [s appendString:@"    </tr>\r\n"];
 
-		}
-		[s appendString:@"</table>\r\n"];
-	}
-	else
-	{
-		[s appendFormat:@"<form method=get><input type=submit name=\"enable\" value=\"enable\"></form>"];
-	}
-	[s appendString:@"</body>\r\n"];
-	[s appendString:@"</html>\r\n"];
-	[req setResponseHtmlString:s];
+        }
+        [s appendString:@"</table>\r\n"];
+    }
+    else
+    {
+        [s appendFormat:@"<form method=get><input type=submit name=\"enable\" value=\"enable\"></form>"];
+    }
+    [s appendString:@"</body>\r\n"];
+    [s appendString:@"</html>\r\n"];
+    [req setResponseHtmlString:s];
 }
 
 - (void)hanldeSCCPRouteStatus:(UMHTTPRequest *)req
@@ -1474,159 +1480,159 @@ static void signalHandler(int signum);
 
 - (void)ummutexStat:(UMHTTPRequest *)req
 {
-	NSDictionary *p = req.params;
-	if (p[@"disable"])
-	{
-		if(ummutex_stat_is_enabled()==YES)
-		{
-			ummutex_stat_disable();
-			NSString *path = req.path;
-			NSArray *a = [path componentsSeparatedByString:@"?"];
-			if(a.count > 1)
-			{
-				path=a[0];
-			}
-			[req redirect:path];
-			return;
-		}
-	}
-	if (p[@"enable"])
-	{
-		if(ummutex_stat_is_enabled()==NO)
-		{
-			ummutex_stat_enable();
-			NSString *path = req.path;
-			NSArray *a = [path componentsSeparatedByString:@"?"];
-			if(a.count > 1)
-			{
-				path=a[0];
-			}
-			[req redirect:path];
-			return;
-		}
-	}
+    NSDictionary *p = req.params;
+    if (p[@"disable"])
+    {
+        if(ummutex_stat_is_enabled()==YES)
+        {
+            ummutex_stat_disable();
+            NSString *path = req.path;
+            NSArray *a = [path componentsSeparatedByString:@"?"];
+            if(a.count > 1)
+            {
+                path=a[0];
+            }
+            [req redirect:path];
+            return;
+        }
+    }
+    if (p[@"enable"])
+    {
+        if(ummutex_stat_is_enabled()==NO)
+        {
+            ummutex_stat_enable();
+            NSString *path = req.path;
+            NSArray *a = [path componentsSeparatedByString:@"?"];
+            if(a.count > 1)
+            {
+                path=a[0];
+            }
+            [req redirect:path];
+            return;
+        }
+    }
 
 
-	NSMutableString *s = [[NSMutableString alloc]init];
+    NSMutableString *s = [[NSMutableString alloc]init];
 
-	[s appendString:@"<html>\n"];
-	[s appendString:@"<header>\n"];
-	[s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
-	[s appendFormat:@"    <title>Debug: UMMutex Statistic</title>\n"];
-	[s appendString:@"</header>\n"];
-	[s appendString:@"<body>\n"];
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<header>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>Debug: UMMutex Statistic</title>\n"];
+    [s appendString:@"</header>\n"];
+    [s appendString:@"<body>\n"];
 
-	[s appendString:@"<h2>Debug: UMMutex Statistic</h2>\n"];
-	[s appendString:@"<UL>\n"];
-	[s appendString:@"<LI><a href=\"/\">main</a></LI>\n"];
-	[s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
-	[s appendString:@"</UL>\n"];
+    [s appendString:@"<h2>Debug: UMMutex Statistic</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">main</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
 
-	if(ummutex_stat_is_enabled())
-	{
-		[s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
-		NSArray *arr = ummutex_stat(YES);
-		[s appendString:@"<table class=\"object_table\">\n"];
-		[s appendString:@"    <tr>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Mutex Name</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Lock Count</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Trylock Count</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Unlock Count</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Waiting Count</th>\r\n"];
-		[s appendString:@"        <th class=\"object_title\">Currently Locked</th>\r\n"];
-		[s appendString:@"    </tr>\r\n"];
-		for(UMMutexStat *entry in arr)
-		{
-			[s appendString:@"    <tr>\r\n"];
-			[s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n", entry.name];
-			[s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.lock_count];
-			[s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.trylock_count];
-			[s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.unlock_count];
-			[s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.waiting_count];
-			if(entry.currently_locked)
-			{
-				[s appendFormat:@"        <td class=\"object_value\">YES</td>\r\n"];
-			}
-			else
-			{
-				[s appendFormat:@"        <td class=\"object_value\">no</td>\r\n"];
-			}
-			[s appendString:@"    </tr>\r\n"];
-		}
-	}
-	else
-	{
-		[s appendFormat:@"<form method=get><input type=submit name=\"enable\" value=\"enable\"></form>"];
-	}
-	[s appendString:@"</table>\r\n"];
-	[s appendString:@"</body>\r\n"];
-	[s appendString:@"</html>\r\n"];
-	[req setResponseHtmlString:s];
+    if(ummutex_stat_is_enabled())
+    {
+        [s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
+        NSArray *arr = ummutex_stat(YES);
+        [s appendString:@"<table class=\"object_table\">\n"];
+        [s appendString:@"    <tr>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Mutex Name</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Lock Count</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Trylock Count</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Unlock Count</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Waiting Count</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Currently Locked</th>\r\n"];
+        [s appendString:@"    </tr>\r\n"];
+        for(UMMutexStat *entry in arr)
+        {
+            [s appendString:@"    <tr>\r\n"];
+            [s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n", entry.name];
+            [s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.lock_count];
+            [s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.trylock_count];
+            [s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.unlock_count];
+            [s appendFormat:@"        <td class=\"object_value\">%ld</td>\r\n",(long)entry.waiting_count];
+            if(entry.currently_locked)
+            {
+                [s appendFormat:@"        <td class=\"object_value\">YES</td>\r\n"];
+            }
+            else
+            {
+                [s appendFormat:@"        <td class=\"object_value\">no</td>\r\n"];
+            }
+            [s appendString:@"    </tr>\r\n"];
+        }
+    }
+    else
+    {
+        [s appendFormat:@"<form method=get><input type=submit name=\"enable\" value=\"enable\"></form>"];
+    }
+    [s appendString:@"</table>\r\n"];
+    [s appendString:@"</body>\r\n"];
+    [s appendString:@"</html>\r\n"];
+    [req setResponseHtmlString:s];
 }
 
 - (NSString *)webIndexDebug
 {
-	static NSMutableString *s = NULL;
-	if(s)
-	{
-		return s;
-	}
-	s = [[NSMutableString alloc]init];
+    static NSMutableString *s = NULL;
+    if(s)
+    {
+        return s;
+    }
+    s = [[NSMutableString alloc]init];
 
-	[s appendString:@"<html>\n"];
-	[s appendString:@"<header>\n"];
-	[s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
-	[s appendFormat:@"    <title>Debug Menu</title>\n"];
-	[s appendString:@"</header>\n"];
-	[s appendString:@"<body>\n"];
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<header>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>Debug Menu</title>\n"];
+    [s appendString:@"</header>\n"];
+    [s appendString:@"<body>\n"];
 
-	[s appendString:@"<h2>Debug Menu</h2>\n"];
-	[s appendString:@"<UL>\n"];
-	[s appendString:@"<LI><a href=\"/\">&lt-- main-menu</a></LI>\n"];
-	[s appendString:@"<LI><a href=\"/debug/umobject-stat\">umobject-stat</a></LI>\n"];
-	[s appendString:@"</UL>\n"];
-	[s appendString:@"</body>\n"];
-	[s appendString:@"</html>\n"];
-	return s;
+    [s appendString:@"<h2>Debug Menu</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">&lt-- main-menu</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/debug/umobject-stat\">umobject-stat</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
+    [s appendString:@"</body>\n"];
+    [s appendString:@"</html>\n"];
+    return s;
 }
 
 - (NSString *)webIndex
 {
-	static NSMutableString *s = NULL;
-	if(s)
-	{
-		return s;
-	}
-	s = [[NSMutableString alloc]init];
-	[SS7GenericInstance webHeader:s title:@"Main Menu"];
+    static NSMutableString *s = NULL;
+    if(s)
+    {
+        return s;
+    }
+    s = [[NSMutableString alloc]init];
+    [SS7GenericInstance webHeader:s title:@"Main Menu"];
 
-	[s appendString:@"<h2>Main Menu</h2>\n"];
-	[s appendString:@"<UL>\n"];
+    [s appendString:@"<h2>Main Menu</h2>\n"];
+    [s appendString:@"<UL>\n"];
     [s appendString:@"<LI><a href=\"/status\">status</a></LI>\n"];
     [s appendString:@"<LI><a href=\"/route-test\">route-test</a></LI>\n"];
-	/* FIXME
-	 if(mainMscInstance)
-	 {
-	 [s appendString:@"<LI><a href=\"/msc\">msc</a></LI>\n"];
-	 }
-	 else
-	 {
-	 [s appendString:@"<LI><i>msc</i></LI>\n"];
-	 }
+    /* FIXME
+     if(mainMscInstance)
+     {
+     [s appendString:@"<LI><a href=\"/msc\">msc</a></LI>\n"];
+     }
+     else
+     {
+     [s appendString:@"<LI><i>msc</i></LI>\n"];
+     }
 
-	 if(mainHlrInstance)
-	 {
-	 [s appendString:@"<LI><a href=\"/hlr\">hlr</a></LI>\n"];
-	 }
-	 else
-	 {
-	 [s appendString:@"<LI><i>hlr</i></LI>\n"];
-	 }
-	 */
-	[s appendString:@"</UL>\n"];
-	[s appendString:@"</body>\n"];
-	[s appendString:@"</html>\n"];
-	return s;
+     if(mainHlrInstance)
+     {
+     [s appendString:@"<LI><a href=\"/hlr\">hlr</a></LI>\n"];
+     }
+     else
+     {
+     [s appendString:@"<LI><i>hlr</i></LI>\n"];
+     }
+     */
+    [s appendString:@"</UL>\n"];
+    [s appendString:@"</body>\n"];
+    [s appendString:@"</html>\n"];
+    return s;
 }
 
 - (NSString *)routeTestForm:(NSString *)err
@@ -1695,247 +1701,247 @@ static void signalHandler(int signum);
 
 - (void)  handleStatus:(UMHTTPRequest *)req
 {
-	NSMutableString *status = [[NSMutableString alloc]init];
+    NSMutableString *status = [[NSMutableString alloc]init];
     NSArray *keys = [_sctp_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMLayerSctp *sctp = _sctp_dict[key];
-		[status appendFormat:@"SCTP:%@:%@\n",sctp.layerName,sctp.statusString];
-	}
+    for(NSString *key in keys)
+    {
+        UMLayerSctp *sctp = _sctp_dict[key];
+        [status appendFormat:@"SCTP:%@:%@\n",sctp.layerName,sctp.statusString];
+    }
 
-	keys = [_m2pa_dict allKeys];
+    keys = [_m2pa_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 
-	for(NSString *key in keys)
-	{
-		UMLayerM2PA *m2pa = _m2pa_dict[key];
+    for(NSString *key in keys)
+    {
+        UMLayerM2PA *m2pa = _m2pa_dict[key];
 
-		[status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[m2pa m2paStatusString:m2pa.m2pa_status]];
+        [status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[m2pa m2paStatusString:m2pa.m2pa_status]];
 
-		[status appendFormat:@"    lscState: %@\n", m2pa.lscState.description];
-		[status appendFormat:@"    iacState: %@\n", m2pa.iacState.description];
-		[status appendFormat:@"    alignmentsReceived: %d\n", (int)m2pa.alignmentsReceived];
-		[status appendFormat:@"    local_processor_outage: %@\n", (m2pa.local_processor_outage ? @"YES" : @"NO")];
-		[status appendFormat:@"    remote_processor_outage: %@\n", (m2pa.remote_processor_outage ? @"YES" : @"NO")];
-		[status appendFormat:@"    outstanding: %d\n", m2pa.outstanding];
-	}
+        [status appendFormat:@"    lscState: %@\n", m2pa.lscState.description];
+        [status appendFormat:@"    iacState: %@\n", m2pa.iacState.description];
+        [status appendFormat:@"    alignmentsReceived: %d\n", (int)m2pa.alignmentsReceived];
+        [status appendFormat:@"    local_processor_outage: %@\n", (m2pa.local_processor_outage ? @"YES" : @"NO")];
+        [status appendFormat:@"    remote_processor_outage: %@\n", (m2pa.remote_processor_outage ? @"YES" : @"NO")];
+        [status appendFormat:@"    outstanding: %d\n", m2pa.outstanding];
+    }
 
-	keys = [_mtp3_linkset_dict allKeys];
+    keys = [_mtp3_linkset_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMMTP3LinkSet *linkset = _mtp3_linkset_dict[key];
-		[linkset updateLinkSetStatus];
-		if(linkset.activeLinks > 0)
-		{
-			[status appendFormat:@"MTP3-LINKSET:%@:IS:%d/%d/%d\n",
-			 linkset.name,
-			 linkset.readyLinks,
-			 linkset.activeLinks,
-			 linkset.totalLinks];
+    for(NSString *key in keys)
+    {
+        UMMTP3LinkSet *linkset = _mtp3_linkset_dict[key];
+        [linkset updateLinkSetStatus];
+        if(linkset.activeLinks > 0)
+        {
+            [status appendFormat:@"MTP3-LINKSET:%@:IS:%d/%d/%d\n",
+             linkset.name,
+             linkset.readyLinks,
+             linkset.activeLinks,
+             linkset.totalLinks];
             [status appendString:[linkset webStatus]];
-		}
-		else
-		{
-			[status appendFormat:@"MTP3-LINKSET:%@:OOS:%d/%d/%d\n",
-			 linkset.name,
-			 linkset.readyLinks,
-			 linkset.activeLinks,
-			 linkset.totalLinks];
+        }
+        else
+        {
+            [status appendFormat:@"MTP3-LINKSET:%@:OOS:%d/%d/%d\n",
+             linkset.name,
+             linkset.readyLinks,
+             linkset.activeLinks,
+             linkset.totalLinks];
             [status appendString:[linkset webStatus]];
-		}
-	}
+        }
+    }
 
-	keys = [_m3ua_asp_dict allKeys];
+    keys = [_m3ua_asp_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMM3UAApplicationServerProcess *m3ua_asp = _m3ua_asp_dict[key];
-		[status appendFormat:@"M3UA-ASP:%@:%@\n",m3ua_asp.layerName,m3ua_asp.statusString];
-	}
+    for(NSString *key in keys)
+    {
+        UMM3UAApplicationServerProcess *m3ua_asp = _m3ua_asp_dict[key];
+        [status appendFormat:@"M3UA-ASP:%@:%@\n",m3ua_asp.layerName,m3ua_asp.statusString];
+    }
 
-	keys = [_m3ua_as_dict allKeys];
+    keys = [_m3ua_as_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMM3UAApplicationServer *as = _m3ua_as_dict[key];
-		[status appendFormat:@"M3UA-AS:%@:%@",as.layerName,as.statusString];
-		[as updateLinkSetStatus];
-		[status appendFormat:@":%d/%d/%d\n",as.readyLinks,as.activeLinks,as.totalLinks];
-	}
+    for(NSString *key in keys)
+    {
+        UMM3UAApplicationServer *as = _m3ua_as_dict[key];
+        [status appendFormat:@"M3UA-AS:%@:%@",as.layerName,as.statusString];
+        [as updateLinkSetStatus];
+        [status appendFormat:@":%d/%d/%d\n",as.readyLinks,as.activeLinks,as.totalLinks];
+    }
 
-	keys = [_mtp3_dict allKeys];
+    keys = [_mtp3_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMLayerMTP3 *mtp3 = _mtp3_dict[key];
-		if(mtp3.ready)
-		{
-			[status appendFormat:@"MTP3-INSTANCE:%@:IS\n",mtp3.layerName];
-		}
-		else
-		{
-			[status appendFormat:@"MTP3-INSTANCE:%@:OOS\n",mtp3.layerName];
-		}
-	}
+    for(NSString *key in keys)
+    {
+        UMLayerMTP3 *mtp3 = _mtp3_dict[key];
+        if(mtp3.ready)
+        {
+            [status appendFormat:@"MTP3-INSTANCE:%@:IS\n",mtp3.layerName];
+        }
+        else
+        {
+            [status appendFormat:@"MTP3-INSTANCE:%@:OOS\n",mtp3.layerName];
+        }
+    }
 
-	keys = [_sccp_dict allKeys];
+    keys = [_sccp_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMLayerSCCP *sccp = _sccp_dict[key];
-		[status appendFormat:@"SCCP-INSTANCE:%@:%@\n",sccp.layerName,sccp.status];
-	}
+    for(NSString *key in keys)
+    {
+        UMLayerSCCP *sccp = _sccp_dict[key];
+        [status appendFormat:@"SCCP-INSTANCE:%@:%@\n",sccp.layerName,sccp.status];
+    }
 
-	keys = [_tcap_dict allKeys];
+    keys = [_tcap_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMLayerTCAP *tcap = _tcap_dict[key];
-		[status appendFormat:@"TCAP-INSTANCE:%@:%@\n",tcap.layerName,tcap.status];
-	}
+    for(NSString *key in keys)
+    {
+        UMLayerTCAP *tcap = _tcap_dict[key];
+        [status appendFormat:@"TCAP-INSTANCE:%@:%@\n",tcap.layerName,tcap.status];
+    }
 
-	keys = [_gsmmap_dict allKeys];
+    keys = [_gsmmap_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMLayerGSMMAP *map = _gsmmap_dict[key];
-		[status appendFormat:@"GSMMAP-INSTANCE:%@:%@\n",map.layerName,map.status];
-	}
+    for(NSString *key in keys)
+    {
+        UMLayerGSMMAP *map = _gsmmap_dict[key];
+        [status appendFormat:@"GSMMAP-INSTANCE:%@:%@\n",map.layerName,map.status];
+    }
 
-	keys = [_camel_dict allKeys];
+    keys = [_camel_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	for(NSString *key in keys)
-	{
-		UMLayerCamel *map = _camel_dict[key];
-		[status appendFormat:@"CAMEL-INSTANCE:%@:%@\n",map.layerName,map.status];
-	}
-	[req setResponsePlainText:status];
-	return;
+    for(NSString *key in keys)
+    {
+        UMLayerCamel *map = _camel_dict[key];
+        [status appendFormat:@"CAMEL-INSTANCE:%@:%@\n",map.layerName,map.status];
+    }
+    [req setResponsePlainText:status];
+    return;
 }
 
 + (NSString *)css
 {
-	static NSMutableString *s = NULL;
+    static NSMutableString *s = NULL;
 
-	if(s)
-	{
-		return s;
-	}
-	s = [[NSMutableString alloc]init];
+    if(s)
+    {
+        return s;
+    }
+    s = [[NSMutableString alloc]init];
 
-	[s appendString:@"/*-- [START] css/mainarea.css --*/\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"body\n"];
-	[s appendString:@"{\n"];
-	[s appendString:@"    border: none;\n"];
-	[s appendString:@"    padding: 20px;\n"];
-	[s appendString:@"    margin: 0px;\n"];
-	[s appendString:@"    background-color:white;\n"];
-	[s appendString:@"    color: black;\n"];
-	[s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
-	[s appendString:@"    font-size: 11px;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"h1 {\n"];
-	[s appendString:@"    font-size: 22px;\n"];
-	[s appendString:@"    font-weight: normal;\n"];
-	[s appendString:@"    padding-left: 0px;\n"];
-	[s appendString:@"    margin-top: 15px;\n"];
-	[s appendString:@"    margin-bottom: 20px;\n"];
-	[s appendString:@"    color: #639c35;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"h2 {\n"];
-	[s appendString:@"    font-size: 16px;\n"];
-	[s appendString:@"    margin-bottom: 8px;\n"];
-	[s appendString:@"    margin-top: 10px;\n"];
-	[s appendString:@"    color: #639c35;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"h3 {\n"];
-	[s appendString:@"    font-size: 13px;\n"];
-	[s appendString:@"    margin-bottom: 8px;\n"];
-	[s appendString:@"    margin-top: 10px;\n"];
-	[s appendString:@"    \n"];
-	[s appendString:@"    color: black;\n"];
-	[s appendString:@"    font-weight: bold;\n"];
-	[s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
-	[s appendString:@"    font-size: 13px;\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"a {\n"];
-	[s appendString:@"    color: #000066;\n"];
-	[s appendString:@"    text-decoration: underline;\n"];
-	[s appendString:@"    font-weight: bold;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"a:hover {\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"hr {\n"];
-	[s appendString:@"    height: 1px;\n"];
-	[s appendString:@"    margin-bottom: 1em;\n"];
-	[s appendString:@"    border-width: 0px;\n"];
-	[s appendString:@"    border-bottom-width: 1px;\n"];
-	[s appendString:@"    border-color: #000000;\n"];
-	[s appendString:@"    border-style: solid;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@"\n"];
-	[s appendString:@".mandatory {\n"];
-	[s appendString:@"    color: red;\n"];
-	[s appendString:@"    font-weight: bold;\n"];
-	[s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
-	[s appendString:@"    font-size: 11px;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@".optional {\n"];
-	[s appendString:@"    color: green;\n"];
-	[s appendString:@"    font-weight: lighter;\n"];
-	[s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
-	[s appendString:@"    font-size: 11px;\n"];
+    [s appendString:@"/*-- [START] css/mainarea.css --*/\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"body\n"];
+    [s appendString:@"{\n"];
+    [s appendString:@"    border: none;\n"];
+    [s appendString:@"    padding: 20px;\n"];
+    [s appendString:@"    margin: 0px;\n"];
+    [s appendString:@"    background-color:white;\n"];
+    [s appendString:@"    color: black;\n"];
+    [s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
+    [s appendString:@"    font-size: 11px;\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"h1 {\n"];
+    [s appendString:@"    font-size: 22px;\n"];
+    [s appendString:@"    font-weight: normal;\n"];
+    [s appendString:@"    padding-left: 0px;\n"];
+    [s appendString:@"    margin-top: 15px;\n"];
+    [s appendString:@"    margin-bottom: 20px;\n"];
+    [s appendString:@"    color: #639c35;\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"h2 {\n"];
+    [s appendString:@"    font-size: 16px;\n"];
+    [s appendString:@"    margin-bottom: 8px;\n"];
+    [s appendString:@"    margin-top: 10px;\n"];
+    [s appendString:@"    color: #639c35;\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"h3 {\n"];
+    [s appendString:@"    font-size: 13px;\n"];
+    [s appendString:@"    margin-bottom: 8px;\n"];
+    [s appendString:@"    margin-top: 10px;\n"];
+    [s appendString:@"    \n"];
+    [s appendString:@"    color: black;\n"];
+    [s appendString:@"    font-weight: bold;\n"];
+    [s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
+    [s appendString:@"    font-size: 13px;\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"a {\n"];
+    [s appendString:@"    color: #000066;\n"];
+    [s appendString:@"    text-decoration: underline;\n"];
+    [s appendString:@"    font-weight: bold;\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"a:hover {\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"hr {\n"];
+    [s appendString:@"    height: 1px;\n"];
+    [s appendString:@"    margin-bottom: 1em;\n"];
+    [s appendString:@"    border-width: 0px;\n"];
+    [s appendString:@"    border-bottom-width: 1px;\n"];
+    [s appendString:@"    border-color: #000000;\n"];
+    [s appendString:@"    border-style: solid;\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@"\n"];
+    [s appendString:@".mandatory {\n"];
+    [s appendString:@"    color: red;\n"];
+    [s appendString:@"    font-weight: bold;\n"];
+    [s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
+    [s appendString:@"    font-size: 11px;\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@".optional {\n"];
+    [s appendString:@"    color: green;\n"];
+    [s appendString:@"    font-weight: lighter;\n"];
+    [s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
+    [s appendString:@"    font-size: 11px;\n"];
     [s appendString:@".conditional {\n"];
     [s appendString:@"    color: brown;\n"];
     [s appendString:@"    font-weight: lighter;\n"];
     [s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
     [s appendString:@"    font-size: 11px;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@"\n"];
-	[s appendString:@".subtitle {\n"];
-	[s appendString:@"    color: black;\n"];
-	[s appendString:@"    font-weight: bold;\n"];
-	[s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
-	[s appendString:@"    font-size: 12px;\n"];
-	[s appendString:@"}\n"];
-	[s appendString:@".object_table     {  border: solid black; border-width: 1px; border-collapse: collapse; }\n"];
-	[s appendString:@".object_title     {  border: solid black; border-width: 1px; background-color: #DDDDDD; }\n"];
-	[s appendString:@".object_value     {  border: solid gray; border-width: 1px; }\n"];
-	[s appendString:@".object_value_r   {  border: solid gray; border-width: 1px; text-align: right; }\n"];
-	[s appendString:@"}\n"];
-	return s;
+    [s appendString:@"}\n"];
+    [s appendString:@"\n"];
+    [s appendString:@".subtitle {\n"];
+    [s appendString:@"    color: black;\n"];
+    [s appendString:@"    font-weight: bold;\n"];
+    [s appendString:@"    font-family: 'Metrophobic', \"Lucida Grande\", \"Lucida Sans Unicode\", arial, Helvetica, Verdana;\n"];
+    [s appendString:@"    font-size: 12px;\n"];
+    [s appendString:@"}\n"];
+    [s appendString:@".object_table     {  border: solid black; border-width: 1px; border-collapse: collapse; }\n"];
+    [s appendString:@".object_title     {  border: solid black; border-width: 1px; background-color: #DDDDDD; }\n"];
+    [s appendString:@".object_value     {  border: solid gray; border-width: 1px; }\n"];
+    [s appendString:@".object_value_r   {  border: solid gray; border-width: 1px; text-align: right; }\n"];
+    [s appendString:@"}\n"];
+    return s;
 }
 
 - (UMHTTPAuthenticationStatus)httpAuthenticateRequest:(UMHTTPRequest *)req
-												realm:(NSString **)realm
+                                                realm:(NSString **)realm
 {
-	return UMHTTP_AUTHENTICATION_STATUS_NOT_REQUESTED;
+    return UMHTTP_AUTHENTICATION_STATUS_NOT_REQUESTED;
 
-	return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
+    return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
 }
 
 - (void)webHeader:(NSMutableString *)s title:(NSString *)t
 {
-	[s appendString:@"<html>\n"];
-	[s appendString:@"<header>\n"];
-	[s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
-	[s appendFormat:@"    <title>%@</title>\n",t];
-	[s appendString:@"</header>\n"];
-	[s appendString:@"<body>\n"];
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<header>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>%@</title>\n",t];
+    [s appendString:@"</header>\n"];
+    [s appendString:@"<body>\n"];
 }
 
 /************************************************************/
@@ -1946,7 +1952,7 @@ static void signalHandler(int signum);
 /* this is used for incoming telnet sessions to authorize by IP */
 - (BOOL) isAddressWhitelisted:(NSString *)ipAddress
 {
-	return YES;
+    return YES;
 }
 
 /************************************************************/
@@ -1956,36 +1962,36 @@ static void signalHandler(int signum);
 
 - (void)signal_SIGINT
 {
-	if (_must_quit == 0)
-	{
-		NSLog(@"SIGINT received, aborting program...");
-		_must_quit = 1;
-		[self applicationWillTerminate:NULL];
-	}
-	else
-	{
-		NSLog(@"SIGINT received again, force quitting program...");
-		_must_quit = 2;
-		exit(-1);
-	}
+    if (_must_quit == 0)
+    {
+        NSLog(@"SIGINT received, aborting program...");
+        _must_quit = 1;
+        [self applicationWillTerminate:NULL];
+    }
+    else
+    {
+        NSLog(@"SIGINT received again, force quitting program...");
+        _must_quit = 2;
+        exit(-1);
+    }
 }
 
 - (void)signal_SIGUSR1
 {
-	_schrittmacherMode = SchrittmacherMode_hot;
-	NSLog(@"SIGUSR1 received, going to hot...");
-	[self applicationGoToHot];
+    _schrittmacherMode = SchrittmacherMode_hot;
+    NSLog(@"SIGUSR1 received, going to hot...");
+    [self applicationGoToHot];
 }
 
 - (void)signal_SIGUSR2
 {
-	_schrittmacherMode = SchrittmacherMode_standby;
-	NSLog(@"SIGUSR2 received, going to standby...");
-	[self applicationGoToStandby];
+    _schrittmacherMode = SchrittmacherMode_standby;
+    NSLog(@"SIGUSR2 received, going to standby...");
+    [self applicationGoToStandby];
 }
 - (void)signal_SIGHUP
 {
-	NSLog(@"SIGHUP received, should be reopening logfile...");
+    NSLog(@"SIGHUP received, should be reopening logfile...");
 }
 
 
@@ -1996,43 +2002,43 @@ static void signalHandler(int signum);
 
 - (UMLayerSctp *)getSCTP:(NSString *)name
 {
-	return _sctp_dict[name];
+    return _sctp_dict[name];
 }
 
 - (void)addWithConfigSCTP:(NSDictionary *)config
 {
-	NSString *name = config[@"name"];
-	if(name)
-	{
-		UMSS7ConfigSCTP *co = [[UMSS7ConfigSCTP alloc]initWithConfig:config];
-		[_runningConfig addSCTP:co];
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMSS7ConfigSCTP *co = [[UMSS7ConfigSCTP alloc]initWithConfig:config];
+        [_runningConfig addSCTP:co];
 
-		config = co.config.dictionaryCopy;
+        config = co.config.dictionaryCopy;
         NSString *name = [config[@"name"]stringValue];
         UMLayerSctp *sctp = [[UMLayerSctp alloc]initWithTaskQueueMulti:_sctpTaskQueue name:name];
-		sctp.registry = _registry;
-		sctp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sctp"];
-		sctp.logFeed.name = name;
-		[sctp setConfig:config applicationContext:self];
-		_sctp_dict[name] = sctp;
-	}
+        sctp.registry = _registry;
+        sctp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sctp"];
+        sctp.logFeed.name = name;
+        [sctp setConfig:config applicationContext:self];
+        _sctp_dict[name] = sctp;
+    }
 }
 
 
 - (void)deleteSCTP:(NSString *)name
 {
-	UMLayerSctp *instance = _sctp_dict[name];
-	[_sctp_dict removeObjectForKey:name];
-	[instance stopDetachAndDestroy];
+    UMLayerSctp *instance = _sctp_dict[name];
+    [_sctp_dict removeObjectForKey:name];
+    [instance stopDetachAndDestroy];
 
 }
 
 - (void)renameSCTP:(NSString *)oldName to:(NSString *)newName
 {
-	UMLayerSctp *layer =  _sctp_dict[oldName];
-	[_sctp_dict removeObjectForKey:oldName];
-	layer.layerName = newName;
-	_sctp_dict[newName] = layer;
+    UMLayerSctp *layer =  _sctp_dict[oldName];
+    [_sctp_dict removeObjectForKey:oldName];
+    layer.layerName = newName;
+    _sctp_dict[newName] = layer;
 }
 
 /************************************************************/
@@ -2042,37 +2048,37 @@ static void signalHandler(int signum);
 
 - (UMLayerM2PA *)getM2PA:(NSString *)name
 {
-	return _m2pa_dict[name];
+    return _m2pa_dict[name];
 }
 
 - (void)addWithConfigM2PA:(NSDictionary *)config
 {
-	NSString *name = config[@"name"];
-	if(name)
-	{
-		UMSS7ConfigM2PA *co = [[UMSS7ConfigM2PA alloc]initWithConfig:config];
-		[_runningConfig addM2PA:co];
-		UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:_m2paTaskQueue];
-		m2pa.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m2pa"];
-		m2pa.logFeed.name = name;
-		[m2pa setConfig:config applicationContext:self];
-		_m2pa_dict[name] = m2pa;
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMSS7ConfigM2PA *co = [[UMSS7ConfigM2PA alloc]initWithConfig:config];
+        [_runningConfig addM2PA:co];
+        UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:_m2paTaskQueue];
+        m2pa.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m2pa"];
+        m2pa.logFeed.name = name;
+        [m2pa setConfig:config applicationContext:self];
+        _m2pa_dict[name] = m2pa;
     }
 }
 
 - (void)deleteM2PA:(NSString *)name
 {
-	UMLayerM2PA *instance = _m2pa_dict[name];
-	[_m2pa_dict removeObjectForKey:name];
-	[instance stopDetachAndDestroy];
+    UMLayerM2PA *instance = _m2pa_dict[name];
+    [_m2pa_dict removeObjectForKey:name];
+    [instance stopDetachAndDestroy];
 }
 
 - (void)renameM2PA:(NSString *)oldName to:(NSString *)newName
 {
-	UMLayerM2PA *layer =  _m2pa_dict[oldName];
-	[_m2pa_dict removeObjectForKey:oldName];
-	layer.layerName = newName;
-	_m2pa_dict[newName] = layer;
+    UMLayerM2PA *layer =  _m2pa_dict[oldName];
+    [_m2pa_dict removeObjectForKey:oldName];
+    layer.layerName = newName;
+    _m2pa_dict[newName] = layer;
 }
 
 /************************************************************/
@@ -2094,7 +2100,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigMTP3 *co = [[UMSS7ConfigMTP3 alloc]initWithConfig:config];
         [_runningConfig addMTP3:co];
-        
+
         UMLayerMTP3 *mtp3 = [[UMLayerMTP3 alloc]initWithTaskQueueMulti:_mtp3TaskQueue];
         mtp3.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3"];
         mtp3.logFeed.name = name;
@@ -2135,7 +2141,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigMTP3Link *co = [[UMSS7ConfigMTP3Link alloc]initWithConfig:config];
         [_runningConfig addMTP3Link:co];
-        
+
         UMMTP3Link *mtp3link = [[UMMTP3Link alloc]init];
         mtp3link.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3-link"];
         mtp3link.logFeed.name = name;
@@ -2175,7 +2181,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigMTP3LinkSet *co = [[UMSS7ConfigMTP3LinkSet alloc]initWithConfig:config];
         [_runningConfig addMTP3LinkSet:co];
-        
+
         UMMTP3LinkSet *mtp3linkset = [[UMMTP3LinkSet alloc]init];
         mtp3linkset.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3-linkset"];
         mtp3linkset.logFeed.name = name;
@@ -2217,7 +2223,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigM3UAAS *co = [[UMSS7ConfigM3UAAS alloc]initWithConfig:config];
         [_runningConfig addM3UAAS:co];
-        
+
         UMM3UAApplicationServer *m3ua_as = [[UMM3UAApplicationServer alloc]init];
         m3ua_as.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-as"];
         m3ua_as.logFeed.name = name;
@@ -2231,7 +2237,7 @@ static void signalHandler(int signum);
     //UMM3UAApplicationServer *instance =  _m3ua_as_dict[name];
     [_m3ua_as_dict removeObjectForKey:name];
     //    [instance stopDetachAndDestroy];
-    
+
 }
 
 - (void)renameM3UAAS:(NSString *)oldName to:(NSString *)newName
@@ -2261,7 +2267,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigM3UAASP *co = [[UMSS7ConfigM3UAASP alloc]initWithConfig:config];
         [_runningConfig addM3UAASP:co];
-        
+
         UMM3UAApplicationServerProcess *m3ua_asp = [[UMM3UAApplicationServerProcess alloc]initWithTaskQueueMulti:_m3uaTaskQueue];
         m3ua_asp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-asp"];
         m3ua_asp.logFeed.name = name;
@@ -2306,7 +2312,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigSCCP *co = [[UMSS7ConfigSCCP alloc]initWithConfig:config];
         [_runningConfig addSCCP:co];
-        
+
         UMLayerSCCP *sccp = [[UMLayerSCCP alloc]initWithTaskQueueMulti:_sccpTaskQueue];
         sccp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sccp"];
         sccp.logFeed.name = name;
@@ -2487,11 +2493,11 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigTCAP *co = [[UMSS7ConfigTCAP alloc]initWithConfig:config];
         [_runningConfig addTCAP:co];
-        
+
         config = co.config.dictionaryCopy;
-        
+
         UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
-        
+
         tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         tcap.logFeed.name = name;
         [tcap setConfig:config applicationContext:self];
@@ -2506,7 +2512,7 @@ static void signalHandler(int signum);
             SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithName:co.subsystem];
             if(co.number)
             {
-                
+
                 SccpAddress *sccpAddr =  [[SccpAddress alloc] initWithHumanReadableString:co.number sccpVariant:sccp.sccpVariant mtp3Variant:sccp.mtp3.variant];
                 [sccp setUser:tcap forSubsystem:ssn number:sccpAddr];
             }
@@ -2524,7 +2530,7 @@ static void signalHandler(int signum);
     // UMLayerTCAP *instance =  _tcap_dict[name];
     [_tcap_dict removeObjectForKey:name];
     //    [instance stopDetachAndDestroy];
-    
+
 }
 
 - (void)renameTCAP:(NSString *)oldName to:(NSString *)newName
@@ -2552,16 +2558,16 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigGSMMAP *co = [[UMSS7ConfigGSMMAP alloc]initWithConfig:config];
         [_runningConfig addGSMMAP:co];
-        
+
         config = co.config.dictionaryCopy;
 
-        
+
         UMLayerGSMMAP *gsmmap = [[UMLayerGSMMAP alloc]initWithTaskQueueMulti:_gsmmapTaskQueue];
         gsmmap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         gsmmap.logFeed.name = name;
         [gsmmap setConfig:config applicationContext:self];
         _gsmmap_dict[name] = gsmmap;
-        
+
         UMLayerTCAP *tcap  = [self getTCAP:co.attachTo];
         if(tcap==NULL)
         {
@@ -2580,7 +2586,7 @@ static void signalHandler(int signum);
     // UMLayerGSMMAP *instance =  _gsmmap_dict[name];
     [_gsmmap_dict removeObjectForKey:name];
     //    [instance stopDetachAndDestroy];
-    
+
 }
 
 - (void)renameGSMMAP:(NSString *)oldName to:(NSString *)newName
@@ -2839,15 +2845,15 @@ static void signalHandler(int signum);
 
 - (void) httpOptions:(UMHTTPRequest *)req
 {
-	[self addAccessControlAllowOriginHeaders:req];
-	req.responseCode =  200;
+    [self addAccessControlAllowOriginHeaders:req];
+    req.responseCode =  200;
 }
 
 - (void)attachAppTransport:(SS7AppTransportHandler *)transport
                       sccp:(UMLayerSCCP *)sccp
                     number:(NSString *)number
            transactionPool:(UMTCAP_TransactionIdPool *)pool
-{    
+{
     NSMutableDictionary *tcapConfig = [[NSMutableDictionary alloc]init];
     NSString *tcapName = [NSString stringWithFormat:@"_ulibtransport-tcap-%@",sccp.layerName];
     tcapConfig[@"name"] = tcapName;
@@ -2863,7 +2869,7 @@ static void signalHandler(int signum);
     [tcap setConfig:tcapConfig applicationContext:self];
     _tcap_dict[tcapName] = tcap;
     transport.transportService.tcap = tcap;
-    
+
     SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_ULIBTRANSPORT];
     SccpAddress *sccpAddr =  [[SccpAddress alloc] initWithHumanReadableString:number
                                                                   sccpVariant:sccp.sccpVariant
@@ -2894,7 +2900,7 @@ static void signalHandler(int signum);
 
     [NSOperationQueue mainQueue];
     /* this initializes some stuff for the main run loop on Linux/GNUStep */
-    
+
     [self applicationDidFinishLaunching:NULL];
 
     while(_must_quit==0)
@@ -2962,305 +2968,305 @@ static void signalHandler(int signum);
 
 - (NSString *)umtransportGetNewUserReference
 {
-	static int64_t lastUmtransportDialogId =1;
-	int64_t did;
-	[_umtransportLock lock];
-	lastUmtransportDialogId = (lastUmtransportDialogId + 1 ) % 0x7FFFFFFF;
-	did = lastUmtransportDialogId;
-	[_umtransportLock unlock];
-	return [NSString stringWithFormat:@"%08llX",(long long)did];
+    static int64_t lastUmtransportDialogId =1;
+    int64_t did;
+    [_umtransportLock lock];
+    lastUmtransportDialogId = (lastUmtransportDialogId + 1 ) % 0x7FFFFFFF;
+    did = lastUmtransportDialogId;
+    [_umtransportLock unlock];
+    return [NSString stringWithFormat:@"%08llX",(long long)did];
 }
 
 /* the UMTransportService tells us about a new dialog connecting to us */
 - (void)umtransportOpenIndication:(UMTransportOpen *)pdu
-					userReference:(NSString *)userDialogRef
-						 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-					remoteAddress:(SccpAddress *)address
+                    userReference:(NSString *)userDialogRef
+                         dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                    remoteAddress:(SccpAddress *)address
 {
-	NSLog(@"UMTransport[%@] OpenIndication from %@",userDialogRef,[address stringValueE164]);
-	NSLog(@"PDU: %@",pdu.objectValue);
+    NSLog(@"UMTransport[%@] OpenIndication from %@",userDialogRef,[address stringValueE164]);
+    NSLog(@"PDU: %@",pdu.objectValue);
 }
 
 /* the UMTransportService tells us the dialog is closed now */
 - (void)umtransportCloseIndication:(UMTransportClose *)pdu
-					 userReference:(NSString *)userDialogRef
-						  dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                     userReference:(NSString *)userDialogRef
+                          dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
 {
-	NSLog(@"UMTransport[%@] CloseIndication",userDialogRef);
-	NSLog(@"PDU: %@",pdu.objectValue);
+    NSLog(@"UMTransport[%@] CloseIndication",userDialogRef);
+    NSLog(@"PDU: %@",pdu.objectValue);
 }
 
 /* the UMTransportService tells us the remote side has issued an invoke towards us which we should respond with a dialogTransportResponse */
 - (void)umtransportTransportIndication:(UMTransportRequest *)pdu
-						 userReference:(NSString *)userDialogRef
-							  dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-							  invokeId:(int64_t)invokeId
+                         userReference:(NSString *)userDialogRef
+                              dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                              invokeId:(int64_t)invokeId
 {
-	NSLog(@"UMTransport[%@:%llu] TransportIndication",userDialogRef,(unsigned long long)invokeId);
-	NSLog(@"PDU: %@",pdu.objectValue);
-	switch(pdu.requestOperationCode)
-	{
-		case UMTransportCMD_Ping:
-			[self umtPing:pdu
-			userReference:userDialogRef
-				 dialogId:dialogId
-				 invokeId:invokeId];
+    NSLog(@"UMTransport[%@:%llu] TransportIndication",userDialogRef,(unsigned long long)invokeId);
+    NSLog(@"PDU: %@",pdu.objectValue);
+    switch(pdu.requestOperationCode)
+    {
+        case UMTransportCMD_Ping:
+            [self umtPing:pdu
+            userReference:userDialogRef
+                 dialogId:dialogId
+                 invokeId:invokeId];
 
-			break;
-		case UMTransportCMD_GetVersion:
-			[self umtGetVersion:pdu
-				  userReference:userDialogRef
-					   dialogId:dialogId
-					   invokeId:invokeId];
-			break;
+            break;
+        case UMTransportCMD_GetVersion:
+            [self umtGetVersion:pdu
+                  userReference:userDialogRef
+                       dialogId:dialogId
+                       invokeId:invokeId];
+            break;
 
-		case UMTransportCMD_ReportVersion:
-			[self umtReportVersion:pdu
-					 userReference:userDialogRef
-						  dialogId:dialogId
-						  invokeId:invokeId];
+        case UMTransportCMD_ReportVersion:
+            [self umtReportVersion:pdu
+                     userReference:userDialogRef
+                          dialogId:dialogId
+                          invokeId:invokeId];
 
-			break;
+            break;
 
-		case UMTransportCMD_GetHardware:
-			[self umtGetHardware:pdu
-				   userReference:userDialogRef
-						dialogId:dialogId
-						invokeId:invokeId];
+        case UMTransportCMD_GetHardware:
+            [self umtGetHardware:pdu
+                   userReference:userDialogRef
+                        dialogId:dialogId
+                        invokeId:invokeId];
 
-			break;
+            break;
 
-		case UMTransportCMD_ReportHardware:
-			[self umtReportHardware:pdu
-					  userReference:userDialogRef
-						   dialogId:dialogId
-						   invokeId:invokeId];
+        case UMTransportCMD_ReportHardware:
+            [self umtReportHardware:pdu
+                      userReference:userDialogRef
+                           dialogId:dialogId
+                           invokeId:invokeId];
 
-			break;
+            break;
 
-		case UMTransportCMD_GetLicense:
-			[self umtGetLicense:pdu
-				  userReference:userDialogRef
-					   dialogId:dialogId
-					   invokeId:invokeId];
+        case UMTransportCMD_GetLicense:
+            [self umtGetLicense:pdu
+                  userReference:userDialogRef
+                       dialogId:dialogId
+                       invokeId:invokeId];
 
-			break;
+            break;
 
-		case UMTransportCMD_ReportLicense:
-			[self umtReportLicense:pdu
-					 userReference:userDialogRef
-						  dialogId:dialogId
-						  invokeId:invokeId];
+        case UMTransportCMD_ReportLicense:
+            [self umtReportLicense:pdu
+                     userReference:userDialogRef
+                          dialogId:dialogId
+                          invokeId:invokeId];
 
-			break;
+            break;
 
-		case UMTransportCMD_UpdateLicense:
-			[self umtUpdateLicense:pdu
-					 userReference:userDialogRef
-						  dialogId:dialogId
-						  invokeId:invokeId];
+        case UMTransportCMD_UpdateLicense:
+            [self umtUpdateLicense:pdu
+                     userReference:userDialogRef
+                          dialogId:dialogId
+                          invokeId:invokeId];
 
-			break;
-	}
+            break;
+    }
 }
 
 
 - (void)umtransportTransportConfirmation:(UMTransportResponse *)pdu
-						   userReference:(NSString *)userDialogRef
-								dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-								invokeId:(int64_t)invokeId
+                           userReference:(NSString *)userDialogRef
+                                dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                                invokeId:(int64_t)invokeId
 {
-	NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
-	UMTTask *task = _pendingUMT[key];
-	[_pendingUMT removeObjectForKey:key];
-	[task processResponse:pdu];
+    NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
+    UMTTask *task = _pendingUMT[key];
+    [_pendingUMT removeObjectForKey:key];
+    [task processResponse:pdu];
 }
 
 
 - (void)umtPing:(UMTransportRequest *)pdu
   userReference:(NSString *)userDialogRef
-	   dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-	   invokeId:(int64_t)invokeId
+       dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+       invokeId:(int64_t)invokeId
 {
-	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
-	msg.response = [[UMTransportResponse alloc]init];
-	msg.response.requestReference = pdu.requestReference;
-	msg.response.requestOperationCode = pdu.requestOperationCode;
-	msg.response.responsePayload = pdu.requestPayload;
-	[_umtransportService umtransportTransportResponse:msg
-											 dialogId:dialogId
-											 invokeId:invokeId];
+    UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+    msg.response = [[UMTransportResponse alloc]init];
+    msg.response.requestReference = pdu.requestReference;
+    msg.response.requestOperationCode = pdu.requestOperationCode;
+    msg.response.responsePayload = pdu.requestPayload;
+    [_umtransportService umtransportTransportResponse:msg
+                                             dialogId:dialogId
+                                             invokeId:invokeId];
 }
 
 - (void)umtGetVersion:(UMTransportRequest *)pdu
-		userReference:(NSString *)userDialogRef
-			 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-			 invokeId:(int64_t)invokeId
+        userReference:(NSString *)userDialogRef
+             dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+             invokeId:(int64_t)invokeId
 {
-	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
-	msg.response = [[UMTransportResponse alloc]init];
-	msg.response.requestReference = pdu.requestReference;
-	msg.response.requestOperationCode = pdu.requestOperationCode;
+    UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+    msg.response = [[UMTransportResponse alloc]init];
+    msg.response.requestReference = pdu.requestReference;
+    msg.response.requestOperationCode = pdu.requestOperationCode;
 
-	UMTransportVersionResp *r = [[UMTransportVersionResp alloc]init];
-	r.product = [self productName];
-	r.version = [self productVersion];
-	msg.response.responsePayload = [r berEncoded];
-	[_umtransportService umtransportTransportResponse:msg
-											 dialogId:dialogId
-											 invokeId:invokeId];
+    UMTransportVersionResp *r = [[UMTransportVersionResp alloc]init];
+    r.product = [self productName];
+    r.version = [self productVersion];
+    msg.response.responsePayload = [r berEncoded];
+    [_umtransportService umtransportTransportResponse:msg
+                                             dialogId:dialogId
+                                             invokeId:invokeId];
 }
 
 - (void)umtReportVersion:(UMTransportRequest *)pdu
-		   userReference:(NSString *)userDialogRef
-				dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-				invokeId:(int64_t)invokeId
+           userReference:(NSString *)userDialogRef
+                dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                invokeId:(int64_t)invokeId
 {
-	UMTransportVersionResp *ver = [[UMTransportVersionResp alloc]initWithBerData:pdu.requestPayload];
-	NSLog(@"remote reports its version to be :%@",ver);
+    UMTransportVersionResp *ver = [[UMTransportVersionResp alloc]initWithBerData:pdu.requestPayload];
+    NSLog(@"remote reports its version to be :%@",ver);
 
-	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
-	msg.response = [[UMTransportResponse alloc]init];
-	msg.response.requestReference = pdu.requestReference;
-	msg.response.requestOperationCode = pdu.requestOperationCode;
-	msg.response.responsePayload = NULL;
-	[_umtransportService umtransportTransportResponse:msg
-											 dialogId:dialogId
-											 invokeId:invokeId];
+    UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+    msg.response = [[UMTransportResponse alloc]init];
+    msg.response.requestReference = pdu.requestReference;
+    msg.response.requestOperationCode = pdu.requestOperationCode;
+    msg.response.responsePayload = NULL;
+    [_umtransportService umtransportTransportResponse:msg
+                                             dialogId:dialogId
+                                             invokeId:invokeId];
 }
 
 - (void)umtGetHardware:(UMTransportRequest *)pdu
-		 userReference:(NSString *)userDialogRef
-			  dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-			  invokeId:(int64_t)invokeId
+         userReference:(NSString *)userDialogRef
+              dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+              invokeId:(int64_t)invokeId
 {
-	UMTransportMessage *msg = [[UMTransportMessage alloc]init];
-	msg.response = [[UMTransportResponse alloc]init];
-	msg.response.requestReference = pdu.requestReference;
-	msg.response.requestOperationCode = pdu.requestOperationCode;
+    UMTransportMessage *msg = [[UMTransportMessage alloc]init];
+    msg.response = [[UMTransportResponse alloc]init];
+    msg.response.requestReference = pdu.requestReference;
+    msg.response.requestOperationCode = pdu.requestOperationCode;
 
-	UMTransportHardwareIdentifierList *r = [[UMTransportHardwareIdentifierList alloc]init];
+    UMTransportHardwareIdentifierList *r = [[UMTransportHardwareIdentifierList alloc]init];
 
-	NSArray *macs = [UMUtil getArrayOfMacAddresses];
-	for(NSString *mac in macs)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.macAddress = mac;
-		[r addHardwareIdentifier:hi];
-	}
+    NSArray *macs = [UMUtil getArrayOfMacAddresses];
+    for(NSString *mac in macs)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.macAddress = mac;
+        [r addHardwareIdentifier:hi];
+    }
 
-	NSArray *ips = [UMUtil getNonLocalIPs];
-	for(NSString *ip in ips)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.ip = ip;
-		[r addHardwareIdentifier:hi];
-	}
-	NSString *serial = [UMUtil getMachineSerialNumber];
-	if(serial)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.serial = serial;
-		[r addHardwareIdentifier:hi];
-	}
-	NSString *uuid = [UMUtil getMachineUUID];
-	if(uuid)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.uuid = uuid;
-		[r addHardwareIdentifier:hi];
-	}
+    NSArray *ips = [UMUtil getNonLocalIPs];
+    for(NSString *ip in ips)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.ip = ip;
+        [r addHardwareIdentifier:hi];
+    }
+    NSString *serial = [UMUtil getMachineSerialNumber];
+    if(serial)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.serial = serial;
+        [r addHardwareIdentifier:hi];
+    }
+    NSString *uuid = [UMUtil getMachineUUID];
+    if(uuid)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.uuid = uuid;
+        [r addHardwareIdentifier:hi];
+    }
 
-	NSArray *cpus = [UMUtil getCPUSerialNumbers];
-	for(NSString *cpu in cpus)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.cpuId = cpu;
-		[r addHardwareIdentifier:hi];
-	}
+    NSArray *cpus = [UMUtil getCPUSerialNumbers];
+    for(NSString *cpu in cpus)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.cpuId = cpu;
+        [r addHardwareIdentifier:hi];
+    }
 #if defined(__APPLE__)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.os = @"macos";
-		[r addHardwareIdentifier:hi];
-	}
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.os = @"macos";
+        [r addHardwareIdentifier:hi];
+    }
 #endif
 #if defined(LINUX)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.os = @"linux";
-		[r addHardwareIdentifier:hi];
-	}
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.os = @"linux";
+        [r addHardwareIdentifier:hi];
+    }
 #endif
 
-	NSString *sysname = [UMUtil sysName];
-	if(sysname)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.sysname = sysname;
-		[r addHardwareIdentifier:hi];
-	}
-	NSString *nodename = [UMUtil nodeName];
-	if(nodename)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.nodeName = nodename;
-		[r addHardwareIdentifier:hi];
-	}
-	NSString *osRelease = [UMUtil osRelease];
-	if(osRelease)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.osRelease = osRelease;
-		[r addHardwareIdentifier:hi];
-	}
-	NSString *osVersion = [UMUtil version];
-	if(osVersion)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.osVersion = osVersion;
-		[r addHardwareIdentifier:hi];
-	}
-	NSString *osMachine = [UMUtil machine];
-	if(osMachine)
-	{
-		UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-		hi.osMachine = osMachine;
-		[r addHardwareIdentifier:hi];
-	}
-	msg.response.responsePayload = [r berEncoded];
-	[_umtransportService umtransportTransportResponse:msg
-											 dialogId:dialogId
-											 invokeId:invokeId];
+    NSString *sysname = [UMUtil sysName];
+    if(sysname)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.sysname = sysname;
+        [r addHardwareIdentifier:hi];
+    }
+    NSString *nodename = [UMUtil nodeName];
+    if(nodename)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.nodeName = nodename;
+        [r addHardwareIdentifier:hi];
+    }
+    NSString *osRelease = [UMUtil osRelease];
+    if(osRelease)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.osRelease = osRelease;
+        [r addHardwareIdentifier:hi];
+    }
+    NSString *osVersion = [UMUtil version];
+    if(osVersion)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.osVersion = osVersion;
+        [r addHardwareIdentifier:hi];
+    }
+    NSString *osMachine = [UMUtil machine];
+    if(osMachine)
+    {
+        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
+        hi.osMachine = osMachine;
+        [r addHardwareIdentifier:hi];
+    }
+    msg.response.responsePayload = [r berEncoded];
+    [_umtransportService umtransportTransportResponse:msg
+                                             dialogId:dialogId
+                                             invokeId:invokeId];
 }
 
 - (void)umtReportHardware:(UMTransportRequest *)pdu
-			userReference:(NSString *)userDialogRef
-				 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-				 invokeId:(int64_t)invokeId
+            userReference:(NSString *)userDialogRef
+                 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                 invokeId:(int64_t)invokeId
 {
 
 }
 - (void)umtGetLicense:(UMTransportRequest *)pdu
-		userReference:(NSString *)userDialogRef
-			 dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-			 invokeId:(int64_t)invokeId
+        userReference:(NSString *)userDialogRef
+             dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+             invokeId:(int64_t)invokeId
 {
 
 }
 
 - (void)umtReportLicense:(UMTransportRequest *)pdu
-		   userReference:(NSString *)userDialogRef
-				dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-				invokeId:(int64_t)invokeId
+           userReference:(NSString *)userDialogRef
+                dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                invokeId:(int64_t)invokeId
 {
 
 }
 
 - (void)umtUpdateLicense:(UMTransportRequest *)pdu
-		   userReference:(NSString *)userDialogRef
-				dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-				invokeId:(int64_t)invokeId
+           userReference:(NSString *)userDialogRef
+                dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                invokeId:(int64_t)invokeId
 {
 
 }
@@ -3268,376 +3274,376 @@ static void signalHandler(int signum);
 
 /* the UMTransportService tells us about an answer to our request we sent to a remote */
 - (void)umtransportTransportConfirmation:(UMTransportResponse *)pdu
-						   userReference:(NSString *)userDialogRef
-								invokeId:(int64_t)invokeId
+                           userReference:(NSString *)userDialogRef
+                                invokeId:(int64_t)invokeId
 {
-	NSLog(@"UMTransport[%@:%llu] TransportConfirmation",userDialogRef,(unsigned long long)invokeId);
-	NSLog(@"PDU: %@",pdu.objectValue);
+    NSLog(@"UMTransport[%@:%llu] TransportConfirmation",userDialogRef,(unsigned long long)invokeId);
+    NSLog(@"PDU: %@",pdu.objectValue);
 }
 
 - (NSString *)umtWebIndexForm
 {
-	static NSMutableString *s = NULL;
+    static NSMutableString *s = NULL;
 
-	if(s)
-	{
-		return s;
-	}
-	s = [[NSMutableString alloc]init];
-	[self webHeader:s title:@"UMT Main Menu"];
-	[s appendString:@"<h2>UMT Main Menu</h2>\n"];
-	[s appendString:@"<UL>\n"];
-	[s appendString:@"<LI><a href=\"/umt/ping\">ping</a>\n"];
-	[s appendString:@"<LI><a href=\"/umt/get-version\">get-version</a>\n"];
-	[s appendString:@"<LI><a href=\"/umt/get-hardware\">get-hardware</a>\n"];
-	[s appendString:@"</UL>\n"];
-	[s appendString:@"</body>\n"];
-	[s appendString:@"</html>\n"];
-	return s;
+    if(s)
+    {
+        return s;
+    }
+    s = [[NSMutableString alloc]init];
+    [self webHeader:s title:@"UMT Main Menu"];
+    [s appendString:@"<h2>UMT Main Menu</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/umt/ping\">ping</a>\n"];
+    [s appendString:@"<LI><a href=\"/umt/get-version\">get-version</a>\n"];
+    [s appendString:@"<LI><a href=\"/umt/get-hardware\">get-hardware</a>\n"];
+    [s appendString:@"</UL>\n"];
+    [s appendString:@"</body>\n"];
+    [s appendString:@"</html>\n"];
+    return s;
 }
 
 - (void)webFormStart:(NSMutableString *)s title:(NSString *)t
 {
-	[self webHeader:s title:t];
-	[s appendString:@"\n"];
-	[s appendString:@"<a href=\"index.php\">menu</a>\n"];
-	[s appendFormat:@"<h2>%@</h2>\n",t];
-	[s appendString:@"<form method=\"get\">\n"];
-	[s appendString:@"<table>\n"];
+    [self webHeader:s title:t];
+    [s appendString:@"\n"];
+    [s appendString:@"<a href=\"index.php\">menu</a>\n"];
+    [s appendFormat:@"<h2>%@</h2>\n",t];
+    [s appendString:@"<form method=\"get\">\n"];
+    [s appendString:@"<table>\n"];
 
 }
 
 - (void)webFormEnd:(NSMutableString *)s
 {
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td>&nbsp</td>\n"];
-	[s appendString:@"    <td><input type=submit></td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"</table>\n"];
-	[s appendString:@"</form>\n"];
-	[s appendString:@"</body>\n"];
-	[s appendString:@"</html>\n"];
-	[s appendString:@"\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td>&nbsp</td>\n"];
+    [s appendString:@"    <td><input type=submit></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"</table>\n"];
+    [s appendString:@"</form>\n"];
+    [s appendString:@"</body>\n"];
+    [s appendString:@"</html>\n"];
+    [s appendString:@"\n"];
 }
 
 - (void)webMapTitle:(NSMutableString *)s
 {
-	[s appendString:@"<tr><td colspan=2 class=subtitle>GSMMAP Parameters:</td></tr>\n"];
+    [s appendString:@"<tr><td colspan=2 class=subtitle>GSMMAP Parameters:</td></tr>\n"];
 }
 
 - (void)webDialogTitle:(NSMutableString *)s
 {
-	[s appendString:@"<tr><td colspan=2 class=subtitle>Dialogue Parameters:</td></tr>\n"];
+    [s appendString:@"<tr><td colspan=2 class=subtitle>Dialogue Parameters:</td></tr>\n"];
 }
 
 - (void)webDialogOptions:(NSMutableString *)s
 {
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>map-open-destination-msisdn</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"map-open-destination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open destination reference</td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>map-open-destination-imsi</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"map-open-destination-imsi\" type=text> imsi in map-open destination reference</td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>map-open-origination-msisdn</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"map-open-origination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open origination reference</td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>map-open-origination-imsi</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"map-open-origination-imsi\" type=text> imsi in map-open origination reference</td>\n"];
-	[s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-open-destination-msisdn</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-open-destination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open destination reference</td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-open-destination-imsi</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-open-destination-imsi\" type=text> imsi in map-open destination reference</td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-open-origination-msisdn</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-open-origination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open origination reference</td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-open-origination-imsi</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-open-origination-imsi\" type=text> imsi in map-open origination reference</td>\n"];
+    [s appendString:@"</tr>\n"];
 }
 
 - (void)webTcapTitle:(NSMutableString *)s
 {
-	[s appendString:@"<tr><td colspan=2 class=subtitle>TCAP Parameters:</td></tr>\n"];
+    [s appendString:@"<tr><td colspan=2 class=subtitle>TCAP Parameters:</td></tr>\n"];
 }
 
 - (void)webVariousTitle:(NSMutableString *)s
 {
-	[s appendString:@"<tr><td colspan=2 class=subtitle>Various Extensions:</td></tr>\n"];
+    [s appendString:@"<tr><td colspan=2 class=subtitle>Various Extensions:</td></tr>\n"];
 }
 
 - (void)webTcapOptions:(NSMutableString *)s
-			appContext:(NSString *)ac
-		appContextName:(NSString *)acn
+            appContext:(NSString *)ac
+        appContextName:(NSString *)acn
 {
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>tcap-handshake</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"tcap-handshake\" type=\"text\" value=\"0\"> 0 |&nbsp;1</td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>timeout</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"timeout\" type=\"text\" value=\"30\"> timeout in seconds</td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>application-context</td>\n"];
-	[s appendFormat:@"    <td class=optional><input name=\"application-context\" type=\"text\" value=\"%@\"> %@</td>\n",ac,acn];
-	[s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>tcap-handshake</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"tcap-handshake\" type=\"text\" value=\"0\"> 0 |&nbsp;1</td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>timeout</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"timeout\" type=\"text\" value=\"30\"> timeout in seconds</td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>application-context</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"application-context\" type=\"text\" value=\"%@\"> %@</td>\n",ac,acn];
+    [s appendString:@"</tr>\n"];
 }
 
 - (void)webSccpTitle:(NSMutableString *)s
 {
-	[s appendString:@"<tr><td colspan=2 class=subtitle>SCCP Parameters:</td></tr>\n"];
+    [s appendString:@"<tr><td colspan=2 class=subtitle>SCCP Parameters:</td></tr>\n"];
 }
 
 - (void)webSccpOptions:(NSMutableString *)s
-		callingComment:(NSString *)callingComment
-		 calledComment:(NSString *)calledComment
-			callingSSN:(NSString *)callingSSN
-			 calledSSN:(NSString *)calledSSN
+        callingComment:(NSString *)callingComment
+         calledComment:(NSString *)calledComment
+            callingSSN:(NSString *)callingSSN
+             calledSSN:(NSString *)calledSSN
 {
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>calling-address</td>\n"];
-	[s appendFormat:@"    <td class=optional><input name=\"calling-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",callingComment];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>called-address</td>\n"];
-	[s appendFormat:@"    <td class=optional><input name=\"called-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",calledComment];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>calling-ssn</td>\n"];
-	[s appendFormat:@"    <td class=optional><input name=\"calling-ssn\" type=\"text\" value=\"%@\"></td>\n",callingSSN];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>called-ssn</td>\n"];
-	[s appendFormat:@"    <td class=optional><input name=\"called-ssn\" type=\"text\" value=\"%@\"></td>\n",calledSSN];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>calling-tt</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"calling-tt\" type=\"text\" value=\"0\"></td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>called-tt</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"called-tt\" type=\"text\" value=\"0\"></td>\n"];
-	[s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>calling-address</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"calling-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",callingComment];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>called-address</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"called-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",calledComment];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>calling-ssn</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"calling-ssn\" type=\"text\" value=\"%@\"></td>\n",callingSSN];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>called-ssn</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"called-ssn\" type=\"text\" value=\"%@\"></td>\n",calledSSN];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>calling-tt</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"calling-tt\" type=\"text\" value=\"0\"></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>called-tt</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"called-tt\" type=\"text\" value=\"0\"></td>\n"];
+    [s appendString:@"</tr>\n"];
 }
 
 - (void)webMtp3Title:(NSMutableString *)s
 {
-	[s appendString:@"<tr><td colspan=2 class=subtitle>MTP3 Parameters:</td></tr>\n"];
+    [s appendString:@"<tr><td colspan=2 class=subtitle>MTP3 Parameters:</td></tr>\n"];
 }
 
 - (void)webMtp3Options:(NSMutableString *)s
 {
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>opc</td>\n"];
-	[s appendFormat:@"    <td class=optional><input name=\"opc\" type=\"text\" placeholder=\"0-000-0\" value=\"default\">originating pointcode</td>\n"];
-	[s appendString:@"</tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>dpc</td>\n"];
-	[s appendFormat:@"    <td class=optional><input name=\"dpc\" type=\"text\" placeholder=\"0-000-0\" value=\"default\">destination pointcode</td>\n"];
-	[s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>opc</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"opc\" type=\"text\" placeholder=\"0-000-0\" value=\"default\">originating pointcode</td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>dpc</td>\n"];
+    [s appendFormat:@"    <td class=optional><input name=\"dpc\" type=\"text\" placeholder=\"0-000-0\" value=\"default\">destination pointcode</td>\n"];
+    [s appendString:@"</tr>\n"];
 }
 
 - (NSString *)umtPingForm:(int)variant
 {
-	static NSMutableString *s = NULL;
+    static NSMutableString *s = NULL;
 
-	if(s)
-	{
-		return s;
-	}
-	s = [[NSMutableString alloc]init];
+    if(s)
+    {
+        return s;
+    }
+    s = [[NSMutableString alloc]init];
 
-	[self webFormStart:s title:@"UMT Ping"];
+    [self webFormStart:s title:@"UMT Ping"];
 
-	[s appendString:@"<tr><td colspan=2 class=subtitle>UMT Ping Destination:</td></tr>\n"];
-	[s appendString:@"<tr>\n"];
-	[s appendString:@"    <td class=optional>sccp-destination</td>\n"];
-	[s appendString:@"    <td class=optional><input name=\"sccp-destination\" type=text placeholder=\"+12345678\">(E.164 number))</td>\n"];
-	[s appendString:@"</tr>\n"];
-	[self webFormEnd:s];
-	return s;
+    [s appendString:@"<tr><td colspan=2 class=subtitle>UMT Ping Destination:</td></tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>sccp-destination</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"sccp-destination\" type=text placeholder=\"+12345678\">(E.164 number))</td>\n"];
+    [s appendString:@"</tr>\n"];
+    [self webFormEnd:s];
+    return s;
 }
 
 - (void)  umtGetPost:(UMHTTPRequest *)req
 {
-	NSDictionary *p = req.params;
-	int pcount=0;
-	for(NSString *n in p.allKeys)
-	{
-		if(([n isEqualToString:@"user"])  || ([n isEqualToString:@"pass"]))
-		{
-			continue;
-		}
-		pcount++;
-	}
+    NSDictionary *p = req.params;
+    int pcount=0;
+    for(NSString *n in p.allKeys)
+    {
+        if(([n isEqualToString:@"user"])  || ([n isEqualToString:@"pass"]))
+        {
+            continue;
+        }
+        pcount++;
+    }
 
-	@autoreleasepool
-	{
-		@try
-		{
-			NSString *path = req.url.relativePath;
+    @autoreleasepool
+    {
+        @try
+        {
+            NSString *path = req.url.relativePath;
 
-			if([path hasSuffix:@".php"])
-			{
-				path = [path substringToIndex:path.length - 4];
-			}
-			if([path hasSuffix:@".html"])
-			{
-				path = [path substringToIndex:path.length - 5];
-			}
-			if([path hasSuffix:@"/"])
-			{
-				path = [path substringToIndex:path.length - 1];
-			}
+            if([path hasSuffix:@".php"])
+            {
+                path = [path substringToIndex:path.length - 4];
+            }
+            if([path hasSuffix:@".html"])
+            {
+                path = [path substringToIndex:path.length - 5];
+            }
+            if([path hasSuffix:@"/"])
+            {
+                path = [path substringToIndex:path.length - 1];
+            }
 
-			if([path isEqualToStringCaseInsensitive:@"/umt/index"])
-			{
-				path = @"/umt";
-			}
+            if([path isEqualToStringCaseInsensitive:@"/umt/index"])
+            {
+                path = @"/umt";
+            }
 
-			if([path isEqualToStringCaseInsensitive:@"/umt"])
-			{
-				[req setResponseHtmlString:[self umtWebIndexForm]];
-			}
-			else if([path isEqualToStringCaseInsensitive:@"/umt/ping"])
-			{
-				if(pcount==0)
-				{
-					[req setResponseHtmlString:[self umtPingForm:0]];
-				}
-				else
-				{
-					NSString *addr = [p[@"sccp-destination"] urldecode];
-					UMTTaskPing *t = [[UMTTaskPing alloc]init];
-					t.req = req;
-					t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
-					t.transportService = _umtransportService;
-					[req makeAsyncWithTimeout:6];
-					[self.generalTaskQueue queueTask:t toQueueNumber:0];
-				}
-			}
-			else if([path isEqualToStringCaseInsensitive:@"/umt/get-version"])
-			{
-				if(pcount==0)
-				{
-					[req setResponseHtmlString:[self umtPingForm:0]];
-				}
-				else
-				{
-					/* FIXME: create a request and remember the req in a dict */
-					UMTTaskGetVersion *t = [[UMTTaskGetVersion alloc]init];
-					t.req = req;
-					NSString *addr = p[@"destination"];
-					t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
-					[self.generalTaskQueue queueTask:t toQueueNumber:0];
-				}
-			}
-		}
-		@catch(NSException *e)
-		{
+            if([path isEqualToStringCaseInsensitive:@"/umt"])
+            {
+                [req setResponseHtmlString:[self umtWebIndexForm]];
+            }
+            else if([path isEqualToStringCaseInsensitive:@"/umt/ping"])
+            {
+                if(pcount==0)
+                {
+                    [req setResponseHtmlString:[self umtPingForm:0]];
+                }
+                else
+                {
+                    NSString *addr = [p[@"sccp-destination"] urldecode];
+                    UMTTaskPing *t = [[UMTTaskPing alloc]init];
+                    t.req = req;
+                    t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
+                    t.transportService = _umtransportService;
+                    [req makeAsyncWithTimeout:6];
+                    [self.generalTaskQueue queueTask:t toQueueNumber:0];
+                }
+            }
+            else if([path isEqualToStringCaseInsensitive:@"/umt/get-version"])
+            {
+                if(pcount==0)
+                {
+                    [req setResponseHtmlString:[self umtPingForm:0]];
+                }
+                else
+                {
+                    /* FIXME: create a request and remember the req in a dict */
+                    UMTTaskGetVersion *t = [[UMTTaskGetVersion alloc]init];
+                    t.req = req;
+                    NSString *addr = p[@"destination"];
+                    t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
+                    [self.generalTaskQueue queueTask:t toQueueNumber:0];
+                }
+            }
+        }
+        @catch(NSException *e)
+        {
 
-			NSMutableDictionary *d1 = [[NSMutableDictionary alloc]init];
-			if(e.name)
-			{
-				d1[@"name"] = e.name;
-			}
-			if(e.reason)
-			{
-				d1[@"reason"] = e.reason;
-			}
-			if(e.userInfo)
-			{
-				d1[@"user-info"] = e.userInfo;
-			}
-			NSDictionary *d =   @{ @"error" : @{ @"exception": d1 } };
-			[req setResponsePlainText:[d jsonString]];
-		}
-	}
+            NSMutableDictionary *d1 = [[NSMutableDictionary alloc]init];
+            if(e.name)
+            {
+                d1[@"name"] = e.name;
+            }
+            if(e.reason)
+            {
+                d1[@"reason"] = e.reason;
+            }
+            if(e.userInfo)
+            {
+                d1[@"user-info"] = e.userInfo;
+            }
+            NSDictionary *d =   @{ @"error" : @{ @"exception": d1 } };
+            [req setResponsePlainText:[d jsonString]];
+        }
+    }
 }
 
 - (UMTTask *)getPendingUMTTaskForDialog:(UMTCAP_UserDialogIdentifier *)dialogId
-							   invokeId:(int64_t)invokeId
+                               invokeId:(int64_t)invokeId
 {
-	NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
-	UMTTask *task = _pendingUMT[key];
-	return task;
+    NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
+    UMTTask *task = _pendingUMT[key];
+    return task;
 }
 
 - (UMTTask *)getAndRemovePendingUMTTaskForDialog:(UMTCAP_UserDialogIdentifier *)dialogId
-										invokeId:(int64_t)invokeId
+                                        invokeId:(int64_t)invokeId
 {
-	NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
-	UMTTask *task = _pendingUMT[key];
-	[_pendingUMT removeObjectForKey:key];
-	return task;
+    NSString *key = [NSString stringWithFormat:@"%@:%llu",dialogId.dialogId,(unsigned long long)invokeId];
+    UMTTask *task = _pendingUMT[key];
+    [_pendingUMT removeObjectForKey:key];
+    return task;
 }
 
 - (void)addPendingUMTTask:(UMTask *)task
-				   dialog:(UMTCAP_UserDialogIdentifier *)_dialogId
-				 invokeId:(int64_t)_invokeId
+                   dialog:(UMTCAP_UserDialogIdentifier *)_dialogId
+                 invokeId:(int64_t)_invokeId
 {
-	NSString *key = [NSString stringWithFormat:@"%@:%llu",_dialogId.dialogId,(unsigned long long)_invokeId];
-	_pendingUMT[key]=task;
+    NSString *key = [NSString stringWithFormat:@"%@:%llu",_dialogId.dialogId,(unsigned long long)_invokeId];
+    _pendingUMT[key]=task;
 }
 
 
 - (void)umtransportOpenConfirmation:(UMTransportOpenAccept *)pdu
-						   dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-						   invokeId:(int64_t)invokeId
+                           dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                           invokeId:(int64_t)invokeId
 {
-	UMTTask *task = [self getAndRemovePendingUMTTaskForDialog:dialogId invokeId:invokeId];
-	[task openConfirmation:pdu];
+    UMTTask *task = [self getAndRemovePendingUMTTaskForDialog:dialogId invokeId:invokeId];
+    [task openConfirmation:pdu];
 }
 
 - (void)umtransportCloseConfirmation:(UMTransportCloseAccept *)pdu
-							dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
-							invokeId:(int64_t)invokeId
+                            dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+                            invokeId:(int64_t)invokeId
 {
-	UMTTask *task = [self getAndRemovePendingUMTTaskForDialog:dialogId invokeId:invokeId];
-	[task closeConfirmation:pdu];
+    UMTTask *task = [self getAndRemovePendingUMTTaskForDialog:dialogId invokeId:invokeId];
+    [task closeConfirmation:pdu];
 }
 
 
 
 - (void)addSCCPTranslationTable:(NSDictionary *)config
 {
-	NSString *name = config[@"name"];
-	if(name)
-	{
-		UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
-		if(sccp)
-		{
-			SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
+        if(sccp)
+        {
+            SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
             selector.logLevel = self.logLevel;
             selector.logFeed = self.logFeed;
-			[sccp.gttSelectorRegistry addEntry:selector];
-		}
-	}
+            [sccp.gttSelectorRegistry addEntry:selector];
+        }
+    }
 }
 
 
 - (void)  handleMtp3Status:(UMHTTPRequest *)req
 {
-	NSMutableString *status = [[NSMutableString alloc]init];
-	NSArray *keys = [_mtp3_dict allKeys];
-	for(NSString *key in keys)
-	{
-		UMLayerMTP3 *mtp3 = _mtp3_dict[key];
-		if(mtp3.ready)
-		{
-			[status appendFormat:@"MTP3-INSTANCE:%@:IS\n",mtp3.layerName];
-		}
-		else
-		{
-			[status appendFormat:@"MTP3-INSTANCE:%@:OOS\n",mtp3.layerName];
+    NSMutableString *status = [[NSMutableString alloc]init];
+    NSArray *keys = [_mtp3_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMLayerMTP3 *mtp3 = _mtp3_dict[key];
+        if(mtp3.ready)
+        {
+            [status appendFormat:@"MTP3-INSTANCE:%@:IS\n",mtp3.layerName];
+        }
+        else
+        {
+            [status appendFormat:@"MTP3-INSTANCE:%@:OOS\n",mtp3.layerName];
 
-		}
+        }
 
-		UMSynchronizedSortedDictionary *rt = mtp3.routingTable.objectValue;
-		[status appendFormat: @"Routes:\n%@",rt.jsonString];
-	}
-	[req setResponsePlainText:status];
-	return;
+        UMSynchronizedSortedDictionary *rt = mtp3.routingTable.objectValue;
+        [status appendFormat: @"Routes:\n%@",rt.jsonString];
+    }
+    [req setResponsePlainText:status];
+    return;
 }
 
 - (void)createSS7FilterStagingArea:(NSString *)name
 {
-	NSString *filename = [UMSS7ConfigObject filterName:name];
+    NSString *filename = [UMSS7ConfigObject filterName:name];
     NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
     if(st==NULL)
@@ -3646,15 +3652,15 @@ static void signalHandler(int signum);
                                        reason:@"can not allocate staging area"
                                      userInfo:NULL]);
     }
-	else
-	{
-	   _ss7FilterStagingAreas_dict[name] = st;
-	}
+    else
+    {
+        _ss7FilterStagingAreas_dict[name] = st;
+    }
 }
 
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session
 {
-    session.currentStorageAreaName = name;		
+    session.currentStorageAreaName = name;
 }
 
 - (void)deleteSS7FilterStagingArea:(NSString *)name
@@ -3681,21 +3687,21 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames
 {
-	return [_ss7FilterStagingAreas_dict allKeys];
+    return [_ss7FilterStagingAreas_dict allKeys];
 }
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
 {
     NSArray<NSString *> *names = [self getSS7FilterStagingAreaNames];
-	for(NSString *name in names)
-	{
-		UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[name];
-		if(name == oldname)
-		{
-			stagingArea.name = newname;
-			break;
-		}
-	}
+    for(NSString *name in names)
+    {
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[name];
+        if(name == oldname)
+        {
+            stagingArea.name = newname;
+            break;
+        }
+    }
 }
 
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname
@@ -3781,7 +3787,7 @@ static void signalHandler(int signum);
             NSDictionary *info = ph.info;
             NSString *type = info[@"type"];
             if([type isEqualToString:@"ss7-filter"])
-            _ss7FilterEngines[ph.name] = ph;
+                _ss7FilterEngines[ph.name] = ph;
         }
         else
         {
@@ -3807,90 +3813,76 @@ static void signalHandler(int signum);
 }
 
 
-- (void)namedlist_add:(NSString *)listName value:(NSString *)value
+- (void)namedlist_add:(NSString *)listName
+                value:(NSString *)value
 {
     if((value) && (listName))
     {
         [_namedListLock lock];
-        UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
+        UMNamedList *list = _namedLists[listName];
         if(list == NULL)
         {
-            list = [[UMSynchronizedDictionary alloc]init];
-            _namedLists[listName.urlencode] = list;
+            list = [[UMNamedList alloc]initWithDirectory:_namedListsDirectory name:listName];
+            _namedLists[listName] = list;
         }
-        list[value] = value;
-        list[@"_dirty"]= @(YES);
+        [list addEntry:value];
         [_namedListLock unlock];
     }
 }
 
-- (void)namedlist_remove:(NSString *)listName value:(NSString *)value
+- (void)namedlist_remove:(NSString *)listName
+                   value:(NSString *)value
 {
     if((value) && (listName))
     {
         [_namedListLock lock];
-        UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
+        UMNamedList *list = _namedLists[listName];
         if(list)
         {
-            [list removeObjectForKey:value];
-            list[@"_dirty"]= @(YES);
+            [list removeEntry:value];
         }
         [_namedListLock unlock];
     }
 }
 
-- (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value
+- (BOOL)namedlist_contains:(NSString *)listName
+                     value:(NSString *)value
 {
     BOOL returnValue = NO;
     if((value) && (listName))
     {
         [_namedListLock lock];
-        UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
-        if((list) && (list[value]))
+        UMNamedList *list = _namedLists[listName];
+        if(list)
         {
-            returnValue =  YES;
+            returnValue =  [list containsEntry:value];
         }
         [_namedListLock unlock];
     }
-    return returnValue;;
+    return returnValue;
 }
 
 
-- (void)loadNamedLists:(NSString *)directory
+/* note: this does NOT remove existing entries. only override lists
+ this is done so lists can be loaded from multiple path by calling it multiple times */
+
+- (void)loadNamedListsFromPath:(NSString *)directory
 {
+    [_namedListLock lock];
     NSFileManager *mgr = [NSFileManager defaultManager];
     for (NSString *filePath in [mgr enumeratorAtPath:directory])
     {
-        NSString *absolutePath = [NSString stringWithFormat:@"%@/%@",directory,filePath];
-        [self namedlist_replaceList:filePath withContentsOfFile:absolutePath];
-    }
-}
-
-- (void)namedlist_replaceList:(NSString *)listName withContentsOfFile:(NSString *)filename
-{
-    NSError *err = NULL;
-    NSString *s = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&err];
-    if(err)
-    {
-        NSLog(@"Error while opening file %@: %@",filename,err);
-        return;
-    }
-    NSArray *lines = [s componentsSeparatedByString:@"\n"];
-
-    UMSynchronizedDictionary *list = [[UMSynchronizedDictionary alloc]init];
-    for(NSString *line in lines)
-    {
-        NSString *value = [line stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-        if(value.length > 0) /* we skip empty lines */
+        NSString *name = filePath.urldecode; /* the filename is an url encoded version of the name */
+        UMNamedList *nl = [[UMNamedList alloc]initWithDirectory:directory name:name];
+        if(nl)
         {
-            list[value]=value;
-            list[@"_dirty"]= @(NO);
+            _namedLists[name] = nl;
         }
     }
-    [_namedListLock lock];
-    _namedLists[listName] = list;
     [_namedListLock unlock];
+
 }
+
 
 - (NSArray *)namedlist_get:(NSString *)listName
 {
@@ -3898,12 +3890,10 @@ static void signalHandler(int signum);
     {
         return @[];
     }
-
     [_namedListLock lock];
-    UMSynchronizedDictionary *list = _namedLists[listName.urlencode];
-    NSArray *a = [list allKeys];
+    UMNamedList *nl = _namedLists[listName];
     [_namedListLock unlock];
-    return a;
+    return [nl allEntries];
 }
 
 - (void)namedlist_flushAll
@@ -3911,73 +3901,45 @@ static void signalHandler(int signum);
     NSArray *allListNames = [_namedLists allKeys];
     for(NSString *listName in allListNames)
     {
-        [self namedlist_flush:listName];
+        UMNamedList *nl = _namedLists[listName];
+        [nl flush];
     }
-}
-
-- (void)namedlist_flush:(NSString *)listNameUrlEncoded
-{
-    NSString *path = [NSString stringWithFormat:@"%@/%@",_namedListsDirectory,listNameUrlEncoded];
-
-    [_namedListLock lock];
-    UMSynchronizedDictionary *list = _namedLists[listNameUrlEncoded];
-    if([list[@"_dirty"] boolValue]==YES)
-    {
-        NSMutableString *output = [[NSMutableString alloc]init];
-        NSArray *keys = [list allKeys];
-        for(NSString *key in keys)
-        {
-            if([key isEqualToString:@"_dirty"])
-            {
-                continue;
-            }
-            [output appendFormat:@"%@\n",key];
-        }
-        NSError *err = NULL;
-        [output writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err];
-        if(err)
-        {
-            NSLog(@"Error while writing namedlist %@ to %@: %@",listNameUrlEncoded,path,err);
-        }
-        list[@"_dirty"]= @(NO);
-    }
-    [_namedListLock unlock];
 }
 
 
 - (UMSynchronizedArray *)logfile_list
 {
-	/* fix-me*/
-	return NULL;
+    /* fix-me*/
+    return NULL;
 }
 
 - (void)logfile_remove:(NSString *)name
 {
-	/* fix-me*/
+    /* fix-me*/
 }
 
 - (void)logfile_enable:(NSString *)name enable:(BOOL)enable
 {
-	/* fix-me*/
+    /* fix-me*/
 }
 
 - (UMSS7ConfigSS7FilterLogFile *)logfile_get:(NSString *)listName
 {
-	/* fix-me*/
-	return NULL;
+    /* fix-me*/
+    return NULL;
 }
 
 - (void)logfile_action:(NSString *)name action:(NSString *)enable
 {
-	/* fix-me*/
+    /* fix-me*/
 }
 
-- (void)logfile_add:(NSString *)name file:(NSString *)file format:(NSString *)format 
-					rotate_minutes:(NSNumber *)minutes rotate_packets:(NSNumber *)packets_count enable:(BOOL)enable
+- (void)logfile_add:(NSString *)name file:(NSString *)file format:(NSString *)format
+     rotate_minutes:(NSNumber *)minutes rotate_packets:(NSNumber *)packets_count enable:(BOOL)enable
 {
-	/* fix-me*/	
-	NSString *en = enable ? @"YES" : @"NO";
-	NSLog(@"logfile_add: %@ , %@, %@, %@, %@ , %@", name, file, format, minutes, packets_count, en );	
+    /* fix-me*/
+    NSString *en = enable ? @"YES" : @"NO";
+    NSLog(@"logfile_add: %@ , %@, %@, %@, %@ , %@", name, file, format, minutes, packets_count, en );
 }
 
 @end

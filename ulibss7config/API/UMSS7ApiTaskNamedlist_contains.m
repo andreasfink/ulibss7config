@@ -37,7 +37,13 @@
 	@try
 	{
 		// 1. Get external parameters
-		NSString *listName = _webRequest.params[@"list"];
+		NSString *listName = _webRequest.params[@"name"];
+        if(listName.length==0)
+        {
+            /* backwards compatibility to old api of SMSProx4 */
+            listName = _webRequest.params[@"list"];
+        }
+
 		NSString *value = _webRequest.params[@"value"];
 		NSDictionary *d = [NSDictionary dictionary];
 		if(listName.length==0)
