@@ -16,7 +16,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-log-file-remove";
+    return @"/api/ss7-filter-logfile-remove";
 }
 
 - (void)main

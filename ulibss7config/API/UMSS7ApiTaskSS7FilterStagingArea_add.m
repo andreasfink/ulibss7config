@@ -48,8 +48,17 @@
     {
 		@try
 		{
-			[_appDelegate createSS7FilterStagingArea:name];
-			[self sendResultOK];
+			NSDictionary *d = [NSDictionary dictionary];
+			if([name isEqualToString:@"current"])
+			{
+				d = @{@"error" : @"invalid-parameter", @"reason" :@"this name is not allowed"}; 
+				[self sendError:[d jsonString]];
+			}
+			else
+			{
+				[_appDelegate createSS7FilterStagingArea:name];
+				[self sendResultOK];
+			}
 		}
 		@catch(NSException *e)
 		{
