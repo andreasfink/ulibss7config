@@ -8,10 +8,8 @@
 
 #import <ulibpcap/ulibpcap.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface UMSS7Log : UMPCAPFile
 
 @end
 
-NS_ASSUME_NONNULL_END
