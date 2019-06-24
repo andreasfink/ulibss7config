@@ -3906,6 +3906,8 @@ static void signalHandler(int signum);
     }
 }
 
+#pragma mark -
+#pragma mark logfile
 
 - (UMSynchronizedArray *)logfile_list
 {

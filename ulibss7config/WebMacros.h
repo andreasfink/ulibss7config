@@ -61,6 +61,20 @@
 	} \
 }
 
+#define SET_OPTIONAL_CLEAN_PARAMETERS(p,var,name)   \
+{\
+    NSString *vars = [p[name]urldecode];\
+    vars = [vars stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];\
+    if([vars isEqualToString:@"default" ])\
+    {\
+        var = NULL;\
+    } \
+    else \
+    { \
+        var = [vars componentsSeparatedByString:@","];\
+    } \
+}
+
 #define  SET_TIMEOUT(t,p,deft) \
 { \
     t.timeoutValue = deft; \
