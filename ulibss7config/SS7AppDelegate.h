@@ -17,7 +17,11 @@
 #import "SS7UserAuthenticateProtocol.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
-#import "/usr/local/include/uliblicense/uliblicense.h"
+#ifdef __APPLE__
+#import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
+#else
+#import <uliblicense/uliblicense.h>
+#endif
 
 #import "SS7TemporaryImsiPool.h"
 #import "SS7TelnetSocketHelperProtocol.h"
