@@ -11,6 +11,7 @@
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
+#import "UMSS7ConfigSS7FilterTraceFile.h"
 
 @implementation UMSS7ApiTaskSS7FilterLogFile_add
 
@@ -52,20 +53,11 @@
 		else
 		{
 			// 2. adding
-			NSString *format = _webRequest.params[@"format"];
-			NSString *enable = _webRequest.params[@"enable"];
-			NSString *minutes = _webRequest.params[@"rotate-minutes"];
-			NSString *packets = _webRequest.params[@"rotate-packets"];
-			
-			NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-			f.numberStyle = NSNumberFormatterNoStyle;
-			
-			NSNumber *min = [f numberFromString:minutes];
-			NSNumber *pack = [f numberFromString:packets];
-			BOOL en = [enable boolValue];
-
-			[_appDelegate logfile_add:name file:file format:format rotate_minutes:min rotate_packets:pack enable:en];
-			[self sendResultOK];
+            UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_webRequest.params];
+            UMSynchronizedSortedDictionary *config = traceFile.config;
+            [_appDelegate logfile_add:config];
+            [self sendResultObject:config];
+            
 		}
 	}
 	@catch(NSException *e)

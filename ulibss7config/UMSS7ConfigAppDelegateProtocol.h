@@ -12,7 +12,7 @@
 @class UMSS7ConfigStorage;
 @class UMSS7ApiSession;
 @class UMSS7ConfigSS7FilterStagingArea;
-@class UMSS7ConfigSS7FilterLogFile;
+@class UMSS7ConfigSS7FilterTraceFile;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -160,13 +160,8 @@ realm:(NSString **)realm;
 - (UMSynchronizedArray *)logfile_list;
 - (void)logfile_remove:(NSString *)name;
 - (void)logfile_enable:(NSString *)name enable:(BOOL)enable;
-- (UMSS7ConfigSS7FilterLogFile *)logfile_get:(NSString *)listName;
+- (UMSS7ConfigSS7FilterTraceFile *)logfile_get:(NSString *)listName;
 - (void)logfile_action:(NSString *)name action:(NSString *)enable;
-- (void)logfile_add:(NSString *)name 
-					file:(NSString *)file
-					format:(NSString *)format
-					rotate_minutes:(NSNumber *)minutes
-					rotate_packets:(NSNumber *)packets_count
-					enable:(BOOL)enable;
+- (void)logfile_add:(UMSynchronizedSortedDictionary *)conf;
 
 @end

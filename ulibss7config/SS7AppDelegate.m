@@ -84,7 +84,7 @@
 #import "UMSS7ApiSession.h"
 #import "DiameterGenericInstance.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
-#import "UMSS7ConfigSS7FilterLogFile.h"
+#import "UMSS7ConfigSS7FilterTraceFile.h"
 
 //@class SS7AppDelegate;
 
@@ -3923,7 +3923,7 @@ static void signalHandler(int signum);
     /* fix-me*/
 }
 
-- (UMSS7ConfigSS7FilterLogFile *)logfile_get:(NSString *)listName
+- (UMSS7ConfigSS7FilterTraceFile *)logfile_get:(NSString *)listName
 {
     /* fix-me*/
     return NULL;
@@ -3934,12 +3934,22 @@ static void signalHandler(int signum);
     /* fix-me*/
 }
 
-- (void)logfile_add:(NSString *)name file:(NSString *)file format:(NSString *)format
-     rotate_minutes:(NSNumber *)minutes rotate_packets:(NSNumber *)packets_count enable:(BOOL)enable
+- (void)logfile_add:(UMSynchronizedSortedDictionary *)conf
 {
     /* fix-me*/
-    NSString *en = enable ? @"YES" : @"NO";
-    NSLog(@"logfile_add: %@ , %@, %@, %@, %@ , %@", name, file, format, minutes, packets_count, en );
+    /*NSString *format = _webRequest.params[@"format"];
+    NSString *enable = _webRequest.params[@"enable"];
+    NSString *minutes = _webRequest.params[@"rotate-minutes"];
+    NSString *packets = _webRequest.params[@"rotate-packets"];
+    
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterNoStyle;
+    
+    NSNumber *min = [f numberFromString:minutes];
+    NSNumber *pack = [f numberFromString:packets];
+    BOOL en = [enable boolValue];*/
+    //NSString *en = enable ? @"YES" : @"NO";
+    //NSLog(@"logfile_add: %@ , %@, %@, %@, %@ , %@", name, file, format, minutes, packets_count, en );
 }
 
 @end

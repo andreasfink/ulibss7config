@@ -11,7 +11,7 @@
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
-#import "UMSS7ConfigSS7FilterLogFile.h"
+#import "UMSS7ConfigSS7FilterTraceFile.h"
 
 @implementation UMSS7ApiTaskSS7FilterLogFile_read
 
@@ -47,7 +47,7 @@
 		else
 		{
 			// 2. Read
-			UMSS7ConfigSS7FilterLogFile *log = [_appDelegate logfile_get:name];
+			UMSS7ConfigSS7FilterTraceFile *log = [_appDelegate logfile_get:name];
 			[self sendResultObject:log.config];
 		}
 	}
