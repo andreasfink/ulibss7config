@@ -395,7 +395,7 @@ UMDiameterRouterAppDelegateProtocol>
 #pragma mark Log File Functions
 /************************************************************/
 
-- (UMSynchronizedArray *)logfile_lists;
+- (UMSynchronizedArray *)logfile_list;
 - (void)logfile_remove:(NSString *)name;
 - (void)logfile_enable:(NSString *)name enable:(BOOL)enable;
 - (UMSS7ConfigSS7FilterTraceFile *)logfile_get:(NSString *)listName;
