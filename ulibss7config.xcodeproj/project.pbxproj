@@ -94,9 +94,9 @@
 		A661A528229D651400CCEE02 /* UMSS7ApiTaskNamedlist_delete.m in Sources */ = {isa = PBXBuildFile; fileRef = A661A526229D651400CCEE02 /* UMSS7ApiTaskNamedlist_delete.m */; };
 		A6679E53229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.h in Headers */ = {isa = PBXBuildFile; fileRef = A6679E51229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6679E54229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = A6679E52229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m */; };
-		A66993B7229F696300AF0D70 /* DiameterSession3GPP_LCS_LRR.h in Headers */ = {isa = PBXBuildFile; fileRef = A66993B5229F696300AF0D70 /* DiameterSession3GPP_LCS_LRR.h */; };
+		A66993B7229F696300AF0D70 /* DiameterSession3GPP_LCS_LRR.h in Headers */ = {isa = PBXBuildFile; fileRef = A66993B5229F696300AF0D70 /* DiameterSession3GPP_LCS_LRR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A66993B8229F696300AF0D70 /* DiameterSession3GPP_LCS_LRR.m in Sources */ = {isa = PBXBuildFile; fileRef = A66993B6229F696300AF0D70 /* DiameterSession3GPP_LCS_LRR.m */; };
-		A66993BB229F6EEF00AF0D70 /* DiameterSession3GPP_SRR.h in Headers */ = {isa = PBXBuildFile; fileRef = A66993B9229F6EEF00AF0D70 /* DiameterSession3GPP_SRR.h */; };
+		A66993BB229F6EEF00AF0D70 /* DiameterSession3GPP_SRR.h in Headers */ = {isa = PBXBuildFile; fileRef = A66993B9229F6EEF00AF0D70 /* DiameterSession3GPP_SRR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A66993BC229F6EEF00AF0D70 /* DiameterSession3GPP_SRR.m in Sources */ = {isa = PBXBuildFile; fileRef = A66993BA229F6EEF00AF0D70 /* DiameterSession3GPP_SRR.m */; };
 		A6798A1F22BB70A80019806C /* ulibdb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1022BB70A60019806C /* ulibdb.framework */; };
 		A6798A2022BB70A80019806C /* ulibpcap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1122BB70A70019806C /* ulibpcap.framework */; };
@@ -471,7 +471,7 @@
 		A6BF3181229443DE0000578B /* UMSS7ConfigSS7FilterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3173229443DE0000578B /* UMSS7ConfigSS7FilterEngine.m */; };
 		A6BF3186229BC1020000578B /* UMSS7ConfigDiameterRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3184229BC1020000578B /* UMSS7ConfigDiameterRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF3187229BC1020000578B /* UMSS7ConfigDiameterRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3185229BC1020000578B /* UMSS7ConfigDiameterRouter.m */; };
-		A6BF31BC229EACFC0000578B /* UMSS7ApiTaskSS7FilterEngine_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31BA229EACFC0000578B /* UMSS7ApiTaskSS7FilterEngine_list.h */; };
+		A6BF31BC229EACFC0000578B /* UMSS7ApiTaskSS7FilterEngine_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31BA229EACFC0000578B /* UMSS7ApiTaskSS7FilterEngine_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31BD229EACFC0000578B /* UMSS7ApiTaskSS7FilterEngine_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31BB229EACFC0000578B /* UMSS7ApiTaskSS7FilterEngine_list.m */; };
 		A6BF31C0229EAD030000578B /* UMSS7ApiTaskSS7FilterEngine_add.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31BE229EAD030000578B /* UMSS7ApiTaskSS7FilterEngine_add.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31C1229EAD030000578B /* UMSS7ApiTaskSS7FilterEngine_add.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31BF229EAD030000578B /* UMSS7ApiTaskSS7FilterEngine_add.m */; };
@@ -483,7 +483,7 @@
 		A6BF31CD229EAD200000578B /* UMSS7ApiTaskSS7FilterEngine_status.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31CB229EAD200000578B /* UMSS7ApiTaskSS7FilterEngine_status.m */; };
 		A6BF31D0229EAD280000578B /* UMSS7ApiTaskSS7FilterEngine_action.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31CE229EAD280000578B /* UMSS7ApiTaskSS7FilterEngine_action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31D1229EAD280000578B /* UMSS7ApiTaskSS7FilterEngine_action.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31CF229EAD280000578B /* UMSS7ApiTaskSS7FilterEngine_action.m */; };
-		A6BF31D4229EBED70000578B /* UMSS7ApiTaskSS7FilterEngine_read.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31D2229EBED70000578B /* UMSS7ApiTaskSS7FilterEngine_read.h */; };
+		A6BF31D4229EBED70000578B /* UMSS7ApiTaskSS7FilterEngine_read.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31D2229EBED70000578B /* UMSS7ApiTaskSS7FilterEngine_read.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31D5229EBED70000578B /* UMSS7ApiTaskSS7FilterEngine_read.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31D3229EBED70000578B /* UMSS7ApiTaskSS7FilterEngine_read.m */; };
 		A6BF31DA229EDDEC0000578B /* DiameterGenericInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31D8229EDDEC0000578B /* DiameterGenericInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31DB229EDDEC0000578B /* DiameterGenericInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31D9229EDDEC0000578B /* DiameterGenericInstance.m */; };
@@ -583,7 +583,7 @@
 		A6C4164D21C4134B0033F993 /* SS7TemporaryImsiPool.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4164B21C4134B0033F993 /* SS7TemporaryImsiPool.m */; };
 		A6C4165021C4139F0033F993 /* SS7TemporaryImsiEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C4164E21C4139F0033F993 /* SS7TemporaryImsiEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6C4165121C4139F0033F993 /* SS7TemporaryImsiEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4164F21C4139F0033F993 /* SS7TemporaryImsiEntry.m */; };
-		A6CEB96D22BA702D00B2BD9D /* UMSS7Log.h in Headers */ = {isa = PBXBuildFile; fileRef = A6CEB96B22BA702D00B2BD9D /* UMSS7Log.h */; };
+		A6CEB96D22BA702D00B2BD9D /* UMSS7Log.h in Headers */ = {isa = PBXBuildFile; fileRef = A6CEB96B22BA702D00B2BD9D /* UMSS7Log.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6CEB96E22BA702D00B2BD9D /* UMSS7Log.m in Sources */ = {isa = PBXBuildFile; fileRef = A6CEB96C22BA702D00B2BD9D /* UMSS7Log.m */; };
 		A6D2D7BE21A4938400B1895A /* SS7UserAuthenticateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7BC21A4938400B1895A /* SS7UserAuthenticateProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6D2D7C221A49F1E00B1895A /* SS7TelnetSocketHelperProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7C021A49F1E00B1895A /* SS7TelnetSocketHelperProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };

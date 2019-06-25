@@ -35,6 +35,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"password",_password);
+    APPEND_CONFIG_STRING(s,@"profile",_profile);
 }
 
 
@@ -42,12 +43,14 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"password",_password);
+    APPEND_DICT_STRING(dict,@"profile",_profile);
     return dict;
 }
 
 - (void)setConfig:(NSDictionary *)dict
 {
     SET_DICT_STRING(dict,@"password",_password);
+    SET_DICT_STRING(dict,@"profile",_profile);
 }
 
 - (UMSS7ConfigApiUser *)copyWithZone:(NSZone *)zone

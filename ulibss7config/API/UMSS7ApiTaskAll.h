@@ -158,6 +158,15 @@
 #import "UMSS7ApiTaskSS7FilterLogFile_status.h"
 #import "UMSS7ApiTaskSS7FilterLogFile_action.h"
 
+#import "UMSS7ApiTaskSS7FilterEngine_list.h"
+#import "UMSS7ApiTaskSS7FilterEngine_read.h"
+#import "UMSS7ApiTaskSS7FilterEngine_add.h"
+#import "UMSS7ApiTaskSS7FilterEngine_modify.h"
+#import "UMSS7ApiTaskSS7FilterEngine_delete.h"
+#import "UMSS7ApiTaskSS7FilterEngine_status.h"
+#import "UMSS7ApiTaskSS7FilterEngine_action.h"
+
+
 #import "UMSS7ApiTaskNamedlist_list.h"
 #import "UMSS7ApiTaskNamedlist_lists.h"
 #import "UMSS7ApiTaskNamedlist_read.h"

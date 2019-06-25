@@ -154,6 +154,15 @@ API(UMSS7ApiTaskSS7FilterLogFile_delete)
 API(UMSS7ApiTaskSS7FilterLogFile_status)
 API(UMSS7ApiTaskSS7FilterLogFile_action)
 
+API(UMSS7ApiTaskSS7FilterEngine_list)
+API(UMSS7ApiTaskSS7FilterEngine_read)
+API(UMSS7ApiTaskSS7FilterEngine_add)
+//API(UMSS7ApiTaskSS7FilterEngine_modify)
+//API(UMSS7ApiTaskSS7FilterEngine_delete)
+API(UMSS7ApiTaskSS7FilterEngine_status)
+API(UMSS7ApiTaskSS7FilterEngine_action)
+
+
 API(UMSS7ApiTaskNamedlist_list)
 API(UMSS7ApiTaskNamedlist_lists)
 API(UMSS7ApiTaskNamedlist_read)
