@@ -1,22 +1,23 @@
 //
-//  UMSS7ApiTaskSS7FilterLogFile_delete.m
+//  UMSS7ApiTaskSS7FilterTraceFile_read.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 21.05.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSS7FilterLogFile_delete.h"
+#import "UMSS7ApiTaskSS7FilterTraceFile_read.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
+#import "UMSS7ConfigSS7FilterTraceFile.h"
 
-@implementation UMSS7ApiTaskSS7FilterLogFile_delete
+@implementation UMSS7ApiTaskSS7FilterTraceFile_read
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-logfile-remove";
+    return @"/api/ss7-filter-logfile-read";
 }
 
 - (void)main
@@ -45,15 +46,16 @@
 		}
 		else
 		{
-			// 2. Remove
-			[_appDelegate logfile_remove:name];
-			[self sendResultOK];
+			// 2. Read
+			UMSS7ConfigSS7FilterTraceFile *log = [_appDelegate logfile_get:name];
+			[self sendResultObject:log.config];
 		}
 	}
 	@catch(NSException *e)
 	{
 		[self sendException:e];
 	}
+	
 }
 
 @end
