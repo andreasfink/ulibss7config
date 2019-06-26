@@ -1,13 +1,15 @@
 //
-//  UMSS7Log.m
+//  UMSS7Log.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 19.06.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7Log.h"
+#import <ulibpcap/ulibpcap.h>
 
-@implementation UMSS7Log
+
+@interface UMSS7TraceFile : UMPCAPFile
 
 @end
+
