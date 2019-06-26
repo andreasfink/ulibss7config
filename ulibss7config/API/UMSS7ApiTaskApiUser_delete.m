@@ -37,6 +37,7 @@
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigApiUser *usr = [cs getApiUser:name];
     NSDictionary *d = [NSDictionary dictionary];
+    NSUInteger users = [[cs getApiUserNames] count];
     if(usr==NULL)
     {
         [self sendErrorNotFound];
@@ -44,6 +45,11 @@
     else if([name isEqualToString:usr.name])
     {
         d = @{@"error" : @"invalid-parameter", @"reason" :@"current user is not allowed to be deleted"};
+        [self sendError:[d jsonString]];
+    }
+    else if(users < 2)
+    {
+        d = @{@"error" : @"invalid-action", @"reason" :@"system has only 1 user and can't be deleted"};
         [self sendError:[d jsonString]];
     }
     else
