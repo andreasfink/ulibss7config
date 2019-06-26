@@ -36,7 +36,19 @@
         return;
     }
 
-    [self sendErrorNotImplemented];
+    NSString *name = _webRequest.params[@"name"];
+    name = [UMSS7ConfigObject filterName:name];
+    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+    UMSS7ConfigApiUser *usr = [cs getApiUser:name];
+    if(usr==NULL)
+    {
+        [self sendErrorNotFound];
+    }
+    else
+    {
+        UMSynchronizedSortedDictionary *config = usr.config;
+        [self sendResultObject:config];
+    }
 }
 
 @end

@@ -36,9 +36,15 @@
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigApiUser *usr = [cs getApiUser:name];
+    NSDictionary *d = [NSDictionary dictionary];
     if(usr==NULL)
     {
         [self sendErrorNotFound];
+    }
+    else if([name isEqualToString:usr.name])
+    {
+        d = @{@"error" : @"invalid-parameter", @"reason" :@"current user is not allowed to be deleted"};
+        [self sendError:[d jsonString]];
     }
     else
     {
