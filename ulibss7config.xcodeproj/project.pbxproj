@@ -447,20 +447,6 @@
 		A6BF3125229437FD0000578B /* UMSS7ApiTaskSS7FilterAction_read.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3123229437FD0000578B /* UMSS7ApiTaskSS7FilterAction_read.m */; };
 		A6BF31282294380A0000578B /* UMSS7ApiTaskSS7FilterAction_status.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31262294380A0000578B /* UMSS7ApiTaskSS7FilterAction_status.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31292294380A0000578B /* UMSS7ApiTaskSS7FilterAction_status.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31272294380A0000578B /* UMSS7ApiTaskSS7FilterAction_status.m */; };
-<<<<<<< HEAD
-		A6BF31302294382D0000578B /* UMSS7ApiTaskSS7FilterLogFile_add.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF312E2294382D0000578B /* UMSS7ApiTaskSS7FilterLogFile_add.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BF31312294382D0000578B /* UMSS7ApiTaskSS7FilterLogFile_add.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF312F2294382D0000578B /* UMSS7ApiTaskSS7FilterLogFile_add.m */; };
-		A6BF3134229438350000578B /* UMSS7ApiTaskSS7FilterLogFile_delete.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3132229438350000578B /* UMSS7ApiTaskSS7FilterLogFile_delete.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BF3135229438350000578B /* UMSS7ApiTaskSS7FilterLogFile_delete.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3133229438350000578B /* UMSS7ApiTaskSS7FilterLogFile_delete.m */; };
-		A6BF31382294383B0000578B /* UMSS7ApiTaskSS7FilterLogFile_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31362294383B0000578B /* UMSS7ApiTaskSS7FilterLogFile_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BF31392294383B0000578B /* UMSS7ApiTaskSS7FilterLogFile_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31372294383B0000578B /* UMSS7ApiTaskSS7FilterLogFile_list.m */; };
-		A6BF313C2294384E0000578B /* UMSS7ApiTaskSS7FilterLogFile_modify.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF313A2294384E0000578B /* UMSS7ApiTaskSS7FilterLogFile_modify.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BF313D2294384E0000578B /* UMSS7ApiTaskSS7FilterLogFile_modify.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF313B2294384E0000578B /* UMSS7ApiTaskSS7FilterLogFile_modify.m */; };
-		A6BF3140229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF313E229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BF3141229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF313F229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.m */; };
-		A6BF31442294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31422294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BF31452294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31432294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.m */; };
-=======
 		A6BF31302294382D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_add.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF312E2294382D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_add.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31312294382D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_add.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF312F2294382D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_add.m */; };
 		A6BF3134229438350000578B /* UMSS7ApiTaskSS7FilterTraceFile_delete.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3132229438350000578B /* UMSS7ApiTaskSS7FilterTraceFile_delete.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -473,7 +459,6 @@
 		A6BF3141229438560000578B /* UMSS7ApiTaskSS7FilterTraceFile_read.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF313F229438560000578B /* UMSS7ApiTaskSS7FilterTraceFile_read.m */; };
 		A6BF31442294385D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_status.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF31422294385D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_status.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF31452294385D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_status.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF31432294385D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_status.m */; };
->>>>>>> develop
 		A6BF3175229443DE0000578B /* UMSS7ConfigSS7FilterRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3167229443DC0000578B /* UMSS7ConfigSS7FilterRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF3176229443DE0000578B /* UMSS7ConfigSS7FilterRule.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3168229443DC0000578B /* UMSS7ConfigSS7FilterRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF3177229443DE0000578B /* UMSS7ConfigSS7FilterRule.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3169229443DD0000578B /* UMSS7ConfigSS7FilterRule.m */; };
@@ -743,13 +728,8 @@
 		A684E3A020774ADB000F3F70 /* ulibss7configTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ulibss7configTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A684E3A520774ADB000F3F70 /* ulibss7configTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ulibss7configTests.m; sourceTree = "<group>"; };
 		A684E3A720774ADB000F3F70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		A684F76F22C10E83004F77C0 /* UMSS7ConfigSS7FilterTraceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSS7FilterTraceFile.m; sourceTree = "<group>"; };
 		A684F77022C10E83004F77C0 /* UMSS7ConfigSS7FilterTraceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSS7FilterTraceFile.h; sourceTree = "<group>"; };
-=======
-		A6A83CEF22C38E3200BF2C6D /* UMSS7ConfigSS7FilterTraceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSS7FilterTraceFile.m; sourceTree = "<group>"; };
-		A6A83CF022C38E3200BF2C6D /* UMSS7ConfigSS7FilterTraceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSS7FilterTraceFile.h; sourceTree = "<group>"; };
->>>>>>> develop
 		A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSCCPTranslationTable_list.h; sourceTree = "<group>"; };
 		A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSCCPTranslationTable_list.m; sourceTree = "<group>"; };
 		A6B011AF21DA56EF00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSCCPTranslationTableEntry_list.h; sourceTree = "<group>"; };
@@ -1076,20 +1056,6 @@
 		A6BF3123229437FD0000578B /* UMSS7ApiTaskSS7FilterAction_read.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterAction_read.m; sourceTree = "<group>"; };
 		A6BF31262294380A0000578B /* UMSS7ApiTaskSS7FilterAction_status.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterAction_status.h; sourceTree = "<group>"; };
 		A6BF31272294380A0000578B /* UMSS7ApiTaskSS7FilterAction_status.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterAction_status.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		A6BF312E2294382D0000578B /* UMSS7ApiTaskSS7FilterLogFile_add.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterLogFile_add.h; sourceTree = "<group>"; };
-		A6BF312F2294382D0000578B /* UMSS7ApiTaskSS7FilterLogFile_add.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterLogFile_add.m; sourceTree = "<group>"; };
-		A6BF3132229438350000578B /* UMSS7ApiTaskSS7FilterLogFile_delete.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterLogFile_delete.h; sourceTree = "<group>"; };
-		A6BF3133229438350000578B /* UMSS7ApiTaskSS7FilterLogFile_delete.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterLogFile_delete.m; sourceTree = "<group>"; };
-		A6BF31362294383B0000578B /* UMSS7ApiTaskSS7FilterLogFile_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterLogFile_list.h; sourceTree = "<group>"; };
-		A6BF31372294383B0000578B /* UMSS7ApiTaskSS7FilterLogFile_list.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterLogFile_list.m; sourceTree = "<group>"; };
-		A6BF313A2294384E0000578B /* UMSS7ApiTaskSS7FilterLogFile_modify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterLogFile_modify.h; sourceTree = "<group>"; };
-		A6BF313B2294384E0000578B /* UMSS7ApiTaskSS7FilterLogFile_modify.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterLogFile_modify.m; sourceTree = "<group>"; };
-		A6BF313E229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterLogFile_read.h; sourceTree = "<group>"; };
-		A6BF313F229438560000578B /* UMSS7ApiTaskSS7FilterLogFile_read.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterLogFile_read.m; sourceTree = "<group>"; };
-		A6BF31422294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterLogFile_status.h; sourceTree = "<group>"; };
-		A6BF31432294385D0000578B /* UMSS7ApiTaskSS7FilterLogFile_status.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterLogFile_status.m; sourceTree = "<group>"; };
-=======
 		A6BF312E2294382D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_add.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterTraceFile_add.h; sourceTree = "<group>"; };
 		A6BF312F2294382D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_add.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterTraceFile_add.m; sourceTree = "<group>"; };
 		A6BF3132229438350000578B /* UMSS7ApiTaskSS7FilterTraceFile_delete.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterTraceFile_delete.h; sourceTree = "<group>"; };
@@ -1102,7 +1068,6 @@
 		A6BF313F229438560000578B /* UMSS7ApiTaskSS7FilterTraceFile_read.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterTraceFile_read.m; sourceTree = "<group>"; };
 		A6BF31422294385D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_status.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterTraceFile_status.h; sourceTree = "<group>"; };
 		A6BF31432294385D0000578B /* UMSS7ApiTaskSS7FilterTraceFile_status.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterTraceFile_status.m; sourceTree = "<group>"; };
->>>>>>> develop
 		A6BF3167229443DC0000578B /* UMSS7ConfigSS7FilterRuleset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSS7FilterRuleset.h; sourceTree = "<group>"; };
 		A6BF3168229443DC0000578B /* UMSS7ConfigSS7FilterRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSS7FilterRule.h; sourceTree = "<group>"; };
 		A6BF3169229443DD0000578B /* UMSS7ConfigSS7FilterRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSS7FilterRule.m; sourceTree = "<group>"; };
@@ -1813,11 +1778,8 @@
 				A6BF3170229443DE0000578B /* UMSS7ConfigSS7FilterActionList.m */,
 				A6BF3171229443DE0000578B /* UMSS7ConfigSS7FilterEngine.h */,
 				A6BF3173229443DE0000578B /* UMSS7ConfigSS7FilterEngine.m */,
-<<<<<<< HEAD
 				A684F77022C10E83004F77C0 /* UMSS7ConfigSS7FilterTraceFile.h */,
 				A684F76F22C10E83004F77C0 /* UMSS7ConfigSS7FilterTraceFile.m */,
-=======
->>>>>>> develop
 				A6BF3168229443DC0000578B /* UMSS7ConfigSS7FilterRule.h */,
 				A6BF3169229443DD0000578B /* UMSS7ConfigSS7FilterRule.m */,
 				A6BF3167229443DC0000578B /* UMSS7ConfigSS7FilterRuleset.h */,
@@ -2418,11 +2380,7 @@
 				A6B011CE21DB82DD00B1B4B5 /* UMSS7ConfigApiUser.m in Sources */,
 				A6EC8E5A21B12F3E00B69FDD /* UMTTask.m in Sources */,
 				A6BC4513207753EE008C3CEB /* UMSS7ApiTaskMTP3Link_delete.m in Sources */,
-<<<<<<< HEAD
 				A684F77122C10E83004F77C0 /* UMSS7ConfigSS7FilterTraceFile.m in Sources */,
-=======
-				A6A83CF122C38E3200BF2C6D /* UMSS7ConfigSS7FilterTraceFile.m in Sources */,
->>>>>>> develop
 				A6BC4542207753EE008C3CEB /* UMSS7ApiTaskM3UAAS_status.m in Sources */,
 				A6BC452E207753EE008C3CEB /* UMSS7ApiTask.m in Sources */,
 				A6BC44E0207753ED008C3CEB /* UMSS7ApiTaskMTP3_status.m in Sources */,
