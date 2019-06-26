@@ -6,14 +6,14 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSS7FilterLogFile_add.h"
+#import "UMSS7ApiTaskSS7FilterTraceFile_add.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
 #import "UMSS7ConfigSS7FilterTraceFile.h"
 
-@implementation UMSS7ApiTaskSS7FilterLogFile_add
+@implementation UMSS7ApiTaskSS7FilterTraceFile_add
 
 + (NSString *)apiPath
 {

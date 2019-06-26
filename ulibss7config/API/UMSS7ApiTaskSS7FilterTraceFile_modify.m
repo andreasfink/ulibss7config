@@ -1,23 +1,22 @@
 //
-//  UMSS7ApiTaskSS7FilterLogFile_read.m
+//  UMSS7ApiTaskSS7FilterTraceFile_modify.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 21.05.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSS7FilterLogFile_read.h"
+#import "UMSS7ApiTaskSS7FilterTraceFile_modify.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
-#import "UMSS7ConfigSS7FilterTraceFile.h"
 
-@implementation UMSS7ApiTaskSS7FilterLogFile_read
+@implementation UMSS7ApiTaskSS7FilterTraceFile_modify
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-logfile-read";
+    return @"/api/ss7-filter-logfile-modify";
 }
 
 - (void)main
@@ -38,17 +37,26 @@
 	{
 		// 1. Get external parameters
 		NSString *name = _webRequest.params[@"name"];
+		NSString *enable = _webRequest.params[@"enable"];
 		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{
 			d = @{@"error" : @"missing-parameter", @"reason" :@"the name parameter is not passed"}; 
 			[self sendError:[d jsonString]];
 		}
+		else if(enable.length==0)
+		{
+			d = @{@"error" : @"missing-parameter", @"reason" :@"the enable parameter is not passed" };
+			[self sendError:[d jsonString]];
+		}
 		else
 		{
-			// 2. Read
-			UMSS7ConfigSS7FilterTraceFile *log = [_appDelegate logfile_get:name];
-			[self sendResultObject:log.config];
+			// 2. Enable
+			NSString *enable = _webRequest.params[@"enable"];
+			BOOL en = [enable boolValue];
+			
+			[_appDelegate logfile_enable:name enable:en];
+			[self sendResultOK];
 		}
 	}
 	@catch(NSException *e)

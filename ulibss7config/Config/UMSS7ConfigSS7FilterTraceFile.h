@@ -1,5 +1,5 @@
 //
-//  UMSS7ConfigSS7FilterLogFile.h
+//  UMSS7ConfigSS7FilterTraceFile.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 21.05.19.
