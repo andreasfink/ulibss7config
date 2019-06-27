@@ -67,24 +67,21 @@
             else
             {
                  // 4. adding
-                 UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:_webRequest.params];
-                 UMSynchronizedSortedDictionary *config = action.config;
-                
-                 NSString *order = _webRequest.params[@"order"];
-                 NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-                 f.numberStyle = NSNumberFormatterNoStyle;
-                 NSNumber *pos = [f numberFromString:order];
-                
-                if(pos == NULL)
+                UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:_webRequest.params];
+                UMSynchronizedSortedDictionary *config = action.config;
+                NSString *order = _webRequest.params[@"order"];
+                if(order == NULL)
                 {
                     [list appendAction:action];
                 }
                 else
                 {
-                    [list insertAction:action atIndex:[pos integerValue]];
+                    NSInteger pos = [order integerValue];
+                    [list insertAction:action atIndex:pos];
                 }
+
+                // 6. Return result
                 [self sendResultObject:config];
-                
             }
         }
         @catch(NSException *e)
