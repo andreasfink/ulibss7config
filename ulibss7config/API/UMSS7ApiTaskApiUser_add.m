@@ -47,6 +47,7 @@
     {
         @try
         {
+            UMSS7ConfigApiUser *usr = [[UMSS7ConfigApiUser alloc] initWithConfig:_webRequest.params];
             [cs addApiUser:usr];
             UMSynchronizedSortedDictionary *config = usr.config;
             [self sendResultObject:config];
