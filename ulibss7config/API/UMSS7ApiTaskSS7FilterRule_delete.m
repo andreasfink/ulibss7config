@@ -47,22 +47,20 @@
     {
 		@try
 		{
-			// 2. Get Engine  
-			NSString *engine_name = _webRequest.params[@"engine"];
-			UMPluginHandler *engine = [_appDelegate getSS7FilterEngineHandler:engine_name];
-			
-			// 3. Get Rule-Set 
+			// 2. Get param
 			NSString *ruleset_name = _webRequest.params[@"filter-ruleset"];
-			UMSS7ConfigSS7FilterRuleset* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
+            
+            // 3. Get Rule-Set
+            UMSS7ConfigSS7FilterRuleset* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
 			
 			// 4. Get index of rule
 			NSString *idx = _webRequest.params[@"entry-nr"];
 			
-			// 5. Verify if engine, rule-set, rule exist
-			if(engine == NULL)
+			// 5. Verify if rule-set, rule exist
+			if(ruleset_name == NULL)
 			{
 				// 5a. Not found
-				[self sendErrorNotFound:engine_name];
+				[self sendErrorNotFound:@"filter-ruleset"];
 				
 			}
 			else if(rSet == NULL)

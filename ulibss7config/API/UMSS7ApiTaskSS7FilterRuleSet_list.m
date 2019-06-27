@@ -46,17 +46,8 @@
     {
 		@try
 		{
-			NSString *name = _webRequest.params[@"name"];
-			UMSS7ConfigSS7FilterRuleset *rule_set = stagingArea.filter_rule_set_dict[name];
-			if(rule_set == NULL)
-			{
-				[self sendErrorNotFound:name];
-			}
-			else
-			{
-				NSArray<NSString *> *names = [stagingArea.filter_rule_set_dict allKeys];
-				[self sendResultObject:names];
-			}
+			NSArray<NSString *> *names = [stagingArea.filter_rule_set_dict allKeys];
+			[self sendResultObject:names];
 		}
 		@catch(NSException *e)
 		{
