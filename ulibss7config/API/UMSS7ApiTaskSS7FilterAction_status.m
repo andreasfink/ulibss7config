@@ -51,7 +51,7 @@
 			UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
 			
 			// 3. Get index of action
-			NSString *idx = _webRequest.params[@"action"];
+			NSString *idx = _webRequest.params[@"entry-nr"];
 			
 			// 4. Verify if action-list exists
 			if(list == NULL)
@@ -62,7 +62,7 @@
 			else if(idx == NULL)
 			{
 				// 4b. Not found
-				[self sendErrorNotFound:@"Action Position"];
+				[self sendErrorNotFound:@"entry-nr"];
 			}
 			else
 			{
@@ -72,7 +72,7 @@
 				if(action == NULL)
 				{
 				    // 4c-1. Action not found
-					[self sendErrorNotFound:@"Action"];
+					[self sendErrorNotFound:@"entry-nr"];
 				}
 				else
 				{
