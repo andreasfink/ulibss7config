@@ -10,4 +10,30 @@
 
 @implementation UMSS7TraceFile
 
+- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7FilterTraceFile *)config
+{
+	self = [super init];
+	if(self)
+	{
+		_config = [config copy];
+	}
+	return self;
+}
+
+- (void)logPacket:(UMSCCP_Packet *)packet
+{
+}
+
+- (void)open
+{
+}
+- (void)close
+{
+}
+- (void)rotate
+{
+}
+
+
 @end
+
