@@ -1,5 +1,5 @@
 //
-//  UMSS7Log.m
+//  UMSS7TraceFile.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 19.06.19.

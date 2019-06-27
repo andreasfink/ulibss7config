@@ -82,8 +82,8 @@
 	</array>
 	<key>binderSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {272, 1390}}</string>
-		<string>{{273, 0}, {1587, 1390}}</string>
+		<string>{{0, 0}, {272, 1299}}</string>
+		<string>{{273, 0}, {1587, 1299}}</string>
 	</array>
 	<key>binderState</key>
 	<array>
@@ -243,7 +243,7 @@
 	<integer>4</integer>
 	<key>inspectorSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {768, 953}}</string>
+		<string>{{0, 0}, {512, 1289}}</string>
 	</array>
 	<key>inspectorSynopsisIsCollapsed</key>
 	<false/>
@@ -356,7 +356,7 @@
 	<key>mainDocumentEditor.outlinerVisible</key>
 	<false/>
 	<key>mainDocumentEditor.scrollRect</key>
-	<string>{{0, 0}, {620, 1304}}</string>
+	<string>{{0, 0}, {620, 1213}}</string>
 	<key>mainDocumentEditor.selectedItemUUIDs</key>
 	<array/>
 	<key>mainDocumentEditor.selectedRanges</key>

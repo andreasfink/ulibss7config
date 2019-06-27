@@ -1,5 +1,5 @@
 //
-//  UMSS7Log.h
+//  UMSS7TraceFile.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 19.06.19.
@@ -9,7 +9,9 @@
 #import <ulibpcap/ulibpcap.h>
 
 
-@interface UMSS7TraceFile : UMPCAPFile
-
+@interface UMSS7TraceFile : UMObject
+{
+	UMPCAPFile *_pcap;
+}
 @end
 
