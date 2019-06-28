@@ -19,7 +19,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-action-list-read";
+    return @"/api/ss7-filter-action-list-delete";
 }
 
 - (void)main

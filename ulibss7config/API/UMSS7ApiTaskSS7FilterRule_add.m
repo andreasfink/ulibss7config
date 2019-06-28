@@ -37,7 +37,6 @@
         return;
     }
 	
-	// 1. Get Staging Area
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
     {
@@ -47,10 +46,16 @@
     {
 		@try
 		{
-			// 2. Get Engine  
+			// 1. Get Engine
 			NSString *engine_name = _webRequest.params[@"engine"];
 			UMPluginHandler *engine = [_appDelegate getSS7FilterEngineHandler:engine_name];
-			
+            
+            // 2a. Get Engine config
+            NSString *engine_config = _webRequest.params[@"engine-config"];
+            
+            // 2b. Get Engine config
+            NSString *status = _webRequest.params[@"status"];
+            
 			// 3. Get Rule-Set 
 			NSString *ruleset_name = _webRequest.params[@"filter-ruleset"];
 			UMSS7ConfigSS7FilterRuleset* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
@@ -62,9 +67,24 @@
 				[self sendErrorNotFound:engine_name];
 				
 			}
+            else if(engine_name == NULL)
+            {
+                // 4b. Not found
+                [self sendErrorNotFound:@"engine"];
+            }
+            else if(engine_config == NULL)
+            {
+                // 4c. Not found
+                [self sendErrorNotFound:@"engine-config"];
+            }
+            else if(status == NULL)
+            {
+                // 4c. Not found
+                [self sendErrorNotFound:@"status"];
+            }
 			else if(rSet == NULL)
 			{
-				// 4b. Not found
+				// 4d. Not found
 				[self sendErrorNotFound:ruleset_name];
 			}
 			else
