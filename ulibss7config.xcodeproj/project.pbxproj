@@ -117,6 +117,7 @@
 		A6798A3822BB72E30019806C /* schrittmacherclient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A3722BB72E20019806C /* schrittmacherclient.framework */; };
 		A67B8BE621CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A67B8BE421CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A67B8BE721CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A67B8BE521CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m */; };
+		A67E7A7822C5E5F000B34DA3 /* libuliblicense.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A67E7A7722C5E5EF00B34DA3 /* libuliblicense.a */; };
 		A684E3A120774ADB000F3F70 /* ulibss7config.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A684E39720774ADA000F3F70 /* ulibss7config.framework */; };
 		A684E3A620774ADB000F3F70 /* ulibss7configTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A684E3A520774ADB000F3F70 /* ulibss7configTests.m */; };
 		A684E3A820774ADB000F3F70 /* ulibss7config.h in Headers */ = {isa = PBXBuildFile; fileRef = A684E39A20774ADA000F3F70 /* ulibss7config.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -722,6 +723,7 @@
 		A6798A3722BB72E20019806C /* schrittmacherclient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = schrittmacherclient.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/schrittmacherclient.framework"; sourceTree = "<absolute>"; };
 		A67B8BE421CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSCCPTranslationTableMap.h; sourceTree = "<group>"; };
 		A67B8BE521CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSCCPTranslationTableMap.m; sourceTree = "<group>"; };
+		A67E7A7722C5E5EF00B34DA3 /* libuliblicense.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuliblicense.a; path = "/Library/Application Support/FinkTelecomServices/frameworks/libuliblicense.a"; sourceTree = "<absolute>"; };
 		A684E39720774ADA000F3F70 /* ulibss7config.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ulibss7config.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A684E39A20774ADA000F3F70 /* ulibss7config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ulibss7config.h; sourceTree = "<group>"; };
 		A684E39B20774ADA000F3F70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1227,6 +1229,7 @@
 				A6798A2622BB70A80019806C /* ulibsms.framework in Frameworks */,
 				A6798A2222BB70A80019806C /* ulibasn1.framework in Frameworks */,
 				A6798A2D22BB70A80019806C /* ulibsccp.framework in Frameworks */,
+				A67E7A7822C5E5F000B34DA3 /* libuliblicense.a in Frameworks */,
 				A6798A3822BB72E30019806C /* schrittmacherclient.framework in Frameworks */,
 				A6798A2B22BB70A80019806C /* ulibmtp3.framework in Frameworks */,
 				A6798A2022BB70A80019806C /* ulibpcap.framework in Frameworks */,
@@ -1793,6 +1796,7 @@
 		A6BC434520774FB6008C3CEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A67E7A7722C5E5EF00B34DA3 /* libuliblicense.a */,
 				A6798A3322BB71750019806C /* ulibtransport.framework */,
 				A6798A3722BB72E20019806C /* schrittmacherclient.framework */,
 				A6798A1422BB70A70019806C /* ulib.framework */,
@@ -2773,11 +2777,20 @@
 					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"HAS_ULIBLICENSE=1",
+				);
 				INFOPLIST_FILE = ulibss7config/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fink.ulibss7config;
@@ -2815,11 +2828,16 @@
 					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = "HAS_ULIBLICENSE=1";
 				INFOPLIST_FILE = ulibss7config/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fink.ulibss7config;

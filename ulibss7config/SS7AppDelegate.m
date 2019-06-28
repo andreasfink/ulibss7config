@@ -109,6 +109,7 @@ static void signalHandler(int signum);
     return [self initWithOptions:@{}];
 }
 
+
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options
 {
     self = [super init];
@@ -218,6 +219,10 @@ static void signalHandler(int signum);
                                                           name:@"api-housekeeping"
                                                        repeats:YES
                                                runInForeground:NO];
+#ifdef	HAS_ULIBLICENSE
+		_globalLicenseDirectory = UMLicense_loadLicensesFromPath(self.defaultLicensePath,NO);
+#endif
+
     }
     return self;
 }
@@ -409,6 +414,11 @@ static void signalHandler(int signum);
 - (NSString *)defaultApiPassword
 {
     return @"admin";
+}
+
+- (NSString *)defaultLicensePath
+{
+	return @"/opt/uliblicense";
 }
 
 - (NSString *)productName

@@ -493,7 +493,9 @@
                 path = [path substringToIndex:path.length - 1];
             }
 
-            if(([path isEqualToString:@"/diameter"]) || ([path isEqualToString:@"/diameter/index"]))
+            if(   [path isEqualToString:@"/diameter"]
+               || [path isEqualToString:@"/diameter/"]
+               || [path isEqualToString:@"/diameter/index"])
             {
                 NSString *s = [DiameterGenericInstance webIndex];
                 [req setResponseHtmlString:s];
@@ -620,6 +622,7 @@
     [s appendString:@"<LI><a href=\"3gpp-rir\">3GPP-RIR</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-nir\">3GPP-NIR</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-srr\">3GPP-SRR SendRoutingInfoForSM</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-udr\">3GPP-UDR User Data Request</a>\n"];
 
     [s appendString:@"</UL>\n"];
     [s appendString:@"</body>\n"];
