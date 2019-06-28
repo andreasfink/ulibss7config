@@ -46,9 +46,19 @@
 		@try
 		{
 			NSString *old_name = _webRequest.params[@"name"];
-			NSString *new_name = _webRequest.params[@"destination"];
-			
-			[_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
+			NSString *new_name = _webRequest.params[@"newname"];
+            if(new_name != NULL)
+            {
+                [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
+                
+                NSDictionary *ds = [[NSDictionary alloc] initWithDictionary:_webRequest.params];
+                [ds setValue:new_name forKey:@"name"];
+                [_appDelegate updateSS7FilterStagingArea:ds];
+            }
+            else
+            {
+                [_appDelegate updateSS7FilterStagingArea:_webRequest.params];
+            }
 			[self sendResultOK];
 		}
 		@catch(NSException *e)

@@ -3641,11 +3641,14 @@ static void signalHandler(int signum);
     return;
 }
 
-- (void)createSS7FilterStagingArea:(NSString *)name
+- (void)createSS7FilterStagingArea:(NSDictionary *)dict
 {
+    NSString *name = dict[@"name"];
     NSString *filename = [UMSS7ConfigObject filterName:name];
     NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
+    [st setConfig:dict];
+    
     if(st==NULL)
     {
         @throw([NSException exceptionWithName:@"CREATE-STAGING-ERROR"
@@ -3656,6 +3659,23 @@ static void signalHandler(int signum);
     {
         _ss7FilterStagingAreas_dict[name] = st;
     }
+}
+
+- (void)updateSS7FilterStagingArea:(NSDictionary *)dict
+{
+    NSString *name = dict[@"name"];
+    UMSS7ConfigSS7FilterStagingArea *sa = _ss7FilterStagingAreas_dict[name];
+    if(sa==NULL)
+    {
+        @throw([NSException exceptionWithName:@"UPDATE-STAGING-ERROR"
+                                       reason:@"staging area doesn't exist"
+                                     userInfo:NULL]);
+    }
+    else
+    {
+        [sa setConfig:dict];
+    }
+    
 }
 
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session
