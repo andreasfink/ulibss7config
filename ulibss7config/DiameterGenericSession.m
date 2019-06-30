@@ -603,6 +603,45 @@
     }
 }
 
+
+- (void)webDiameterOptionalParameter:(NSMutableString *)s name:(NSString *)name
+{
+    [s appendString:@"<tr>\n"];
+    [s appendFormat:@"    <td class=optional>%@</td>\n",name];
+    [s appendFormat:@"    <td class=optional><input name=\"%@\" value=\"\"></td>\n",name];
+    [s appendString:@"</tr>\n"];
+}
+
+- (void)webDiameterParameter:(NSMutableString *)s
+                        name:(NSString *)name
+                defaultValue:(NSString *)def
+                     comment:(NSString *)comment
+                    optional:(BOOL)optional
+                 conditional:(BOOL)optional
+{
+    NSString *css;
+    if(optional==NO)
+    {
+        css = @"mandatory";
+    }
+    else
+    {
+        if(conditional)
+        {
+            css = @"conditional";
+        }
+        else
+        {
+            css = @"optional";
+        }
+    }
+    [s appendString:@"<tr>\n"];
+    [s appendFormat:@"    <td class=%@>%@</td>\n",css,name];
+    [s appendFormat:@"    <td class=%@><input name=\"%@\" value=\"\" value=\"%@\">%@</td>\n",css,name,def,comment];
+    [s appendString:@"</tr>\n"];
+}
+
+
 @end
 
 
