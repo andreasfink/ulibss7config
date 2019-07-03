@@ -118,6 +118,7 @@
 		A67B8BE621CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A67B8BE421CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A67B8BE721CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A67B8BE521CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m */; };
 		A67E7A7822C5E5F000B34DA3 /* libuliblicense.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A67E7A7722C5E5EF00B34DA3 /* libuliblicense.a */; };
+		A6835BBB22CCD38000FC7F0C /* DiameterSession3GPP_AIR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF325F229F0F6F0000578B /* DiameterSession3GPP_AIR.m */; };
 		A684E3A120774ADB000F3F70 /* ulibss7config.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A684E39720774ADA000F3F70 /* ulibss7config.framework */; };
 		A684E3A620774ADB000F3F70 /* ulibss7configTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A684E3A520774ADB000F3F70 /* ulibss7configTests.m */; };
 		A684E3A820774ADB000F3F70 /* ulibss7config.h in Headers */ = {isa = PBXBuildFile; fileRef = A684E39A20774ADA000F3F70 /* ulibss7config.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -549,7 +550,6 @@
 		A6BF325C229F0F690000578B /* DiameterSession3GPP_CLR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF325A229F0F690000578B /* DiameterSession3GPP_CLR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF325D229F0F690000578B /* DiameterSession3GPP_CLR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF325B229F0F690000578B /* DiameterSession3GPP_CLR.m */; };
 		A6BF3260229F0F6F0000578B /* DiameterSession3GPP_AIR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF325E229F0F6F0000578B /* DiameterSession3GPP_AIR.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BF3261229F0F6F0000578B /* DiameterSession3GPP_AIR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF325F229F0F6F0000578B /* DiameterSession3GPP_AIR.m */; };
 		A6BF3264229F0F760000578B /* DiameterSession3GPP_IDR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3262229F0F760000578B /* DiameterSession3GPP_IDR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF3265229F0F760000578B /* DiameterSession3GPP_IDR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF3263229F0F760000578B /* DiameterSession3GPP_IDR.m */; };
 		A6BF3268229F0F7D0000578B /* DiameterSession3GPP_DSR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF3266229F0F7D0000578B /* DiameterSession3GPP_DSR.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2518,6 +2518,7 @@
 				A6BF3091229430F10000578B /* UMSS7ApiTaskApiUser_delete.m in Sources */,
 				A6BF3181229443DE0000578B /* UMSS7ConfigSS7FilterEngine.m in Sources */,
 				A6BF311D229437EC0000578B /* UMSS7ApiTaskSS7FilterAction_list.m in Sources */,
+				A6835BBB22CCD38000FC7F0C /* DiameterSession3GPP_AIR.m in Sources */,
 				A6BF3209229F0EBC0000578B /* DiameterSessionDER.m in Sources */,
 				A613F13522B105AF00053ED7 /* UMSS7Filter.m in Sources */,
 				A6BF3082229430350000578B /* UMSS7ApiTaskServiceUser_delete.m in Sources */,
@@ -2573,7 +2574,6 @@
 				A6BC44E7207753ED008C3CEB /* UMSS7ApiTaskList.m in Sources */,
 				A6BF3105229437A90000578B /* UMSS7ApiTaskSS7FilterActionList_list.m in Sources */,
 				A67B8BE721CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m in Sources */,
-				A6BF3261229F0F6F0000578B /* DiameterSession3GPP_AIR.m in Sources */,
 				A6BC432D20774F93008C3CEB /* UMSS7ConfigWebserver.m in Sources */,
 				A6BC44D2207753ED008C3CEB /* UMSS7ApiTaskMTP3LinkSet_read.m in Sources */,
 				A6BC430720774F93008C3CEB /* UMSS7ConfigSCCPDestinationEntry.m in Sources */,

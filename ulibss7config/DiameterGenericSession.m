@@ -542,7 +542,7 @@
     if(originHost.length > 0)
     {
         // { Origin-Host }
-        UMDiameterAvpOriginHost *avp = [[UMDiameterAvpOriginHost alloc]init];
+        UMDiameterAvpOrigin_Host *avp = [[UMDiameterAvpOrigin_Host alloc]init];
         [avp setFlagMandatory:YES];
         avp.avpData =[originHost dataUsingEncoding:NSUTF8StringEncoding];
         [packet appendAvp:avp];
@@ -550,7 +550,7 @@
     // { Origin-Realm }
     if(originRealm.length > 0)
     {
-        UMDiameterAvpOriginRealm *avp = [[UMDiameterAvpOriginRealm alloc]init];
+        UMDiameterAvpOrigin_Realm *avp = [[UMDiameterAvpOrigin_Realm alloc]init];
         [avp setFlagMandatory:YES];
         avp.avpData =[originRealm  dataUsingEncoding:NSUTF8StringEncoding];
         [packet appendAvp:avp];
@@ -559,7 +559,7 @@
     if(destinationHost.length > 0)
     {
         // { Destination-Host }
-        UMDiameterAvpDestinationHost *avp = [[UMDiameterAvpDestinationHost alloc]init];
+        UMDiameterAvpDestination_Host *avp = [[UMDiameterAvpDestination_Host alloc]init];
         [avp setFlagMandatory:YES];
         avp.avpData =[destinationHost dataUsingEncoding:NSUTF8StringEncoding];
         [packet appendAvp:avp];
@@ -567,7 +567,7 @@
     // { Restination-Realm }
     if(destinationRealm.length > 0)
     {
-        UMDiameterAvpDestinationRealm *avp = [[UMDiameterAvpDestinationRealm alloc]init];
+        UMDiameterAvpDestination_Realm *avp = [[UMDiameterAvpDestination_Realm alloc]init];
         [avp setFlagMandatory:YES];
         avp.avpData =[destinationRealm  dataUsingEncoding:NSUTF8StringEncoding];
         [packet appendAvp:avp];
@@ -582,7 +582,7 @@
     if(sessionId.length > 0)
     {
         // < Session-Id >
-        UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+        UMDiameterAvpSession_Id *avp = [[UMDiameterAvpSession_Id alloc]init];
         [avp setFlagMandatory:YES];
         avp.value = sessionId;
         [packet appendAvp:avp];
@@ -596,7 +596,7 @@
     if(sessionId.length > 0)
     {
         // < Session-Id >
-        UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+        UMDiameterAvpSession_Id *avp = [[UMDiameterAvpSession_Id alloc]init];
         [avp setFlagMandatory:YES];
         avp.value = sessionId;
         [packet appendAvp:avp];
