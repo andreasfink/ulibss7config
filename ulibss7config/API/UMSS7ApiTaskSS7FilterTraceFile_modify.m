@@ -16,7 +16,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-logfile-modify";
+    return @"/api/ss7-filter-tracefile-modify";
 }
 
 - (void)main
@@ -37,7 +37,7 @@
 	{
 		// 1. Get external parameters
 		NSString *name = _webRequest.params[@"name"];
-		NSString *enable = _webRequest.params[@"enable"];
+		NSString *enable = _webRequest.params[@"enabled"];
 		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{
@@ -46,7 +46,7 @@
 		}
 		else if(enable.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the enable parameter is not passed" };
+			d = @{@"error" : @"missing-parameter", @"reason" :@"the 'enabled' parameter is not passed" };
 			[self sendError:[d jsonString]];
 		}
 		else
