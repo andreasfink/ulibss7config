@@ -121,21 +121,22 @@
 
         // [ DRMP ]
 
-
+/* FIXME */
+#if 0
         // [ MSISDN ]
         if(msisdn.length > 0)
         {
             // < Session-Id >
-            UMDiameterAvp3GPP_MSISDN *avp = [[UMDiameterAvp3GPP_MSISDN alloc]init];
+            UMDiameterAvpMSISDN *avp = [[UMDiameterAvpMSISDN alloc]init];
             [avp setFlagMandatory:YES];
             [avp setValue:msisdn];
             [pkt appendAvp:avp];
         }
-
+#endif
         // [ User-Name ]
         if(userName.length > 0)
         {
-            UMDiameterAvpUserName *avp = [[UMDiameterAvpUserName alloc]init];
+            UMDiameterAvpUser_Name *avp = [[UMDiameterAvpUser_Name alloc]init];
             [avp setFlagMandatory:YES];
             avp.value = userName;
             [pkt appendAvp:avp];
@@ -144,7 +145,7 @@
         //  [ SMSMI-Correlation-ID ]
         if(smsmi_correlation_id.length > 0)
         {
-            UMDiameterAvpSessionId *avp = [[UMDiameterAvpSessionId alloc]init];
+            UMDiameterAvpSession_Id *avp = [[UMDiameterAvpSession_Id alloc]init];
             [avp setFlagMandatory:YES];
             avp.value = msisdn;
             [pkt appendAvp:avp];
