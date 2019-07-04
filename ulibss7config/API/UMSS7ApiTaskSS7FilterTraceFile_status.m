@@ -1,22 +1,22 @@
 //
-//  UMSS7ApiTaskSS7FilterLogFile_status.m
+//  UMSS7ApiTaskSS7FilterTraceFile_status.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 21.05.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSS7FilterLogFile_status.h"
+#import "UMSS7ApiTaskSS7FilterTraceFile_status.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
 
-@implementation UMSS7ApiTaskSS7FilterLogFile_status
+@implementation UMSS7ApiTaskSS7FilterTraceFile_status
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-logfile-status";
+    return @"/api/ss7-filter-tracefile-status";
 }
 
 - (void)main

@@ -1,23 +1,22 @@
 //
-//  UMSS7ApiTaskSS7FilterLogFile_add.m
+//  UMSS7ApiTaskSS7FilterTraceFile_modify.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 21.05.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSS7FilterTraceFile_add.h"
+#import "UMSS7ApiTaskSS7FilterTraceFile_modify.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
-#import "UMSS7ConfigSS7FilterTraceFile.h"
 
-@implementation UMSS7ApiTaskSS7FilterTraceFile_add
+@implementation UMSS7ApiTaskSS7FilterTraceFile_modify
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-logfile-add";
+    return @"/api/ss7-filter-tracefile-modify";
 }
 
 - (void)main
@@ -38,32 +37,33 @@
 	{
 		// 1. Get external parameters
 		NSString *name = _webRequest.params[@"name"];
-		NSString *file = _webRequest.params[@"file"];
+		NSString *enable = _webRequest.params[@"enabled"];
 		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{
 			d = @{@"error" : @"missing-parameter", @"reason" :@"the name parameter is not passed"}; 
 			[self sendError:[d jsonString]];
 		}
-		else if(file.length==0)
+		else if(enable.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the file parameter is not passed" };
+			d = @{@"error" : @"missing-parameter", @"reason" :@"the 'enabled' parameter is not passed" };
 			[self sendError:[d jsonString]];
 		}
 		else
 		{
-			// 2. adding
-            UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_webRequest.params];
-            UMSynchronizedSortedDictionary *config = traceFile.config;
-            [_appDelegate logfile_add:config];
-            [self sendResultObject:config];
-            
+			// 2. Enable
+			NSString *enable = _webRequest.params[@"enable"];
+			BOOL en = [enable boolValue];
+			
+			[_appDelegate logfile_enable:name enable:en];
+			[self sendResultOK];
 		}
 	}
 	@catch(NSException *e)
 	{
 		[self sendException:e];
 	}
+	
 }
 
 @end

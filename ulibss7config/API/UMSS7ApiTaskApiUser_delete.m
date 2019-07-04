@@ -10,6 +10,7 @@
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigApiUser.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskApiUser_delete
 
@@ -36,9 +37,22 @@
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigApiUser *usr = [cs getApiUser:name];
+    NSDictionary *d = [NSDictionary dictionary];
+    NSUInteger users = [[cs getApiUserNames] count];
+    UMSS7ConfigApiUser *currentUser = _apiSession.currentUser;
     if(usr==NULL)
     {
         [self sendErrorNotFound];
+    }
+    else if([name isEqualToString:currentUser.name])
+    {
+        d = @{@"error" : @"invalid-parameter", @"reason" :@"current user is not allowed to be deleted"};
+        [self sendError:[d jsonString]];
+    }
+    else if(users < 2)
+    {
+        d = @{@"error" : @"invalid-action", @"reason" :@"system has only 1 user and can't be deleted"};
+        [self sendError:[d jsonString]];
     }
     else
     {

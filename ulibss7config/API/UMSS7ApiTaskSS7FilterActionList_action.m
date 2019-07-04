@@ -46,7 +46,7 @@
     {
 		@try
 		{
-			NSString *name = _webRequest.params[@"name"];
+			NSString *name = _webRequest.params[@"filter-action-list"];
 			//NSString *action = _webRequest.params[@"action"];
 			UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[name];
 			if(ls == NULL)

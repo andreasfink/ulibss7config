@@ -493,7 +493,9 @@
                 path = [path substringToIndex:path.length - 1];
             }
 
-            if(([path isEqualToString:@"/diameter"]) || ([path isEqualToString:@"/diameter/index"]))
+            if(   [path isEqualToString:@"/diameter"]
+               || [path isEqualToString:@"/diameter/"]
+               || [path isEqualToString:@"/diameter/index"])
             {
                 NSString *s = [DiameterGenericInstance webIndex];
                 [req setResponseHtmlString:s];
@@ -571,7 +573,25 @@
     s = [[NSMutableString alloc]init];
     [DiameterGenericInstance webHeader:s title:@"GSM-API Main Menu"];
     [s appendString:@"<h2>Diameter Menu</h2>\n"];
+    [s appendString:@"<h3>S6a Interface</h3>\n"];
+
     [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-ulr\">3GPP-ULR Update Location</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-clr\">3GPP-CLR Cancel Location</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-air\">3GPP-AIR Authentication Information</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-idr\">3GPP-ISR Insert Subscriber</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-dsr\">3GPP-DSR Delete Subscriber</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-pur\">3GPP-PUR Purge</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-rsr\">3GPP-RSR Reset</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-nor\">3GPP-NOR Notify</a>\n"];
+    [s appendString:@"</UL>\n"];
+    
+    
+    [s appendString:@"<h3>Other Interface</h3>\n"];
+
+    [s appendString:@"<UL>\n"];
+
+    
     [s appendString:@"<LI><a href=\"asr\">ASR Abort Session</a>\n"];
     [s appendString:@"<LI><a href=\"acr\">ACR Abort Session</a>\n"];
     [s appendString:@"<LI><a href=\"cer\">CER Capabilities Exchange</a>\n"];
@@ -601,14 +621,6 @@
     [s appendString:@"<LI><a href=\"3gpp-bir\">3GPP-BIR</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-mpr\">3GPP-MPR</a>\n"];
 
-    [s appendString:@"<LI><a href=\"3gpp-ulr\">3GPP-ULR Update Location</a>\n"];
-    [s appendString:@"<LI><a href=\"3gpp-clr\">3GPP-CLR Cancel Location</a>\n"];
-    [s appendString:@"<LI><a href=\"3gpp-air\">3GPP-AIR Authentication Information</a>\n"];
-    [s appendString:@"<LI><a href=\"3gpp-idr\">3GPP-ISR Insert Subscriber</a>\n"];
-    [s appendString:@"<LI><a href=\"3gpp-dsr\">3GPP-DSR Delete Subscriber</a>\n"];
-    [s appendString:@"<LI><a href=\"3gpp-pur\">3GPP-PUR Purge</a>\n"];
-    [s appendString:@"<LI><a href=\"3gpp-rsr\">3GPP-RSR Reset</a>\n"];
-    [s appendString:@"<LI><a href=\"3gpp-nor\">3GPP-NOR Notify</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-ecr\">3GPP-ECR Mobile Equipment Identity Check</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-lcs-plr\">3GPP-LCS-PLR Provide-Location-Request/</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-lcs-lrr\">3GPP-LCS-LRR Location-Report-Request/</a>\n"];
@@ -620,6 +632,7 @@
     [s appendString:@"<LI><a href=\"3gpp-rir\">3GPP-RIR</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-nir\">3GPP-NIR</a>\n"];
     [s appendString:@"<LI><a href=\"3gpp-srr\">3GPP-SRR SendRoutingInfoForSM</a>\n"];
+    [s appendString:@"<LI><a href=\"3gpp-udr\">3GPP-UDR User Data Request</a>\n"];
 
     [s appendString:@"</UL>\n"];
     [s appendString:@"</body>\n"];

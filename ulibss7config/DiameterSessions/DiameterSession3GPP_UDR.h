@@ -11,7 +11,7 @@
 /*
 < User-Data -Request> ::= < Diameter Header: 306, REQ, PXY, 16777217 > < Session-Id >
     [ DRMP ]
-    { Vendor-Specific-Application-Id }
+    [ Vendor-Specific-Application-Id ]
     { Auth-Session-State }
     { Origin-Host }
     { Origin-Realm }

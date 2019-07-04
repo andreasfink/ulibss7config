@@ -52,18 +52,26 @@
 			UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
 			
 			// 3. Get index of action
-			NSString *idx = _webRequest.params[@"action"];
+			NSString *idx = _webRequest.params[@"entry-nr"];
+            NSString *action = _webRequest.params[@"action"];
+            NSDictionary *d = [NSDictionary dictionary];
+            
 			// 4. Verify if action-list exists
 			if(list == NULL)
 			{
 				// 4a. Not found
 				[self sendErrorNotFound:name];
 			}
-			else if(idx == NULL)
-			{
-				// 4b. Not found
-				[self sendErrorNotFound:@"Action Position"];
-			}
+            else if(idx.length==0)
+            {
+                d = @{@"error" : @"missing-parameter", @"reason" :@"the 'entry-nr' parameter is not passed"};
+                [self sendError:[d jsonString]];
+            }
+            else if(action.length==0)
+            {
+                d = @{@"error" : @"missing-parameter", @"reason" :@"the action parameter is not passed"};
+                [self sendError:[d jsonString]];
+            }
 			else
 			{
 				// 4c. Get action
@@ -72,7 +80,7 @@
 				if(action == NULL)
 				{
 				    // 4c-1. Action not found
-					[self sendErrorNotFound:@"Action"];
+					[self sendErrorNotFound:@"entry-nr"];
 				}
 				else
 				{

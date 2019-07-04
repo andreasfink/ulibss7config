@@ -18,11 +18,15 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
 
+#ifdef	HAS_ULIBLICENSE
+
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
 #else
 #import <uliblicense/uliblicense.h>
 #endif
+
+#endif //HAS_ULIBLICENSE
 
 #import "SS7TemporaryImsiPool.h"
 #import "SS7TelnetSocketHelperProtocol.h"
@@ -114,7 +118,9 @@ UMDiameterRouterAppDelegateProtocol>
 
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
+#ifdef	HAS_ULIBLICENSE
 	UMLicenseDirectory       	*_globalLicenseDirectory;
+#endif
 	UMTransportService       	*_umtransportService;
 	UMMutex                  	*_umtransportLock;
     NSString                    *_logDirectory;
@@ -144,6 +150,8 @@ UMDiameterRouterAppDelegateProtocol>
     NSDate                      *_applicationStart;
     UMSynchronizedDictionary    *_ss7FilterEngines;
     DiameterGenericInstance     *_mainDiameterInstance;
+    SS7GenericInstance			*_mainCamelInstance;
+	SS7GenericInstance			*_mainMapInstance;
     UMSynchronizedDictionary     *_namedLists;
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
@@ -151,8 +159,8 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary    *_ss7TraceFiles;
     UMMutex                     *_ss7TraceFilesLock;
     NSString                    *_ss7TraceFilesDirectory;
-
     UMTimer                     *_apiHousekeepingTimer;
+
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -184,6 +192,11 @@ UMDiameterRouterAppDelegateProtocol>
 @property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
 @property(readwrite,strong)     UMSynchronizedDictionary     *namedLists;
 
+#ifdef	HAS_ULIBLICENSE
+@property(readwrite,strong)		UMLicenseDirectory 			*globalLicenseDirectory;
+#endif
+
+
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (void)applicationWillTerminate:(NSNotification *)aNotification;
@@ -213,6 +226,7 @@ UMDiameterRouterAppDelegateProtocol>
 
 - (NSString *)defaultApiUser;
 - (NSString *)defaultApiPassword;
+- (NSString *)defaultLicensePath;
 
 - (NSString *)productName;
 - (NSString *)productVersion;
@@ -358,7 +372,8 @@ UMDiameterRouterAppDelegateProtocol>
 /************************************************************/
 
 
-- (void)createSS7FilterStagingArea:(NSString *)name;
+- (void)createSS7FilterStagingArea:(NSDictionary *)dict;
+- (void)updateSS7FilterStagingArea:(NSDictionary *)dict;
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
 - (UMSS7ConfigSS7FilterStagingArea *)getStagingAreaForSession:(UMSS7ApiSession *)session;

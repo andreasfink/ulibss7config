@@ -1,5 +1,5 @@
 //
-//  UMSS7ApiTaskSS7FilterLogFile_action.h
+//  UMSS7ApiTaskSS7FilterTraceFile_action.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 28.05.19.
@@ -10,7 +10,7 @@
 
 
 
-@interface UMSS7ApiTaskSS7FilterLogFile_action : UMSS7ApiTask
+@interface UMSS7ApiTaskSS7FilterTraceFile_action : UMSS7ApiTask
 
 @end
 

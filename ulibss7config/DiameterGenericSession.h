@@ -121,6 +121,13 @@
 - (void)responsePacket:(UMDiameterPacket *)pkt;
 - (void)responseError:(UMDiameterPacket *)pkt;
 
+- (void)webDiameterParameter:(NSMutableString *)s
+                        name:(NSString *)name
+                defaultValue:(NSString *)def
+                     comment:(NSString *)comment
+                    optional:(BOOL)optional
+                 conditional:(BOOL)optional;
+
 @end
 
 

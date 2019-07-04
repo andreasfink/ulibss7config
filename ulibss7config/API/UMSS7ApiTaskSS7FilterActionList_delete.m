@@ -19,7 +19,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-action-list-read";
+    return @"/api/ss7-filter-action-list-delete";
 }
 
 - (void)main
@@ -47,7 +47,13 @@
 		@try
 		{
 			NSString *name = _webRequest.params[@"name"];
-            if(stagingArea.filter_action_list_dict[name]== 0)
+            NSDictionary *d = [NSDictionary dictionary];
+            if(name.length==0)
+            {
+                d = @{@"error" : @"missing-parameter", @"reason" :@"'name' parameter is not passed"};
+                [self sendError:[d jsonString]];
+            }
+            else if(stagingArea.filter_action_list_dict[name]== 0)
             {
                 [self sendErrorNotFound:name];
             }

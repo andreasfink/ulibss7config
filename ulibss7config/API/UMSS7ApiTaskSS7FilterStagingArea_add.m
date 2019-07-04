@@ -54,9 +54,14 @@
 				d = @{@"error" : @"invalid-parameter", @"reason" :@"this name is not allowed"}; 
 				[self sendError:[d jsonString]];
 			}
+            else if(name == NULL)
+            {
+                d = @{@"error" : @"missing-parameter", @"reason" :@"name is required"};
+                [self sendError:[d jsonString]];
+            }
 			else
 			{
-				[_appDelegate createSS7FilterStagingArea:name];
+				[_appDelegate createSS7FilterStagingArea:_webRequest.params];
 				[self sendResultOK];
 			}
 		}
