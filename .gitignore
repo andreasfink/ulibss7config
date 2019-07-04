@@ -14,6 +14,7 @@ stamp-h1
 autom4te.cache
 Classes/ulib_config.h
 /libs/osx/openssl-1.1.0f/
+.DS_Store
 
 #########################
 # .gitignore file for Xcode4 and Xcode5 Source projects
