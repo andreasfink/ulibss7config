@@ -17,7 +17,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-logfile-read";
+    return @"/api/ss7-filter-tracefile-read";
 }
 
 - (void)main
@@ -41,7 +41,7 @@
 		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the name parameter is not passed"}; 
+			d = @{@"error" : @"missing-parameter", @"reason" :@"the 'name' parameter is not passed"};
 			[self sendError:[d jsonString]];
 		}
 		else

@@ -119,7 +119,8 @@ realm:(NSString **)realm;
 #pragma mark Staging Area Functions
 /************************************************************/
 
-- (void)createSS7FilterStagingArea:(NSString *)name;
+- (void)createSS7FilterStagingArea:(NSDictionary *)dict;
+- (void)updateSS7FilterStagingArea:(NSDictionary *)dict;
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
 - (UMSS7ConfigSS7FilterStagingArea *)getStagingAreaForSession:(UMSS7ApiSession *)session;

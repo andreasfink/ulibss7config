@@ -52,6 +52,7 @@
 			
 			// 3. Get index of action
 			NSString *idx = _webRequest.params[@"entry-nr"];
+            NSDictionary *d = [NSDictionary dictionary];
 			
 			// 4. Verify if action-list exists
 			if(list == NULL)
@@ -59,12 +60,12 @@
 				// 4a. Not found
 				[self sendErrorNotFound:name];
 			}
-			else if(idx == NULL)
-			{
-				// 4b. Not found
-				[self sendErrorNotFound:@"Action Position"];
-			}
-			else
+            else if(idx.length==0)
+            {
+                d = @{@"error" : @"missing-parameter", @"reason" :@"the 'entry-nr' parameter is not passed"};
+                [self sendError:[d jsonString]];
+            }
+            else
 			{
 				// 4c. Get action
 				NSInteger i = [idx integerValue];
@@ -72,7 +73,8 @@
 				if(action == NULL)
 				{
 				    // 4c-1. Action not found
-					[self sendErrorNotFound:@"entry-nr"];
+                    d = @{@"error" : @"not-found", @"reason" :@"this action is not found"};
+                    [self sendError:[d jsonString]];
 				}
 				else
 				{

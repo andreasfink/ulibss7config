@@ -16,7 +16,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-logfile-list";
+    return @"/api/ss7-filter-tracefile-list";
 }
 
 - (void)main
