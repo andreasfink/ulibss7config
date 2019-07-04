@@ -165,6 +165,7 @@
         /* additional avp, proxy info, route record */
 }
 
+- (void)main
 {
     @try
     {

@@ -617,7 +617,7 @@
                 defaultValue:(NSString *)def
                      comment:(NSString *)comment
                     optional:(BOOL)optional
-                 conditional:(BOOL)optional
+                 conditional:(BOOL)conditional
 {
     NSString *css;
     if(optional==NO)
