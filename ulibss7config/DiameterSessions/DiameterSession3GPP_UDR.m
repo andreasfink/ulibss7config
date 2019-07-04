@@ -16,47 +16,53 @@
     return @"3GPP-UDR User Data Request";
 }
 
-- (void)webDiameterOptionalParameter:(NSMutableString *)s name:(NSString *)name
-{
-    [s appendString:@"<tr>\n"];
-    [s appendFormat:@"    <td class=optional>%@</td>\n",name];
-    [s appendFormat:@"    <td class=optional><input name=\"%@\" value=\"\"></td>\n",name];
-    [s appendString:@"</tr>\n"];
-}
-
 - (void)webDiameterParameters:(NSMutableString *)s
 {
-    [self webDiameterOptionalParameter:s name:@"drmp"];
-    [self webDiameterOptionalParameter:s name:@"vendor-specific-application-id"];
-    [self webDiameterOptionalParameter:s name:@"auth-session-state"];
-    [self webDiameterOptionalParameter:s name:@"origin-host"];
-    [self webDiameterOptionalParameter:s name:@"origin-realm"];
-    [self webDiameterOptionalParameter:s name:@"destination-host"];
-    [self webDiameterOptionalParameter:s name:@"destination-realm"];
-    [self webDiameterOptionalParameter:s name:@"supported-features"];
-    [self webDiameterOptionalParameter:s name:@"user-identity"];
-    [self webDiameterOptionalParameter:s name:@"wildcarded-public-identity"];
-    [self webDiameterOptionalParameter:s name:@"wildcarded-impu"];
-    [self webDiameterOptionalParameter:s name:@"server-name"];
-    [self webDiameterOptionalParameter:s name:@"service-indication"];
-    [self webDiameterOptionalParameter:s name:@"data-reference"];
-    [self webDiameterOptionalParameter:s name:@"identity-set"];
-    [self webDiameterOptionalParameter:s name:@"requested-domain"];
-    [self webDiameterOptionalParameter:s name:@"current-location"];
-    [self webDiameterOptionalParameter:s name:@"dsai-tag"];
-    [self webDiameterOptionalParameter:s name:@"session-priority"];
-    [self webDiameterOptionalParameter:s name:@"user-name"];
-    [self webDiameterOptionalParameter:s name:@"requested-nodes"];
-    [self webDiameterOptionalParameter:s name:@"serving-node-indication"];
-    [self webDiameterOptionalParameter:s name:@"pre-paging-supported"];
-    [self webDiameterOptionalParameter:s name:@"local-time-zone-indication"];
-    [self webDiameterOptionalParameter:s name:@"udr-flags"];
-    [self webDiameterOptionalParameter:s name:@"call-reference-info"];
-    [self webDiameterOptionalParameter:s name:@"oc-supported-features"];
-    [self webDiameterOptionalParameter:s name:@"additional-avp"];
-    [self webDiameterOptionalParameter:s name:@"proxy-info"];
-    [self webDiameterOptionalParameter:s name:@"route-record"];
+    [self webDiameterOptionalParameter:s name:@"session-id"];
+   // [self webDiameterOptionalParameter:s name:@"drmp"];
+    [self webDiameterParameter:s name:@"vendor-specific-application-id"
+                  defaultValue:@"10415,16777217"
+                       comment:@"3GPP,Sh"
+                      optional:NO
+                   conditional:NO];
 
+    [self webDiameterParameter:s name:@"auth-session-state"
+                  defaultValue:@""
+                       comment:@""
+                      optional:YES
+                   conditional:NO];
+    [self webDiameterParameter:s name:@"origin-host"
+                  defaultValue:@""
+                       comment:@""
+                      optional:YES
+                   conditional:NO];
+    
+    [self webDiameterParameter:s name:@"origin-realm" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"destination-host" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"destination-realm" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"supported-features" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"user-identity" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"wildcarded-public-identity" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"wildcarded-public-ipmu" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"server-name" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"service-indication" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"data-reference" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"identity-set" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"requested-domain" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"current-location" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"dsai-tag" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"session-priority" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"user-name" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"requested-nodes" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"serving-node-indication" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"pre-paging-supported" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"local-time-zone-indication" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"udr-flags" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"call-reference-info" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"oc-supported-features" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"additional-avp" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"proxy-info" defaultValue:@"" comment:@"" optional:YES conditional:NO];
+    [self webDiameterParameter:s name:@"route-record" defaultValue:@"" comment:@"" optional:YES conditional:NO];
 }
 
 - (void)main
