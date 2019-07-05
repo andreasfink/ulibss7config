@@ -163,12 +163,10 @@
                    conditional:NO];
 
         /* additional avp, proxy info, route record */
-
-{
+#if 0
     @try
     {
         NSDictionary *p = _req.params;
-#if 0
         SET_OPTIONAL_CLEAN_PARAMETER(p,_drmp,@"drmp");
         SET_OPTIONAL_CLEAN_PARAMETER(p,_vendor_specific_application_id,@"vendor-specific-application-id");
         SET_OPTIONAL_CLEAN_PARAMETER(p,_auth_session_state,@"auth-session-state");
@@ -199,11 +197,9 @@
         SET_OPTIONAL_CLEAN_PARAMETERS(p,_additional_avp,@"additional-avp");
         SET_OPTIONAL_CLEAN_PARAMETERS(p,_proxy_info,@"proxy-info");
         SET_OPTIONAL_CLEAN_PARAMETERS(p,_route_record,@"route-record");
-#endif
 
         //  < Send-Routing-Info-for-SM-Request > ::= < Diameter Header: 8388647, REQ, PXY, 16777312 >
-        UMDiameterPacket3GPP_UDR *pkt = [[UMDiameterPacket3GPP_UDR alloc]init];
-#if 0
+        UMDiameterPacketUpdate *pkt = [[UMDiameterPacket3GPP_UDR alloc]init];
         pkt.drmp = _drmp;
         pkt.vendor_specific_application_id = _vendor_specific_application_id;
         pkt.auth_session_state = _auth_session_state;
@@ -234,13 +230,14 @@
         pkt.additional_avp = _additional_avp;
         pkt.proxy_info = _proxy_info;
         pkt.route_record = _route_record;
-#endif
         self.query = pkt;
+
         [self submit];
     }
     @catch(NSException *e)
     {
         [self webException:e];
     }
+#endif
 }
 @end

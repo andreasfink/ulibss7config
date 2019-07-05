@@ -67,6 +67,7 @@
 
 - (void)main
 {
+#if 0
     @try
     {
         NSDictionary *p = _req.params;
@@ -141,5 +142,7 @@
     {
         [self webException:e];
     }
+#endif
+    
 }
 @end
