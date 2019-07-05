@@ -101,7 +101,7 @@
         SET_OPTIONAL_CLEAN_PARAMETER(p,visited_plmn_id,@"visited-plmn-id");
         SET_OPTIONAL_CLEAN_PARAMETER(p,air_flags,@"air-flags");
 
-
+#if 0
         //  < Send-Routing-Info-for-SM-Request > ::= < Diameter Header: 8388647, REQ, PXY, 16777312 >
         UMDiameterPacket3GPP_AIR *pkt = [[UMDiameterPacket3GPP_AIR alloc]init];
         pkt.commandCode = _commandCode = UMDiameterCommandCode_3GPP_Authentication_Information;
@@ -120,6 +120,7 @@
         pkt.air_flags = air_flags;
 
         self.query = pkt;
+#endif
         [self submit];
     }
     @catch(NSException *e)

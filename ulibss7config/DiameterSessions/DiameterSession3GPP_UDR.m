@@ -18,7 +18,7 @@
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {
-    [self webDiameterOptionalParameter:s name:@"session-id"];
+    //[self webDiameterOptionalParameter:s name:@"session-id"];
    // [self webDiameterOptionalParameter:s name:@"drmp"];
     [self webDiameterParameter:s name:@"vendor-specific-application-id"
                   defaultValue:@"10415,16777217"
@@ -67,6 +67,7 @@
 
 - (void)main
 {
+#if 0
     @try
     {
         NSDictionary *p = _req.params;
@@ -141,5 +142,7 @@
     {
         [self webException:e];
     }
+#endif
+    
 }
 @end
