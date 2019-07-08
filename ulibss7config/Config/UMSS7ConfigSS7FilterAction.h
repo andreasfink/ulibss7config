@@ -16,7 +16,10 @@
     NSString *_rerouteDestination;
     NSString *_rerouteCalledAddress;
     NSString *_rerouteCalledAddressPrefix;
+    NSString *_reroute_tt;
     NSString *_tag;
+    NSNumber *_variable;
+    NSString *_value;
     NSString *_userDescription;
     NSDate                 *_createdTimestamp;
     NSDate                 *_modifiedTimestamp;
@@ -28,11 +31,13 @@
 @property(readwrite,strong,atomic)  NSString *rerouteDestination;
 @property(readwrite,strong,atomic)  NSString *rerouteCalledAddress;
 @property(readwrite,strong,atomic)  NSString *rerouteCalledAddressPrefix;
+@property(readwrite,strong,atomic)  NSString *reroute_tt;
 @property(readwrite,strong,atomic)  NSString *tag;
 @property(readwrite,strong,atomic)  NSString *userDescription;
 @property(readwrite,strong,atomic)    NSDate *createdTimestamp;
 @property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
-
+@property(readwrite,strong,atomic)  NSNumber *variable;
+@property(readwrite,strong,atomic)  NSString *value;
 
 @end
 

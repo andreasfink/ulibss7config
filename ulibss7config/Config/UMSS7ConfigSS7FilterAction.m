@@ -21,6 +21,16 @@
     return [UMSS7ConfigSS7FilterAction type];
 }
 
+- (UMSS7ConfigSS7FilterAction *)initWithConfig:(NSDictionary *)dict
+{
+    self = [super initWithConfig:dict];
+    if(self)
+    {
+        [self setConfig:dict];
+    }
+    return self;
+}
+
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
@@ -33,8 +43,11 @@
     APPEND_CONFIG_STRING(s,@"reroute-destination",_rerouteDestination);
     APPEND_CONFIG_STRING(s,@"reroute-called-address",_rerouteCalledAddress);
     APPEND_CONFIG_STRING(s,@"reroute-called-address-prefix",_rerouteCalledAddressPrefix);
+    APPEND_CONFIG_STRING(s,@"reroute-tt",_reroute_tt);
     APPEND_CONFIG_STRING(s,@"tag",_tag);
     APPEND_CONFIG_STRING(s,@"description",_userDescription);
+    APPEND_CONFIG_INTEGER(s,@"variable",_variable);
+    APPEND_CONFIG_STRING(s,@"value",_value);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -48,8 +61,11 @@
     APPEND_DICT_STRING(dict,@"reroute-destination",_rerouteDestination);
     APPEND_DICT_STRING(dict,@"reroute-called-address",_rerouteCalledAddress);
     APPEND_DICT_STRING(dict,@"reroute-called-address-prefix",_rerouteCalledAddressPrefix);
+    APPEND_DICT_STRING(dict,@"reroute-tt",_reroute_tt);
     APPEND_DICT_STRING(dict,@"tag",_tag);
     APPEND_DICT_STRING(dict,@"description",_userDescription);
+    APPEND_DICT_INTEGER(dict,@"variable",_variable);
+    APPEND_DICT_STRING(dict,@"value",_value);
     return dict;
 }
 
@@ -64,8 +80,11 @@
     SET_DICT_STRING(dict,@"reroute-destination",_rerouteDestination);
     SET_DICT_STRING(dict,@"reroute-called-address",_rerouteCalledAddress);
     SET_DICT_STRING(dict,@"reroute-called-address-prefix",_rerouteCalledAddressPrefix);
+    SET_DICT_STRING(dict,@"reroute-tt",_reroute_tt);
     SET_DICT_STRING(dict,@"tag",_tag);
     SET_DICT_STRING(dict,@"description",_userDescription);
+    SET_DICT_INTEGER(dict,@"variable",_variable);
+    SET_DICT_STRING(dict,@"value",_value);
 }
 
 - (UMSS7ConfigSS7FilterAction *)copyWithZone:(NSZone *)zone

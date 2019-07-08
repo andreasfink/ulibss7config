@@ -13,6 +13,7 @@
 #import "UMSS7ConfigSS7FilterRule.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigSS7FilterActionList.h"
+#import "UMSS7ConfigSS7FilterAction.h"
 #import "UMSS7ApiSession.h"
 
 
@@ -61,7 +62,13 @@
 			{
 				// 3b. list actions
 				NSArray<UMSS7ConfigSS7FilterAction *> *actions = [list getAllActions];
-				[self sendResultObject:actions];
+                NSMutableArray *arr = [[NSMutableArray alloc]init];
+                for(UMSS7ConfigSS7FilterAction *k in actions)
+                {
+                    UMSynchronizedSortedDictionary *config = k.config;
+                    [arr addObject:config];
+                }
+				[self sendResultObject:arr];
 			}
 		}
 		@catch(NSException *e)

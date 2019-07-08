@@ -71,14 +71,14 @@
                  // 4. adding
                 UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:_webRequest.params];
                 UMSynchronizedSortedDictionary *config = action.config;
-                NSString *order = _webRequest.params[@"order"];
-                if(order == NULL)
+                NSString *entry = _webRequest.params[@"entry-nr"];
+                if(entry == NULL)
                 {
                     [list appendAction:action];
                 }
                 else
                 {
-                    NSInteger pos = [order integerValue];
+                    NSInteger pos = [entry integerValue];
                     [list insertAction:action atIndex:pos];
                 }
 
