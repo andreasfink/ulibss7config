@@ -74,6 +74,7 @@
 
 - (void)setConfig:(NSDictionary *)dict
 {
+    [self setSuperConfig:dict];
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     SET_DICT_STRING(dict,@"path",_path);

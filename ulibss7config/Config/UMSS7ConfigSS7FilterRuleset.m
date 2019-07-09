@@ -52,6 +52,7 @@
 
     APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
     APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
+    APPEND_CONFIG_STRING(s,@"status",_status);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -59,6 +60,7 @@
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
+    APPEND_DICT_STRING(dict,@"status",_status);
     return dict;
 }
 
@@ -67,6 +69,7 @@
     [self setSuperConfig:dict];
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
+    SET_DICT_STRING(dict,@"status",_status);
 }
 
 - (UMSS7ConfigSS7FilterRule *)getRuleAtIndex:(NSInteger)idx

@@ -50,23 +50,30 @@
 			if([action isEqualToString:@"copy"])
 			{
 				NSString *new_name = _webRequest.params[@"destination"];
-				[_appDelegate copySS7FilterStagingArea:name toNewName:new_name];
+                [stagingArea setConfig:_webRequest.params];
+                [_appDelegate copySS7FilterStagingArea:name toNewName:new_name];
+                
 				[self sendResultOK];
 			}
 			else if([action isEqualToString:@"activate"])
 			{
 				[_appDelegate makeStagingAreaCurrent:name];
+                [stagingArea setConfig:_webRequest.params];
 				[self sendResultOK];
 			}
 			else if([action isEqualToString:@"select"])
 			{
 				[_appDelegate selectSS7FilterStagingArea:name forSession:_apiSession];
+                 [stagingArea setConfig:_webRequest.params];
 				[self sendResultOK];
 			}
 			else
 			{
-				[self sendErrorNotImplemented];
-			}
+				NSDictionary *d = [NSDictionary dictionary];
+                d = @{@"error" : @"not-supported-value", @"reason" :@"the 'action' must have known value (e.g. select)!"};
+                [self sendError:[d jsonString]];
+                
+            }
 		}
 		@catch(NSException *e)
 		{

@@ -53,7 +53,8 @@
             }
             else
             {
-                [rs setConfig:_webRequest.params];
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:_webRequest.params];
+                [rs setConfig:dict];
                 [self sendResultObject:rs.config];
             }
         }
