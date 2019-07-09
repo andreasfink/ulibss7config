@@ -22,9 +22,8 @@
     UMSynchronizedDictionary *_filter_rule_set_dict;
     UMSynchronizedDictionary *_filter_engines_dict;
     UMSynchronizedDictionary *_filter_action_list_dict;
-    UMTimer                 *_dirtyTimer;
-    NSDate                 *_createdTimestamp;
-    NSDate                 *_modifiedTimestamp;
+    NSDate                   *_createdTimestamp;
+    NSDate                   *_modifiedTimestamp;
 }
 
 @property(readwrite,strong,atomic)  NSString                 *path;
@@ -34,12 +33,11 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_engines_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_action_list_dict;
 
-- (void)startDirtyTimer;
-- (void)stopDirtyTimer;
-
 - (UMSS7ConfigSS7FilterStagingArea *)copyWithZone:(NSZone *)zone;
 - (UMSS7ConfigSS7FilterStagingArea *)initWithPath:(NSString *)path;
 
+- (void)flushIfDirty;
+- (void)writeConfig;
 
 @end
 

@@ -73,7 +73,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     APPEND_DICT_STRING(dict,@"group",self.type);
-    if(withoutName==NO)
+    if((withoutName==NO) && (_name.length >0))
     {
         APPEND_DICT_STRING(dict,@"name",_name);
     }
@@ -81,7 +81,6 @@
     APPEND_DICT_BOOLEAN(dict,@"enable",_enabled);
     APPEND_DICT_INTEGER(dict,@"log-level",_logLevel);
     APPEND_DICT_STRING(dict,@"log-file",_logFile);
-    APPEND_DICT_ARRAY(dict,@"comment",_comments);
     APPEND_DICT_ARRAY(dict,@"comment",_comments);
     return dict;
 }
@@ -117,14 +116,16 @@
     if(n==NULL)
     {
         if(   (![group isEqualToString:@"general"])
-            &&(![group isEqualToString:@"mtp3-route"])
-            &&(![group isEqualToString:@"sccp-number-translation-entry"])
-            &&(![group isEqualToString:@"tcap-filter-entry"])
-            &&(![group isEqualToString:@"sccp-translation-table-entry"])
-            &&(![group isEqualToString:@"sccp-destination-entry"])
-            &&(![group isEqualToString:@"sccp-filter"])
-            &&(![group isEqualToString:@"cdr-writer"])
-            &&(![group isEqualToString:@"diameter-route"]))
+           &&(![group isEqualToString:@"mtp3-route"])
+           &&(![group isEqualToString:@"sccp-number-translation-entry"])
+           &&(![group isEqualToString:@"tcap-filter-entry"])
+           &&(![group isEqualToString:@"sccp-translation-table-entry"])
+           &&(![group isEqualToString:@"sccp-destination-entry"])
+           &&(![group isEqualToString:@"sccp-filter"])
+           &&(![group isEqualToString:@"cdr-writer"])
+           &&(![group isEqualToString:@"ss7-filter-action"])
+           &&(![group isEqualToString:@"ss7-filter-rule"])
+           &&(![group isEqualToString:@"diameter-route"]))
         {
             NSLog(@"Warning: object of type %@ without a name",group);
         }

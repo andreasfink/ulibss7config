@@ -165,4 +165,19 @@ realm:(NSString **)realm;
 - (void)logfile_action:(NSString *)name action:(NSString *)enable;
 - (void)logfile_add:(UMSynchronizedSortedDictionary *)conf;
 
+
+/************************************************************/
+#pragma mark -
+#pragma mark Statistics Functions
+/************************************************************/
+
+- (NSArray *)getStatisticsNames;
+- (void)statistics_add:(NSString *)name params:(NSDictionary *)dict;
+- (void)statistics_modify:(NSString *)name params:(NSDictionary *)dict;
+- (void)statistics_remove:(NSString *)name;
+- (void)loadStatisticsFromPath:(NSString *)directory;
+- (void)statistics_flushAll;
+- (UMStatistic *)statistics_get:(NSString *)name;
+
+
 @end

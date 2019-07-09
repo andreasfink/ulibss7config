@@ -140,21 +140,23 @@ static void signalHandler(int signum);
         _diameter_connections_dict      = [[UMSynchronizedDictionary alloc]init];
         _diameter_router_dict           = [[UMSynchronizedDictionary alloc]init];
         _ss7FilterStagingAreas_dict     = [[UMSynchronizedDictionary alloc]init];
-
+        _statistics_dict                = [[UMSynchronizedDictionary alloc]init];
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
         _registry                       = [[UMSocketSCTPRegistry alloc]init];
         _registry.logLevel =            UMLOG_MINOR;
-        _stagingAreaPath                =  @"/opt/ulibss7/ss7-filter/";
-        _filterEnginesPath              =  @"/opt/ulibss7/ss7-filter-engines/";
+        _stagingAreaPath                =  [self defaultStagingAreaPath];
+        _filterEnginesPath              =  [self defaultFilterEnginesPath];
+        _statisticsPath                 =  [self defaultStatisticsPath];
+
         _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
         _mainDiameterInstance           = [[DiameterGenericInstance alloc]init];
         _namedLists = [[UMSynchronizedDictionary alloc]init];
         _namedListLock = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
-        _namedListsDirectory            = @"/opt/ulibss7/named-lists/";
+        _namedListsDirectory            = [self defaultNamedListPath];
 
         _ss7TraceFiles = [[UMSynchronizedDictionary alloc]init];
         _ss7TraceFilesLock = [[UMMutex alloc]initWithName:@"ss7tracefiles-mutex"];
-        _ss7TraceFilesDirectory            = @"/opt/ulibss7/tracefiles/";
+        _ss7TraceFilesDirectory            = [self defaultTracefilesPath];
 
 
         if(_enabledOptions[@"name"])
@@ -219,6 +221,15 @@ static void signalHandler(int signum);
                                                           name:@"api-housekeeping"
                                                        repeats:YES
                                                runInForeground:NO];
+
+        _dirtyTimer = [[UMTimer alloc]initWithTarget:self
+                                            selector:@selector(dirtyCheck)
+                                              object:NULL
+                                             seconds:10.0
+                                                name:@"app-dirty-timer"
+                                             repeats:YES
+                                     runInForeground:NO];
+
 #ifdef	HAS_ULIBLICENSE
 		_globalLicenseDirectory = UMLicense_loadLicensesFromPath(self.defaultLicensePath,NO);
 #endif
@@ -421,6 +432,33 @@ static void signalHandler(int signum);
 	return @"/opt/uliblicense";
 }
 
+
+- (NSString *)defaultFilterEnginesPath
+{
+    return @"/opt/ulibss7/ss7-filter-engines/";
+}
+
+- (NSString *)defaultStatisticsPath
+{
+    return @"/opt/ulibss7/statistics/";
+}
+
+- (NSString *)defaultStagingAreaPath
+{
+    return @"/opt/ulibss7/ss7-filter/";
+}
+
+
+- (NSString *)defaultNamedListPath
+{
+    return @"/opt/ulibss7/named-lists/";
+}
+
+- (NSString *)defaultTracefilesPath
+{
+    return @"/opt/ulibss7/tracefiles/";
+}
+
 - (NSString *)productName
 {
     return @"ss7-product";
@@ -451,6 +489,8 @@ static void signalHandler(int signum);
         {
             [_runningConfig startDirtyTimer];
         }
+
+        [self startDirtyTimer];
 
         _concurrentThreads = ulib_cpu_count();
         if(self.generalTaskQueue == NULL)
@@ -524,16 +564,30 @@ static void signalHandler(int signum);
         _namedLists = [[UMSynchronizedDictionary alloc]init];
         [self loadNamedListsFromPath:_namedListsDirectory];
 
-        if(params[@"ss7-filters"])
+        if(params[@"ss7-filter-engines-path"])
         {
-            for(NSString *path in params[@"ss7-filters"])
+            for(NSString *path in params[@"ss7-filter-engines-path"])
             {
                 [self loadSS7FilterEnginesFromDirectory:path];
+                _filterEnginesPath = path;
             }
         }
         else
         {
             [self loadSS7FilterEnginesFromDirectory:_filterEnginesPath];
+        }
+
+        if(params[@"ss7-filter-staging-area-path"])
+        {
+            for(NSString *path in params[@"ss7-filter-staging-area-path"])
+            {
+                [self loadSS7StagingAreasFromPath:path];
+                _stagingAreaPath = path;
+            }
+        }
+        else
+        {
+            [self loadSS7StagingAreasFromPath:_stagingAreaPath];
         }
 
         if(params[@"print-config"])
@@ -3826,6 +3880,46 @@ static void signalHandler(int signum);
     }
 }
 
+- (void)loadSS7StagingAreasFromPath:(NSString *)path
+{
+    NSFileManager * fm = [NSFileManager defaultManager];
+    NSError *e = NULL;
+    NSString *currentStagingArea = NULL;
+    NSArray<NSString *> *a = [fm contentsOfDirectoryAtPath:path  error:&e];
+    if(e)
+    {
+        NSLog(@"Error while parsing directory %@\n%@",path,e);
+    }
+    else
+    {
+        _ss7FilterStagingAreas_dict = [[UMSynchronizedDictionary alloc]init];
+        for(NSString *filename in a)
+        {
+
+            if([filename isEqualToString:@"current"])
+            {
+                NSError *e = NULL;
+                currentStagingArea = [fm destinationOfSymbolicLinkAtPath:filename error:&e];
+                if(e)
+                {
+                    NSLog(@"Error while parsing symlink 'current' in path '%@':\n%@",path,e);
+                }
+            }
+            else
+            {
+                NSString *filepath = [NSString stringWithFormat:@"%@/%@",path,filename];
+                NSString *name = [filename urldecode];
+                UMSS7ConfigSS7FilterStagingArea *area = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
+                if(area)
+                {
+                    _ss7FilterStagingAreas_dict[name] = area;
+                }
+            }
+        }
+    }
+}
+
+
 - (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name
 {
     return _ss7FilterEngines[name];
@@ -3834,7 +3928,7 @@ static void signalHandler(int signum);
 
 
 #pragma mark -
-#pragma handle namedlists
+#pragma mark namedlists
 
 - (UMSynchronizedArray *)namedlist_lists
 {
@@ -3983,6 +4077,85 @@ static void signalHandler(int signum);
     //NSString *en = enable ? @"YES" : @"NO";
     //NSLog(@"logfile_add: %@ , %@, %@, %@, %@ , %@", name, file, format, minutes, packets_count, en );
 }
+
+
+#pragma mark -
+#pragma mark Statistics
+
+- (NSArray *)getStatisticsNames
+{
+    return [_statistics_dict allKeys];
+}
+
+
+- (void)statistics_add:(NSString *)name params:(NSDictionary *)dict
+{
+    UMStatistic *stat = _statistics_dict[name];
+    if(stat==NULL)
+    {
+        stat  =  [[UMStatistic alloc]initWithPath:_statisticsPath name:name];
+    }
+}
+
+- (void)statistics_modify:(NSString *)name params:(NSDictionary *)dict
+{
+    UMStatistic *stat = _statistics_dict[name];
+    [stat setValues:dict];
+}
+
+- (void)statistics_remove:(NSString *)name
+{
+}
+
+- (void)loadStatisticsFromPath:(NSString *)directory
+{
+}
+
+- (void)statistics_flushAll
+{
+    NSArray *keys = [_statistics_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMStatistic *stat = _statistics_dict[key];
+        [stat flush];
+    }
+}
+
+- (UMStatistic *)statistics_get:(NSString *)name
+{
+    return _statistics_dict[name];
+}
+
+
+- (void)startDirtyTimer
+{
+    [_dirtyTimer start];
+}
+
+- (void)stopDirtyTimer
+{
+    [_dirtyTimer stop];
+}
+
+
+- (void)dirtyCheck
+{
+    NSArray *keys = [_ss7FilterStagingAreas_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMSS7ConfigSS7FilterStagingArea *staging = _ss7FilterStagingAreas_dict[key];
+        [staging flushIfDirty];
+    }
+
+    keys = [_statistics_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMStatistic *stat = _statistics_dict[key];
+        [stat flushIfDirty];
+    }
+}
+
+
 
 @end
 
