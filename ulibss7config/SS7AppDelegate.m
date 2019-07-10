@@ -3899,11 +3899,22 @@ static void signalHandler(int signum);
             if([filename isEqualToString:@"current"])
             {
                 NSError *e = NULL;
-                currentStagingArea = [fm destinationOfSymbolicLinkAtPath:filename error:&e];
+                char resolved[PATH_MAX];
+				char *returnValue = realpath([path fileSystemRepresentation], resolved);
+				if (returnValue == NULL)
+				{
+					NSString* str = [NSString stringWithFormat:@"%c" , resolved];
+                    NSLog(@"Error while parsing symlink 'current' in path '%@':\n%@",path,str);
+                }
+				else
+				{
+					currentStagingArea = [NSString stringWithUTF8String:resolved];
+				}
+				/*currentStagingArea = [fm destinationOfSymbolicLinkAtPath:filename error:&e];
                 if(e)
                 {
                     NSLog(@"Error while parsing symlink 'current' in path '%@':\n%@",path,e);
-                }
+                }*/
             }
             else
             {
