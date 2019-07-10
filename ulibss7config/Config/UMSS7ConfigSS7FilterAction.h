@@ -34,16 +34,10 @@
 @property(readwrite,strong,atomic)  NSString *reroute_tt;
 @property(readwrite,strong,atomic)  NSString *tag;
 @property(readwrite,strong,atomic)  NSString *userDescription;
-<<<<<<< HEAD
-@property(readwrite,strong,atomic)    NSDate *createdTimestamp;
-@property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
 @property(readwrite,strong,atomic)  NSNumber *variable;
 @property(readwrite,strong,atomic)  NSString *value;
-=======
 @property(readwrite,strong,atomic)  NSDate *createdTimestamp;
 @property(readwrite,strong,atomic)  NSDate *modifiedTimestamp;
-
->>>>>>> master
 
 @end
 
