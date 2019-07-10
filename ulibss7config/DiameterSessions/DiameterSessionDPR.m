@@ -2,11 +2,14 @@
 //  DiameterSessionDPR.m
 //  ulibss7config
 //
-//  Created by Andreas Fink on 29.05.19.
+//  Created by afink on 2019-07-10 02:01:33.581000
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
 #import "DiameterSessionDPR.h"
+#import "WebMacros.h"
+#import <ulibdiameter/ulibdiameter.h>
+
 
 @implementation DiameterSessionDPR
 
@@ -16,12 +19,27 @@
     return @"DPR";
 }
 
+
 - (void)webDiameterParameters:(NSMutableString *)s
 {
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>not-implemented</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"not-implemented\" type=text placeholder=\"+12345678\">(not-implemented))</td>\n"];
-    [s appendString:@"</tr>\n"];
+    [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketDPR defaultApplicationId] comment:NULL];
+    [UMDiameterPacketDPR webDiameterParameters:s];
+}
+
+- (void)main
+{
+    @try
+    {
+        UMDiameterPacketDPR *pkt = [[UMDiameterPacketDPR alloc]init];
+        [pkt setDictionaryValue:_req.params];
+        self.query = pkt;
+        [self submit];
+    }
+    @catch(NSException *e)
+    {
+        [self webException:e];
+    }
 }
 
 @end
+

@@ -147,6 +147,8 @@ UMDiameterRouterAppDelegateProtocol>
     BOOL                        _startInStandby;
     NSString                    *_stagingAreaPath;
     NSString                    *_filterEnginesPath;
+    NSString                    *_statisticsPath;
+
     NSDate                      *_applicationStart;
     UMSynchronizedDictionary    *_ss7FilterEngines;
     DiameterGenericInstance     *_mainDiameterInstance;
@@ -161,6 +163,9 @@ UMDiameterRouterAppDelegateProtocol>
     NSString                    *_ss7TraceFilesDirectory;
     UMTimer                     *_apiHousekeepingTimer;
 
+
+    UMSynchronizedDictionary     *_statistics_dict;
+    UMTimer                     *_dirtyTimer;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -227,6 +232,11 @@ UMDiameterRouterAppDelegateProtocol>
 - (NSString *)defaultApiUser;
 - (NSString *)defaultApiPassword;
 - (NSString *)defaultLicensePath;
+- (NSString *)defaultFilterEnginesPath;
+- (NSString *)defaultStatisticsPath;
+- (NSString *)defaultStagingAreaPath;
+- (NSString *)defaultNamedListPath;
+- (NSString *)defaultTracefilesPath;
 
 - (NSString *)productName;
 - (NSString *)productVersion;
@@ -416,6 +426,24 @@ UMDiameterRouterAppDelegateProtocol>
 - (UMSS7ConfigSS7FilterTraceFile *)logfile_get:(NSString *)listName;
 - (void)logfile_action:(NSString *)name action:(NSString *)enable;
 - (void)logfile_add:(UMSynchronizedSortedDictionary *)conf;
+
+
+
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Statistics
+/************************************************************/
+
+- (NSArray *)getStatisticsNames;
+- (void)statistics_add:(NSString *)name params:(NSDictionary *)dict;
+- (void)statistics_modify:(NSString *)name params:(NSDictionary *)dict;
+- (void)statistics_remove:(NSString *)name;
+- (void)loadStatisticsFromPath:(NSString *)directory;
+- (void)statistics_flushAll;
+- (UMStatistic *)statistics_get:(NSString *)name;
+
 
 @end
 

@@ -20,14 +20,6 @@
         _filter_rule_set_dict = [[UMSynchronizedDictionary alloc]init];
         _filter_engines_dict = [[UMSynchronizedDictionary alloc]init];
         _filter_action_list_dict = [[UMSynchronizedDictionary alloc]init];
-        _dirtyTimer = [[UMTimer alloc]initWithTarget:self
-                                            selector:@selector(dirtyCheck)
-                                              object:NULL
-                                             seconds:10.0
-                                                name:@"dirty-config-timer"
-                                             repeats:YES
-                                     runInForeground:NO];
-
     }
     return self;
 }
@@ -91,18 +83,14 @@
 }
 
 
-- (void)startDirtyTimer
+
+
+- (void)writeConfig
 {
-    [_dirtyTimer start];
+    /* FIXME */
 }
 
-- (void)stopDirtyTimer
-{
-    [_dirtyTimer stop];
-}
-
-
-- (void)dirtyCheck
+- (void)flushIfDirty
 {
     if(_dirty==YES)
     {
@@ -110,11 +98,5 @@
     }
     _dirty=NO;
 }
-
-- (void)writeConfig
-{
-    /* FIXME */
-}
-
 
 @end

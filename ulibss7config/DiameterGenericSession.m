@@ -446,30 +446,16 @@
     return s;
 }
 
-
 - (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment
 {
+    if(comment==NULL)
+    {
+        comment = umdiameter_application_id_string(dai);
+    }
+
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=mandatory>application-id</td>\n"];
     [s appendFormat:@"    <td class=mandatory><input name=\"application-id\" type=text value=%u>(%@)</td>\n",dai,comment];
-    [s appendString:@"</tr>\n"];
-
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>origin-host</td>\n"];
-    [s appendFormat:@"    <td class=optional><input name=\"origin-host\" type=text value=\"%@\"></td>\n",_gInstance.diameterRouter.localHostName];
-    [s appendString:@"</tr>\n"];
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>origin-realm</td>\n"];
-    [s appendFormat:@"    <td class=optional><input name=\"origin-realm\" type=text value=\"%@\"></td>\n",_gInstance.diameterRouter.localRealm];
-    [s appendString:@"</tr>\n"];
-
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>destination-host</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"destination-host\" type=text></td>\n"];
-    [s appendString:@"</tr>\n"];
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>destination-realm</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"destination-realm\" type=text></td>\n"];
     [s appendString:@"</tr>\n"];
 
 }
@@ -478,7 +464,7 @@
 {
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>not-implemented</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"not-implemented\" type=text placeholder=\"+12345678\">(not-implemented))</td>\n"];
+    [s appendString:@"    <td class=optional>---</td>\n"];
     [s appendString:@"</tr>\n"];
 }
 

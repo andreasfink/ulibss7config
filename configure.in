@@ -198,6 +198,7 @@ AC_ARG_ENABLE(debug,
 dnl Outputing
 dnl -------------------------------------
 AC_CONFIG_SECTION([Generating output files]) 
+./make_version
 
 dnl Final Output
 AC_SUBST(CONFIGURATION)
