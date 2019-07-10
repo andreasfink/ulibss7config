@@ -8,7 +8,7 @@
 
 #import <ulib/ulib.h>
 #import "../version.h"
-#import "UMDiameterGeneratorCMD.h"
+#import "UMDiameterGeneratorWeb.h"
 
 
 NSString *getFirst(id param)
@@ -36,15 +36,12 @@ NSString *getFirst(id param)
 
 int main(int argc, const char * argv[])
 {
-    NSString *headerFileName;
-    NSString *methodFileName;
-
     @autoreleasepool
     {
         NSDictionary *appDefinition = @
         {
             @"version" : @(VERSION),
-            @"executable" : @"avp-src-gen",
+            @"executable" : @"diameter-web-gen",
             @"run-as" : @(argv[0]),
             @"copyright" : @"© 2019 Andreas Fink",
         };
@@ -68,90 +65,41 @@ int main(int argc, const char * argv[])
                                                @"long" : @"--help",
                                                @"help"  : @"shows the help screen",
                                                },
-                                           @{
-                                               @"name"  : @"definition",
-                                               @"short" : @"-d",
-                                               @"long"  : @"--definition",
-                                               @"argument" : @"filename",
-                                               @"help"  : @"reads the definition of a command from a file",
-                                               },
-                                           @{
-                                               @"name"  : @"write-command-header",
-                                               @"long"  : @"--write-command-header",
-                                               @"argument" : @"filename",
-                                               @"help"  : @"writes a command parser to the file",
-                                               },
-                                           @{
-                                               @"name"  : @"write-command-method",
-                                               @"long"  : @"--write-command-method",
-                                               @"argument" : @"filename",
-                                               @"help"  : @"writes a command parser to the file",
-                                               },
-                                           @{
-                                               @"name"  : @"write-web",
-                                               @"short" : @"-W",
-                                               @"long"  : @"--write-web",
-                                               @"argument" : @"filename",
-                                               @"help"  : @"writes a web parser to the file",
+                                          @{
+                                               @"name"  : @"prefix",
+                                               @"short" : @"-p",
+                                               @"long"  : @"--prefix",
+                                               @"argument" : @"prefix",
+                                               @"help"  : @"prefix for objects and filename",
                                                },
                                            @{
                                                @"name"  : @"name",
                                                @"short" : @"-n",
                                                @"long"  : @"--name",
-                                               @"argument" : @"avp-name",
-                                               @"help"  : @"The attribute name",
+                                               @"argument" : @"name",
+                                               @"help"  : @"The name of the command with underscores",
+                                               },
+
+                                           @{
+                                               @"name"  : @"human",
+                                               @"short" : @"-H",
+                                               @"long"  : @"--human",
+                                               @"argument" : @"string",
+                                               @"help"  : @"the name displayed in the webform title"
                                                },
                                            @{
-                                               @"name"  : @"code",
-                                               @"short" : @"-c",
-                                               @"long"  : @"--code",
-                                               @"argument" : @"avp-code",
-                                               @"help"  : @"The AVP code",
-                                               },
-                                           @{
-                                               @"name"  : @"vendor",
-                                               @"short" : @"-E",
-                                               @"long"  : @"--vendor",
-                                               @"argument" : @"vendor-id",
-                                               @"help"  : @"The Vendor ID to use (sets V flag)"
-                                               },
-                                           @{
-                                               @"name"  : @"mandatory",
-                                               @"short" : @"-m",
-                                               @"long"  : @"--mandatory",
-                                               @"help"  : @"Enables the mandatory flag"
-                                               },
-                                           @{
-                                               @"name"  : @"type",
-                                               @"short" : @"-t",
-                                               @"long"  : @"--type",
-                                               @"help"  : @"Base type"
-                                               },
-                                           @{
-                                               @"name"  : @"prefix",
-                                               @"short" : @"-p",
-                                               @"long"  : @"--prefix",
-                                               @"help"  : @"prefix for object names"
-                                               },
-                                           @{
-                                               @"name"  : @"overwrite",
-                                               @"short" : @"-o",
-                                               @"long"  : @"--overwrite",
-                                               @"help"  : @"overwrite existing files"
-                                               },
-                                           @{
-                                               @"name"  : @"filename",
+                                               @"name"  : @"file",
                                                @"short" : @"-f",
                                                @"long"  : @"--file",
                                                @"help"  : @"filename (without .h .m)"
                                                },
                                            @{
-                                               @"name"  : @"dir",
-                                               @"short" : @"-d",
-                                               @"long"  : @"--directory",
-                                               @"help"  : @"directory to look for files/write files"
+                                               @"name"  : @"packet",
+                                               @"short" : @"-P",
+                                               @"long"  : @"--packet",
+                                               @"argument" : @"string",
+                                               @"help"  : @"name of UMDiameterPacket"
                                                }];
-
 
         UMCommandLine *_commandLine = [[UMCommandLine alloc]initWithCommandLineDefintion:commandLineDefinition
                                                                            appDefinition:appDefinition
@@ -163,157 +111,83 @@ int main(int argc, const char * argv[])
         NSString *user = @(getenv("USER"));
         NSString *date = [[NSDate date]stringValue];
 
-        BOOL doOverwrite = NO;
-        BOOL mandatoryFlag = NO;
-        BOOL vendorFlag = NO;
-        NSString *vendorId;
-        NSString *prefix = @"UMDiameterAvp";
-        NSString *baseType = @"UMDiameterAvpOctetString";
-        NSString *code;
+
+        NSString *prefix = @"DiameterSession";
         NSString *name;
-        BOOL verbose = NO;
-        NSString *filename;
-        NSString *definitionFilename;
-        NSString *definitionString;
-        NSString *dir;
+        NSString *human;
+        NSString *packet;
+        NSString *file;
+
+
         NSString *s = getFirst(params[@"prefix"]);
         if(s)
         {
             prefix = s;
         }
-
-        s = getFirst(params[@"overwrite"]);
-        if(s)
-        {
-            doOverwrite = YES;
-        }
-
-        s = getFirst(params[@"type"]);
-        if(s)
-        {
-            baseType = s;
-        }
-
-        s = getFirst(params[@"mandatory"]);
-        if(s)
-        {
-            mandatoryFlag = YES;
-        }
-
-        s = getFirst(params[@"vendor"]);
-        if(s)
-        {
-            if([s isEqualToString:@"3GPP"])
-            {
-                prefix = @"UMDiameterAvp3GPP_";
-                vendorId = @"UMDiameterApplicationId_3GPP";
-                vendorFlag = YES;
-            }
-            else
-            {
-                vendorId = s;
-                vendorFlag = YES;
-            }
-        }
-
-        s = getFirst(params[@"code"]);
-        if(s)
-        {
-            code = s;
-        }
-
-        s = getFirst(params[@"dir"]);
-        if(s)
-        {
-            dir = s;
-        }
-
         s = getFirst(params[@"name"]);
         if(s)
         {
             name = s;
         }
-        s = getFirst(params[@"verbose"]);
+        s = getFirst(params[@"human"]);
         if(s)
         {
-            verbose = YES;
+            human = s;
+        }
+
+        s = getFirst(params[@"packet"]);
+        if(s)
+        {
+            packet = s;
         }
 
         s = getFirst(params[@"file"]);
         if(s)
         {
-            filename = s;
-        }
-        else
-        {
-            filename = [NSString stringWithFormat:@"%@%@",prefix,name];
+            file = s;
         }
 
-        UMDiameterGeneratorCMD *cmd;
-        s = getFirst(params[@"definition"]);
-        if(s)
+        if(file==NULL)
         {
-            definitionFilename = s;
-            NSError *e = NULL;
-            definitionString = [NSString stringWithContentsOfFile:definitionFilename encoding:NSUTF8StringEncoding error:&e];
-            if(e)
-            {
-                NSLog(@"%@",e);
-                exit(-1);
-            }
-
-            cmd = [[UMDiameterGeneratorCMD alloc]initWithString:definitionString error:&e];
-            if(cmd==NULL)
-            {
-                NSLog(@"can not parse %@ because of %@",s,e);
-            }
+            file = [NSString stringWithFormat:@"%@%@",prefix,name];
+        }
+        if(packet==NULL)
+        {
+            packet = [NSString stringWithFormat:@"UMDiameterPacket%@",name];
+        }
+        if(human==NULL)
+        {
+            human = [name stringByReplacingOccurrencesOfString:@"_" withString:@" "];
         }
 
-        s = getFirst(params[@"write-command-header"]);
+
+        UMDiameterGeneratorWeb *w = [[UMDiameterGeneratorWeb alloc]init];
+        w.prefix = prefix;
+        w.packet = packet;
+        w.name = name;
+        w.human = human;
+        w.user = user;
+        w.date = date;
+
+
+        NSString *headerFileName = [NSString stringWithFormat:@"%@.h",file];
+        NSString *methodFileName = [NSString stringWithFormat:@"%@.m",file];
+
+
+        NSString *content_h = [w headerFile];
+        NSString *content_m = [w methodFile];
+
+        NSError *e = NULL;
+        [content_h writeToFile:headerFileName atomically:YES encoding:NSUTF8StringEncoding error:&e];
+        if(e)
         {
-            if(s.length>0)
-            {
-                headerFileName = s;
-                NSString *content = [cmd headerFileWithPrefix:@"UMDiameterPacket"
-                                                    avpPrefix:@"UMDiameterAvp"
-                                                         user:user
-                                                         date:date];
-                NSError *e = NULL;
-                if(verbose)
-                {
-                    fprintf(stderr,"writing header to %s\n",headerFileName.UTF8String);
-                    fflush(stderr);
-                }
-                [content writeToFile:headerFileName atomically:YES encoding:NSUTF8StringEncoding error:&e];
-                if(e)
-                {
-                    NSLog(@"Error: %@",e);
-                }
-            }
+            NSLog(@"Error: %@",e);
         }
-
-        s = getFirst(params[@"write-command-method"]);
+        e = NULL;
+        [content_m writeToFile:methodFileName atomically:YES encoding:NSUTF8StringEncoding error:&e];
+        if(e)
         {
-            if(s.length>0)
-            {
-                methodFileName = s;
-
-                NSString *content = [cmd methodFileWithPrefix:@"UMDiameterPacket"
-                                                    avpPrefix:@"UMDiameterAvp"
-                                                         user:user
-                                                         date:date];
-                NSError *e = NULL;
-                if(verbose)
-                {
-                    fprintf(stdout,"writing methods to %s\n",methodFileName.UTF8String);
-                    fflush(stdout);
-                }
-                [content writeToFile:methodFileName atomically:YES encoding:NSUTF8StringEncoding error:&e];
-                if(e)
-                {
-                    NSLog(@"Error: %@",e);
-                }
-            }
+            NSLog(@"Error: %@",e);
         }
     }
     return 0;
