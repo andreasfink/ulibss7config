@@ -56,6 +56,7 @@
 			{
                 /* we shoudl now call the live API to do some action for this object. */
                 /* FIXME Andreas */
+                [stagingArea setDirty:YES];
 				[self sendResultOK];
 			}
 		}

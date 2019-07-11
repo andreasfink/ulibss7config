@@ -58,6 +58,7 @@
             else
             {
                 [_appDelegate updateSS7FilterStagingArea:_webRequest.params];
+                 [stagingArea setDirty:YES];
             }
 			[self sendResultOK];
 		}

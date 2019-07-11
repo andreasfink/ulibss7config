@@ -80,6 +80,7 @@
 				{
 					// 4c-2. return action
 					UMSynchronizedSortedDictionary *conf = action.config;
+                    [stagingArea setDirty:YES];
 					[self sendResultObject:conf];
 				}
 			}

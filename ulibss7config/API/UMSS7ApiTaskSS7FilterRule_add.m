@@ -106,6 +106,7 @@
 
 				// 6. Return result
 				UMSynchronizedSortedDictionary *config = filterRule.config;
+                [stagingArea setDirty:YES];
 				[self sendResultObject:config];
 			}
 		}

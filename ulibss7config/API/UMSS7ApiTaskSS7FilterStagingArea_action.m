@@ -47,7 +47,13 @@
 		{
 			NSString *name = _webRequest.params[@"name"];
 			NSString *action = _webRequest.params[@"action"];
-			if([action isEqualToString:@"copy"])
+            NSDictionary *d = [NSDictionary dictionary];
+            if(name.length==0)
+            {
+                d = @{@"error" : @"missing-parameter", @"reason" :@"the 'name' parameter is not passed"};
+                [self sendError:[d jsonString]];
+            }
+			else if([action isEqualToString:@"copy"])
 			{
 				NSString *new_name = _webRequest.params[@"destination"];
                 [stagingArea setConfig:_webRequest.params];
@@ -69,7 +75,6 @@
 			}
 			else
 			{
-				NSDictionary *d = [NSDictionary dictionary];
                 d = @{@"error" : @"not-supported-value", @"reason" :@"the 'action' must have known value (e.g. select)!"};
                 [self sendError:[d jsonString]];
                 

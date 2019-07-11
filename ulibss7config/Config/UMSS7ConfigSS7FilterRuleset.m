@@ -103,4 +103,14 @@
     return [_entries arrayCopy];
 }
 
+- (NSArray<NSDictionary *> *)subConfigs
+{
+    NSMutableArray *configs = [[NSMutableArray alloc]init];
+    for(UMSS7ConfigSS7FilterRule *co in _entries)
+    {
+        [configs addObject:[co.config dictionaryCopy]];
+    }
+    return configs;
+}
+
 @end

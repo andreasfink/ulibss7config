@@ -51,6 +51,7 @@
 
             NSString *name = _webRequest.params[@"name"];
 			stagingArea.filter_rule_set_dict[name] = rule_set;
+            [stagingArea setDirty:YES];
 			[self sendResultOK];
 		}
 		@catch(NSException *e)

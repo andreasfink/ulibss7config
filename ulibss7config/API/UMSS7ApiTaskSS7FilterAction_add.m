@@ -83,6 +83,7 @@
                 }
 
                 // 6. Return result
+                [stagingArea setDirty:YES];
                 [self sendResultObject:config];
             }
         }
