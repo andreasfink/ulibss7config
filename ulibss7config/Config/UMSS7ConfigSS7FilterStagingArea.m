@@ -143,6 +143,25 @@
     [_lock unlock];
 }
 
+- (void)deleteConfig:(NSString *)filePath
+{
+    [_lock lock];
+    
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+    if (success)
+    {
+        NSLog(@"Successfully deleted file-path %@", filePath);
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ when file-path -:%@",[error localizedDescription], filePath);
+    }
+    
+    [_lock unlock];
+}
+
 - (void)flushIfDirty
 {
     if(_dirty==YES)

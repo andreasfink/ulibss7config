@@ -3750,6 +3750,13 @@ static void signalHandler(int signum);
 
 - (void)deleteSS7FilterStagingArea:(NSString *)name
 {
+    // Remove from file-system
+    NSString *filename = [UMSS7ConfigObject filterName:name];
+    NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
+    UMSS7ConfigSS7FilterStagingArea *sa = _ss7FilterStagingAreas_dict[name];
+    [sa deleteConfig:filepath];
+    
+    // Remove from memory
     [_ss7FilterStagingAreas_dict removeObjectForKey:name];
 }
 

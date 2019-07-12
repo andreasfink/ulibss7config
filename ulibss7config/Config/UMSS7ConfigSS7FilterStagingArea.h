@@ -41,6 +41,7 @@
 
 - (void)flushIfDirty;
 - (void)writeConfig;
+- (void)deleteConfig:(NSString *)filePath;
 
 @end
 
