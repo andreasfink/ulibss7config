@@ -127,14 +127,18 @@
         dict[it] = eng;
     }
     
+	NSError *err = NULL;
     NSString *jsonString = [dict jsonString];
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@",_path,_name.urlencode];
-    NSError *err = NULL;
-    [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&err];
-    if(err)
-    {
-        NSLog(@"Error while writing staging-area %@ to %@: %@",_name,_path,err);
+    BOOL written = [jsonString writeToFile:_path atomically:YES encoding:NSUTF8StringEncoding error:&err];
+    if (written) 
+	{
+		NSLog(@"Successfully written to path %@", _path);
+	} 
+	else 
+	{
+        NSLog(@"Error while writing staging-area name %@ with error %@",_path,[err localizedDescription]);
     }
+
     _dirty = NO;
     [_lock unlock];
 }
