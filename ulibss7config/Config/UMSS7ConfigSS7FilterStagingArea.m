@@ -109,7 +109,7 @@
     }
     
     // Action-Lists with actions
-    NSArray *actkeys  = [_filter_rule_set_dict allKeys];
+    NSArray *actkeys  = [_filter_action_list_dict allKeys];
     for(NSString *k in actkeys)
     {
         UMSS7ConfigSS7FilterActionList *ls = _filter_action_list_dict[k];
