@@ -33,13 +33,22 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _webRequest.params[@"file"];
     name = [UMSS7ConfigObject filterName:name];
 
     @try
     {
-        [_appDelegate addWithConfigSS7FilterEngine:_webRequest.params];
-        [self sendResultOK];
+        NSDictionary *d = [NSDictionary dictionary];
+        if(name.length==0)
+        {
+            d = @{@"error" : @"missing-parameter", @"reason" :@"the 'file' parameter is not passed"};
+            [self sendError:[d jsonString]];
+        }
+        else
+        {
+            [_appDelegate addWithConfigSS7FilterEngine:_webRequest.params];
+            [self sendResultOK];
+        }
     }
     @catch(NSException *e)
     {

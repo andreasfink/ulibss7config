@@ -171,4 +171,110 @@
     _dirty=NO;
 }
 
+- (void)loadFromFile
+{
+    NSString *filePath = _path;
+    NSError *err = NULL;
+#ifdef __APPLE__
+    NSData *jsonData = [[NSData alloc]initWithContentsOfFile:filePath options:0 error:&err];
+#else
+    NSData *jsonData = [[NSData alloc]initWithContentsOfFile:filePath];
+#endif
+    if(err)
+    {
+        NSLog(@"Error while reading statistics %@ to %@: %@",_name,_path,err);
+    }
+    else
+    {
+        UMJsonParser *parser = [[UMJsonParser alloc]init];
+        id obj = [parser objectWithData:jsonData];
+        if([obj isKindOfClass:[NSDictionary class]])
+        {
+            NSDictionary *dict = (NSDictionary *)obj;
+            [self initWithConfig:dict];
+            
+            NSArray *keys = [dict allKeys];
+            for(NSString *key in keys)
+            {
+                id obj2 = dict[key];
+                if([obj2 isKindOfClass:[NSDictionary class]])
+                {
+                    NSDictionary *dict2 = (NSDictionary *)obj2;
+                    NSArray *ks = [dict2 allKeys];
+                    for(NSString *k in ks)
+                    {
+                    
+                        if([k isEqualToString:@"group"])
+                        {
+                            
+                            if([dict2[k] isEqualToString:@"ss7-filter-action-list"])
+                            {
+                                UMSS7ConfigSS7FilterActionList *list = [[UMSS7ConfigSS7FilterActionList alloc]initWithConfig:dict2];
+                                NSArray *actkeys  = dict2[@"actions"];
+                                for(NSDictionary *js_actions in actkeys)
+                                {
+                                    if([js_actions isKindOfClass:[NSDictionary class]])
+                                    {
+                                        // Create action
+                                        UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:js_actions];
+                                        [list appendAction:action];
+                                    }
+                                }
+                                
+                                // Attach list-actions to staging area
+                                self.filter_action_list_dict[dict2[@"name"]] = list;
+                                
+                                // end of reading
+                                break;
+                                
+                            }
+                            else if ([dict2[k] isEqualToString:@"ss7-filter-ruleset"])
+                            {
+                                UMSS7ConfigSS7FilterRuleset *ls = [[UMSS7ConfigSS7FilterRuleset alloc]initWithConfig:dict2];
+                                NSArray *actRules  = dict2[@"rules"];
+                                for(NSDictionary *js_rules in actRules)
+                                {
+                                    if([js_rules isKindOfClass:[NSDictionary class]])
+                                    {
+                                        // Create action
+                                        UMSS7ConfigSS7FilterRule *rule = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:js_rules];
+                                        [ls appendRule:rule];
+                                    }
+                                }
+
+                                // Attach Rule-Sets to staging area
+                                self.filter_rule_set_dict[dict2[@"name"]] = ls;
+                                
+                                // end of reading
+                                break;
+                                
+                            }
+                            else if ([dict2[k] isEqualToString:@"ss7-filter-engine"])
+                            {
+                                // TODO : Save engine
+                                NSLog(@" Error : Not Implemented Save of Engine -: %@", dict2[k]);
+                            }
+                            else
+                            {
+                                NSLog(@" Error : Unkown group -: %@", dict2[k]);
+                                
+                            }
+
+                            
+                        }
+                        else
+                        {
+                            NSLog(@" Info -: key[%@] - Val[%@]", k, dict2[k]);
+                        }
+                        
+                        
+                    
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 @end
