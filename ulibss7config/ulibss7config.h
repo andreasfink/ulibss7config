@@ -15,7 +15,8 @@
 #import "SS7AppTransportHandler.h"
 #import "SS7TelnetSocketHelperProtocol.h"
 #import "SS7TelnetSocket.h"
-
+#import "UMSS7Filter.h"
+#import "UMSS7TraceFile.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 
 #import "UMSS7ConfigObject.h"

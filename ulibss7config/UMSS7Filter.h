@@ -48,6 +48,9 @@
 - (void)clearAllTags;
 
 - (void)loadConfigFromFile:(NSString *)filename;
-- (void)processConfig:(NSString *)jsonString;
+
+- (void)processConfig:(NSString *)jsonString error:(NSError**)eptr;
+- (void)processConfigDict:(NSDictionary *)dict error:(NSError**)eptr;
+
 @end
 

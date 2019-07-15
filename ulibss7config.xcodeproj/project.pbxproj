@@ -52,7 +52,6 @@
 		A6336EA122D578DE00F803C5 /* DiameterSessionASR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E8322D578DE00F803C5 /* DiameterSessionASR.m */; };
 		A6336EA322D578EE00F803C5 /* generate.sh in Resources */ = {isa = PBXBuildFile; fileRef = A6336EA222D578EE00F803C5 /* generate.sh */; };
 		A6336EA522D57C0900F803C5 /* DiameterSession_all.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336EA422D57C0800F803C5 /* DiameterSession_all.h */; };
-		A6336EA722D57CDD00F803C5 /* DiameterSession.inc in Sources */ = {isa = PBXBuildFile; fileRef = A6336EA622D57CDC00F803C5 /* DiameterSession.inc */; };
 		A634BBF521A38B3300852462 /* UMSS7ConfigServiceUser.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBEF21A38B3200852462 /* UMSS7ConfigServiceUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBF621A38B3300852462 /* UMSS7ConfigServiceBillingEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */; };
 		A634BBF721A38B3300852462 /* UMSS7ConfigServiceBillingEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2358,7 +2357,6 @@
 				A6BF30E9229437350000578B /* UMSS7ApiTaskSS7FilterRule_modify.m in Sources */,
 				A6BC431B20774F93008C3CEB /* UMSS7ConfigGSMMAP.m in Sources */,
 				A6BC431220774F93008C3CEB /* UMSS7ConfigSCCPTranslationTable.m in Sources */,
-				A6336EA722D57CDD00F803C5 /* DiameterSession.inc in Sources */,
 				A638466222CFF44300D62749 /* UMSS7ApiTaskStatistics_list.m in Sources */,
 				A6BF317A229443DE0000578B /* UMSS7ConfigSS7FilterRuleset.m in Sources */,
 				A6C0AFB12089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m in Sources */,

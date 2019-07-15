@@ -125,11 +125,31 @@
     {
         NSLog(@"Can not read config from file %@. Error %@",filename,e);
     }
-    [self processConfig:jsonString];
+    [self processConfig:jsonString error:&e];
+    if(e)
+    {
+        NSLog(@"Error while reading config file %@ %@",filename,e);
+    }
 }
 
 
-- (void)processConfig:(NSString *)jsonString
+- (void)processConfig:(NSString *)jsonString error:(NSError**)eptr
+{
+    UMJsonParser *parser = [[UMJsonParser alloc]init];
+    id jsonObject = [parser objectWithString:jsonString error:eptr];
+
+    if([jsonObject isKindOfClass:[NSDictionary class]])
+    {
+        *eptr = [[NSError alloc]initWithDomain:@"PARSING" code:105 userInfo:@{@"reason":@"json object is not dictionary" }];
+    }
+    else
+    {
+        NSDictionary *dict = (NSDictionary *)jsonObject;
+        [self processConfigDict:dict error:eptr];
+    }
+}
+
+- (void)processConfigDict:(NSDictionary *)dict error:(NSError**)eptr
 {
     /* this should be overwritten */
 }
