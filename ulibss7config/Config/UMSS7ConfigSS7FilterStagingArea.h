@@ -14,6 +14,7 @@
 @class  UMSS7ConfigFilterEngine;
 @class  UMSS7ConfigFilterActionList;
 @class  UMSS7ConfigFilterLog;
+@class UMMutex;
 
 
 @interface UMSS7ConfigSS7FilterStagingArea : UMSS7ConfigObject
@@ -24,6 +25,8 @@
     UMSynchronizedDictionary *_filter_action_list_dict;
     NSDate                   *_createdTimestamp;
     NSDate                   *_modifiedTimestamp;
+    
+    UMMutex *_lock;
 }
 
 @property(readwrite,strong,atomic)  NSString                 *path;
@@ -38,6 +41,7 @@
 
 - (void)flushIfDirty;
 - (void)writeConfig;
+- (void)deleteConfig:(NSString *)filePath;
 
 @end
 

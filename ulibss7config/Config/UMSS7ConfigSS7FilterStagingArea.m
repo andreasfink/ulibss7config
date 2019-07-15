@@ -8,6 +8,11 @@
 
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigMacros.h"
+#import "ulib/UMMutex.h"
+#import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterRule.h"
+#import "UMSS7ConfigSS7FilterActionList.h"
+#import "UMSS7ConfigSS7FilterAction.h"
 
 @implementation UMSS7ConfigSS7FilterStagingArea
 
@@ -20,6 +25,7 @@
         _filter_rule_set_dict = [[UMSynchronizedDictionary alloc]init];
         _filter_engines_dict = [[UMSynchronizedDictionary alloc]init];
         _filter_action_list_dict = [[UMSynchronizedDictionary alloc]init];
+        _lock = [[UMMutex alloc]initWithName:@"mutex staging area"];
     }
     return self;
 }
@@ -87,7 +93,73 @@
 
 - (void)writeConfig
 {
-    /* FIXME */
+    [_lock lock];
+    
+    // Save self properties
+    UMSynchronizedSortedDictionary *dict = self.config;
+    
+    // Rule-Sets with rules
+    NSArray *keys = [_filter_rule_set_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMSS7ConfigSS7FilterRuleset *entry = _filter_rule_set_dict[key];
+        UMSynchronizedSortedDictionary *rs = entry.config;
+        rs[@"rules"] = entry.subConfigs;
+        dict[key] = rs;
+    }
+    
+    // Action-Lists with actions
+    NSArray *actkeys  = [_filter_action_list_dict allKeys];
+    for(NSString *k in actkeys)
+    {
+        UMSS7ConfigSS7FilterActionList *ls = _filter_action_list_dict[k];
+        UMSynchronizedSortedDictionary *al = ls.config;
+        al[@"actions"] = ls.subConfigs;
+        dict[k] = al;
+    }
+    
+    // Engines
+    NSArray *engkeys  = [_filter_engines_dict allKeys];
+    for(NSString *it in engkeys)
+    {
+        UMSS7ConfigSS7FilterActionList *l = _filter_action_list_dict[it];
+        UMSynchronizedSortedDictionary *eng = l.config;
+        dict[it] = eng;
+    }
+    
+	NSError *err = NULL;
+    NSString *jsonString = [dict jsonString];
+    BOOL written = [jsonString writeToFile:_path atomically:YES encoding:NSUTF8StringEncoding error:&err];
+    if (written) 
+	{
+		NSLog(@"Successfully written to path %@", _path);
+	} 
+	else 
+	{
+        NSLog(@"Error while writing staging-area name %@ with error %@",_path,[err localizedDescription]);
+    }
+
+    _dirty = NO;
+    [_lock unlock];
+}
+
+- (void)deleteConfig:(NSString *)filePath
+{
+    [_lock lock];
+    
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+    if (success)
+    {
+        NSLog(@"Successfully deleted file-path %@", filePath);
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ when file-path -:%@",[error localizedDescription], filePath);
+    }
+    
+    [_lock unlock];
 }
 
 - (void)flushIfDirty

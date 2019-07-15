@@ -44,20 +44,21 @@
     {
         @try
         {
-            UMSynchronizedDictionary *listActions = [[UMSynchronizedDictionary alloc]init];
+            NSMutableArray *gls = [[NSMutableArray alloc]init];
             NSArray *keys = [stagingArea.filter_action_list_dict allKeys];
             for(NSString *k in keys)
             {
+                NSMutableArray *arr = [[NSMutableArray alloc]init];
                 UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[k];
                 NSArray *actions = [ls getAllActions];
-                UMSynchronizedDictionary *act = [[UMSynchronizedDictionary alloc]init];
                 for(UMSS7ConfigSS7FilterAction *it in actions)
                 {
-                    act[it.name] = it;
+                    UMSynchronizedSortedDictionary *config = it.config;
+                    [arr addObject:config];
                 }
-                listActions[k] = act;
+                [gls addObject:arr];
             }
-            [self sendResultObject:listActions];
+            [self sendResultObject:gls];
         }
         @catch(NSException *e)
         {

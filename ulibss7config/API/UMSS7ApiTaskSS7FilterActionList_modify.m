@@ -54,6 +54,7 @@
             else
             {
                 [ls setConfig:_webRequest.params];
+                [stagingArea setDirty:YES];
                 [self sendResultObject:ls.config];
             }
         }

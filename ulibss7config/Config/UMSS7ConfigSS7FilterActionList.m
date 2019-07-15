@@ -8,6 +8,7 @@
 
 #import "UMSS7ConfigSS7FilterActionList.h"
 #import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigSS7FilterAction.h"
 
 @implementation UMSS7ConfigSS7FilterActionList
 
@@ -100,6 +101,16 @@
 - (NSArray<UMSS7ConfigSS7FilterAction *> *)getAllActions
 {
     return [_entries arrayCopy];
+}
+
+- (NSArray<NSDictionary *> *)subConfigs
+{
+    NSMutableArray *configs = [[NSMutableArray alloc]init];
+    for(UMSS7ConfigSS7FilterAction *co in _entries)
+    {
+        [configs addObject:[co.config dictionaryCopy]];
+    }
+    return configs;
 }
 
 @end

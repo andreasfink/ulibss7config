@@ -55,6 +55,7 @@
             {
                 NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:_webRequest.params];
                 [rs setConfig:dict];
+                [stagingArea setDirty:YES];
                 [self sendResultObject:rs.config];
             }
         }

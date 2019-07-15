@@ -3721,6 +3721,7 @@ static void signalHandler(int signum);
     }
     else
     {
+        [st setDirty:YES];
         _ss7FilterStagingAreas_dict[name] = st;
     }
 }
@@ -3749,6 +3750,13 @@ static void signalHandler(int signum);
 
 - (void)deleteSS7FilterStagingArea:(NSString *)name
 {
+    // Remove from file-system
+    NSString *filename = [UMSS7ConfigObject filterName:name];
+    NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
+    UMSS7ConfigSS7FilterStagingArea *sa = _ss7FilterStagingAreas_dict[name];
+    [sa deleteConfig:filepath];
+    
+    // Remove from memory
     [_ss7FilterStagingAreas_dict removeObjectForKey:name];
 }
 
@@ -3898,12 +3906,19 @@ static void signalHandler(int signum);
 
             if([filename isEqualToString:@"current"])
             {
-                NSError *e = NULL;
-                currentStagingArea = [fm destinationOfSymbolicLinkAtPath:filename error:&e];
+                //NSError *e = NULL;
+                char resolved[PATH_MAX];
+				char *returnValue = realpath([path fileSystemRepresentation], resolved);
+                currentStagingArea = [NSString stringWithUTF8String:resolved];
+				if (returnValue == NULL)
+				{
+                    NSLog(@"Error while parsing symlink 'current' in path '%@':\n%@",path,currentStagingArea);
+                }
+				/*currentStagingArea = [fm destinationOfSymbolicLinkAtPath:filename error:&e];
                 if(e)
                 {
                     NSLog(@"Error while parsing symlink 'current' in path '%@':\n%@",path,e);
-                }
+                }*/
             }
             else
             {
