@@ -15,7 +15,6 @@
 #import "SS7AppTransportHandler.h"
 #import "SS7TelnetSocketHelperProtocol.h"
 #import "SS7TelnetSocket.h"
-#import "UMSS7Filter.h"
 #import "UMSS7TraceFile.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 
@@ -82,3 +81,8 @@
 #import "DiameterGenericInstance.h"
 #import "DiameterGenericSession.h"
 
+#import "UMSS7Filter.h"
+#import "UMSS7FilterRule.h"
+#import "UMSS7FilterRuleSet.h"
+#import "UMSS7FilterAction.h"
+#import "UMSS7FilterActionList.h"
