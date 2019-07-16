@@ -1,5 +1,5 @@
 //
-//  UMSS7ConfigStagingAreaStorage.h
+//  UMSS7ConfigStagingArea.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 19.05.19.
