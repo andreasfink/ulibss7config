@@ -3822,7 +3822,7 @@ static void signalHandler(int signum);
 
 - (void)addWithConfigSS7FilterEngine:(NSDictionary *)config /* can throw exceptions */
 {
-    NSString *filename = config[@"filename"];
+    NSString *filename = config[@"file"];
     NSString *filepath = [NSString stringWithFormat:@"%@/%@",_filterEnginesPath,filename];
     UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
     if(ph==NULL)
@@ -3927,6 +3927,7 @@ static void signalHandler(int signum);
                 UMSS7ConfigSS7FilterStagingArea *area = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
                 if(area)
                 {
+                    [area loadFromFile];
                     _ss7FilterStagingAreas_dict[name] = area;
                 }
             }
