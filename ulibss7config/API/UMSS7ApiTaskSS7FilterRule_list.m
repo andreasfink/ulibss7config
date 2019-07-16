@@ -12,7 +12,7 @@
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigSS7FilterRule.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
-#import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterRule_list
@@ -49,7 +49,7 @@
 		{
 			// 2. Get Rule-Set
 			NSString *ruleset_name = _webRequest.params[@"filter-ruleset"];
-			UMSS7ConfigSS7FilterRuleset* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
+			UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
 			
 			// 3. Verify if rule-set exists
 			if(rSet == NULL)

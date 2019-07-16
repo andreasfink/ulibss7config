@@ -7,12 +7,29 @@
 //
 
 #import "UMSS7FilterActionList.h"
+#import "UMSS7ConfigSS7FilterActionList.h"
 
 @implementation UMSS7FilterActionList
+
+- (UMSS7FilterActionList *)initWithConfig:(UMSS7ConfigSS7FilterActionList *)cfg
+                              appDelegate:(SS7AppDelegate *)appdel
 {
-    UMSS7ConfigFilterActionList *_config;
+    self = [super init];
+    if(self)
+    {
+        _appDelegate = appdel;
+        _config = cfg;
+        if([self convertConfig]==NO)
+        {
+            return NULL;
+        }
+    }
+    return self;
 }
 
-@property(readwrite,strong,atomic)   UMSS7ConfigFilterActionList *config;
 
+- (BOOL)convertConfig /* returns YES for success */
+{
+    return YES;
+}
 @end

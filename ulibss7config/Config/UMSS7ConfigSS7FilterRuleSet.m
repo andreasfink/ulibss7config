@@ -1,16 +1,16 @@
 //
-//  UMSS7ConfigSS7FilterRuleset.m
+//  UMSS7ConfigSS7FilterRuleSet.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 17.05.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ConfigSS7FilterRule.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigSS7FilterRuleset
+@implementation UMSS7ConfigSS7FilterRuleSet
 
 
 + (NSString *)type
@@ -20,10 +20,10 @@
 
 - (NSString *)type
 {
-    return [UMSS7ConfigSS7FilterRuleset type];
+    return [UMSS7ConfigSS7FilterRuleSet type];
 }
 
-- (UMSS7ConfigSS7FilterRuleset *)init
+- (UMSS7ConfigSS7FilterRuleSet *)init
 {
     self = [super init];
     if(self)
@@ -33,7 +33,7 @@
     return self;
 }
 
-- (UMSS7ConfigSS7FilterRuleset *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigSS7FilterRuleSet *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)

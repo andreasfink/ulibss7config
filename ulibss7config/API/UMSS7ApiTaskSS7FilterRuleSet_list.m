@@ -8,7 +8,7 @@
 
 #import "UMSS7ApiTaskSS7FilterRuleSet_list.h"
 #import "UMSS7ConfigObject.h"
-#import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"

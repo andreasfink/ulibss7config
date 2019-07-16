@@ -40,10 +40,12 @@
     NSString *_variable;
     NSString *_value;
     NSString *_statisticName;
+    NSString *_statisticKey;
+    NSString *_traceDestination;
 }
 
 @property(readwrite,strong,atomic)  SS7AppDelegate              *appDelegate;
-@property(readwrite,strong,atomic)   UMSS7ConfigFilterAction    *config;
+@property(readwrite,strong,atomic)   UMSS7ConfigSS7FilterAction    *config;
 
 @property(readwrite,assign,atomic)   BOOL    doPass;
 @property(readwrite,assign,atomic)   BOOL    doDrop;
@@ -59,6 +61,7 @@
 @property(readwrite,assign,atomic)   BOOL    doSetVar;
 @property(readwrite,assign,atomic)   BOOL    doClearVar;
 
-- (UMSS7FilterAction *)initWithConfig:(UMSS7ConfigSS7FilterAction *)cfg appDelegate:(SS7AppDelegate *)appdel;
+- (UMSS7FilterAction *)initWithConfig:(UMSS7ConfigSS7FilterAction *)cfg
+                          appDelegate:(SS7AppDelegate *)appdel;
 
 @end

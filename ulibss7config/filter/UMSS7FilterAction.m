@@ -7,6 +7,7 @@
 //
 
 #import "UMSS7FilterAction.h"
+#import "SS7AppDelegate.h"
 
 @implementation UMSS7FilterAction
 
@@ -28,55 +29,55 @@
 
 - (BOOL)convertConfig /* returns YES for success */
 {
-    if(_config.action isEqualToString:@"pass")
+    if([_config.action isEqualToString:@"pass"])
     {
         _doPass=YES;
     }
-    else if(_config.action isEqualToString:@"drop")
+    else if([_config.action isEqualToString:@"drop"])
     {
         _doDrop=YES;
     }
-    else if(_config.action isEqualToString:@"abort")
+    else if([_config.action isEqualToString:@"abort"])
     {
         _doAbort=YES;
     }
-    else if(_config.action isEqualToString:@"reject")
+    else if([_config.action isEqualToString:@"reject"])
     {
         _doReject=YES;
     }
-    else if(_config.action isEqualToString:@"error")
+    else if([_config.action isEqualToString:@"error"])
     {
         _doError=YES;
     }
-    else if(_config.action isEqualToString:@"continue")
+    else if([_config.action isEqualToString:@"continue"])
     {
         _doContinue=YES;
     }
-    else if(_config.action isEqualToString:@"log")
+    else if([_config.action isEqualToString:@"log"])
     {
         _doLog=YES;
     }
-    else if(_config.action isEqualToString:@"reroute")
+    else if([_config.action isEqualToString:@"reroute"])
     {
         _doReroute=YES;
     }
-    else if(_config.action isEqualToString:@"add-tag")
+    else if([_config.action isEqualToString:@"add-tag"])
     {
         _doAddTag=YES;
     }
-    else if(_config.action isEqualToString:@"clear-tag")
+    else if([_config.action isEqualToString:@"clear-tag"])
     {
         _doClearTag=YES;
     }
-    else if(_config.action isEqualToString:@"set-var")
+    else if([_config.action isEqualToString:@"set-var"])
     {
         _doSetVar=YES;
     }
-    else if(_config.action isEqualToString:@"clear-var")
+    else if([_config.action isEqualToString:@"clear-var"])
     {
         _doClearVar=YES;
     }
-    else if(_config.action isEqualToString:@"statistics")
+    else if([_config.action isEqualToString:@"statistics"])
     {
         _doStats=YES;
     }
@@ -114,15 +115,15 @@
             {
                 return NO;
             }
-            rerouteDestinationGroup = dest;
+            _rerouteDestinationGroup = dest;
         }
         if(_config.rerouteCalledAddress.length > 0)
         {
-            _rerouteAddress = _config.rerouteCalledAddress.length;
+            _rerouteAddress = _config.rerouteCalledAddress;
         }
         if(_config.rerouteCalledAddressPrefix.length > 0)
         {
-            _reroutePrefix = _config.reroutePrefix;
+            _reroutePrefix = _config.rerouteCalledAddressPrefix;
         }
         if(_config.reroute_tt)
         {
@@ -133,18 +134,19 @@
     {
         _tag = _config.tag;
     }
-    if((_doSetvar) || (_doClearVar))
+    if((_doSetVar) || (_doClearVar))
     {
         _variable = _config.variable;
         _value = _config.value;
     }
     if(_doLog)
     {
-        traceDestination = _appDelegate
+        _traceDestination = _config.log;
     }
-    if(_doStatistic)
+    if(_doStats)
     {
-        _statisticName = _config.value;
+        _statisticName = _config.statisticName;
+        _statisticKey = _config.statisticKey;
     }
     return YES;
 }

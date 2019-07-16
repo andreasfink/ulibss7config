@@ -8,7 +8,7 @@
 
 #import "UMSS7ApiTaskSS7FilterRuleSet_read.h"
 #import "UMSS7ConfigObject.h"
-#import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
@@ -47,7 +47,7 @@
 		@try
 		{
 			NSString *name = _webRequest.params[@"name"];
-            UMSS7ConfigSS7FilterRuleset *rs = stagingArea.filter_rule_set_dict[name];
+            UMSS7ConfigSS7FilterRuleSet *rs = stagingArea.filter_rule_set_dict[name];
 			if(rs == NULL)
 			{
 				[self sendErrorNotFound:name];

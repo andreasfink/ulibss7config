@@ -10,19 +10,18 @@
 
 @class UMSS7ConfigSS7FilterRule;
 
-@interface UMSS7ConfigSS7FilterRuleset : UMSS7ConfigObject
+
+@interface UMSS7ConfigSS7FilterRuleSet : UMSS7ConfigObject
 {
-	NSString                 *_file;
-    UMSynchronizedArray      *_entries;
-    NSDate                 *_createdTimestamp;
-    NSDate                 *_modifiedTimestamp;
-    NSString                 *_status;
+    UMSynchronizedArray     *_entries;
+    NSDate                  *_createdTimestamp;
+    NSDate                  *_modifiedTimestamp;
+    NSString                *_status;
 }
 
-@property(readwrite,strong,atomic)      NSString *file;
-@property(readwrite,strong,atomic)    NSDate *createdTimestamp;
-@property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
-@property(readwrite,strong,atomic)      NSString *status;
+@property(readwrite,strong,atomic)  NSDate *createdTimestamp;
+@property(readwrite,strong,atomic)  NSDate *modifiedTimestamp;
+@property(readwrite,strong,atomic)  NSString *status;
 
 - (UMSS7ConfigSS7FilterRule *)getRuleAtIndex:(NSInteger)idx;
 - (void)setRule:(UMSS7ConfigSS7FilterRule *)rule atIndex:(NSInteger)idx;

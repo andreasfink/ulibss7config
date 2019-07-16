@@ -9,7 +9,7 @@
 #import <ulib/ulib.h>
 #import "UMSS7ConfigObject.h"
 
-@class  UMSS7ConfigSS7FilterRuleset;
+@class  UMSS7ConfigSS7FilterRuleSet;
 @class  UMSS7ConfigSS7FilterRule;
 @class  UMSS7ConfigFilterEngine;
 @class  UMSS7ConfigFilterActionList;

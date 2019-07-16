@@ -9,7 +9,7 @@
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigMacros.h"
 #import "ulib/UMMutex.h"
-#import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ConfigSS7FilterRule.h"
 #import "UMSS7ConfigSS7FilterActionList.h"
 #import "UMSS7ConfigSS7FilterAction.h"
@@ -102,7 +102,7 @@
     NSArray *keys = [_filter_rule_set_dict allKeys];
     for(NSString *key in keys)
     {
-        UMSS7ConfigSS7FilterRuleset *entry = _filter_rule_set_dict[key];
+        UMSS7ConfigSS7FilterRuleSet *entry = _filter_rule_set_dict[key];
         UMSynchronizedSortedDictionary *rs = entry.config;
         rs[@"rules"] = entry.subConfigs;
         dict[key] = rs;
