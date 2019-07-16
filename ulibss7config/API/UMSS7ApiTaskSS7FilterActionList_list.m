@@ -44,21 +44,33 @@
     {
         @try
         {
-            NSMutableArray *gls = [[NSMutableArray alloc]init];
-            NSArray *keys = [stagingArea.filter_action_list_dict allKeys];
-            for(NSString *k in keys)
+            
+            NSString *no_values = _webRequest.params[@"no-values"];
+            if([no_values isEqualToString:@"NO"])
             {
-                NSMutableArray *arr = [[NSMutableArray alloc]init];
-                UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[k];
-                NSArray *actions = [ls getAllActions];
-                for(UMSS7ConfigSS7FilterAction *it in actions)
+                NSMutableArray *gls = [[NSMutableArray alloc]init];
+                NSArray *keys = [stagingArea.filter_action_list_dict allKeys];
+                for(NSString *k in keys)
                 {
-                    UMSynchronizedSortedDictionary *config = it.config;
-                    [arr addObject:config];
+                    NSMutableArray *arr = [[NSMutableArray alloc]init];
+                    UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[k];
+                    NSArray *actions = [ls getAllActions];
+                    for(UMSS7ConfigSS7FilterAction *it in actions)
+                    {
+                        UMSynchronizedSortedDictionary *config = it.config;
+                        [arr addObject:config];
+                    }
+                    [gls addObject:arr];
                 }
-                [gls addObject:arr];
+                [self sendResultObject:gls];
+                
             }
-            [self sendResultObject:gls];
+            else
+            {
+                NSArray<NSString *> *names = [stagingArea.filter_action_list_dict allKeys];
+                [self sendResultObject:names];
+            }
+            
         }
         @catch(NSException *e)
         {

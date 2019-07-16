@@ -13,6 +13,7 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
+#import "UMSS7ConfigSS7FilterRule.h"
 
 @implementation UMSS7ApiTaskSS7FilterRuleSet_list
 
@@ -46,8 +47,33 @@
     {
 		@try
 		{
-			NSArray<NSString *> *names = [stagingArea.filter_rule_set_dict allKeys];
-			[self sendResultObject:names];
+            
+            NSString *no_values = _webRequest.params[@"no-values"];
+            if([no_values isEqualToString:@"NO"])
+            {
+                NSMutableArray *gls = [[NSMutableArray alloc]init];
+                NSArray *keys = [stagingArea.filter_rule_set_dict allKeys];
+                for(NSString *k in keys)
+                {
+                    NSMutableArray *arr = [[NSMutableArray alloc]init];
+                    UMSS7ConfigSS7FilterRuleset *ls = stagingArea.filter_rule_set_dict[k];
+                    NSArray *rules = [ls getAllRules];
+                    for(UMSS7ConfigSS7FilterRule *it in rules)
+                    {
+                        UMSynchronizedSortedDictionary *config = it.config;
+                        [arr addObject:config];
+                    }
+                    [gls addObject:arr];
+                }
+                [self sendResultObject:gls];
+                
+            }
+            else
+            {
+                NSArray<NSString *> *names = [stagingArea.filter_rule_set_dict allKeys];
+                [self sendResultObject:names];
+            }
+
 		}
 		@catch(NSException *e)
 		{

@@ -35,55 +35,65 @@
         return;
     }
     
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
+    @try
     {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			NSString *name = _webRequest.params[@"name"];
-			NSString *action = _webRequest.params[@"action"];
-            NSDictionary *d = [NSDictionary dictionary];
-            if(name.length==0)
+        
+        NSString *action = _webRequest.params[@"action"];
+        NSString *name = _webRequest.params[@"name"];
+        NSDictionary *d = [NSDictionary dictionary];
+        if(name.length==0)
+        {
+            d = @{@"error" : @"missing-parameter", @"reason" :@"the 'name' parameter is not passed"};
+            [self sendError:[d jsonString]];
+        }
+        else if([action isEqualToString:@"copy"])
+        {
+            NSString *new_name = _webRequest.params[@"destination"];
+            UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+            if(stagingArea == NULL)
             {
-                d = @{@"error" : @"missing-parameter", @"reason" :@"the 'name' parameter is not passed"};
-                [self sendError:[d jsonString]];
+                [self sendErrorNotFound:@"Staging-Area"];
             }
-			else if([action isEqualToString:@"copy"])
-			{
-				NSString *new_name = _webRequest.params[@"destination"];
+            else
+            {
                 [stagingArea setConfig:_webRequest.params];
                 [_appDelegate copySS7FilterStagingArea:name toNewName:new_name];
-                
-				[self sendResultOK];
-			}
-			else if([action isEqualToString:@"activate"])
-			{
-				[_appDelegate makeStagingAreaCurrent:name];
-                [stagingArea setConfig:_webRequest.params];
-				[self sendResultOK];
-			}
-			else if([action isEqualToString:@"select"])
-			{
-				[_appDelegate selectSS7FilterStagingArea:name forSession:_apiSession];
-                 [stagingArea setConfig:_webRequest.params];
-				[self sendResultOK];
-			}
-			else
-			{
-                d = @{@"error" : @"not-supported-value", @"reason" :@"the 'action' must have known value (e.g. select)!"};
-                [self sendError:[d jsonString]];
-                
+                [self sendResultOK];
             }
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+
+        }
+        else if([action isEqualToString:@"activate"])
+        {
+            UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+            if(stagingArea == NULL)
+            {
+                [self sendErrorNotFound:@"Staging-Area"];
+            }
+            else
+            {
+                [_appDelegate makeStagingAreaCurrent:name];
+                [stagingArea setConfig:_webRequest.params];
+                [self sendResultOK];
+            }
+        }
+        else if([action isEqualToString:@"select"])
+        {
+           
+            [_appDelegate selectSS7FilterStagingArea:name forSession:_apiSession];
+            [self sendResultOK];
+        }
+        else
+        {
+            d = @{@"error" : @"not-supported-value", @"reason" :@"the 'action' must have known value (e.g. select)!"};
+            [self sendError:[d jsonString]];
+            
+        }
+        
     }
+    @catch(NSException *e)
+    {
+        [self sendException:e];
+    }
+    
 }
 @end
