@@ -230,7 +230,7 @@
                             }
                             else if ([dict2[k] isEqualToString:@"ss7-filter-ruleset"])
                             {
-                                UMSS7ConfigSS7FilterRuleset *ls = [[UMSS7ConfigSS7FilterRuleset alloc]initWithConfig:dict2];
+                                UMSS7ConfigSS7FilterRuleSet *ls = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:dict2];
                                 NSArray *actRules  = dict2[@"rules"];
                                 for(NSDictionary *js_rules in actRules)
                                 {
