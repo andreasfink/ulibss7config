@@ -191,7 +191,7 @@
         if([obj isKindOfClass:[NSDictionary class]])
         {
             NSDictionary *dict = (NSDictionary *)obj;
-            [self initWithConfig:dict];
+            [self setConfig:dict];
             
             NSArray *keys = [dict allKeys];
             for(NSString *key in keys)
@@ -266,9 +266,6 @@
                         {
                             NSLog(@" Info -: key[%@] - Val[%@]", k, dict2[k]);
                         }
-                        
-                        
-                    
                     }
                 }
             }
