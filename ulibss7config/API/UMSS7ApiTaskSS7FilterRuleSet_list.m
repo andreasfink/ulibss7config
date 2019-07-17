@@ -49,14 +49,25 @@
 		{
             
             NSString *no_values = _webRequest.params[@"no-values"];
-            if([no_values isEqualToString:@"NO"])
+            BOOL only_names = YES;
+            if(no_values.length > 0)
+            {
+                only_names = [no_values boolValue];
+            }
+            
+            if(only_names)
+            {
+                NSArray<NSString *> *names = [stagingArea.filter_rule_set_dict allKeys];
+                [self sendResultObject:names];
+            }
+            else
             {
                 NSMutableArray *gls = [[NSMutableArray alloc]init];
                 NSArray *keys = [stagingArea.filter_rule_set_dict allKeys];
                 for(NSString *k in keys)
                 {
                     NSMutableArray *arr = [[NSMutableArray alloc]init];
-                    UMSS7ConfigSS7FilterRuleset *ls = stagingArea.filter_rule_set_dict[k];
+                    UMSS7ConfigSS7FilterRuleSet *ls = stagingArea.filter_rule_set_dict[k];
                     NSArray *rules = [ls getAllRules];
                     for(UMSS7ConfigSS7FilterRule *it in rules)
                     {
@@ -68,12 +79,7 @@
                 [self sendResultObject:gls];
                 
             }
-            else
-            {
-                NSArray<NSString *> *names = [stagingArea.filter_rule_set_dict allKeys];
-                [self sendResultObject:names];
-            }
-
+            
 		}
 		@catch(NSException *e)
 		{
