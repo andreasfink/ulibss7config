@@ -46,7 +46,18 @@
         {
             
             NSString *no_values = _webRequest.params[@"no-values"];
-            if([no_values isEqualToString:@"NO"])
+            BOOL only_names = YES;
+            if(no_values.length > 0)
+            {
+                only_names = [no_values boolValue];
+            }
+            
+            if(only_names)
+            {
+                NSArray<NSString *> *names = [stagingArea.filter_action_list_dict allKeys];
+                [self sendResultObject:names];
+            }
+            else
             {
                 NSMutableArray *gls = [[NSMutableArray alloc]init];
                 NSArray *keys = [stagingArea.filter_action_list_dict allKeys];
@@ -64,11 +75,6 @@
                 }
                 [self sendResultObject:gls];
                 
-            }
-            else
-            {
-                NSArray<NSString *> *names = [stagingArea.filter_action_list_dict allKeys];
-                [self sendResultObject:names];
             }
             
         }
