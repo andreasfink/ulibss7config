@@ -56,7 +56,7 @@
                 for(NSString *k in keys)
                 {
                     NSMutableArray *arr = [[NSMutableArray alloc]init];
-                    UMSS7ConfigSS7FilterRuleset *ls = stagingArea.filter_rule_set_dict[k];
+                    UMSS7ConfigSS7FilterRuleSet *ls = stagingArea.filter_rule_set_dict[k];
                     NSArray *rules = [ls getAllRules];
                     for(UMSS7ConfigSS7FilterRule *it in rules)
                     {

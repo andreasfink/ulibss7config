@@ -29,6 +29,11 @@
     return self;
 }
 
+- (NSString *)name
+{
+    return _config.name;
+}
+
 - (BOOL)convertConfig /* returns YES for success */
 {
 

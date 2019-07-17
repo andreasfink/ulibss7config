@@ -30,6 +30,5 @@
 - (void)removeRuleAtIndex:(NSInteger)idx;
 - (NSArray<UMSS7ConfigSS7FilterRule *> *)getAllRules;
 
-
 @end
 

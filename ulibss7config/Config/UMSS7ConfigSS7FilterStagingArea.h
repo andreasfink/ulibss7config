@@ -19,6 +19,7 @@
 
 @interface UMSS7ConfigSS7FilterStagingArea : UMSS7ConfigObject
 {
+    BOOL                    _isActive;
     NSString                 *_path;
     UMSynchronizedDictionary *_filter_rule_set_dict;
     UMSynchronizedDictionary *_filter_engines_dict;
@@ -29,9 +30,11 @@
     UMMutex *_lock;
 }
 
+
+@property(readwrite,assign,atomic)  BOOL                     isActive;
 @property(readwrite,strong,atomic)  NSString                 *path;
-@property(readwrite,strong,atomic)    NSDate   *createdTimestamp;
-@property(readwrite,strong,atomic)    NSDate   *modifiedTimestamp;
+@property(readwrite,strong,atomic)  NSDate                   *createdTimestamp;
+@property(readwrite,strong,atomic)  NSDate                   *modifiedTimestamp;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_rule_set_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_engines_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_action_list_dict;

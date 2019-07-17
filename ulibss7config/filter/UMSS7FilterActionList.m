@@ -32,4 +32,10 @@
 {
     return YES;
 }
+
+- (NSString *)name
+{
+    return _config.name;
+}
+
 @end

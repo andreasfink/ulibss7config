@@ -86,3 +86,6 @@
 #import "UMSS7FilterRuleSet.h"
 #import "UMSS7FilterAction.h"
 #import "UMSS7FilterActionList.h"
+
+#import "UMSS7App.h"
+

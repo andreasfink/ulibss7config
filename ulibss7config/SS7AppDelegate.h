@@ -18,6 +18,11 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
 
+#import "UMSS7FilterRuleSet.h"
+#import "UMSS7FilterRule.h"
+#import "UMSS7FilterActionList.h"
+#import "UMSS7FilterAction.h"
+
 #ifdef	HAS_ULIBLICENSE
 
 #ifdef __APPLE__
@@ -150,7 +155,6 @@ UMDiameterRouterAppDelegateProtocol>
     NSString                    *_statisticsPath;
 
     NSDate                      *_applicationStart;
-    UMSynchronizedDictionary    *_ss7FilterEngines;
     DiameterGenericInstance     *_mainDiameterInstance;
     SS7GenericInstance			*_mainCamelInstance;
 	SS7GenericInstance			*_mainMapInstance;
@@ -166,6 +170,12 @@ UMDiameterRouterAppDelegateProtocol>
 
     UMSynchronizedDictionary     *_statistics_dict;
     UMTimer                     *_dirtyTimer;
+
+    UMSynchronizedDictionary    *_active_ruleset_dict;
+    UMSynchronizedDictionary    *_active_action_list_dict;
+    UMSynchronizedDictionary    *_ss7FilterEngines;
+
+    UMSS7ConfigSS7FilterStagingArea *_activeStagingArea;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -387,7 +397,7 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
 - (UMSS7ConfigSS7FilterStagingArea *)getStagingAreaForSession:(UMSS7ApiSession *)session;
-- (void)makeStagingAreaCurrent:(NSString *)name;
+- (BOOL)makeStagingAreaCurrent:(NSString *)name; /* returns YES on success */
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;

@@ -85,7 +85,8 @@
 #import "DiameterGenericInstance.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigSS7FilterTraceFile.h"
-
+#import "UMSS7FilterRuleSet.h"
+#import "UMSS7FilterActionList.h"
 //@class SS7AppDelegate;
 
 static SS7AppDelegate *ss7_app_delegate;
@@ -148,7 +149,6 @@ static void signalHandler(int signum);
         _filterEnginesPath              =  [self defaultFilterEnginesPath];
         _statisticsPath                 =  [self defaultStatisticsPath];
 
-        _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
         _mainDiameterInstance           = [[DiameterGenericInstance alloc]init];
         _namedLists = [[UMSynchronizedDictionary alloc]init];
         _namedListLock = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
@@ -157,6 +157,10 @@ static void signalHandler(int signum);
         _ss7TraceFiles = [[UMSynchronizedDictionary alloc]init];
         _ss7TraceFilesLock = [[UMMutex alloc]initWithName:@"ss7tracefiles-mutex"];
         _ss7TraceFilesDirectory            = [self defaultTracefilesPath];
+
+        _active_ruleset_dict            = [[UMSynchronizedDictionary alloc]init];
+        _active_action_list_dict        = [[UMSynchronizedDictionary alloc]init];
+        _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
 
 
         if(_enabledOptions[@"name"])
@@ -3771,10 +3775,48 @@ static void signalHandler(int signum);
     return stagingArea;
 }
 
-- (void)makeStagingAreaCurrent:(NSString *)name
+- (BOOL)makeStagingAreaCurrent:(NSString *)name  /*returns YES on success */
 {
-    /* FIXME: here we load a staging area into a filter. */
-    /* TODO FINK */
+    UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[name];
+    if(stagingArea == NULL)
+    {
+        return NO;
+    }
+    _activeStagingArea.isActive = NO;
+    _activeStagingArea = stagingArea;
+    _activeStagingArea.isActive= YES;
+
+    UMSynchronizedDictionary *rulesets = _activeStagingArea.filter_rule_set_dict;
+
+    NSArray *keys = [rulesets allKeys];
+    for(NSString *key in keys)
+    {
+        UMSS7ConfigSS7FilterRuleSet *ruleset = rulesets[key];
+        UMSS7FilterRuleSet *rs = [[UMSS7FilterRuleSet alloc]initWithConfig:ruleset appDelegate:self];
+        if(rs.name.length > 0)
+        {
+            _active_ruleset_dict[rs.name] = rs;
+        }
+    }
+
+    UMSynchronizedDictionary *actionlists = _activeStagingArea.filter_action_list_dict;
+
+    keys = [actionlists allKeys];
+    for(NSString *key in keys)
+    {
+        UMSS7ConfigSS7FilterActionList *actionList = actionlists[key];
+        UMSS7FilterActionList *al = [[UMSS7FilterActionList alloc]initWithConfig:actionList appDelegate:self];
+        if(al.name.length > 0)
+        {
+            _active_action_list_dict[al.name] = al;
+        }
+    }
+
+    /* we could here link all rulesets->rule to actionlist->actions and to engines
+        however we prefer to do this lazy on first attempted use */
+
+    return YES;
+
 }
 
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames

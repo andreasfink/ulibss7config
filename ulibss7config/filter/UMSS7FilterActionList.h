@@ -26,6 +26,7 @@
 
 - (UMSS7FilterActionList *)initWithConfig:(UMSS7ConfigSS7FilterActionList *)cfg
                               appDelegate:(SS7AppDelegate *)appdel;
+- (NSString *)name;
 
 @end
 

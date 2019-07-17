@@ -30,7 +30,7 @@ typedef enum UMSS7FilterRuleSet_status
 @property(readwrite,strong,atomic)  SS7AppDelegate              *appDelegate;
 @property(readwrite,strong,atomic)  UMSS7ConfigSS7FilterRuleSet *config;
 @property(readwrite,assign,atomic)  UMSS7FilterRuleSet_status   status;
-
+- (NSString *)name;
 
 - (UMSS7FilterRuleSet *)initWithConfig:(UMSS7ConfigSS7FilterRuleSet *)cfg
                            appDelegate:(SS7AppDelegate *)appdel;
