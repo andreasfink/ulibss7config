@@ -3854,7 +3854,7 @@ static void signalHandler(int signum);
     NSString *filename = newname.urlencode;
     NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
-    if(stagingArea)
+    if(oldStagingArea)
     {
         [st copyFromStagingArea:oldStagingArea];
     }
@@ -4215,7 +4215,7 @@ static void signalHandler(int signum);
     for(NSString *k in keys)
     {
         UMNamedList *nl = _namedLists[k];
-        [nl flushIfDirty];
+        [nl flush];
     }
 }
 
