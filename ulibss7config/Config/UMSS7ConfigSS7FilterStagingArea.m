@@ -22,12 +22,15 @@
     if(self)
     {
         _path = path;
+        _name = [[path lastPathComponent] urldecode];
         _filter_rule_set_dict = [[UMSynchronizedDictionary alloc]init];
         _filter_action_list_dict = [[UMSynchronizedDictionary alloc]init];
         _lock = [[UMMutex alloc]initWithName:@"mutex staging area"];
     }
     return self;
 }
+
+
 
 
 + (NSString *)type
@@ -39,12 +42,14 @@
     return [UMSS7ConfigSS7FilterStagingArea type];
 }
 
-- (UMSS7ConfigSS7FilterStagingArea *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigSS7FilterStagingArea *)initWithConfig:(NSDictionary *)dict directory:(NSString *)dir
 {
     self = [super initWithConfig:dict];
     if(self)
     {
         [self setConfig:dict];
+        UMAssert(_name.length > 0,@"Name must exist for staging area");
+        _path = [NSString stringWithFormat:@"%@/%@",dir,_name.urlencode];
     }
     return self;
 }
@@ -77,18 +82,11 @@
     SET_DICT_STRING(dict,@"path",_path);
 }
 
-- (UMSS7ConfigSS7FilterStagingArea *)copyWithZone:(NSZone *)zone
+- (void)copyFromStagingArea:(UMSS7ConfigSS7FilterStagingArea *)otherArea
 {
-    UMSynchronizedSortedDictionary *currentConfig = [self config];
-    UMSS7ConfigSS7FilterStagingArea *c =  [[UMSS7ConfigSS7FilterStagingArea allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
-    c.filter_rule_set_dict = [_filter_rule_set_dict copy];
-    //c.filter_engines_dict = [_filter_engines_dict copy];
-    c.filter_action_list_dict = [_filter_action_list_dict copy];
-    return c;
+    _createdTimestamp = otherArea.createdTimestamp;
+    _modifiedTimestamp = otherArea.modifiedTimestamp;
 }
-
-
-
 
 - (void)writeConfig
 {

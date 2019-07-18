@@ -37,8 +37,11 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_rule_set_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_action_list_dict;
 
-- (UMSS7ConfigSS7FilterStagingArea *)copyWithZone:(NSZone *)zone;
+
+- (void)copyFromStagingArea:(UMSS7ConfigSS7FilterStagingArea *)otherArea;
 - (UMSS7ConfigSS7FilterStagingArea *)initWithPath:(NSString *)path;
+- (UMSS7ConfigSS7FilterStagingArea *)initWithConfig:(NSDictionary *)dict
+                                          directory:(NSString *)dir;
 
 - (void)flushIfDirty;
 - (void)writeConfig;
