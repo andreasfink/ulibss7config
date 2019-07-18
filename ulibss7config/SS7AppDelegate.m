@@ -4008,6 +4008,7 @@ static void signalHandler(int signum);
             _namedLists[listName] = list;
         }
         [list addEntry:value];
+        [list setDirty:YES];
         [_namedListLock unlock];
     }
 }
@@ -4022,6 +4023,7 @@ static void signalHandler(int signum);
         if(list)
         {
             [list removeEntry:value];
+            [list setDirty:YES];
         }
         [_namedListLock unlock];
     }
@@ -4210,6 +4212,13 @@ static void signalHandler(int signum);
     {
         UMStatistic *stat = _statistics_dict[key];
         [stat flushIfDirty];
+    }
+    
+    keys = [_namedLists allKeys];
+    for(NSString *k in keys)
+    {
+        UMNamedList *nl = _namedLists[k];
+        [nl flushIfDirty];
     }
 }
 
