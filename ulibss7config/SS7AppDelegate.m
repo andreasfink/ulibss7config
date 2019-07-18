@@ -3849,10 +3849,10 @@ static void signalHandler(int signum);
     {
         return;
     }
-    UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[oldname];
+    UMSS7ConfigSS7FilterStagingArea *oldStagingArea = _ss7FilterStagingAreas_dict[oldname];
 
     NSString *filename = newname.urlencode;
-    NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,newname];
+    NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
     if(oldStagingArea)
     {
