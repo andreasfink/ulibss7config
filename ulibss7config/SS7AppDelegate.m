@@ -3709,6 +3709,9 @@ static void signalHandler(int signum);
     return;
 }
 
+#pragma mark -
+#pragma makr Staging areas
+
 - (void)createSS7FilterStagingArea:(NSDictionary *)dict
 {
     NSString *name = dict[@"name"];
@@ -3815,8 +3818,10 @@ static void signalHandler(int signum);
     /* we could here link all rulesets->rule to actionlist->actions and to engines
         however we prefer to do this lazy on first attempted use */
 
+    NSString *origin = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,_activeStagingArea.name.urlencode];
+    NSString *symlinked = [NSString stringWithFormat:@"%@/current",_stagingAreaPath];
+    symlink(origin.UTF8String, symlinked.UTF8String);
     return YES;
-
 }
 
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames
@@ -3845,22 +3850,61 @@ static void signalHandler(int signum);
         return;
     }
     UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[oldname];
-    if(stagingArea == NULL)
+
+    NSString *filename = newname.urlencode;
+    NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,newname];
+    UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
+    if(oldStagingArea)
     {
-        stagingArea =  [[UMSS7ConfigSS7FilterStagingArea alloc]init];
+        [st copyFromStagingArea:oldStagingArea];
     }
-    else
-    {
-        stagingArea = [stagingArea copy];
-    }
-    stagingArea.name = newname;
-    _ss7FilterStagingAreas_dict[newname] = stagingArea;
+    _ss7FilterStagingAreas_dict[newname] = st;
 }
 
 - (NSArray *)getSS7FilterEngineNames
 {
     return [_ss7FilterEngines allKeys];
 }
+
+
+- (void)loadSS7StagingAreasFromPath:(NSString *)path
+{
+    NSFileManager * fm = [NSFileManager defaultManager];
+    NSError *e = NULL;
+    NSArray<NSString *> *a = [fm contentsOfDirectoryAtPath:path  error:&e];
+    if(e)
+    {
+        NSLog(@"Error while parsing directory %@\n%@",path,e);
+    }
+    else
+    {
+        _ss7FilterStagingAreas_dict = [[UMSynchronizedDictionary alloc]init];
+        _activeStagingArea = NULL;
+
+        for(NSString *filename in a)
+        {
+            NSString *fullPath = [NSString stringWithFormat:@"%@/current",path];
+            char resolved[PATH_MAX];
+            char *resolvedPath = realpath(fullPath.UTF8String, resolved);
+            if(resolvedPath)
+            {
+                fullPath = @(resolvedPath);
+            }
+
+            UMSS7ConfigSS7FilterStagingArea *area = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:fullPath];
+            [area loadFromFile];
+            _ss7FilterStagingAreas_dict[area.name] = area;
+
+            if([filename isEqualToString:@"current"])
+            {
+                [self makeStagingAreaCurrent:area.name];
+            }
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark Engines
 
 - (void)addWithConfigSS7FilterEngine:(NSDictionary *)config /* can throw exceptions */
 {
@@ -3926,53 +3970,6 @@ static void signalHandler(int signum);
         else
         {
             [ph close];
-        }
-    }
-}
-
-- (void)loadSS7StagingAreasFromPath:(NSString *)path
-{
-    NSFileManager * fm = [NSFileManager defaultManager];
-    NSError *e = NULL;
-    NSString *currentStagingArea = NULL;
-    NSArray<NSString *> *a = [fm contentsOfDirectoryAtPath:path  error:&e];
-    if(e)
-    {
-        NSLog(@"Error while parsing directory %@\n%@",path,e);
-    }
-    else
-    {
-        _ss7FilterStagingAreas_dict = [[UMSynchronizedDictionary alloc]init];
-        for(NSString *filename in a)
-        {
-
-            if([filename isEqualToString:@"current"])
-            {
-                //NSError *e = NULL;
-                char resolved[PATH_MAX];
-				char *returnValue = realpath([path fileSystemRepresentation], resolved);
-                currentStagingArea = [NSString stringWithUTF8String:resolved];
-				if (returnValue == NULL)
-				{
-                    NSLog(@"Error while parsing symlink 'current' in path '%@':\n%@",path,currentStagingArea);
-                }
-				/*currentStagingArea = [fm destinationOfSymbolicLinkAtPath:filename error:&e];
-                if(e)
-                {
-                    NSLog(@"Error while parsing symlink 'current' in path '%@':\n%@",path,e);
-                }*/
-            }
-            else
-            {
-                NSString *filepath = [NSString stringWithFormat:@"%@/%@",path,filename];
-                NSString *name = [filename urldecode];
-                UMSS7ConfigSS7FilterStagingArea *area = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
-                if(area)
-                {
-                    [area loadFromFile];
-                    _ss7FilterStagingAreas_dict[name] = area;
-                }
-            }
         }
     }
 }
