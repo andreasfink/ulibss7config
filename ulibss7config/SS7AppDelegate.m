@@ -3854,7 +3854,7 @@ static void signalHandler(int signum);
     NSString *filename = newname.urlencode;
     NSString *filepath = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,newname];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
-    if(oldStagingArea)
+    if(stagingArea)
     {
         [st copyFromStagingArea:oldStagingArea];
     }
