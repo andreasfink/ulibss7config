@@ -22,7 +22,6 @@
     BOOL                    _isActive;
     NSString                 *_path;
     UMSynchronizedDictionary *_filter_rule_set_dict;
-    UMSynchronizedDictionary *_filter_engines_dict;
     UMSynchronizedDictionary *_filter_action_list_dict;
     NSDate                   *_createdTimestamp;
     NSDate                   *_modifiedTimestamp;
@@ -36,7 +35,6 @@
 @property(readwrite,strong,atomic)  NSDate                   *createdTimestamp;
 @property(readwrite,strong,atomic)  NSDate                   *modifiedTimestamp;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_rule_set_dict;
-@property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_engines_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *filter_action_list_dict;
 
 - (UMSS7ConfigSS7FilterStagingArea *)copyWithZone:(NSZone *)zone;

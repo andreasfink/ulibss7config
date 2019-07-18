@@ -23,7 +23,6 @@
     {
         _path = path;
         _filter_rule_set_dict = [[UMSynchronizedDictionary alloc]init];
-        _filter_engines_dict = [[UMSynchronizedDictionary alloc]init];
         _filter_action_list_dict = [[UMSynchronizedDictionary alloc]init];
         _lock = [[UMMutex alloc]initWithName:@"mutex staging area"];
     }
@@ -83,7 +82,7 @@
     UMSynchronizedSortedDictionary *currentConfig = [self config];
     UMSS7ConfigSS7FilterStagingArea *c =  [[UMSS7ConfigSS7FilterStagingArea allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
     c.filter_rule_set_dict = [_filter_rule_set_dict copy];
-    c.filter_engines_dict = [_filter_engines_dict copy];
+    //c.filter_engines_dict = [_filter_engines_dict copy];
     c.filter_action_list_dict = [_filter_action_list_dict copy];
     return c;
 }
@@ -99,34 +98,31 @@
     UMSynchronizedSortedDictionary *dict = self.config;
     
     // Rule-Sets with rules
+    NSMutableArray *arr = [[NSMutableArray alloc]init];
     NSArray *keys = [_filter_rule_set_dict allKeys];
     for(NSString *key in keys)
     {
         UMSS7ConfigSS7FilterRuleSet *entry = _filter_rule_set_dict[key];
         UMSynchronizedSortedDictionary *rs = entry.config;
         rs[@"rules"] = entry.subConfigs;
-        dict[key] = rs;
+        [arr addObject:rs];
     }
-    
+    dict[@"rulesets"] = arr;
+
+
     // Action-Lists with actions
+    arr = [[NSMutableArray alloc]init];
     NSArray *actkeys  = [_filter_action_list_dict allKeys];
     for(NSString *k in actkeys)
     {
         UMSS7ConfigSS7FilterActionList *ls = _filter_action_list_dict[k];
         UMSynchronizedSortedDictionary *al = ls.config;
         al[@"actions"] = ls.subConfigs;
+        [arr addObject:al];
         dict[k] = al;
     }
-    
-    // Engines
-    NSArray *engkeys  = [_filter_engines_dict allKeys];
-    for(NSString *it in engkeys)
-    {
-        UMSS7ConfigSS7FilterActionList *l = _filter_action_list_dict[it];
-        UMSynchronizedSortedDictionary *eng = l.config;
-        dict[it] = eng;
-    }
-    
+    dict[@"actionlists"] = arr;
+
 	NSError *err = NULL;
     NSString *jsonString = [dict jsonString];
     BOOL written = [jsonString writeToFile:_path atomically:YES encoding:NSUTF8StringEncoding error:&err];
@@ -192,79 +188,38 @@
         {
             NSDictionary *dict = (NSDictionary *)obj;
             [self setConfig:dict];
-            
-            NSArray *keys = [dict allKeys];
-            for(NSString *key in keys)
+            id a = dict[@"rule-sets"];
+            if([a isKindOfClass:[NSArray class]])
             {
-                id obj2 = dict[key];
-                if([obj2 isKindOfClass:[NSDictionary class]])
+                _filter_rule_set_dict = [[UMSynchronizedDictionary alloc]init];
+                NSArray *arr = (NSArray *)a;
+                for(id c in arr)
                 {
-                    NSDictionary *dict2 = (NSDictionary *)obj2;
-                    NSArray *ks = [dict2 allKeys];
-                    for(NSString *k in ks)
+                    if([c isKindOfClass:[NSDictionary class]])
                     {
-                    
-                        if([k isEqualToString:@"group"])
+                        NSDictionary *c_dict = (NSDictionary *)c;
+                        UMSS7ConfigSS7FilterRuleSet *rs = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:c_dict];
+                        if(rs.name.length > 0)
                         {
-                            
-                            if([dict2[k] isEqualToString:@"ss7-filter-action-list"])
-                            {
-                                UMSS7ConfigSS7FilterActionList *list = [[UMSS7ConfigSS7FilterActionList alloc]initWithConfig:dict2];
-                                NSArray *actkeys  = dict2[@"actions"];
-                                for(NSDictionary *js_actions in actkeys)
-                                {
-                                    if([js_actions isKindOfClass:[NSDictionary class]])
-                                    {
-                                        // Create action
-                                        UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:js_actions];
-                                        [list appendAction:action];
-                                    }
-                                }
-                                
-                                // Attach list-actions to staging area
-                                self.filter_action_list_dict[dict2[@"name"]] = list;
-                                
-                                // end of reading
-                                break;
-                                
-                            }
-                            else if ([dict2[k] isEqualToString:@"ss7-filter-ruleset"])
-                            {
-                                UMSS7ConfigSS7FilterRuleSet *ls = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:dict2];
-                                NSArray *actRules  = dict2[@"rules"];
-                                for(NSDictionary *js_rules in actRules)
-                                {
-                                    if([js_rules isKindOfClass:[NSDictionary class]])
-                                    {
-                                        // Create action
-                                        UMSS7ConfigSS7FilterRule *rule = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:js_rules];
-                                        [ls appendRule:rule];
-                                    }
-                                }
-
-                                // Attach Rule-Sets to staging area
-                                self.filter_rule_set_dict[dict2[@"name"]] = ls;
-                                
-                                // end of reading
-                                break;
-                                
-                            }
-                            else if ([dict2[k] isEqualToString:@"ss7-filter-engine"])
-                            {
-                                // TODO : Save engine
-                                NSLog(@" Error : Not Implemented Save of Engine -: %@", dict2[k]);
-                            }
-                            else
-                            {
-                                NSLog(@" Error : Unkown group -: %@", dict2[k]);
-                                
-                            }
-
-                            
+                            _filter_rule_set_dict[rs.name] = rs;
                         }
-                        else
+                    }
+                }
+            }
+            id b = dict[@"action-lists"];
+            if([b isKindOfClass:[NSArray class]])
+            {
+                _filter_action_list_dict = [[UMSynchronizedDictionary alloc]init];
+                NSArray *arr = (NSArray *)b;
+                for(id c in arr)
+                {
+                    if([c isKindOfClass:[NSDictionary class]])
+                    {
+                        NSDictionary *c_dict = (NSDictionary *)c;
+                        UMSS7ConfigSS7FilterActionList *list = [[UMSS7ConfigSS7FilterActionList alloc]initWithConfig:c_dict];
+                        if(list.name.length > 0)
                         {
-                            NSLog(@" Info -: key[%@] - Val[%@]", k, dict2[k]);
+                            _filter_action_list_dict[list.name] = list;
                         }
                     }
                 }
