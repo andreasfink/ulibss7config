@@ -18,7 +18,7 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
 
-#import "UMSS7FilterRuleSet.h"
+#import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7FilterRule.h"
 #import "UMSS7FilterActionList.h"
 #import "UMSS7FilterAction.h"

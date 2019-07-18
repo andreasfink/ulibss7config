@@ -62,13 +62,13 @@
 			UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
 			
 			// 4. Verify if engine exists && rule-set exists
-			/*if(engine == NULL)
+			if(engine == NULL)
 			{
 				// 4a. Not found
 				[self sendErrorNotFound:engine_name];
 				
 			}
-            else */if(engine_name == NULL)
+            else if(engine_name == NULL)
             {
                 // 4b. Not found
                 [self sendErrorNotFound:@"engine"];
