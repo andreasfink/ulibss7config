@@ -81,11 +81,11 @@
 #import "DiameterGenericInstance.h"
 #import "DiameterGenericSession.h"
 
-#import "UMSS7Filter.h"
-#import "UMSS7FilterRule.h"
-#import "UMSS7FilterRuleSet.h"
-#import "UMSS7FilterAction.h"
-#import "UMSS7FilterActionList.h"
+#import "filter/UMSS7Filter.h"
+#import "filter/UMSS7FilterRule.h"
+#import "filter/UMSS7FilterRuleSet.h"
+#import "filter/UMSS7FilterAction.h"
+#import "filter/UMSS7FilterActionList.h"
 
-#import "UMSS7App.h"
+#import "app/UMSS7App.h"
 
