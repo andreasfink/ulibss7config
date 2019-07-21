@@ -147,6 +147,7 @@ static void signalHandler(int signum);
         _registry.logLevel =            UMLOG_MINOR;
         _stagingAreaPath                =  [self defaultStagingAreaPath];
         _filterEnginesPath              =  [self defaultFilterEnginesPath];
+        _appsPath                       =  [self defaultAppsPath];
         _statisticsPath                 =  [self defaultStatisticsPath];
 
         _mainDiameterInstance           = [[DiameterGenericInstance alloc]init];
@@ -439,8 +440,14 @@ static void signalHandler(int signum);
 
 - (NSString *)defaultFilterEnginesPath
 {
-    return @"/opt/ulibss7/ss7-filter-engines/";
+    return @"/opt/ulibss7/filter-engines/";
 }
+
+- (NSString *)defaultAppsPath
+{
+    return @"/opt/ulibss7/apps/";
+}
+
 
 - (NSString *)defaultStatisticsPath
 {
@@ -449,7 +456,7 @@ static void signalHandler(int signum);
 
 - (NSString *)defaultStagingAreaPath
 {
-    return @"/opt/ulibss7/ss7-filter/";
+    return @"/opt/ulibss7/filter/";
 }
 
 
