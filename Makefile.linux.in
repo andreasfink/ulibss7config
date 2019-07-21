@@ -25,7 +25,7 @@ DIAMETER_WEB_GEN_M_FILES=$(wildcard diameter-web-gen/*.m)
 DIAMETER_WEB_GEN_O_FILES=$(DIAMETER_WEB_GEN_M_FILES:.m=.m.o)
 
 
-INCLUDEDIRS=-I ulibss7config -I ulibss7config/API -I ulibss7config/Config -I ulibss7config/DiameterSessions
+INCLUDEDIRS=-I ulibss7config -I ulibss7config/API -I ulibss7config/Config -I ulibss7config/DiameterSessions -I ulibss7config/filter -I ulibss7config/app
 
 lib@PROJECT_NAME@.so: ${OFILES}
 	${CC} -shared -o ${LIB}  ${LDFLAGS} ${OFILES} ${LIBS} ${STATIC_LIBS}

@@ -3717,7 +3717,7 @@ static void signalHandler(int signum);
 }
 
 #pragma mark -
-#pragma makr Staging areas
+#pragma mark Staging areas
 
 - (void)createSS7FilterStagingArea:(NSDictionary *)dict
 {
