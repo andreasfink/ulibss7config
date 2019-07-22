@@ -163,13 +163,14 @@
     {
         return NULL;
     }
-    char out[256];
+    NSInteger LIMIT = 64;
+    char out[LIMIT];
     NSInteger i;
     NSInteger j=0;
     NSInteger n=str.length;
-    if(n>255)
+    if(n>LIMIT)
     {
-        n = 255;
+        n = LIMIT;
     }
     memset(out,0x00,sizeof(out));
     for(i=0;i<n;i++)
@@ -179,7 +180,7 @@
         {
             out[j++]=c;
         }
-        else if((c>='A') && (c<='Z'))
+        else if((c>='A') && (c<='Z')) 
         {
             out[j++]=c-'A'+'a';
         }
@@ -202,6 +203,7 @@
                 case '+':
                 case ',':
                 case '=':
+                case '%':
                     out[j++]=c;
                     break;
                 default:
@@ -209,7 +211,9 @@
             }
         }
     }
-    return @(out);
+    out[LIMIT-1]='\0';
+    NSString *result = @(out);
+    return result;
 }
 
 - (UMSS7ConfigObject *)copyWithZone:(NSZone *)zone

@@ -85,8 +85,8 @@
 #import "DiameterGenericInstance.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigSS7FilterTraceFile.h"
-#import "UMSS7FilterRuleSet.h"
-#import "UMSS7FilterActionList.h"
+#import "filter/UMSS7FilterRuleSet.h"
+#import "filter/UMSS7FilterActionList.h"
 //@class SS7AppDelegate;
 
 static SS7AppDelegate *ss7_app_delegate;
@@ -3723,6 +3723,7 @@ static void signalHandler(int signum);
 {
     NSString *name = dict[@"name"];
     NSString *filename = [UMSS7ConfigObject filterName:name];
+    filename = filename.urldecode;
     NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
     [st setConfig:dict];
@@ -3736,7 +3737,7 @@ static void signalHandler(int signum);
     else
     {
         [st setDirty:YES];
-        _ss7FilterStagingAreas_dict[name] = st;
+        _ss7FilterStagingAreas_dict[filename] = st;
     }
 }
 
@@ -3878,7 +3879,7 @@ static void signalHandler(int signum);
 {
     NSFileManager * fm = [NSFileManager defaultManager];
     NSError *e = NULL;
-    NSArray<NSString *> *a = [fm contentsOfDirectoryAtPath:path  error:&e];
+    NSMutableArray<NSString *> *a = (NSMutableArray *)[fm contentsOfDirectoryAtPath:path  error:&e];
     if(e)
     {
         NSLog(@"Error while parsing directory %@\n%@",path,e);
@@ -3887,10 +3888,11 @@ static void signalHandler(int signum);
     {
         _ss7FilterStagingAreas_dict = [[UMSynchronizedDictionary alloc]init];
         _activeStagingArea = NULL;
-
+        
+        [a addObject:@"current"];
         for(NSString *filename in a)
         {
-            NSString *fullPath = [NSString stringWithFormat:@"%@/current",path];
+            NSString *fullPath = [NSString stringWithFormat:@"%@/%@",path, filename];
             char resolved[PATH_MAX];
             char *resolvedPath = realpath(fullPath.UTF8String, resolved);
             if(resolvedPath)
@@ -3900,7 +3902,8 @@ static void signalHandler(int signum);
 
             UMSS7ConfigSS7FilterStagingArea *area = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:fullPath];
             [area loadFromFile];
-            _ss7FilterStagingAreas_dict[area.name] = area;
+            NSString *displayName =area.name.urldecode;
+            _ss7FilterStagingAreas_dict[displayName] = area;
 
             if([filename isEqualToString:@"current"])
             {

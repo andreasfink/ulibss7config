@@ -19,9 +19,9 @@
 #import "UMTTask.h"
 
 #import "UMSS7ConfigSS7FilterRuleSet.h"
-#import "UMSS7FilterRule.h"
-#import "UMSS7FilterActionList.h"
-#import "UMSS7FilterAction.h"
+#import "UMSS7ConfigSS7FilterRule.h"
+#import "UMSS7ConfigSS7FilterActionList.h"
+#import "UMSS7ConfigSS7FilterAction.h"
 
 #ifdef	HAS_ULIBLICENSE
 
