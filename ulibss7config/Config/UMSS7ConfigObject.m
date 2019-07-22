@@ -203,6 +203,7 @@
                 case '+':
                 case ',':
                 case '=':
+                case '%':
                     out[j++]=c;
                     break;
                 default:
