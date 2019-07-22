@@ -63,6 +63,10 @@
     _tags = [[UMSynchronizedDictionary alloc] init];
 }
 
+- (UMSCCP_FilterMatchResult) matchesInbound:(UMSCCP_Packet *)packet
+{
+    return UMSCCP_FilterMatchResult_does_not_match;
+}
 
 - (UMSCCP_FilterResult) filterInbound:(UMSCCP_Packet *)packet;
 {
@@ -154,4 +158,8 @@
     /* this should be overwritten */
 }
 
+- (void)refreshConfig /* this is called if a namedlist is updated so the engines can readjust its internal structures if needed */
+{
+    /* this can be overwritten */
+}
 @end
