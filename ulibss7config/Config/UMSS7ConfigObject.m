@@ -232,7 +232,6 @@
     [_subEntries addObject:obj];
 }
 
-
 - (NSArray<NSDictionary *> *)subConfigs
 {
     NSMutableArray *configs = [[NSMutableArray alloc]init];
@@ -242,6 +241,5 @@
     }
     return configs;
 }
-
 
 @end
