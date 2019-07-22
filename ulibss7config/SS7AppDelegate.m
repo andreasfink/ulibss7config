@@ -85,8 +85,8 @@
 #import "DiameterGenericInstance.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigSS7FilterTraceFile.h"
-#import "UMSS7FilterRuleSet.h"
-#import "UMSS7FilterActionList.h"
+#import "filter/UMSS7FilterRuleSet.h"
+#import "filter/UMSS7FilterActionList.h"
 //@class SS7AppDelegate;
 
 static SS7AppDelegate *ss7_app_delegate;
