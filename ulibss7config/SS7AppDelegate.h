@@ -19,9 +19,9 @@
 #import "UMTTask.h"
 
 #import "UMSS7ConfigSS7FilterRuleSet.h"
-#import "UMSS7FilterRule.h"
-#import "UMSS7FilterActionList.h"
-#import "UMSS7FilterAction.h"
+#import "UMSS7ConfigSS7FilterRule.h"
+#import "UMSS7ConfigSS7FilterActionList.h"
+#import "UMSS7ConfigSS7FilterAction.h"
 
 #ifdef	HAS_ULIBLICENSE
 
@@ -153,6 +153,7 @@ UMDiameterRouterAppDelegateProtocol>
     NSString                    *_stagingAreaPath;
     NSString                    *_filterEnginesPath;
     NSString                    *_statisticsPath;
+    NSString                    *_appsPath;
 
     NSDate                      *_applicationStart;
     DiameterGenericInstance     *_mainDiameterInstance;
@@ -203,6 +204,7 @@ UMDiameterRouterAppDelegateProtocol>
 @property(readwrite,strong)     UMHTTPClient		*webClient;
 @property(readwrite,strong)     NSDate              *applicationStart;
 @property(readwrite,strong)     NSString            *stagingAreaPath;
+@property(readwrite,strong)     NSString            *appsPath;
 @property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
 @property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
 @property(readwrite,strong)     UMSynchronizedDictionary     *namedLists;
@@ -247,6 +249,8 @@ UMDiameterRouterAppDelegateProtocol>
 - (NSString *)defaultStagingAreaPath;
 - (NSString *)defaultNamedListPath;
 - (NSString *)defaultTracefilesPath;
+- (NSString *)defaultAppsPath;
+
 
 - (NSString *)productName;
 - (NSString *)productVersion;
