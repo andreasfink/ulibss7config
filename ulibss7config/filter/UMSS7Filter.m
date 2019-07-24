@@ -9,6 +9,12 @@
 #import "UMSS7Filter.h"
 #import <ulibtcap/ulibtcap.h>
 
+int         plugin_init(void);
+int         plugin_exit(void);
+NSString *  plugin_name(void);
+UMPlugin *  plugin_create(void);
+NSDictionary *plugin_info(void);
+
 @implementation UMSS7Filter
 
 
@@ -29,15 +35,32 @@
 
 - (UMSS7Filter *)initWithConfigFile:(NSString *)configFile
 {
-    self = [super initWithConfigFile:configFile];
+    self = [super init];
     if(self)
     {
+        _filterConfigFile = configFile;
+        [self processConfigFile];
         [self genericInitialisation];
         [self loadConfigFromFile:configFile];
     }
     return self;
 }
 
+
+- (void)activate
+{
+    _isActive = YES;
+}
+
+- (void)deactivate
+{
+    _isActive = NO;
+}
+
+- (BOOL)isActive
+{
+    return _isActive;
+}
 
 - (void)addTag:(NSString *)tag
 {
@@ -162,4 +185,66 @@
 {
     /* this can be overwritten */
 }
+
+- (void)processConfigFile
+{
+}
+
+
+- (NSString *)filterName
+{
+    return @"undefined";
+}
+
+- (NSString *)filterDescription
+{
+    return @"undefined";
+}
+
+
+- (UMSCCP_FilterResult) filterOutbound:(UMSCCP_Packet *)packet;
+{
+    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+}
+
+- (UMSCCP_FilterResult) filterFromLocalSubsystem:(UMSCCP_Packet *)packet
+{
+    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+}
+- (UMSCCP_FilterResult) filterToLocalSubsystem:(UMSCCP_Packet *)packet
+{
+    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+}
+
 @end
+
+
+int         plugin_init(void)
+{
+    return 0;
+}
+
+int         plugin_exit(void)
+{
+    return 0;
+}
+
+NSString *  plugin_name(void)
+{
+    return @"ss7-filter";
+}
+
+UMPlugin *  plugin_create(void)
+{
+    UMPlugin *plugin = [[UMSS7Filter alloc]init];
+    return plugin;
+}
+
+NSDictionary *plugin_info(void)
+{
+    return @{ @"name" : @"ss7-filter" };
+}
+
+
+
+

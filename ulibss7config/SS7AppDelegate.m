@@ -3879,7 +3879,8 @@ static void signalHandler(int signum);
 {
     NSFileManager * fm = [NSFileManager defaultManager];
     NSError *e = NULL;
-    NSMutableArray<NSString *> *a = (NSMutableArray *)[fm contentsOfDirectoryAtPath:path  error:&e];
+    
+    NSArray<NSString *> *a = (NSArray *)[fm contentsOfDirectoryAtPath:path  error:&e];
     if(e)
     {
         NSLog(@"Error while parsing directory %@\n%@",path,e);
@@ -3889,7 +3890,6 @@ static void signalHandler(int signum);
         _ss7FilterStagingAreas_dict = [[UMSynchronizedDictionary alloc]init];
         _activeStagingArea = NULL;
         
-        [a addObject:@"current"];
         for(NSString *filename in a)
         {
             NSString *fullPath = [NSString stringWithFormat:@"%@/%@",path, filename];
