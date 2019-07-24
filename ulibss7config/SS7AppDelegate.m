@@ -163,7 +163,12 @@ static void signalHandler(int signum);
         _active_action_list_dict        = [[UMSynchronizedDictionary alloc]init];
         _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
 
+        _incomingLinksetFilters = [[UMSynchronizedDictionary alloc]init];
+        _outgoingLinksetFilters = [[UMSynchronizedDictionary alloc]init];
+        _incomingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
+        _outgoingLocalSubsystemFiltersFilters = [[UMSynchronizedDictionary alloc]init];
 
+        
         if(_enabledOptions[@"name"])
         {
             self.logFeed.name =_enabledOptions[@"name"];
@@ -4230,6 +4235,86 @@ static void signalHandler(int signum);
 }
 
 
+- (void)filterActivate
+{
+    _filteringActive=YES;
+}
+
+- (void)filterDeactivate
+{
+    _filteringActive=NO;
+}
+
+- (BOOL)isFilterActive
+{
+    return _filteringActive;
+}
+
+
+- (NSString *)filterName
+{
+    return @"estp-filter";
+}
+
+- (NSString *)filterDescription
+{
+    return @"estp-filter";
+}
+
+
+- (UMSCCP_FilterResult)filterInboundPacket:(UMSCCP_Packet *)packet
+                              usingRuleset:(NSString *)ruleset
+{
+    UMSynchronizedDictionary *dict = _activeStagingArea.filter_rule_set_dict;
+    UMSS7FilterRuleSet *rs = dict[ruleset];
+    if(rs == NULL)
+    {
+        NSString *s = [NSString stringWithFormat:@"can not find ss7-filter-ruleset '%@'",ruleset];
+        [self.logFeed majorErrorText:s];
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    }
+    return [rs filterInbound:packet];
+}
+
+- (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
+{
+    NSArray<NSString *> *ruleSets = _outgoingLinksetFilters[packet.incomingLinkset];
+    if(ruleSets==NULL)
+    {
+        ruleSets = _outgoingLinksetFilters[@"all"];
+    }
+    
+    UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
+    for(NSString *ruleSet in ruleSets)
+    {
+        result = [self filterInboundPacket:packet usingRuleset:ruleSet];
+        if(result & UMSCCP_FILTER_RESULT_DROP)
+        {
+            break;
+        }
+        if(result & UMSCCP_FILTER_RESULT_STATUS)
+        {
+            break;
+        }
+    }
+    return result;
+}
+
+- (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet
+{
+    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+}
+
+- (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet
+{
+    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+}
+
+- (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet
+{
+    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+}
+
 
 @end
 
@@ -4252,3 +4337,4 @@ static void signalHandler(int signum)
 		_signal_sigusr2++;
 	}
 }
+

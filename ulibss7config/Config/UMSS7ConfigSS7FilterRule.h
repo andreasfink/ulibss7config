@@ -14,26 +14,20 @@
 	NSString *_filterSet;
 	NSString *_status;
 	NSString *_engine;
-	NSString *_passAction;
-	NSString *_dropAction;
-	NSString *_rerouteAction;
-	NSString *_logAction;
+	NSString *_actionList;
 	NSString *_engineConfig;
-    NSDate                 *_createdTimestamp;
-    NSDate                 *_modifiedTimestamp;
+    NSDate   *_createdTimestamp;
+    NSDate   *_modifiedTimestamp;
 
 }
 
 @property(readwrite,strong,atomic)	NSString *filterSet;
 @property(readwrite,strong,atomic)	NSString *status;
 @property(readwrite,strong,atomic)	NSString *engine;
-@property(readwrite,strong,atomic)	NSString *passAction;
-@property(readwrite,strong,atomic)	NSString *dropAction;
-@property(readwrite,strong,atomic)	NSString *rerouteAction;
-@property(readwrite,strong,atomic)	NSString *logAction;
+@property(readwrite,strong,atomic)	NSString *actionList;
 @property(readwrite,strong,atomic)	NSString *engineConfig;
-@property(readwrite,strong,atomic)    NSDate *createdTimestamp;
-@property(readwrite,strong,atomic)    NSDate *modifiedTimestamp;
+@property(readwrite,strong,atomic)  NSDate *createdTimestamp;
+@property(readwrite,strong,atomic)  NSDate *modifiedTimestamp;
 
 @end
 

@@ -41,10 +41,7 @@
     APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
 	APPEND_CONFIG_STRING(s,@"status",_status);
 	APPEND_CONFIG_STRING(s,@"engine",_engine);
-	APPEND_CONFIG_STRING(s,@"pass-action",_passAction);
-	APPEND_CONFIG_STRING(s,@"drop-action",_dropAction);
-	APPEND_CONFIG_STRING(s,@"reroute-action",_rerouteAction);
-	APPEND_CONFIG_STRING(s,@"log-action",_logAction);
+	APPEND_CONFIG_STRING(s,@"action-list",_actionList);
 	APPEND_CONFIG_STRING(s,@"engine-config",_engineConfig);
 }
 
@@ -56,10 +53,7 @@
     APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
 	APPEND_DICT_STRING(dict,@"action",_status);
 	APPEND_DICT_STRING(dict,@"engine",_engine);
-	APPEND_DICT_STRING(dict,@"pass-action",_passAction);
-	APPEND_DICT_STRING(dict,@"drop-action",_dropAction);
-	APPEND_DICT_STRING(dict,@"reroute-action",_rerouteAction);
-	APPEND_DICT_STRING(dict,@"log-action",_logAction);
+	APPEND_DICT_STRING(dict,@"action-list",_actionList);
 	APPEND_DICT_STRING(dict,@"engine-config",_engineConfig);
 	return dict;
 }
@@ -72,10 +66,7 @@
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
 	SET_DICT_STRING(dict,@"status",_status);
 	SET_DICT_STRING(dict,@"engine",_engine);
-	SET_DICT_STRING(dict,@"pass-action",_passAction);
-	SET_DICT_STRING(dict,@"drop-action",_dropAction);
-	SET_DICT_STRING(dict,@"reroute-action",_rerouteAction);
-	SET_DICT_STRING(dict,@"log-action",_logAction);
+	SET_DICT_STRING(dict,@"action-list",_actionList);
 	SET_DICT_STRING(dict,@"engine-config",_engineConfig);
 }
 

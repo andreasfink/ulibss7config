@@ -216,6 +216,24 @@ NSDictionary *plugin_info(void);
     return UMSCCP_FILTER_RESULT_UNMODIFIED;
 }
 
+- (void)filterActivate
+{
+    _isActive = YES;
+}
+
+
+- (void)filterDeactivate
+{
+    _isActive=NO;
+}
+
+
+- (BOOL)isFilterActive
+{
+    return _isActive;
+}
+
+
 @end
 
 

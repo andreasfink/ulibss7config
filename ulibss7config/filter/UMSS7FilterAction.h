@@ -60,6 +60,17 @@
 @property(readwrite,assign,atomic)   BOOL    doStats;
 @property(readwrite,assign,atomic)   BOOL    doSetVar;
 @property(readwrite,assign,atomic)   BOOL    doClearVar;
+@property(readwrite,strong,atomic)   SccpDestinationGroup *rerouteDestinationGroup;
+@property(readwrite,strong,atomic)   NSString *rerouteAddress;
+@property(readwrite,strong,atomic)   NSString *reroutePrefix;
+@property(readwrite,strong,atomic)   NSNumber *rerouteTranslationType;
+@property(readwrite,strong,atomic)   NSString *tag;
+@property(readwrite,strong,atomic)   NSString *variable;
+@property(readwrite,strong,atomic)   NSString *value;
+@property(readwrite,strong,atomic)   NSString *statisticName;
+@property(readwrite,strong,atomic)   NSString *statisticKey;
+@property(readwrite,strong,atomic)   NSString *traceDestination;
+
 
 - (UMSS7FilterAction *)initWithConfig:(UMSS7ConfigSS7FilterAction *)cfg
                           appDelegate:(SS7AppDelegate *)appdel;

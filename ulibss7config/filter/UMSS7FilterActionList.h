@@ -15,8 +15,8 @@
 
 @interface UMSS7FilterActionList : UMObject
 {
-    SS7AppDelegate              *_appDelegate;
-    UMSS7ConfigSS7FilterActionList   *_config;
+    SS7AppDelegate                  *_appDelegate;
+    UMSS7ConfigSS7FilterActionList  *_config;
 }
 
 
