@@ -9,8 +9,10 @@
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
 
-@interface UMSS7Filter : UMSCCP_Filter
+@interface UMSS7Filter : UMPlugin<UMSCCP_FilterProtocol>
 {
+    NSString            *_filterConfigFile;
+    BOOL                _isActive;
     UMSynchronizedDictionary *_tags;
     NSString            *_custom1;
     NSString            *_custom2;
