@@ -45,7 +45,7 @@
 }
 
 @property(readwrite,strong,atomic)  SS7AppDelegate              *appDelegate;
-@property(readwrite,strong,atomic)   UMSS7ConfigSS7FilterAction    *config;
+@property(readwrite,strong,atomic)  UMSS7ConfigSS7FilterAction    *config;
 
 @property(readwrite,assign,atomic)   BOOL    doPass;
 @property(readwrite,assign,atomic)   BOOL    doDrop;

@@ -9,6 +9,7 @@
 #import <ulibsccp/ulibsccp.h>
 #import "UMSS7ConfigSS7FilterRule.h"
 #import "UMSS7Filter.h"
+#import "UMSS7FilterStatus.h"
 
 @class SS7AppDelegate;
 
@@ -17,11 +18,13 @@
     SS7AppDelegate              *_appDelegate;
     UMSS7ConfigSS7FilterRule    *_config;
     UMSS7Filter                 *_engine;
+    UMSS7FilterStatus           _filterStatus;
 }
 
 @property(readwrite,strong,atomic)  SS7AppDelegate              *appDelegate;
 @property(readwrite,strong,atomic)  UMSS7ConfigSS7FilterRule    *config;
 @property(readwrite,strong,atomic)  UMSS7Filter                 *engine;
+@property(readwrite,assign,atomic)  UMSS7FilterStatus           filterStatus;
 
 
 - (UMSS7FilterRule *)initWithConfig:(UMSS7ConfigSS7FilterRule *)cfg

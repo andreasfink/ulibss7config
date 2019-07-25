@@ -213,18 +213,21 @@ UMSCCP_FilterProtocol>
 @property(readwrite,strong)     UMHTTPClient		*webClient;
 @property(readwrite,strong)     NSDate              *applicationStart;
 @property(readwrite,strong)     NSString            *stagingAreaPath;
+@property(readwrite,strong)     NSString            *statisticsPath;
 @property(readwrite,strong)     NSString            *appsPath;
 @property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
 @property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
 @property(readwrite,strong)     UMSynchronizedDictionary    *namedLists;
 @property(readwrite,strong)     UMSynchronizedDictionary    *active_ruleset_dict;
 @property(readwrite,strong)     UMSynchronizedDictionary    *active_action_list_dict;
+@property(readwrite,strong)     UMSynchronizedDictionary     *statistics_dict;
 
 #ifdef	HAS_ULIBLICENSE
 @property(readwrite,strong)		UMLicenseDirectory 			*globalLicenseDirectory;
-@property(readwrite,strong)     UMSynchronizedDictionary *traceFiles; /* contains UMSS7TraceFile objects */
-
 #endif
+
+@property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile
+                                                                        objects */
 
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;

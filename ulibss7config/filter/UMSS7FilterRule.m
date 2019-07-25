@@ -33,6 +33,18 @@
 
 - (BOOL)convertConfig /* returns YES for success */
 {
+    if([_config.status isEqualToString:@"on"])
+    {
+        _filterStatus = UMSS7FilterStatus_on;
+    }
+    else if([_config.status isEqualToString:@"off"])
+    {
+        _filterStatus = UMSS7FilterStatus_off;
+    }
+    else if([_config.status isEqualToString:@"monitor"])
+    {
+        _filterStatus = UMSS7FilterStatus_monitor;
+    }
     return YES;
 }
 
@@ -40,7 +52,9 @@
 {
     UMSCCP_FilterResult fr = UMSCCP_FILTER_RESULT_UNMODIFIED;
     UMSCCP_FilterMatchResult r = [_engine matchesInbound:packet];
-    if(r == UMSCCP_FilterMatchResult_does_match)
+    if((r == UMSCCP_FilterMatchResult_does_match) &&
+        ((_filterStatus==UMSS7FilterStatus_on) ||
+         (_filterStatus==UMSS7FilterStatus_monitor)) )
     {
         NSString *alname = _config.actionList;
         if(alname.length > 0)
@@ -51,16 +65,18 @@
                 UMSynchronizedArray *ale = al.config.entries;
                 for(UMSS7FilterAction *fa in ale)
                 {
-                    if(fa.doPass)
+                    if((fa.doPass) && (_filterStatus==UMSS7FilterStatus_on))
+
                     {
                         break;
                     }
-                
-                    if(fa.doDrop || fa.doAbort || fa.doReject)
+                    if((fa.doDrop || fa.doAbort || fa.doReject) &&
+                       (_filterStatus==UMSS7FilterStatus_on))
                     {
                         fr = fr | UMSCCP_FILTER_RESULT_DROP;
                     }
-                    if(fa.doContinue)
+                    if((fa.doContinue) &&
+                        (_filterStatus==UMSS7FilterStatus_on))
                     {
                         return fr;
                     }
@@ -73,7 +89,7 @@
                             [tf logPacket:packet];
                         }
                     }
-                    if(fa.doReroute)
+                    if((fa.doReroute)  && (_filterStatus==UMSS7FilterStatus_on))
                     {
                         fr = fr | UMSCCP_FILTER_RESULT_MODIFIED;
                         if(fa.rerouteDestinationGroup)
@@ -87,7 +103,7 @@
                         if(fa.rerouteAddress)
                         {
                             packet.outgoingCalledPartyAddress.address = fa.rerouteAddress;
-
+                            
                         }
                         if(fa.rerouteTranslationType)
                         {
@@ -101,23 +117,33 @@
                     if(fa.doClearTag)
                     {
                         [packet.tags removeObjectForKey:fa.tag];
-
                     }
-                    if(fa.doStats)
+                    if((fa.doStats) && (fa.statisticName.length > 0))
                     {
-                        /*
-                        NSString *_statisticName;
-                        NSString *_statisticKey;
-
-                         */
-                        /* FIXME: do some stats action */
+                        
+                        UMStatistic *stat = _appDelegate.statistics_dict[fa.statisticName];
+                        if(stat==NULL)
+                        {
+                            stat = [[UMStatistic alloc]initWithPath:_appDelegate.statisticsPath name:fa.statisticName];
+                            _appDelegate.statistics_dict[fa.statisticName] = stat;
+                        }
+                        if(fa.statisticKey.length==0)
+                        {
+                            [stat increaseBy:1];
+                        }
+                        /* FIXME: we should have different substatistics by a specific key such as
+                         called-address, called-address-country, calling-address,calling-address-country
+                         
+                         also the increase value might vary such as packet size etc.
+                         so currently we only support simple statistic without a subkey.
+                        */
                     }
                     if((fa.doSetVar) && (fa.variable) && (fa.value))
                     {
                         packet.vars[fa.variable]= fa.value;
-
+                        
                     }
-                    if((fa.doClearVar)&& (fa.variable))
+                    if((fa.doClearVar) && (fa.variable))
                     {
                         [packet.vars removeObjectForKey:fa.variable];
                     }
