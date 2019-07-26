@@ -17,6 +17,8 @@
     NSString *_overrideNetworkIndicator;
     NSString *_ttmap_in;
     NSString *_ttmap_out;
+    NSArray<NSString *> *_inbond_filter_rulesets;
+    NSArray<NSString *> *_outbond_filter_rulesets;
 }
 
 + (NSString *)type;
@@ -30,5 +32,7 @@
 @property(readwrite,strong,atomic)  NSString *overrideNetworkIndicator;
 @property(readwrite,strong,atomic)  NSString *ttmap_in;
 @property(readwrite,strong,atomic)  NSString *ttmap_out;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *inbond_filter_rulesets;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *outbond_filter_rulesets;
 
 @end

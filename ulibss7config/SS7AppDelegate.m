@@ -2267,13 +2267,18 @@ static void signalHandler(int signum);
         mtp3linkset.logFeed.name = name;
         [mtp3linkset setConfig:config applicationContext:self];
         _mtp3_linkset_dict[name] = mtp3linkset;
+        _incomingLinksetFilters[name] = co.inbond_filter_rulesets;
+        _outgoingLinksetFilters[name] = co.outbound_filter_rulesets;
     }
 }
 
-
 - (void)deleteMTP3LinkSet:(NSString *)name
 {
-    /* FIXME: to be implemented */
+    /* FIXME: we should probably do more than just remove the object.
+      shut it down, unlink it from mtp etc */
+    [_mtp3_linkset_dict removeObjectForKey:name];
+    [_incomingLinksetFilters removeObjectForKey:name];
+    [_outgoingLinksetFilters removeObjectForKey:name];
 }
 
 - (void)renameMTP3LinkSet:(NSString *)oldName to:(NSString *)newName
@@ -2303,19 +2308,24 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigM3UAAS *co = [[UMSS7ConfigM3UAAS alloc]initWithConfig:config];
         [_runningConfig addM3UAAS:co];
-
         UMM3UAApplicationServer *m3ua_as = [[UMM3UAApplicationServer alloc]init];
         m3ua_as.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m3ua-as"];
         m3ua_as.logFeed.name = name;
         [m3ua_as setConfig:config applicationContext:self];
         _m3ua_as_dict[name] = m3ua_as;
+        _incomingLinksetFilters[name] = co.inbond_filter_rulesets;
+        _outgoingLinksetFilters[name] = co.outbound_filter_rulesets;
     }
 }
 
 - (void)deleteM3UAAS:(NSString *)name
 {
     //UMM3UAApplicationServer *instance =  _m3ua_as_dict[name];
+    /* FIXME: we should probably do more than just remove the object.
+     shut it down, unlink it from mtp etc */
     [_m3ua_as_dict removeObjectForKey:name];
+    [_incomingLinksetFilters removeObjectForKey:name];
+    [_outgoingLinksetFilters removeObjectForKey:name];
     //    [instance stopDetachAndDestroy];
 
 }
