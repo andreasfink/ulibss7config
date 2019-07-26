@@ -18,6 +18,8 @@
     NSString *_next_pc2;
     NSNumber *_ntt;
     NSArray<NSString *> *_gtFiles;
+    NSString *_problematicPacketsTraceFile;
+    NSString *_unrouteablePacketsTraceFile;
 }
 
 + (NSString *)type;
@@ -32,5 +34,6 @@
 @property(readwrite,strong,atomic)  NSString *next_pc2;
 @property(readwrite,strong,atomic)  NSNumber *ntt;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *gtFiles;
-
+@property(readwrite,strong,atomic)  NSString *problematicPacketsTraceFile;
+@property(readwrite,strong,atomic)  NSString *unrouteablePacketsTraceFile;
 @end

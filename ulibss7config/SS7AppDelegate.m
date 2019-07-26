@@ -1161,8 +1161,6 @@ static void signalHandler(int signum);
         }
         UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
         [sccp.gttSelectorRegistry addEntry:selector];
-
-
         NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
         for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
         {
@@ -2445,6 +2443,15 @@ static void signalHandler(int signum);
         [sccp setConfig:config applicationContext:self];
         _sccp_dict[name] = sccp;
         sccp.sccp_number_translations_dict = _sccp_number_translations_dict;
+
+        if(co.problematicPacketsTraceFile)
+        {
+           sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
+        }
+        if(co.unrouteablePacketsTraceFile)
+        {
+            sccp.unrouteablePacketsTraceDestination = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
+        }
     }
 }
 
