@@ -11,7 +11,7 @@
 
 #import "UMSS7ConfigSS7FilterTraceFile.h"
 
-@interface UMSS7TraceFile : UMObject
+@interface UMSS7TraceFile : UMObject<UMSCCP_TracefileProtocol>
 {
 	UMSS7ConfigSS7FilterTraceFile *_config;
 	UMPCAPFile *_pcap;
