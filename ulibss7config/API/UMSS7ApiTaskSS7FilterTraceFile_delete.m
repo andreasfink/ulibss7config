@@ -46,7 +46,7 @@
 		else
 		{
 			// 2. Remove
-			[_appDelegate logfile_remove:name];
+			[_appDelegate tracefile_remove:name];
 			[self sendResultOK];
 		}
 	}

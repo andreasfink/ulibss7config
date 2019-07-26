@@ -55,7 +55,7 @@
 			NSString *enable = _webRequest.params[@"enable"];
 			BOOL en = [enable boolValue];
 			
-			[_appDelegate logfile_enable:name enable:en];
+			[_appDelegate tracefile_enable:name enable:en];
 			[self sendResultOK];
 		}
 	}

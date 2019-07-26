@@ -14,14 +14,19 @@
     NSString *_format;
     NSNumber *_minutes;
     NSNumber *_packets;
+    NSNumber *_maxRotations;
 }
 
 @property(readwrite,strong,atomic)  NSString *filename;
 @property(readwrite,strong,atomic)  NSString *format;
 @property(readwrite,strong,atomic)  NSNumber *minutes;
 @property(readwrite,strong,atomic)  NSNumber *packets;
+@property(readwrite,strong,atomic)  NSNumber *maxRotations;
 
 - (UMSS7ConfigSS7FilterTraceFile *)initWithConfig:(NSDictionary *)dict;
+
++ (NSString *)type;
+- (NSString *)type;
 
 @end
 

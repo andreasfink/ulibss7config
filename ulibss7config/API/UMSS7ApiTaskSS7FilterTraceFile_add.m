@@ -54,9 +54,12 @@
 		{
 			// 2. adding
             UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_webRequest.params];
-            UMSynchronizedSortedDictionary *config = traceFile.config;
-            [_appDelegate logfile_add:config];
-            [self sendResultObject:config];
+            [_appDelegate tracefile_add:traceFile];
+            if(traceFile.enabled)
+            {
+                [_appDelegate tracefile_enable:traceFile.name enable:[traceFile.enabled boolValue]];
+            }
+            [self sendResultObject:traceFile.config];
             
 		}
 	}

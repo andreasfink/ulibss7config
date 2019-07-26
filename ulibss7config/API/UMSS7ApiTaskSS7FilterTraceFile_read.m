@@ -47,7 +47,7 @@
 		else
 		{
 			// 2. Read
-			UMSS7ConfigSS7FilterTraceFile *log = [_appDelegate logfile_get:name];
+			UMSS7ConfigSS7FilterTraceFile *log = [_appDelegate tracefile_get:name];
 			[self sendResultObject:log.config];
 		}
 	}

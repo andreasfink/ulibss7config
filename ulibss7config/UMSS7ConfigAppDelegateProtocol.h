@@ -158,12 +158,12 @@ realm:(NSString **)realm;
 #pragma mark Log File Functions
 /************************************************************/
 
-- (UMSynchronizedArray *)logfile_list;
-- (void)logfile_remove:(NSString *)name;
-- (void)logfile_enable:(NSString *)name enable:(BOOL)enable;
-- (UMSS7ConfigSS7FilterTraceFile *)logfile_get:(NSString *)listName;
-- (void)logfile_action:(NSString *)name action:(NSString *)enable;
-- (void)logfile_add:(UMSynchronizedSortedDictionary *)conf;
+- (UMSynchronizedArray *)tracefile_list;
+- (void)tracefile_remove:(NSString *)name;
+- (void)tracefile_enable:(NSString *)name enable:(BOOL)enable;
+- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)listName;
+- (void)tracefile_action:(NSString *)name action:(NSString *)enable;
+- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf;
 
 
 /************************************************************/
