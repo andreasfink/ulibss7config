@@ -40,6 +40,8 @@
     APPEND_CONFIG_INTEGER(s,@"routing-key",_routingKey);
     APPEND_CONFIG_STRING(s,@"traffic-mode",_trafficMode);
     APPEND_CONFIG_STRING(s,@"override-network-indicator",_overrideNetworkIndicator);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbound_filter_rulesets);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -50,6 +52,8 @@
     APPEND_DICT_INTEGER(dict,@"routing-key",_routingKey);
     APPEND_DICT_STRING(dict,@"traffic-mode",_trafficMode);
     APPEND_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
+    APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
+    APPEND_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
 
     return dict;
 }
@@ -62,6 +66,8 @@
     SET_DICT_INTEGER(dict,@"routing-key",_routingKey);
     SET_DICT_STRING(dict,@"traffic-mode",_trafficMode);
     SET_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
+    SET_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
+    SET_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
 }
 
 - (UMSS7ConfigM3UAAS *)copyWithZone:(NSZone *)zone

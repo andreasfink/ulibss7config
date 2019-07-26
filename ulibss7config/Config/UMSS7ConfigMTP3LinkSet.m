@@ -43,8 +43,8 @@
     APPEND_CONFIG_STRING(s,@"tt-map-in",_ttmap_in);
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbond_filter_rulesets);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbond_filter_rulesets);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbound_filter_rulesets);
 
 }
 
@@ -58,8 +58,8 @@
     APPEND_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
-    APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbond_filter_rulesets);
-    APPEND_DICT_ARRAY(dict,@"outbound-filter",_outbond_filter_rulesets);
+    APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
+    APPEND_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
     return dict;
 }
 
@@ -73,8 +73,8 @@
     SET_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     SET_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
-    SET_DICT_ARRAY(dict,@"inbound-filter",_inbond_filter_rulesets);
-    SET_DICT_ARRAY(dict,@"outbound-filter",_outbond_filter_rulesets);
+    SET_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
+    SET_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
 }
 
 - (UMSS7ConfigMTP3LinkSet *)copyWithZone:(NSZone *)zone

@@ -41,8 +41,6 @@
     APPEND_CONFIG_DOUBLE(s,@"linktest-timer",_linktestTimer);
     APPEND_CONFIG_DOUBLE(s,@"beat-timer",_beatTimer);
     APPEND_CONFIG_INTEGER(s,@"beat-max-outstanding",_beatMaxOutstanding);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbond_filter_rulesets);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbound_filter_rulesets);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -56,8 +54,6 @@
     APPEND_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     APPEND_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     APPEND_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
-    APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbond_filter_rulesets);
-    APPEND_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
     return dict;
 }
 
@@ -71,8 +67,6 @@
     SET_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     SET_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     SET_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
-    SET_DICT_ARRAY(dict,@"inbound-filter",_inbond_filter_rulesets);
-    SET_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
 }
 
 - (UMSS7ConfigM3UAASP *)copyWithZone:(NSZone *)zone

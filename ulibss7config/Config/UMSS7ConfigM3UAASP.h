@@ -18,8 +18,6 @@
     NSNumber *_linktestTimer;
     NSNumber *_beatTimer;
     NSNumber *_beatMaxOutstanding;
-    NSArray<NSString *> *_inbond_filter_rulesets;
-    NSArray<NSString *> *_outbond_filter_rulesets;
 }
 
 + (NSString *)type;
@@ -33,8 +31,6 @@
 @property(readwrite,strong,atomic)  NSNumber *linktestTimer;
 @property(readwrite,strong,atomic)  NSNumber *beatTimer;
 @property(readwrite,strong,atomic)  NSNumber *beatMaxOutstanding;
-@property(readwrite,strong,atomic)  NSArray<NSString *> *inbond_filter_rulesets;
-@property(readwrite,strong,atomic)  NSArray<NSString *> *outbond_filter_rulesets;
 
 
 @end

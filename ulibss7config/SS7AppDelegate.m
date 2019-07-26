@@ -2291,7 +2291,7 @@ static void signalHandler(int signum);
         mtp3linkset.logFeed.name = name;
         [mtp3linkset setConfig:config applicationContext:self];
         _mtp3_linkset_dict[name] = mtp3linkset;
-        _incomingLinksetFilters[name] = co.inbond_filter_rulesets;
+        _incomingLinksetFilters[name] = co.inbound_filter_rulesets;
         _outgoingLinksetFilters[name] = co.outbound_filter_rulesets;
     }
 }
@@ -2337,7 +2337,7 @@ static void signalHandler(int signum);
         m3ua_as.logFeed.name = name;
         [m3ua_as setConfig:config applicationContext:self];
         _m3ua_as_dict[name] = m3ua_as;
-        _incomingLinksetFilters[name] = co.inbond_filter_rulesets;
+        _incomingLinksetFilters[name] = co.inbound_filter_rulesets;
         _outgoingLinksetFilters[name] = co.outbound_filter_rulesets;
     }
 }
