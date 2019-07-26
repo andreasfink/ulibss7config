@@ -46,15 +46,15 @@
 
     if([_config.status isEqualToString:@"on"])
     {
-        _status = UMSS7FilterRuleSet_status_on;
+        _filterStatus = UMSS7FilterStatus_on;
     }
     else if([_config.status isEqualToString:@"off"])
     {
-        _status = UMSS7FilterRuleSet_status_off;
+        _filterStatus = UMSS7FilterStatus_off;
     }
     else if([_config.status isEqualToString:@"monitor"])
     {
-        _status = UMSS7FilterRuleSet_status_monitor;
+        _filterStatus = UMSS7FilterStatus_monitor;
     }
     return YES;
 }

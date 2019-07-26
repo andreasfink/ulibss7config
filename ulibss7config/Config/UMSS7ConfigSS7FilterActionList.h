@@ -12,9 +12,9 @@
 
 @interface UMSS7ConfigSS7FilterActionList : UMSS7ConfigObject
 {
-    UMSynchronizedArray      *_entries;
-    NSDate                 *_createdTimestamp;
-    NSDate                 *_modifiedTimestamp;
+    UMSynchronizedArray     *_entries;
+    NSDate                  *_createdTimestamp;
+    NSDate                  *_modifiedTimestamp;
 }
 
 @property(readwrite,strong,atomic)    UMSynchronizedArray      *entries;

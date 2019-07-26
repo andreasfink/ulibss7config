@@ -22,6 +22,7 @@
 #import "UMSS7ConfigSS7FilterRule.h"
 #import "UMSS7ConfigSS7FilterActionList.h"
 #import "UMSS7ConfigSS7FilterAction.h"
+#import "UMSS7TraceFile.h"
 
 #ifdef	HAS_ULIBLICENSE
 
@@ -78,7 +79,8 @@ SS7UserAuthenticateProtocol,
 UMSS7ConfigAppDelegateProtocol,
 UMTransportUserProtocol,
 UMDiameterPeerAppDelegateProtocol,
-UMDiameterRouterAppDelegateProtocol>
+UMDiameterRouterAppDelegateProtocol,
+UMSCCP_FilterProtocol>
 {
     /* first all pointers... then integers. Workaround for a bug in clang...? */
     NSDictionary                *_enabledOptions;
@@ -177,6 +179,13 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary    *_ss7FilterEngines;
 
     UMSS7ConfigSS7FilterStagingArea *_activeStagingArea;
+    BOOL                    _filteringActive;
+    UMSynchronizedDictionary *_incomingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    UMSynchronizedDictionary *_outgoingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    UMSynchronizedDictionary *_incomingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    UMSynchronizedDictionary *_outgoingLocalSubsystemFiltersFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    
+    UMSynchronizedDictionary *_traceFiles; /* contains UMSS7TraceFile objects */
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -204,14 +213,21 @@ UMDiameterRouterAppDelegateProtocol>
 @property(readwrite,strong)     UMHTTPClient		*webClient;
 @property(readwrite,strong)     NSDate              *applicationStart;
 @property(readwrite,strong)     NSString            *stagingAreaPath;
+@property(readwrite,strong)     NSString            *statisticsPath;
 @property(readwrite,strong)     NSString            *appsPath;
 @property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
 @property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
-@property(readwrite,strong)     UMSynchronizedDictionary     *namedLists;
+@property(readwrite,strong)     UMSynchronizedDictionary    *namedLists;
+@property(readwrite,strong)     UMSynchronizedDictionary    *active_ruleset_dict;
+@property(readwrite,strong)     UMSynchronizedDictionary    *active_action_list_dict;
+@property(readwrite,strong)     UMSynchronizedDictionary     *statistics_dict;
 
 #ifdef	HAS_ULIBLICENSE
 @property(readwrite,strong)		UMLicenseDirectory 			*globalLicenseDirectory;
 #endif
+
+@property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile
+                                                                        objects */
 
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
