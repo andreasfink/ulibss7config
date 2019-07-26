@@ -41,6 +41,7 @@
     APPEND_CONFIG_STRING(s,@"format",_format);
     APPEND_CONFIG_INTEGER(s,@"minutes",_minutes);
     APPEND_CONFIG_INTEGER(s,@"packets",_packets);
+    APPEND_CONFIG_INTEGER(s,@"max-rotations",_maxRotations);
 }
 
 
@@ -53,6 +54,7 @@
     
     APPEND_DICT_INTEGER(dict,@"minutes",_minutes);
     APPEND_DICT_INTEGER(dict,@"packets",_packets);
+    APPEND_DICT_INTEGER(dict,@"max-rotations",_maxRotations);
 
     return dict;
 }
@@ -64,7 +66,8 @@
     SET_DICT_STRING(dict,@"format",_format);
     SET_DICT_INTEGER(dict,@"minutes",_minutes);
     SET_DICT_INTEGER(dict,@"packets",_packets);
-    
+    SET_DICT_INTEGER(dict,@"max-rotations",_maxRotations);
+
 }
 
 - (UMSS7ConfigSS7FilterTraceFile *)copyWithZone:(NSZone *)zone

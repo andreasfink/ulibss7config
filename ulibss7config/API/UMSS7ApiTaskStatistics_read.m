@@ -54,7 +54,23 @@
             }
             else
             {
-                id result = [stat getStatisticJsonForKey:statisticsKey noValues:noValues];
+                id result;
+
+                if(noValues == YES)
+                {
+                    result = [stat getStatistic];
+                }
+                else
+                {
+                    if(statisticsKey.length> 0)
+                    {
+                        result = [stat getStatisticForKey:statisticsKey];
+                    }
+                    else
+                    {
+                        result = [stat getStatistics];
+                    }
+                }
                 if(result==NULL)
                 {
                     [self sendErrorNotFound];
