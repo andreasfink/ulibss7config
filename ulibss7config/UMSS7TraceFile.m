@@ -23,7 +23,7 @@
         _maxPackets = 10000;
         _createdTime = [NSDate date];
         _currentPackets = 0;
-        _lock = [[UMMutex alloc]init];
+        _lock = [[UMMutex alloc]initWithName:@"UMSS7TraceFile-mutex"];
         _enabled=YES;
         _isOpen = NO;
         _isDirty = YES;
@@ -41,10 +41,27 @@
         }
 
         NSString *fullPath = [NSString stringWithFormat:@"%@/%@",path, config.filename];
-        char resolved[PATH_MAX];
-        char *resolvedPath = realpath(fullPath.UTF8String, resolved);
 
-        _fullFilename = @(resolvedPath);
+        if([config.format isEqualToString:@"pcap"])
+        {
+            _fullFilename = [NSString stringWithFormat:@"%@.pcap",[fullPath stringByDeletingPathExtension]];
+            _isPcap = YES;
+        }
+        else if([config.format isEqualToString:@"hex"])
+        {
+            _fullFilename = [NSString stringWithFormat:@"%@.hex",[fullPath stringByDeletingPathExtension]];
+            _isHex = YES;
+        }
+        else
+        {
+            _fullFilename = fullPath;
+        }
+        _containingDirectory = [_fullFilename stringByDeletingLastPathComponent];
+        _relativeFilename = [_fullFilename lastPathComponent];
+        _fullFilenameNoExtenion = [_fullFilename stringByDeletingPathExtension];
+        _fileExtension = [_fullFilename pathExtension];
+        _pcap.filename = _fullFilename;
+
         if(_fullFilename==NULL)
         {
             return NULL;
@@ -76,7 +93,19 @@
         [self open];
     }
     NSDate *now = [NSDate date];
-    [_pcap writePdu:packet.incomingMtp3Data];
+    if(_isPcap)
+    {
+        [_pcap writePdu:packet.incomingMtp3Data];
+    }
+    else if(_isHex)
+    {
+        NSString *s = [packet.incomingMtp3Data hexString];
+        NSDate *ts = [NSDate date];
+        NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,packet.incomingLinkset,s];
+        NSData *d = [line dataUsingEncoding:NSUTF8StringEncoding];
+        fwrite(d.bytes,d.length,1,_fptr);
+        fflush(_fptr);
+    }
     _currentPackets++;
     if(_currentPackets>=_maxPackets)
     {
@@ -100,22 +129,58 @@
 
 - (void)open
 {
-    [_pcap openForMtp3];
+    if(_isOpen)
+    {
+        return;
+    }
+    if(_isPcap)
+    {
+        [_pcap openForMtp3];
+    }
+    else if(_isHex)
+    {
+        if(_fptr)
+        {
+            fclose(_fptr);
+        }
+
+        _fptr = fopen(_fullFilename.UTF8String,"a");
+        if(_fptr==NULL)
+        {
+            NSLog(@"Can not open file for writing: %@ %d %s",_fullFilename,errno,strerror(errno));
+            return;
+        }
+    }
     _isOpen=YES;
 }
 
 - (void)close
 {
-    [_pcap close];
+    if(_isOpen==NO)
+    {
+        return;
+    }
+    if(_isPcap)
+    {
+        [_pcap close];
+    }
+    else if(_isHex)
+    {
+        if(_fptr)
+        {
+            fclose(_fptr);
+        }
+        _fptr = NULL;
+    }
     _isOpen=NO;
 }
 
 - (void)rotate
 {
     [_lock lock];
-    [_pcap close];
+    [self close];
     [self rotateFiles];
-    [_pcap openForMtp3];
+    [self open];
     [_lock unlock];
 }
 
@@ -149,10 +214,10 @@
     [_lock lock];
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *s0 = [NSString stringWithFormat:@"%@-%06d.%@",_fullFilenameNoExtenion,_maxRotations,_fileExtension];
-    for(int i=_maxRotations-1;i>0;i--)
+    for(int i=_maxRotations-1;i>=0;i--)
     {
         NSString *s1;
-        if(i>1)
+        if(i>0)
         {
             s1 = [NSString stringWithFormat:@"%@-%06d.%@",_fullFilenameNoExtenion,i,_fileExtension];
         }

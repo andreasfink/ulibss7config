@@ -4024,11 +4024,14 @@ static void signalHandler(int signum);
     {
         if( [[filename pathExtension]isEqualToString:@"conf"])
         {
-            UMConfig* cfg = [[UMConfig alloc]initWithFileName:filename];
+            NSString *fullFilename = [NSString stringWithFormat:@"%@/%@",path,filename];
+            UMConfig* cfg = [[UMConfig alloc]initWithFileName:fullFilename];
             [cfg allowSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
             [cfg read];
             NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
-            UMSS7ConfigSS7FilterTraceFile *c = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:config];
+            NSMutableDictionary *config2 = [config mutableCopy];
+            config2[@"name"] = [filename stringByDeletingPathExtension];
+            UMSS7ConfigSS7FilterTraceFile *c = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:config2];
             [self tracefile_add:c];
         }
     }
@@ -4206,6 +4209,7 @@ static void signalHandler(int signum);
     {
         _ss7TraceFiles[conf.name] = tf;
         [tf writeConfigToDisk];
+        [tf open];
     }
 }
 

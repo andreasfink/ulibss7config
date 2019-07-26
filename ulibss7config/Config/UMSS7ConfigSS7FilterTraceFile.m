@@ -14,7 +14,7 @@
 
 + (NSString *)type
 {
-    return @"ss7-filter-logfile";
+    return @"ss7-filter-tracefile";
 }
 
 - (NSString *)type
