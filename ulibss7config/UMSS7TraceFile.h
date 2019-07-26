@@ -15,17 +15,42 @@
 {
 	UMSS7ConfigSS7FilterTraceFile *_config;
 	UMPCAPFile *_pcap;
+
+    NSString        *_containingDirectory;
+    NSString        *_relativeFilename;
+    NSString        *_fullFilename;
+    int             _maxRotations;
+    int             _maxMinutes;
+    int             _maxPackets;
+    int             _currentPackets;
+    NSDate          *_createdTime;
+    NSDate          *_lastPacketTime;
+    NSString        *_fullFilenameNoExtenion;
+    NSString        *_fileExtension;
+    UMMutex         *_lock;
+    BOOL            _enabled;
+    BOOL            _isOpen;
+    BOOL            _isDirty;
+    BOOL            _isPcap;
+    BOOL            _isHex;
+    //NSFileHandle    *_fh;
+    FILE            *_fptr;
 }
 
 @property(readwrite,strong,atomic)	UMSS7ConfigSS7FilterTraceFile *config;
 
 - (void)logPacket:(UMSCCP_Packet *)packet;
-- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7FilterTraceFile *)config;
+- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7FilterTraceFile *)config defaultPath:(NSString *)path;
 
 - (void)open;
 - (void)close;
 - (void)rotate;
 
+- (void)enable;
+- (void)disable;
+- (void)action:(NSString *)action;
+- (void)writeConfigToDisk;
+- (void)deleteConfigOnDisk;
 
 @end
 

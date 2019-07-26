@@ -165,8 +165,7 @@ UMSCCP_FilterProtocol>
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
 
-    UMSynchronizedDictionary    *_ss7TraceFiles;
-    UMMutex                     *_ss7TraceFilesLock;
+    UMSynchronizedDictionary    *_ss7TraceFiles; /* contains UMSS7TraceFile objects */
     NSString                    *_ss7TraceFilesDirectory;
     UMTimer                     *_apiHousekeepingTimer;
 
@@ -184,8 +183,6 @@ UMSCCP_FilterProtocol>
     UMSynchronizedDictionary *_outgoingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
     UMSynchronizedDictionary *_incomingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
     UMSynchronizedDictionary *_outgoingLocalSubsystemFiltersFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
-    
-    UMSynchronizedDictionary *_traceFiles; /* contains UMSS7TraceFile objects */
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -447,18 +444,15 @@ UMSCCP_FilterProtocol>
 
 /************************************************************/
 #pragma mark -
-#pragma mark Log File Functions
+#pragma mark Trace File Functions
 /************************************************************/
 
-- (UMSynchronizedArray *)logfile_list;
-- (void)logfile_remove:(NSString *)name;
-- (void)logfile_enable:(NSString *)name enable:(BOOL)enable;
-- (UMSS7ConfigSS7FilterTraceFile *)logfile_get:(NSString *)listName;
-- (void)logfile_action:(NSString *)name action:(NSString *)enable;
-- (void)logfile_add:(UMSynchronizedSortedDictionary *)conf;
-
-
-
+- (UMSynchronizedArray *)tracefile_list;
+- (void)tracefile_remove:(NSString *)name;
+- (void)tracefile_enable:(NSString *)name enable:(BOOL)enable;
+- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)listName;
+- (void)tracefile_action:(NSString *)name action:(NSString *)enable;
+- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf;
 
 
 /************************************************************/

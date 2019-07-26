@@ -54,7 +54,7 @@
 		else
 		{
 			// 2. Action
-			[_appDelegate logfile_action:name action:action];
+			[_appDelegate tracefile_action:name action:action];
 			[self sendResultOK];
 		}
 	}

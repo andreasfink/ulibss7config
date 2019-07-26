@@ -155,9 +155,8 @@ static void signalHandler(int signum);
         _namedListLock = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
         _namedListsDirectory            = [self defaultNamedListPath];
 
-        _ss7TraceFiles = [[UMSynchronizedDictionary alloc]init];
-        _ss7TraceFilesLock = [[UMMutex alloc]initWithName:@"ss7tracefiles-mutex"];
-        _ss7TraceFilesDirectory            = [self defaultTracefilesPath];
+        _ss7TraceFiles                  = [[UMSynchronizedDictionary alloc]init];
+        _ss7TraceFilesDirectory         = [self defaultTracefilesPath];
 
         _active_ruleset_dict            = [[UMSynchronizedDictionary alloc]init];
         _active_action_list_dict        = [[UMSynchronizedDictionary alloc]init];
@@ -168,7 +167,7 @@ static void signalHandler(int signum);
         _incomingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
         _outgoingLocalSubsystemFiltersFilters = [[UMSynchronizedDictionary alloc]init];
 
-        
+
         if(_enabledOptions[@"name"])
         {
             self.logFeed.name =_enabledOptions[@"name"];
@@ -400,7 +399,13 @@ static void signalHandler(int signum);
                  @"long"  : @"--admin-https-cert",
                  @"argument" : @"filename",
                  @"help"  : @"specify the SSL certificate for the https admin interface"
-                 }
+                 },
+             @{
+                 @"name"  : @"tracefiles-path",
+                 @"long"  : @"--tracefiles-path",
+                 @"argument" : @"directory",
+                 @"help"  : @"set the path of the tracefiles directory",
+                 },
              ];
 }
 
@@ -569,7 +574,6 @@ static void signalHandler(int signum);
             NSString *path = a[a.count-1];
             _namedListsDirectory = path;
         }
-
         e = NULL;
         [fm createDirectoryAtPath:_namedListsDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
         if(e)
@@ -605,6 +609,26 @@ static void signalHandler(int signum);
         {
             [self loadSS7StagingAreasFromPath:_stagingAreaPath];
         }
+
+
+
+        if(params[@"tracefiles-path"])
+        {
+            NSArray *a = params[@"tracefiles-path"];
+            NSString *path = a[a.count-1];
+            _ss7TraceFilesDirectory = path;
+        }
+        e = NULL;
+        [fm createDirectoryAtPath:_ss7TraceFilesDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
+        if(e)
+        {
+            NSLog(@"Error while creating directory %@\n%@",_ss7TraceFilesDirectory,e);
+        }
+
+        [self loadTracefilesFromPath:_ss7TraceFilesDirectory];
+
+
+
 
         if(params[@"print-config"])
         {
@@ -2568,9 +2592,6 @@ static void signalHandler(int signum);
 /************************************************************/
 
 
-#pragma mark -
-#pragma mark TCAP
-
 - (UMLayerTCAP *)getTCAP:(NSString *)name
 {
     return _tcap_dict[name];
@@ -4000,6 +4021,32 @@ static void signalHandler(int signum);
 }
 
 
+- (void)loadTracefilesFromPath:(NSString *)path
+{
+    NSFileManager * fm = [NSFileManager defaultManager];
+    NSError *e = NULL;
+    NSArray<NSString *> *a = [fm contentsOfDirectoryAtPath:path  error:&e];
+    if(e)
+    {
+        NSLog(@"Error while parsing directory %@\n%@",path,e);
+    }
+    for(NSString *filename in a)
+    {
+        if( [[filename pathExtension]isEqualToString:@"conf"])
+        {
+            NSString *fullFilename = [NSString stringWithFormat:@"%@/%@",path,filename];
+            UMConfig* cfg = [[UMConfig alloc]initWithFileName:fullFilename];
+            [cfg allowSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
+            [cfg read];
+            NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
+            NSMutableDictionary *config2 = [config mutableCopy];
+            config2[@"name"] = [filename stringByDeletingPathExtension];
+            UMSS7ConfigSS7FilterTraceFile *c = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:config2];
+            [self tracefile_add:c];
+        }
+    }
+}
+
 - (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name
 {
     return _ss7FilterEngines[name];
@@ -4115,49 +4162,65 @@ static void signalHandler(int signum);
 #pragma mark -
 #pragma mark logfile
 
-- (UMSynchronizedArray *)logfile_list
+- (UMSynchronizedArray *)tracefile_list
 {
-    /* fix-me*/
-    return NULL;
+    NSArray *arr = [_ss7TraceFiles allKeys];
+    UMSynchronizedArray *sarr = [[UMSynchronizedArray alloc]initWithArray:arr];
+    return sarr;
 }
 
-- (void)logfile_remove:(NSString *)name
+- (void)tracefile_remove:(NSString *)name
 {
-    /* fix-me*/
+    UMSS7TraceFile *tf = _ss7TraceFiles[name];
+    if(tf)
+    {
+        [tf close];
+        [tf deleteConfigOnDisk];
+    }
+    [_ss7TraceFiles removeObjectForKey:name];
 }
 
-- (void)logfile_enable:(NSString *)name enable:(BOOL)enable
+- (void)tracefile_enable:(NSString *)name enable:(BOOL)enable
 {
-    /* fix-me*/
+    UMSS7TraceFile *tf = _ss7TraceFiles[name];
+    if(tf)
+    {
+        if(enable)
+        {
+            [tf enable];
+        }
+        else
+        {
+            [tf disable];
+        }
+        [tf writeConfigToDisk];
+    }
 }
 
-- (UMSS7ConfigSS7FilterTraceFile *)logfile_get:(NSString *)listName
+- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)name
 {
-    /* fix-me*/
-    return NULL;
+    UMSS7TraceFile *tf = _ss7TraceFiles[name];
+    return tf.config;
 }
 
-- (void)logfile_action:(NSString *)name action:(NSString *)enable
+- (void)tracefile_action:(NSString *)name action:(NSString *)action
 {
-    /* fix-me*/
+    UMSS7TraceFile *tf = _ss7TraceFiles[name];
+    if(tf)
+    {
+        [tf action:action];
+    }
 }
 
-- (void)logfile_add:(UMSynchronizedSortedDictionary *)conf
+- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf
 {
-    /* fix-me*/
-    /*NSString *format = _webRequest.params[@"format"];
-    NSString *enable = _webRequest.params[@"enable"];
-    NSString *minutes = _webRequest.params[@"rotate-minutes"];
-    NSString *packets = _webRequest.params[@"rotate-packets"];
-    
-    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-    f.numberStyle = NSNumberFormatterNoStyle;
-    
-    NSNumber *min = [f numberFromString:minutes];
-    NSNumber *pack = [f numberFromString:packets];
-    BOOL en = [enable boolValue];*/
-    //NSString *en = enable ? @"YES" : @"NO";
-    //NSLog(@"logfile_add: %@ , %@, %@, %@, %@ , %@", name, file, format, minutes, packets_count, en );
+    UMSS7TraceFile *tf = [[UMSS7TraceFile alloc]initWithSS7Config:conf defaultPath:_ss7TraceFilesDirectory];
+    if(tf)
+    {
+        _ss7TraceFiles[conf.name] = tf;
+        [tf writeConfigToDisk];
+        [tf open];
+    }
 }
 
 
