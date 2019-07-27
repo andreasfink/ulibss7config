@@ -44,6 +44,7 @@
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"gt-file",_gtFiles);
     APPEND_CONFIG_STRING(s,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     APPEND_CONFIG_STRING(s,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
+    APPEND_CONFIG_BOOLEAN(s,@"route-errors-back-to-originating-pointcode",_routeErrorsBackToOriginatingPointCode);
 
 }
 
@@ -59,6 +60,8 @@
     APPEND_DICT_ARRAY(dict,@"gt-file",_gtFiles);
     APPEND_DICT_STRING(dict,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     APPEND_DICT_STRING(dict,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
+    APPEND_DICT_BOOLEAN(dict,@"route-errors-back-to-originating-pointcode",_routeErrorsBackToOriginatingPointCode);
+
     return dict;
 }
 
@@ -73,6 +76,7 @@
     SET_DICT_ARRAY(dict,@"gt-file",_gtFiles);
     SET_DICT_STRING(dict,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     SET_DICT_STRING(dict,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
+    SET_DICT_BOOLEAN(dict,@"route-errors-back-to-originating-pointcode",_routeErrorsBackToOriginatingPointCode);
 }
 
 - (UMSS7ConfigSCCP *)copyWithZone:(NSZone *)zone

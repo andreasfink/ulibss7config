@@ -20,6 +20,7 @@
     NSArray<NSString *> *_gtFiles;
     NSString *_problematicPacketsTraceFile;
     NSString *_unrouteablePacketsTraceFile;
+    NSNumber *_routeErrorsBackToOriginatingPointCode;
 }
 
 + (NSString *)type;
@@ -36,4 +37,6 @@
 @property(readwrite,strong,atomic)  NSArray<NSString *> *gtFiles;
 @property(readwrite,strong,atomic)  NSString *problematicPacketsTraceFile;
 @property(readwrite,strong,atomic)  NSString *unrouteablePacketsTraceFile;
+@property(readwrite,strong,atomic)  NSNumber *routeErrorsBackToSource;
+
 @end
