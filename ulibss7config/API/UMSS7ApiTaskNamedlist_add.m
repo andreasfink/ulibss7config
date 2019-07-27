@@ -37,8 +37,8 @@
 	@try
 	{
 		// 1. Get external parameters
-		NSString *listName = _webRequest.params[@"list"];
-		NSString *value = _webRequest.params[@"value"];
+		NSString *listName = _params[@"list"];
+		NSString *value = _params[@"value"];
 		NSDictionary *d = [NSDictionary dictionary];
 		if(listName.length==0)
 		{

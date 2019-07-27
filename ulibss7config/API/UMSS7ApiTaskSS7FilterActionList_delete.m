@@ -46,7 +46,7 @@
     {
 		@try
 		{
-			NSString *name = _webRequest.params[@"name"];
+			NSString *name = _params[@"name"];
             NSDictionary *d = [NSDictionary dictionary];
             if(name.length==0)
             {

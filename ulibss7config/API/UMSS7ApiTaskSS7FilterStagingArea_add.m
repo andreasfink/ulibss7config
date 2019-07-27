@@ -36,7 +36,7 @@
     }
     
 	// 1. Get Staging Area
-	NSString *name = _webRequest.params[@"name"];
+	NSString *name = _params[@"name"];
 	_apiSession.currentStorageAreaName = name;
 	
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];

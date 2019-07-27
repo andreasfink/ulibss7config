@@ -33,7 +33,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigMTP3LinkSet *mtp3linkset = [cs getMTP3LinkSet:name];
@@ -45,7 +45,7 @@
     {
 		@try
 		{
-			mtp3linkset = [[UMSS7ConfigMTP3LinkSet alloc]initWithConfig:_webRequest.params];
+			mtp3linkset = [[UMSS7ConfigMTP3LinkSet alloc]initWithConfig:_params];
 			UMSynchronizedSortedDictionary *config = mtp3linkset.config;
 			[_appDelegate addWithConfigMTP3LinkSet:config.dictionaryCopy];
 			[self sendResultObject:config];

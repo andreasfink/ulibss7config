@@ -30,7 +30,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     UMPluginHandler *plugin = [_appDelegate getSS7FilterEngineHandler:name];
 
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];

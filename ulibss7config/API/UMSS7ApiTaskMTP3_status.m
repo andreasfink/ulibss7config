@@ -33,7 +33,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMLayerMTP3 *mtp3 = [_appDelegate getMTP3:name];
     if(mtp3)

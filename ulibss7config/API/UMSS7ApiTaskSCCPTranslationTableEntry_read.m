@@ -32,19 +32,19 @@
         return;
     }
 
-    NSString *sccp_name     = _webRequest.params[@"sccp"];
+    NSString *sccp_name     = _params[@"sccp"];
     if(sccp_name.length==0)
     {
         [self sendErrorMissingParameter:@"sccp"];
         return;
     }
-    NSString *table_name    = _webRequest.params[@"translation-table"];
+    NSString *table_name    = _params[@"translation-table"];
     if(table_name.length==0)
     {
         [self sendErrorMissingParameter:@"translation-table"];
     }
 
-    NSString *gta = _webRequest.params[@"gta"];
+    NSString *gta = _params[@"gta"];
     gta = [UMSS7ConfigObject filterName:gta];
     NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];

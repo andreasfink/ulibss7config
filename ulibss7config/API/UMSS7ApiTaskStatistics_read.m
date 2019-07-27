@@ -36,9 +36,9 @@
 
     @try
     {
-        NSString *statisticsName = _webRequest.params[@"name"];
-        NSString *statisticsKey = _webRequest.params[@"key"];
-        NSString *b = _webRequest.params[@"no-values"];
+        NSString *statisticsName = _params[@"name"];
+        NSString *statisticsKey = _params[@"key"];
+        NSString *b = _params[@"no-values"];
         BOOL noValues = [b boolValue];
 
         if(statisticsName.length==0)

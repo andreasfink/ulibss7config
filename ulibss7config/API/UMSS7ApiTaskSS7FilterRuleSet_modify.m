@@ -45,7 +45,7 @@
     {
         @try
         {
-            NSString *name = _webRequest.params[@"name"];
+            NSString *name = _params[@"name"];
             UMSS7ConfigSS7FilterRuleSet *rs = stagingArea.filter_rule_set_dict[name];
             if(rs == NULL)
             {

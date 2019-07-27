@@ -35,7 +35,7 @@
     }
     
 	// 1. Get Staging Area
-	_apiSession.currentStorageAreaName = _webRequest.params[@"name"];
+	_apiSession.currentStorageAreaName = _params[@"name"];
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
 	if(stagingArea == NULL)
     {

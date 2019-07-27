@@ -46,7 +46,7 @@
 		@try
 		{
 			// 2. Get Action-List 
-			NSString *name = _webRequest.params[@"name"];
+			NSString *name = _params[@"name"];
 			UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
 
 			// 3. Verify if action-list exists

@@ -48,7 +48,7 @@
 		@try
 		{
             
-            NSString *no_values = _webRequest.params[@"no-values"];
+            NSString *no_values = _params[@"no-values"];
             BOOL only_names = YES;
             if(no_values.length > 0)
             {

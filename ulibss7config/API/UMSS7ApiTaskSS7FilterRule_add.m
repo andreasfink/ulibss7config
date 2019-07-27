@@ -46,20 +46,19 @@
     {
 		@try
 		{
-            NSDictionary *params = [_webRequest.params urldecode];
 			// 1. Get Engine
-			NSString *engine_name = params[@"engine"];
+			NSString *engine_name = _params[@"engine"];
 			UMPluginHandler *engine = [_appDelegate getSS7FilterEngineHandler:engine_name];
             
             // 2a. Get Engine config
-            NSString *engine_config = params[@"engine-config"];
+            NSString *engine_config = _params[@"engine-config"];
             engine_config = engine_config.urldecode;
             
             // 2b. Get Engine config
             NSString *status = params[@"status"];
 
 			// 3. Get Rule-Set 
-			NSString *ruleset_name = params[@"filter-ruleset"];
+			NSString *ruleset_name = _params[@"filter-ruleset"];
 			UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
 			
 			// 4. Verify if engine exists && rule-set exists
@@ -93,7 +92,7 @@
 			{
 				// 5. Create Rule from end-user input coming from outside
 				UMSS7ConfigSS7FilterRule* filterRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_webRequest.params];	 
-				NSString *idx = _webRequest.params[@"entry-nr"];
+				NSString *idx = _params[@"entry-nr"];
 				if(idx == NULL)
 				{
 					// 5a. Append Rule

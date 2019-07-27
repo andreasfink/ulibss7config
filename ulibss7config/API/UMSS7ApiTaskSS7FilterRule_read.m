@@ -47,13 +47,13 @@
 		@try
 		{
 			// 2. Get Rule-Set name
-			NSString *ruleset_name = _webRequest.params[@"filter-ruleset"];
+			NSString *ruleset_name = _params[@"filter-ruleset"];
             
             // 3. Get Rule-Set
             UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
 			
 			// 4. Get index of rule
-			NSString *idx = _webRequest.params[@"entry-nr"];
+			NSString *idx = _params[@"entry-nr"];
 			
 			// 5. Verify if engine, rule-set, rule exist
 			if(rSet == NULL)

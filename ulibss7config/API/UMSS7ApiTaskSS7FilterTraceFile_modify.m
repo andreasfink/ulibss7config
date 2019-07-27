@@ -36,8 +36,8 @@
 	@try
 	{
 		// 1. Get external parameters
-		NSString *name = _webRequest.params[@"name"];
-		NSString *enable = _webRequest.params[@"enabled"];
+		NSString *name = _params[@"name"];
+		NSString *enable = _params[@"enabled"];
 		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{
@@ -52,7 +52,7 @@
 		else
 		{
 			// 2. Enable
-			NSString *enable = _webRequest.params[@"enable"];
+			NSString *enable = _params[@"enable"];
 			BOOL en = [enable boolValue];
 			
 			[_appDelegate tracefile_enable:name enable:en];

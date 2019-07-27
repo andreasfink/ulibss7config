@@ -35,7 +35,7 @@
         return;
     }
 
-    NSString *sccp_name = _webRequest.params[@"sccp"];
+    NSString *sccp_name = _params[@"sccp"];
     sccp_name = [UMSS7ConfigObject filterName:sccp_name];
 
     NSArray *sccp_names;

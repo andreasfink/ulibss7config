@@ -15,6 +15,7 @@
 @interface UMSS7ApiTask : UMTask
 {
     UMHTTPRequest   *_webRequest;
+    NSDictionary    *_params;
     id<UMSS7ConfigAppDelegateProtocol> _appDelegate;
     UMSS7ApiSession      *_apiSession;
 }

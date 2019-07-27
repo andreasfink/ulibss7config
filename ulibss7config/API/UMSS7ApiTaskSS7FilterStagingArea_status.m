@@ -44,7 +44,7 @@
     {
 		@try
 		{
-			NSString *name = _webRequest.params[@"name"];
+			NSString *name = _params[@"name"];
 			NSArray<NSString *> *names = [_appDelegate getSS7FilterStagingAreaNames];
 			BOOL exist = NO;
 			for(NSString *n in names)

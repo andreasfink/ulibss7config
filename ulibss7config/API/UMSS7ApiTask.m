@@ -23,6 +23,7 @@
     if(self)
     {
         _webRequest = webRequest;
+        _params = [_webRequest.params urldecodeStringValues];
         _appDelegate = ad;
         [_webRequest makeAsync];
     }
@@ -91,8 +92,7 @@
 
 - (void)sendErrorNotFound:(NSString *)param
 {
-    [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];
-    if(param)
+    if(param.length > 0)
     {
         [_webRequest setResponseJsonObject:@{ @"error" : @"not-found", @"parameter" : param }];
     }
@@ -160,9 +160,9 @@
 
 - (BOOL)isAuthenticated
 {
-    NSString *username = _webRequest.params[@"username"];
-    NSString *password = _webRequest.params[@"password"];
-    NSString *session_key = _webRequest.params[@"session-key"];
+    NSString *username = _params[@"username"];
+    NSString *password = _params[@"password"];
+    NSString *session_key = _params[@"session-key"];
     if(session_key.length > 0)
     {
         _apiSession = [_appDelegate getApiSession:session_key];
@@ -219,7 +219,7 @@
 
 - (SccpGttSelector *)getGttSelector
 {
-    NSString *sccp_name     = _webRequest.params[@"sccp"];
+    NSString *sccp_name     = _params[@"sccp"];
     if(sccp_name.length==0)
     {
         [self sendErrorMissingParameter:@"sccp"];
@@ -232,7 +232,7 @@
         [self sendErrorNotFound:@"sccp"];
         return NULL;
     }
-    NSString *table_name    = _webRequest.params[@"translation-table"];
+    NSString *table_name    = _params[@"translation-table"];
     if(table_name.length==0)
     {
         [self sendErrorMissingParameter:@"translation-table"];
@@ -272,7 +272,7 @@
         return NULL;
     }
 
-    NSString *digits     = _webRequest.params[@"digits"];
+    NSString *digits     = _params[@"digits"];
     if(digits.length==0)
     {
         [self sendErrorNotFound:@"digits"];
@@ -291,7 +291,7 @@
         return NULL;
     }
 
-    NSString *name     = _webRequest.params[@"name"];
+    NSString *name     = _params[@"name"];
     if(name.length==0)
     {
         [self sendErrorNotFound:@"name"];

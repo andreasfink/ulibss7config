@@ -36,7 +36,7 @@
     @try
     {
         // 1. Get external parameters
-        NSString *statisticsName = _webRequest.params[@"name"];
+        NSString *statisticsName = _params[@"name"];
 
 
         if(statisticsName.length==0)

@@ -46,7 +46,7 @@
     {
 		@try
 		{
-			NSString *name = _webRequest.params[@"name"];
+			NSString *name = _params[@"name"];
             if(stagingArea.filter_rule_set_dict[name]== 0)
             {
                 [self sendErrorNotFound:name];

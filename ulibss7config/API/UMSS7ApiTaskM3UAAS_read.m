@@ -26,7 +26,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigM3UAAS *obj = [cs getM3UAAS:name];
     if(obj)

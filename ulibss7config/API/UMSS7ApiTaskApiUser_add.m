@@ -35,8 +35,8 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
-    NSString *pwd = _webRequest.params[@"password"];
+    NSString *name = _params[@"name"];
+    NSString *pwd = _params[@"password"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigApiUser *usr = [cs getApiUser:name];
@@ -59,7 +59,7 @@
     {
         @try
         {
-            UMSS7ConfigApiUser *usr = [[UMSS7ConfigApiUser alloc] initWithConfig:_webRequest.params];
+            UMSS7ConfigApiUser *usr = [[UMSS7ConfigApiUser alloc] initWithConfig:_params];
             [cs addApiUser:usr];
             UMSynchronizedSortedDictionary *config = usr.config;
             [self sendResultObject:config];

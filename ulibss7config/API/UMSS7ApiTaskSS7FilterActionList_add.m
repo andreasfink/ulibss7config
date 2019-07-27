@@ -37,7 +37,7 @@
     }
     
 	// 1. Get Action-list external parameters
-	NSString *name = _webRequest.params[@"name"];
+	NSString *name = _params[@"name"];
     NSDictionary *d = [NSDictionary dictionary];
 
 	// 2. call appDelegate getStagingAreaForSession:  to get current staging area storage.

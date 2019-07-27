@@ -38,8 +38,8 @@
     @try
     {
         
-        NSString *action = _webRequest.params[@"action"];
-        NSString *name = _webRequest.params[@"name"];
+        NSString *action = _params[@"action"];
+        NSString *name = _params[@"name"];
         NSDictionary *d = [NSDictionary dictionary];
         if(name.length==0)
         {
@@ -48,7 +48,7 @@
         }
         else if([action isEqualToString:@"copy"])
         {
-            NSString *new_name = _webRequest.params[@"destination"];
+            NSString *new_name = _params[@"destination"];
             UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
             if(stagingArea == NULL)
             {
@@ -56,7 +56,7 @@
             }
             else
             {
-                [stagingArea setConfig:_webRequest.params];
+                [stagingArea setConfig:_params];
                 [_appDelegate copySS7FilterStagingArea:name toNewName:new_name];
                 [self sendResultOK];
             }
@@ -72,7 +72,7 @@
             else
             {
                 [_appDelegate makeStagingAreaCurrent:name];
-                [stagingArea setConfig:_webRequest.params];
+                [stagingArea setConfig:_params];
                 [self sendResultOK];
             }
         }

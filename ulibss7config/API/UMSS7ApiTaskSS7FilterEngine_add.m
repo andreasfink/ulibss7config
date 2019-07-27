@@ -33,7 +33,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"file"];
+    NSString *name = _params[@"file"];
     name = [UMSS7ConfigObject filterName:name];
 
     @try

@@ -49,7 +49,7 @@
 			// 2. use filter_rule_set_dict property and add the ruleset to the dictionary with rulese.name as key
 			UMSS7ConfigSS7FilterRuleSet *rule_set = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:_webRequest.params];
 
-            NSString *name = _webRequest.params[@"name"];
+            NSString *name = _params[@"name"];
 			stagingArea.filter_rule_set_dict[name] = rule_set;
             [stagingArea setDirty:YES];
 			[self sendResultOK];

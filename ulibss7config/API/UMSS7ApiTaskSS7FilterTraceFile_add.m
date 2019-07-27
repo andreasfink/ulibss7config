@@ -37,8 +37,8 @@
 	@try
 	{
 		// 1. Get external parameters
-		NSString *name = [_webRequest.params[@"name"] urldecode];
-		NSString *file = [_webRequest.params[@"filename"] urldecode];
+		NSString *name = _params[@"name"];
+		NSString *file = _params[@"filename"];
 		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{

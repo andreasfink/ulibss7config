@@ -45,8 +45,8 @@
     {
 		@try
 		{
-			NSString *old_name = _webRequest.params[@"name"];
-			NSString *new_name = _webRequest.params[@"newname"];
+			NSString *old_name = _params[@"name"];
+			NSString *new_name = _params[@"newname"];
             if(new_name != NULL)
             {
                 [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];

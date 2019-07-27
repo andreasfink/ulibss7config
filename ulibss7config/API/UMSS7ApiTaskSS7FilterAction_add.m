@@ -47,11 +47,11 @@
         @try
         {
             // 2. Get Action-List
-            NSString *name = _webRequest.params[@"filter-action-list"];
+            NSString *name = _params[@"filter-action-list"];
             UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
             
             // 3. Get Required external params
-            NSString *action = _webRequest.params[@"action"];
+            NSString *action = _params[@"action"];
             
             NSDictionary *d = [NSDictionary dictionary];
 
@@ -71,7 +71,7 @@
                  // 4. adding
                 UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:_webRequest.params];
                 UMSynchronizedSortedDictionary *config = action.config;
-                NSString *entryNr = _webRequest.params[@"entry-nr"];
+                NSString *entryNr = _params[@"entry-nr"];
                 if(entryNr == NULL)
                 {
                     [list appendAction:action];

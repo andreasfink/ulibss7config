@@ -33,19 +33,19 @@
         return;
     }
 
-    NSString *sccp_name     = _webRequest.params[@"sccp"];
+    NSString *sccp_name     = _params[@"sccp"];
     if(sccp_name.length==0)
     {
         [self sendErrorMissingParameter:@"sccp"];
         return;
     }
-    NSString *table_name    = _webRequest.params[@"translation-table"];
+    NSString *table_name    = _params[@"translation-table"];
     if(table_name.length==0)
     {
         [self sendErrorMissingParameter:@"translation-table"];
     }
 
-    NSString *gta = _webRequest.params[@"gta"];
+    NSString *gta = _params[@"gta"];
     gta = [UMSS7ConfigObject filterName:gta];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
@@ -58,7 +58,7 @@
     }
     @try
     {
-        entry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]initWithConfig:_webRequest.params];
+        entry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]initWithConfig:_params];
 
         UMLayerSCCP *sccp_instance = [_appDelegate getSCCP:sccp_name];
         if(sccp_instance==NULL)

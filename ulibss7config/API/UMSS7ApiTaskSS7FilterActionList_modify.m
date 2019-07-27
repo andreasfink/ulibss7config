@@ -45,7 +45,7 @@
     {
         @try
         {
-            NSString *name = _webRequest.params[@"name"];
+            NSString *name = _params[@"name"];
             UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[name];
             if(ls == NULL)
             {
@@ -53,7 +53,7 @@
             }
             else
             {
-                [ls setConfig:_webRequest.params];
+                [ls setConfig:_params];
                 [stagingArea setDirty:YES];
                 [self sendResultObject:ls.config];
             }
