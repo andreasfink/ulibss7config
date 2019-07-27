@@ -4013,6 +4013,8 @@ static void signalHandler(int signum);
 
 - (void)loadSS7FilterEnginesFromDirectory:(NSString *)path
 {
+    [self.logFeed infoText:[NSString stringWithFormat:@"searching for filter engines in %@",path]];
+
     NSFileManager * fm = [NSFileManager defaultManager];
     NSError *e = NULL;
     NSArray<NSString *> *a = [fm contentsOfDirectoryAtPath:path  error:&e];
@@ -4022,7 +4024,11 @@ static void signalHandler(int signum);
     }
     for(NSString *filename in a)
     {
+
         NSString *filepath = [NSString stringWithFormat:@"%@/%@",path,filename];
+        
+        [self.logFeed debugText:[NSString stringWithFormat:@"loading filter %@",filepath]];
+
         UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
         if(ph)
         {
@@ -4030,7 +4036,13 @@ static void signalHandler(int signum);
             NSDictionary *info = ph.info;
             NSString *type = info[@"type"];
             if([type isEqualToString:@"ss7-filter"])
+            {
                 _ss7FilterEngines[ph.name] = ph;
+            }
+            else
+            {
+                [self.logFeed minorErrorText:[NSString stringWithFormat:@"filter %@ is of type %@. was excpecting ss7-filter. Ignoring",filepath,type]];
+            }
         }
         else
         {

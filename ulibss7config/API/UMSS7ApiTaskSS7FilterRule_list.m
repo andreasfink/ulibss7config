@@ -48,7 +48,7 @@
 		@try
 		{
 			// 2. Get Rule-Set
-			NSString *ruleset_name = _webRequest.params[@"filter-ruleset"];
+			NSString *ruleset_name = [_webRequest.params[@"filter-ruleset"] urldecode];
 			UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
 			
 			// 3. Verify if rule-set exists

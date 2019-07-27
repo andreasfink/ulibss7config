@@ -48,12 +48,12 @@
 		@try
 		{
 			// 2. Get Action-List 
-			NSString *name = _webRequest.params[@"filter-action-list"];
+			NSString *name = [_webRequest.params[@"filter-action-list"] urldecode];
 			UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
 			
 			// 3. Get index of action
-			NSString *idx = _webRequest.params[@"entry-nr"];
-            NSString *action = _webRequest.params[@"action"];
+			NSString *idx = [_webRequest.params[@"entry-nr"] urldecode];
+            NSString *action = [_webRequest.params[@"action"] urldecode];
             NSDictionary *d = [NSDictionary dictionary];
             
 			// 4. Verify if action-list exists
