@@ -55,7 +55,7 @@
             engine_config = engine_config.urldecode;
             
             // 2b. Get Engine config
-            NSString *status = params[@"status"];
+            NSString *status = _params[@"status"];
 
 			// 3. Get Rule-Set 
 			NSString *ruleset_name = _params[@"filter-ruleset"];
