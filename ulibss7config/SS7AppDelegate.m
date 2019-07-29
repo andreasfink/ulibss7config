@@ -881,8 +881,8 @@ static void signalHandler(int signum);
             if(webServer)
             {
                 webServer.enableKeepalive = YES;
-                webServer._httpGetPostDelegate = self;
-                webServer._httpOptionsDelegate = self;
+                webServer.httpGetPostDelegate = self;
+                webServer.httpOptionsDelegate = self;
                 webServer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"http"];
                 webServer.logFeed.name = name;
                 _webserver_dict[name] = webServer;
