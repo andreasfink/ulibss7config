@@ -42,7 +42,11 @@
     APPEND_CONFIG_STRING(s,@"status",_status);
 	APPEND_CONFIG_STRING(s,@"engine",_engine);
 	APPEND_CONFIG_STRING(s,@"action-list",_actionList);
-	APPEND_CONFIG_STRING(s,@"engine-config",_engineConfig);
+    APPEND_CONFIG_STRING(s,@"engine-config",_engineConfig);
+    APPEND_CONFIG_STRING(s,@"tags",_tags);
+    APPEND_CONFIG_BOOLEAN(s,@"not-tags",_notTags);
+    APPEND_CONFIG_STRING(s,@"variables",_variables);
+    APPEND_CONFIG_BOOLEAN(s,@"not-vars",_notVars);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -55,6 +59,11 @@
 	APPEND_DICT_STRING(dict,@"engine",_engine);
 	APPEND_DICT_STRING(dict,@"action-list",_actionList);
 	APPEND_DICT_STRING(dict,@"engine-config",_engineConfig);
+    APPEND_DICT_STRING(dict,@"tags",_tags);
+    APPEND_DICT_BOOLEAN(dict,@"not-tags",_notTags);
+    APPEND_DICT_STRING(dict,@"variables",_variables);
+    APPEND_DICT_BOOLEAN(dict,@"not-vars",_notVars);
+
 	return dict;
 }
 
@@ -68,6 +77,11 @@
 	SET_DICT_STRING(dict,@"engine",_engine);
 	SET_DICT_STRING(dict,@"action-list",_actionList);
 	SET_DICT_STRING(dict,@"engine-config",_engineConfig);
+    SET_DICT_STRING(dict,@"tags",_tags);
+    SET_DICT_BOOLEAN(dict,@"not-tags",_notTags);
+    SET_DICT_STRING(dict,@"variables",_variables);
+    SET_DICT_BOOLEAN(dict,@"not-vars",_notVars);
+
 }
 
 - (UMSS7ConfigSS7FilterRule *)copyWithZone:(NSZone *)zone
