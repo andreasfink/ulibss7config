@@ -141,7 +141,6 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
         }
         _variableConditions = arr;
     }
-
     return YES;
 }
 
