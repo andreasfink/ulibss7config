@@ -91,7 +91,7 @@
 			else
 			{
 				// 5. Create Rule from end-user input coming from outside
-				UMSS7ConfigSS7FilterRule* filterRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_webRequest.params];	 
+				UMSS7ConfigSS7FilterRule* filterRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_params];	 
 				NSString *idx = _params[@"entry-nr"];
 				if(idx == NULL)
 				{

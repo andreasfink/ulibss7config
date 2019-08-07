@@ -69,7 +69,7 @@
             else
             {
                  // 4. adding
-                UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:_webRequest.params];
+                UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:_params];
                 UMSynchronizedSortedDictionary *config = action.config;
                 NSString *entryNr = _params[@"entry-nr"];
                 if(entryNr == NULL)

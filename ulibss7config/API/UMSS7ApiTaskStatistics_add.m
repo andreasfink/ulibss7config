@@ -46,7 +46,7 @@
         else
         {
             // 2. adding
-            [_appDelegate statistics_add:statisticsName params:_webRequest.params];
+            [_appDelegate statistics_add:statisticsName params:_params];
             [self sendResultOK];
         }
     }

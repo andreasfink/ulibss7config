@@ -10,4 +10,25 @@
 
 @implementation UMSS7ApiTaskSS7FilterEngine_modify
 
++ (NSString *)apiPath
+{
+    return @"/api/ss7-filter-engine-modify";
+}
+
+- (void)main
+{
+    if(![self isAuthenticated])
+    {
+        [self sendErrorNotAuthenticated];
+        return;
+    }
+
+    if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+    [self sendErrorNotImplemented];
+}
+
 @end

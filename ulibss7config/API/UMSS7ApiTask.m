@@ -71,7 +71,18 @@
 + (NSArray *)apiPathList
 {
     NSMutableArray *a = [[NSMutableArray alloc]init];
-#define API(APICLASS)  [a addObject:[APICLASS apiPath]];
+#define API(APICLASS) {\
+     NSString *s = [APICLASS apiPath]; \
+    if([s isEqualToString:@"/api"]) \
+    {\
+NSLog(@"%s is not returning an apiPath!",#APICLASS); \
+    } \
+    else \
+    {\
+        [a addObject:[APICLASS apiPath]];\
+    }\
+}
+
 #include "UMSS7ApiTaskAll.txt"
 #undef API
     return a;

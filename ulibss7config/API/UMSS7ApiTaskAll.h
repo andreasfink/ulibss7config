@@ -173,3 +173,11 @@
 #import "UMSS7ApiTaskNamedlist_add.h"
 #import "UMSS7ApiTaskNamedlist_delete.h"
 #import "UMSS7ApiTaskNamedlist_contains.h"
+
+#import "UMSS7ApiTaskStatistics_list.h"
+#import "UMSS7ApiTaskStatistics_read.h"
+#import "UMSS7ApiTaskStatistics_add.h"
+#import "UMSS7ApiTaskStatistics_modify.h"
+#import "UMSS7ApiTaskStatistics_delete.h"
+#import "UMSS7ApiTaskStatistics_status.h"
+#import "UMSS7ApiTaskStatistics_action.h"

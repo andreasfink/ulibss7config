@@ -56,7 +56,7 @@
 		@try
 		{
 			// 3. use filter_action_list_dict property and add the list to the dictionary with list.name as key
-			UMSS7ConfigSS7FilterActionList *list = [[UMSS7ConfigSS7FilterActionList alloc]initWithConfig:_webRequest.params];
+			UMSS7ConfigSS7FilterActionList *list = [[UMSS7ConfigSS7FilterActionList alloc]initWithConfig:_params];
 			stagingArea.filter_action_list_dict[name] = list;
             [stagingArea setDirty:YES];
 			[self sendResultOK];

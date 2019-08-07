@@ -17,7 +17,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/sccp-asp-action";
+    return @"/api/sccp-action";
 }
 
 - (void)main

@@ -61,7 +61,7 @@
             }
 			else
 			{
-				[_appDelegate createSS7FilterStagingArea:_webRequest.params];
+				[_appDelegate createSS7FilterStagingArea:_params];
 
 				[self sendResultOK];
 			}

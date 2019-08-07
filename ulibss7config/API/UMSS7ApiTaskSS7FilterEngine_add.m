@@ -46,7 +46,7 @@
         }
         else
         {
-            [_appDelegate addWithConfigSS7FilterEngine:_webRequest.params];
+            [_appDelegate addWithConfigSS7FilterEngine:_params];
             [self sendResultOK];
         }
     }

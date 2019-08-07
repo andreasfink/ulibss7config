@@ -51,13 +51,13 @@
             {
                 [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
                 
-                NSDictionary *ds = [[NSDictionary alloc] initWithDictionary:_webRequest.params];
+                NSDictionary *ds = [[NSDictionary alloc] initWithDictionary:_params];
                 [ds setValue:new_name forKey:@"name"];
                 [_appDelegate updateSS7FilterStagingArea:ds];
             }
             else
             {
-                [_appDelegate updateSS7FilterStagingArea:_webRequest.params];
+                [_appDelegate updateSS7FilterStagingArea:_params];
                  [stagingArea setDirty:YES];
             }
 			[self sendResultOK];

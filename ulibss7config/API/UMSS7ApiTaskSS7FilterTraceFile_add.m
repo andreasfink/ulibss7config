@@ -53,7 +53,7 @@
 		else
 		{
 			// 2. adding
-            UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_webRequest.params];
+            UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_params];
             [_appDelegate tracefile_add:traceFile];
             if(traceFile.enabled)
             {

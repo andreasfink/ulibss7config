@@ -1,18 +1,23 @@
 //
-//  UMSS7ApiTaskSS7FilterEngine_status.m
+//  UMSS7ApiTaskStatistics_status.m
 //  ulibss7config
 //
-//  Created by Andreas Fink on 29.05.19.
+//  Created by Andreas Fink on 07.08.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskSS7FilterEngine_status.h"
+#import "UMSS7ApiTaskStatistics_status.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
-@implementation UMSS7ApiTaskSS7FilterEngine_status
+
+@implementation UMSS7ApiTaskStatistics_status
 
 + (NSString *)apiPath
 {
-    return @"/api/ss7-filter-engine-status";
+    return @"/api/statistics-status";
 }
 
 - (void)main
@@ -28,8 +33,9 @@
         [self sendErrorNotAuthorized];
         return;
     }
+
     [self sendErrorNotImplemented];
 }
 
-
 @end
+

@@ -53,7 +53,7 @@
             }
             else
             {
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:_webRequest.params];
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:_params];
                 [rs setConfig:dict];
                 [stagingArea setDirty:YES];
                 [self sendResultObject:rs.config];

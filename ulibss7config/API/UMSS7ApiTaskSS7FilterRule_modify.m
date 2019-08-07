@@ -87,7 +87,7 @@
 				else
 				{
 					// 5d-2. OK
-					UMSS7ConfigSS7FilterRule* newRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_webRequest.params];
+					UMSS7ConfigSS7FilterRule* newRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_params];
 					[rSet setRule:newRule atIndex:i];
                     [stagingArea setDirty:YES];
 					[self sendResultOK];
