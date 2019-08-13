@@ -780,7 +780,6 @@ else \
 -(void)sessionMAP_Close_Ind:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                     options:(NSDictionary *)xoptions
 {
-
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_Close_Ind"];
