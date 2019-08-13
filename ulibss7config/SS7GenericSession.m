@@ -417,7 +417,8 @@ else \
 {
     if(_logLevel <=UMLOG_DEBUG)
     {
-        [self logDebug:@"sessionMAP_ReturnResult_Resp"];
+        [self logDebug:@"SS7GenericSession sessionMAP_ReturnResult_Resp"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
 
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnResult_Resp"];
@@ -484,6 +485,7 @@ else \
     if(_logLevel <=UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_ReturnError_Resp"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnError_Resp"];
 
@@ -544,6 +546,7 @@ else \
     if(_logLevel <=UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_Reject_Resp"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
 
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Reject_Resp"];
@@ -587,6 +590,7 @@ else \
     if(_logLevel <=UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_Close_Req"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
 
     VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -680,6 +684,7 @@ else \
     if(_logLevel <=UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_Open_Ind"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
 
     _userIdentifier = xuserIdentifier;
@@ -722,6 +727,7 @@ else \
     if(_logLevel <=UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_Delimiter_Ind"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
 
     _localAddress = src;
@@ -751,6 +757,7 @@ else \
     if(_logLevel <=UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_Continue_Ind"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
 
     _localAddress = dst;
@@ -783,6 +790,7 @@ else \
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
         [self logDebug:@"sessionMAP_Close_Ind"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
 
     SccpAddress *calling = xoptions[@"sccp-calling-address"];
@@ -868,6 +876,7 @@ else \
     if(_logLevel <= UMLOG_DEBUG)
     {
         [self logDebug:@"markForTermination"];
+        [self logDebug:UMBacktrace(NULL,0)];
     }
     [_historyLog addLogEntry:@"SS7GenericSession: markForTermination"];
     [_gInstance markSessionForTermination:self];
