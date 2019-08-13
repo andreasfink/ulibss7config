@@ -530,7 +530,6 @@ else \
     info[@"ReturnError"] = info_sub;
     comp[@"rx"] = info;
     [_components addObject:comp];
-    [self sessionMAP_Close_Ind:xuserIdentifier options:_options];
 }
 
 - (void) sessionMAP_Reject_Resp:(UMASN1Object *)param
