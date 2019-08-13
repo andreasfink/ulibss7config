@@ -679,7 +679,6 @@
     }
     [t sessionMAP_Close_Ind:userIdentifier
                     options:options];
-    [self markSessionForTermination:t];
 }
 
 -(void) executeMAP_U_Abort_Ind:(UMGSMMAP_UserIdentifier *)userIdentifier

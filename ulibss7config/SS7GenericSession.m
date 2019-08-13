@@ -415,6 +415,11 @@ else \
                                 last:(BOOL)xlast
                              options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_ReturnResult_Resp"];
+    }
+
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnResult_Resp"];
 
     VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -476,6 +481,10 @@ else \
                            errorCode:(int64_t)err
                              options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_ReturnError_Resp"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnError_Resp"];
 
     VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -532,6 +541,11 @@ else \
                       errorCode:(int64_t)err
                         options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Reject_Resp"];
+    }
+
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Reject_Resp"];
 
     VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -570,6 +584,11 @@ else \
 - (void) sessionMAP_Close_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                       options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Close_Req"];
+    }
+
     VERIFY_UID(_userIdentifier,xuserIdentifier);
 
     SccpAddress *calling = xoptions[@"sccp-calling-address"];
@@ -658,6 +677,11 @@ else \
              dialoguePortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion
                      options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Open_Ind"];
+    }
+
     _userIdentifier = xuserIdentifier;
     _remoteAddress = src;
     _localAddress = dst;
@@ -680,7 +704,10 @@ else \
               dialoguePortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion
                       options:(NSDictionary *)options
 {
-
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Open_Resp"];
+    }
 }
 
 -(void)sessionMAP_Delimiter_Ind:(UMGSMMAP_UserIdentifier *)xuserIdentifier
@@ -692,6 +719,11 @@ else \
             remoteTransactionId:(NSString *)xremoteTransactionId
                         options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Delimiter_Ind"];
+    }
+
     _localAddress = src;
     _remoteAddress = dst;
 
@@ -716,6 +748,11 @@ else \
            remoteTransactionId:(NSString *)remoteTransactionId
                        options:(NSDictionary *)options
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Continue_Ind"];
+    }
+
     _localAddress = dst;
     _remoteAddress = src;
     if(_gInstance.logLevel <= UMLOG_DEBUG)
@@ -762,13 +799,12 @@ else \
 
 
     [_operationMutex lock];
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     @try
     {
         VERIFY_UID(_userIdentifier,xuserIdentifier);
 
         /* now we can finish the HTTP request */
-
-        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
         dict[@"query"] =  _query.objectValue;
         if(_query2)
         {
@@ -812,15 +848,15 @@ else \
         dict[@"tcap-remote-transaction-id"] = _tcapRemoteTransactionId;
         dict[@"tcap-end-indicator"] = @(YES);
         [self outputResult2:dict];
-        [self markForTermination];
     }
     @catch(NSException *err)
     {
         [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_Close_Ind: %@",err]];
-        [self markForTermination];
+        [self outputResult2:dict];
     }
     @finally
     {
+        [self markForTermination];
         [_operationMutex unlock];
     }
     [self touch];
@@ -832,7 +868,7 @@ else \
     [self touch];
     if(_logLevel <= UMLOG_DEBUG)
     {
-        [self logMajorError:@"SS7GenericSession: markForTermination"];
+        [self logDebug:@"markForTermination"];
     }
     [_historyLog addLogEntry:@"SS7GenericSession: markForTermination"];
     [_gInstance markSessionForTermination:self];
@@ -840,6 +876,11 @@ else \
 
 - (void)outputResult2:(UMSynchronizedSortedDictionary *)dict
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"outputResult2"];
+    }
+
     NSString *json;
     @try
     {
@@ -847,11 +888,16 @@ else \
     }
     @catch(id err)
     {
-        [self.logFeed majorErrorText:[NSString stringWithFormat:@"HLRSession: Sending U_Abort due to exception: %@",err]];
+        [self logMajorError:[NSString stringWithFormat:@"Sending U_Abort due to exception: %@",err]];
     }
     if(!json)
     {
         json = [NSString stringWithFormat:@"json-encoding problem %@",dict];
+        [self logMajorError:[NSString stringWithFormat:@"json-encoding problem %@",dict]];
+    }
+    if(_req==NULL)
+    {
+        [self logMajorError:@"_req is NULL"];
     }
     [_req setResponsePlainText:json];
     [_req resumePendingRequest];
@@ -1672,7 +1718,7 @@ else \
 {
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
-        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,_req.params ];
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,_req.params ];
         [_gInstance logDebug:s];
     }
 }
@@ -1681,7 +1727,7 @@ else \
 {
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
-        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
         [_gInstance logDebug:s];
     }
 }
@@ -1690,7 +1736,7 @@ else \
 {
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
-        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
         [_gInstance logInfo:s];
     }
 }
@@ -1699,7 +1745,7 @@ else \
 {
     if(_gInstance.logLevel <= UMLOG_MAJOR)
     {
-        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
         [_gInstance logMajorError:s];
     }
 }
@@ -1708,7 +1754,7 @@ else \
 {
     if(_gInstance.logLevel <= UMLOG_MINOR)
     {
-        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
         [_gInstance logMinorError:s];
     }
 }
