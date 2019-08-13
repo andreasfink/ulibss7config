@@ -37,7 +37,7 @@
     @try
     {
         NSString *statisticsName = _params[@"name"];
-        NSString *statisticsKey = _params[@"key"];
+        NSString *statisticsKey  = _params[@"key"];
         NSString *b = _params[@"no-values"];
         BOOL noValues = [b boolValue];
 
