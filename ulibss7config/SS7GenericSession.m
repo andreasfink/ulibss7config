@@ -189,7 +189,7 @@ else \
     _startTime = [NSDate date];
     _lastActiveTime = [[UMAtomicDate alloc]initWithDate:_startTime];
     self.logFeed = inst.logFeed;
-    _logLevel = UMLOG_MAJOR;
+    _logLevel = inst.logLevel; //UMLOG_MAJOR;
     _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericSession_operationMutex"];
     _historyLog = [[UMHistoryLog alloc]init];
     _outputFormat = OutputFormat_json;
@@ -720,7 +720,7 @@ else \
     _remoteAddress = src;
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
-        [self.logFeed debugText:@"we got a sessionMAP_Continue_Ind"];
+        [self logDebug:@"sessionMAP_Continue_Ind"];
     }
     [self touch];
 }
@@ -732,6 +732,10 @@ else \
                        transactionId:(NSString *)localTransactionId
                  remoteTransactionId:(NSString *)remoteTransactionId
 {
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Unidirectional_Ind"];
+    }
     [self touch];
 }
 
@@ -739,6 +743,11 @@ else \
 -(void)sessionMAP_Close_Ind:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                     options:(NSDictionary *)xoptions
 {
+
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Close_Ind"];
+    }
 
     SccpAddress *calling = xoptions[@"sccp-calling-address"];
     SccpAddress *called = xoptions[@"sccp-called-address"];
@@ -805,6 +814,11 @@ else \
         [self outputResult2:dict];
         [self markForTermination];
     }
+    @catch(NSException *err)
+    {
+        [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_Close_Ind: %@",err]];
+        [self markForTermination];
+    }
     @finally
     {
         [_operationMutex unlock];
@@ -816,6 +830,10 @@ else \
 - (void)markForTermination
 {
     [self touch];
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logMajorError:@"SS7GenericSession: markForTermination"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: markForTermination"];
     [_gInstance markSessionForTermination:self];
 }
@@ -843,6 +861,11 @@ else \
 -(void) sessionMAP_U_Abort_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                        options:(NSDictionary *)options
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_U_Abort_Req"];
+    }
+
     [_gInstance.gsmMap queueMAP_U_Abort_Req:_dialogId
                                    options:@{}
                                     result:NULL
@@ -861,6 +884,11 @@ else \
           remoteTransactionId:(NSString *)xremoteTransactionId
                       options:(NSDictionary *)xoptions
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_U_Abort_Ind"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_U_Abort_Ind"];
 
@@ -932,6 +960,11 @@ else \
 
         [self markForTermination];
     }
+    @catch(NSException *err)
+    {
+        [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_U_Abort_Ind: %@",err]];
+        [self markForTermination];
+    }
     @finally
     {
         [_operationMutex unlock];
@@ -947,6 +980,11 @@ else \
           remoteTransactionId:(NSString *)xremoteTransactionId
                       options:(NSDictionary *)xoptions
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_P_Abort_Ind"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_P_Abort_Ind"];
 
@@ -1019,6 +1057,11 @@ else \
 -(void) sessionMAP_Notice_Ind:(UMGSMMAP_UserIdentifier *)userIdentifier
                       options:(NSDictionary *)options
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Notice_Ind(doing nothing)"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Notice_Ind(doing nothing)"];
 }
@@ -1028,6 +1071,11 @@ else \
                        reason:(SCCP_ReturnCause)reason
                       options:(NSDictionary *)options
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Notice_Ind with reason"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Notice_Ind with reason"];
     [self.logFeed infoText:@"MAP_Notice_Ind"];
@@ -1089,6 +1137,10 @@ else \
             dict[@"tcap-remote-transaction-id"] = _tcapRemoteTransactionId;
         }
         [self outputResult2:dict];
+    }
+    @catch(NSException *err)
+    {
+        [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_Notice_Ind: %@",err]];
     }
     @finally
     {
@@ -1625,6 +1677,42 @@ else \
     }
 }
 
+- (void)logDebug:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        [_gInstance logDebug:s];
+    }
+}
+
+- (void)logInfo:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        [_gInstance logInfo:s];
+    }
+}
+
+- (void)logMajorError:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_MAJOR)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        [_gInstance logMajorError:s];
+    }
+}
+
+- (void)logMinorError:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_MINOR)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,str];
+        [_gInstance logMinorError:s];
+    }
+}
+
 + (void)webFormStart:(NSMutableString *)s title:(NSString *)t
 {
     [SS7GenericInstance webHeader:s title:t];
@@ -1784,11 +1872,15 @@ else \
 - (void)timeout /* gets called when timeouts occur */
 {
     [self touch];
+    [self logInfo:@"timeout"];
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"timeout"];
+    }
+
     [_historyLog addLogEntry:@"timeout"];
     [self abort];
     [self writeTraceToDirectory:_gInstance.timeoutTraceDirectory];
-
-    [self.logFeed infoText:@"timeout"];
 
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     dict[@"query"] =  _query.objectValue;
@@ -1856,6 +1948,10 @@ else \
 
 - (void)abortUnknown
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"SS7GenericSession: abortUnknown"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: abortUnknown"];
 
     @try
@@ -1874,13 +1970,22 @@ else \
     }
     @catch(NSException *e)
     {
-        [_historyLog addLogEntry:[NSString stringWithFormat:@"Exception:%@",e.description]];
+        NSString *s = [NSString stringWithFormat:@"Exception: %@",e.description];
+        if(_logLevel <=UMLOG_DEBUG)
+        {
+            [self logDebug:s];
+        }
+        [_historyLog addLogEntry:s];
     }
     [_historyLog addLogEntry:@"abort"];
 }
 
 - (void)abort
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"SS7GenericSession: abort"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: abort"];
 
     @try
@@ -1899,7 +2004,12 @@ else \
     }
     @catch(NSException *e)
     {
-        [_historyLog addLogEntry:[NSString stringWithFormat:@"Exception:%@",e.description]];
+        NSString *s = [NSString stringWithFormat:@"Exception: %@",e.description];
+        if(_logLevel <=UMLOG_DEBUG)
+        {
+            [self logDebug:s];
+        }
+        [_historyLog addLogEntry:s];
     }
     [_historyLog addLogEntry:@"abort"];
 }

@@ -334,6 +334,10 @@
     //--------------------------------------------------------------------------------------------
 
 - (void)logWebSession;
+- (void)logDebug:(NSString *)str;
+- (void)logInfo:(NSString *)str;
+- (void)logMajorError:(NSString *)str;
+- (void)logMinorError:(NSString *)str;
 
 + (void)webFormStart:(NSMutableString *)s title:(NSString *)t;
 + (void)webFormEnd:(NSMutableString *)s;
