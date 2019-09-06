@@ -1475,12 +1475,31 @@ else \
         @throw(@"options not initialized!");
     }
 
+    if (p[@"tcap-operation-global"])
+    {
+        if([p[@"tcap-operation-global"] boolValue])
+        {
+            _tcap_operation_global = YES;
+            _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
+        }
+    }
+
     if (p[@"keep-sccp-calling-addr"])
     {
         if([p[@"keep-sccp-calling-addr"] boolValue])
         {
             _options[@"keep-sccp-calling-addr"] = @(YES);
             _keepOriginalSccpAddressForTcapContinue=YES;
+        }
+    }
+
+    _tcap_operation_global = NO;
+    if (p[@"tcap-operation-global"])
+    {
+        if([p[@"tcap-operation-global"] boolValue])
+        {
+            _options[@"tcap-operation-global"] = @(YES);
+            _tcap_operation_global = YES;
         }
     }
 
@@ -1841,6 +1860,12 @@ else \
     [s appendString:@"    <td class=optional>keep-sccp-calling-addr</td>\n"];
     [s appendFormat:@"    <td class=optional><input name=\"keep-sccp-calling-addr\" type=\"text\" value=\"0\"> 0&nbsp;|&nbsp;1</td>\n"];
     [s appendString:@"</tr>\n"];
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>tcap-operation-global</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"tcap-operation-global\" type=\"text\" value=\"0\"> 0 |&nbsp;1</td>\n"];
+    [s appendString:@"</tr>\n"];
+
 }
 
 + (void)webSccpTitle:(NSMutableString *)s

@@ -81,6 +81,7 @@
     NSInteger                   _hasReceivedInvokes;
     int                         _phase;
     BOOL                        _keepOriginalSccpAddressForTcapContinue;
+    BOOL                        _tcap_operation_global;
     NSString *_calling_ssn;
     NSString *_called_ssn;
     NSString *_calling_address;
