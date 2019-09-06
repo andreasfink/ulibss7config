@@ -1,0 +1,53 @@
+# File: Makefile
+# Project "ulibss7config"
+# Copyright © 2017 Andreas Fink (andreas@fink.org). All rights reserved.
+# Create: Andreas Fink (andreas@fink.org)
+#
+#
+
+CC=clang
+CFLAGS= -D_REENTRANT=1 -DDARWIN=1 -arch x86_64 -O2 -DULIBSS7CONFIG_CONFIG=Release -D_POSIX_SOURCE
+LDFLAGS=
+PROJECT_NAME=ulibss7config
+MAJORVER=1
+MINORVER=9
+REVISION=3
+
+LIB=libulibss7config.dylib
+PKGCONFIGFILE=ulibss7config.pc
+
+MFILES = $(wildcard ulibss7config/*.m) $(wildcard ulibss7config/*/*.m)
+HFILES =  $(wildcard ulibss7config/*.h) $(wildcard ulibss7config/*/*.h)
+MOFILES  = $(MFILES:.m=.m.o)
+OFILES = $(MOFILES)
+
+INCLUDEDIRS=-I ulibss7config -I ulibss7config/API -I ulibss7config/Config
+
+libulibss7config.so: ${OFILES}
+	${CC} -shared -o ${LIB}  ${LDFLAGS} ${OFILES} ${LIBS} ${STATIC_LIBS}
+
+install: ${LIB}
+	-mkdir -p ${DESTDIR}/usr/local/lib/pkgconfig
+	rm -f "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}.${MINORVER}.${REVISION}"
+	rm -f "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}.${MINORVER}"
+	rm -f "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}"
+	rm -f "${DESTDIR}/usr/local/lib/${LIB}"
+	install -b -g wheel -o root -m 644 "${LIB}" "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}.${MINORVER}.${REVISION}"	
+	ln -s "${LIB}.${MAJORVER}.${MINORVER}.${REVISION}" "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}.${MINORVER}"
+	ln -s "${LIB}.${MAJORVER}.${MINORVER}"             "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}"
+	ln -s "${LIB}.${MAJORVER}"                         "${DESTDIR}/usr/local/lib/${LIB}"
+	-install -b -g wheel -o root -m 644 ${PKGCONFIGFILE} ${DESTDIR}/usr/local/lib/pkgconfig/
+	-mkdir -p ${DESTDIR}/usr/local/include/ulibss7config
+	cp $(HFILES) ${DESTDIR}/usr/local/include/ulibss7config
+	ldconfig
+
+clean:
+	rm -f $(LIB) $(OFILES)
+
+.SUFFIXES: .m.o .o .m .c
+
+%.m.o:	%.m
+	${CC} -c ${CFLAGS} -x objective-c -fobjc-arc $<  ${INCLUDEDIRS} -o $@
+
+
+
