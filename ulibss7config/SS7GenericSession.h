@@ -32,6 +32,8 @@
     UMLayerGSMMAP_OpCode    *_opcode3;
     UMLayerGSMMAP_OpCode    *_firstResponseOpcode;
     UMLayerGSMMAP_OpCode    *_firstInvokeOpcode;
+    UMLayerGSMMAP_OpCode    *_secondResponseOpcode;
+    UMLayerGSMMAP_OpCode    *_secondInvokeOpcode;
     SS7GenericInstance      *_gInstance;
     SccpAddress             *_initialLocalAddress;
     SccpAddress             *_localAddress;
@@ -68,6 +70,9 @@
     int                         _firstInvokeId;
     UMASN1Object                *_firstInvoke;
     UMASN1Object                *_firstResponse;
+    int                         _secondInvokeId;
+    UMASN1Object                *_secondInvoke;
+    UMASN1Object                *_secondResponse;
     int                         _mapVersion;
     int                         _appContextByte;
     UMLogLevel                  _logLevel;
@@ -82,6 +87,7 @@
     int                         _phase;
     BOOL                        _keepOriginalSccpAddressForTcapContinue;
     BOOL                        _tcap_operation_global;
+    BOOL                        _multiMap;
     NSString *_calling_ssn;
     NSString *_called_ssn;
     NSString *_calling_address;
@@ -103,6 +109,8 @@
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *opcode3;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstResponseOpcode;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstInvokeOpcode;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *secondResponseOpcode;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *secondInvokeOpcode;
 @property(readwrite,strong,atomic)    SS7GenericInstance      *gInstance;
 @property(readwrite,strong,atomic)    SccpAddress             *initialLocalAddress;
 @property(readwrite,strong,atomic)    SccpAddress             *initialRemoteAddress;
@@ -137,6 +145,9 @@
 @property(readwrite,assign,atomic)    int                         firstInvokeId;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstInvoke;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstResponse;
+@property(readwrite,assign,atomic)    int                         secondInvokeId;
+@property(readwrite,strong,atomic)    UMASN1Object                *secondInvoke;
+@property(readwrite,strong,atomic)    UMASN1Object                *secondResponse;
 @property(readwrite,assign,atomic)    int                         mapVersion;
 @property(readwrite,assign,atomic)    int                         appContextByte;
 @property(readwrite,assign,atomic)    UMLogLevel                  logLevel;
@@ -150,6 +161,8 @@
 @property(readwrite,assign,atomic)    NSInteger                   hasReceivedInvokes;
 @property(readwrite,assign,atomic)    int                         phase;
 @property(readwrite,assign,atomic)    BOOL                        keepOriginalSccpAddressForTcapContinue;
+@property(readwrite,assign,atomic)    BOOL                        multiMap;
+@property(readwrite,assign,atomic)    BOOL                        tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;
 @property(readwrite,strong,atomic)    NSString *callingaddress;
