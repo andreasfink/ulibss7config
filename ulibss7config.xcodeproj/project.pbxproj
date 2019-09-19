@@ -173,6 +173,8 @@
 		A69429FA22DE5B9700A90936 /* UMSS7App.m in Sources */ = {isa = PBXBuildFile; fileRef = A69429F822DE5B9700A90936 /* UMSS7App.m */; };
 		A69A2CE52327E63800F12046 /* DiameterSessionRIR.h in Headers */ = {isa = PBXBuildFile; fileRef = A69A2CE32327E63800F12046 /* DiameterSessionRIR.h */; };
 		A69A2CE62327E63800F12046 /* DiameterSessionRIR.m in Sources */ = {isa = PBXBuildFile; fileRef = A69A2CE42327E63800F12046 /* DiameterSessionRIR.m */; };
+		A69A2D2A2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A69A2D282329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h */; };
+		A69A2D2B2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A69A2D292329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m */; };
 		A6B011AD21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B011AE21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */; };
 		A6B011B121DA56EF00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B011AF21DA56EF00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -768,6 +770,8 @@
 		A69429F822DE5B9700A90936 /* UMSS7App.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7App.m; sourceTree = "<group>"; };
 		A69A2CE32327E63800F12046 /* DiameterSessionRIR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiameterSessionRIR.h; sourceTree = "<group>"; };
 		A69A2CE42327E63800F12046 /* DiameterSessionRIR.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiameterSessionRIR.m; sourceTree = "<group>"; };
+		A69A2D282329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiameterSessionLCS_Routing_Info_Request.h; sourceTree = "<group>"; };
+		A69A2D292329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiameterSessionLCS_Routing_Info_Request.m; sourceTree = "<group>"; };
 		A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSCCPTranslationTable_list.h; sourceTree = "<group>"; };
 		A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSCCPTranslationTable_list.m; sourceTree = "<group>"; };
 		A6B011AF21DA56EF00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSCCPTranslationTableEntry_list.h; sourceTree = "<group>"; };
@@ -1871,6 +1875,8 @@
 				A69A2CE42327E63800F12046 /* DiameterSessionRIR.m */,
 				A6336E7422D578DD00F803C5 /* DiameterSessionUpdate_Location_Request.h */,
 				A6336E6B22D578DC00F803C5 /* DiameterSessionUpdate_Location_Request.m */,
+				A69A2D282329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h */,
+				A69A2D292329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m */,
 			);
 			path = DiameterSessions;
 			sourceTree = "<group>";
@@ -1934,6 +1940,7 @@
 				A6BC44D6207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_add.h in Headers */,
 				A6BF30AC229436920000578B /* UMSS7ApiTaskSS7FilterStagingArea_list.h in Headers */,
 				A634BC0121A3954B00852462 /* SS7GenericSession.h in Headers */,
+				A69A2D2A2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h in Headers */,
 				A69429E722DC963100A90936 /* UMSS7FilterRule.h in Headers */,
 				A6B011C121DA571900B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_read.h in Headers */,
 				A661A503229D559400CCEE02 /* UMSS7ApiTaskSS7FilterActionList_action.h in Headers */,
@@ -2430,6 +2437,7 @@
 				A6BC432620774F93008C3CEB /* UMSS7ConfigGSMMAPFilter.m in Sources */,
 				A6BB69FE21522FFE00749D40 /* UMSS7ApiTaskSCCPTranslationTable_modify.m in Sources */,
 				A6BC44D7207753ED008C3CEB /* UMSS7ApiTaskSCTP_delete.m in Sources */,
+				A69A2D2B2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m in Sources */,
 				A6BC450F207753ED008C3CEB /* UMSS7ApiTaskM2PA_delete.m in Sources */,
 				A6BF30D1229436FC0000578B /* UMSS7ApiTaskSS7FilterRuleSet_modify.m in Sources */,
 				A6BB69FD21522FFE00749D40 /* UMSS7ApiTaskSCCPTranslationTable_delete.m in Sources */,

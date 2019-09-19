@@ -22,4 +22,4 @@
 #import "DiameterSessionACR.h"
 #import "DiameterSessionDPR.h"
 #import "DiameterSessionASR.h"
-
+#import "DiameterSessionLCS_Routing_Info_Reuqest.h"
