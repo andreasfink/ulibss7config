@@ -22,33 +22,33 @@
 		A62B183F226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A62B183D226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.m */; };
 		A6336E8422D578DE00F803C5 /* DiameterSessionAuthentication_Information_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E6622D578DB00F803C5 /* DiameterSessionAuthentication_Information_Request.m */; };
 		A6336E8522D578DE00F803C5 /* DiameterSessionRAR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E6722D578DC00F803C5 /* DiameterSessionRAR.m */; };
-		A6336E8622D578DE00F803C5 /* DiameterSessionAuthentication_Information_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6822D578DC00F803C5 /* DiameterSessionAuthentication_Information_Request.h */; };
-		A6336E8722D578DE00F803C5 /* DiameterSessionPurge_UE_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6922D578DC00F803C5 /* DiameterSessionPurge_UE_Request.h */; };
+		A6336E8622D578DE00F803C5 /* DiameterSessionAuthentication_Information_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6822D578DC00F803C5 /* DiameterSessionAuthentication_Information_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6336E8722D578DE00F803C5 /* DiameterSessionPurge_UE_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6922D578DC00F803C5 /* DiameterSessionPurge_UE_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336E8822D578DE00F803C5 /* DiameterSessionPurge_UE_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E6A22D578DC00F803C5 /* DiameterSessionPurge_UE_Request.m */; };
 		A6336E8922D578DE00F803C5 /* DiameterSessionUpdate_Location_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E6B22D578DC00F803C5 /* DiameterSessionUpdate_Location_Request.m */; };
 		A6336E8A22D578DE00F803C5 /* DiameterSessionReset_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E6C22D578DC00F803C5 /* DiameterSessionReset_Request.m */; };
-		A6336E8B22D578DE00F803C5 /* DiameterSessionReset_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6D22D578DC00F803C5 /* DiameterSessionReset_Request.h */; };
-		A6336E8C22D578DE00F803C5 /* DiameterSessionSTR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6E22D578DC00F803C5 /* DiameterSessionSTR.h */; };
-		A6336E8D22D578DE00F803C5 /* DiameterSessionNotify_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6F22D578DC00F803C5 /* DiameterSessionNotify_Request.h */; };
+		A6336E8B22D578DE00F803C5 /* DiameterSessionReset_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6D22D578DC00F803C5 /* DiameterSessionReset_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6336E8C22D578DE00F803C5 /* DiameterSessionSTR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6E22D578DC00F803C5 /* DiameterSessionSTR.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6336E8D22D578DE00F803C5 /* DiameterSessionNotify_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E6F22D578DC00F803C5 /* DiameterSessionNotify_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336E8E22D578DE00F803C5 /* DiameterSessionSTR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7022D578DC00F803C5 /* DiameterSessionSTR.m */; };
-		A6336E8F22D578DE00F803C5 /* DiameterSessionDelete_Subscriber_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7122D578DC00F803C5 /* DiameterSessionDelete_Subscriber_Data_Request.h */; };
+		A6336E8F22D578DE00F803C5 /* DiameterSessionDelete_Subscriber_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7122D578DC00F803C5 /* DiameterSessionDelete_Subscriber_Data_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336E9022D578DE00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7222D578DC00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.m */; };
-		A6336E9122D578DE00F803C5 /* DiameterSessionASR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7322D578DC00F803C5 /* DiameterSessionASR.h */; };
-		A6336E9222D578DE00F803C5 /* DiameterSessionUpdate_Location_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7422D578DD00F803C5 /* DiameterSessionUpdate_Location_Request.h */; };
+		A6336E9122D578DE00F803C5 /* DiameterSessionASR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7322D578DC00F803C5 /* DiameterSessionASR.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6336E9222D578DE00F803C5 /* DiameterSessionUpdate_Location_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7422D578DD00F803C5 /* DiameterSessionUpdate_Location_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336E9322D578DE00F803C5 /* DiameterSessionCancel_Location_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7522D578DD00F803C5 /* DiameterSessionCancel_Location_Request.m */; };
 		A6336E9422D578DE00F803C5 /* DiameterSessionNotify_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7622D578DD00F803C5 /* DiameterSessionNotify_Request.m */; };
-		A6336E9522D578DE00F803C5 /* DiameterSessionDWR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7722D578DD00F803C5 /* DiameterSessionDWR.h */; };
+		A6336E9522D578DE00F803C5 /* DiameterSessionDWR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7722D578DD00F803C5 /* DiameterSessionDWR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336E9622D578DE00F803C5 /* DiameterSessionDPR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7822D578DD00F803C5 /* DiameterSessionDPR.m */; };
 		A6336E9722D578DE00F803C5 /* DiameterSessionDWR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7922D578DD00F803C5 /* DiameterSessionDWR.m */; };
-		A6336E9822D578DE00F803C5 /* DiameterSessionRAR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7A22D578DD00F803C5 /* DiameterSessionRAR.h */; };
-		A6336E9922D578DE00F803C5 /* DiameterSessionCancel_Location_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7B22D578DD00F803C5 /* DiameterSessionCancel_Location_Request.h */; };
+		A6336E9822D578DE00F803C5 /* DiameterSessionRAR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7A22D578DD00F803C5 /* DiameterSessionRAR.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6336E9922D578DE00F803C5 /* DiameterSessionCancel_Location_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7B22D578DD00F803C5 /* DiameterSessionCancel_Location_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336E9A22D578DE00F803C5 /* DiameterSessionACR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7C22D578DD00F803C5 /* DiameterSessionACR.m */; };
 		A6336E9B22D578DE00F803C5 /* DiameterSessionDelete_Subscriber_Data_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E7D22D578DD00F803C5 /* DiameterSessionDelete_Subscriber_Data_Request.m */; };
-		A6336E9C22D578DE00F803C5 /* DiameterSessionACR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7E22D578DE00F803C5 /* DiameterSessionACR.h */; };
-		A6336E9D22D578DE00F803C5 /* DiameterSessionCER.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7F22D578DE00F803C5 /* DiameterSessionCER.h */; };
+		A6336E9C22D578DE00F803C5 /* DiameterSessionACR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7E22D578DE00F803C5 /* DiameterSessionACR.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6336E9D22D578DE00F803C5 /* DiameterSessionCER.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E7F22D578DE00F803C5 /* DiameterSessionCER.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336E9E22D578DE00F803C5 /* DiameterSessionCER.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E8022D578DE00F803C5 /* DiameterSessionCER.m */; };
-		A6336E9F22D578DE00F803C5 /* DiameterSessionDPR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E8122D578DE00F803C5 /* DiameterSessionDPR.h */; };
-		A6336EA022D578DE00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E8222D578DE00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.h */; };
+		A6336E9F22D578DE00F803C5 /* DiameterSessionDPR.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E8122D578DE00F803C5 /* DiameterSessionDPR.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6336EA022D578DE00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E8222D578DE00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336EA122D578DE00F803C5 /* DiameterSessionASR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E8322D578DE00F803C5 /* DiameterSessionASR.m */; };
 		A6336EA322D578EE00F803C5 /* generate.sh in Resources */ = {isa = PBXBuildFile; fileRef = A6336EA222D578EE00F803C5 /* generate.sh */; };
 		A6336EA522D57C0900F803C5 /* DiameterSession_all.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336EA422D57C0800F803C5 /* DiameterSession_all.h */; };
@@ -171,9 +171,9 @@
 		A69429F422DC964A00A90936 /* UMSS7FilterActionList.m in Sources */ = {isa = PBXBuildFile; fileRef = A69429F222DC964A00A90936 /* UMSS7FilterActionList.m */; };
 		A69429F922DE5B9700A90936 /* UMSS7App.h in Headers */ = {isa = PBXBuildFile; fileRef = A69429F722DE5B9700A90936 /* UMSS7App.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A69429FA22DE5B9700A90936 /* UMSS7App.m in Sources */ = {isa = PBXBuildFile; fileRef = A69429F822DE5B9700A90936 /* UMSS7App.m */; };
-		A69A2CE52327E63800F12046 /* DiameterSessionRIR.h in Headers */ = {isa = PBXBuildFile; fileRef = A69A2CE32327E63800F12046 /* DiameterSessionRIR.h */; };
+		A69A2CE52327E63800F12046 /* DiameterSessionRIR.h in Headers */ = {isa = PBXBuildFile; fileRef = A69A2CE32327E63800F12046 /* DiameterSessionRIR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A69A2CE62327E63800F12046 /* DiameterSessionRIR.m in Sources */ = {isa = PBXBuildFile; fileRef = A69A2CE42327E63800F12046 /* DiameterSessionRIR.m */; };
-		A69A2D2A2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A69A2D282329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h */; };
+		A69A2D2A2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A69A2D282329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A69A2D2B2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A69A2D292329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m */; };
 		A6B011AD21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B011AE21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */; };
@@ -2240,7 +2240,7 @@
 		A684E38E20774ADA000F3F70 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Andreas Fink";
 				TargetAttributes = {
 					A684E39620774ADA000F3F70 = {
@@ -2880,6 +2880,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GSNWPNR77;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2898,6 +2899,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 2GSNWPNR77;

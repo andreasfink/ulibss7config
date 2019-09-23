@@ -8,10 +8,8 @@
 
 #import <ulibss7config/ulibss7config.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface DiameterSessionLCS_Routing_Info_Request : DiameterGenericSession
 
 @end
 
-NS_ASSUME_NONNULL_END

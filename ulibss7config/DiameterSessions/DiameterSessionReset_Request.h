@@ -8,8 +8,6 @@
 
 #import "DiameterGenericSession.h"
 
-
-
 @interface DiameterSessionReset_Request : DiameterGenericSession
 
 @end

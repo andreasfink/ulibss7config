@@ -7,12 +7,10 @@
 //
 
 #import "DiameterSessionLCS_Routing_Info_Request.h"
-
-@implementation DiameterSessionLCS_Routing_Info_Request
-
-#import "DiameterSessionReset_Request.h"
 #import "WebMacros.h"
 #import <ulibdiameter/ulibdiameter.h>
+
+@implementation DiameterSessionLCS_Routing_Info_Request
 
 
 - (NSString *)webTitle
@@ -23,15 +21,15 @@
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {
-    [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketLCSRouting_Info_Request defaultApplicationId] comment:NULL];
-    [UMDiameterPacketLCSRouting_Info_Request webDiameterParameters:s];
+    [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketLCS_Routing_Info_Request defaultApplicationId] comment:NULL];
+    [UMDiameterPacketLCS_Routing_Info_Request webDiameterParameters:s];
 }
 
 - (void)main
 {
     @try
     {
-        UMDiameterPacketLCSRouting_Info_Request *pkt = [[UMDiameterPacketLCSRouting_Info_Request alloc]init];
+        UMDiameterPacketLCS_Routing_Info_Request *pkt = [[UMDiameterPacketLCS_Routing_Info_Request alloc]init];
         [pkt setDictionaryValue:_req.params];
         self.query = pkt;
         [self submit];
