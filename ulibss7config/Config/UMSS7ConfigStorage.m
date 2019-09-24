@@ -264,6 +264,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSFilterEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigHLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigMSC type]];
+    [cfg allowMultiGroup:[UMSS7ConfigGGSN type]];
     [cfg allowMultiGroup:[UMSS7ConfigVLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigGSMSCF type]];
