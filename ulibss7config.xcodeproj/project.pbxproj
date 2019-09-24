@@ -562,6 +562,8 @@
 		A6D2D7C721A49FA400B1895A /* SS7TelnetSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D2D7C521A49FA400B1895A /* SS7TelnetSocket.m */; };
 		A6D2D7CA21A4A01800B1895A /* SS7ConfigurationSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D2D7C821A4A01800B1895A /* SS7ConfigurationSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6D2D7CB21A4A01800B1895A /* SS7ConfigurationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D2D7C921A4A01800B1895A /* SS7ConfigurationSession.m */; };
+		A6DB9C03233A15440022B63F /* UMSS7ConfigGGSN.h in Headers */ = {isa = PBXBuildFile; fileRef = A6DB9C01233A15440022B63F /* UMSS7ConfigGGSN.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6DB9C04233A15440022B63F /* UMSS7ConfigGGSN.m in Sources */ = {isa = PBXBuildFile; fileRef = A6DB9C02233A15440022B63F /* UMSS7ConfigGGSN.m */; };
 		A6EC8E5821B12F3E00B69FDD /* UMTTaskPing.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5221B12F3D00B69FDD /* UMTTaskPing.m */; };
 		A6EC8E5921B12F3E00B69FDD /* UMTTaskGetVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6EC8E5A21B12F3E00B69FDD /* UMTTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5421B12F3D00B69FDD /* UMTTask.m */; };
@@ -1162,6 +1164,8 @@
 		A6D2D7C521A49FA400B1895A /* SS7TelnetSocket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7TelnetSocket.m; sourceTree = "<group>"; };
 		A6D2D7C821A4A01800B1895A /* SS7ConfigurationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7ConfigurationSession.h; sourceTree = "<group>"; };
 		A6D2D7C921A4A01800B1895A /* SS7ConfigurationSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7ConfigurationSession.m; sourceTree = "<group>"; };
+		A6DB9C01233A15440022B63F /* UMSS7ConfigGGSN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigGGSN.h; sourceTree = "<group>"; };
+		A6DB9C02233A15440022B63F /* UMSS7ConfigGGSN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigGGSN.m; sourceTree = "<group>"; };
 		A6EC8E5221B12F3D00B69FDD /* UMTTaskPing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTTaskPing.m; sourceTree = "<group>"; };
 		A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTTaskGetVersion.h; sourceTree = "<group>"; };
 		A6EC8E5421B12F3D00B69FDD /* UMTTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTTask.m; sourceTree = "<group>"; };
@@ -1710,6 +1714,8 @@
 				A6BC42DC20774F90008C3CEB /* UMSS7ConfigMacros.h */,
 				A6BC42BC20774F8B008C3CEB /* UMSS7ConfigMSC.h */,
 				A6BC42A720774F88008C3CEB /* UMSS7ConfigMSC.m */,
+				A6DB9C01233A15440022B63F /* UMSS7ConfigGGSN.h */,
+				A6DB9C02233A15440022B63F /* UMSS7ConfigGGSN.m */,
 				A6B1060C20D7862800162905 /* UMSS7ConfigESTP.h */,
 				A6B1060D20D7862800162905 /* UMSS7ConfigESTP.m */,
 				A6B1061020D7898100162905 /* UMSS7ConfigMAPI.h */,
@@ -1989,6 +1995,7 @@
 				A6BC44FB207753ED008C3CEB /* UMSS7ApiTaskMTP3LinkSet_delete.h in Headers */,
 				A69429F322DC964A00A90936 /* UMSS7FilterActionList.h in Headers */,
 				A6BC4529207753EE008C3CEB /* UMSS7ApiTaskM3UAASP_read.h in Headers */,
+				A6DB9C03233A15440022B63F /* UMSS7ConfigGGSN.h in Headers */,
 				A6BC432A20774F93008C3CEB /* UMSS7ConfigSMSFilterEntry.h in Headers */,
 				A6BF3140229438560000578B /* UMSS7ApiTaskSS7FilterTraceFile_read.h in Headers */,
 				A6B1060E20D7862800162905 /* UMSS7ConfigESTP.h in Headers */,
@@ -2520,6 +2527,7 @@
 				A634BC4E21A414EA00852462 /* SS7AppTransportSession.m in Sources */,
 				A6CEB96E22BA702D00B2BD9D /* UMSS7TraceFile.m in Sources */,
 				A6BC44F1207753ED008C3CEB /* UMSS7ApiTaskM2PA_list.m in Sources */,
+				A6DB9C04233A15440022B63F /* UMSS7ConfigGGSN.m in Sources */,
 				A6336E9322D578DE00F803C5 /* DiameterSessionCancel_Location_Request.m in Sources */,
 				A6B011B621DA56FC00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_add.m in Sources */,
 				A6BC452A207753EE008C3CEB /* UMSS7ApiTaskSCCP_list.m in Sources */,

@@ -40,6 +40,7 @@
 @class  UMSS7ConfigSyslogDestination;
 @class  UMSS7ConfigHLR;
 @class  UMSS7ConfigMSC;
+@class UMSS7ConfigGGSN;
 @class  UMSS7ConfigVLR;
 @class  UMSS7ConfigGSMSCF;
 @class  UMSS7ConfigGMLC;
@@ -96,6 +97,7 @@
     UMSynchronizedDictionary *_sms_filter_dict;
     UMSynchronizedDictionary *_hlr_dict;
     UMSynchronizedDictionary *_msc_dict;
+    UMSynchronizedDictionary *_ggsn_dict;
     UMSynchronizedDictionary *_vlr_dict;
     UMSynchronizedDictionary *_gsmscf_dict;
     UMSynchronizedDictionary *_gmlc_dict;
@@ -151,6 +153,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sms_filter_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *hlr_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *msc_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *ggsn_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *vlr_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *gsmscf_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *gmlc_dict;
@@ -312,6 +315,12 @@
 - (NSString *)addMSC:(UMSS7ConfigMSC *)msc;
 - (NSString *)replaceMSC:(UMSS7ConfigMSC *)msc;
 - (NSString *)deleteMSC:(NSString *)name;
+
+- (NSArray *)getGGSNNames;
+- (UMSS7ConfigGGSN *)getGGSN:(NSString *)name;
+- (NSString *)addGGSN:(UMSS7ConfigGGSN *)msc;
+- (NSString *)replaceGGSN:(UMSS7ConfigGGSN *)msc;
+- (NSString *)deleteGGSN:(NSString *)name;
 
 - (NSArray *)getVLRNames;
 - (UMSS7ConfigVLR *)getVLR:(NSString *)name;

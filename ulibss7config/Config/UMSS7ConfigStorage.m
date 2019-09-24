@@ -41,6 +41,7 @@
 #import "UMSS7ConfigSMSFilterEntry.h"
 #import "UMSS7ConfigHLR.h"
 #import "UMSS7ConfigMSC.h"
+#import "UMSS7ConfigGGSN.h"
 #import "UMSS7ConfigSMSC.h"
 #import "UMSS7ConfigSMSProxy.h"
 #import "UMSS7ConfigDatabasePool.h"
@@ -99,6 +100,7 @@
     _sms_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _hlr_dict= [[UMSynchronizedDictionary alloc]init];
     _msc_dict= [[UMSynchronizedDictionary alloc]init];
+    _ggsn_dict= [[UMSynchronizedDictionary alloc]init];
     _vlr_dict= [[UMSynchronizedDictionary alloc]init];
     _eir_dict= [[UMSynchronizedDictionary alloc]init];
     _gsmscf_dict= [[UMSynchronizedDictionary alloc]init];
@@ -645,6 +647,17 @@
         }
     }
 
+    NSArray *ggsn_configs = [cfg getMultiGroups:[UMSS7ConfigGGSN type]];
+    for(NSDictionary *ggsn_config in ggsn_configs)
+    {
+        UMSS7ConfigGGSN *ggsn = [[UMSS7ConfigGGSN alloc]initWithConfig:ggsn_config];
+        if(ggsn.name.length  > 0)
+        {
+            _ggsn_dict[ggsn.name] = ggsn;
+        }
+    }
+
+
     NSArray *vlr_configs = [cfg getMultiGroups:[UMSS7ConfigVLR type]];
     for(NSDictionary *vlr_config in vlr_configs)
     {
@@ -968,6 +981,7 @@
       /* UMSS7ConfigSMSFilterEntry */
       [self appendSection:s dict:_hlr_dict sectionName:[UMSS7ConfigHLR type]];
       [self appendSection:s dict:_msc_dict sectionName:[UMSS7ConfigMSC type]];
+      [self appendSection:s dict:_ggsn_dict sectionName:[UMSS7ConfigGGSN type]];
       [self appendSection:s dict:_vlr_dict sectionName:[UMSS7ConfigVLR type]];
       [self appendSection:s dict:_eir_dict sectionName:[UMSS7ConfigEIR type]];
       [self appendSection:s dict:_gsmscf_dict sectionName:[UMSS7ConfigGSMSCF type]];
@@ -2142,7 +2156,7 @@
  **************************************************
  */
 #pragma mark -
-#pragma mark GSMMAP
+#pragma mark MSC
 
 - (NSArray *)getMSCNames
 {
@@ -2183,6 +2197,52 @@
     return @"ok";
 }
 
+/*
+ **************************************************
+ ** GGSN
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GGSN
+
+- (NSArray *)getGGSNNames
+{
+    return [_ggsn_dict allKeys];
+}
+
+- (UMSS7ConfigGGSN *)getGGSN:(NSString *)name
+{
+    return _ggsn_dict[name];
+}
+
+- (NSString *)addGGSN:(UMSS7ConfigGGSN *)ggsn
+{
+    if(_ggsn_dict[ggsn.name] == NULL)
+    {
+        _ggsn_dict[ggsn.name] = ggsn;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceGGSN:(UMSS7ConfigGGSN *)ggsn
+{
+    _ggsn_dict[ggsn.name] = ggsn;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteGGSN:(NSString *)name
+{
+    if(_ggsn_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_ggsn_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 /*
  **************************************************
  ** HLR
@@ -3263,6 +3323,7 @@
     n.sms_filter_dict = [_sms_filter_dict copy];
     n.hlr_dict = [_hlr_dict copy];
     n.msc_dict = [_msc_dict copy];
+    n.ggsn_dict = [_ggsn_dict copy];
     n.vlr_dict = [_vlr_dict copy];
     n.gsmscf_dict = [_gsmscf_dict copy];
     n.gmlc_dict = [_gmlc_dict copy];

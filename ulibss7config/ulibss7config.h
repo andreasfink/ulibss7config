@@ -54,6 +54,7 @@
 #import "UMSS7ConfigSMSFilterEntry.h"
 #import "UMSS7ConfigHLR.h"
 #import "UMSS7ConfigMSC.h"
+#import "UMSS7ConfigGGSN.h"
 #import "UMSS7ConfigVLR.h"
 #import "UMSS7ConfigGSMSCF.h"
 #import "UMSS7ConfigGMLC.h"

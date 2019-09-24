@@ -112,6 +112,7 @@ UMSCCP_FilterProtocol>
     UMSynchronizedDictionary    *_imsi_pools_dict;
     UMSynchronizedDictionary    *_hlr_dict;
     UMSynchronizedDictionary    *_msc_dict;
+    UMSynchronizedDictionary    *_ggsn_dict;
     UMSynchronizedDictionary    *_smsc_dict;
     UMSynchronizedDictionary    *_vlr_dict;
     UMSynchronizedDictionary    *_eir_dict;
