@@ -759,6 +759,25 @@ static void signalHandler(int signum);
         _logLevel = UMLOG_MAJOR;
     }
 
+    if(_concurrentThreads<4)
+    {
+        _concurrentThreads = ulib_cpu_count();
+        if(self.generalTaskQueue == NULL)
+        {
+            if(_runningConfig.generalConfig.concurrentTasks!=NULL)
+            {
+                _concurrentThreads = [_runningConfig.generalConfig.concurrentTasks intValue];
+            }
+            if(_concurrentThreads<3)
+            {
+                _concurrentThreads = 3;
+            }
+            _generalTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                            name:@"general-task-queue"
+                                                                   enableLogging:NO
+                                                                  numberOfQueues:UMLAYER_QUEUE_COUNT];
+        }
+    }
     _sctpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"sctp"
                                                         enableLogging:NO
