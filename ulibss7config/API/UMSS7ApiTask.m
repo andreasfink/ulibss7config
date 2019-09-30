@@ -169,6 +169,12 @@ NSLog(@"%s is not returning an apiPath!",#APICLASS); \
     [_webRequest resumePendingRequest];
 }
 
+- (void)sendErrorSessionExpired
+{
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized" }];
+    [_webRequest resumePendingRequest];
+}
+
 - (BOOL)isAuthenticated
 {
     NSString *username = _params[@"username"];

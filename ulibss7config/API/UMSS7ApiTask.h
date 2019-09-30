@@ -31,6 +31,7 @@
 - (void)sendErrorNotFound:(NSString *)param;
 - (void)sendErrorAlreadyExisting;
 - (void)sendErrorNotImplemented;
+- (void)sendErrorSessionExpired;
 - (void)sendErrorUnknownAction;
 - (void)sendResultOK;
 - (void)sendResultObject:(id)result;
