@@ -4065,9 +4065,11 @@ static void signalHandler(int signum);
     for(NSString *filename in a)
     {
         NSString *filepath = [NSString stringWithFormat:@"%@/%@",path,filename];
-
         [self.logFeed debugText:[NSString stringWithFormat:@"loading filter %@",filepath]];
-
+        if([filepath hasSuffix:@"~"]) /* we skip old backup files */
+        {
+            continue;
+        }
         UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
 
         if(ph)
