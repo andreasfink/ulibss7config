@@ -89,7 +89,11 @@
 #import "filter/UMSS7FilterRuleSet.h"
 #import "filter/UMSS7FilterActionList.h"
 
+#ifdef __APPLE__
+#import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
+#else
 #import <uliblicense/uliblicense.h>
+#endif
 
 extern UMLicenseDirectory * UMLicense_loadLicensesFromPath(NSString *directory, BOOL debug);
 
