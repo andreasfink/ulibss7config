@@ -4017,12 +4017,11 @@ static void signalHandler(int signum);
     }
 
     int r = [ph openWithDictionary:open_dict];
-    NSString *err = ph.error;
-    if(err.length> 0)
+    if(r<0)
     {
         [ph close];
         @throw([NSException exceptionWithName:@"LOADING-ERROR"
-                                       reason:err
+                                       reason:ph.error
                                      userInfo:NULL]);
     }
 
@@ -4075,7 +4074,6 @@ static void signalHandler(int signum);
         if(ph)
         {
             int r = [ph openWithDictionary:open_dict];
-            NSLog(@"r=%d",r);
             if(r<0)
 			{
 			    [ph close];
