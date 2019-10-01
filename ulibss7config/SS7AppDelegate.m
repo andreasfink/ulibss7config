@@ -89,6 +89,8 @@
 #import "filter/UMSS7FilterRuleSet.h"
 #import "filter/UMSS7FilterActionList.h"
 
+#import <uliblicense/uliblicense.h>
+
 extern UMLicenseDirectory * UMLicense_loadLicensesFromPath(NSString *directory, BOOL debug);
 
 //@class SS7AppDelegate;
