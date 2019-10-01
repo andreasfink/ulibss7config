@@ -3988,6 +3988,14 @@ static void signalHandler(int signum);
 
 - (void)addWithConfigSS7FilterEngine:(NSDictionary *)config /* can throw exceptions */
 {
+    NSMutableDictionary *open_dict = [[NSMutableDictionary alloc]init];
+    open_dict[@"app-delegate"] = self;
+    open_dict[@"license-directory"] = UMLicense_loadLicensesFromPath(self.defaultLicensePath, NO);
+#ifdef HAS_ULIBLICENSE
+    open_dict[@"license-directory"] = _globalLicenseDirectory;
+#endif
+
+
     NSString *filename = config[@"file"];
     NSString *filepath = [NSString stringWithFormat:@"%@/%@",_filterEnginesPath,filename];
     UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
@@ -3998,7 +4006,7 @@ static void signalHandler(int signum);
                                      userInfo:NULL]);
     }
 
-    [ph openWithDictionary:open_dict];
+    int r = [ph openWithDictionary:open_dict];
     NSString *err = ph.error;
     if(err.length> 0)
     {
