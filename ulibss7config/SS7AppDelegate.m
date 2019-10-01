@@ -6,6 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
+
 #import "SS7AppDelegate.h"
 
 #import <ulibtransport/ulibtransport.h>
@@ -87,6 +88,9 @@
 #import "UMSS7ConfigSS7FilterTraceFile.h"
 #import "filter/UMSS7FilterRuleSet.h"
 #import "filter/UMSS7FilterActionList.h"
+
+extern UMLicenseDirectory * UMLicense_loadLicensesFromPath(NSString *directory, BOOL debug);
+
 //@class SS7AppDelegate;
 
 static SS7AppDelegate *ss7_app_delegate;
