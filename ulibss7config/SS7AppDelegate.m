@@ -4044,9 +4044,12 @@ static void signalHandler(int signum);
         [self.logFeed debugText:[NSString stringWithFormat:@"loading filter %@",filepath]];
 
         UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
+
         if(ph)
         {
-            if([ph open]!=0)
+            int r = [ph open];
+            NSLog(@[ph open]"r=%d",r);
+            if(r<0)
 			{
 			    [ph close];
 			    @throw([NSException exceptionWithName:@"LOADING-ERROR"
