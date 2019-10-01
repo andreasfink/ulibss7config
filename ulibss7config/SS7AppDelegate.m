@@ -4046,11 +4046,16 @@ static void signalHandler(int signum);
         UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
         if(ph)
         {
-            if([ph open] != 0)
-            {
-                NSLog(@"Error loading plugin %@ %@",filepath,ph.error);
-            }
+            if([ph open]!=0)
+			{
+			    [ph close];
+			    @throw([NSException exceptionWithName:@"LOADING-ERROR"
+			    			                   reason:ph.error
+			                                 userInfo:NULL]);
+
+			}
             NSDictionary *info = ph.info;
+			NSLog(@"plugin info: %@",ph.info);
             NSString *type = info[@"type"];
             if([type isEqualToString:@"ss7-filter"])
             {
