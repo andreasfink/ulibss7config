@@ -3998,7 +3998,7 @@ static void signalHandler(int signum);
                                      userInfo:NULL]);
     }
 
-    [ph open];
+    [ph openWithDictionary:open_dict];
     NSString *err = ph.error;
     if(err.length> 0)
     {
@@ -4028,6 +4028,13 @@ static void signalHandler(int signum);
 
 - (void)loadSS7FilterEnginesFromDirectory:(NSString *)path
 {
+    NSMutableDictionary *open_dict = [[NSMutableDictionary alloc]init];
+    open_dict[@"app-delegate"] = self;
+    open_dict[@"license-directory"] = UMLicense_loadLicensesFromPath(self.defaultLicensePath, NO);
+#ifdef HAS_ULIBLICENSE
+    open_dict[@"license-directory"] = _globalLicenseDirectory;
+#endif
+
     [self.logFeed infoText:[NSString stringWithFormat:@"searching for filter engines in %@",path]];
 
     NSFileManager * fm = [NSFileManager defaultManager];
@@ -4047,7 +4054,7 @@ static void signalHandler(int signum);
 
         if(ph)
         {
-            int r = [ph open];
+            int r = [ph openWithDictionary:open_dict];
             NSLog(@"r=%d",r);
             if(r<0)
 			{
