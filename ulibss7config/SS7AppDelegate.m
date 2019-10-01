@@ -4048,7 +4048,7 @@ static void signalHandler(int signum);
         if(ph)
         {
             int r = [ph open];
-            NSLog(@[ph open]"r=%d",r);
+            NSLog(@"r=%d",r);
             if(r<0)
 			{
 			    [ph close];
