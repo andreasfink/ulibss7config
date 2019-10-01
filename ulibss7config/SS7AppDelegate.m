@@ -3943,10 +3943,6 @@ static void signalHandler(int signum);
     _ss7FilterStagingAreas_dict[newname] = st;
 }
 
-- (NSArray *)getSS7FilterEngineNames
-{
-    return [_ss7FilterEngines allKeys];
-}
 
 
 - (void)loadSS7StagingAreasFromPath:(NSString *)path
@@ -4043,15 +4039,17 @@ static void signalHandler(int signum);
     }
     for(NSString *filename in a)
     {
-
         NSString *filepath = [NSString stringWithFormat:@"%@/%@",path,filename];
-        
+
         [self.logFeed debugText:[NSString stringWithFormat:@"loading filter %@",filepath]];
 
         UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
         if(ph)
         {
-            [ph open];
+            if([ph open] != 0)
+            {
+                NSLog(@"Error loading plugin %@ %@",filepath,ph.error);
+            }
             NSDictionary *info = ph.info;
             NSString *type = info[@"type"];
             if([type isEqualToString:@"ss7-filter"])
@@ -4070,6 +4068,10 @@ static void signalHandler(int signum);
     }
 }
 
+- (NSArray *)getSS7FilterEngineNames
+{
+    return [_ss7FilterEngines allKeys];
+}
 
 - (void)loadTracefilesFromPath:(NSString *)path
 {

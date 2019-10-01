@@ -50,16 +50,15 @@
             if(new_name != NULL)
             {
                 [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
-                
-                NSDictionary *ds = [[NSDictionary alloc] initWithDictionary:_params];
+                NSMutableDictionary *ds = [_params mutableCopy];
                 [ds setValue:new_name forKey:@"name"];
                 [_appDelegate updateSS7FilterStagingArea:ds];
             }
             else
             {
                 [_appDelegate updateSS7FilterStagingArea:_params];
-                 [stagingArea setDirty:YES];
             }
+            [stagingArea setDirty:YES];
 			[self sendResultOK];
 		}
 		@catch(NSException *e)
