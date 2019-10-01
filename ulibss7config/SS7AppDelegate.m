@@ -4069,7 +4069,7 @@ static void signalHandler(int signum);
         if([filepath hasSuffix:@"~"]) /* we skip old backup files */
         {
             continue;
-        }
+        } 
         UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
 
         if(ph)
