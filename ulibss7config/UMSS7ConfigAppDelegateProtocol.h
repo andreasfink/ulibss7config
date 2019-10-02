@@ -179,5 +179,9 @@ realm:(NSString **)realm;
 - (void)statistics_flushAll;
 - (UMStatistic *)statistics_get:(NSString *)name;
 
+- (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet;
 
 @end

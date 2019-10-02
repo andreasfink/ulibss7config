@@ -175,7 +175,7 @@ static void signalHandler(int signum);
         _incomingLinksetFilters = [[UMSynchronizedDictionary alloc]init];
         _outgoingLinksetFilters = [[UMSynchronizedDictionary alloc]init];
         _incomingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
-        _outgoingLocalSubsystemFiltersFilters = [[UMSynchronizedDictionary alloc]init];
+        _outgoingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
 
 
         if(_enabledOptions[@"name"])
@@ -4420,8 +4420,8 @@ static void signalHandler(int signum);
 }
 
 
-- (UMSCCP_FilterResult)filterInboundPacket:(UMSCCP_Packet *)packet
-                              usingRuleset:(NSString *)ruleset
+- (UMSCCP_FilterResult)filterPacket:(UMSCCP_Packet *)packet
+                       usingRuleset:(NSString *)ruleset
 {
     UMSynchronizedDictionary *dict = _activeStagingArea.filter_rule_set_dict;
     UMSS7FilterRuleSet *rs = dict[ruleset];
@@ -4431,21 +4431,37 @@ static void signalHandler(int signum);
         [self.logFeed majorErrorText:s];
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
-    return [rs filterInbound:packet];
+    if(rs.filterStatus == UMSS7FilterStatus_off)
+    {
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    }
+    
+    UMSCCP_FilterResult r =  [rs filterPacket:packet];
+    if(rs.filterStatus == UMSS7FilterStatus_on)
+    {
+        return r;
+    }
+    if((r == UMSCCP_FILTER_RESULT_DROP) || (r==UMSCCP_FILTER_RESULT_STATUS))
+    {
+        return UMSCCP_FILTER_RESULT_MONITOR;
+    }
+    return r;
 }
+
+
 
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
 {
-    NSArray<NSString *> *ruleSets = _outgoingLinksetFilters[packet.incomingLinkset];
+    NSArray<NSString *> *ruleSets = _incomingLinksetFilters[packet.incomingLinkset];
     if(ruleSets==NULL)
     {
-        ruleSets = _outgoingLinksetFilters[@"all"];
+        ruleSets = _incomingLinksetFilters[@"all"];
     }
-    
+
     UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
     for(NSString *ruleSet in ruleSets)
     {
-        result = [self filterInboundPacket:packet usingRuleset:ruleSet];
+        result = [self filterPacket:packet usingRuleset:ruleSet];
         if(result & UMSCCP_FILTER_RESULT_DROP)
         {
             break;
@@ -4460,19 +4476,75 @@ static void signalHandler(int signum);
 
 - (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet
 {
-    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    NSArray<NSString *> *ruleSets = _outgoingLinksetFilters[packet.incomingLinkset];
+    if(ruleSets==NULL)
+    {
+        ruleSets = _outgoingLinksetFilters[@"all"];
+    }
+
+    UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
+    for(NSString *ruleSet in ruleSets)
+    {
+        result = [self filterPacket:packet usingRuleset:ruleSet];
+        if(result & UMSCCP_FILTER_RESULT_DROP)
+        {
+            break;
+        }
+        if(result & UMSCCP_FILTER_RESULT_STATUS)
+        {
+            break;
+        }
+    }
+    return result;
 }
 
 - (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet
 {
-    return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    NSArray<NSString *> *ruleSets = _incomingLocalSubsystemFilters[packet.incomingLinkset];
+    if(ruleSets==NULL)
+    {
+        ruleSets = _incomingLocalSubsystemFilters[@"all"];
+    }
+
+    UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
+    for(NSString *ruleSet in ruleSets)
+    {
+        result = [self filterPacket:packet usingRuleset:ruleSet];
+        if(result & UMSCCP_FILTER_RESULT_DROP)
+        {
+            break;
+        }
+        if(result & UMSCCP_FILTER_RESULT_STATUS)
+        {
+            break;
+        }
+    }
+    return result;
 }
 
 - (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet
 {
-    return UMSCCP_FILTER_RESULT_UNMODIFIED;
-}
+    NSArray<NSString *> *ruleSets = _outgoingLocalSubsystemFilters[packet.incomingLinkset];
+    if(ruleSets==NULL)
+    {
+        ruleSets = _outgoingLocalSubsystemFilters[@"all"];
+    }
 
+    UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
+    for(NSString *ruleSet in ruleSets)
+    {
+        result = [self filterPacket:packet usingRuleset:ruleSet];
+        if(result & UMSCCP_FILTER_RESULT_DROP)
+        {
+            break;
+        }
+        if(result & UMSCCP_FILTER_RESULT_STATUS)
+        {
+            break;
+        }
+    }
+    return result;
+}
 
 @end
 

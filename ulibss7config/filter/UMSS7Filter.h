@@ -46,7 +46,7 @@
 /* note these methods are to manipulate the config, not while filtering */
 - (void)addTag:(NSString *)tag;
 - (void)clearTag:(NSString *)tag;
-- (BOOL) hasTag:(NSString *)tag;
+- (BOOL)hasTag:(NSString *)tag;
 - (void)clearAllTags;
 
 - (void)loadConfigFromFile:(NSString *)filename;

@@ -183,7 +183,7 @@ UMSCCP_FilterProtocol>
     UMSynchronizedDictionary *_incomingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
     UMSynchronizedDictionary *_outgoingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
     UMSynchronizedDictionary *_incomingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
-    UMSynchronizedDictionary *_outgoingLocalSubsystemFiltersFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    UMSynchronizedDictionary *_outgoingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -469,6 +469,15 @@ UMSCCP_FilterProtocol>
 - (void)statistics_flushAll;
 - (UMStatistic *)statistics_get:(NSString *)name;
 
+/************************************************************/
+#pragma mark -
+#pragma mark Filter Packet
+/************************************************************/
+
+- (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet;
 
 @end
 

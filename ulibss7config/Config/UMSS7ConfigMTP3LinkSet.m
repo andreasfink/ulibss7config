@@ -45,7 +45,6 @@
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbound_filter_rulesets);
-
 }
 
 - (UMSynchronizedSortedDictionary *)config

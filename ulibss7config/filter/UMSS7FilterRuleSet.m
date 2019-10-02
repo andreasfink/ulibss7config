@@ -59,7 +59,7 @@
     return YES;
 }
 
-- (UMSCCP_FilterResult) filterInbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult) filterPacket:(UMSCCP_Packet *)packet;
 {
     
     UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
