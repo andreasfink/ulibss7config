@@ -47,6 +47,7 @@
         {
             dict[@"status"] = @"unknown";
         }
+        dict[@"routes"] = mtp3.routeStatus;
         [self sendResultObject:dict];
     }
     else
