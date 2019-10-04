@@ -80,7 +80,8 @@ UMSS7ConfigAppDelegateProtocol,
 UMTransportUserProtocol,
 UMDiameterPeerAppDelegateProtocol,
 UMDiameterRouterAppDelegateProtocol,
-UMSCCP_FilterProtocol>
+UMSCCP_FilterProtocol,
+UMSCCP_FilterDelegateProtocol>
 {
     /* first all pointers... then integers. Workaround for a bug in clang...? */
     NSDictionary                *_enabledOptions;

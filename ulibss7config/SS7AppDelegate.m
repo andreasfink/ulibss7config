@@ -252,7 +252,7 @@ static void signalHandler(int signum);
 #ifdef	HAS_ULIBLICENSE
 		_globalLicenseDirectory = UMLicense_loadLicensesFromPath(NULL,NO);
 #endif
-
+        _filteringActive = YES;
     }
     return self;
 }
@@ -1053,7 +1053,7 @@ static void signalHandler(int signum);
     names = [_runningConfig getMTP3RouteNames];
     for(NSString *name in names)
     {
-        UMSS7ConfigObject *co = [_runningConfig getMTP3Route:name];
+        UMSS7ConfigMTP3Route *co = [_runningConfig getMTP3Route:name];
         NSDictionary *cfg = co.config.dictionaryCopy;
         if( [cfg configEnabledWithYesDefault])
         {
@@ -4445,6 +4445,49 @@ static void signalHandler(int signum);
     {
         return UMSCCP_FILTER_RESULT_MONITOR;
     }
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        if(r ==UMSCCP_FILTER_RESULT_UNMODIFIED)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_UNMODIFIED"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_MODIFIED)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_MODIFIED"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_MONITOR)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_MONITOR"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_DROP)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_DROP"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_STATUS)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_STATUS"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_CAN_NOT_DECODE)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_CAN_NOT_DECODE"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_ADD_TO_TRACE1)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_ADD_TO_TRACE1"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_ADD_TO_TRACE2)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_ADD_TO_TRACE2"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_ADD_TO_TRACE3)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_ADD_TO_TRACE3"];
+        }
+        if(r & UMSCCP_FILTER_RESULT_ADD_TO_TRACEFILE_CAN_NOT_DECODE)
+        {
+            [self.logFeed debugText:@"UMSCCP_FILTER_RESULT_ADD_TO_TRACEFILE_CAN_NOT_DECODE"];
+        }
+    }
     return r;
 }
 
@@ -4452,15 +4495,40 @@ static void signalHandler(int signum);
 
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
 {
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterInbound called"];
+    }
+    if(_filteringActive==NO)
+    {
+        [self.logFeed infoText:@"filtering is not active. Skipping"];
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    }
     NSArray<NSString *> *ruleSets = _incomingLinksetFilters[packet.incomingLinkset];
     if(ruleSets==NULL)
     {
+        if(_logLevel<= UMLOG_DEBUG)
+        {
+            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+        }
         ruleSets = _incomingLinksetFilters[@"all"];
+        if(ruleSets==NULL)
+        {
+            if(_logLevel<= UMLOG_DEBUG)
+            {
+                [self.logFeed debugText:@" no ruleset found for linkset 'all'. returing UMSCCP_FILTER_RESULT_UNMODIFIED"];
+            }
+            return UMSCCP_FILTER_RESULT_UNMODIFIED;
+        }
     }
 
     UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
     for(NSString *ruleSet in ruleSets)
     {
+        if(_logLevel<= UMLOG_DEBUG)
+        {
+            [self.logFeed debugText:[NSString stringWithFormat:@" checking ruleset %@",ruleSet]];
+        }
         result = [self filterPacket:packet usingRuleset:ruleSet];
         if(result & UMSCCP_FILTER_RESULT_DROP)
         {
@@ -4470,16 +4538,41 @@ static void signalHandler(int signum);
         {
             break;
         }
+    }
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterInbound returning"];
     }
     return result;
 }
 
 - (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet
 {
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterOutbound called"];
+    }
+    if(_filteringActive==NO)
+    {
+        [self.logFeed infoText:@"filtering is not active. Skipping"];
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    }
     NSArray<NSString *> *ruleSets = _outgoingLinksetFilters[packet.incomingLinkset];
     if(ruleSets==NULL)
     {
+        if(_logLevel<= UMLOG_DEBUG)
+        {
+            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+        }
         ruleSets = _outgoingLinksetFilters[@"all"];
+        if(ruleSets==NULL)
+        {
+            if(_logLevel<= UMLOG_DEBUG)
+            {
+                [self.logFeed debugText:@" no ruleset found for linkset 'all'. returing UMSCCP_FILTER_RESULT_UNMODIFIED"];
+            }
+            return UMSCCP_FILTER_RESULT_UNMODIFIED;
+        }
     }
 
     UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
@@ -4494,18 +4587,43 @@ static void signalHandler(int signum);
         {
             break;
         }
+    }
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterOutbound returning"];
     }
     return result;
 }
 
 - (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet
 {
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterToLocalSubsystem called"];
+    }
+    if(_filteringActive==NO)
+    {
+        [self.logFeed infoText:@"filtering is not active. Skipping"];
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    }
+
     NSArray<NSString *> *ruleSets = _incomingLocalSubsystemFilters[packet.incomingLinkset];
     if(ruleSets==NULL)
     {
+        if(_logLevel<= UMLOG_DEBUG)
+        {
+            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+        }
         ruleSets = _incomingLocalSubsystemFilters[@"all"];
+        if(ruleSets==NULL)
+        {
+            if(_logLevel<= UMLOG_DEBUG)
+            {
+                [self.logFeed debugText:@" no ruleset found for linkset 'all'. returing UMSCCP_FILTER_RESULT_UNMODIFIED"];
+            }
+            return UMSCCP_FILTER_RESULT_UNMODIFIED;
+        }
     }
-
     UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
     for(NSString *ruleSet in ruleSets)
     {
@@ -4519,17 +4637,43 @@ static void signalHandler(int signum);
             break;
         }
     }
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterToLocalSubsystem returning"];
+    }
+
     return result;
 }
 
 - (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet
 {
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterFromLocalSubsystem called"];
+    }
+    if(_filteringActive==NO)
+    {
+        [self.logFeed infoText:@"filtering is not active. Skipping"];
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    }
+
     NSArray<NSString *> *ruleSets = _outgoingLocalSubsystemFilters[packet.incomingLinkset];
     if(ruleSets==NULL)
     {
+        if(_logLevel<= UMLOG_DEBUG)
+        {
+            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+        }
         ruleSets = _outgoingLocalSubsystemFilters[@"all"];
+        if(ruleSets==NULL)
+        {
+            if(_logLevel<= UMLOG_DEBUG)
+            {
+                [self.logFeed debugText:@" no ruleset found for linkset 'all'. returing UMSCCP_FILTER_RESULT_UNMODIFIED"];
+            }
+            return UMSCCP_FILTER_RESULT_UNMODIFIED;
+        }
     }
-
     UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
     for(NSString *ruleSet in ruleSets)
     {
@@ -4542,6 +4686,10 @@ static void signalHandler(int signum);
         {
             break;
         }
+    }
+    if(_logLevel<= UMLOG_DEBUG)
+    {
+        [self.logFeed infoText:@"filterFromLocalSubsystem returning"];
     }
     return result;
 }
