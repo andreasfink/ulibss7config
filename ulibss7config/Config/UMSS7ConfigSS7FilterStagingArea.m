@@ -80,6 +80,43 @@
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     SET_DICT_STRING(dict,@"path",_path);
+    
+    if(dict[@"rulesets"])
+    {
+        id b = dict[@"rulesets"];
+        if([b isKindOfClass:[NSArray class]])
+        {
+            NSArray *a = (NSArray *)b;
+            _filter_rule_set_dict = [[UMSynchronizedDictionary alloc]init];
+            for(id c in a)
+            {
+                if([c isKindOfClass:[NSDictionary class]])
+                {
+                    NSDictionary *d = (NSDictionary *)c;
+                    UMSS7ConfigSS7FilterRuleSet *rs = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:d];
+                    _filter_rule_set_dict[rs.name]=rs;
+                }
+            }
+        }
+    }
+    if(dict[@"actionlists"])
+    {
+        id b = dict[@"actionlists"];
+        if([b isKindOfClass:[NSArray class]])
+        {
+            NSArray *a = (NSArray *)b;
+            _filter_action_list_dict = [[UMSynchronizedDictionary alloc]init];
+            for(id c in a)
+            {
+                if([c isKindOfClass:[NSDictionary class]])
+                {
+                    NSDictionary *d = (NSDictionary *)c;
+                    UMSS7ConfigSS7FilterActionList *al = [[UMSS7ConfigSS7FilterActionList alloc]initWithConfig:d];
+                    _filter_action_list_dict[al.name]=al;
+                }
+            }
+        }
+    }
 }
 
 - (void)copyFromStagingArea:(UMSS7ConfigSS7FilterStagingArea *)otherArea
@@ -117,7 +154,6 @@
         UMSynchronizedSortedDictionary *al = ls.config;
         al[@"actions"] = ls.subConfigs;
         [arr addObject:al];
-        dict[k] = al;
     }
     dict[@"actionlists"] = arr;
 
@@ -132,7 +168,6 @@
 	{
         NSLog(@"Error while writing staging-area name %@ with error %@",_path,[err localizedDescription]);
     }
-
     _dirty = NO;
     [_lock unlock];
 }
@@ -186,42 +221,6 @@
         {
             NSDictionary *dict = (NSDictionary *)obj;
             [self setConfig:dict];
-            id a = dict[@"rule-sets"];
-            if([a isKindOfClass:[NSArray class]])
-            {
-                _filter_rule_set_dict = [[UMSynchronizedDictionary alloc]init];
-                NSArray *arr = (NSArray *)a;
-                for(id c in arr)
-                {
-                    if([c isKindOfClass:[NSDictionary class]])
-                    {
-                        NSDictionary *c_dict = (NSDictionary *)c;
-                        UMSS7ConfigSS7FilterRuleSet *rs = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:c_dict];
-                        if(rs.name.length > 0)
-                        {
-                            _filter_rule_set_dict[rs.name] = rs;
-                        }
-                    }
-                }
-            }
-            id b = dict[@"action-lists"];
-            if([b isKindOfClass:[NSArray class]])
-            {
-                _filter_action_list_dict = [[UMSynchronizedDictionary alloc]init];
-                NSArray *arr = (NSArray *)b;
-                for(id c in arr)
-                {
-                    if([c isKindOfClass:[NSDictionary class]])
-                    {
-                        NSDictionary *c_dict = (NSDictionary *)c;
-                        UMSS7ConfigSS7FilterActionList *list = [[UMSS7ConfigSS7FilterActionList alloc]initWithConfig:c_dict];
-                        if(list.name.length > 0)
-                        {
-                            _filter_action_list_dict[list.name] = list;
-                        }
-                    }
-                }
-            }
         }
     }
 }

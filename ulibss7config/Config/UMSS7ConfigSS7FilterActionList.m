@@ -64,6 +64,24 @@
     [self setSuperConfig:dict];
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
+    if(dict[@"actions"])
+    {
+        id b = dict[@"actions"];
+        if([b isKindOfClass:[NSArray class]])
+        {
+            NSArray *a = (NSArray *)b;
+            _entries = [[UMSynchronizedArray alloc]init];
+            for(id c in a)
+            {
+                if([c isKindOfClass:[NSDictionary class]])
+                {
+                    NSDictionary *d = (NSDictionary *)c;
+                    UMSS7ConfigSS7FilterAction *action = [[UMSS7ConfigSS7FilterAction alloc]initWithConfig:d];
+                    [_entries addObject:action];
+                }
+            }
+        }
+    }
 }
 
 - (UMSS7ConfigSS7FilterActionList *)copyWithZone:(NSZone *)zone

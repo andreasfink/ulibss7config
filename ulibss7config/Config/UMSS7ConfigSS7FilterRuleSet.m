@@ -70,6 +70,25 @@
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     SET_DICT_STRING(dict,@"status",_status);
+
+    if(dict[@"rules"])
+    {
+        id b = dict[@"rules"];
+        if([b isKindOfClass:[NSArray class]])
+        {
+            NSArray *a = (NSArray *)b;
+            _entries = [[UMSynchronizedArray alloc]init];
+            for(id c in a)
+            {
+                if([c isKindOfClass:[NSDictionary class]])
+                {
+                    NSDictionary *d = (NSDictionary *)c;
+                    UMSS7ConfigSS7FilterRule *rule = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:d];
+                    [_entries addObject:rule];
+                }
+            }
+        }
+    }
 }
 
 - (UMSS7ConfigSS7FilterRule *)getRuleAtIndex:(NSInteger)idx

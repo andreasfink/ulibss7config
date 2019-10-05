@@ -4423,6 +4423,10 @@ static void signalHandler(int signum);
 - (UMSCCP_FilterResult)filterPacket:(UMSCCP_Packet *)packet
                        usingRuleset:(NSString *)ruleset
 {
+    if(_activeStagingArea==NULL)
+    {
+        [self.logFeed majorErrorText:@"can not find activeStagingArea"];
+    }
     UMSynchronizedDictionary *dict = _activeStagingArea.filter_rule_set_dict;
     UMSS7FilterRuleSet *rs = dict[ruleset];
     if(rs == NULL)
