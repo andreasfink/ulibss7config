@@ -4531,10 +4531,7 @@ static void signalHandler(int signum);
 
 
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
-{
-    packet.logFeed = self.logFeed;
-    packet.logLevel = self.logLevel;
-    
+{    
     if(_logLevel<= UMLOG_DEBUG)
     {
         [packet.logFeed infoText:@"filterInbound called"];
