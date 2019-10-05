@@ -43,6 +43,6 @@
 - (UMSS7FilterRule *)initWithConfig:(UMSS7ConfigSS7FilterRule *)cfg
                         appDelegate:(SS7AppDelegate *)appdel;
 
-- (UMSCCP_FilterResult) filterInbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult) filterPacket:(UMSCCP_Packet *)packet;
 
 @end

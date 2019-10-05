@@ -146,20 +146,25 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
 
 
 
-- (UMSCCP_FilterResult) filterInbound:(UMSCCP_Packet *)packet
+- (UMSCCP_FilterResult) filterPacket:(UMSCCP_Packet *)packet
 {
+    UMLogFeed *logFeed = packet.logFeed;
+    UMLogLevel logLevel = packet.logLevel;
+    
     UMSCCP_FilterResult fr = UMSCCP_FILTER_RESULT_UNMODIFIED;
 
     UMSCCP_FilterMatchResult r = UMSCCP_FilterMatchResult_untested;
 
-    if(_tags)
+    if(_tags.count > 0)
     {
         NSArray *packetTags = [packet.tags allKeys];
-
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:[NSString stringWithFormat:@"checking tags %@",[_tags componentsJoinedByString:@","]]];
+        }
         for(NSArray *tag in _tags)
         {
             NSInteger i = [packetTags indexOfObjectIdenticalTo:tag];
-
             BOOL matches = (i != NSNotFound );
             if(_not_tags)
             {
@@ -172,6 +177,10 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
             }
             else
             {
+                if(logLevel<=UMLOG_DEBUG)
+                {
+                    [logFeed debugText:@"returning UMSCCP_FilterMatchResult_does_not_match"];
+                }
                 r = UMSCCP_FilterMatchResult_does_not_match;
                 return fr; /* we bail out. No more to check */
                 break;
@@ -182,11 +191,20 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
     /* if we dont match here, no point checking other rules */
     if(r==UMSCCP_FilterMatchResult_does_not_match)
     {
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:@"returning UMSCCP_FilterMatchResult_does_not_match"];
+        }
         return fr;
     }
 
-    if(_variableConditions)
+    if(_variableConditions.count > 0)
     {
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:@"checking variableConditions"];
+        }
+
         for(NSDictionary *rule in _variableConditions)
         {
             NSString *var = rule[@"var"];
@@ -258,6 +276,10 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
             else
             {
                 r = UMSCCP_FilterMatchResult_does_not_match;
+                if(logLevel<=UMLOG_DEBUG)
+                {
+                    [logFeed debugText:@"returning UMSCCP_FilterMatchResult_does_not_match"];
+                }
                 return fr; /* we bail out. No more to check */
                 break;
             }
@@ -267,25 +289,77 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
 
     if(_engine)
     {
-        r = [_engine matchesInbound:packet];
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:@"checking engine"];
+        }
+        
+        UMSCCP_FilterResult fr = [_engine filterInbound:packet];
+        if(fr != UMSCCP_FILTER_RESULT_UNMODIFIED)
+        {
+            if(logLevel<=UMLOG_DEBUG)
+            {
+                [logFeed debugText:@"_engine filterInbound: fails to decode"];
+            }
+        }
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:@"calling engine matchesPacket:"];
+        }
+        r = [_engine matchesPacket:packet];
         if(_engineInverseMatch)
         {
             r = InvertFilterMatchResult(r);
         }
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            switch(r)
+            {
+                case UMSCCP_FilterMatchResult_does_not_match:
+                    [logFeed debugText:@" egine match returns UMSCCP_FilterMatchResult_does_not_match"];
+                    break;
+                case UMSCCP_FilterMatchResult_does_match:
+                    [logFeed debugText:@" egine match returns UMSCCP_FilterMatchResult_does_match"];
+                    break;
+                case UMSCCP_FilterMatchResult_untested:
+                    [logFeed debugText:@" egine match returns UMSCCP_FilterMatchResult_untested"];
+                    break;
+            }
+        }
     }
 
-    if((r == UMSCCP_FilterMatchResult_does_not_match) || (r==UMSCCP_FilterMatchResult_untested))
+    if(r == UMSCCP_FilterMatchResult_does_not_match)
     {
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:@"returning UMSCCP_FilterMatchResult_does_not_match"];
+        }
+        return fr;
+    }
+    if(r==UMSCCP_FilterMatchResult_untested)
+    {
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:@"returning UMSCCP_FilterMatchResult_untested"];
+        }
         return fr;
     }
 
     /* if we end up here, we have a match */
     if(_filterStatus==UMSS7FilterStatus_off)
     {
+        if(logLevel<=UMLOG_DEBUG)
+        {
+            [logFeed debugText:@"returning UMSCCP_FilterMatchResult_match (UMSS7FilterStatus_off)"];
+        }
         return fr;
     }
 
     /* if we end up here, we have to take the action */
+   if(logLevel<=UMLOG_DEBUG)
+   {
+       [logFeed debugText:@" we have to take action!"];
+   }
 
     NSString *alname = _config.actionList;
     if(alname.length > 0)
@@ -297,23 +371,38 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
             for(UMSS7FilterAction *fa in ale)
             {
                 if((fa.doPass) && (_filterStatus==UMSS7FilterStatus_on))
-
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:@" doPass is set"];
+                    }
                     break;
                 }
                 if((fa.doDrop || fa.doAbort || fa.doReject) &&
                    (_filterStatus==UMSS7FilterStatus_on))
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:@" doDrop or doAbort or doReject is set"];
+                    }
                     fr = fr | UMSCCP_FILTER_RESULT_DROP;
                 }
                 if((fa.doContinue) &&
                     (_filterStatus==UMSS7FilterStatus_on))
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:@" doContinue is set"];
+                    }
                     return fr;
                 }
 
                 if(fa.doLog)
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:@" doLog is set"];
+                    }
                     UMSS7TraceFile *tf = _appDelegate.traceFiles[fa.traceDestination];
                     if(tf)
                     {
@@ -322,35 +411,68 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
                 }
                 if((fa.doReroute)  && (_filterStatus==UMSS7FilterStatus_on))
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:@" doReroute is set"];
+                    }
+
                     fr = fr | UMSCCP_FILTER_RESULT_MODIFIED;
                     if(fa.rerouteDestinationGroup)
                     {
                         packet.rerouteDestinationGroup = fa.rerouteDestinationGroup;
+                        if(logLevel<=UMLOG_DEBUG)
+                        {
+                            [logFeed debugText:[NSString stringWithFormat:@" reroute to %@",fa.rerouteDestinationGroup]];
+                        }
                     }
                     if(fa.reroutePrefix)
                     {
                         packet.outgoingCalledPartyAddress.address = [NSString stringWithFormat:@"%@%@",fa.reroutePrefix,packet.outgoingCalledPartyAddress.address];
+                        if(logLevel<=UMLOG_DEBUG)
+                        {
+                            [logFeed debugText:[NSString stringWithFormat:@" called address with prefix set to %@",packet.outgoingCalledPartyAddress.address]];
+                        }
                     }
                     if(fa.rerouteAddress)
                     {
                         packet.outgoingCalledPartyAddress.address = fa.rerouteAddress;
-
+                        if(logLevel<=UMLOG_DEBUG)
+                        {
+                            [logFeed debugText:[NSString stringWithFormat:@" called address set to %@",packet.outgoingCalledPartyAddress.address]];
+                        }
                     }
                     if(fa.rerouteTranslationType)
                     {
                         packet.outgoingCalledPartyAddress.tt.tt = [fa.rerouteTranslationType intValue];
+                        if(logLevel<=UMLOG_DEBUG)
+                        {
+                            [logFeed debugText:[NSString stringWithFormat:@" called address tt set to %d", [fa.rerouteTranslationType intValue]]];
+                        }
+
                     }
                 }
                 if(fa.doAddTag)
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:[NSString stringWithFormat:@" added tag %@",fa.tag]];
+                    }
                     packet.tags[fa.tag]= fa.tag;
                 }
                 if(fa.doClearTag)
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:[NSString stringWithFormat:@" cleared tag %@",fa.tag]];
+                    }
                     [packet.tags removeObjectForKey:fa.tag];
                 }
                 if((fa.doStats) && (fa.statisticName.length > 0))
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:[NSString stringWithFormat:@" do stats %@",fa.statisticName]];
+                    }
 
                     UMStatistic *stat = _appDelegate.statistics_dict[fa.statisticName];
                     if(stat==NULL)
@@ -371,11 +493,19 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
                 }
                 if((fa.doSetVar) && (fa.variable) && (fa.value))
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:[NSString stringWithFormat:@" set var %@=%@",fa.variable,fa.value]];
+                    }
                     packet.vars[fa.variable]= fa.value;
 
                 }
                 if((fa.doClearVar) && (fa.variable))
                 {
+                    if(logLevel<=UMLOG_DEBUG)
+                    {
+                        [logFeed debugText:[NSString stringWithFormat:@" clear var %@",fa.variable]];
+                    }
                     [packet.vars removeObjectForKey:fa.variable];
                 }
             }
@@ -383,6 +513,5 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
     }
     return fr;
 }
-
 
 @end

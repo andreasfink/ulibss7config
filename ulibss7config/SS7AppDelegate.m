@@ -4423,6 +4423,9 @@ static void signalHandler(int signum);
 - (UMSCCP_FilterResult)filterPacket:(UMSCCP_Packet *)packet
                        usingRuleset:(NSString *)ruleset
 {
+    packet.logFeed  = _logFeed;
+    packet.logLevel = _logLevel;
+
     if(_activeStagingArea==NULL)
     {
         [self.logFeed majorErrorText:@"can not find activeStagingArea"];
@@ -4440,7 +4443,15 @@ static void signalHandler(int signum);
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
     
+    if(_logLevel<=UMLOG_DEBUG)
+    {
+        [self.logFeed debugText:[NSString stringWithFormat:@"calling filterPacket: on ruleset %@",rs.name]];
+    }
     UMSCCP_FilterResult r =  [rs filterPacket:packet];
+    if(_logLevel<=UMLOG_DEBUG)
+    {
+        [self.logFeed debugText:[NSString stringWithFormat:@" filterPacket returned result 0x%2X",r]];
+    }
     if(rs.filterStatus == UMSS7FilterStatus_on)
     {
         return r;

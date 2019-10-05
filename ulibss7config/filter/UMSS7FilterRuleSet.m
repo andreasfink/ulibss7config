@@ -59,14 +59,19 @@
     return YES;
 }
 
-- (UMSCCP_FilterResult) filterPacket:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult) filterPacket:(UMSCCP_Packet *)packet
 {
     
     UMSCCP_FilterResult result = UMSCCP_FILTER_RESULT_UNMODIFIED;
 
+    int i=0;
     for (UMSS7FilterRule *rule in _entries)
     {
-        result = result | [rule filterInbound:packet];
+        if(packet.logLevel <= UMLOG_DEBUG)
+        {
+            [packet.logFeed debugText:[NSString stringWithFormat:@"calling filterPacket on entry Nr %d",i]];
+        }
+        result = result | [rule filterPacket:packet];
         if(result | UMSCCP_FILTER_RESULT_DROP )
         {
             break;
@@ -79,6 +84,7 @@
         {
             break;
         }
+        i++;
     }
     return result;
 }

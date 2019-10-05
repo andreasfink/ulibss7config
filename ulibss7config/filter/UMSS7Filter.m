@@ -86,9 +86,9 @@ NSDictionary *plugin_info(void);
     _tags = [[UMSynchronizedDictionary alloc] init];
 }
 
-- (UMSCCP_FilterMatchResult) matchesInbound:(UMSCCP_Packet *)packet
+- (UMSCCP_FilterMatchResult) matchesPacket:(UMSCCP_Packet *)packet
 {
-    return UMSCCP_FilterMatchResult_does_not_match;
+    return UMSCCP_FilterMatchResult_untested;
 }
 
 - (UMSCCP_FilterResult) filterInbound:(UMSCCP_Packet *)packet;
