@@ -4435,11 +4435,16 @@ static void signalHandler(int signum);
     if(rs == NULL)
     {
         NSString *s = [NSString stringWithFormat:@"can not find ss7-filter-ruleset '%@'",ruleset];
-        [self.logFeed majorErrorText:s];
+        [_logFeed majorErrorText:s];
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
     if(rs.filterStatus == UMSS7FilterStatus_off)
     {
+        if(_logLevel <= UMLOG_DEBUG)
+        {
+            NSString *s = [NSString stringWithFormat:@"filter status is off on ruleset '%@'",ruleset];
+            [_logFeed debugText:s];
+        }
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
     

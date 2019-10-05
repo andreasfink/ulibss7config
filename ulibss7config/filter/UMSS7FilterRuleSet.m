@@ -56,6 +56,10 @@
     {
         _filterStatus = UMSS7FilterStatus_monitor;
     }
+    else
+    {
+        _filterStatus = UMSS7FilterStatus_on;
+    }
     return YES;
 }
 
