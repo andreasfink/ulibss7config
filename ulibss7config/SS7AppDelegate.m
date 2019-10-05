@@ -4423,24 +4423,41 @@ static void signalHandler(int signum);
 - (UMSCCP_FilterResult)filterPacket:(UMSCCP_Packet *)packet
                        usingRuleset:(NSString *)ruleset
 {
-    packet.logFeed  = _logFeed;
-    packet.logLevel = _logLevel;
-
     if(_activeStagingArea==NULL)
     {
-        [self.logFeed majorErrorText:@"can not find activeStagingArea"];
+        if(packet.logLevel <= UMLOG_DEBUG)
+        {
+            [packet.logFeed debugText:@"can not find activeStagingArea"];
+        }
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+
     }
     UMSynchronizedDictionary *dict = _activeStagingArea.filter_rule_set_dict;
+    if(dict==NULL)
+    {
+        if(packet.logLevel <= UMLOG_DEBUG)
+        {
+            NSString *s = [NSString stringWithFormat:@" activeStagingArea.filter_rule_set_dict is NULL"];
+            [packet.logFeed debugText:s];
+        }
+        return UMSCCP_FILTER_RESULT_UNMODIFIED;
+    }
     UMSS7FilterRuleSet *rs = dict[ruleset];
+    NSLog(@"Ruleset = %@",rs.name);
+    NSLog(@"RulesetConfig = %@",rs.config);
+
     if(rs == NULL)
     {
-        NSString *s = [NSString stringWithFormat:@"can not find ss7-filter-ruleset '%@'",ruleset];
-        [_logFeed majorErrorText:s];
+        if(packet.logLevel <= UMLOG_DEBUG)
+        {
+            NSString *s = [NSString stringWithFormat:@"can not find ss7-filter-ruleset '%@'",ruleset];
+            [packet.logFeed debugText:s];
+        }
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
     if(rs.filterStatus == UMSS7FilterStatus_off)
     {
-        if(_logLevel <= UMLOG_DEBUG)
+        if(packet.logLevel <= UMLOG_DEBUG)
         {
             NSString *s = [NSString stringWithFormat:@"filter status is off on ruleset '%@'",ruleset];
             [_logFeed debugText:s];
@@ -4448,12 +4465,12 @@ static void signalHandler(int signum);
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
     
-    if(_logLevel<=UMLOG_DEBUG)
+    if(packet.logLevel<=UMLOG_DEBUG)
     {
-        [self.logFeed debugText:[NSString stringWithFormat:@"calling filterPacket: on ruleset %@",rs.name]];
+        [packet.logFeed debugText:[NSString stringWithFormat:@"calling filterPacket: on ruleset %@",rs.name]];
     }
     UMSCCP_FilterResult r =  [rs filterPacket:packet];
-    if(_logLevel<=UMLOG_DEBUG)
+    if(packet.logLevel<=UMLOG_DEBUG)
     {
         [self.logFeed debugText:[NSString stringWithFormat:@" filterPacket returned result 0x%2X",r]];
     }
@@ -4515,13 +4532,16 @@ static void signalHandler(int signum);
 
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
 {
+    packet.logFeed = self.logFeed;
+    packet.logLevel = self.logLevel;
+    
     if(_logLevel<= UMLOG_DEBUG)
     {
-        [self.logFeed infoText:@"filterInbound called"];
+        [packet.logFeed infoText:@"filterInbound called"];
     }
     if(_filteringActive==NO)
     {
-        [self.logFeed infoText:@"filtering is not active. Skipping"];
+        [packet.logFeed infoText:@"filtering is not active. Skipping"];
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
     NSArray<NSString *> *ruleSets = _incomingLinksetFilters[packet.incomingLinkset];
@@ -4529,14 +4549,14 @@ static void signalHandler(int signum);
     {
         if(_logLevel<= UMLOG_DEBUG)
         {
-            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+            [packet.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
         }
         ruleSets = _incomingLinksetFilters[@"all"];
         if(ruleSets==NULL)
         {
             if(_logLevel<= UMLOG_DEBUG)
             {
-                [self.logFeed debugText:@" no ruleset found for linkset 'all'. returing UMSCCP_FILTER_RESULT_UNMODIFIED"];
+                [packet.logFeed debugText:@" no ruleset found for linkset 'all'. returing UMSCCP_FILTER_RESULT_UNMODIFIED"];
             }
             return UMSCCP_FILTER_RESULT_UNMODIFIED;
         }
@@ -4547,9 +4567,10 @@ static void signalHandler(int signum);
     {
         if(_logLevel<= UMLOG_DEBUG)
         {
-            [self.logFeed debugText:[NSString stringWithFormat:@" checking ruleset %@",ruleSet]];
+            [packet.logFeed debugText:[NSString stringWithFormat:@" checking ruleset %@",ruleSet]];
         }
         result = [self filterPacket:packet usingRuleset:ruleSet];
+
         if(result & UMSCCP_FILTER_RESULT_DROP)
         {
             break;
