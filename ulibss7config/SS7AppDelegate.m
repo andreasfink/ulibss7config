@@ -1207,6 +1207,11 @@ static void signalHandler(int signum);
         }
     }
 
+    for(UMLayerSCCP *sccp in _sccp_dict)
+    {
+        [sccp.registry finishUpdate];
+    }
+
     /*****************************************************************/
     /* Section IMSI Pool */
     /*****************************************************************/
