@@ -1207,8 +1207,10 @@ static void signalHandler(int signum);
         }
     }
 
-    for(UMLayerSCCP *sccp in _sccp_dict)
+    NSArray *sccp_names = [_sccp_dict allKeys];
+    for(NSString *sccp_name in sccp_names)
     {
+        UMLayerSCCP *sccp = _sccp_dict[sccp_name];
         [sccp.gttSelectorRegistry finishUpdate];
     }
 
