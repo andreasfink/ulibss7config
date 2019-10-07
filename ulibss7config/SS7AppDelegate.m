@@ -249,9 +249,21 @@ static void signalHandler(int signum);
                                              repeats:YES
                                      runInForeground:NO];
 
-#ifdef	HAS_ULIBLICENSE
-		_globalLicenseDirectory = UMLicense_loadLicensesFromPath(NULL,NO);
-#endif
+        _globalLicenseDirectory = UMLicense_loadLicensesFromPath(NULL,NO);
+        _coreFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"core"];
+        _sctpFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"sctp"];
+        _m2paFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"m2pa"];
+        _mtp3Feature = [_globalLicenseDirectory getProduct:[self productName] feature:@"mtp3"];
+        _m3uaFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"m3ua"];
+        _sccpFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"sccp"];
+        _tcapFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"tcap"];
+        _gsmmapFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"gsmmap"];
+        _smscFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsc"];
+        _smsproxyFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsproxy"];
+        _rerouterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"rerouter"];
+        _diameterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
+
+
         _filteringActive = YES;
     }
     return self;
@@ -940,18 +952,27 @@ static void signalHandler(int signum);
         }
     }
 
-
     /*****************************************************************/
     /* SCTP */
     /*****************************************************************/
     names = [_runningConfig getSCTPNames];
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigObject *co = [_runningConfig getSCTP:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_sctpFeature.isAvailable==NO)
         {
-            [self addWithConfigSCTP:config];
+            [self.logFeed majorErrorText:@"No license for SCTP available but SCTP objects configured"];
+        }
+        else
+        {
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getSCTP:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigSCTP:config];
+                }
+            }
         }
     }
 
@@ -960,13 +981,23 @@ static void signalHandler(int signum);
     /* M2PA */
     /*****************************************************************/
     names = [_runningConfig getM2PANames];
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigObject *co = [_runningConfig getM2PA:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_m2paFeature.isAvailable==NO)
         {
-            [self addWithConfigM2PA:config];
+            [self.logFeed majorErrorText:@"No license for M2PA available but M2PA objects configured"];
+        }
+        else
+        {
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getM2PA:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigM2PA:config];
+                }
+            }
         }
     }
 
@@ -974,76 +1005,91 @@ static void signalHandler(int signum);
     /* MTP3 */
     /*****************************************************************/
     names = [_runningConfig getMTP3Names];
-    NSLog(@"mtp3names = %@",names);
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_mtp3Feature.isAvailable==NO)
         {
-            [self addWithConfigMTP3:config];
+            [self.logFeed majorErrorText:@"No license for MTP3 available but MTP3 objects configured"];
         }
-    }
-
-    /*****************************************************************/
-    /* MTP3 LinkSet*/
-    /*****************************************************************/
-    names = [_runningConfig getMTP3LinkSetNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        else
         {
-            [self addWithConfigMTP3LinkSet:config];
-        }
-    }
+            for(NSString *name in names)
+           {
+               UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
+               NSDictionary *config = co.config.dictionaryCopy;
+               if( [config configEnabledWithYesDefault])
+               {
+                   [self addWithConfigMTP3:config];
+               }
+           }
+           /*****************************************************************/
+           /* MTP3 LinkSet*/
+           /*****************************************************************/
+           names = [_runningConfig getMTP3LinkSetNames];
+           for(NSString *name in names)
+           {
+               UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
+               NSDictionary *config = co.config.dictionaryCopy;
+               if( [config configEnabledWithYesDefault])
+               {
+                   [self addWithConfigMTP3LinkSet:config];
+               }
+           }
 
-    /*****************************************************************/
-    /* MTP3 Link */
-    /*****************************************************************/
-    names = [_runningConfig getMTP3LinkNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
-        {
-            [self addWithConfigMTP3Link:config];
-        }
+           /*****************************************************************/
+           /* MTP3 Link */
+           /*****************************************************************/
+           names = [_runningConfig getMTP3LinkNames];
+           for(NSString *name in names)
+           {
+               UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
+               NSDictionary *config = co.config.dictionaryCopy;
+               if( [config configEnabledWithYesDefault])
+               {
+                   [self addWithConfigMTP3Link:config];
+               }
+           }
+       }
     }
-
 
 
     /*****************************************************************/
     /* M3UAAS */
     /*****************************************************************/
+    
     names = [_runningConfig getM3UAASNames];
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigObject *co = [_runningConfig getM3UAAS:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_m3uaFeature.isAvailable==NO)
         {
-            [self addWithConfigM3UAAS:config];
+            [self.logFeed majorErrorText:@"No license for M3UA available but M3UA objects configured"];
+        }
+        else
+        {
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getM3UAAS:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigM3UAAS:config];
+                }
+            }
+            /*****************************************************************/
+            /* M3UAASP */
+            /*****************************************************************/
+            names = [_runningConfig getM3UAASPNames];
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getM3UAASP:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigM3UAASP:config];
+                }
+            }
         }
     }
-
-
-    /*****************************************************************/
-    /* M3UAASP */
-    /*****************************************************************/
-    names = [_runningConfig getM3UAASPNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getM3UAASP:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
-        {
-            [self addWithConfigM3UAASP:config];
-        }
-    }
-
 
 
     /*****************************************************************/
@@ -1115,59 +1161,87 @@ static void signalHandler(int signum);
     /*****************************************************************/
     /* SCCP */
     /*****************************************************************/
+
     names = [_runningConfig getSCCPNames];
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigObject *co = [_runningConfig getSCCP:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_sccpFeature.isAvailable==NO)
         {
-            [self addWithConfigSCCP:config];
+            [self.logFeed majorErrorText:@"No license for SCCP available but SCCP objects configured"];
+        }
+        else
+        {
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getSCCP:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigSCCP:config];
+                }
+            }
+
+            /* SCCP Destinations */
+            names = [_runningConfig getSCCPDestinationNames];
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getSCCPDestination:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
+                    [self addWithConfigSCCPDestination:config subConfigs:co.subConfigs variant:sccp.mtp3.variant];
+                }
+            }
+            /* FIXME: check if there's more in ESTP which we should add here */
         }
     }
-
-    /* SCCP Destinations */
-    names = [_runningConfig getSCCPDestinationNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigObject *co = [_runningConfig getSCCPDestination:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
-        {
-            UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
-            [self addWithConfigSCCPDestination:config subConfigs:co.subConfigs variant:sccp.mtp3.variant];
-        }
-    }
-    /* FIXME: check if there's more in ESTP which we should add here */
-
     /*****************************************************************/
     /* TCAP */
     /*****************************************************************/
     names = [_runningConfig getTCAPNames];
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigObject *co = [_runningConfig getTCAP:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_tcapFeature.isAvailable==NO)
         {
-            [self addWithConfigTCAP:config];
+            [self.logFeed majorErrorText:@"No license for TCAP available but TCAP objects configured"];
+        }
+        else
+        {
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getTCAP:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigTCAP:config];
+                }
+            }
         }
     }
-
     /*****************************************************************/
     /* GSMMAP */
     /*****************************************************************/
     names = [_runningConfig getGSMMAPNames];
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigObject *co = [_runningConfig getGSMMAP:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_sccpFeature.isAvailable==NO)
         {
-            [self addWithConfigGSMMAP:config];
+            [self.logFeed majorErrorText:@"No license for GSMMAP available but GSMMAP objects configured"];
+        }
+        else
+        {
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getGSMMAP:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigGSMMAP:config];
+                }
+            }
         }
     }
-
     /*****************************/
     /* Setup GTT Routing Tables  */
     /*****************************/
@@ -1310,65 +1384,111 @@ static void signalHandler(int signum);
     /* DiameterRouter */
     /*****************************************************************/
     names = [_runningConfig getDiameterRouterNames];
-    for(NSString *name in names)
+    if(names.count > 0)
     {
-        UMSS7ConfigDiameterRouter *co = [_runningConfig getDiameterRouter:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
+        if(_sccpFeature.isAvailable==NO)
         {
-            [self addWithConfigDiameterRouter:config];
+            [self.logFeed majorErrorText:@"No license for Diameter available but Diameter objects configured"];
         }
-    }
-
-    /*****************************************************************/
-    /* DiameterRoutes */
-    /*****************************************************************/
-    names = [_runningConfig getDiameterRoutes];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigDiameterRoute *routeconfig = [_runningConfig getDiameterRoute:name];
-        UMSynchronizedSortedDictionary *d = [routeconfig config];
-        NSDictionary *dict = [d dictionaryCopy];
-        if( [dict configEnabledWithYesDefault])
+        else
         {
-            UMDiameterRouter *router = [self getDiameterRouter:routeconfig.router];
-            if(router==NULL)
+            for(NSString *name in names)
             {
-                NSString *s = [NSString stringWithFormat:@"Can not find router '%@'",router];
-                CONFIG_ERROR(s);
-            }
-            UMDiameterRoute *route = [[UMDiameterRoute alloc]initWithConfig:dict];
-            [router addRoute:route];
-        }
-    }
-
-    /*****************************************************************/
-    /* DiameterConnections */
-    /*****************************************************************/
-    names = [_runningConfig getDiameterConnectionNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigDiameterConnection *co = [_runningConfig getDiameterConnection:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-        if( [config configEnabledWithYesDefault])
-        {
-            [self addWithConfigDiameterConnection:config];
-            NSString *routerName = co.router;
-            UMDiameterRouter *router = [self getDiameterRouter:routerName];
-            if(router==NULL)
-            {
-                NSString *s = [NSString stringWithFormat:@"diameter connection '%@' points to non existing router '%@'",name,routerName];
-                CONFIG_ERROR(s);
+                UMSS7ConfigDiameterRouter *co = [_runningConfig getDiameterRouter:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigDiameterRouter:config];
+                }
             }
 
-            UMDiameterPeer *peer = [[UMDiameterPeer alloc]initWithTaskQueueMulti:_diameterTaskQueue];
-            peer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"diameter-connection"];
-            peer.logFeed.name = name;
-            [peer setConfig:config applicationContext:self];
-            [router addPeer:peer];
-            _diameter_connections_dict[name] = peer;
+            /*****************************************************************/
+            /* DiameterRoutes */
+            /*****************************************************************/
+            names = [_runningConfig getDiameterRoutes];
+            for(NSString *name in names)
+            {
+                UMSS7ConfigDiameterRoute *routeconfig = [_runningConfig getDiameterRoute:name];
+                UMSynchronizedSortedDictionary *d = [routeconfig config];
+                NSDictionary *dict = [d dictionaryCopy];
+                if( [dict configEnabledWithYesDefault])
+                {
+                    UMDiameterRouter *router = [self getDiameterRouter:routeconfig.router];
+                    if(router==NULL)
+                    {
+                        NSString *s = [NSString stringWithFormat:@"Can not find router '%@'",router];
+                        CONFIG_ERROR(s);
+                    }
+                    UMDiameterRoute *route = [[UMDiameterRoute alloc]initWithConfig:dict];
+                    [router addRoute:route];
+                }
+            }
+
+            /*****************************************************************/
+            /* DiameterConnections */
+            /*****************************************************************/
+            names = [_runningConfig getDiameterConnectionNames];
+            for(NSString *name in names)
+            {
+                UMSS7ConfigDiameterConnection *co = [_runningConfig getDiameterConnection:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigDiameterConnection:config];
+                    NSString *routerName = co.router;
+                    UMDiameterRouter *router = [self getDiameterRouter:routerName];
+                    if(router==NULL)
+                    {
+                        NSString *s = [NSString stringWithFormat:@"diameter connection '%@' points to non existing router '%@'",name,routerName];
+                        CONFIG_ERROR(s);
+                    }
+
+                    UMDiameterPeer *peer = [[UMDiameterPeer alloc]initWithTaskQueueMulti:_diameterTaskQueue];
+                    peer.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"diameter-connection"];
+                    peer.logFeed.name = name;
+                    [peer setConfig:config applicationContext:self];
+                    [router addPeer:peer];
+                    _diameter_connections_dict[name] = peer;
+                }
+            }
         }
     }
+    if(_coreFeature.isAvailable)
+    {
+        if(_coreFeature.licenseExpiration)
+        {
+            NSTimeInterval remainingSeconds = [_coreFeature.licenseExpiration timeIntervalSinceDate:[NSDate date]];
+            UMTimer *_terminationTimer = [[UMTimer alloc]initWithTarget:self
+                                                               selector:@selector(licenseExpiration)
+                                                                 object:NULL
+                                                                seconds:remainingSeconds
+                                                                   name:@"termination-timer"
+                                                                repeats:NO
+                                                        runInForeground:YES];
+            [_terminationTimer start];
+        }
+    }
+    else
+    {
+        [self.logFeed majorErrorText:@"No license available. Will run for 30 minutes"];
+        UMTimer *_terminationTimer = [[UMTimer alloc]initWithTarget:self
+                                                           selector:@selector(licenseExpiration)
+                                                             object:NULL
+                                                            seconds:(30*60)
+                                                               name:@"termination-timer"
+                                                            repeats:NO
+                                                    runInForeground:YES];
+        [_terminationTimer start];
+    }
+
+}
+
+- (void)licenseExpiration
+{
+    _must_quit = YES;
+    [self.logFeed majorErrorText:@"license expired. Terminating"];
+    sleep(120);
+    exit(-1);
 }
 
 - (void)startInstances
