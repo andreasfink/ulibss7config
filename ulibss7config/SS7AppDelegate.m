@@ -1180,6 +1180,7 @@ static void signalHandler(int signum);
         NSDictionary *config = co.config.dictionaryCopy;
 
         SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
+        
         if(selector.preTranslationName.length > 0)
         {
             selector.preTranslation = _sccp_number_translations_dict[selector.preTranslationName];
@@ -4070,7 +4071,7 @@ static void signalHandler(int signum);
     }
     for(NSString *filename in a)
     {
-        NSString *filepath = [NSString stringWithFormat:@"%@/%@",path,filename];
+        NSString *filepath = [NSString stringWithFormat:@"%@%@",path,filename];
         [self.logFeed debugText:[NSString stringWithFormat:@"loading filter %@",filepath]];
         if([filepath hasSuffix:@"~"]) /* we skip old backup files */
         {
