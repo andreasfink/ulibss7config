@@ -637,7 +637,6 @@ infodir
 docdir
 oldincludedir
 includedir
-runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -711,7 +710,6 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
-runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
@@ -964,15 +962,6 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
-  -runstatedir | --runstatedir | --runstatedi | --runstated \
-  | --runstate | --runstat | --runsta | --runst | --runs \
-  | --run | --ru | --r)
-    ac_prev=runstatedir ;;
-  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
-  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
-  | --run=* | --ru=* | --r=*)
-    runstatedir=$ac_optarg ;;
-
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1110,7 +1099,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir runstatedir
+		libdir localedir mandir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1263,7 +1252,6 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
-  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1839,7 +1827,7 @@ MAJORVER=`echo $VERSION | cut -f1 -d.`
 MINORVER=`echo $VERSION | cut -f2 -d.`
 REVISION=`echo $VERSION | cut -f3 -d.`
 CONFIG_HEADER=ulibss7config_config.h
-DEPENDENT_PKGCONFIGS="ulibgsmmap ulibpcap ulibdiameter ulibtransport schrittmacherclient ulibcamel"
+DEPENDENT_PKGCONFIGS="ulibgsmmap ulibpcap ulibdiameter ulibtransport schrittmacherclient ulibcamel uliblicense"
 FRAMEWORKS="-framework ulib -framework ulibsctp -framework ulibm2pa -framework ulibmtp3 -framework ulibsccp -framework ulibtcap -framework ulibgsmmap -framework ulibasn1"
 PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
 export PKG_CONFIG_PATH
@@ -2010,7 +1998,7 @@ case "$host" in
   *apple-darwin*)
 	ARCH="-arch x86_64"
 	OSX_DEVTOOL_DIR=`xcode-select -p`
-	CFLAGS="$CFLAGS -D_REENTRANT=1 -DDARWIN=1 ${ARCH}"
+	CFLAGS="$CFLAGS -D_REENTRANT=1 -DDARWIN=1 ${ARCH} -DHAS_ULIBLICENSE=1"
 	LDFLAGS=-framework CoreFoundation -framework IOKit -framework Security -F/Library/Application\ Support/FinkTelecomServices/frameworks ${FRAMEWORKS}
 	LIBTOOL="libtool -static -o"
 	SHARED_LIBRARY_EXTENSION=dylib
@@ -2021,10 +2009,11 @@ case "$host" in
 	DEBIAN_VERSION=`cat /etc/debian_version | cut -f1 -d.`
 	if [ "$DEBIAN_VERSION" == "8" ]
 	then
-        CFLAGS="$CFLAGS -D_BSD_SOURCE"
+        CFLAGS="$CFLAGS -D_BSD_SOURCE -DHAS_ULIBLICENSE=1"
     else
-        CFLAGS="$CFLAGS -D_DEFAULT_SOURCE"
+        CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -DHAS_ULIBLICENSE=1"
 	fi
+
 	CFLAGS="${CFLAGS} -Wno-trigraphs  -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties"
 	CFLAGS="${CFLAGS} -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label"
 	CFLAGS="${CFLAGS} -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow"
