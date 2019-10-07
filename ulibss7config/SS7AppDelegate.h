@@ -24,15 +24,11 @@
 #import "UMSS7ConfigSS7FilterAction.h"
 #import "UMSS7TraceFile.h"
 
-#ifdef	HAS_ULIBLICENSE
-
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
 #else
 #import <uliblicense/uliblicense.h>
 #endif
-
-#endif //HAS_ULIBLICENSE
 
 #import "SS7TemporaryImsiPool.h"
 #import "SS7TelnetSocketHelperProtocol.h"
@@ -127,9 +123,20 @@ UMSCCP_FilterDelegateProtocol>
 
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
-#ifdef	HAS_ULIBLICENSE
 	UMLicenseDirectory       	*_globalLicenseDirectory;
-#endif
+    UMLicenseProductFeature     *_coreFeature;
+    UMLicenseProductFeature     *_sctpFeature;
+    UMLicenseProductFeature     *_m2paFeature;
+    UMLicenseProductFeature     *_mtp3Feature;
+    UMLicenseProductFeature     *_m3uaFeature;
+    UMLicenseProductFeature     *_sccpFeature;
+    UMLicenseProductFeature     *_tcapFeature;
+    UMLicenseProductFeature     *_gsmmapFeature;
+    UMLicenseProductFeature     *_smscFeature;
+    UMLicenseProductFeature     *_smsproxyFeature;
+    UMLicenseProductFeature     *_rerouterFeature;
+    UMLicenseProductFeature     *_diameterFeature;
+
 	UMTransportService       	*_umtransportService;
 	UMMutex                  	*_umtransportLock;
     NSString                    *_logDirectory;
@@ -221,13 +228,22 @@ UMSCCP_FilterDelegateProtocol>
 @property(readwrite,strong)     UMSynchronizedDictionary    *active_action_list_dict;
 @property(readwrite,strong)     UMSynchronizedDictionary     *statistics_dict;
 
-#ifdef	HAS_ULIBLICENSE
 @property(readwrite,strong)		UMLicenseDirectory 			*globalLicenseDirectory;
-#endif
+@property(readwrite,strong)     UMLicenseProductFeature     *coreFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *sctpFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *m2paFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *mtp3Feature;
+@property(readwrite,strong)     UMLicenseProductFeature     *m3uaFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *sccpFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *tcapFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *gsmmapFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *smscFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *smsproxyFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *rerouterFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *diameterFeature;
 
 @property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile
                                                                         objects */
-
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
