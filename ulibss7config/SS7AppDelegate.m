@@ -1092,6 +1092,26 @@ static void signalHandler(int signum);
         }
     }
 
+    /*********************************/
+    /* Setup SccpNumberTranslations  */
+    /*********************************/
+
+    names = [_runningConfig getSCCPNumberTranslationNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigSCCPNumberTranslation *co = [_runningConfig getSCCPNumberTranslation:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+
+        SccpNumberTranslation *translation = [[SccpNumberTranslation alloc]initWithConfig:config];
+        NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
+        for(UMSS7ConfigSCCPNumberTranslationEntry *e in entries)
+        {
+            SccpNumberTranslationEntry *entry = [[SccpNumberTranslationEntry alloc]initWithConfig:e.config.dictionaryCopy];
+            [translation addEntry:entry];
+        }
+        _sccp_number_translations_dict[translation.name] = translation;
+    }
+
     /*****************************************************************/
     /* SCCP */
     /*****************************************************************/
@@ -1146,27 +1166,6 @@ static void signalHandler(int signum);
         {
             [self addWithConfigGSMMAP:config];
         }
-    }
-
-
-    /*********************************/
-    /* Setup SccpNumberTranslations  */
-    /*********************************/
-
-    names = [_runningConfig getSCCPNumberTranslationNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigSCCPNumberTranslation *co = [_runningConfig getSCCPNumberTranslation:name];
-        NSDictionary *config = co.config.dictionaryCopy;
-
-        SccpNumberTranslation *translation = [[SccpNumberTranslation alloc]initWithConfig:config];
-        NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
-        for(UMSS7ConfigSCCPNumberTranslationEntry *e in entries)
-        {
-            SccpNumberTranslationEntry *entry = [[SccpNumberTranslationEntry alloc]initWithConfig:e.config.dictionaryCopy];
-            [translation addEntry:entry];
-        }
-        _sccp_number_translations_dict[translation.name] = translation;
     }
 
     /*****************************/
@@ -2479,7 +2478,7 @@ static void signalHandler(int signum);
         sccp.logFeed.name = name;
         [sccp setConfig:config applicationContext:self];
         _sccp_dict[name] = sccp;
-        sccp.sccp_number_translations_dict = _sccp_number_translations_dict;
+        [sccp.gttSelectorRegistry setSccp_number_translations_dict:_sccp_number_translations_dict];
 
         if(co.problematicPacketsTraceFile)
         {
