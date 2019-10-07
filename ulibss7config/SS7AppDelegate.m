@@ -4083,22 +4083,22 @@ static void signalHandler(int signum);
             int r = [ph openWithDictionary:open_dict];
             if(r<0)
 			{
+                [self.logFeed majorErrorText:[NSString stringWithFormat:@"loading filter '%@' failed with error %@",filepath,ph.error]];
 			    [ph close];
-			    @throw([NSException exceptionWithName:@"LOADING-ERROR"
-			    			                   reason:ph.error
-			                                 userInfo:NULL]);
-
 			}
-            NSDictionary *info = ph.info;
-			NSLog(@"plugin info: %@",ph.info);
-            NSString *type = info[@"type"];
-            if([type isEqualToString:@"ss7-filter"])
-            {
-                _ss7FilterEngines[ph.name] = ph;
-            }
             else
             {
-                [self.logFeed minorErrorText:[NSString stringWithFormat:@"filter %@ is of type %@. was excpecting ss7-filter. Ignoring",filepath,type]];
+                NSDictionary *info = ph.info;
+                NSLog(@"plugin info: %@",ph.info);
+                NSString *type = info[@"type"];
+                if([type isEqualToString:@"ss7-filter"])
+                {
+                    _ss7FilterEngines[ph.name] = ph;
+                }
+                else
+                {
+                    [self.logFeed minorErrorText:[NSString stringWithFormat:@"filter %@ is of type %@. was excpecting ss7-filter. Ignoring",filepath,type]];
+                }
             }
         }
         else
