@@ -1279,6 +1279,16 @@ static void signalHandler(int signum);
              }*/
             [selector.routingTable addEntry:entry];
         }
+
+        if(co.defaultDestination)
+        {
+            UMSS7ConfigSCCPTranslationTableEntry *e = [[UMSS7ConfigSCCPTranslationTableEntry alloc]init];
+            e.translationTableName = name;
+            e.gta=@"default";
+            e.sccpDestination = co.defaultDestination;
+            SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
+            [selector.routingTable addEntry:entry];
+        }
     }
 
     NSArray *sccp_names = [_sccp_dict allKeys];
