@@ -40,16 +40,13 @@
 		// 1. Get external parameters
 		NSString *name = _params[@"name"];
 		NSString *action = _params[@"action"];
-		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the 'name' parameter is not passed"}; 
-			[self sendError:[d jsonString]];
+			[self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
 		}
 		else if(action.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the 'action' parameter is not passed" };
-			[self sendError:[d jsonString]];
+            [self sendError:@"missing-parameter" reason:@"the 'action' parameter is not passed"];
 		}
 		else
 		{

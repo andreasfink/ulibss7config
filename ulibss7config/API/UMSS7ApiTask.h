@@ -27,6 +27,7 @@
 + (NSArray *)apiPathList;
 
 - (void)sendError:(NSString *)err;
+- (void)sendError:(NSString *)err reason:(NSString *)reason;
 - (void)sendErrorNotFound;
 - (void)sendErrorNotFound:(NSString *)param;
 - (void)sendErrorAlreadyExisting;

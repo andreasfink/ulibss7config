@@ -47,11 +47,9 @@
 		@try
 		{
 			NSString *name = _params[@"name"];
-            NSDictionary *d = [NSDictionary dictionary];
             if(name.length==0)
             {
-                d = @{@"error" : @"missing-parameter", @"reason" :@"'name' parameter is not passed"};
-                [self sendError:[d jsonString]];
+                [self sendError:@"missing-parameter"  reason:@"'name' parameter is not passed"];
             }
             else if(stagingArea.filter_action_list_dict[name]== 0)
             {

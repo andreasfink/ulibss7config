@@ -53,7 +53,6 @@
             // 3. Get Required external params
             NSString *action = _params[@"action"];
             
-            NSDictionary *d = [NSDictionary dictionary];
 
             // 4. Verify if action-list exists
             if(list == NULL)
@@ -63,8 +62,7 @@
             }
             else if(action.length==0)
             {
-                d = @{@"error" : @"missing-parameter", @"reason" :@"the action parameter is not passed"};
-                [self sendError:[d jsonString]];
+                [self sendError:@"missing-parameter"  reason:@"the action parameter is not passed"];
             }
             else
             {

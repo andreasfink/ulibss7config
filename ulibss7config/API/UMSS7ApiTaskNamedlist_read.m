@@ -44,11 +44,9 @@
             listName = _params[@"list"];
         }
 
-		NSDictionary *d = [NSDictionary dictionary];
 		if(listName.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the list parameter is not passed"}; 
-			[self sendError:[d jsonString]];
+            [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
 		}
 		else
 		{

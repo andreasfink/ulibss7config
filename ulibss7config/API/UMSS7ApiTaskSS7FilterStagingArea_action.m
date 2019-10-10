@@ -40,11 +40,9 @@
         
         NSString *action = _params[@"action"];
         NSString *name = _params[@"name"];
-        NSDictionary *d = [NSDictionary dictionary];
         if(name.length==0)
         {
-            d = @{@"error" : @"missing-parameter", @"reason" :@"the 'name' parameter is not passed"};
-            [self sendError:[d jsonString]];
+            [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
         }
         else if([action isEqualToString:@"copy"])
         {
@@ -84,9 +82,7 @@
         }
         else
         {
-            d = @{@"error" : @"not-supported-value", @"reason" :@"the 'action' must have known value (e.g. select)!"};
-            [self sendError:[d jsonString]];
-            
+            [self sendError:@"not-supported-value" reason:@"the 'action' must have known value (e.g. select)!"];            
         }
         
     }

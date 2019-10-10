@@ -38,7 +38,6 @@
     
 	// 1. Get Action-list external parameters
 	NSString *name = _params[@"name"];
-    NSDictionary *d = [NSDictionary dictionary];
 
 	// 2. call appDelegate getStagingAreaForSession:  to get current staging area storage.
 	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
@@ -48,8 +47,7 @@
     }
     else if(name.length==0)
     {
-        d = @{@"error" : @"missing-parameter", @"reason" :@"'name' parameter is not passed"};
-        [self sendError:[d jsonString]];
+        [self sendError: @"missing-parameter" reason:@"'name' parameter is not passed"];
     }
     else
     {

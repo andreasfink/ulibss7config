@@ -95,6 +95,12 @@ NSLog(@"%s is not returning an apiPath!",#APICLASS); \
     [_webRequest resumePendingRequest];
 }
 
+- (void)sendError:(NSString *)err reason:(NSString *)reason
+{
+    [_webRequest setResponseJsonObject:@{ @"error" : err , @"reason" : reason }];
+    [_webRequest resumePendingRequest];
+}
+
 - (void)sendErrorNotFound
 {
     [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];
@@ -171,7 +177,7 @@ NSLog(@"%s is not returning an apiPath!",#APICLASS); \
 
 - (void)sendErrorSessionExpired
 {
-    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized" }];
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized", @"reason" : @"session-expired" }];
     [_webRequest resumePendingRequest];
 }
 

@@ -47,13 +47,12 @@
     }
     else if(name.length==0)
     {
-        d = @{@"error" : @"missing-parameter", @"reason" :@"'name' parameter is not passed"};
-        [self sendError:[d jsonString]];
+        [self sendError:@"missing-parameter" reason:@"'name' parameter is not passed"];
     }
     else if(pwd.length==0)
     {
-        d = @{@"error" : @"missing-parameter", @"reason" :@"'password' parameter is not passed"};
-        [self sendError:[d jsonString]];
+        [self sendError:@"missing-parameter" reason:@"'password' parameter is not passed"];
+
     }
     else
     {

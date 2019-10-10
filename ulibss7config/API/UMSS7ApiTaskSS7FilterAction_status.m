@@ -52,7 +52,6 @@
 			
 			// 3. Get index of action
 			NSString *idx = _params[@"entry-nr"];
-            NSDictionary *d = [NSDictionary dictionary];
 			
 			// 4. Verify if action-list exists
 			if(list == NULL)
@@ -62,8 +61,7 @@
 			}
             else if(idx.length==0)
             {
-                d = @{@"error" : @"missing-parameter", @"reason" :@"the 'entry-nr' parameter is not passed"};
-                [self sendError:[d jsonString]];
+                [self sendError:@"missing-parameter" reason:@"the 'entry-nr' parameter is not passed"];
             }
 			else
 			{
@@ -73,8 +71,7 @@
 				if(action == NULL)
 				{
 				    // 4c-1. Action not found
-                    d = @{@"error" : @"not-found", @"reason" :@"this action is not found"};
-                    [self sendError:[d jsonString]];
+                    [self sendError:@"not-found" reason:@"this action is not found"];
 				}
 				else
 				{

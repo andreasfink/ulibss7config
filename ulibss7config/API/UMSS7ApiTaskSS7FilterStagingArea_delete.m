@@ -46,11 +46,9 @@
 		@try
 		{
 			NSString *name = _params[@"name"];
-			NSDictionary *d = [NSDictionary dictionary];
 			if([name isEqualToString:@"current"])
 			{
-				d = @{@"error" : @"invalid-parameter", @"reason" :@"this name is not allowed"}; 
-				[self sendError:[d jsonString]];
+                [self sendError: @"invalid-parameter" reason:@"this name is not allowed"];
 			}
 			else
 			{

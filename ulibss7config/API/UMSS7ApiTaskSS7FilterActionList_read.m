@@ -50,11 +50,9 @@
 			UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
 
 			// 3. Verify if action-list exists
-            NSDictionary *d = [NSDictionary dictionary];
             if(name.length==0)
             {
-                d = @{@"error" : @"missing-parameter", @"reason" :@"'name' parameter is not passed"};
-                [self sendError:[d jsonString]];
+                [self sendError:@"missing-parameter"  reason:@"'name' parameter is not passed"];
             }
             else if(list == NULL)
 			{

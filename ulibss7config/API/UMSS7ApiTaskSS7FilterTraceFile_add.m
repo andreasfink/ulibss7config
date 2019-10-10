@@ -39,16 +39,13 @@
 		// 1. Get external parameters
 		NSString *name = _params[@"name"];
 		NSString *file = _params[@"filename"];
-		NSDictionary *d = [NSDictionary dictionary];
 		if(name.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the 'name' parameter is not passed"}; 
-			[self sendError:[d jsonString]];
+            [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
 		}
 		else if(file.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the 'filename' parameter is not passed" };
-			[self sendError:[d jsonString]];
+            [self sendError:@"missing-parameter" reason:@"the 'filename' parameter is not passed"];
 		}
 		else
 		{

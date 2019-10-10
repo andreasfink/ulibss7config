@@ -42,18 +42,15 @@
 		NSDictionary *d = [NSDictionary dictionary];
 		if(listName.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the list parameter is not passed"}; 
-			[self sendError:[d jsonString]];
+            [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
 		}
 		else if(value.length==0)
 		{
-			d = @{@"error" : @"missing-parameter", @"reason" :@"the value parameter is not passed" };
-			[self sendError:[d jsonString]];
+            [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
 		}
 		else if([value isEqualToString:@"_dirty"])
 		{
-			d = @{@"error" : @"invalid-parameter", @"reason" :@"the value '_dirty' is a reserved value" };
-			[self sendError:[d jsonString]];
+            [self sendError:@"invalid-parameter" reason:@"the value '_dirty' is reserved value"];
 		}
 		else
 		{
