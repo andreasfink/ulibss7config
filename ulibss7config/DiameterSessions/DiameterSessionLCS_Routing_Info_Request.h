@@ -6,7 +6,7 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/ulibss7config.h>
+#import "DiameterGenericSession.h"
 
 
 @interface DiameterSessionLCS_Routing_Info_Request : DiameterGenericSession

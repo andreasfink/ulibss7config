@@ -69,6 +69,7 @@
     if(self)
     {
         _req  = xreq;
+        _params = [xreq.params urldecodeStringValues];
         [self genericInitialisation:inst];
         [self setTimeouts];
         [self setOptions];
@@ -361,7 +362,7 @@
     [s appendString:@"<tr><td colspan=2 class=subtitle>Various Extensions:</td></tr>\n"];
 }
 
-+ (void)webVarioisOptions:(NSMutableString *)s
++ (void)webVariousOptions:(NSMutableString *)s
 {
     /*
     [s appendString:@"<tr>\n"];
@@ -448,16 +449,26 @@
 
 - (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment
 {
+    return [self webApplicationParameters:s defaultApplicationId:dai comment:comment hidden:NO];
+}
+
+- (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment hidden:(BOOL)hidden
+{
     if(comment==NULL)
     {
         comment = umdiameter_application_id_string(dai);
     }
-
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=mandatory>application-id</td>\n"];
-    [s appendFormat:@"    <td class=mandatory><input name=\"application-id\" type=text value=%u>(%@)</td>\n",dai,comment];
-    [s appendString:@"</tr>\n"];
-
+    if(hidden)
+    {
+        [s appendFormat:@"<input name=\"application-id\" type=hidden value=%u>\n",dai];
+    }
+    else
+    {
+        [s appendString:@"<tr>\n"];
+        [s appendString:@"    <td class=mandatory>application-id</td>\n"];
+        [s appendFormat:@"    <td class=mandatory><input name=\"application-id\" type=text value=%u>(%@)</td>\n",dai,comment];
+        [s appendString:@"</tr>\n"];
+    }
 }
 
 - (void)webDiameterParameters:(NSMutableString *)s

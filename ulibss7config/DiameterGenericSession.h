@@ -45,6 +45,7 @@
     UMLogLevel                  _logLevel;
     UMHistoryLog            *_historyLog;
     UMMutex                 *_operationMutex;
+    NSDictionary            *_params;
 }
 
 @property(readwrite,strong,atomic)  NSString                *sessionName;
@@ -79,6 +80,7 @@
 @property(readwrite,assign,atomic)    UMLogLevel                logLevel;
 
 @property(readwrite,strong,atomic)      UMHistoryLog            *historyLog;
+@property(readwrite,strong,atomic)    NSDictionary                *params;
 
 //--------------------------------------------------------------------------------------------
 
@@ -102,6 +104,7 @@
 + (void)webDiameterOptions:(NSMutableString *)s;
 
 - (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment;
+- (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment hidden:(BOOL)hidden;
 - (void)setApplicationId:(UMDiameterPacket *)pkt  default:(UMDiameterApplicationId) def;
 
 - (void)webDiameterParameters:(NSMutableString *)s;

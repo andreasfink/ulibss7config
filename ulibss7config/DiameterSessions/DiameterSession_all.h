@@ -25,3 +25,5 @@
 #import "DiameterSessionRIR.h"
 #import "DiameterSessionUpdate_Location_Request.h"
 #import "DiameterSessionLCS_Routing_Info_Request.h"
+#import "DiameterSessionUser_Data_Request.h"
+

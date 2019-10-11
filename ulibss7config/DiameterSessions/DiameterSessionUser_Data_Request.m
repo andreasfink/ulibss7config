@@ -1,0 +1,43 @@
+//
+//  DiameterSessionUser_Data_Request.m
+//  ulibss7config
+//
+//  Created by Andreas Fink on 11.10.19.
+//  Copyright © 2019 Andreas Fink. All rights reserved.
+//
+
+#import "DiameterSessionUser_Data_Request.h"
+#import "WebMacros.h"
+#import <ulibdiameter/ulibdiameter.h>
+
+@implementation DiameterSessionUser_Data_Request
+
+- (NSString *)webTitle
+{
+    return @"User-Data-Request";
+}
+
+
+- (void)webDiameterParameters:(NSMutableString *)s
+{
+    [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketUser_Data_Request defaultApplicationId] comment:NULL];
+    [UMDiameterPacketUser_Data_Request webDiameterParameters:s];
+}
+
+- (void)main
+{
+    @try
+    {
+        UMDiameterPacketUser_Data_Request *pkt = [[UMDiameterPacketUser_Data_Request alloc]init];
+        [pkt setDictionaryValue:_req.params];
+        self.query = pkt;
+        [self submit];
+    }
+    @catch(NSException *e)
+    {
+        [self webException:e];
+    }
+}
+
+@end
+
