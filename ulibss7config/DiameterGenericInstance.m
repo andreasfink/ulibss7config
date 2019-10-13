@@ -289,17 +289,17 @@
                 path = [path substringToIndex:path.length - 1];
             }
 
-            if([path isEqualToString:@"/diameter"])
+            if([req.path isEqualToString:@"/diameter"])
             {
                 [req redirect:@"/diameter/"];
             }
-            else if(([path isEqualToString:@"/diameter/"]
-               || [path isEqualToString:@"/diameter/index"]))
+            else if(([req.path isEqualToString:@"/diameter/"]
+               || [req.path isEqualToString:@"/diameter/index"]))
             {
                 NSString *s = [DiameterGenericInstance webIndex];
                 [req setResponseHtmlString:s];
             }
-            else if( [path hasPrefix:@"/diameter/"])
+            else if( [req.path hasPrefix:@"/diameter/"])
             {
                 NSString *s = [path substringFromIndex:10];
                 NSDictionary *p = req.params;
