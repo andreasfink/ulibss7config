@@ -40,7 +40,6 @@
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigApiUser *usr = [cs getApiUser:name];
-    NSDictionary *d = [NSDictionary dictionary];
     if(usr!=NULL)
     {
         [self sendErrorAlreadyExisting];

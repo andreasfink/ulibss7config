@@ -1477,9 +1477,18 @@ else \
 
     if (p[@"tcap-operation-global"])
     {
-        if([p[@"tcap-operation-global"] boolValue])
+        NSString *s = [p[@"tcap-operation-global"] stringValue];
+        if((s.length>0) && (![s isEqualToString:@"0"]))
         {
-            _tcap_operation_global = YES;
+            if([s isEqualToString:@"1"])
+            {
+                uint8_t b = (uint8_t)_opcode.operation;
+                _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
+            }
+            else
+            {
+                _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithString:s];
+            }
             _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
         }
     }
@@ -1490,16 +1499,6 @@ else \
         {
             _options[@"keep-sccp-calling-addr"] = @(YES);
             _keepOriginalSccpAddressForTcapContinue=YES;
-        }
-    }
-
-    _tcap_operation_global = NO;
-    if (p[@"tcap-operation-global"])
-    {
-        if([p[@"tcap-operation-global"] boolValue])
-        {
-            _options[@"tcap-operation-global"] = @(YES);
-            _tcap_operation_global = YES;
         }
     }
 

@@ -86,7 +86,7 @@
     NSInteger                   _hasReceivedInvokes;
     int                         _phase;
     BOOL                        _keepOriginalSccpAddressForTcapContinue;
-    BOOL                        _tcap_operation_global;
+    NSString                    *_tcap_operation_global;
     BOOL                        _multiMap;
     NSString *_calling_ssn;
     NSString *_called_ssn;
@@ -162,7 +162,7 @@
 @property(readwrite,assign,atomic)    int                         phase;
 @property(readwrite,assign,atomic)    BOOL                        keepOriginalSccpAddressForTcapContinue;
 @property(readwrite,assign,atomic)    BOOL                        multiMap;
-@property(readwrite,assign,atomic)    BOOL                        tcap_operation_global;
+@property(readwrite,strong,atomic)    NSString *tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;
 @property(readwrite,strong,atomic)    NSString *callingaddress;

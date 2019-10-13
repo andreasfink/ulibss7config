@@ -110,7 +110,7 @@
 - (void)webDiameterParameters:(NSMutableString *)s;
 
 + (void)webVariousTitle:(NSMutableString *)s;
-+ (void)webVarioisOptions:(NSMutableString *)s;
++ (void)webVariousOptions:(NSMutableString *)s;
 - (void)webException:(NSException *)e;
 
 - (void)touch;

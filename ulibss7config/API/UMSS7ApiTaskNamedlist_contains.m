@@ -45,7 +45,6 @@
         }
 
 		NSString *value = _params[@"value"];
-		NSDictionary *d = [NSDictionary dictionary];
 		if(listName.length==0)
 		{
             [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];

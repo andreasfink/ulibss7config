@@ -52,7 +52,6 @@
 			
 			// 3. Get index of action
 			NSString *idx = _params[@"entry-nr"];
-            NSDictionary *d = [NSDictionary dictionary];
 			
 			// 4. Verify if action-list exists
 			if(list == NULL)

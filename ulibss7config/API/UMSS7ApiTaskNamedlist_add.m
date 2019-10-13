@@ -39,7 +39,6 @@
 		// 1. Get external parameters
 		NSString *listName = _params[@"list"];
 		NSString *value = _params[@"value"];
-		NSDictionary *d = [NSDictionary dictionary];
 		if(listName.length==0)
 		{
             [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
