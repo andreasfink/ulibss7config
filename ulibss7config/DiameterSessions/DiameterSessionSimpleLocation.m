@@ -31,6 +31,7 @@
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {
+    [UMDiameterAvp appendWebDiameterParameters:s webName:@"application-id"         comment:@"3GPP Sh" css:@"mandatory" value:@"16777217"];
     [UMDiameterAvp appendWebDiameterParameters:s webName:@"session-id"         comment:@"" css:@"mandatory"];
     [UMDiameterAvp appendWebDiameterParameters:s webName:@"origin-host"        comment:@"" css:@"mandatory"];
     [UMDiameterAvp appendWebDiameterParameters:s webName:@"origin-realm"       comment:@"" css:@"mandatory"];
@@ -51,12 +52,18 @@
     @try
     {
         
+        NSString *applicationId = _params[@"application-id"];
         NSString *sessionId = _params[@"session-id"];
         NSString *originHost = _params[@"origin-host"];
         NSString *originRealm = _params[@"origin-realm"];
         NSString *destinationHost = _params[@"destination-host"];
         NSString *destinationRealm = _params[@"destination-realm"];
         NSString *vendorId = _params[@"vendor-id"];
+
+        if(applicationId.length == 0)
+        {
+            applicationId  = @"16777217";
+        }
         if(vendorId.length == 0)
         {
             vendorId = @"10415";
@@ -95,6 +102,7 @@
 
 
         UMDiameterPacketUser_Data_Request *pkt = [[UMDiameterPacketUser_Data_Request alloc]init];
+        pkt.applicationId = (uint32_t)[applicationId integerValue];
         self.commandCode = [UMDiameterPacketUser_Data_Request commandCode];
         if(sessionId.length > 0)
         {
