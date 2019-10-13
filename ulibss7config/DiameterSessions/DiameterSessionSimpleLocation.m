@@ -18,6 +18,16 @@
     return @"SimpleLocation";
 }
 
+- (DiameterSessionSimpleLocation *)init
+{
+    return NULL;
+}
+
+-(DiameterSessionSimpleLocation *)initWithHttpReq:(UMHTTPRequest *)xreq
+                                         instance:(DiameterGenericInstance *)inst
+{
+    return [super initWithHttpReq:xreq instance:inst];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {
@@ -85,22 +95,62 @@
 
 
         UMDiameterPacketUser_Data_Request *pkt = [[UMDiameterPacketUser_Data_Request alloc]init];
-        pkt.var_session_id = [[UMDiameterAvpSession_Id alloc]initWithString:sessionId];
-        pkt.var_origin_host = [[UMDiameterAvpOrigin_Host alloc]initWithString:originHost];
-        pkt.var_origin_realm = [[UMDiameterAvpOrigin_Realm alloc]initWithString:originRealm];
-        pkt.var_destination_host = [[UMDiameterAvpDestination_Host alloc]initWithString:destinationHost];
-        pkt.var_destination_realm = [[UMDiameterAvpDestination_Realm alloc]initWithString:destinationRealm];
+        self.commandCode = [UMDiameterPacketUser_Data_Request commandCode];
+        if(sessionId.length > 0)
+        {
+            pkt.var_session_id = [[UMDiameterAvpSession_Id alloc]initWithString:sessionId];
+        }
+        if(originHost.length > 0)
+        {
+            pkt.var_origin_host = [[UMDiameterAvpOrigin_Host alloc]initWithString:originHost];
+        }
+        if(originRealm.length > 0)
+        {
+            pkt.var_origin_realm = [[UMDiameterAvpOrigin_Realm alloc]initWithString:originRealm];
+        }
+        if(destinationHost.length > 0)
+        {
+            pkt.var_destination_host = [[UMDiameterAvpDestination_Host alloc]initWithString:destinationHost];
+        }
+        if(destinationRealm.length > 0)
+        {
+            pkt.var_destination_realm = [[UMDiameterAvpDestination_Realm alloc]initWithString:destinationRealm];
+        }
         pkt.var_vendor_specific_application_id = [[UMDiameterAvpVendor_Specific_Application_Id alloc]init];
-        pkt.var_vendor_specific_application_id.var_vendor_id = [[UMDiameterAvpVendor_Id alloc]initWithString:vendorId];
-        pkt.var_vendor_specific_application_id.var_auth_application_id = [[UMDiameterAvpAuth_Application_Id alloc]initWithString:authAppId];
-        pkt.var_auth_session_state =  [[UMDiameterAvpAuth_Session_State alloc]initWithString:sessionState];
-        pkt.var_user_identity = [[UMDiameterAvpUser_Identity alloc]init];
-        pkt.var_user_identity.var_msisdn = [[UMDiameterAvpMSISDN alloc]initWithString:msisdn];
-        UMDiameterAvpData_Reference *df = [[UMDiameterAvpData_Reference alloc]initWithString:dataReference];
-        pkt.var_data_reference = @[ df ];
-        pkt.var_current_location = [[UMDiameterAvpCurrent_Location alloc]initWithString:currentLocation];
-        pkt.var_requested_domain = [[UMDiameterAvpRequested_Domain alloc]initWithString:requestedDomain];
-        pkt.var_requested_nodes = [[UMDiameterAvpRequested_Nodes alloc]initWithString:requestedNodes];
+        if(vendorId.length > 0)
+        {
+            pkt.var_vendor_specific_application_id.var_vendor_id = [[UMDiameterAvpVendor_Id alloc]initWithString:vendorId];
+        }
+        if(authAppId.length > 0)
+        {
+            pkt.var_vendor_specific_application_id.var_auth_application_id = [[UMDiameterAvpAuth_Application_Id alloc]initWithString:authAppId];
+        }
+        if(sessionState.length > 0)
+        {
+            pkt.var_auth_session_state =  [[UMDiameterAvpAuth_Session_State alloc]initWithString:sessionState];
+        }
+        if(msisdn.length > 0)
+        {
+            pkt.var_user_identity = [[UMDiameterAvpUser_Identity alloc]init];
+            pkt.var_user_identity.var_msisdn = [[UMDiameterAvpMSISDN alloc]initWithString:msisdn];
+        }
+        if(dataReference.length > 0)
+        {
+            UMDiameterAvpData_Reference *df = [[UMDiameterAvpData_Reference alloc]initWithString:dataReference];
+            pkt.var_data_reference = @[ df ];
+        }
+        if(currentLocation.length > 0)
+        {
+            pkt.var_current_location = [[UMDiameterAvpCurrent_Location alloc]initWithString:currentLocation];
+        }
+        if(requestedDomain.length > 0)
+        {
+            pkt.var_requested_domain = [[UMDiameterAvpRequested_Domain alloc]initWithString:requestedDomain];
+        }
+        if(requestedNodes.length > 0)
+        {
+            pkt.var_requested_nodes = [[UMDiameterAvpRequested_Nodes alloc]initWithString:requestedNodes];
+        }
         self.query = pkt;
         [self submit];
     }

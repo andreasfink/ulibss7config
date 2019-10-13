@@ -87,6 +87,7 @@
     [self setTimeouts];
     [self setOptions];
     _req = xreq;
+    _params = [xreq.params urldecodeStringValues];
     [_req makeAsyncWithTimeout:_timeoutInSeconds delegate:_gInstance];
     return self;
 }
@@ -255,7 +256,10 @@
         _endToEndIdentifier = [_gInstance.diameterRouter nextEndToEndIdentifier];
     }
 
-    _query.commandCode = _commandCode;
+    if(_commandCode == 0)
+    {
+       _commandCode = _query.commandCode;
+    }
     _query.endToEndIdentifier = _endToEndIdentifier;
     _userIdentifier = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:_endToEndIdentifier];
     [_gInstance addSession:self userId:_userIdentifier];
