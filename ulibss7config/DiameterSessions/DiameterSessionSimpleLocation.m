@@ -23,12 +23,6 @@
     return NULL;
 }
 
--(DiameterSessionSimpleLocation *)initWithHttpReq:(UMHTTPRequest *)xreq
-                                         instance:(DiameterGenericInstance *)inst
-{
-    return [super initWithHttpReq:xreq instance:inst];
-}
-
 - (void)webDiameterParameters:(NSMutableString *)s
 {
     [UMDiameterAvp appendWebDiameterParameters:s webName:@"application-id"         comment:@"3GPP Sh" css:@"mandatory" value:@"16777217"];
@@ -145,6 +139,7 @@
         if(dataReference.length > 0)
         {
             UMDiameterAvpData_Reference *df = [[UMDiameterAvpData_Reference alloc]initWithString:dataReference];
+            df.value = [dataReference integerValue];
             pkt.var_data_reference = @[ df ];
         }
         if(currentLocation.length > 0)
