@@ -139,7 +139,7 @@
         if(dataReference.length > 0)
         {
             UMDiameterAvpData_Reference *df = [[UMDiameterAvpData_Reference alloc]initWithString:dataReference];
-            df.value = [dataReference integerValue];
+            df.value = (int)[dataReference integerValue];
             pkt.var_data_reference = @[ df ];
         }
         if(currentLocation.length > 0)
