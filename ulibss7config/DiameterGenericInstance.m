@@ -436,6 +436,7 @@
                                router:(UMDiameterRouter *)router
                                  peer:(UMDiameterPeer *)peer
 {
+    packet = [self parsePacket:packet];
     NSString *key = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:packet.endToEndIdentifier];
     DiameterGenericSession *session = _sessions[key];
     [session responsePacket:packet];
@@ -471,6 +472,13 @@
 + (NSString *)remoteIdentifierFromEndToEndIdentifier:(uint32_t)e2e host:(NSString *)host
 {
     return [NSString stringWithFormat:@"%08X@%@",e2e,host];
+}
+
+
+-(UMDiameterPacket *)parsePacket:(UMDiameterPacket *)packet
+{
+    /* here we should convert a generic AVP to a specific AVP */
+    return packet;
 }
 
 @end
