@@ -345,7 +345,11 @@
     [s appendFormat:@"<h2>%@</h2>\n",t];
     [s appendString:@"<form method=\"get\">\n"];
     [s appendString:@"<table>\n"];
+}
 
++ (void)webFormStart:(NSMutableString *)s title:(NSString *)t
+{
+    return [self webFormStart:s title:t script:@""];
 }
 
 + (void)webFormEnd:(NSMutableString *)s

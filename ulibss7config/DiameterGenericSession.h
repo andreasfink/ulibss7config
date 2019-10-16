@@ -94,7 +94,9 @@
 
 - (void)logWebSession;
 
++ (void)webFormStart:(NSMutableString *)s title:(NSString *)t script:(NSString *)script;
 + (void)webFormStart:(NSMutableString *)s title:(NSString *)t;
+
 + (void)webFormEnd:(NSMutableString *)s;
 
 - (NSString *)webTitle;
