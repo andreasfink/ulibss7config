@@ -388,11 +388,11 @@
 + (void)webHeader:(NSMutableString *)s title:(NSString *)t script:(NSString *)script
 {
     [s appendString:@"<html>\n"];
-    [s appendString:@"<header>\n"];
+    [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>%@</title>\n",t];
     [s appendString:script];
-    [s appendString:@"</header>\n"];
+    [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 }
 
