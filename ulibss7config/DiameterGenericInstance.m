@@ -384,14 +384,26 @@
     return s;
 }
 
-+ (void)webHeader:(NSMutableString *)s title:(NSString *)t
+
++ (void)webHeader:(NSMutableString *)s title:(NSString *)t script:(NSString *)script
 {
     [s appendString:@"<html>\n"];
     [s appendString:@"<header>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>%@</title>\n",t];
+    [s appendString:script];
     [s appendString:@"</header>\n"];
     [s appendString:@"<body>\n"];
+}
+
++ (void)webHeader:(NSMutableString *)s title:(NSString *)t
+{
+    return [DiameterGenericInstance webHeader:s title:t script:@""];
+}
+
+- (NSString *)webScript
+{
+    return @"";
 }
 
 - (void)housekeeping

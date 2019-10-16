@@ -54,6 +54,8 @@
 - (void) markSessionForTermination:(DiameterGenericSession *)t;
 + (NSString *)webIndex;
 
+
++ (void)webHeader:(NSMutableString *)s title:(NSString *)t script:(NSString *)script;
 + (void)webHeader:(NSMutableString *)s title:(NSString *)t;
 - (UMHTTPAuthenticationStatus)httpAuthenticateRequest:(UMHTTPRequest *)req
                                                 realm:(NSString **)realm;

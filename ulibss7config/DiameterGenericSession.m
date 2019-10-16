@@ -337,9 +337,9 @@
     }
 }
 
-+ (void)webFormStart:(NSMutableString *)s title:(NSString *)t
++ (void)webFormStart:(NSMutableString *)s title:(NSString *)t script:(NSString *)script
 {
-    [DiameterGenericInstance webHeader:s title:t];
+    [DiameterGenericInstance webHeader:s title:t script:script];
     [s appendString:@"\n"];
     [s appendString:@"<a href=\"index.php\">menu</a>\n"];
     [s appendFormat:@"<h2>%@</h2>\n",t];
@@ -356,6 +356,7 @@
     [s appendString:@"</tr>\n"];
     [s appendString:@"</table>\n"];
     [s appendString:@"</form>\n"];
+    [s appendString:@"<script defer src=\"./bundle.js\"></script>"];
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
     [s appendString:@"\n"];
@@ -443,12 +444,17 @@
 {
     NSMutableString *s = [[NSMutableString alloc]init];
 
-    [DiameterGenericSession webFormStart:s title: [self webTitle]];
+    [DiameterGenericSession webFormStart:s title: [self webTitle]  script:[self webScript]];
     [DiameterGenericSession webDiameterTitle:s];
     [self webDiameterParameters:s];
     [DiameterGenericSession webDiameterOptions:s];
     [DiameterGenericSession webFormEnd:s];
     return s;
+}
+
+- (NSString *)webScript
+{
+    return @"";
 }
 
 - (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment

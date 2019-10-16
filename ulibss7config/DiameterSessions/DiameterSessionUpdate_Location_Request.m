@@ -19,7 +19,11 @@
     return @"Update Location Request";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketUpdate_Location_Request webJsonDefintion]];
 
+}
 - (void)webDiameterParameters:(NSMutableString *)s
 {
     [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketUpdate_Location_Request defaultApplicationId] comment:NULL];
