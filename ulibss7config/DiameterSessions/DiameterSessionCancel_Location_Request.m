@@ -20,6 +20,11 @@
 }
 
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketCancel_Location_Request webJsonDefintion]];
+}
+
 - (void)webDiameterParameters:(NSMutableString *)s
 {
     [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketCancel_Location_Request defaultApplicationId] comment:NULL];

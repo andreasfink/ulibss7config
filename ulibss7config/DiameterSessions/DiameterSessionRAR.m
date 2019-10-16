@@ -19,6 +19,11 @@
     return @"RAR";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketRAR webJsonDefintion]];
+}
+
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

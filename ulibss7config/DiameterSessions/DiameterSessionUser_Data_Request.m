@@ -17,6 +17,11 @@
     return @"User-Data-Request";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketUser_Data_Request webJsonDefintion]];
+}
+
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

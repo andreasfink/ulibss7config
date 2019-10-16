@@ -19,6 +19,10 @@
     return @"DPR";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketDPR webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

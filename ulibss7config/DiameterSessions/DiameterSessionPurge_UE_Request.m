@@ -19,6 +19,11 @@
     return @"Purge UE Request";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketPurge_UE_Request webJsonDefintion]];
+}
+
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

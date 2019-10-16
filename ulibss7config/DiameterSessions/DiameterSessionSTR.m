@@ -19,6 +19,10 @@
     return @"STR";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketSTR webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

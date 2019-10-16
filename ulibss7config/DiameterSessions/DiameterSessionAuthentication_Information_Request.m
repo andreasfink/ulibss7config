@@ -19,6 +19,10 @@
     return @"Authentication Information Request";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketAuthentication_Information_Request webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

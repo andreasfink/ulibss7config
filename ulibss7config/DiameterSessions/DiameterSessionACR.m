@@ -19,6 +19,10 @@
     return @"ACR";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketACR webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

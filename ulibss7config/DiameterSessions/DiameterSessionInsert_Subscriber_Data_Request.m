@@ -19,6 +19,10 @@
     return @"Insert Subscriber Data Request";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketInsert_Subscriber_Data_Request webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

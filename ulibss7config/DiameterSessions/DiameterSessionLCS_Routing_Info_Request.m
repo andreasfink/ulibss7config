@@ -19,6 +19,12 @@
 }
 
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketLCS_Routing_Info_Request webJsonDefintion]];
+}
+
+
 - (void)webDiameterParameters:(NSMutableString *)s
 {
     [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketLCS_Routing_Info_Request defaultApplicationId] comment:NULL];

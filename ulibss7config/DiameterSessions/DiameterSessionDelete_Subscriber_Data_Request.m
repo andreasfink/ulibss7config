@@ -19,6 +19,10 @@
     return @"Delete Subscriber Data Request";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketDelete_Subscriber_Data_Request webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

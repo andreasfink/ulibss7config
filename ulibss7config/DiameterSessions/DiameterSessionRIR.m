@@ -18,6 +18,10 @@
     return @"RIR";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketLCS_Routing_Info_Request webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {

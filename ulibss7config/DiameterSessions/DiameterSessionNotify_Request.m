@@ -19,6 +19,10 @@
     return @"Notify Request";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketNotify_Request webJsonDefintion]];
+}
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {
