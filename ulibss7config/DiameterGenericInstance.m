@@ -293,8 +293,9 @@
             {
                 [req redirect:@"/diameter/"];
             }
-            else if(([req.path isEqualToString:@"/diameter/"]
-               || [req.path isEqualToString:@"/diameter/index"]))
+            else if([req.path isEqualToString:@"/diameter/"]
+               || [req.path isEqualToString:@"/diameter/index"]
+               || [req.path isEqualToString:@"/diameter/index.php"])
             {
                 NSString *s = [DiameterGenericInstance webIndex];
                 [req setResponseHtmlString:s];
