@@ -1662,10 +1662,10 @@ static void signalHandler(int signum);
 
     NSMutableString *s = [[NSMutableString alloc]init];
     [s appendString:@"<html>\n"];
-    [s appendString:@"<header>\n"];
+    [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>Debug: UMObject Statistic</title>\n"];
-    [s appendString:@"</header>\n"];
+    [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 
     [s appendString:@"<h2>Debug: UMObject Statistic</h2>\n"];
@@ -1786,7 +1786,7 @@ static void signalHandler(int signum);
     NSMutableString *s = [[NSMutableString alloc]init];
 
     [s appendString:@"<html>\n"];
-    [s appendString:@"<header>\n"];
+    [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>Debug: UMMutex Statistic</title>\n"];
     [s appendString:@"</header>\n"];
@@ -1850,10 +1850,10 @@ static void signalHandler(int signum);
     s = [[NSMutableString alloc]init];
 
     [s appendString:@"<html>\n"];
-    [s appendString:@"<header>\n"];
+    [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>Debug Menu</title>\n"];
-    [s appendString:@"</header>\n"];
+    [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 
     [s appendString:@"<h2>Debug Menu</h2>\n"];
@@ -2207,10 +2207,10 @@ static void signalHandler(int signum);
 - (void)webHeader:(NSMutableString *)s title:(NSString *)t
 {
     [s appendString:@"<html>\n"];
-    [s appendString:@"<header>\n"];
+    [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>%@</title>\n",t];
-    [s appendString:@"</header>\n"];
+    [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 }
 

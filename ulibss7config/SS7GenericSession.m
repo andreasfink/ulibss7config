@@ -1850,6 +1850,7 @@ else \
     [s appendString:@"</tr>\n"];
     [s appendString:@"</table>\n"];
     [s appendString:@"</form>\n"];
+    [s appendString:@"<script defer src=\"./bundle.js\"></script>"];
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
     [s appendString:@"\n"];
