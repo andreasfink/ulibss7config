@@ -33,7 +33,42 @@
 
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     NSArray *names = [cs getMTP3Names];
-    [self sendResultObject:names];
+
+    int details = [((NSString *)_params[@"details"]) intValue];
+    switch(details)
+    {
+        case 0:
+            [self sendResultObject:names];
+            break;
+        case 1:
+            {
+                NSMutableArray *entries = [[NSMutableArray alloc]init];
+                for(NSString *name in names)
+                {
+                    UMSS7ConfigMTP3 *obj = [cs getMTP3:name];
+                    if(obj)
+                    {
+                        [entries addObject:obj];
+                    }
+                }
+                [self sendResultObject:entries];
+            }
+            break;
+        case 2:
+            {
+                NSMutableArray *entries = [[NSMutableArray alloc]init];
+                for(NSString *name in names)
+                {
+                    UMSS7ConfigMTP3 *obj = [cs getMTP3:name];
+                    if(obj)
+                    {
+                        [entries addObject:obj];
+                    }
+                }
+                [self sendResultObject:entries];
+            }
+            break;
+    }
 }
 
 @end

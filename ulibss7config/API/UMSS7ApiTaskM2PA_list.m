@@ -26,6 +26,7 @@
 
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     NSArray *names = [cs getM2PANames];
+
     [self sendResultObject:names];
 }
 
