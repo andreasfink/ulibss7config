@@ -88,6 +88,7 @@
 #import "UMSS7ConfigSS7FilterTraceFile.h"
 #import "filter/UMSS7FilterRuleSet.h"
 #import "filter/UMSS7FilterActionList.h"
+#import "objc/runtime.h"
 
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
@@ -112,6 +113,17 @@ static void signalHandler(int signum);
 - (NSString *)layerName
 {
 		return @"SS7AppDelegate";
+}
+
+- (UMLogLevel)logLevel
+{
+    return _logLevel;
+}
+
+
+- (void)setLogLevel:(UMLogLevel)ll
+{
+    _logLevel = ll;
 }
 
 
@@ -272,163 +284,163 @@ static void signalHandler(int signum);
 - (NSDictionary *)appDefinition
 {
     return @{
-             @"version" : @"0.0.0",
-             @"executable" : @"ss7-app",
-             @"copyright" : @"© 2019 Andreas Fink",
-             };
+        @"version" : @"0.0.0",
+        @"executable" : @"ss7-app",
+        @"copyright" : @"© 2019 Andreas Fink",
+    };
 }
 
 - (NSArray *)commandLineSyntax
 {
     return @[
-             @{
-                 @"name"  : @"version",
-                 @"short" : @"-V",
-                 @"long"  : @"--version",
-                 @"help"  : @"shows the software version"
-                 },
-             @{
-                 @"name"  : @"verbose",
-                 @"short" : @"-v",
-                 @"long"  : @"--verbose",
-                 @"help"  : @"enables verbose mode"
-                 },
-             @{
-                 @"name"  : @"help",
-                 @"short" : @"-h",
-                 @"long" : @"--help",
-                 @"help"  : @"shows the help screen",
-                 },
-             @{
-                 @"name"  : @"config",
-                 @"short" : @"-c",
-                 @"long"  : @"--read-config",
-                 @"multi" : @(YES),
-                 @"argument" : @"filename",
-                 @"help"  : @"reads the indicated config (defaults to /etc/estp/estp.conf)",
-                 },
-             @{
-                 @"name"  : @"readwriteconfig",
-                 @"short" : @"-C",
-                 @"long"  : @"--read-write-config",
-                 @"multi" : @(YES),
-                 @"argument" : @"filename",
-                 @"help"  : @"reads the indicated config and also writes changes to it",
-                 },
-             @{
-                 @"name"  : @"print-config",
-                 @"short" : @"",
-                 @"long"  : @"--print-config",
-                 @"help"  : @"prints the combined config to stdout",
-                 },
-             @{
-                 @"name"  : @"write-compact-config",
-                 @"short" : @"",
-                 @"long"  : @"--write-compact-config",
-                 @"argument" : @"filename",
-                 @"help"  : @"writes the combined config to a file",
-                 },
-             @{
-                 @"name"  : @"write-split-config",
-                 @"short" : @"",
-                 @"long"  : @"--write-split-config",
-                 @"argument" : @"filename",
-                 @"help"  : @"writes the config to a file and the subsections to files in subdirectories at the same location",
-                 },
-             @{
-                 @"name"  : @"pid-file",
-                 @"short" : @"",
-                 @"long"  : @"--pid-file",
-                 @"argument" : @"filename",
-                 @"help"  : @"writes the process-id to the indicated file",
-                 },
-             @{
-                 @"name"  : @"quiet",
-                 @"short" : @"-q",
-                 @"long"  : @"--quiet",
-                 @"help"  : @"silences output",
-                 },
-             @{
-                 @"name"  : @"debug",
-                 @"short" : @"-d",
-                 @"long"  : @"--debug",
-                 @"argument" : @"debug-option",
-                 @"multi" : @(YES),
-                 @"help"  : @"enables the named debug option(s)",
-                 },
-             @{
-                 @"name"  : @"standby",
-                 @"short" : @"-s",
-                 @"long"  : @"--standby",
-                 @"help"  : @"start up in inactive standby mode",
-                 },
-             @{
-                 @"name"  : @"hot",
-                 @"short" : @"-H",
-                 @"long"  : @"--hot",
-                 @"help"  : @"start up in active hot mode",
-                 },
-             @{
-                 @"name"  : @"umobject-stat",
-                 @"short" : @"",
-                 @"long"  : @"--umobject-stat",
-                 @"help"  : @"Enable object statistics",
-                 },
-             @{
-                 @"name"  : @"ummutex-stat",
-                 @"short" : @"",
-                 @"long"  : @"--ummutex-stat",
-                 @"help"  : @"Enable mutex statistics",
-                 },
-             @{
-                 @"name"  : @"schrittmacher-id",
-                 @"short" : @"-i",
-                 @"long"  : @"--schrittmacher-id",
-                 @"argument" : @"id",
-                 @"help"  : @"set the schrittmacher id",
-                 },
-             @{
-                 @"name"  : @"schrittmacher-port",
-                 @"short" : @"-p",
-                 @"long"  : @"--schrittmacher-port",
-                 @"argument" : @"port",
-                 @"help"  : @"set the schrittmacher udp port",
-                 },
-             @{
-                 @"name"  : @"admin-http-port",
-                 @"short" : @"",
-                 @"long"  : @"--admin-http-port",
-                 @"argument" : @"port",
-                 @"help"  : @"enable a http admin interface on this port"
-                 },
-             @{
-                 @"name"  : @"admin-https-port",
-                 @"short" : @"",
-                 @"long"  : @"--admin-https-port",
-                 @"argument" : @"port",
-                 @"help"  : @"enable a https admin interface on this port"
-                 },
-             @{
-                 @"name"  : @"admin-https-key",
-                 @"short" : @"",
-                 @"long"  : @"--admin-http-port",
-                 @"argument" : @"filename",
-                 @"help"  : @"specify the SSL key file for the https admin interface"
-                 },
-             @{
-                 @"name"  : @"admin-https-cert",
-                 @"short" : @"",
-                 @"long"  : @"--admin-https-cert",
-                 @"argument" : @"filename",
-                 @"help"  : @"specify the SSL certificate for the https admin interface"
-                 },
-             @{
-                 @"name"  : @"tracefiles-path",
-                 @"long"  : @"--tracefiles-path",
-                 @"argument" : @"directory",
-                 @"help"  : @"set the path of the tracefiles directory",
-                 },
-             ];
+        @{
+            @"name"  : @"version",
+            @"short" : @"-V",
+            @"long"  : @"--version",
+            @"help"  : @"shows the software version"
+        },
+        @{
+            @"name"  : @"verbose",
+            @"short" : @"-v",
+            @"long"  : @"--verbose",
+            @"help"  : @"enables verbose mode"
+        },
+        @{
+            @"name"  : @"help",
+            @"short" : @"-h",
+            @"long" : @"--help",
+            @"help"  : @"shows the help screen",
+        },
+        @{
+            @"name"  : @"config",
+            @"short" : @"-c",
+            @"long"  : @"--read-config",
+            @"multi" : @(YES),
+            @"argument" : @"filename",
+            @"help"  : @"reads the indicated config (defaults to /etc/estp/estp.conf)",
+        },
+        @{
+            @"name"  : @"readwriteconfig",
+            @"short" : @"-C",
+            @"long"  : @"--read-write-config",
+            @"multi" : @(YES),
+            @"argument" : @"filename",
+            @"help"  : @"reads the indicated config and also writes changes to it",
+        },
+        @{
+            @"name"  : @"print-config",
+            @"short" : @"",
+            @"long"  : @"--print-config",
+            @"help"  : @"prints the combined config to stdout",
+        },
+        @{
+            @"name"  : @"write-compact-config",
+            @"short" : @"",
+            @"long"  : @"--write-compact-config",
+            @"argument" : @"filename",
+            @"help"  : @"writes the combined config to a file",
+        },
+        @{
+            @"name"  : @"write-split-config",
+            @"short" : @"",
+            @"long"  : @"--write-split-config",
+            @"argument" : @"filename",
+            @"help"  : @"writes the config to a file and the subsections to files in subdirectories at the same location",
+        },
+        @{
+            @"name"  : @"pid-file",
+            @"short" : @"",
+            @"long"  : @"--pid-file",
+            @"argument" : @"filename",
+            @"help"  : @"writes the process-id to the indicated file",
+        },
+        @{
+            @"name"  : @"quiet",
+            @"short" : @"-q",
+            @"long"  : @"--quiet",
+            @"help"  : @"silences output",
+        },
+        @{
+            @"name"  : @"debug",
+            @"short" : @"-d",
+            @"long"  : @"--debug",
+            @"argument" : @"debug-option",
+            @"multi" : @(YES),
+            @"help"  : @"enables the named debug option(s)",
+        },
+        @{
+            @"name"  : @"standby",
+            @"short" : @"-s",
+            @"long"  : @"--standby",
+            @"help"  : @"start up in inactive standby mode",
+        },
+        @{
+            @"name"  : @"hot",
+            @"short" : @"-H",
+            @"long"  : @"--hot",
+            @"help"  : @"start up in active hot mode",
+        },
+        @{
+            @"name"  : @"umobject-stat",
+            @"short" : @"",
+            @"long"  : @"--umobject-stat",
+            @"help"  : @"Enable object statistics",
+        },
+        @{
+            @"name"  : @"ummutex-stat",
+            @"short" : @"",
+            @"long"  : @"--ummutex-stat",
+            @"help"  : @"Enable mutex statistics",
+        },
+        @{
+            @"name"  : @"schrittmacher-id",
+            @"short" : @"-i",
+            @"long"  : @"--schrittmacher-id",
+            @"argument" : @"id",
+            @"help"  : @"set the schrittmacher id",
+        },
+        @{
+            @"name"  : @"schrittmacher-port",
+            @"short" : @"-p",
+            @"long"  : @"--schrittmacher-port",
+            @"argument" : @"port",
+            @"help"  : @"set the schrittmacher udp port",
+        },
+        @{
+            @"name"  : @"admin-http-port",
+            @"short" : @"",
+            @"long"  : @"--admin-http-port",
+            @"argument" : @"port",
+            @"help"  : @"enable a http admin interface on this port"
+        },
+        @{
+            @"name"  : @"admin-https-port",
+            @"short" : @"",
+            @"long"  : @"--admin-https-port",
+            @"argument" : @"port",
+            @"help"  : @"enable a https admin interface on this port"
+        },
+        @{
+            @"name"  : @"admin-https-key",
+            @"short" : @"",
+            @"long"  : @"--admin-http-port",
+            @"argument" : @"filename",
+            @"help"  : @"specify the SSL key file for the https admin interface"
+        },
+        @{
+            @"name"  : @"admin-https-cert",
+            @"short" : @"",
+            @"long"  : @"--admin-https-cert",
+            @"argument" : @"filename",
+            @"help"  : @"specify the SSL certificate for the https admin interface"
+        },
+        @{
+            @"name"  : @"tracefiles-path",
+            @"long"  : @"--tracefiles-path",
+            @"argument" : @"directory",
+            @"help"  : @"set the path of the tracefiles directory",
+        },
+    ];
 }
 
 - (NSString *)defaultConfigFile
@@ -466,7 +478,7 @@ static void signalHandler(int signum);
 
 - (NSString *)defaultLicensePath
 {
-	return @"/opt/uliblicense";
+    return @"/opt/uliblicense";
 }
 
 
@@ -861,10 +873,10 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigAdminUser *user = [[UMSS7ConfigAdminUser alloc]initWithConfig:
                                       @{
-                                        @"group":@"user",
-                                        @"name": [self defaultWebUser],
-                                        @"password": [self defaultWebPassword],
-                                        }
+                                          @"group":@"user",
+                                          @"name": [self defaultWebUser],
+                                          @"password": [self defaultWebPassword],
+                                      }
                                       ];
         [_runningConfig addAdminUser:user];
     }
@@ -875,10 +887,10 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigApiUser *user = [[UMSS7ConfigApiUser alloc]initWithConfig:
                                     @{
-                                      @"group":@"user",
-                                      @"name": [self defaultApiUser],
-                                      @"password": [self defaultApiPassword],
-                                      }
+                                        @"group":@"user",
+                                        @"name": [self defaultApiUser],
+                                        @"password": [self defaultApiPassword],
+                                    }
                                     ];
         [_runningConfig addApiUser:user];
     }
@@ -891,7 +903,7 @@ static void signalHandler(int signum);
                                     @{ @"group" : @"webserver",
                                        @"name"  : @"default-webserver",
                                        @"port"  : @([self defaultWebPort]),
-                                       }];
+                                    }];
         [_runningConfig addWebserver:ws];
         names = @[@"default-webserver"];
     }
@@ -1014,49 +1026,49 @@ static void signalHandler(int signum);
         else
         {
             for(NSString *name in names)
-           {
-               UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
-               NSDictionary *config = co.config.dictionaryCopy;
-               if( [config configEnabledWithYesDefault])
-               {
-                   [self addWithConfigMTP3:config];
-               }
-           }
-           /*****************************************************************/
-           /* MTP3 LinkSet*/
-           /*****************************************************************/
-           names = [_runningConfig getMTP3LinkSetNames];
-           for(NSString *name in names)
-           {
-               UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
-               NSDictionary *config = co.config.dictionaryCopy;
-               if( [config configEnabledWithYesDefault])
-               {
-                   [self addWithConfigMTP3LinkSet:config];
-               }
-           }
+            {
+                UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigMTP3:config];
+                }
+            }
+            /*****************************************************************/
+            /* MTP3 LinkSet*/
+            /*****************************************************************/
+            names = [_runningConfig getMTP3LinkSetNames];
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigMTP3LinkSet:config];
+                }
+            }
 
-           /*****************************************************************/
-           /* MTP3 Link */
-           /*****************************************************************/
-           names = [_runningConfig getMTP3LinkNames];
-           for(NSString *name in names)
-           {
-               UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
-               NSDictionary *config = co.config.dictionaryCopy;
-               if( [config configEnabledWithYesDefault])
-               {
-                   [self addWithConfigMTP3Link:config];
-               }
-           }
-       }
+            /*****************************************************************/
+            /* MTP3 Link */
+            /*****************************************************************/
+            names = [_runningConfig getMTP3LinkNames];
+            for(NSString *name in names)
+            {
+                UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
+                NSDictionary *config = co.config.dictionaryCopy;
+                if( [config configEnabledWithYesDefault])
+                {
+                    [self addWithConfigMTP3Link:config];
+                }
+            }
+        }
     }
 
 
     /*****************************************************************/
     /* M3UAAS */
     /*****************************************************************/
-    
+
     names = [_runningConfig getM3UAASNames];
     if(names.count > 0)
     {
@@ -1253,7 +1265,7 @@ static void signalHandler(int signum);
         NSDictionary *config = co.config.dictionaryCopy;
 
         SccpGttSelector *selector = [[SccpGttSelector alloc]initWithConfig:config];
-        
+
         if(selector.preTranslationName.length > 0)
         {
             selector.preTranslation = _sccp_number_translations_dict[selector.preTranslationName];
@@ -1505,6 +1517,7 @@ static void signalHandler(int signum);
 
 - (void)startInstances
 {
+    [self startDatabaseConnections];
     [self.logFeed infoText:@"Starting Instances"];
     NSArray *names = [_mtp3_dict allKeys];
     for(NSString *name in names)
@@ -2471,7 +2484,7 @@ static void signalHandler(int signum);
 - (void)deleteMTP3LinkSet:(NSString *)name
 {
     /* FIXME: we should probably do more than just remove the object.
-      shut it down, unlink it from mtp etc */
+     shut it down, unlink it from mtp etc */
     [_mtp3_linkset_dict removeObjectForKey:name];
     [_incomingLinksetFilters removeObjectForKey:name];
     [_outgoingLinksetFilters removeObjectForKey:name];
@@ -2614,7 +2627,7 @@ static void signalHandler(int signum);
 
         if(co.problematicPacketsTraceFile)
         {
-           sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
+            sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
         }
         if(co.unrouteablePacketsTraceFile)
         {
@@ -3950,7 +3963,7 @@ static void signalHandler(int signum);
     NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *st = [[UMSS7ConfigSS7FilterStagingArea alloc]initWithPath:filepath];
     [st setConfig:dict];
-    
+
     if(st==NULL)
     {
         @throw([NSException exceptionWithName:@"CREATE-STAGING-ERROR"
@@ -3978,7 +3991,7 @@ static void signalHandler(int signum);
     {
         [sa setConfig:dict];
     }
-    
+
 }
 
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session
@@ -3993,7 +4006,7 @@ static void signalHandler(int signum);
     NSString *filepath = [NSString stringWithFormat:@"%@%@",_stagingAreaPath,filename];
     UMSS7ConfigSS7FilterStagingArea *sa = _ss7FilterStagingAreas_dict[name];
     [sa deleteConfig:filepath];
-    
+
     // Remove from memory
     [_ss7FilterStagingAreas_dict removeObjectForKey:name];
 }
@@ -4047,7 +4060,7 @@ static void signalHandler(int signum);
     }
 
     /* we could here link all rulesets->rule to actionlist->actions and to engines
-        however we prefer to do this lazy on first attempted use */
+     however we prefer to do this lazy on first attempted use */
 
     NSString *origin = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,_activeStagingArea.name.urlencode];
     NSString *symlinked = [NSString stringWithFormat:@"%@/current",_stagingAreaPath];
@@ -4098,7 +4111,7 @@ static void signalHandler(int signum);
 {
     NSFileManager * fm = [NSFileManager defaultManager];
     NSError *e = NULL;
-    
+
     NSArray<NSString *> *a = (NSArray *)[fm contentsOfDirectoryAtPath:path  error:&e];
     if(e)
     {
@@ -4108,7 +4121,7 @@ static void signalHandler(int signum);
     {
         _ss7FilterStagingAreas_dict = [[UMSynchronizedDictionary alloc]init];
         _activeStagingArea = NULL;
-        
+
         for(NSString *filename in a)
         {
             NSString *fullPath = [NSString stringWithFormat:@"%@/%@",path, filename];
@@ -4169,7 +4182,6 @@ static void signalHandler(int signum);
     if([type isEqualToString:@"ss7-filter"])
     {
         _ss7FilterEngines[ph.name] = ph;
-
     }
     else
     {
@@ -4207,17 +4219,17 @@ static void signalHandler(int signum);
         if([filepath hasSuffix:@"~"]) /* we skip old backup files */
         {
             continue;
-        } 
+        }
         UMPluginHandler *ph = [[UMPluginHandler alloc]initWithFile:filepath];
 
         if(ph)
         {
             int r = [ph openWithDictionary:open_dict];
             if(r<0)
-			{
+            {
                 [self.logFeed majorErrorText:[NSString stringWithFormat:@"loading filter '%@' failed with error %@",filepath,ph.error]];
-			    [ph close];
-			}
+                [ph close];
+            }
             else
             {
                 NSDictionary *info = ph.info;
@@ -4464,6 +4476,7 @@ static void signalHandler(int signum);
     {
         stat  =  [[UMStatistic alloc]initWithPath:_statisticsPath name:name];
     }
+    _statistics_dict[name] = stat;
 }
 
 - (void)statistics_modify:(NSString *)name params:(NSDictionary *)dict
@@ -4522,7 +4535,7 @@ static void signalHandler(int signum);
         UMStatistic *stat = _statistics_dict[key];
         [stat flushIfDirty];
     }
-    
+
     keys = [_namedLists allKeys];
     for(NSString *k in keys)
     {
@@ -4603,7 +4616,7 @@ static void signalHandler(int signum);
         }
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
-    
+
     if(packet.logLevel<=UMLOG_DEBUG)
     {
         [packet.logFeed debugText:[NSString stringWithFormat:@"calling filterPacket: on ruleset %@",rs.name]];
@@ -4670,7 +4683,7 @@ static void signalHandler(int signum);
 
 
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
-{    
+{
     if(_logLevel<= UMLOG_DEBUG)
     {
         [packet.logFeed infoText:@"filterInbound called"];
@@ -4869,6 +4882,84 @@ static void signalHandler(int signum);
         [self.logFeed infoText:@"filterFromLocalSubsystem returning"];
     }
     return result;
+}
+
+/************************************************************/
+#pragma mark -
+#pragma mark Database functions
+/************************************************************/
+
+
+
+- (UMDbPool *)getDbPool:(NSString *)poolName
+{
+    return _dbpool_dict[poolName];
+}
+
+- (UMSynchronizedDictionary *)dbPools
+{
+    return _dbpool_dict;
+}
+
+- (void)startDatabaseConnections
+{
+    Class dbpoolClass = objc_getClass("UMDbPool");
+    if (dbpoolClass)
+    {
+        [self.logFeed infoText:@"Starting Database Connections"];
+        [self setupDatabaseTaskQueue];
+        if(_dbStarted==NO)
+        {
+            _dbStarted=YES;
+            UMSynchronizedDictionary *database_pool_dict = _runningConfig.database_pool_dict;
+            NSArray *keys = [database_pool_dict allKeys];
+            for(NSString *key in keys)
+            {
+                UMSS7ConfigDatabasePool *dbPoolConfig =  database_pool_dict[key];
+                if(dbPoolConfig.enabled.boolValue==YES)
+                {
+                    NSString *name = dbPoolConfig.name;
+                    if(name)
+                    {
+                        NSDictionary *dict = [[dbPoolConfig config]dictionaryCopy];
+                        @try
+                        {
+                            UMDbPool *pool = [[UMDbPool alloc]initWithConfig:dict];
+                            if(pool)
+                            {
+                                _dbpool_dict[name]=pool;
+                            }
+                        }
+                        @catch(NSException *e)
+                        {
+                            [self.logFeed majorErrorText:[NSString stringWithFormat:@"Database functions not available. %@",e]];
+                        }
+                    }
+                }
+            }
+            _dbStarted=YES;
+        }
+    }
+    else
+    {
+        [self.logFeed majorErrorText:@"Database functions not available. ulibdb methods not available"];
+    }
+}
+
+- (void) setupDatabaseTaskQueue
+{
+    if(_databaseQueue == NULL)
+    {
+        int concurrentThreads = ulib_cpu_count() * 2;
+        if(concurrentThreads<4)
+        {
+            concurrentThreads = 4;
+        }
+        _databaseQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:concurrentThreads
+                                                                        name:@"db-task-queue"
+                                                               enableLogging:NO
+                                                              numberOfQueues:UMLAYER_QUEUE_COUNT];
+    }
 }
 
 @end

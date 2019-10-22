@@ -12,6 +12,7 @@
 #import <ulibsms/ulibsms.h>
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
+#import <ulibdb/ulibdb.h>
 #import "UMSS7ConfigObject.h"
 #import "SS7TelnetSocketHelperProtocol.h"
 #import "SS7UserAuthenticateProtocol.h"
@@ -76,7 +77,6 @@ UMSS7ConfigAppDelegateProtocol,
 UMTransportUserProtocol,
 UMDiameterPeerAppDelegateProtocol,
 UMDiameterRouterAppDelegateProtocol,
-UMSCCP_FilterProtocol,
 UMSCCP_FilterDelegateProtocol>
 {
     /* first all pointers... then integers. Workaround for a bug in clang...? */
@@ -192,6 +192,11 @@ UMSCCP_FilterDelegateProtocol>
     UMSynchronizedDictionary *_outgoingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
     UMSynchronizedDictionary *_incomingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
     UMSynchronizedDictionary *_outgoingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+
+    UMSynchronizedDictionary    *_dbpool_dict;
+    BOOL                        _dbStarted;
+    UMTaskQueueMulti            *_databaseQueue;
+
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -495,6 +500,19 @@ UMSCCP_FilterDelegateProtocol>
 - (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet;
+
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Database functions
+/************************************************************/
+
+
+- (UMDbPool *)getDbPool:(NSString *)name;
+- (UMSynchronizedDictionary *)dbPools;
+- (void)startDatabaseConnections;
+- (void) setupDatabaseTaskQueue;
 
 @end
 

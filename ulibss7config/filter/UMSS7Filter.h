@@ -6,13 +6,13 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
+#import <ulibsccp/ulibsccp.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
+#import "UMSS7ConfigAppDelegateProtocol.h"
 
-@interface UMSS7Filter : UMPlugin<UMSCCP_FilterProtocol>
+@interface UMSS7Filter : UMSCCP_Filter
 {
-    NSString            *_filterConfigFile;
-    BOOL                _isActive;
     UMSynchronizedDictionary *_tags;
     NSString            *_custom1;
     NSString            *_custom2;
@@ -29,6 +29,7 @@
     UMLayerTCAP         *_tcap_camel;
     UMLayerGSMMAP       *_gsmmap;
     UMLayerTCAP         *_tcap_gsmmap;
+    id<UMSS7ConfigAppDelegateProtocol>  _appDelegate;
 }
 
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *tags;
@@ -42,14 +43,13 @@
 @property(readwrite,strong,atomic)  NSString            *custom8;
 @property(readwrite,strong,atomic)  NSString            *custom9;
 @property(readwrite,strong,atomic)  NSString            *custom10;
+@property(readwrite,strong,atomic)  id<UMSS7ConfigAppDelegateProtocol> appDelegate;
 
 /* note these methods are to manipulate the config, not while filtering */
 - (void)addTag:(NSString *)tag;
 - (void)clearTag:(NSString *)tag;
 - (BOOL)hasTag:(NSString *)tag;
 - (void)clearAllTags;
-
-- (void)loadConfigFromFile:(NSString *)filename;
 
 - (void)processConfig:(NSString *)jsonString error:(NSError**)eptr;
 - (void)processConfigDict:(NSDictionary *)dict error:(NSError**)eptr;

@@ -8,6 +8,7 @@
 
 #import <ulib/ulib.h>
 #import <ulibgsmmap/ulibgsmmap.h>
+#import <ulibdb/ulibdb.h>
 
 @class UMSS7ConfigStorage;
 @class UMSS7ApiSession;
@@ -183,5 +184,15 @@ realm:(NSString **)realm;
 - (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet;
+
+/************************************************************/
+#pragma mark -
+#pragma mark Database functions
+/************************************************************/
+
+- (UMDbPool *)getDbPool:(NSString *)name;
+- (UMSynchronizedDictionary *)dbPools;
+- (void)startDatabaseConnections;
+- (void) setupDatabaseTaskQueue;
 
 @end

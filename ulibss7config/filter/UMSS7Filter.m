@@ -33,20 +33,6 @@ NSDictionary *plugin_info(void);
     return self;
 }
 
-- (UMSS7Filter *)initWithConfigFile:(NSString *)configFile
-{
-    self = [super init];
-    if(self)
-    {
-        _filterConfigFile = configFile;
-        [self processConfigFile];
-        [self genericInitialisation];
-        [self loadConfigFromFile:configFile];
-    }
-    return self;
-}
-
-
 - (void)activate
 {
     _isActive = YES;
@@ -144,22 +130,6 @@ NSDictionary *plugin_info(void);
     return filterResult;
 }
 
-- (void)loadConfigFromFile:(NSString *)filename
-{
-    NSError *e = NULL;
-    NSString *jsonString = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&e];
-    if(e)
-    {
-        NSLog(@"Can not read config from file %@. Error %@",filename,e);
-    }
-    [self processConfig:jsonString error:&e];
-    if(e)
-    {
-        NSLog(@"Error while reading config file %@ %@",filename,e);
-    }
-}
-
-
 - (void)processConfig:(NSString *)jsonString error:(NSError**)eptr
 {
     UMJsonParser *parser = [[UMJsonParser alloc]init];
@@ -186,7 +156,7 @@ NSDictionary *plugin_info(void);
     /* this can be overwritten */
 }
 
-- (void)processConfigFile
+- (void)processConfig
 {
 }
 

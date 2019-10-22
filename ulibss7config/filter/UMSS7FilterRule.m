@@ -43,6 +43,21 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
         {
             return NULL;
         }
+        _engineName = cfg.engine;
+        UMPluginHandler *ph = [appdel getSS7FilterEngineHandler:_engineName];
+        if(ph == NULL)
+        {
+            NSLog(@"SS7Filter named '%@' not found",_engineName);
+            return NULL;
+        }
+        _engine = (UMSS7Filter *)[ph instantiate];
+        _engine.appDelegate = appdel;
+        NSError *err = [_engine setConfigString:cfg.engineConfig];
+        if(err)
+        {
+            [appdel.logFeed majorErrorText:[NSString stringWithFormat:@"Failed to set Engine %@ config to  %@\nerror=%@",_engineName,cfg.engineConfig,err]];
+            return NULL;
+        }
     }
     return self;
 }
@@ -181,7 +196,7 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
                 {
                     [logFeed debugText:@"returning UMSCCP_FilterMatchResult_does_not_match"];
                 }
-                r = UMSCCP_FilterMatchResult_does_not_match;
+                //r = UMSCCP_FilterMatchResult_does_not_match;
                 return fr; /* we bail out. No more to check */
                 break;
             }
@@ -275,7 +290,7 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
             }
             else
             {
-                r = UMSCCP_FilterMatchResult_does_not_match;
+                //r = UMSCCP_FilterMatchResult_does_not_match;
                 if(logLevel<=UMLOG_DEBUG)
                 {
                     [logFeed debugText:@"returning UMSCCP_FilterMatchResult_does_not_match"];

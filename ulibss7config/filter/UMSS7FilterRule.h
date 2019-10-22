@@ -17,6 +17,7 @@
 {
     SS7AppDelegate              *_appDelegate;
     UMSS7ConfigSS7FilterRule    *_config;
+    NSString                    *_engineName;
     UMSS7Filter                 *_engine;
     UMSS7FilterStatus           _filterStatus;
     BOOL                        _engineInverseMatch;
