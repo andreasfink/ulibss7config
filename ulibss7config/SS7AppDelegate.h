@@ -177,6 +177,7 @@ UMSCCP_FilterDelegateProtocol>
     UMSynchronizedDictionary    *_ss7TraceFiles; /* contains UMSS7TraceFile objects */
     NSString                    *_ss7TraceFilesDirectory;
     UMTimer                     *_apiHousekeepingTimer;
+    UMSynchronizedDictionary    *_activeFilterRuleSets;
 
 
     UMSynchronizedDictionary     *_statistics_dict;

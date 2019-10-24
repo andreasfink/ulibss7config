@@ -85,10 +85,28 @@ NSDictionary *plugin_info(void);
     UMLayerTCAP *tcap;
     if((packet.incomingCalledPartyAddress.ssn.ssn == SCCP_SSN_CAP) || (packet.incomingCallingPartyAddress.ssn.ssn == SCCP_SSN_CAP))
     {
+        if(_tcap_camel == NULL)
+        {
+            _tcap_camel = [[UMLayerTCAP alloc]init];
+            if(_camel == NULL)
+            {
+                _camel =[[UMLayerCamel alloc]init];
+            }
+            _tcap_camel.tcapDefaultUser = _camel;
+        }
         tcap = _tcap_camel;
     }
     else
     {
+        if(_tcap_gsmmap == NULL)
+        {
+            _tcap_gsmmap = [[UMLayerTCAP alloc]init];
+            if(_gsmmap == NULL)
+            {
+                _gsmmap = [[UMLayerGSMMAP alloc]init];
+            }
+            _tcap_gsmmap.tcapDefaultUser = _gsmmap;
+        }
         tcap = _tcap_gsmmap;
     }
     @try
@@ -106,19 +124,31 @@ NSDictionary *plugin_info(void);
         if([asn1 isKindOfClass:[UMTCAP_itu_asn1_begin class]])
         {
             packet.incomingTcapBegin = (UMTCAP_itu_asn1_begin *)asn1;
+            packet.incomingTcapCommand = TCAP_TAG_ITU_BEGIN;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_continue class]])
         {
             packet.incomingTcapContinue = (UMTCAP_itu_asn1_continue *)asn1;
+            packet.incomingTcapCommand = TCAP_TAG_ITU_CONTINUE;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_end class]])
         {
             packet.incomingTcapEnd = (UMTCAP_itu_asn1_end *)asn1;
+            packet.incomingTcapCommand = TCAP_TAG_ITU_END;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_abort class]])
         {
             packet.incomingTcapAbort = (UMTCAP_itu_asn1_abort *)asn1;
+            packet.incomingTcapCommand = TCAP_TAG_ITU_ABORT;
+
         }
+        else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_unidirectional class]])
+        {
+            packet.incomingTcapUnidirectional = (UMTCAP_itu_asn1_unidirectional *)asn1;
+            packet.incomingTcapCommand = TCAP_TAG_ITU_UNIDIRECTIONAL;
+
+        }
+
         packet.incomingLocalTransactionId   = task.currentLocalTransactionId;
         packet.incomingRemoteTransactionId  = task.currentRemoteTransactionId;
     }
@@ -135,7 +165,7 @@ NSDictionary *plugin_info(void);
     UMJsonParser *parser = [[UMJsonParser alloc]init];
     id jsonObject = [parser objectWithString:jsonString error:eptr];
 
-    if([jsonObject isKindOfClass:[NSDictionary class]])
+    if(![jsonObject isKindOfClass:[NSDictionary class]])
     {
         *eptr = [[NSError alloc]initWithDomain:@"PARSING" code:105 userInfo:@{@"reason":@"json object is not dictionary" }];
     }

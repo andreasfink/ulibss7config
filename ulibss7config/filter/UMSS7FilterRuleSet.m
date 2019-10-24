@@ -41,8 +41,12 @@
     for(UMSS7ConfigSS7FilterRule *rule_config in [_config getAllRules])
     {
         UMSS7FilterRule *rule = [[UMSS7FilterRule alloc]initWithConfig:rule_config appDelegate:_appDelegate];
-        [e addObject:rule];
+        if(rule)
+        {
+            [e addObject:rule];
+        }
     }
+    _entries = e;
 
     if([_config.status isEqualToString:@"on"])
     {

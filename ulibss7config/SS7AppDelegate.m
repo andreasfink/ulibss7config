@@ -4584,19 +4584,7 @@ static void signalHandler(int signum);
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
 
     }
-    UMSynchronizedDictionary *dict = _activeStagingArea.filter_rule_set_dict;
-    if(dict==NULL)
-    {
-        if(packet.logLevel <= UMLOG_DEBUG)
-        {
-            NSString *s = [NSString stringWithFormat:@" activeStagingArea.filter_rule_set_dict is NULL"];
-            [packet.logFeed debugText:s];
-        }
-        return UMSCCP_FILTER_RESULT_UNMODIFIED;
-    }
-    UMSS7FilterRuleSet *rs = dict[ruleset];
-    NSLog(@"Ruleset = %@",rs.name);
-    NSLog(@"RulesetConfig = %@",rs.config);
+    UMSS7FilterRuleSet *rs = _active_ruleset_dict[ruleset];
 
     if(rs == NULL)
     {

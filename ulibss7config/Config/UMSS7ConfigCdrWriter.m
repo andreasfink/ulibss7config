@@ -36,6 +36,7 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
+    APPEND_CONFIG_STRING(s,@"cdr-type",_cdrType);
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
     APPEND_CONFIG_INTEGER(s,@"cdr-queue-limit",_cdrQueueLimit);
     APPEND_CONFIG_STRING(s,@"cdr-file-prefix",_cdrFilePrefix);
@@ -54,6 +55,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
 
+    APPEND_DICT_STRING(dict,@"cdr-type",_cdrType);
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
     APPEND_DICT_INTEGER(dict,@"cdr-queue-limit",_cdrQueueLimit);
     APPEND_DICT_STRING(dict,@"cdr-file-prefix",_cdrFilePrefix);
@@ -72,6 +74,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+    SET_DICT_STRING(dict,@"cdr-type",_cdrType);
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_INTEGER(dict,@"cdr-queue-limit",_cdrQueueLimit);
     SET_DICT_STRING(dict,@"cdr-file-prefix",_cdrFilePrefix);

@@ -39,6 +39,7 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
     {
         _config = cfg;
         _appDelegate = appdel;
+        _filterStatus = UMSS7FilterStatus_monitor;
         if([self convertConfig]==NO)
         {
             return NULL;
@@ -309,7 +310,7 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
             [logFeed debugText:@"checking engine"];
         }
         
-        UMSCCP_FilterResult fr = [_engine filterInbound:packet];
+        UMSCCP_FilterResult fr = [_engine filterInbound:packet]; /* FIXME: this should be renamed to something like decode packet */
         if(fr != UMSCCP_FILTER_RESULT_UNMODIFIED)
         {
             if(logLevel<=UMLOG_DEBUG)

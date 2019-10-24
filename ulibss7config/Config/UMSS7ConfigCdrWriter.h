@@ -10,6 +10,8 @@
 
 @interface UMSS7ConfigCdrWriter : UMSS7ConfigObject
 {
+    NSString *_cdrType;
+    NSString *_attachTo;
     NSString *_dateFormat;
     NSString *_timeZone;
     NSString *_locale;
@@ -21,6 +23,7 @@
     NSString *_cdrFilePrefix;
 }
 
+@property(readwrite,strong,atomic)  NSString *cdrType;
 @property(readwrite,strong,atomic)  NSString *attachTo;
 @property(readwrite,strong,atomic)  NSString *dateFormat;
 @property(readwrite,strong,atomic)  NSString *timeZone;
