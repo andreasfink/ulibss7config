@@ -325,7 +325,7 @@
 }
 
 
-- (void)writeMapppedDictionary:(NSDictionary *)dict
+- (void)writeMappedDictionary:(NSDictionary *)dict
 {
     /* standardize array */
 
