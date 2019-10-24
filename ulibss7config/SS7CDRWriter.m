@@ -28,7 +28,8 @@
         _writerQueueLimit = 0;
         _writerOpenTime = [NSDate new];
         _sliceSize = 500;
-        _fieldNames = return @[];
+        _fieldNames =  @[];
+        _nameMapping = @{};
         _lastInsert = [[UMAtomicDate alloc]init];
         _lock = [[UMMutex alloc]initWithName:@"writer-lock"];
         _pendingRecords = [[NSMutableArray alloc]init];
@@ -162,6 +163,7 @@
     [_lock unlock];
     return cnt;
 }
+
 
 - (void) writeRecord:(NSDictionary *)fields
 {
@@ -323,8 +325,28 @@
 }
 
 
-- (void)writeDictionary:(NSDictionary *)dict
+- (void)writeMapppedDictionary:(NSDictionary *)dict
 {
+    /* standardize array */
+
+    NSMutableDictionary *outputDict = [[NSMutableDictionary alloc]init];
+
+    NSArray *allKeys = [dict allKeys];
+    for(NSString *key in allKeys)
+    {
+        NSString *keyName = _nameMapping[key];
+        if(keyName==NULL)
+        {
+            keyName = key;
+        }
+        if(NSNotFound == [_fieldNames indexOfObjectIdenticalTo:keyName])
+        {
+            continue;
+        }
+        outputDict[keyName] = dict[key];
+    }
+    [self writeRecord:outputDict];
 }
+
 
 @end

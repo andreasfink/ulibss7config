@@ -27,6 +27,7 @@
     UMThroughputCounter *_speedometerTasks;
     UMThroughputCounter *_speedometerRecords;
     NSArray<NSString *> *_fieldNames;
+    NSDictionary<NSString *,NSString *> *_nameMapping;
     NSString            *_writerFileNamePrefix;
     NSString            *_writerCurrentFileName;
     int                 _writerFile;
@@ -42,6 +43,7 @@
 @property(readwrite,atomic,assign)  NSInteger activeSingleTasks;
 @property(readwrite,atomic,assign)  int sliceSize;
 @property(readwrite,atomic,strong)  NSArray<NSString *> *fieldNames;
+@property(readwrite,atomic,strong)  NSDictionary<NSString *,NSString *> *nameMapping;
 
 
 - (void)openNewWriterFile;
@@ -52,7 +54,7 @@
 - (NSString *)webStats;
 - (NSDictionary *)apiJsonStat;
 - (NSUInteger)pendingRecordsCount;
-- (void)writeDictionary:(NSDictionary *)dict;
+- (void)writeMapppedDictionary:(NSDictionary *)dict;
 
 @end
 
