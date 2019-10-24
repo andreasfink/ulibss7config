@@ -197,7 +197,7 @@ UMSCCP_FilterDelegateProtocol>
     UMSynchronizedDictionary    *_dbpool_dict;
     BOOL                        _dbStarted;
     UMTaskQueueMulti            *_databaseQueue;
-
+    UMSynchronizedDictionary    *_cdrWriters_dict;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -248,8 +248,8 @@ UMSCCP_FilterDelegateProtocol>
 @property(readwrite,strong)     UMLicenseProductFeature     *rerouterFeature;
 @property(readwrite,strong)     UMLicenseProductFeature     *diameterFeature;
 
-@property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile
-                                                                        objects */
+@property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile objects */
+@property(readwrite,strong)     UMSynchronizedDictionary    *cdrWriters_dict;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -514,6 +514,13 @@ UMSCCP_FilterDelegateProtocol>
 - (UMSynchronizedDictionary *)dbPools;
 - (void)startDatabaseConnections;
 - (void) setupDatabaseTaskQueue;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark CDRWriter functions
+/************************************************************/
+- (SS7CDRWriter *)getCDRWriter:(NSString *)name;
 
 @end
 

@@ -90,3 +90,7 @@
 
 #import "UMSS7App.h"
 
+#import "SS7CDRWriter.h"
+#import "SS7CDRWriterTask.h"
+
+

@@ -72,7 +72,6 @@
 #import "UMSS7ConfigDiameterConnection.h"
 #import "UMSS7ConfigDiameterRoute.h"
 #import "UMSS7ConfigDiameterRouter.h"
-
 #import "UMTTask.h"
 #import "UMTTaskPing.h"
 #import "UMTTaskGetVersion.h"
@@ -89,6 +88,7 @@
 #import "filter/UMSS7FilterRuleSet.h"
 #import "filter/UMSS7FilterActionList.h"
 #import "objc/runtime.h"
+#import "SS7CDRWriter.h"
 
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
@@ -189,6 +189,7 @@ static void signalHandler(int signum);
         _incomingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
         _outgoingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
 
+        _cdrWriters_dict               = [[UMSynchronizedDictionary alloc]init];
 
         if(_enabledOptions[@"name"])
         {
@@ -1477,6 +1478,36 @@ static void signalHandler(int signum);
             }
         }
     }
+
+    /*****************************************************************/
+    /* CDR Writers */
+    /*****************************************************************/
+    {
+        [self setupDatabaseTaskQueue];
+
+        NSArray *names = [_runningConfig getCdrWriterNames];
+        for (NSString *name in names)
+        {
+            UMSS7ConfigCdrWriter *co = [_runningConfig getCdrWriter:name];
+            NSDictionary *cdr_config = co.config.dictionaryCopy;
+            NSString *enableString = cdr_config[@"enable"];
+            if(enableString!= NULL)
+            {
+                if([enableString boolValue]==YES)
+                {
+                    SS7CDRWriter *cdrWriter = [[SS7CDRWriter alloc]initWithTaskQueueMulti:_databaseQueue usingBatchInsert:YES];
+                    cdrWriter.logLevel = _logLevel;
+                    [cdrWriter setConfig:cdr_config applicationContext:self];
+                    NSString *name = cdrWriter.name;
+                    if(name.length > 0)
+                    {
+                        _cdrWriters_dict[name] = cdrWriter;
+                    }
+                }
+            }
+        }
+    }
+
     if(_coreFeature.isAvailable)
     {
         if(_coreFeature.licenseExpiration)
@@ -4949,6 +4980,20 @@ static void signalHandler(int signum);
                                                               numberOfQueues:UMLAYER_QUEUE_COUNT];
     }
 }
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark CDR Writer functions
+/************************************************************/
+
+
+
+- (SS7CDRWriter *)getCDRWriter:(NSString *)name
+{
+    return _cdrWriters_dict[name];
+}
+
 
 @end
 

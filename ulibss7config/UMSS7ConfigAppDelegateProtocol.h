@@ -14,6 +14,7 @@
 @class UMSS7ApiSession;
 @class UMSS7ConfigSS7FilterStagingArea;
 @class UMSS7ConfigSS7FilterTraceFile;
+@class SS7CDRWriter;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -194,5 +195,13 @@ realm:(NSString **)realm;
 - (UMSynchronizedDictionary *)dbPools;
 - (void)startDatabaseConnections;
 - (void) setupDatabaseTaskQueue;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark CDRWriter functions
+/************************************************************/
+
+- (SS7CDRWriter *)getCDRWriter:(NSString *)name;
 
 @end
