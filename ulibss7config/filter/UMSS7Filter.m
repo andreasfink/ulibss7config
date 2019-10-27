@@ -125,20 +125,25 @@ NSDictionary *plugin_info(void);
         {
             packet.incomingTcapBegin = (UMTCAP_itu_asn1_begin *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_BEGIN;
+            packet.incoming_tcap_otid = packet.incomingTcapBegin.otid.asn1_data.hexString;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_continue class]])
         {
             packet.incomingTcapContinue = (UMTCAP_itu_asn1_continue *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_CONTINUE;
+            packet.incoming_tcap_otid = packet.incomingTcapContinue.otid.asn1_data.hexString;
+            packet.incoming_tcap_dtid = packet.incomingTcapContinue.dtid.asn1_data.hexString;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_end class]])
         {
             packet.incomingTcapEnd = (UMTCAP_itu_asn1_end *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_END;
+            packet.incoming_tcap_dtid = packet.incomingTcapEnd.dtid.asn1_data.hexString;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_abort class]])
         {
             packet.incomingTcapAbort = (UMTCAP_itu_asn1_abort *)asn1;
+            packet.incoming_tcap_dtid = packet.incomingTcapAbort.dtid.asn1_data.hexString;
             packet.incomingTcapCommand = TCAP_TAG_ITU_ABORT;
 
         }

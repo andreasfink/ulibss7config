@@ -325,11 +325,13 @@
 }
 
 
-- (void)writeMappedDictionary:(NSDictionary *)dict
+- (void)writeMappedDictionary:(UMSynchronizedSortedDictionary *)dict
 {
     /* standardize array */
 
-    NSMutableDictionary *outputDict = [[NSMutableDictionary alloc]init];
+    NSDictionary *outputDict = [dict dictionaryCopy];
+
+    /*[[NSMutableDictionary alloc]init];
 
     NSArray *allKeys = [dict allKeys];
     for(NSString *key in allKeys)
@@ -344,7 +346,8 @@
             continue;
         }
         outputDict[keyName] = dict[key];
-    }
+    }*/
+
     [self writeRecord:outputDict];
 }
 

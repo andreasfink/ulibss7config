@@ -273,6 +273,17 @@ UMSCCP_FilterDelegateProtocol>
 - (int)main:(int)argc argv:(const char **)argv;
 - (void) createInstances;
 - (void)  handleStatus:(UMHTTPRequest *)req;
+
+
+- (void)  handleDecode:(UMHTTPRequest *)req;
+
+- (void)  handleDecodeMtp3:(UMHTTPRequest *)req;
+- (void)  handleDecodeSccp:(UMHTTPRequest *)req;
+- (void)  handleDecodeTcap:(UMHTTPRequest *)req;
+- (void)  handleDecodeTcap2:(UMHTTPRequest *)req;
+- (void)  handleDecodeAsn1:(UMHTTPRequest *)req;
+- (void)  handleDecodeSms:(UMHTTPRequest *)req;
+
 - (NSString *)defaultLogDirectory;
 - (int)defaultWebPort;
 - (NSString *)defaultWebUser;

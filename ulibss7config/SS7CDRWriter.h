@@ -54,7 +54,7 @@
 - (NSString *)webStats;
 - (NSDictionary *)apiJsonStat;
 - (NSUInteger)pendingRecordsCount;
-- (void)writeMappedDictionary:(NSDictionary *)dict;
+- (void)writeMappedDictionary:(UMSynchronizedSortedDictionary *)dict;
 
 @end
 

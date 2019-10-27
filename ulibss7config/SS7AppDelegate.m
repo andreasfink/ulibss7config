@@ -276,6 +276,7 @@ static void signalHandler(int signum);
         _rerouterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"rerouter"];
         _diameterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
 
+        _dbpool_dict = [[UMSynchronizedDictionary alloc]init];
 
         _filteringActive = YES;
     }
@@ -1479,6 +1480,8 @@ static void signalHandler(int signum);
         }
     }
 
+    [self startDatabaseConnections];
+
     /*****************************************************************/
     /* CDR Writers */
     /*****************************************************************/
@@ -1548,7 +1551,6 @@ static void signalHandler(int signum);
 
 - (void)startInstances
 {
-    [self startDatabaseConnections];
     [self.logFeed infoText:@"Starting Instances"];
     NSArray *names = [_mtp3_dict allKeys];
     for(NSString *name in names)
@@ -1660,6 +1662,45 @@ static void signalHandler(int signum);
         {
             [self handleSCTPStatus:req];
         }
+
+
+        /* DECODING MENU */
+
+        else if([path isEqualToString:@"/decode"])
+        {
+            [self handleDecode:req];
+        }
+        else if(([path isEqualToString:@"/decode/mtp3"])
+                ||([path isEqualToString:@"/mtp3/decode"]))
+        {
+            [self handleDecodeMtp3:req];
+        }
+        else if(([path isEqualToString:@"/decode/sccp"])
+                ||([path isEqualToString:@"/sccp/decode"]))
+        {
+            [self handleDecodeSccp:req];
+        }
+        else if(([path isEqualToString:@"/decode/tcap"])
+                ||  ([path isEqualToString:@"/tcap/decode"]))
+        {
+            [self handleDecodeTcap:req];
+        }
+        else if([path isEqualToString:@"/decode/tcap2"])
+        {
+            [self handleDecodeTcap2:req];
+        }
+        else if(([path isEqualToString:@"/decode/asn1"])
+                || ([path isEqualToString:@"/asn1/decode"]))
+        {
+            [self handleDecodeAsn1:req];
+        }
+        else if(([path isEqualToString:@"/decode/sms"])
+                ||  ([path isEqualToString:@"/sms/decode"]))
+        {
+            [self handleDecodeSms:req];
+        }
+
+
         else
         {
             NSString *s = @"Result: Error\nReason: Unknown request\n";
@@ -3980,6 +4021,470 @@ static void signalHandler(int signum);
         [status appendFormat: @"Routes:\n%@",rt.jsonString];
     }
     [req setResponsePlainText:status];
+    return;
+}
+
+- (void)  handleDecodeMtp3:(UMHTTPRequest *)req
+{
+    NSString *standard = req.params[@"standard"];
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"MTP3 Decode"];
+        [s appendString:@"<h2>MTP3 Decode</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<select name=standard><option selected value=itu>itu</option><option value=ansi>ansi</option><option value=china>china</option><option value=japan>japan</option></select><br>\r"];
+        [s appendFormat:@"MTP3 HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+
+   else
+    {
+        UMMTP3Variant variant = UMMTP3Variant_ITU;
+        if([standard isCaseInsensitiveLike:@"itu"])
+        {
+            variant = UMMTP3Variant_ITU;
+        }
+        else if([standard isCaseInsensitiveLike:@"ansi"])
+        {
+            variant = UMMTP3Variant_ANSI;
+        }
+        else if([standard isCaseInsensitiveLike:@"china"])
+        {
+            variant = UMMTP3Variant_China;
+        }
+        else if([standard isCaseInsensitiveLike:@"japan"])
+        {
+            variant = UMMTP3Variant_Japan;
+        }
+        else
+        {
+            [req setResponsePlainText:@"Unknown standard"];
+            return;
+        }
+        NSData *pduData = [pdu unhexedData];
+        const unsigned char *bytes = pduData.bytes;
+        int len = (int)pduData.length;
+        int pos = 0;
+
+        if(len<7)
+        {
+            [req setResponsePlainText:@"can not decode (packet too short)"];
+            return;
+        }
+
+        int sio = bytes[pos++];
+        int si; /* service indicator */
+        int ni; /* network indicator */
+        int mp=-1; /* message priority */
+        switch (variant)
+        {
+            case UMMTP3Variant_Japan:
+                mp = -1; /* this is in the MTP2 length indicator which we have no access to here */
+                si  = (sio & 0x0F);
+                ni  = (sio >> 6) & 0x03;
+                break;
+            case UMMTP3Variant_ANSI:
+                mp = (sio >> 4 ) & 0x03;
+                si  = (sio & 0x0F);
+                ni  = (sio >> 6) & 0x03;
+                break;
+            default:
+                mp = (sio >> 4 ) & 0x03;
+                si  = (sio & 0x0F);
+                ni  = (sio >> 6) & 0x03;
+                break;
+        }
+
+        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+        dict[@"sio"] = @(sio);
+        dict[@"ni"] = @(ni);
+        dict[@"si"] = @(si);
+        UMMTP3Label *label = [[UMMTP3Label alloc]initWithBytes:bytes pos:&pos variant:variant];
+        NSData *mtp3payload = [NSData dataWithBytes:&bytes[pos] length:(len-pos)];
+        dict[@"opc"] = label.opc.description;
+        dict[@"dpc"] = label.dpc.description;
+        dict[@"sls"] = @(label.sls);
+        if(mp>=0)
+        {
+            dict[@"mp"] = @(mp);
+        }
+        dict[@"mtp3-payload"] = mtp3payload;
+        if(si==3)
+        {
+            NSArray *sccpLayerKeys = [_sccp_dict allKeys];
+            if([sccpLayerKeys count]>=1)
+            {
+                NSString *key = sccpLayerKeys[0];
+                UMLayerSCCP *sccp = _sccp_dict[key];
+                UMSCCP_mtpTransfer *task = [[UMSCCP_mtpTransfer alloc]initForSccp:sccp
+                                                     mtp3:NULL
+                                                      opc:label.opc
+                                                      dpc:label.dpc
+                                                       si:3
+                                                       ni:0
+                                                     data:mtp3payload
+                                                  options:@{ @"decode-only" : @YES }];
+                [task main];
+                dict[@"sccp"] = task.decodedJson;
+            }
+        }
+        [req setResponseJsonObject:dict];
+    }
+    return;
+}
+
+
+- (void)  handleDecodeSccp:(UMHTTPRequest *)req
+{
+
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"SCCP Decode"];
+
+        [s appendString:@"<h2>SCCP Decode</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"SCCP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+
+        NSArray *sccpLayerKeys = [_sccp_dict allKeys];
+        if([sccpLayerKeys count]>=1)
+        {
+            NSString *key = sccpLayerKeys[0];
+            UMLayerSCCP *sccp = _sccp_dict[key];
+
+            UMSCCP_mtpTransfer *task;
+            UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWitPc:1 variant:UMMTP3Variant_ITU];
+            task = [[UMSCCP_mtpTransfer alloc]initForSccp:sccp
+                                                     mtp3:NULL
+                                                      opc:pc
+                                                      dpc:pc
+                                                       si:3
+                                                       ni:0
+                                                     data:[pdu unhexedData]
+                                                  options:@{ @"decode-only" : @YES }];
+            [task main];
+
+            NSString *json = [task.decodedJson jsonString];
+            [req setResponsePlainText:json];
+        }
+        else
+        {
+            [req setResponseHtmlString:@"no sccp found"];
+        }
+    }
+    return;
+}
+
+- (void)  handleDecodeTcap:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    NSString *ssn_string = req.params[@"ssn"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"TCAP Decode"];
+
+        [s appendString:@"<h2>TCAP Decode</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+
+    }
+    else
+    {
+        SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithName:ssn_string];
+        NSArray *sccpLayerKeys = [_sccp_dict allKeys];
+        if([sccpLayerKeys count]>=1)
+        {
+            NSString *key = sccpLayerKeys[0];
+            UMLayerSCCP *sccp = _sccp_dict[key];
+            SccpAddress *src = [[SccpAddress alloc]init];
+            SccpAddress *dst = [[SccpAddress alloc]init];
+            UMLayerTCAP *tcap = [sccp getUserForSubsystem:ssn number:dst];
+            if(tcap==NULL)
+            {
+                tcap = [[UMLayerTCAP alloc]init];
+            }
+            UMTCAP_sccpNUnitdata *task;
+            task = [[UMTCAP_sccpNUnitdata alloc]initForTcap:tcap
+                                                       sccp:sccp
+                                                   userData: [pdu unhexedData]
+                                                    calling:src
+                                                     called:dst
+                                           qualityOfService:0
+                                                    options:@{ @"decode-only" : @YES }];
+            [task main];
+
+            NSLog(@"Decoded %@",[task.asn1.objectValue jsonString]);
+            UMASN1Object *asn1 = task.asn1;
+
+            NSMutableString *s = [[NSMutableString alloc]init];
+            [SS7GenericInstance webHeader:s title:@"TCAP Decode"];
+            [s appendFormat:@"<form>\r"];
+            [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
+            [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
+            [s appendFormat:@"<input type=submit>\r"];
+            [s appendFormat:@"</form>\r"];
+            [s appendFormat:@"<pre>%@ = %@</pre>\r",asn1.objectName,[asn1.objectValue jsonString]];
+            [s appendFormat:@"</pre>\r"];
+            [s appendFormat:@"</body>\r"];
+            [s appendFormat:@"</html>\r"];
+            [req setResponseHtmlString:s];
+        }
+        else
+        {
+            [req setResponseHtmlString:@"no sccp found"];
+        }
+    }
+    return;
+}
+
+- (void)  handleDecodeTcap2:(UMHTTPRequest *)req
+{
+
+    NSString *pdu = req.params[@"hexpdu"];
+    NSString *ssn_string = req.params[@"ssn"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"TCAP2 Decode"];
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+
+    }
+    else
+    {
+        SccpSubSystemNumber *ssn = [[SccpSubSystemNumber alloc]initWithName:ssn_string];
+        NSArray *sccpLayerKeys = [_sccp_dict allKeys];
+        if([sccpLayerKeys count]>=1)
+        {
+            NSString *key = sccpLayerKeys[0];
+            UMLayerSCCP *sccp = _sccp_dict[key];
+            SccpAddress *src = [[SccpAddress alloc]init];
+            SccpAddress *dst = [[SccpAddress alloc]init];
+            UMLayerTCAP *tcap = [sccp getUserForSubsystem:ssn number:dst];
+
+            UMTCAP_sccpNUnitdata *task;
+            task = [[UMTCAP_sccpNUnitdata alloc]initForTcap:tcap
+                                                       sccp:sccp
+                                                   userData: [pdu unhexedData]
+                                                    calling:src
+                                                     called:dst
+                                           qualityOfService:0
+                                                    options:@{ @"decode-only" : @YES }];
+            [task main];
+
+            NSLog(@"Decoded %@",task.asn1.objectValue);
+            UMASN1Object *asn1 = task.asn1;
+
+            NSMutableString *s = [[NSMutableString alloc]init];
+            [SS7GenericInstance webHeader:s title:@"TCAP2 Decode"];
+            [s appendFormat:@"<form>\r"];
+            [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
+            [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
+            [s appendFormat:@"<input type=submit>\r"];
+            [s appendFormat:@"</form>\r"];
+            [s appendFormat:@"<pre>%@ = %@</pre>\r",asn1.objectName,asn1.description];
+            [s appendFormat:@"</pre>\r"];
+            [s appendFormat:@"</body>\r"];
+            [s appendFormat:@"</html>\r"];
+            [req setResponseHtmlString:s];
+        }
+        else
+        {
+            [req setResponseHtmlString:@"no sccp found"];
+        }
+    }
+    return;
+}
+
+- (void)  handleDecode:(UMHTTPRequest *)req
+{
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<header>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>Decode Menu</title>\n"];
+    [s appendString:@"</header>\n"];
+    [s appendString:@"<body>\n"];
+
+    [s appendString:@"<h2>Decode Menu</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">&lt-- main-menu</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/mtp3\">Decode MTP3</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/sccp\">Decode SCCP</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/tcap\">Decode TCAP</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/asn1\">Decode ASN1</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/sms\">Decode SMS</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
+    [s appendString:@"</body>\n"];
+    [s appendString:@"</html>\n"];
+    [req setResponseHtmlString:s];
+}
+
+- (void)  handleDecodeSms:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"SMS PDU Decode"];
+
+        [s appendString:@"<h2>SMS Decode</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data = [pdu unhexedData];
+        UMSMS *sms = [[UMSMS alloc]init];
+        NSString *str;
+        [sms decodePdu:data context:NULL];
+        UMSynchronizedSortedDictionary *dict = sms.objectValue;
+        str = [dict jsonString];
+
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"SMS Decode"];
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"<pre>%@</pre>\r",str];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    return;
+}
+
+
+- (void)  handleSmsDecode:(UMHTTPRequest *)req
+{
+
+    NSString *pdu = req.params[@"hexpdu"];
+
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [SS7GenericInstance webHeader:s title:@"SMS Decode"];
+
+    [s appendString:@"<h2>SMS Decode</h2>\n"];
+
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
+
+    [s appendFormat:@"<form><pre>\r"];
+    [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+    [s appendFormat:@"<input type=submit>\r"];
+    [s appendFormat:@"</pre></form><p>\r"];
+
+    if(pdu)
+    {
+        UMSMS *sms = [[UMSMS alloc]init];
+        [sms decodePdu:[pdu unhexedData] context:NULL];
+        UMSynchronizedSortedDictionary *d = [sms objectValue];
+        [s appendFormat:@"<pre>%@</pre>",[d jsonString]];
+    }
+    [s appendFormat:@"</body>\r"];
+    [s appendFormat:@"</html>\r"];
+    [req setResponseHtmlString:s];
+    return;
+}
+- (void)  handleDecodeAsn1:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"ASN1 Decode"];
+
+        [s appendString:@"<h2>ASN1 Decode</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"ASN1 HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data = [pdu unhexedData];
+        NSUInteger pos = 0;
+        UMASN1Object *asn1 = [[UMASN1Object alloc]initWithBerData:data atPosition:&pos context:NULL];
+
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"ASN1 Decode"];
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"ASN1 HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"<pre>%@ = %@</pre>\r",asn1.objectName,[asn1.objectValue jsonString]];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
     return;
 }
 
