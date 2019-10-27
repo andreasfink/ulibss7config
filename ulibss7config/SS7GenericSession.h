@@ -20,6 +20,15 @@
 
 @class SS7GenericInstance;
 
+typedef enum SS7MultiInvokeVariant
+{
+    SS7MultiInvokeVariant_off = 0,
+    SS7MultiInvokeVariant_together = 1,
+    SS7MultiInvokeVariant_one_by_one = 2,
+    SS7MultiInvokeVariant_together_same_id = 3,
+    SS7MultiInvokeVariant_together_same_id_different_second = 4,
+} SS7MultiInvokeVariant;
+
 @interface SS7GenericSession : UMLayerTask<UMSCCP_TraceProtocol>
 {
     UMGSMMAP_UserIdentifier *_userIdentifier;
@@ -30,10 +39,9 @@
     UMLayerGSMMAP_OpCode    *_opcode;
     UMLayerGSMMAP_OpCode    *_opcode2;
     UMLayerGSMMAP_OpCode    *_opcode3;
-    UMLayerGSMMAP_OpCode    *_firstResponseOpcode;
-    UMLayerGSMMAP_OpCode    *_firstInvokeOpcode;
-    UMLayerGSMMAP_OpCode    *_secondResponseOpcode;
-    UMLayerGSMMAP_OpCode    *_secondInvokeOpcode;
+    int64_t                 _invokeId;
+    int64_t                 _invokeId2;
+    int64_t                 _invokeId3;
     SS7GenericInstance      *_gInstance;
     SccpAddress             *_initialLocalAddress;
     SccpAddress             *_localAddress;
@@ -87,7 +95,7 @@
     int                         _phase;
     BOOL                        _keepOriginalSccpAddressForTcapContinue;
     NSString                    *_tcap_operation_global;
-    BOOL                        _multiMap;
+    int                         _multi_invoke_variant;
     NSString *_calling_ssn;
     NSString *_called_ssn;
     NSString *_calling_address;
@@ -161,7 +169,7 @@
 @property(readwrite,assign,atomic)    NSInteger                   hasReceivedInvokes;
 @property(readwrite,assign,atomic)    int                         phase;
 @property(readwrite,assign,atomic)    BOOL                        keepOriginalSccpAddressForTcapContinue;
-@property(readwrite,assign,atomic)    BOOL                        multiMap;
+@property(readwrite,assign,atomic)    int                         multi_invoke_variant;
 @property(readwrite,strong,atomic)    NSString *tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;

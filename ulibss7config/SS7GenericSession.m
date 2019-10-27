@@ -184,7 +184,9 @@ else \
     _undefinedSession = YES;
     _sessionName = [[self class] description];
     self.name = _sessionName; /* umtask name */
-    _firstInvokeId = AUTO_ASSIGN_INVOKE_ID;
+    _invokeId = AUTO_ASSIGN_INVOKE_ID;
+    _invokeId2 = AUTO_ASSIGN_INVOKE_ID;
+    _invokeId3 =AUTO_ASSIGN_INVOKE_ID;
     _timeoutInSeconds = inst.timeoutInSeconds;
     _startTime = [NSDate date];
     _lastActiveTime = [[UMAtomicDate alloc]initWithDate:_startTime];
@@ -1586,131 +1588,190 @@ else \
                                                       options:_options];
     [_gInstance addSession:self userId:_userIdentifier];
 
-    if(_multiMap)
+
+    BOOL useHandshake = [_options[@"tcap-handshake"] boolValue];
+
+    if(useHandshake)
     {
-        if((_firstInvokeOpcode) && (_firstInvoke))
-        {
-            [_gInstance.gsmMap executeMAP_Invoke_Req:_firstInvoke
-                                              dialog:_dialogId
-                                            invokeId:_firstInvokeId
-                                            linkedId:TCAP_UNDEFINED_LINKED_ID
-                                              opCode:_firstInvokeOpcode
-                                                last:YES
-                                             options:_options];
-        }
-
-        if((_firstResponseOpcode) && (_firstResponse))
-        {
-            [_gInstance.gsmMap executeMAP_ReturnResult_Req:_firstResponse
-                                                    dialog:_dialogId
-                                                  invokeId:_firstInvokeId
-                                                  linkedId:TCAP_UNDEFINED_LINKED_ID
-                                                    opCode:_firstResponseOpcode
-                                                      last:YES
-                                                   options:_options];
-        }
-
-
-        if((_secondInvokeOpcode) && (_secondInvoke))
-        {
-            [_gInstance.gsmMap executeMAP_Invoke_Req:_secondInvoke
-                                              dialog:_dialogId
-                                            invokeId:_secondInvokeId
-                                            linkedId:TCAP_UNDEFINED_LINKED_ID
-                                              opCode:_secondInvokeOpcode
-                                                last:YES
-                                             options:_options];
-        }
-
-        if((_secondResponseOpcode) && (_secondResponse))
-        {
-            [_gInstance.gsmMap executeMAP_ReturnResult_Req:_secondResponse
-                                                    dialog:_dialogId
-                                                  invokeId:_secondInvokeId
-                                                  linkedId:TCAP_UNDEFINED_LINKED_ID
-                                                    opCode:_secondResponseOpcode
-                                                      last:YES
-                                                   options:_options];
-        }
         [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                     callingAddress:NULL
-                                      calledAddress:NULL
-                                            options:_options
-                                             result:NULL
-                                         diagnostic:NULL];
+                                    callingAddress:NULL
+                                     calledAddress:NULL
+                                           options:_options
+                                            result:NULL
+                                        diagnostic:NULL];
     }
-    else
+
+    switch(_multi_invoke_variant)
     {
-        BOOL useHandshake = [_options[@"tcap-handshake"] boolValue];
-
-        if(useHandshake)
+        case SS7MultiInvokeVariant_off:
         {
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+            if(!useHandshake)
+            {
+                [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                            callingAddress:NULL
+                                             calledAddress:NULL
+                                                   options:_options
+                                                    result:NULL
+                                                diagnostic:NULL];
+            }
+            break;
+        }
+        case SS7MultiInvokeVariant_together:
+        {
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId2
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            if(!useHandshake)
+            {
+                [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                           callingAddress:NULL
+                                            calledAddress:NULL
+                                                  options:_options
+                                                   result:NULL
+                                               diagnostic:NULL];
+            }
+            break;
+        }
+        case SS7MultiInvokeVariant_one_by_one:
+        {
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                         callingAddress:NULL
                                          calledAddress:NULL
                                                options:_options
                                                 result:NULL
                                             diagnostic:NULL];
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId2
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            break;
         }
-
-        if((_firstInvokeOpcode) && (_firstInvoke))
+        case SS7MultiInvokeVariant_together_same_id:
         {
-            [_gInstance.gsmMap executeMAP_Invoke_Req:_firstInvoke
-                                             dialog:_dialogId
-                                           invokeId:AUTO_ASSIGN_INVOKE_ID
-                                           linkedId:TCAP_UNDEFINED_LINKED_ID
-                                             opCode:_firstInvokeOpcode
-                                               last:YES
-                                            options:_options];
-        }
-
-        if((_firstResponseOpcode) && (_firstResponse))
-        {
-            [_gInstance.gsmMap executeMAP_ReturnResult_Req:_firstResponse
-                                                   dialog:_dialogId
-                                                 invokeId:AUTO_ASSIGN_INVOKE_ID
-                                                 linkedId:TCAP_UNDEFINED_LINKED_ID
-                                                   opCode:_firstResponseOpcode
-                                                     last:YES
-                                                  options:_options];
-        }
-        [_gInstance.gsmMap executeMAP_Invoke_Req:_query
-                                         dialog:_dialogId
-                                       invokeId:AUTO_ASSIGN_INVOKE_ID
-                                       linkedId:TCAP_UNDEFINED_LINKED_ID
-                                         opCode:_opcode
-                                           last:YES
-                                        options:_options];
-        if(_query2)
-        {
-            [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
-                                             dialog:_dialogId
-                                           invokeId:AUTO_ASSIGN_INVOKE_ID
-                                           linkedId:TCAP_UNDEFINED_LINKED_ID
-                                             opCode:_opcode2
-                                               last:YES
-                                            options:_options];
-
-        }
-        if(_query3)
-        {
-            [_gInstance.gsmMap executeMAP_Invoke_Req:_query3
-                                             dialog:_dialogId
-                                           invokeId:AUTO_ASSIGN_INVOKE_ID
-                                           linkedId:TCAP_UNDEFINED_LINKED_ID
-                                             opCode:_opcode3
-                                               last:YES
-                                            options:_options];
-
-        }
-        if(!useHandshake)
-        {
+            _invokeId = 0;
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                         callingAddress:NULL
                                          calledAddress:NULL
                                                options:_options
                                                 result:NULL
                                             diagnostic:NULL];
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            break;
+        }
+        case SS7MultiInvokeVariant_together_same_id_different_second:
+        {
+            _invokeId = 0;
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                        callingAddress:NULL
+                                         calledAddress:NULL
+                                               options:_options
+                                                result:NULL
+                                            diagnostic:NULL];
+            _invokeId = 1;
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            break;
         }
     }
 }
