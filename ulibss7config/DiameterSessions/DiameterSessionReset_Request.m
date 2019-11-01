@@ -24,7 +24,6 @@
     return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketReset_Request webJsonDefintion]];
 }
 
-
 - (void)webDiameterParameters:(NSMutableString *)s
 {
     [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketReset_Request defaultApplicationId] comment:NULL];

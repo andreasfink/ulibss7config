@@ -19,15 +19,24 @@
     return @"ACR";
 }
 
+
 - (NSString *)webScript
 {
     return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketACR webJsonDefintion]];
 }
 
+
 - (void)webDiameterParameters:(NSMutableString *)s
 {
-    [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketACR defaultApplicationId] comment:NULL];
-    [UMDiameterPacketACR webDiameterParameters:s];
+    if(1)
+    {
+        [s appendString:@"<script defer src='/js/bundle.min.js'></script>\n"];
+    }
+    else
+    {
+        [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketACR defaultApplicationId] comment:NULL];
+        [UMDiameterPacketACR webDiameterParameters:s];
+    }
 }
 
 - (void)main

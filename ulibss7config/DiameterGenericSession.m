@@ -353,7 +353,7 @@
 }
 
 + (void)webFormEnd:(NSMutableString *)s
-{
+{/*
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td>&nbsp</td>\n"];
     [s appendString:@"    <td><input type=submit></td>\n"];
@@ -364,6 +364,7 @@
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
     [s appendString:@"\n"];
+  */
 }
 
 + (void)webVariousTitle:(NSMutableString *)s
@@ -448,11 +449,22 @@
 {
     NSMutableString *s = [[NSMutableString alloc]init];
 
-    [DiameterGenericSession webFormStart:s title: [self webTitle]  script:[self webScript]];
-    [DiameterGenericSession webDiameterTitle:s];
-    [self webDiameterParameters:s];
-    [DiameterGenericSession webDiameterOptions:s];
-    [DiameterGenericSession webFormEnd:s];
+    [DiameterGenericSession webFormStart:s title: [self webTitle]  script:[self webScript1]];
+//    [DiameterGenericSession webDiameterTitle:s];
+//    [self webDiameterParameters:s];
+    [s appendString:@"<script defer src='/js/bundle.min.js'></script>\n"];
+//    [DiameterGenericSession webDiameterOptions:s];
+//    [DiameterGenericSession webFormEnd:s];
+    return s;
+}
+
+- (NSString *)webScript1
+{
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [s appendString:@"<link rel='stylesheet' href='/css/global.css'>\n"];
+    [s appendString:@"<link rel='stylesheet' href='/css/bundle.css'>\n"];
+    [s appendString:@"<link rel='icon' type='image/png' href='./favicon.png'>\n"];
+    [s appendString:[self webScript]];
     return s;
 }
 

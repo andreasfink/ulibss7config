@@ -19,7 +19,6 @@
     return @"CER";
 }
 
-
 - (NSString *)webScript
 {
     return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketCER webJsonDefintion]];

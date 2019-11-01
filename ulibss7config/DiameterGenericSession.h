@@ -133,6 +133,9 @@
                     optional:(BOOL)optional
                  conditional:(BOOL)optional;
 
+- (NSString *)webScript;
+
+
 @end
 
 

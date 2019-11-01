@@ -19,7 +19,6 @@
     return @"Cancel Location Request";
 }
 
-
 - (NSString *)webScript
 {
     return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketCancel_Location_Request webJsonDefintion]];

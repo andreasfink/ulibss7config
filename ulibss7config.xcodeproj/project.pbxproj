@@ -153,7 +153,6 @@
 		A6798A2D22BB70A80019806C /* ulibsccp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1E22BB70A70019806C /* ulibsccp.framework */; };
 		A6798A3422BB71750019806C /* ulibtransport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A3322BB71750019806C /* ulibtransport.framework */; };
 		A6798A3822BB72E30019806C /* schrittmacherclient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A3722BB72E20019806C /* schrittmacherclient.framework */; };
-		A67A25A6235EEB4E00BD0F32 /* ulibdb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A67A25A5235EEB4E00BD0F32 /* ulibdb.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A67B8BE621CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h in Headers */ = {isa = PBXBuildFile; fileRef = A67B8BE421CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A67B8BE721CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A67B8BE521CD24AC00559B83 /* UMSS7ConfigSCCPTranslationTableMap.m */; };
 		A67E7A7822C5E5F000B34DA3 /* libuliblicense.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A67E7A7722C5E5EF00B34DA3 /* libuliblicense.a */; };
@@ -1217,7 +1216,6 @@
 				A6798A2222BB70A80019806C /* ulibasn1.framework in Frameworks */,
 				A6798A2D22BB70A80019806C /* ulibsccp.framework in Frameworks */,
 				A67E7A7822C5E5F000B34DA3 /* libuliblicense.a in Frameworks */,
-				A67A25A6235EEB4E00BD0F32 /* ulibdb.framework in Frameworks */,
 				A6798A3822BB72E30019806C /* schrittmacherclient.framework in Frameworks */,
 				A6798A2B22BB70A80019806C /* ulibmtp3.framework in Frameworks */,
 				A6798A2022BB70A80019806C /* ulibpcap.framework in Frameworks */,
@@ -2279,7 +2277,7 @@
 		A684E38E20774ADA000F3F70 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Andreas Fink";
 				TargetAttributes = {
 					A684E39620774ADA000F3F70 = {
