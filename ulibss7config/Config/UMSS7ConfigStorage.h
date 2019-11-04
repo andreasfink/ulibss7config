@@ -19,6 +19,8 @@
 @class  UMSS7ConfigM3UAAS;
 @class  UMSS7ConfigM3UAASP;
 @class  UMSS7ConfigMTP3Route;
+@class  UMSS7ConfigMTP3PointCodeTranslationTable;
+@class  UMSS7ConfigMTP3PointCodeTranslationTableEntry;
 @class  UMSS7ConfigSCCP;
 @class  UMSS7ConfigSCCPFilter;
 @class  UMSS7ConfigSCCPFilterDict;
@@ -81,6 +83,7 @@
     UMSynchronizedDictionary *_mtp3_filter_dict;
     UMSynchronizedDictionary *_mtp3_link_dict;
     UMSynchronizedDictionary *_mtp3_linkset_dict;
+    UMSynchronizedDictionary *_mtp3_pctrans_dict;
     UMSynchronizedDictionary *_m3ua_as_dict;
     UMSynchronizedDictionary *_m3ua_asp_dict;
     UMSynchronizedDictionary *_sccp_dict;
@@ -137,6 +140,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mtp3_filter_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mtp3_link_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *mtp3_linkset_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedDictionary *mtp3_pctrans_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *m3ua_as_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *m3ua_asp_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedDictionary *sccp_dict;
@@ -472,5 +476,10 @@
 - (NSString *)replaceDiameterRoute:(UMSS7ConfigDiameterRoute *)dc;
 - (NSString *)deleteDiameterRoute:(NSString *)name;
 
+- (NSArray *)getPointcodeTranslationTables;
+- (UMSS7ConfigMTP3PointCodeTranslationTable *)getPointcodeTranslationTable:(NSString *)name;
+- (NSString *)addPointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)dc;
+- (NSString *)replacePointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)dc;
+- (NSString *)deletePointcodeTranslationTable:(NSString *)name;
 
 @end

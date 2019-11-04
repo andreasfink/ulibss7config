@@ -17,6 +17,7 @@
     NSString *_overrideNetworkIndicator;
     NSArray *_inbound_filter_rulesets;
     NSArray *_outbound_filter_rulesets;
+    NSString *_pctrans;
 }
 
 + (NSString *)type;
@@ -30,5 +31,6 @@
 @property(readwrite,strong,atomic)  NSString *overrideNetworkIndicator;
 @property(readwrite,strong,atomic)  NSArray *inbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSArray *outbound_filter_rulesets;
+@property(readwrite,strong,atomic)  NSString *pctrans;
 
 @end

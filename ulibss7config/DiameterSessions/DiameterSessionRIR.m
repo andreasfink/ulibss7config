@@ -34,7 +34,7 @@
     @try
     {
         UMDiameterPacketLCS_Routing_Info_Request *pkt = [[UMDiameterPacketLCS_Routing_Info_Request alloc]init];
-        [pkt setDictionaryValue:_req.params];
+        [pkt setDictionaryValueFromWeb:_req.params];
         self.query = pkt;
         [self submit];
     }

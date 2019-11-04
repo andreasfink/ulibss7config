@@ -46,6 +46,11 @@ realm:(NSString **)realm;
 - (void)deleteMTP3:(NSString *)name;
 - (void)renameMTP3:(NSString *)old to:(NSString *)new;
 
+- (UMMTP3PointCodeTranslationTable *)getMTP3PointCodeTranslaton:(NSString *)name;
+- (void)addWithConfigMTP3PointCodeTranslationTable:(NSDictionary *)config;
+- (void)deleteMTP3PointCodeTranslationTable:(NSString *)name;
+- (void)renameMTP3PointCodeTranslationTable:(NSString *)oldName to:(NSString *)newName;
+
 - (UMMTP3Link *)getMTP3Link:(NSString *)name;
 - (void)addWithConfigMTP3Link:(NSDictionary *)config;
 - (void)deleteMTP3Link:(NSString *)name;

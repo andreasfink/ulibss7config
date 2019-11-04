@@ -35,7 +35,7 @@
     @try
     {
         UMDiameterPacketInsert_Subscriber_Data_Request *pkt = [[UMDiameterPacketInsert_Subscriber_Data_Request alloc]init];
-        [pkt setDictionaryValue:_req.params];
+        [pkt setDictionaryValueFromWeb:_req.params];
         self.query = pkt;
         [self submit];
     }

@@ -181,3 +181,11 @@
 #import "UMSS7ApiTaskStatistics_delete.h"
 #import "UMSS7ApiTaskStatistics_status.h"
 #import "UMSS7ApiTaskStatistics_action.h"
+
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_list.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_read.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_add.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_modify.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h"

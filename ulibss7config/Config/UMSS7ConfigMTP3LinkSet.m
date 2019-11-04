@@ -45,6 +45,7 @@
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbound_filter_rulesets);
+    APPEND_CONFIG_STRING(s,@"pointcode-translation-table",_pctrans);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -59,6 +60,7 @@
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
     APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
     APPEND_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
+    APPEND_DICT_STRING(dict,@"pointcode-translation-table",_pctrans);
     return dict;
 }
 
@@ -74,6 +76,8 @@
     SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
     SET_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
     SET_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
+    SET_DICT_STRING(dict,@"pointcode-translation-table",_pctrans);
+
 }
 
 - (UMSS7ConfigMTP3LinkSet *)copyWithZone:(NSZone *)zone

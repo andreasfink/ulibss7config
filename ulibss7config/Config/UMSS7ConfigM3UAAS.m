@@ -42,6 +42,8 @@
     APPEND_CONFIG_STRING(s,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbound_filter_rulesets);
+    APPEND_CONFIG_STRING(s,@"pointcode-translation-table",_pctrans);
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -54,6 +56,8 @@
     APPEND_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
     APPEND_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
+    APPEND_DICT_STRING(dict,@"pointcode-translation-table",_pctrans);
+
 
     return dict;
 }
@@ -68,6 +72,7 @@
     SET_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     SET_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
     SET_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
+    SET_DICT_STRING(dict,@"pointcode-translation-table",_pctrans);
 }
 
 - (UMSS7ConfigM3UAAS *)copyWithZone:(NSZone *)zone

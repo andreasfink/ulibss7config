@@ -36,7 +36,7 @@
     @try
     {
         UMDiameterPacketAuthentication_Information_Request *pkt = [[UMDiameterPacketAuthentication_Information_Request alloc]init];
-        [pkt setDictionaryValue:_req.params];
+        [pkt setDictionaryValueFromWeb:_req.params];
         self.query = pkt;
         [self submit];
     }

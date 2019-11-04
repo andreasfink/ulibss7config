@@ -35,7 +35,7 @@
     @try
     {
         UMDiameterPacketDWR *pkt = [[UMDiameterPacketDWR alloc]init];
-        [pkt setDictionaryValue:_req.params];
+        [pkt setDictionaryValueFromWeb:_req.params];
         self.query = pkt;
         [self submit];
     }

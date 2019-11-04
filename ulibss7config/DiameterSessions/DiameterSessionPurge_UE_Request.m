@@ -35,7 +35,7 @@
     @try
     {
         UMDiameterPacketPurge_UE_Request *pkt = [[UMDiameterPacketPurge_UE_Request alloc]init];
-        [pkt setDictionaryValue:_req.params];
+        [pkt setDictionaryValueFromWeb:_req.params];
         self.query = pkt;
         [self submit];
     }

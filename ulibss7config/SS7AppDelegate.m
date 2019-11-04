@@ -89,6 +89,7 @@
 #import "filter/UMSS7FilterActionList.h"
 #import "objc/runtime.h"
 #import "SS7CDRWriter.h"
+#import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
@@ -152,6 +153,7 @@ static void signalHandler(int signum);
         _mtp3_linkset_dict              = [[UMSynchronizedDictionary alloc]init];
         _m3ua_as_dict                   = [[UMSynchronizedDictionary alloc]init];
         _m3ua_asp_dict                  = [[UMSynchronizedDictionary alloc]init];
+        _mtp3_pointcode_translation_tables_dict = [[UMSynchronizedDictionary alloc]init];
         _sccp_dict                      = [[UMSynchronizedDictionary alloc]init];
         _webserver_dict                 = [[UMSynchronizedDictionary alloc]init];
         _telnet_dict                    = [[UMSynchronizedDictionary alloc]init];
@@ -2478,6 +2480,45 @@ static void signalHandler(int signum);
     layer.layerName = newName;
     _mtp3_dict[newName] = layer;
 }
+
+/************************************************************/
+#pragma mark -
+#pragma mark MTP3 Pointcode Translation Service Functions
+/************************************************************/
+
+- (UMMTP3PointCodeTranslationTable *)getMTP3PointCodeTranslationTable:(NSString *)name
+{
+    return _mtp3_pointcode_translation_tables_dict[name];
+}
+
+
+
+- (void)addWithConfigMTP3PointCodeTranslationTable:(NSDictionary *)config
+{
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMSS7ConfigMTP3PointCodeTranslationTable *co = [[UMSS7ConfigMTP3PointCodeTranslationTable alloc]initWithConfig:config];
+        [_runningConfig addPointcodeTranslationTable:co];
+
+        UMMTP3PointCodeTranslationTable *pctt = [[UMMTP3PointCodeTranslationTable alloc]initWithConfig:config];
+        _mtp3_pointcode_translation_tables_dict[name] = pctt;
+    }
+}
+
+- (void)deleteMTP3PointCodeTranslationTable:(NSString *)name
+{
+    [_mtp3_pointcode_translation_tables_dict removeObjectForKey:name];
+}
+
+- (void)renameMTP3PointCodeTranslationTable:(NSString *)oldName to:(NSString *)newName
+{
+    UMMTP3PointCodeTranslationTable *pctt =  _mtp3_pointcode_translation_tables_dict[oldName];
+    [_mtp3_pointcode_translation_tables_dict removeObjectForKey:oldName];
+    pctt.name = newName;
+    _mtp3_pointcode_translation_tables_dict[newName] = pctt;
+}
+
 
 /************************************************************/
 #pragma mark -

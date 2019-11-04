@@ -66,6 +66,7 @@
 #import "UMSS7ConfigDiameterConnection.h"
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ConfigDiameterRoute.h"
+#import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -283,6 +284,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigDiameterRouter type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterRoute type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -442,6 +444,15 @@
         }
     }
 
+    NSArray *mtp3_pctrans_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
+    for(NSDictionary *mtp3_pctrans_config in mtp3_pctrans_configs)
+    {
+        UMSS7ConfigMTP3PointCodeTranslationTable *mtp3_pctt = [[UMSS7ConfigMTP3PointCodeTranslationTable alloc]initWithConfig:mtp3_pctrans_config];
+        if(mtp3_pctt)
+        {
+            _mtp3_pctrans_dict[mtp3_pctt.name] = mtp3_pctt;
+        }
+    }
 
     NSArray *sccp_configs = [cfg getMultiGroups:[UMSS7ConfigSCCP type]];
     for(NSDictionary *sccp_config in sccp_configs)
@@ -3256,6 +3267,7 @@
 {
     return _diameter_route_dict [name];
 }
+
 - (NSString *)addDiameterRoute:(UMSS7ConfigDiameterRoute *)dc
 {
     if(_diameter_route_dict[dc.name] == NULL)
@@ -3284,6 +3296,55 @@
     _dirty=YES;
     return @"ok";
 }
+
+/*
+ **************************************************
+ ** PointcodeTranslationTable
+ **************************************************
+ */
+#pragma mark -
+#pragma mark PointcodeTranslationTable
+- (NSArray *)getPointcodeTranslationTables
+{
+    return [_mtp3_pctrans_dict allKeys];
+
+}
+
+- (UMSS7ConfigMTP3PointCodeTranslationTable *)getPointcodeTranslationTable:(NSString *)name
+{
+    return _mtp3_pctrans_dict [name];
+}
+
+- (NSString *)addPointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)pctt
+{
+    if(_mtp3_pctrans_dict[pctt.name] == NULL)
+    {
+        _mtp3_pctrans_dict[pctt.name] = pctt;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+
+}
+
+- (NSString *)replacePointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)pctt
+{
+    _mtp3_pctrans_dict[pctt.name] = pctt;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deletePointcodeTranslationTable:(NSString *)name
+{
+    if(_mtp3_pctrans_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mtp3_pctrans_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
 
 /***************************************************/
 #pragma mark -
@@ -3346,10 +3407,9 @@
     n.diameter_connection_dict = [_diameter_connection_dict copy];
     n.diameter_router_dict = [_diameter_router_dict copy];
     n.diameter_route_dict = [_diameter_route_dict copy];
+    n.mtp3_pctrans_dict = [_mtp3_pctrans_dict copy];
     n.rwconfigFile = _rwconfigFile;
     return n;
-
 }
-
 
 @end
