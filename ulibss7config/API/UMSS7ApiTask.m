@@ -14,6 +14,14 @@
 #import "UMSS7ConfigApiUser.h"
 #import "UMSS7ConfigStorage.h"
 
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_list.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_read.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_add.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_modify.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h"
+
 @implementation UMSS7ApiTask
 
 - (UMSS7ApiTask *)initWithWebRequest:(UMHTTPRequest *)webRequest appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad

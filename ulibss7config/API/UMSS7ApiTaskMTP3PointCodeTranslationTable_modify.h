@@ -6,12 +6,9 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/ulibss7config.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "UMSS7ApiTask.h"
 
 @interface UMSS7ApiTaskMTP3PointCodeTranslationTable_modify : UMSS7ApiTask
 
 @end
 
-NS_ASSUME_NONNULL_END

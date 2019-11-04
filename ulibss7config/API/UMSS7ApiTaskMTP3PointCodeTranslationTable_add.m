@@ -8,6 +8,7 @@
 
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_add.h"
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
+#import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTaskMTP3PointCodeTranslationTable_add
 
