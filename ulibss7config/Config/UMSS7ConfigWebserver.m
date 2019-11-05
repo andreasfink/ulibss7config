@@ -38,6 +38,7 @@
     APPEND_CONFIG_BOOLEAN(s,@"https",_https);
     APPEND_CONFIG_STRING(s,@"https-key-file",_httpsKeyFile);
     APPEND_CONFIG_STRING(s,@"https-cert-file",_httpsCertFile);
+    APPEND_CONFIG_STRING(s,@"document-root",_documentRoot);
 }
 
 
@@ -48,6 +49,8 @@
     APPEND_DICT_BOOLEAN(dict,@"https",_https);
     APPEND_DICT_STRING(dict,@"https-key-file",_httpsKeyFile);
     APPEND_DICT_STRING(dict,@"https-cert-file",_httpsCertFile);
+    APPEND_DICT_STRING(dict,@"document-root",_documentRoot);
+
     return dict;
 }
 
@@ -57,6 +60,7 @@
     SET_DICT_BOOLEAN(dict,@"https",_https);
     SET_DICT_STRING(dict,@"https-key-file",_httpsKeyFile);
     SET_DICT_STRING(dict,@"https-cert-file",_httpsCertFile);
+    SET_DICT_STRING(dict,@"document-root",_documentRoot);
 }
 
 - (UMSS7ConfigWebserver *)copyWithZone:(NSZone *)zone

@@ -925,8 +925,8 @@ static void signalHandler(int signum);
             }
             if([[config configEntry:@"https"] boolValue])
             {
-                NSString *keyFile = [[config configEntry:@"https-key-file"] stringValue];
-                NSString *certFile = [[config configEntry:@"https-cert-file"] stringValue];
+                NSString *keyFile = [config configEntry:@"https-key-file"];
+                NSString *certFile = [config configEntry:@"https-cert-file"];
                 webServer = [[UMHTTPSServer alloc]initWithPort:webPort
                                                     sslKeyFile:keyFile
                                                    sslCertFile:certFile];
@@ -944,6 +944,7 @@ static void signalHandler(int signum);
                 webServer.logFeed.name = name;
                 _webserver_dict[name] = webServer;
                 webServer.authenticateRequestDelegate = self;
+                webServer.documentRoot = [config configEntry:@"document-root"];
                 [webServer start];
             }
             _webserver_dict[name] = webServer;
@@ -1613,25 +1614,9 @@ static void signalHandler(int signum);
     {
         NSString *path = req.url.relativePath;
 
-        if([path isEqualToString:@"/css/style.css"])
-        {
-            [req setResponseCssString:[SS7AppDelegate css]];
-        }
-        else if([path isEqualToString:@"/status"])
-        {
-            [self handleStatus:req];
-        }
-        else if([path isEqualToString:@"/"])
-        {
-            NSString *s = [self webIndex];
-            [req setResponseHtmlString:s];
-        }
-        else if([path isEqualToString:@"/route-test"])
-        {
-            [self handleRouteTest:req];
-        }
+        /* hardcoded paths which can not be overwritten */
 
-        else if([path isEqualToString:@"/debug"])
+        if([path isEqualToString:@"/debug"])
         {
             NSString *s = [self webIndexDebug];
             [req setResponseHtmlString:s];
@@ -1701,14 +1686,47 @@ static void signalHandler(int signum);
         {
             [self handleDecodeSms:req];
         }
-
-
         else
         {
-            NSString *s = @"Result: Error\nReason: Unknown request\n";
-            [req setResponseTypeText];
-            req.responseData = [s dataUsingEncoding:NSUTF8StringEncoding];
-            req.responseCode =  404;
+            NSString *fullPath = [NSString stringWithFormat:@"%@/%@",req.documentRoot,req.url.relativePath];
+            NSFileManager *fm = [NSFileManager defaultManager];
+            if([fm fileExistsAtPath:fullPath])
+            {
+                NSData *data = [NSData dataWithContentsOfFile:fullPath];
+                req.responseData = data;
+                req.responseCode = HTTP_RESPONSE_CODE_OK;
+                NSString *extension = [fullPath pathExtension];
+                [req setMimeTypeFromExtension:extension];            }
+            else
+            {
+                /* default files which can be overriden */
+                if([path isEqualToString:@"/"])
+                {
+                    NSString *s = [self webIndex];
+                    [req setResponseHtmlString:s];
+                }
+                else if([path isEqualToString:@"/css/style.css"])
+                {
+                    [req setResponseCssString:[SS7AppDelegate css]];
+                }
+                else if([path isEqualToString:@"/status"])
+                {
+                    [self handleStatus:req];
+                }
+                else if([path isEqualToString:@"/route-test"])
+                {
+                    [self handleRouteTest:req];
+                }
+
+
+                else
+                {
+                    NSString *s = @"Result: Error\nReason: Unknown request\n";
+                    [req setResponseTypeText];
+                    req.responseData = [s dataUsingEncoding:NSUTF8StringEncoding];
+                    req.responseCode =  HTTP_RESPONSE_CODE_NOT_FOUND;
+                }
+            }
         }
     }
 }
