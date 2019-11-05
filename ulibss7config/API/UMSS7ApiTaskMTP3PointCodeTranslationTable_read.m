@@ -7,6 +7,8 @@
 //
 
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_read.h"
+#import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
+#import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTaskMTP3PointCodeTranslationTable_read
 
@@ -28,7 +30,19 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+
+    NSString *name = _params[@"name"];
+    name = [UMSS7ConfigObject filterName:name];
+    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+    UMSS7ConfigMTP3PointCodeTranslationTable *pctt = [cs getPointcodeTranslationTable:name];
+    if(pctt)
+    {
+        [self sendResultObject:pctt.config];
+    }
+    else
+    {
+        [self sendErrorNotFound];
+    }
 }
 
 @end

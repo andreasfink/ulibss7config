@@ -2486,6 +2486,12 @@ static void signalHandler(int signum);
 #pragma mark MTP3 Pointcode Translation Service Functions
 /************************************************************/
 
+
+- (NSArray<NSString *> *)getMTP3PointCodeTranslationTables
+{
+    return _mtp3_pointcode_translation_tables_dict.allKeys;
+}
+
 - (UMMTP3PointCodeTranslationTable *)getMTP3PointCodeTranslationTable:(NSString *)name
 {
     return _mtp3_pointcode_translation_tables_dict[name];
@@ -2508,6 +2514,7 @@ static void signalHandler(int signum);
 
 - (void)deleteMTP3PointCodeTranslationTable:(NSString *)name
 {
+    [_runningConfig deletePointcodeTranslationTable:name];
     [_mtp3_pointcode_translation_tables_dict removeObjectForKey:name];
 }
 

@@ -53,6 +53,7 @@
         {
             [self sendException:e];
         }
-    }}
+    }
+}
 
 @end

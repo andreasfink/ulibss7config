@@ -28,7 +28,8 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+    NSArray *names = [_appDelegate getMTP3PointCodeTranslationTables];
+    [self sendResultObject:names];
 }
 
 @end

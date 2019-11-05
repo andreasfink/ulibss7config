@@ -7,6 +7,8 @@
 //
 
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h"
+#import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
+#import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTaskMTP3PointCodeTranslationTable_delete
 
@@ -28,7 +30,21 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+
+    NSString *name = _params[@"name"];
+    name = [UMSS7ConfigObject filterName:name];
+    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+    UMSS7ConfigMTP3PointCodeTranslationTable *pctt = [cs getPointcodeTranslationTable:name];
+    if(pctt==NULL)
+    {
+        [self sendErrorNotFound];
+    }
+    else
+    {
+        [_appDelegate deleteMTP3PointCodeTranslationTable:name];
+        [self sendResultOK];
+
+    }
 }
 
 @end
