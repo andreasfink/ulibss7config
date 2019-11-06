@@ -48,7 +48,7 @@ realm:(NSString **)realm;
 
 
 - (NSArray<NSString *> *)getMTP3PointCodeTranslationTables;
-- (UMMTP3PointCodeTranslationTable *)getMTP3PointCodeTranslation:(NSString *)name;
+- (UMMTP3PointCodeTranslationTable *)getMTP3PointCodeTranslationTable:(NSString *)name;
 - (void)addWithConfigMTP3PointCodeTranslationTable:(NSDictionary *)config;
 - (void)deleteMTP3PointCodeTranslationTable:(NSString *)name;
 - (void)renameMTP3PointCodeTranslationTable:(NSString *)oldName to:(NSString *)newName;
