@@ -1155,9 +1155,23 @@ static void signalHandler(int signum);
         }
     }
 
-    /*********************************/
-    /* Setup SccpNumberTranslations  */
-    /*********************************/
+    /* *************************************************************** */
+    /* MTP3 Pointcode Translations                                     */
+    /* *************************************************************** */
+
+    names = [_runningConfig getPointcodeTranslationTables];
+    for(NSString *name in names)
+    {
+       UMSS7ConfigMTP3PointCodeTranslationTable *co = [_runningConfig getPointcodeTranslationTable:name];
+       NSDictionary *cfg = co.config.dictionaryCopy;
+       if( [cfg configEnabledWithYesDefault])
+       {
+           [self addWithConfigMTP3PointCodeTranslationTable:cfg];
+       }
+    }
+    /* ******************************* */
+    /* Setup SccpNumberTranslations    */
+    /* ******************************* */
 
     names = [_runningConfig getSCCPNumberTranslationNames];
     for(NSString *name in names)
@@ -1175,9 +1189,9 @@ static void signalHandler(int signum);
         _sccp_number_translations_dict[translation.name] = translation;
     }
 
-    /*****************************************************************/
-    /* SCCP */
-    /*****************************************************************/
+    /* *************************************************************** */
+    /* SCCP                                                            */
+    /* *************************************************************** */
 
     names = [_runningConfig getSCCPNames];
     if(names.count > 0)

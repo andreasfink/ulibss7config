@@ -28,15 +28,16 @@
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {
-    if(1)
-    {
+ //   if(1)
+//    {
         [s appendString:@"<script defer src='/js/bundle.min.js'></script>\n"];
-    }
-    else
+ //   }
+ /*   else
     {
         [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketACR defaultApplicationId] comment:NULL];
         [UMDiameterPacketACR webDiameterParameters:s];
     }
+*/
 }
 
 - (void)main

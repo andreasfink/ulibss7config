@@ -86,6 +86,7 @@
     _m3ua_asp_dict= [[UMSynchronizedDictionary alloc]init];
     _mtp3_filter_dict= [[UMSynchronizedDictionary alloc]init];
     _mtp3_route_dict= [[UMSynchronizedDictionary alloc]init];
+    _mtp3_pctrans_dict = [[UMSynchronizedDictionary alloc]init];
     _sccp_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
     _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
