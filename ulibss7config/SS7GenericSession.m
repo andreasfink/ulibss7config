@@ -1532,6 +1532,29 @@ else \
             _options[@"sccp-segment"] = @(YES);
         }
     }
+    if([p[@"sccp-transport"] stringValue].length > 0)
+    {
+        NSString *s = [p[@"sccp-transport"] stringValue];
+        if([s isEqualToStringCaseInsensitive:@"udt"])
+        {
+            _options[@"sccp-udt"] = @(YES);
+        }
+        else if([s isEqualToStringCaseInsensitive:@"xudt"])
+        {
+            _options[@"sccp-xudt"] = @(YES);
+        }
+        else if([s isEqualToStringCaseInsensitive:@"ludt"])
+        {
+            _options[@"sccp-ludt"] = @(YES);
+        }
+    }
+    if([p[@"sccp-segment-size"] stringValue].length > 0)
+    {
+        _options[@"sccp-segment-size"] = @([p[@"sccp-segment-size"] intValue]);
+    }
+
+
+    
     if (p[@"invoke-count"])
     {
         int i = [p[@"invoke-count"] intValue];
@@ -2025,6 +2048,14 @@ else \
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>called-tt</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"called-tt\" type=\"text\" value=\"0\"></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>sccp-transport</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"sccp-transport\" type=\"text\" value=\"UDT\"></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>sccp-segment-size</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"sccp-segment-size\" type=\"text\" value=\"\"></td>\n"];
     [s appendString:@"</tr>\n"];
 }
 
