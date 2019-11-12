@@ -6,5 +6,7 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
+
+#define SET_DICT_STRING_OR_DEFAULT(dict,key,str,default)  { if(str.length>0) { dict[key]=str; } else { dict[key] = default; } }
 #define SET_DICT_STRING_OR_EMPTY(dict,key,str)  { if(str.length>0) { dict[key]=str; } else { dict[key] = @""; } }
 #define SET_DICT_NUMBER_OR_ZERO(dict,key,nr)  { if(nr!=NULL) { dict[key]=nr; } else { dict[key] = @(0);} }

@@ -63,7 +63,7 @@
                         SET_DICT_STRING_OR_EMPTY(dict,@"variant",obj.mode);
                         SET_DICT_STRING_OR_EMPTY(dict,@"ni",obj.networkIndicator);
                         SET_DICT_STRING_OR_EMPTY(dict,@"opc",obj.opc);
-                        SET_DICT_STRING_OR_EMPTY(dict,@"mode",obj.mode);
+                        SET_DICT_STRING_OR_DEFAULT(dict,@"mode",obj.mode,@"stp");
                         [entries addObject:dict];
                     }
                 }
@@ -78,7 +78,7 @@
                     UMSS7ConfigMTP3 *obj = [cs getMTP3:name];
                     if(obj)
                     {
-                        [entries addObject:obj];
+                        [entries addObject:obj.config];
                     }
                 }
                 [self sendResultObject:entries];

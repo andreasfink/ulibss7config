@@ -47,6 +47,14 @@
     else
     {
         [config_object setConfig:_params];
+        if(![config_object.mode isEqualToStringCaseInsensitive:@"ssp"])
+        {
+            config_object.mode = @"stp";
+        }
+        else
+        {
+            config_object.mode =@"ssp";
+        }
         NSDictionary *config = config_object.config.dictionaryCopy;
         [instance setConfig:config applicationContext:_appDelegate];
         [self sendResultObject:config];

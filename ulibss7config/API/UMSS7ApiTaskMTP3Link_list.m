@@ -10,6 +10,8 @@
 #import "UMSS7ApiTaskMTP3Link_list.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigMTP3Link.h"
+#import "UMSS7ApiTaskMacros.h"
 
 @implementation UMSS7ApiTaskMTP3Link_list
 
@@ -34,7 +36,29 @@
 	
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     NSArray *names = [cs getMTP3LinkNames];
-    [self sendResultObject:names];
+
+    int details = [((NSString *)_params[@"details"]) intValue];
+    switch(details)
+    {
+         case 0:
+             [self sendResultObject:names];
+             break;
+         case 1:
+         case 2:
+             {
+                 NSMutableArray *entries = [[NSMutableArray alloc]init];
+                 for(NSString *name in names)
+                 {
+                     UMSS7ConfigMTP3Link *obj = [cs getMTP3Link:name];
+                     if(obj)
+                     {
+                         [entries addObject:obj.config];
+                     }
+                 }
+                 [self sendResultObject:entries];
+             }
+             break;
+     }
 }
 
 @end
