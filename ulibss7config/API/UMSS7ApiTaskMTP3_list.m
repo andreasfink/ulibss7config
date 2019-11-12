@@ -9,6 +9,8 @@
 #import "UMSS7ApiTaskMTP3_list.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigMTP3.h"
+#import "UMSS7ApiTaskMacros.h"
 
 @implementation UMSS7ApiTaskMTP3_list
 
@@ -16,6 +18,7 @@
 {
     return @"/api/mtp3-list";
 }
+
 
 - (void)main
 {
@@ -48,7 +51,19 @@
                     UMSS7ConfigMTP3 *obj = [cs getMTP3:name];
                     if(obj)
                     {
-                        [entries addObject:obj];
+                        UMSynchronizedSortedDictionary *dict;
+                        if(obj.name.length == 0)
+                        {
+                            continue;
+                        }
+                        SET_DICT_NUMBER_OR_ZERO(dict,@"enable",obj.enabled);
+                        SET_DICT_NUMBER_OR_ZERO(dict,@"log-level",obj.logLevel);
+                        SET_DICT_STRING_OR_EMPTY(dict,@"log-file",obj.logFile);
+                        SET_DICT_STRING_OR_EMPTY(dict,@"variant",obj.mode);
+                        SET_DICT_STRING_OR_EMPTY(dict,@"ni",obj.networkIndicator);
+                        SET_DICT_STRING_OR_EMPTY(dict,@"opc",obj.opc);
+                        SET_DICT_STRING_OR_EMPTY(dict,@"mode",obj.mode);
+                        [entries addObject:dict];
                     }
                 }
                 [self sendResultObject:entries];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6062264237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */; };
 		A611732920FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h in Headers */ = {isa = PBXBuildFile; fileRef = A611732720FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A611732A20FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m in Sources */ = {isa = PBXBuildFile; fileRef = A611732820FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m */; };
 		A613F13422B105AF00053ED7 /* UMSS7Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = A613F13222B105AE00053ED7 /* UMSS7Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -625,6 +626,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskMacros.h; sourceTree = "<group>"; };
 		A611732720FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigIMSIPool.h; sourceTree = "<group>"; };
 		A611732820FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigIMSIPool.m; sourceTree = "<group>"; };
 		A613F13222B105AE00053ED7 /* UMSS7Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7Filter.h; sourceTree = "<group>"; };
@@ -1428,6 +1430,7 @@
 				A6BC4451207753E0008C3CEB /* UMSS7ApiSession.h */,
 				A6BC4464207753E2008C3CEB /* UMSS7ApiSession.m */,
 				A6BC4470207753E3008C3CEB /* UMSS7ApiTask.h */,
+				A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */,
 				A6BC44AE207753EA008C3CEB /* UMSS7ApiTask.m */,
 				A6BC444A207753DF008C3CEB /* UMSS7ApiTaskAll.h */,
 				A6BC446C207753E3008C3CEB /* UMSS7ApiTaskAll.txt */,
@@ -2175,6 +2178,7 @@
 				A6BC430320774F93008C3CEB /* UMSS7ConfigMTP3Link.h in Headers */,
 				A6BC4502207753ED008C3CEB /* UMSS7ApiTaskSCCP_add.h in Headers */,
 				A6679E53229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.h in Headers */,
+				A6062264237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h in Headers */,
 				A6BF3090229430F10000578B /* UMSS7ApiTaskApiUser_delete.h in Headers */,
 				A6BC42F720774F93008C3CEB /* UMSS7ConfigGeneral.h in Headers */,
 				A6BF3084229430350000578B /* UMSS7ApiTaskServiceUser_delete.h in Headers */,
