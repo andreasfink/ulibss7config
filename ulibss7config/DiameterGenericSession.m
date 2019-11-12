@@ -460,7 +460,7 @@
     NSMutableString *s = [[NSMutableString alloc]init];
     [s appendString:@"<link rel='stylesheet' href='/css/global.css'>\n"];
     [s appendString:@"<link rel='stylesheet' href='/css/bundle.css'>\n"];
-    [s appendString:@"<link rel='icon' type='image/png' href='./favicon.png'>\n"];
+    [s appendString:@"<link rel='icon' type='image/png' href='/favicon.png'>\n"];
     [s appendString:[self webScript]];
     return s;
 }

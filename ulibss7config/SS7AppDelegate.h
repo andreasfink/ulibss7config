@@ -199,6 +199,7 @@ UMSCCP_FilterDelegateProtocol>
     BOOL                        _dbStarted;
     UMTaskQueueMulti            *_databaseQueue;
     UMSynchronizedDictionary    *_cdrWriters_dict;
+    NSTimeInterval              _sessionTimeout;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;

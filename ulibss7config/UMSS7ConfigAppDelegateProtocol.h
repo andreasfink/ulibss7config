@@ -100,7 +100,7 @@ realm:(NSString **)realm;
 - (void)addApiSession:(UMSS7ApiSession *)session;
 - (void)removeApiSession:(NSString *)sessionKey;
 - (UMSS7ApiSession *)getApiSession:(NSString *)sessionKey;
-- (NSArray *)getAllSessionsSessions;
+- (UMSynchronizedDictionary *)getAllSessionsSessions;
 
 - (UMLayerTCAP *)getTCAP:(NSString *)name;
 - (void)addWithConfigTCAP:(NSDictionary *)config;

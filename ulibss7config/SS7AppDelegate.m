@@ -281,6 +281,7 @@ static void signalHandler(int signum);
         _dbpool_dict = [[UMSynchronizedDictionary alloc]init];
 
         _filteringActive = YES;
+        _sessionTimeout = 30.0*60.0;
     }
     return self;
 }
@@ -3188,6 +3189,7 @@ static void signalHandler(int signum);
 
 - (void)addApiSession:(UMSS7ApiSession *)session
 {
+    session.timeout = _sessionTimeout;
     _apiSessions[session.sessionKey] = session;
 }
 
@@ -3201,7 +3203,7 @@ static void signalHandler(int signum);
     return _apiSessions[sessionKey];
 }
 
-- (NSArray *)getAllSessionsSessions
+- (UMSynchronizedDictionary *)getAllSessionsSessions
 {
     return [_apiSessions copy];
 }

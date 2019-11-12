@@ -39,6 +39,7 @@
     if(mtp3)
     {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+        dict[@"started"] = @(mtp3.isStarted);
         if(mtp3.ready)
         {
             dict[@"status"] = @"ready";

@@ -1,5 +1,5 @@
 //
-//  UMSS7ApiTask_SessionsList.h
+//  UMSS7ApiTaskSessionsList.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 12.11.19.
@@ -9,7 +9,7 @@
 #import "UMSS7ApiTask.h"
 
 
-@interface UMSS7ApiTask_SessionsList : UMSS7ApiTask
+@interface UMSS7ApiTaskSessionsList : UMSS7ApiTask
 
 @end
 

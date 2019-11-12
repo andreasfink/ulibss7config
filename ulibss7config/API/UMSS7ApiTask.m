@@ -48,7 +48,7 @@
     [self sendErrorNotImplemented];
 }
 
-- (BOOL)doNotList
++ (BOOL)doNotList
 {
     return NO;
 }
