@@ -3201,6 +3201,11 @@ static void signalHandler(int signum);
     return _apiSessions[sessionKey];
 }
 
+- (NSArray *)getAllSessionsSessions
+{
+    return [_apiSessions copy];
+}
+
 - (UMSynchronizedSortedDictionary *)activateSCCPTranslationTable:(NSString *)name tt:(NSNumber *)tt gti:(NSNumber *)gti np:(NSNumber *)np nai:(NSNumber *)nai on:(BOOL)on
 {
     return NULL;

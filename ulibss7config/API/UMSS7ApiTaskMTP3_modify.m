@@ -55,6 +55,10 @@
         {
             config_object.mode =@"ssp";
         }
+        if(config_object.variant.length==0)
+        {
+            config_object.variant = @"itu";
+        }
         NSDictionary *config = config_object.config.dictionaryCopy;
         [instance setConfig:config applicationContext:_appDelegate];
         [self sendResultObject:config];

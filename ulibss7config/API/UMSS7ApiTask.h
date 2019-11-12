@@ -22,6 +22,7 @@
 
 - (UMSS7ApiTask *)initWithWebRequest:(UMHTTPRequest *)webRequest appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad;
 + (NSString *)apiPath;
++ (BOOL)doNotList;
 - (void)main;
 + (UMSS7ApiTask *)apiFactory:(UMHTTPRequest *)req appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad;
 + (NSArray *)apiPathList;

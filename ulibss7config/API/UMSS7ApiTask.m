@@ -48,6 +48,11 @@
     [self sendErrorNotImplemented];
 }
 
+- (BOOL)doNotList
+{
+    return NO;
+}
+
 + (UMSS7ApiTask *)apiFactory:(UMHTTPRequest *)req appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad
 {
     NSString *path = req.url.relativePath;
@@ -81,13 +86,16 @@
     NSMutableArray *a = [[NSMutableArray alloc]init];
 #define API(APICLASS) {\
      NSString *s = [APICLASS apiPath]; \
-    if([s isEqualToString:@"/api"]) \
+    if([APICLASS doNotList]==NO)\
     {\
-NSLog(@"%s is not returning an apiPath!",#APICLASS); \
-    } \
-    else \
-    {\
-        [a addObject:[APICLASS apiPath]];\
+        if([s hasPrefix:@"/api"]) \
+        {\
+    NSLog(@"%s is not returning an apiPath!",#APICLASS); \
+        } \
+        else \
+        {\
+            [a addObject:[APICLASS apiPath]];\
+        }\
     }\
 }
 

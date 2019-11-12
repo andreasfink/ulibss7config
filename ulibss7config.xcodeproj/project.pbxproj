@@ -10,6 +10,8 @@
 		A6062264237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6062268237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.h in Headers */ = {isa = PBXBuildFile; fileRef = A6062266237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6062269237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.m in Sources */ = {isa = PBXBuildFile; fileRef = A6062267237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.m */; };
+		A606226C237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.h in Headers */ = {isa = PBXBuildFile; fileRef = A606226A237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A606226D237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.m in Sources */ = {isa = PBXBuildFile; fileRef = A606226B237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.m */; };
 		A611732920FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h in Headers */ = {isa = PBXBuildFile; fileRef = A611732720FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A611732A20FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m in Sources */ = {isa = PBXBuildFile; fileRef = A611732820FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m */; };
 		A613F13422B105AF00053ED7 /* UMSS7Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = A613F13222B105AE00053ED7 /* UMSS7Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -631,6 +633,8 @@
 		A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskMacros.h; sourceTree = "<group>"; };
 		A6062266237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskIdle.h; sourceTree = "<group>"; };
 		A6062267237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskIdle.m; sourceTree = "<group>"; };
+		A606226A237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTask_SessionsList.h; sourceTree = "<group>"; };
+		A606226B237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTask_SessionsList.m; sourceTree = "<group>"; };
 		A611732720FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigIMSIPool.h; sourceTree = "<group>"; };
 		A611732820FCC2BB00F0B230 /* UMSS7ConfigIMSIPool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigIMSIPool.m; sourceTree = "<group>"; };
 		A613F13222B105AE00053ED7 /* UMSS7Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7Filter.h; sourceTree = "<group>"; };
@@ -1434,8 +1438,8 @@
 				A6BC4451207753E0008C3CEB /* UMSS7ApiSession.h */,
 				A6BC4464207753E2008C3CEB /* UMSS7ApiSession.m */,
 				A6BC4470207753E3008C3CEB /* UMSS7ApiTask.h */,
-				A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */,
 				A6BC44AE207753EA008C3CEB /* UMSS7ApiTask.m */,
+				A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */,
 				A6BC444A207753DF008C3CEB /* UMSS7ApiTaskAll.h */,
 				A6BC446C207753E3008C3CEB /* UMSS7ApiTaskAll.txt */,
 				A6BC44B1207753EB008C3CEB /* UMSS7ApiTaskList.h */,
@@ -1446,6 +1450,8 @@
 				A6BC4495207753E7008C3CEB /* UMSS7ApiTaskLogin.m */,
 				A6BC4454207753E0008C3CEB /* UMSS7ApiTaskLogout.h */,
 				A6BC44AB207753EA008C3CEB /* UMSS7ApiTaskLogout.m */,
+				A606226A237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.h */,
+				A606226B237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.m */,
 				A6BC4466207753E2008C3CEB /* UMSS7ApiTaskM2PA_action.h */,
 				A6BC44B5207753EB008C3CEB /* UMSS7ApiTaskM2PA_action.m */,
 				A6BC448B207753E6008C3CEB /* UMSS7ApiTaskM2PA_add.h */,
@@ -2098,6 +2104,7 @@
 				A6BC44FD207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_modify.h in Headers */,
 				A6BC44CF207753ED008C3CEB /* UMSS7ApiTaskSCTP_list.h in Headers */,
 				A691E5AB237020CD00589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_list.h in Headers */,
+				A606226C237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.h in Headers */,
 				A6BF3098229431040000578B /* UMSS7ApiTaskApiUser_modify.h in Headers */,
 				A6BC44ED207753ED008C3CEB /* UMSS7ApiTaskM2PA_read.h in Headers */,
 				A6BC434120774F93008C3CEB /* UMSS7ConfigGSMMAPFilter.h in Headers */,
@@ -2488,6 +2495,7 @@
 				A684F77122C10E83004F77C0 /* UMSS7ConfigSS7FilterTraceFile.m in Sources */,
 				A6BC4542207753EE008C3CEB /* UMSS7ApiTaskM3UAAS_status.m in Sources */,
 				A6BC452E207753EE008C3CEB /* UMSS7ApiTask.m in Sources */,
+				A606226D237AD63B00CB0AD1 /* UMSS7ApiTask_SessionsList.m in Sources */,
 				A6BC44E0207753ED008C3CEB /* UMSS7ApiTaskMTP3_status.m in Sources */,
 				A6BC450E207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_delete.m in Sources */,
 				A6BF31DF229EDDF50000578B /* DiameterGenericSession.m in Sources */,

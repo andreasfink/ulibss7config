@@ -18,13 +18,17 @@
 
 - (void)main
 {
-    /*
     if(![self isAuthenticated])
     {
         [self sendErrorNotAuthenticated];
         return;
     }
-     */
+
+    if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
     [self sendResultOK];
 }
 
