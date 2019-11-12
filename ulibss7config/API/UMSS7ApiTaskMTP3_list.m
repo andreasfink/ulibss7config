@@ -51,11 +51,12 @@
                     UMSS7ConfigMTP3 *obj = [cs getMTP3:name];
                     if(obj)
                     {
-                        UMSynchronizedSortedDictionary *dict;
+                        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
                         if(obj.name.length == 0)
                         {
                             continue;
                         }
+                        SET_DICT_NUMBER_OR_ZERO(dict,@"name",obj.name);
                         SET_DICT_NUMBER_OR_ZERO(dict,@"enable",obj.enabled);
                         SET_DICT_NUMBER_OR_ZERO(dict,@"log-level",obj.logLevel);
                         SET_DICT_STRING_OR_EMPTY(dict,@"log-file",obj.logFile);
