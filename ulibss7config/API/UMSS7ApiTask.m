@@ -85,12 +85,12 @@
 {
     NSMutableArray *a = [[NSMutableArray alloc]init];
 #define API(APICLASS) {\
-     NSString *s = [APICLASS apiPath]; \
+    NSString *s = [APICLASS apiPath]; \
     if([APICLASS doNotList]==NO)\
     {\
-        if([s hasPrefix:@"/api"]) \
+        if(![s hasPrefix:@"/api"]) \
         {\
-    NSLog(@"%s is not returning an apiPath!",#APICLASS); \
+            NSLog(@"%s is not returning an apiPath!",#APICLASS); \
         } \
         else \
         {\
