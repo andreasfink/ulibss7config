@@ -7,7 +7,43 @@
 //
 
 #import "UMSS7ApiTaskStatistics_delete.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskStatistics_delete
 
+
++ (NSString *)apiPath
+{
+    return @"/api/statistics-delete";
+}
+
+- (void)main
+{
+    if(![self isAuthenticated])
+    {
+        [self sendErrorNotAuthenticated];
+        return;
+    }
+
+    if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+
+    @try
+    {
+        [self sendErrorNotImplemented];
+    }
+    @catch(NSException *e)
+    {
+        [self sendException:e];
+    }
+
+}
+
 @end
+

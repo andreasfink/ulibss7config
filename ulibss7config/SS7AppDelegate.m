@@ -1703,16 +1703,26 @@ static void signalHandler(int signum);
         }
         else
         {
-            NSString *fullPath = [NSString stringWithFormat:@"%@/%@",req.documentRoot,req.url.relativePath];
-            NSFileManager *fm = [NSFileManager defaultManager];
-            if([fm fileExistsAtPath:fullPath])
+            BOOL urlServed = NO;
+            if(req.documentRoot)
             {
-                NSData *data = [NSData dataWithContentsOfFile:fullPath];
-                req.responseData = data;
-                req.responseCode = HTTP_RESPONSE_CODE_OK;
-                NSString *extension = [fullPath pathExtension];
-                [req setMimeTypeFromExtension:extension];            }
-            else
+                NSString *fullPath = [NSString stringWithFormat:@"%@/%@",req.documentRoot,req.url.relativePath];
+                NSFileManager *fm = [NSFileManager defaultManager];
+                BOOL isDirectory=NO;
+                if([fm fileExistsAtPath:fullPath isDirectory:&isDirectory])
+                {
+                    if(isDirectory==NO)
+                    {
+                        NSData *data = [NSData dataWithContentsOfFile:fullPath];
+                        req.responseData = data;
+                        req.responseCode = HTTP_RESPONSE_CODE_OK;
+                        NSString *extension = [fullPath pathExtension];
+                        [req setMimeTypeFromExtension:extension];
+                        urlServed=YES;
+                    }
+                }
+            }
+            if(urlServed==NO)
             {
                 /* default files which can be overriden */
                 if([path isEqualToString:@"/"])

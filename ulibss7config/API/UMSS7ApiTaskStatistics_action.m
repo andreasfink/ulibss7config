@@ -7,7 +7,43 @@
 //
 
 #import "UMSS7ApiTaskStatistics_action.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskStatistics_action
 
+
++ (NSString *)apiPath
+{
+    return @"/api/statistics-action";
+}
+
+- (void)main
+{
+    if(![self isAuthenticated])
+    {
+        [self sendErrorNotAuthenticated];
+        return;
+    }
+
+    if(![self isAuthorized])
+    {
+        [self sendErrorNotAuthorized];
+        return;
+    }
+
+    @try
+    {
+        [self sendErrorNotImplemented];
+    }
+    @catch(NSException *e)
+    {
+        [self sendException:e];
+    }
+
+}
+
 @end
+

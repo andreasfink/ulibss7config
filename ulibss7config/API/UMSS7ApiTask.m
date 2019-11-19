@@ -40,7 +40,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api";
+    return @"";
 }
 
 - (void)main 
