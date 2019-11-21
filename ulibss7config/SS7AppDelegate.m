@@ -1125,6 +1125,16 @@ static void signalHandler(int signum);
             NSString *route = [[cfg configEntry:@"dpc"] stringValue];
             NSString *linkset = [[cfg configEntry:@"ls"] stringValue];
             NSString *as = [[cfg configEntry:@"as"] stringValue];
+            NSString *priority = [[cfg configEntry:@"priority"] stringValue];
+            int prio;
+            if(priority.length > 0)
+            {
+                prio = [priority intValue];
+            }
+            else
+            {
+                prio = 2;
+            }
             if(linkset==NULL)
             {
                 linkset = as;
@@ -1144,12 +1154,12 @@ static void signalHandler(int signum);
                     if([a count] == 1)
                     {
                         UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-                        [mtp3_linkset.routingTable updateRouteAvailable:pc mask:0 linksetName:linkset];
+                        [mtp3_linkset.routingTable updateRouteAvailable:pc mask:0 linksetName:linkset priority:prio];
                     }
                     else if([a count]==2)
                     {
                         UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-                        [mtp3_linkset.routingTable updateRouteAvailable:pc mask:(pc.maxmask - [a[1] intValue]) linksetName:linkset];
+                        [mtp3_linkset.routingTable updateRouteAvailable:pc mask:(pc.maxmask - [a[1] intValue]) linksetName:linkset priority:prio];
                     }
                 }
             }
