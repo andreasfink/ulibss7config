@@ -50,6 +50,7 @@
 
 - (SS7CDRWriter *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq usingBatchInsert:(BOOL)bi;
 - (void) setConfig:(NSDictionary *)cfg applicationContext:(SS7AppDelegate *)appContext;
+-(void) setConfig:(NSDictionary *)cfg withDbPools:(UMSynchronizedDictionary *)pools;
 - (void) writeRecord:(NSDictionary *)fields;
 - (NSString *)webStats;
 - (NSDictionary *)apiJsonStat;

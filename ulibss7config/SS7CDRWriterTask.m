@@ -23,6 +23,7 @@
         _fields = fields;
         _records = NULL;
         _writer = writer;
+        _fieldNames = writer.fieldNames;
     }
     return self;
 }
@@ -39,7 +40,14 @@
         _fields = NULL;
         _records = records;
         _writer = writer;
-        _fieldNames = fieldNames;
+        if(fieldNames==NULL)
+        {
+            _fieldNames = writer.fieldNames;
+        }
+        else
+        {
+            _fieldNames = fieldNames;
+        }
     }
     return self;
 }
@@ -49,20 +57,32 @@
 {
     @try
     {
-
         if(_fields)
         {
             _writer.activeSingleTasks++;
             UMDbQuery *query = [UMDbQuery queryForFile:__FILE__ line: __LINE__];
-            NSArray *fieldNames = [_fields allKeys];
+            NSArray *fieldNames;
+            if(_fieldNames)
+            {
+                fieldNames = _fieldNames;
+            }
+            else
+            {
+                fieldNames = [_fields allKeys];
+            }
             [query setType:UMDBQUERYTYPE_INSERT];
             [query setTable:_dbTable];
-            [query setFields:fieldNames];
+            NSMutableArray *fieldNames2 = [[NSMutableArray alloc]init];
             NSMutableArray *values = [[NSMutableArray alloc]init];
             for(NSString *fieldName in fieldNames)
             {
-                [values addObject:_fields[fieldName]];
+                if(_fields[fieldName])
+                {
+                    [fieldNames2 addObject:fieldName];
+                    [values addObject:_fields[fieldName]];
+                }
             }
+            [query setFields:fieldNames2];
 
             UMDbSession *session = [_dbTable.pool grabSession:__FILE__ line:__LINE__ func:__func__];
             [session cachedQueryWithNoResult:query parameters:values allowFail:NO];

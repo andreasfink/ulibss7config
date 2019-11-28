@@ -74,6 +74,85 @@
     _writerOpenTime = [NSDate new];
 }
 
+-(void) setConfig:(NSDictionary *)cfg withDbPools:(UMSynchronizedDictionary *)pools
+{
+    NSString *poolName = cfg[@"pool-name"];
+    NSString *tableName = cfg[@"table-name"];
+    _name = cfg[@"name"];
+
+    NSDictionary *tableConfig = @{@"enable": @"YES",
+                                  @"table-name" : tableName,
+                                  @"auto-create" : @"NO",
+                                  @"pool-name" : poolName
+                                };
+
+    if(cfg[@"reopen-time"])
+    {
+        _reopenTime = [cfg[@"reopen-time"] doubleValue];
+    }
+    _writerFileNamePrefix = cfg[@"cdr-file-prefix"];
+
+
+    if(cfg[@"cdr-queue-limit"])
+    {
+        _writerQueueLimit = [cfg[@"cdr-queue-limit"] intValue];
+    }
+    if(_writerFileNamePrefix.length > 0)
+    {
+        NSUInteger n = _writerFileNamePrefix.length;
+        NSInteger lastSlash = -1;
+        for(NSUInteger i=0;i<n;i++)
+        {
+            if([_writerFileNamePrefix characterAtIndex:i]=='/')
+            {
+                lastSlash=i;
+            }
+        }
+        if(lastSlash >=0)
+        {
+            NSString *path = [_writerFileNamePrefix substringToIndex:lastSlash+1];
+            int r = mkdir(path.UTF8String,0755);
+            if(r<0)
+            {
+                if (errno!=EEXIST)
+                {
+                    fprintf(stderr,"Error %d %s: Can not write to path %s",errno,strerror(errno),path.UTF8String);
+                    exit(-1);
+                }
+            }
+        }
+        [self openNewWriterFile];
+    }
+    else
+    {
+        _dbPool = pools[poolName];
+        _dbTable = [[UMDbTable alloc] initWithConfig:tableConfig andPools:pools];
+    }
+    NSString *timeZone = cfg[@"time-zone"];
+    if(timeZone.length < 1)
+    {
+        timeZone = @"UTC";
+    }
+
+    NSString *dateFormat = cfg[@"date-format"];
+    if(dateFormat.length <1)
+    {
+        dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
+    }
+
+    NSString *locale = cfg[@"locale"];
+    if(locale.length <1)
+    {
+        locale = @"en_US";
+    }
+
+    NSTimeZone *tz = [NSTimeZone timeZoneWithName:timeZone];
+    NSLocale *theLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
+    _writerDateFormatter = [[NSDateFormatter alloc] init];
+    [_writerDateFormatter setTimeZone:tz];
+    [_writerDateFormatter setLocale:theLocale];
+    [_writerDateFormatter setDateFormat:dateFormat];
+}
 
 -(void) setConfig:(NSDictionary *)cfg applicationContext:(SS7AppDelegate *)appContext
 {
