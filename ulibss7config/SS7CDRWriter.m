@@ -80,12 +80,6 @@
     NSString *tableName = cfg[@"table-name"];
     _name = cfg[@"name"];
 
-    NSDictionary *tableConfig = @{@"enable": @"YES",
-                                  @"table-name" : tableName,
-                                  @"auto-create" : @"NO",
-                                  @"pool-name" : poolName
-                                };
-
     if(cfg[@"reopen-time"])
     {
         _reopenTime = [cfg[@"reopen-time"] doubleValue];
@@ -125,8 +119,16 @@
     }
     else
     {
-        _dbPool = pools[poolName];
-        _dbTable = [[UMDbTable alloc] initWithConfig:tableConfig andPools:pools];
+        if(poolName.length > 0)
+        {
+        NSDictionary *tableConfig = @{@"enable": @"YES",
+                                      @"table-name" : tableName,
+                                      @"auto-create" : @"NO",
+                                      @"pool-name" : poolName
+                                    };
+            _dbPool = pools[poolName];
+            _dbTable = [[UMDbTable alloc] initWithConfig:tableConfig andPools:pools];
+        }
     }
     NSString *timeZone = cfg[@"time-zone"];
     if(timeZone.length < 1)
@@ -243,6 +245,16 @@
     return cnt;
 }
 
+- (void)flush
+{
+    NSUInteger cnt = [self pendingRecordsCount] + _taskQueue.count;
+    while(cnt > 0)
+    {
+        [_timer startIfNotRunning];
+        sleep(1);
+        cnt = [self pendingRecordsCount] + _taskQueue.count;
+    }
+}
 
 - (void) writeRecord:(NSDictionary *)fields
 {
@@ -265,8 +277,8 @@
     {
         [_speedometerTasks increase];
         SS7CDRWriterTask *task = [[SS7CDRWriterTask alloc]initWithRecord:fields table:_dbTable writer:self];
-        [task main];
-//        [self.taskQueue queueTask:task toQueueNumber:0];
+//        [task main];
+        [self.taskQueue queueTask:task toQueueNumber:0];
     }
 }
 
