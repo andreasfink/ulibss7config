@@ -278,7 +278,8 @@
         [_speedometerTasks increase];
         SS7CDRWriterTask *task = [[SS7CDRWriterTask alloc]initWithRecord:fields table:_dbTable writer:self];
 //        [task main];
-        [self.taskQueue queueTask:task toQueueNumber:0];
+        [task main];
+//        [self.taskQueue queueTask:task toQueueNumber:0];
     }
 }
 
