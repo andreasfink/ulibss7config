@@ -45,6 +45,7 @@
 @property(readwrite,strong,atomic)  NSString            *custom10;
 @property(readwrite,strong,atomic)  id<UMSS7ConfigAppDelegateProtocol> appDelegate;
 
+
 /* note these methods are to manipulate the config, not while filtering */
 - (void)addTag:(NSString *)tag;
 - (void)clearTag:(NSString *)tag;
