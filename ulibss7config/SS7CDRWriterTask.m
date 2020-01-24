@@ -29,9 +29,9 @@
 }
 
 - (SS7CDRWriterTask *)initWithRecords:(NSArray *)records
-                             table:(UMDbTable *)dbTable
-                            writer:(SS7CDRWriter *)writer
-                        fieldNames:(NSArray *)fieldNames
+                                table:(UMDbTable *)dbTable
+                               writer:(SS7CDRWriter *)writer
+                           fieldNames:(NSArray *)fieldNames
 {
     self = [super init];
     if(self)
