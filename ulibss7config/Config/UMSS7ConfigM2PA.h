@@ -12,7 +12,6 @@
 @interface UMSS7ConfigM2PA : UMSS7ConfigObject
 {
     NSString        *_attachTo; /* sctp object */
-    NSNumber        *_autostart;
     NSNumber        *_windowSize;
     NSNumber        *_speed;
     NSNumber        *_t1;

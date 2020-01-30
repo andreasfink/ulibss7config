@@ -35,7 +35,6 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
-    APPEND_CONFIG_BOOLEAN(s,@"autostart",_autostart);
     APPEND_CONFIG_INTEGER(s,@"window-size",_windowSize);
     APPEND_CONFIG_DOUBLE(s,@"t1",_t1);
     APPEND_CONFIG_DOUBLE(s,@"t2",_t2);
@@ -52,7 +51,6 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
-    APPEND_DICT_BOOLEAN(dict,@"autostart",_autostart);
     APPEND_DICT_INTEGER(dict,@"window-size",_windowSize);
     APPEND_DICT_DOUBLE(dict,@"t1",_t1);
     APPEND_DICT_DOUBLE(dict,@"t2",_t2);
@@ -69,7 +67,6 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
-    SET_DICT_BOOLEAN(dict,@"autostart",_autostart);
     SET_DICT_INTEGER(dict,@"window-size",_windowSize);
     SET_DICT_DOUBLE(dict,@"t1",_t1);
     SET_DICT_DOUBLE(dict,@"t2",_t2);
