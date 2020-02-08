@@ -13,7 +13,7 @@
 #import "UMSS7ApiTaskList.h"
 #import "UMSS7ApiTaskIdle.h"
 #import "UMSS7ApiTaskSessionsList.h"
-
+#import "UMSS7ApiTaskConfig_list.h"
 #import "UMSS7ApiTaskSCTP_list.h"
 #import "UMSS7ApiTaskSCTP_read.h"
 #import "UMSS7ApiTaskSCTP_add.h"

@@ -1070,6 +1070,102 @@
     }
 }
 
+- (UMSynchronizedSortedDictionary *)fullConfigOjbect
+{
+
+#define ADD_SECTION_CONDITIONAL(d,obj,dict) \
+    { \
+        if(dict.count > 0) \
+        { \
+            d[ [obj type] ] = dict; \
+        } \
+    }
+
+#define ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d,obj,obj2,dict) \
+    { \
+        if(dict.count > 0) \
+        { \
+            d[ [obj type] ] = dict; \
+            NSArray *keys = [dict allKeys]; \
+            UMSynchronizedSortedDictionary *subentries = [[UMSynchronizedSortedDictionary alloc]init]; \
+            for(NSString *key in keys) \
+            { \
+                UMSS7ConfigObject *co = dict[key]; \
+                NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries]; \
+                for(UMSS7ConfigObject *co2 in entries) \
+                { \
+                    subentries[co2.name] = co2.config; \
+                } \
+            } \
+            d[ [obj2 type]] = subentries; \
+        } \
+    }
+
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    d[@"general"]= _generalConfig.config;
+    
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigWebserver,_webserver_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigTelnet,_telnet_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSyslogDestination,_syslog_destination_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSCTP,_sctp_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigM2PA,_m2pa_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3Link,_mtp3_link_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3LinkSet,_mtp3_linkset_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigM3UAAS,_m3ua_as_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigM3UAASP,_m3ua_asp_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3Filter,_mtp3_filter_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3Route,_mtp3_route_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSCCP,_sccp_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSCCPDestination,
+                                            UMSS7ConfigSCCPDestinationEntry,
+                                            _sccp_destination_dict);
+
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSCCPTranslationTable,
+                                            UMSS7ConfigSCCPTranslationTableEntry,
+                                            _sccp_translation_table_dict);
+    
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSCCPTranslationTableMap,_sccp_translation_table_map_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSCCPFilter,_sccp_translation_table_dict);
+
+    
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSCCPNumberTranslation,
+                                            UMSS7ConfigSCCPNumberTranslationEntry,
+                                            _sccp_number_translation_dict);
+
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigTCAP,_tcap_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigTCAPFilter,UMSS7ConfigTCAPFilterEntry,_tcap_dict);
+
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGSMMAP,_gsmmap_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigGSMMAPFilter,
+                                            UMSS7ConfigGSMMAPFilterEntry,
+                                            _gsmmap_filter_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSMS,_sms_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSMSFilter,
+                                            UMSS7ConfigSMSFilterEntry,
+                                            _sms_filter_dict);
+
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigHLR,_hlr_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigMSC,_msc_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGGSN,_ggsn_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigVLR,_vlr_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigEIR,_eir_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGSMSCF,_gsmscf_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGMLC,_gmlc_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSMSC,_smsc_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSMSProxy,_smsproxy_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigESTP,_estp_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigAdminUser,_admin_user_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigApiUser,_api_user_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigDatabasePool,_database_pool_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceUser,_service_user_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceUserProfile,_service_user_profile_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceBillingEntity,_service_billing_entity_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigIMSIPool,_imsi_pool_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigCdrWriter,_cdr_writer_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigDiameterConnection,_diameter_connection_dict);
+    return d;
+}
+
 /* returns YES on success */
 - (void)writeSectionToDirectory:(NSString *)dir
                            dict:(UMSynchronizedDictionary *)dict

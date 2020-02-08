@@ -194,6 +194,7 @@
 - (void)writeConfigToDirectory:(NSString *)dir usingFilename:(NSString *)main_config_file_name singleFile:(BOOL)compact;
 
 - (NSString *)configString;
+- (UMSynchronizedSortedDictionary *)fullConfigOjbect;
 
 - (NSArray *)getSCTPNames;
 - (UMSS7ConfigSCTP *)getSCTP:(NSString *)name;
