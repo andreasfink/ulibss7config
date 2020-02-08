@@ -37,7 +37,8 @@
     int details = [((NSString *)_params[@"details"]) intValue];
     switch(details)
     {
-         case 0:
+        case 0:
+        default:
              [self sendResultObject:names];
              break;
          case 1:

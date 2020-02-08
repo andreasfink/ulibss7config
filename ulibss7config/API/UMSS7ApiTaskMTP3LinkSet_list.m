@@ -40,6 +40,7 @@
     switch(details)
     {
          case 0:
+         default:
              [self sendResultObject:names];
              break;
          case 1:

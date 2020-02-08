@@ -48,6 +48,7 @@
     switch(details)
     {
         case 0:
+        default:
             [self sendResultObject:a];
             break;
         case 1:
