@@ -63,6 +63,7 @@
                 [self sendResultObject:entries];
             }
             break;
-    }}
+    }
+}
 
 @end

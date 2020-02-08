@@ -34,10 +34,6 @@
 
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     NSArray *names = [cs getSCCPNames];
-    [self sendResultObject:names];
-
-
-
 
      int details = [((NSString *)_params[@"details"]) intValue];
      switch(details)

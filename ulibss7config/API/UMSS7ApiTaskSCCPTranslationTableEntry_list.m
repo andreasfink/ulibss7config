@@ -43,7 +43,30 @@
         return;
     }
     NSArray *a = rt.list.allKeys;
-    [self sendResultObject:a];
+    
+    int details = [((NSString *)_params[@"details"]) intValue];
+    switch(details)
+    {
+        case 0:
+            [self sendResultObject:a];
+            break;
+        case 1:
+        case 2:
+
+            {
+                NSMutableArray *entries = [[NSMutableArray alloc]init];
+                for(NSString *name in a)
+                {
+                    SccpGttRoutingTableEntry *obj = rt.list[name];
+                    if(obj)
+                    {
+                        [entries addObject:obj];
+                    }
+                }
+                [self sendResultObject:entries];
+            }
+            break;
+    }
 }
 
 @end
