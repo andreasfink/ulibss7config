@@ -74,55 +74,55 @@
 
 - (void)generalInitialisation
 {
-    _webserver_dict= [[UMSynchronizedDictionary alloc]init];
-    _telnet_dict= [[UMSynchronizedDictionary alloc]init];
-    _syslog_destination_dict= [[UMSynchronizedDictionary alloc]init];
-    _sctp_dict= [[UMSynchronizedDictionary alloc]init];
-    _m2pa_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_link_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_linkset_dict= [[UMSynchronizedDictionary alloc]init];
-    _m3ua_as_dict= [[UMSynchronizedDictionary alloc]init];
-    _m3ua_asp_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_route_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_pctrans_dict = [[UMSynchronizedDictionary alloc]init];
-    _sccp_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_translation_table_entry_dict= [[UMSynchronizedDictionary alloc]init]; /* do we need this or should this be above */
-    _sccp_translation_table_map_dict = [[UMSynchronizedDictionary alloc]init];
-    _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
-    _tcap_dict= [[UMSynchronizedDictionary alloc]init];
-    _tcap_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _gsmmap_dict= [[UMSynchronizedDictionary alloc]init];
-    _gsmmap_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _sms_dict= [[UMSynchronizedDictionary alloc]init];
-    _sms_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _hlr_dict= [[UMSynchronizedDictionary alloc]init];
-    _msc_dict= [[UMSynchronizedDictionary alloc]init];
-    _ggsn_dict= [[UMSynchronizedDictionary alloc]init];
-    _vlr_dict= [[UMSynchronizedDictionary alloc]init];
-    _eir_dict= [[UMSynchronizedDictionary alloc]init];
-    _gsmscf_dict= [[UMSynchronizedDictionary alloc]init];
-    _gmlc_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsc_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsproxy_dict= [[UMSynchronizedDictionary alloc]init];
-    _estp_dict= [[UMSynchronizedDictionary alloc]init];
-    _admin_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _api_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _database_pool_dict= [[UMSynchronizedDictionary alloc]init];
-    _service_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _service_user_profile_dict= [[UMSynchronizedDictionary alloc]init];
-    _service_billing_entity_dict= [[UMSynchronizedDictionary alloc]init];
-    _imsi_pool_dict= [[UMSynchronizedDictionary alloc]init];
-    _cdr_writer_dict= [[UMSynchronizedDictionary alloc]init];
-    _diameter_connection_dict =  [[UMSynchronizedDictionary alloc]init];
-    _diameter_router_dict =  [[UMSynchronizedDictionary alloc]init];
-    _diameter_route_dict =  [[UMSynchronizedDictionary alloc]init];
-    _estp_dict= [[UMSynchronizedDictionary alloc]init];
-    _mapi_dict= [[UMSynchronizedDictionary alloc]init];
+    _webserver_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _telnet_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _syslog_destination_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sctp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _m2pa_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_link_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_linkset_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _m3ua_as_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _m3ua_asp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_route_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_pctrans_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_destination_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_translation_table_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_translation_table_entry_dict= [[UMSynchronizedSortedDictionary alloc]init]; /* do we need this or should this be above */
+    _sccp_translation_table_map_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_number_translation_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _tcap_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _tcap_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gsmmap_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gsmmap_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sms_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sms_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _hlr_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _msc_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _ggsn_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _vlr_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _eir_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gsmscf_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gmlc_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _smsc_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _smsproxy_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _admin_user_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _api_user_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _database_pool_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _service_user_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _service_user_profile_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _service_billing_entity_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _imsi_pool_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _cdr_writer_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _diameter_connection_dict =  [[UMSynchronizedSortedDictionary alloc]init];
+    _diameter_router_dict =  [[UMSynchronizedSortedDictionary alloc]init];
+    _diameter_route_dict =  [[UMSynchronizedSortedDictionary alloc]init];
+    _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mapi_dict= [[UMSynchronizedSortedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -1077,7 +1077,14 @@
     { \
         if(dict.count > 0) \
         { \
-            d[ [obj type] ] = dict; \
+            UMSynchronizedSortedDictionary *d2 = [[UMSynchronizedSortedDictionary alloc]init]; \
+            NSArray *keys = [dict allKeys]; \
+            for(NSString *key in keys)\
+            { \
+                UMSS7ConfigObject *co = dict[key];\
+                d2[key] = co.config;\
+            } \
+            d[ [obj type] ] = d2; \
         } \
     }
 
@@ -1085,8 +1092,14 @@
     { \
         if(dict.count > 0) \
         { \
-            d[ [obj type] ] = dict; \
+            UMSynchronizedSortedDictionary *d2 = [[UMSynchronizedSortedDictionary alloc]init]; \
             NSArray *keys = [dict allKeys]; \
+            for(NSString *key in keys)\
+            { \
+                UMSS7ConfigObject *co = dict[key];\
+                d2[key] = co.config;\
+            } \
+            d[ [obj type] ] = d2; \
             UMSynchronizedSortedDictionary *subentries = [[UMSynchronizedSortedDictionary alloc]init]; \
             for(NSString *key in keys) \
             { \
