@@ -56,6 +56,7 @@
                  }
                  [self sendResultObject:entries];
              }
+            break;
         case 3:
             {
                 NSMutableArray *entries = [[NSMutableArray alloc]init];
@@ -88,7 +89,7 @@
                                @"start-slc",
                                @"stop-slc"];
                         }
-                        [entries addObject:obj.config];
+                        [entries addObject:dict];
                     }
                 }
                 [self sendResultObject:entries];
