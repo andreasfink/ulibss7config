@@ -4161,19 +4161,19 @@ static void signalHandler(int signum);
    else
     {
         UMMTP3Variant variant = UMMTP3Variant_ITU;
-        if([standard isCaseInsensitiveLike:@"itu"])
+        if([standard isEqualToStringCaseInsensitive:@"itu"])
         {
             variant = UMMTP3Variant_ITU;
         }
-        else if([standard isCaseInsensitiveLike:@"ansi"])
+        else if([standard isEqualToStringCaseInsensitive:@"ansi"])
         {
             variant = UMMTP3Variant_ANSI;
         }
-        else if([standard isCaseInsensitiveLike:@"china"])
+        else if([standard isEqualToStringCaseInsensitive:@"china"])
         {
             variant = UMMTP3Variant_China;
         }
-        else if([standard isCaseInsensitiveLike:@"japan"])
+        else if([standard isEqualToStringCaseInsensitive:@"japan"])
         {
             variant = UMMTP3Variant_Japan;
         }

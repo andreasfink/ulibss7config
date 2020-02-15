@@ -55,5 +55,6 @@
 - (void)addSubEntry:(UMSS7ConfigObject *)obj;
 
 - (NSArray<NSDictionary *> *)subConfigs;
+- (id)proxyForJson;
 
 @end

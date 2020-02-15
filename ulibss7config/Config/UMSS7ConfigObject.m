@@ -243,4 +243,9 @@
     return configs;
 }
 
+- (id)proxyForJson
+{
+    return self.config;
+}
+
 @end
