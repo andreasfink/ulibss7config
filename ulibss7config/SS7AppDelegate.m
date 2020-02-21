@@ -1154,12 +1154,12 @@ static void signalHandler(int signum);
                     if([a count] == 1)
                     {
                         UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-                        [mtp3_linkset.mtp3.routingTable updateDynamicRouteAvailable:pc mask:0 linksetName:linkset priority:prio];
+                        [mtp3_linkset.mtp3.routingTable updateDynamicRouteAvailable:pc mask:pc.maxmask linksetName:linkset priority:prio];
                     }
                     else if([a count]==2)
                     {
                         UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-                        [mtp3_linkset.mtp3.routingTable updateDynamicRouteAvailable:pc mask:(pc.maxmask - [a[1] intValue]) linksetName:linkset priority:prio];
+                        [mtp3_linkset.mtp3.routingTable updateDynamicRouteAvailable:pc mask:[a[1] intValue] linksetName:linkset priority:prio];
                     }
                 }
             }
