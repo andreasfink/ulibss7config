@@ -38,7 +38,7 @@
 }
 
 @property(readonly,strong)          NSString *name;
-@property(readonly,strong)          NSDateFormatter *writerDateFormatter;
+@property(readonly,strong)          NSDateFormatter *cdrDateFormatter;
 @property(readwrite,atomic,assign)  NSInteger activeMultiTasks;
 @property(readwrite,atomic,assign)  NSInteger activeSingleTasks;
 @property(readwrite,atomic,assign)  int sliceSize;

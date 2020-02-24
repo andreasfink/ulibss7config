@@ -36,6 +36,11 @@
         _useBatchInsert = bi;
         _speedometerTasks   = [[UMThroughputCounter alloc]initWithResolutionInSeconds:   1.0 maxDuration: 1260.0];
         _speedometerRecords = [[UMThroughputCounter alloc]initWithResolutionInSeconds: 1.0 maxDuration: 1260.0];
+        _cdrDateFormatter =    [[NSDateFormatter alloc] init];
+        [_cdrDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [_cdrDateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+        [_cdrDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+
         if(_useBatchInsert)
         {
             _timer =   [[UMTimer alloc]initWithTarget:self
@@ -52,17 +57,12 @@
 
 - (void)openNewWriterFile
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-    [dateFormatter setDateFormat:@"yyyyMMdd_HHmmss"];
-
     if(_writerFile >=0)
     {
         close(_writerFile);
         _writerFile = -1;
     }
-    _writerCurrentFileName = [NSString stringWithFormat:@"%@-%@", _writerFileNamePrefix, [dateFormatter stringFromDate:[NSDate date]]];
+    _writerCurrentFileName = [NSString stringWithFormat:@"%@-%@", _writerFileNamePrefix, [_cdrDateFormatter stringFromDate:[NSDate date]]];
     mode_t mode = 0640;
     _writerFile = open(_writerCurrentFileName.UTF8String,O_CREAT | O_SYNC | O_WRONLY | O_APPEND,mode);
     if(_writerFile < 0)
@@ -150,10 +150,10 @@
 
     NSTimeZone *tz = [NSTimeZone timeZoneWithName:timeZone];
     NSLocale *theLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
-    _writerDateFormatter = [[NSDateFormatter alloc] init];
-    [_writerDateFormatter setTimeZone:tz];
-    [_writerDateFormatter setLocale:theLocale];
-    [_writerDateFormatter setDateFormat:dateFormat];
+    _cdrDateFormatter = [[NSDateFormatter alloc] init];
+    [_cdrDateFormatter setTimeZone:tz];
+    [_cdrDateFormatter setLocale:theLocale];
+    [_cdrDateFormatter setDateFormat:dateFormat];
 }
 
 -(void) setConfig:(NSDictionary *)cfg applicationContext:(SS7AppDelegate *)appContext
@@ -230,10 +230,10 @@
 
     NSTimeZone *tz = [NSTimeZone timeZoneWithName:timeZone];
     NSLocale *theLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
-    _writerDateFormatter = [[NSDateFormatter alloc] init];
-    [_writerDateFormatter setTimeZone:tz];
-    [_writerDateFormatter setLocale:theLocale];
-    [_writerDateFormatter setDateFormat:dateFormat];
+    _cdrDateFormatter = [[NSDateFormatter alloc] init];
+    [_cdrDateFormatter setTimeZone:tz];
+    [_cdrDateFormatter setLocale:theLocale];
+    [_cdrDateFormatter setDateFormat:dateFormat];
 }
 
 - (NSUInteger)pendingRecordsCount
