@@ -20,6 +20,7 @@
     NSArray *_inbound_filter_rulesets;
     NSArray *_outbound_filter_rulesets;
     NSString *_pctrans;
+    NSNumber *_disableRouteAdvertizement;
 }
 
 + (NSString *)type;
@@ -36,5 +37,7 @@
 @property(readwrite,strong,atomic)  NSArray<NSString *> *inbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *outbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSString *pctrans;
+@property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
+
 
 @end
