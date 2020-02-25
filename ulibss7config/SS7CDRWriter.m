@@ -36,11 +36,13 @@
         _useBatchInsert = bi;
         _speedometerTasks   = [[UMThroughputCounter alloc]initWithResolutionInSeconds:   1.0 maxDuration: 1260.0];
         _speedometerRecords = [[UMThroughputCounter alloc]initWithResolutionInSeconds: 1.0 maxDuration: 1260.0];
-        _cdrDateFormatter =    [[NSDateFormatter alloc] init];
-        [_cdrDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-        [_cdrDateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-        [_cdrDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
-
+        if(_cdrDateFormatter==NULL)
+        {
+            _cdrDateFormatter =    [[NSDateFormatter alloc] init];
+            [_cdrDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+            [_cdrDateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+            [_cdrDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+        }
         if(_useBatchInsert)
         {
             _timer =   [[UMTimer alloc]initWithTarget:self
