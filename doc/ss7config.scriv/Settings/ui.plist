@@ -82,8 +82,8 @@
 	</array>
 	<key>binderSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {272, 963}}</string>
-		<string>{{273, 0}, {983, 963}}</string>
+		<string>{{0, 0}, {272, 1390}}</string>
+		<string>{{273, 0}, {1587, 1390}}</string>
 	</array>
 	<key>binderState</key>
 	<array>
@@ -132,6 +132,26 @@
 	</dict>
 	<key>bookmarksSelectionInfo</key>
 	<dict>
+		<key>0012BC9E-4B00-4A74-AE17-630E4A8171AD</key>
+		<dict>
+			<key>Row</key>
+			<integer>-1</integer>
+		</dict>
+		<key>0CE11253-E8F4-4D5A-ACAB-DE939245D6F5</key>
+		<dict>
+			<key>Row</key>
+			<integer>-1</integer>
+		</dict>
+		<key>2DBD1580-CB10-498F-B5B7-CDBF1EFEA460</key>
+		<dict>
+			<key>Row</key>
+			<integer>-1</integer>
+		</dict>
+		<key>C9C10484-38F7-46B7-89AC-6AC96191B0C3</key>
+		<dict>
+			<key>Row</key>
+			<integer>-1</integer>
+		</dict>
 		<key>Project</key>
 		<dict>
 			<key>DocID</key>
@@ -243,7 +263,7 @@
 	<integer>4</integer>
 	<key>inspectorSplitFrames</key>
 	<array>
-		<string>{{0, 0}, {336, 917}}</string>
+		<string>{{0, 0}, {672, 1380}}</string>
 	</array>
 	<key>inspectorSynopsisIsCollapsed</key>
 	<false/>
@@ -356,7 +376,7 @@
 	<key>mainDocumentEditor.outlinerVisible</key>
 	<false/>
 	<key>mainDocumentEditor.scrollRect</key>
-	<string>{{0, 46}, {620, 877}}</string>
+	<string>{{0, 0}, {620, 1304}}</string>
 	<key>mainDocumentEditor.selectedItemUUIDs</key>
 	<array/>
 	<key>mainDocumentEditor.selectedRanges</key>
@@ -381,7 +401,7 @@
 	<key>mainDocumentView</key>
 	<string>supportingDocumentEditor</string>
 	<key>mainWindowFrame</key>
-	<string>305 115 1256 985 0 0 2560 1417 </string>
+	<string>858 261 1860 1412 0 0 3360 1867 </string>
 	<key>metaDataModeAutosaveName</key>
 	<integer>0</integer>
 	<key>projectStatsSheet</key>

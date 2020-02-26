@@ -12,12 +12,24 @@
 #import <ulibsms/ulibsms.h>
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
+#import <ulibdb/ulibdb.h>
 #import "UMSS7ConfigObject.h"
 #import "SS7TelnetSocketHelperProtocol.h"
 #import "SS7UserAuthenticateProtocol.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMTTask.h"
-#import "/usr/local/include/uliblicense/uliblicense.h"
+
+#import "UMSS7ConfigSS7FilterRuleSet.h"
+#import "UMSS7ConfigSS7FilterRule.h"
+#import "UMSS7ConfigSS7FilterActionList.h"
+#import "UMSS7ConfigSS7FilterAction.h"
+#import "UMSS7TraceFile.h"
+
+#ifdef __APPLE__
+#import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
+#else
+#import <uliblicense/uliblicense.h>
+#endif
 
 #import "SS7TemporaryImsiPool.h"
 #import "SS7TelnetSocketHelperProtocol.h"
@@ -25,13 +37,14 @@
 @class ConfigurationSocket;
 @class SchrittmacherClient;
 @class UMSS7ConfigStorage;
-@class UMSS7ConfigStagingAreaStorage;
+@class UMSS7ConfigSS7FilterStagingArea;
 @class SccpDestination;
 @class SS7AppTransportHandler;
 @class ApiSession;
 @class SS7TemporaryImsiPool;
 @class SS7GenericInstance;
 @class DiameterGenericInstance;
+@class UMSS7ConfigSS7FilterTraceFile;
 
 typedef enum SchrittmacherMode
 {
@@ -63,7 +76,8 @@ SS7UserAuthenticateProtocol,
 UMSS7ConfigAppDelegateProtocol,
 UMTransportUserProtocol,
 UMDiameterPeerAppDelegateProtocol,
-UMDiameterRouterAppDelegateProtocol>
+UMDiameterRouterAppDelegateProtocol,
+UMSCCP_FilterDelegateProtocol>
 {
     /* first all pointers... then integers. Workaround for a bug in clang...? */
     NSDictionary                *_enabledOptions;
@@ -85,6 +99,7 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary    *_mtp3_route_dict;
     UMSynchronizedDictionary    *_m3ua_as_dict;
     UMSynchronizedDictionary    *_m3ua_asp_dict;
+    UMSynchronizedDictionary    *_mtp3_pointcode_translation_tables_dict;
     UMSynchronizedDictionary    *_webserver_dict;
     UMSynchronizedDictionary    *_telnet_dict;
     UMSynchronizedDictionary    *_syslog_destination_dict;
@@ -95,6 +110,7 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary    *_imsi_pools_dict;
     UMSynchronizedDictionary    *_hlr_dict;
     UMSynchronizedDictionary    *_msc_dict;
+    UMSynchronizedDictionary    *_ggsn_dict;
     UMSynchronizedDictionary    *_smsc_dict;
     UMSynchronizedDictionary    *_vlr_dict;
     UMSynchronizedDictionary    *_eir_dict;
@@ -104,10 +120,24 @@ UMDiameterRouterAppDelegateProtocol>
     UMSynchronizedDictionary    *_diameter_connections_dict;
     UMSynchronizedDictionary    *_diameter_router_dict;
     UMSynchronizedDictionary    *_smsproxy_dict;
+	UMSynchronizedDictionary 	*_ss7FilterStagingAreas_dict;
 
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     SS7AppTransportHandler      *_appTransport;
 	UMLicenseDirectory       	*_globalLicenseDirectory;
+    UMLicenseProductFeature     *_coreFeature;
+    UMLicenseProductFeature     *_sctpFeature;
+    UMLicenseProductFeature     *_m2paFeature;
+    UMLicenseProductFeature     *_mtp3Feature;
+    UMLicenseProductFeature     *_m3uaFeature;
+    UMLicenseProductFeature     *_sccpFeature;
+    UMLicenseProductFeature     *_tcapFeature;
+    UMLicenseProductFeature     *_gsmmapFeature;
+    UMLicenseProductFeature     *_smscFeature;
+    UMLicenseProductFeature     *_smsproxyFeature;
+    UMLicenseProductFeature     *_rerouterFeature;
+    UMLicenseProductFeature     *_diameterFeature;
+
 	UMTransportService       	*_umtransportService;
 	UMMutex                  	*_umtransportLock;
     NSString                    *_logDirectory;
@@ -134,9 +164,42 @@ UMDiameterRouterAppDelegateProtocol>
     BOOL                        _startInStandby;
     NSString                    *_stagingAreaPath;
     NSString                    *_filterEnginesPath;
+    NSString                    *_statisticsPath;
+    NSString                    *_appsPath;
+
     NSDate                      *_applicationStart;
-    UMSynchronizedDictionary    *_ss7FilterEngines;
     DiameterGenericInstance     *_mainDiameterInstance;
+    SS7GenericInstance			*_mainCamelInstance;
+	SS7GenericInstance			*_mainMapInstance;
+    UMSynchronizedDictionary     *_namedLists;
+    UMMutex                     *_namedListLock;
+    NSString                    *_namedListsDirectory;
+
+    UMSynchronizedDictionary    *_ss7TraceFiles; /* contains UMSS7TraceFile objects */
+    NSString                    *_ss7TraceFilesDirectory;
+    UMTimer                     *_apiHousekeepingTimer;
+    UMSynchronizedDictionary    *_activeFilterRuleSets;
+
+
+    UMSynchronizedDictionary     *_statistics_dict;
+    UMTimer                     *_dirtyTimer;
+
+    UMSynchronizedDictionary    *_active_ruleset_dict;
+    UMSynchronizedDictionary    *_active_action_list_dict;
+    UMSynchronizedDictionary    *_ss7FilterEngines;
+
+    UMSS7ConfigSS7FilterStagingArea *_activeStagingArea;
+    BOOL                    _filteringActive;
+    UMSynchronizedDictionary *_incomingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    UMSynchronizedDictionary *_outgoingLinksetFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    UMSynchronizedDictionary *_incomingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+    UMSynchronizedDictionary *_outgoingLocalSubsystemFilters; /* contains NSArray of NSStrings of UMSS7FilterRuleset names */
+
+    UMSynchronizedDictionary    *_dbpool_dict;
+    BOOL                        _dbStarted;
+    UMTaskQueueMulti            *_databaseQueue;
+    UMSynchronizedDictionary    *_cdrWriters_dict;
+    NSTimeInterval              _sessionTimeout;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -164,8 +227,31 @@ UMDiameterRouterAppDelegateProtocol>
 @property(readwrite,strong)     UMHTTPClient		*webClient;
 @property(readwrite,strong)     NSDate              *applicationStart;
 @property(readwrite,strong)     NSString            *stagingAreaPath;
+@property(readwrite,strong)     NSString            *statisticsPath;
+@property(readwrite,strong)     NSString            *appsPath;
 @property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
 @property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
+@property(readwrite,strong)     UMSynchronizedDictionary    *namedLists;
+@property(readwrite,strong)     UMSynchronizedDictionary    *active_ruleset_dict;
+@property(readwrite,strong)     UMSynchronizedDictionary    *active_action_list_dict;
+@property(readwrite,strong)     UMSynchronizedDictionary     *statistics_dict;
+
+@property(readwrite,strong)		UMLicenseDirectory 			*globalLicenseDirectory;
+@property(readwrite,strong)     UMLicenseProductFeature     *coreFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *sctpFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *m2paFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *mtp3Feature;
+@property(readwrite,strong)     UMLicenseProductFeature     *m3uaFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *sccpFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *tcapFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *gsmmapFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *smscFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *smsproxyFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *rerouterFeature;
+@property(readwrite,strong)     UMLicenseProductFeature     *diameterFeature;
+
+@property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile objects */
+@property(readwrite,strong)     UMSynchronizedDictionary    *cdrWriters_dict;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -189,6 +275,17 @@ UMDiameterRouterAppDelegateProtocol>
 - (int)main:(int)argc argv:(const char **)argv;
 - (void) createInstances;
 - (void)  handleStatus:(UMHTTPRequest *)req;
+
+
+- (void)  handleDecode:(UMHTTPRequest *)req;
+
+- (void)  handleDecodeMtp3:(UMHTTPRequest *)req;
+- (void)  handleDecodeSccp:(UMHTTPRequest *)req;
+- (void)  handleDecodeTcap:(UMHTTPRequest *)req;
+- (void)  handleDecodeTcap2:(UMHTTPRequest *)req;
+- (void)  handleDecodeAsn1:(UMHTTPRequest *)req;
+- (void)  handleDecodeSms:(UMHTTPRequest *)req;
+
 - (NSString *)defaultLogDirectory;
 - (int)defaultWebPort;
 - (NSString *)defaultWebUser;
@@ -196,6 +293,14 @@ UMDiameterRouterAppDelegateProtocol>
 
 - (NSString *)defaultApiUser;
 - (NSString *)defaultApiPassword;
+- (NSString *)defaultLicensePath;
+- (NSString *)defaultFilterEnginesPath;
+- (NSString *)defaultStatisticsPath;
+- (NSString *)defaultStagingAreaPath;
+- (NSString *)defaultNamedListPath;
+- (NSString *)defaultTracefilesPath;
+- (NSString *)defaultAppsPath;
+
 
 - (NSString *)productName;
 - (NSString *)productVersion;
@@ -341,17 +446,15 @@ UMDiameterRouterAppDelegateProtocol>
 /************************************************************/
 
 
-
-
-- (void)createSS7FilterStagingArea:(NSString *)name;
-- (void)selectSS7FilterStagingArea:(NSString *)name forSessionId:(NSString *)sessionId;
+- (void)createSS7FilterStagingArea:(NSDictionary *)dict;
+- (void)updateSS7FilterStagingArea:(NSDictionary *)dict;
+- (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session;
 - (void)deleteSS7FilterStagingArea:(NSString *)name;
-- (UMSS7ConfigStagingAreaStorage *)getStagingAreaForSession:(NSString *)sessionId;
-- (void)makeStagingAreaCurrent:(NSString *)name;
+- (UMSS7ConfigSS7FilterStagingArea *)getStagingAreaForSession:(UMSS7ApiSession *)session;
+- (BOOL)makeStagingAreaCurrent:(NSString *)name; /* returns YES on success */
 - (NSArray<NSString *> *)getSS7FilterStagingAreaNames;
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname;
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname;
-
 
 /************************************************************/
 #pragma mark -
@@ -362,5 +465,77 @@ UMDiameterRouterAppDelegateProtocol>
 - (void)addWithConfigSS7FilterEngine:(NSDictionary *)config; /* can throw exceptions */
 - (void)loadSS7FilterEnginesFromDirectory:(NSString *)path;
 - (UMPluginHandler *)getSS7FilterEngineHandler:(NSString *)name;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Named Lists Functions
+/************************************************************/
+
+- (UMSynchronizedArray *)namedlist_lists;
+- (void)namedlist_add:(NSString *)listName value:(NSString *)value;
+- (void)namedlist_remove:(NSString *)listName value:(NSString *)value;
+- (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value;
+- (void)namedlist_flushAll;
+- (NSArray *)namedlist_get:(NSString *)listName;
+
+/************************************************************/
+#pragma mark -
+#pragma mark Trace File Functions
+/************************************************************/
+
+- (UMSynchronizedArray *)tracefile_list;
+- (void)tracefile_remove:(NSString *)name;
+- (void)tracefile_enable:(NSString *)name enable:(BOOL)enable;
+- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)listName;
+- (void)tracefile_action:(NSString *)name action:(NSString *)enable;
+- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Statistics
+/************************************************************/
+
+- (NSArray *)getStatisticsNames;
+- (void)statistics_add:(NSString *)name params:(NSDictionary *)dict;
+- (void)statistics_modify:(NSString *)name params:(NSDictionary *)dict;
+- (void)statistics_remove:(NSString *)name;
+- (void)loadStatisticsFromPath:(NSString *)directory;
+- (void)statistics_flushAll;
+- (UMStatistic *)statistics_get:(NSString *)name;
+
+/************************************************************/
+#pragma mark -
+#pragma mark Filter Packet
+/************************************************************/
+
+- (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet;
+- (UMSCCP_FilterResult)filterFromLocalSubsystem:(UMSCCP_Packet *)packet;
+
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Database functions
+/************************************************************/
+
+
+- (UMDbPool *)getDbPool:(NSString *)name;
+- (UMSynchronizedDictionary *)dbPools;
+- (void)startDatabaseConnections;
+- (void) setupDatabaseTaskQueue;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark CDRWriter functions
+/************************************************************/
+- (SS7CDRWriter *)getCDRWriter:(NSString *)name;
+
+
+
 @end
 

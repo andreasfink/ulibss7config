@@ -34,9 +34,9 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
-    NSString *action = _webRequest.params[@"action"];
-    int slc = [_webRequest.params[@"lsc"] intValue];
+    NSString *name = _params[@"name"];
+    NSString *action = _params[@"action"];
+    int slc = [_params[@"lsc"] intValue];
     name = [UMSS7ConfigObject filterName:name];
     UMMTP3LinkSet *mtp3linkset = [_appDelegate getMTP3LinkSet:name];
     if(mtp3linkset)

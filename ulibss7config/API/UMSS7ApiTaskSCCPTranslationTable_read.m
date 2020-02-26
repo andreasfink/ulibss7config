@@ -34,10 +34,10 @@
         return;
     }
 
-    NSString *sccp_name = _webRequest.params[@"sccp"];
+    NSString *sccp_name = _params[@"sccp"];
 	sccp_name = [UMSS7ConfigObject filterName:sccp_name];
 
-    NSString *selector_name = _webRequest.params[@"name"];
+    NSString *selector_name = _params[@"name"];
     selector_name = [UMSS7ConfigObject filterName:selector_name];
 
     if(sccp_name.length ==0)

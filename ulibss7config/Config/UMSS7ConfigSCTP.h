@@ -15,6 +15,7 @@
     NSArray<NSString *> *_remoteAddresses;
     NSNumber            *_localPort;
     NSNumber            *_remotePort;
+    NSNumber            *_allowAnyRemotePortIncoming;
     NSNumber            *_passive;
     NSNumber            *_heartbeat; /* in seconds */
     NSNumber            *_mtu;
@@ -28,6 +29,7 @@
 @property(readwrite,strong,atomic)      NSArray<NSString *> *remoteAddresses;
 @property(readwrite,strong,atomic)      NSNumber            *localPort;
 @property(readwrite,strong,atomic)      NSNumber            *remotePort;
+@property(readwrite,strong,atomic)      NSNumber            *allowAnyRemotePortIncoming;
 @property(readwrite,strong,atomic)      NSNumber            *passive;
 @property(readwrite,strong,atomic)      NSNumber            *heartbeat; /* in seconds */
 @property(readwrite,strong,atomic)      NSNumber            *mtu;

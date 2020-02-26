@@ -8,8 +8,11 @@
 
 #import "UMSS7ApiTaskSS7FilterRuleSet_add.h"
 #import "UMSS7ConfigObject.h"
-#import "UMSS7ConfigSS7FilterRuleset.h"
+#import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigSS7FilterStagingArea.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterRuleSet_add
 
@@ -32,7 +35,30 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+
+	// 1. call appDelegate getStagingAreaForSession:  to get current staging area storage.
+	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+	if(stagingArea == NULL)
+    {
+        [self sendErrorNotFound:@"Staging-Area"];
+    }
+    else
+    {
+		@try
+		{
+			// 2. use filter_rule_set_dict property and add the ruleset to the dictionary with rulese.name as key
+			UMSS7ConfigSS7FilterRuleSet *rule_set = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:_params];
+
+            NSString *name = _params[@"name"];
+			stagingArea.filter_rule_set_dict[name] = rule_set;
+            [stagingArea setDirty:YES];
+			[self sendResultOK];
+		}
+		@catch(NSException *e)
+		{
+			[self sendException:e];
+		}
+    }
 }
 
 @end

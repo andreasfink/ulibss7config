@@ -35,7 +35,7 @@
         return;
     }
 	
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 	
@@ -48,7 +48,7 @@
     {
 		@try
         {
-			UMSS7ConfigSCCPTranslationTable *co = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_webRequest.params];
+			UMSS7ConfigSCCPTranslationTable *co = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_params];
 			UMSynchronizedSortedDictionary *config = co.config;
             [cs addSCCPTranslationTable:co];
             //[cs addSCCPTranslationTable:config.dictionaryCopy];

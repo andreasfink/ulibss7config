@@ -23,8 +23,8 @@
 
 - (void)main
 {
-    NSString *username = _webRequest.params[@"username"];
-    NSString *password = _webRequest.params[@"password"];
+    NSString *username = _params[@"username"];
+    NSString *password = _params[@"password"];
     UMSS7ConfigApiUser *user = [_appDelegate.runningConfig getApiUser:username];
     if(user)
     {

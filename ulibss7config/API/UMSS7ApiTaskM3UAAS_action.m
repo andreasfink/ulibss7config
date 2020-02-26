@@ -26,8 +26,8 @@
         [self sendErrorNotAuthenticated];
         return;
     }
-    NSString *name = _webRequest.params[@"name"];
-    NSString *action = _webRequest.params[@"action"];
+    NSString *name = _params[@"name"];
+    NSString *action = _params[@"action"];
     name = [UMSS7ConfigObject filterName:name];
     UMM3UAApplicationServer *m3ua_as = [_appDelegate getM3UAAS:name];
     if(m3ua_as)
@@ -39,14 +39,16 @@
 
         else if([action isEqualToString:@"activate"])
         {
-            [m3ua_as activate];
-            [self sendResultOK];
+            //[m3ua_as activate];
+            //[self sendResultOK];
+			[self sendErrorNotImplemented];
 
         }
         else if([action isEqualToString:@"deactivate"])
         {
-            [m3ua_as deactivate];
-            [self sendResultOK];
+            //[m3ua_as deactivate];
+            //[self sendResultOK];
+			[self sendErrorNotImplemented];
         }
         else if([action isEqualToString:@"start"])
         {

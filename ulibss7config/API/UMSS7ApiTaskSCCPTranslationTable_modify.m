@@ -33,7 +33,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
 	name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 	
@@ -49,7 +49,7 @@
         {
 			// Find from sccp layer the old RoutingTable  by _gti, _np, _nai, _tt
 			UMSynchronizedSortedDictionary *oldCo = [_appDelegate readSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
-			UMSS7ConfigSCCPTranslationTable *newCo = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_webRequest.params];
+			UMSS7ConfigSCCPTranslationTable *newCo = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_params];
 			UMSynchronizedSortedDictionary *config = [_appDelegate modifySCCPTranslationTable:newCo.config.dictionaryCopy old:oldCo.dictionaryCopy];
 			[self sendResultObject:config];
 		}

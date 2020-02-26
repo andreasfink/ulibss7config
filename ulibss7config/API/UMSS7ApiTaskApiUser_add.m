@@ -35,7 +35,8 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
+    NSString *pwd = _params[@"password"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigApiUser *usr = [cs getApiUser:name];
@@ -43,10 +44,20 @@
     {
         [self sendErrorAlreadyExisting];
     }
+    else if(name.length==0)
+    {
+        [self sendError:@"missing-parameter" reason:@"'name' parameter is not passed"];
+    }
+    else if(pwd.length==0)
+    {
+        [self sendError:@"missing-parameter" reason:@"'password' parameter is not passed"];
+
+    }
     else
     {
         @try
         {
+            UMSS7ConfigApiUser *usr = [[UMSS7ConfigApiUser alloc] initWithConfig:_params];
             [cs addApiUser:usr];
             UMSynchronizedSortedDictionary *config = usr.config;
             [self sendResultObject:config];

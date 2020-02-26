@@ -45,6 +45,7 @@
     UMLogLevel                  _logLevel;
     UMHistoryLog            *_historyLog;
     UMMutex                 *_operationMutex;
+    NSDictionary            *_params;
 }
 
 @property(readwrite,strong,atomic)  NSString                *sessionName;
@@ -79,6 +80,7 @@
 @property(readwrite,assign,atomic)    UMLogLevel                logLevel;
 
 @property(readwrite,strong,atomic)      UMHistoryLog            *historyLog;
+@property(readwrite,strong,atomic)    NSDictionary                *params;
 
 //--------------------------------------------------------------------------------------------
 
@@ -92,7 +94,9 @@
 
 - (void)logWebSession;
 
++ (void)webFormStart:(NSMutableString *)s title:(NSString *)t script:(NSString *)script;
 + (void)webFormStart:(NSMutableString *)s title:(NSString *)t;
+
 + (void)webFormEnd:(NSMutableString *)s;
 
 - (NSString *)webTitle;
@@ -102,18 +106,35 @@
 + (void)webDiameterOptions:(NSMutableString *)s;
 
 - (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment;
+- (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment hidden:(BOOL)hidden;
 - (void)setApplicationId:(UMDiameterPacket *)pkt  default:(UMDiameterApplicationId) def;
 
 - (void)webDiameterParameters:(NSMutableString *)s;
 
 + (void)webVariousTitle:(NSMutableString *)s;
-+ (void)webVarioisOptions:(NSMutableString *)s;
++ (void)webVariousOptions:(NSMutableString *)s;
 - (void)webException:(NSException *)e;
 
 - (void)touch;
 - (void)timeout; /* gets called when timeouts occur */
 - (BOOL)isTimedOut;
 - (void)submit;
+- (void)setHostAndRealms:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p;
+- (void)setMandatorySessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p;
+- (void)setSessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p;
+
+- (void)responsePacket:(UMDiameterPacket *)pkt;
+- (void)responseError:(UMDiameterPacket *)pkt;
+
+- (void)webDiameterParameter:(NSMutableString *)s
+                        name:(NSString *)name
+                defaultValue:(NSString *)def
+                     comment:(NSString *)comment
+                    optional:(BOOL)optional
+                 conditional:(BOOL)optional;
+
+- (NSString *)webScript;
+
 
 @end
 

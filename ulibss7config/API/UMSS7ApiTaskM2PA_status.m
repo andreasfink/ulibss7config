@@ -27,7 +27,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMLayerM2PA *m2pa = [_appDelegate getM2PA:name];
     if(m2pa)

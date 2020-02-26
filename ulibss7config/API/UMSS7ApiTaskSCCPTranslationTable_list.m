@@ -35,8 +35,9 @@
         return;
     }
 
-    NSString *sccp_name = _webRequest.params[@"sccp"];
+    NSString *sccp_name = _params[@"sccp"];
     sccp_name = [UMSS7ConfigObject filterName:sccp_name];
+    int details = [((NSString *)_params[@"details"]) intValue];
 
     NSArray *sccp_names;
     if(sccp_name.length == 0)
@@ -52,7 +53,27 @@
     for(sccp_name in sccp_names)
     {
         UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
-        dict[sccp_name] = [instance.gttSelectorRegistry listSelectorNames];
+        NSArray *names = [instance.gttSelectorRegistry listSelectorNames];
+        if(details==0)
+        {
+            dict[sccp_name] = names;
+        }
+        else
+        {
+            NSMutableArray *entries = [[NSMutableArray alloc]init];
+            for(NSString *name in names)
+            {
+                SccpGttSelector *selector = [instance.gttSelectorRegistry getSelectorByName:name];
+                UMSynchronizedSortedDictionary *d2 = [[UMSynchronizedSortedDictionary alloc]init];
+                d2[@"name"] = selector.name;
+                d2[@"tt"]  = @(selector.tt);
+                d2[@"gti"]  = @(selector.gti);
+                d2[@"mp"]  = @(selector.np);
+                d2[@"nai"]  = @(selector.nai);
+                [entries addObject:d2];
+            }
+            dict[sccp_name] = entries;
+        }
     }
     [self sendResultObject:dict];
 }

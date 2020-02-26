@@ -14,6 +14,7 @@
     NSNumber            *_https;
     NSString            *_httpsKeyFile;
     NSString            *_httpsCertFile;
+    NSString            *_documentRoot;
 }
 
 + (NSString *)type;
@@ -26,6 +27,7 @@
 @property(readwrite,strong,atomic)      NSNumber            *https;
 @property(readwrite,strong,atomic)      NSString            *httpsKeyFile;
 @property(readwrite,strong,atomic)      NSString            *httpsCertFile;
+@property(readwrite,strong,atomic)      NSString            *documentRoot;
 
 @end
 

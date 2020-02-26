@@ -33,7 +33,7 @@
         return;
     }
 	
-	NSString *name = _webRequest.params[@"name"];
+	NSString *name = _params[@"name"];
 	name = [UMSS7ConfigObject filterName:name];
 	UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
 	

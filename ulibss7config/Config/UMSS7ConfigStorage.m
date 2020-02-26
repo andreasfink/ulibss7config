@@ -41,6 +41,7 @@
 #import "UMSS7ConfigSMSFilterEntry.h"
 #import "UMSS7ConfigHLR.h"
 #import "UMSS7ConfigMSC.h"
+#import "UMSS7ConfigGGSN.h"
 #import "UMSS7ConfigSMSC.h"
 #import "UMSS7ConfigSMSProxy.h"
 #import "UMSS7ConfigDatabasePool.h"
@@ -64,7 +65,8 @@
 #import "UMSS7ConfigApiUser.h"
 #import "UMSS7ConfigDiameterConnection.h"
 #import "UMSS7ConfigDiameterRouter.h"
-#import "UMSS7ConfigDiameterRouter.h"
+#import "UMSS7ConfigDiameterRoute.h"
+#import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -72,52 +74,55 @@
 
 - (void)generalInitialisation
 {
-    _webserver_dict= [[UMSynchronizedDictionary alloc]init];
-    _telnet_dict= [[UMSynchronizedDictionary alloc]init];
-    _syslog_destination_dict= [[UMSynchronizedDictionary alloc]init];
-    _sctp_dict= [[UMSynchronizedDictionary alloc]init];
-    _m2pa_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_link_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_linkset_dict= [[UMSynchronizedDictionary alloc]init];
-    _m3ua_as_dict= [[UMSynchronizedDictionary alloc]init];
-    _m3ua_asp_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _mtp3_route_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_destination_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_translation_table_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_translation_table_entry_dict= [[UMSynchronizedDictionary alloc]init]; /* do we need this or should this be above */
-    _sccp_translation_table_map_dict = [[UMSynchronizedDictionary alloc]init];
-    _sccp_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _sccp_number_translation_dict= [[UMSynchronizedDictionary alloc]init];
-    _tcap_dict= [[UMSynchronizedDictionary alloc]init];
-    _tcap_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _gsmmap_dict= [[UMSynchronizedDictionary alloc]init];
-    _gsmmap_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _sms_dict= [[UMSynchronizedDictionary alloc]init];
-    _sms_filter_dict= [[UMSynchronizedDictionary alloc]init];
-    _hlr_dict= [[UMSynchronizedDictionary alloc]init];
-    _msc_dict= [[UMSynchronizedDictionary alloc]init];
-    _vlr_dict= [[UMSynchronizedDictionary alloc]init];
-    _eir_dict= [[UMSynchronizedDictionary alloc]init];
-    _gsmscf_dict= [[UMSynchronizedDictionary alloc]init];
-    _gmlc_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsc_dict= [[UMSynchronizedDictionary alloc]init];
-    _smsproxy_dict= [[UMSynchronizedDictionary alloc]init];
-    _estp_dict= [[UMSynchronizedDictionary alloc]init];
-    _admin_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _api_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _database_pool_dict= [[UMSynchronizedDictionary alloc]init];
-    _service_user_dict= [[UMSynchronizedDictionary alloc]init];
-    _service_user_profile_dict= [[UMSynchronizedDictionary alloc]init];
-    _service_billing_entity_dict= [[UMSynchronizedDictionary alloc]init];
-    _imsi_pool_dict= [[UMSynchronizedDictionary alloc]init];
-    _cdr_writer_dict= [[UMSynchronizedDictionary alloc]init];
-    _diameter_connection_dict =  [[UMSynchronizedDictionary alloc]init];
-    _diameter_router_dict =  [[UMSynchronizedDictionary alloc]init];
-    _estp_dict= [[UMSynchronizedDictionary alloc]init];
-    _mapi_dict= [[UMSynchronizedDictionary alloc]init];
+    _webserver_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _telnet_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _syslog_destination_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sctp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _m2pa_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_link_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_linkset_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _m3ua_as_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _m3ua_asp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_route_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mtp3_pctrans_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_destination_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_translation_table_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_translation_table_entry_dict= [[UMSynchronizedSortedDictionary alloc]init]; /* do we need this or should this be above */
+    _sccp_translation_table_map_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sccp_number_translation_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _tcap_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _tcap_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gsmmap_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gsmmap_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sms_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sms_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _hlr_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _msc_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _ggsn_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _vlr_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _eir_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gsmscf_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gmlc_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _smsc_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _smsproxy_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _admin_user_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _api_user_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _database_pool_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _service_user_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _service_user_profile_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _service_billing_entity_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _imsi_pool_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _cdr_writer_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _diameter_connection_dict =  [[UMSynchronizedSortedDictionary alloc]init];
+    _diameter_router_dict =  [[UMSynchronizedSortedDictionary alloc]init];
+    _diameter_route_dict =  [[UMSynchronizedSortedDictionary alloc]init];
+    _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mapi_dict= [[UMSynchronizedSortedDictionary alloc]init];
 
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -261,6 +266,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigSMSFilterEntry type]];
     [cfg allowMultiGroup:[UMSS7ConfigHLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigMSC type]];
+    [cfg allowMultiGroup:[UMSS7ConfigGGSN type]];
     [cfg allowMultiGroup:[UMSS7ConfigVLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigGSMSCF type]];
@@ -277,10 +283,14 @@
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterRouter type]];
+    [cfg allowMultiGroup:[UMSS7ConfigDiameterRoute type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
     [cfg read];
     [self processConfig:cfg];
 }
+
+
 
 - (void)processConfig:(UMConfig *)cfg
 {
@@ -435,6 +445,15 @@
         }
     }
 
+    NSArray *mtp3_pctrans_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
+    for(NSDictionary *mtp3_pctrans_config in mtp3_pctrans_configs)
+    {
+        UMSS7ConfigMTP3PointCodeTranslationTable *mtp3_pctt = [[UMSS7ConfigMTP3PointCodeTranslationTable alloc]initWithConfig:mtp3_pctrans_config];
+        if(mtp3_pctt)
+        {
+            _mtp3_pctrans_dict[mtp3_pctt.name] = mtp3_pctt;
+        }
+    }
 
     NSArray *sccp_configs = [cfg getMultiGroups:[UMSS7ConfigSCCP type]];
     for(NSDictionary *sccp_config in sccp_configs)
@@ -641,6 +660,17 @@
         }
     }
 
+    NSArray *ggsn_configs = [cfg getMultiGroups:[UMSS7ConfigGGSN type]];
+    for(NSDictionary *ggsn_config in ggsn_configs)
+    {
+        UMSS7ConfigGGSN *ggsn = [[UMSS7ConfigGGSN alloc]initWithConfig:ggsn_config];
+        if(ggsn.name.length  > 0)
+        {
+            _ggsn_dict[ggsn.name] = ggsn;
+        }
+    }
+
+
     NSArray *vlr_configs = [cfg getMultiGroups:[UMSS7ConfigVLR type]];
     for(NSDictionary *vlr_config in vlr_configs)
     {
@@ -835,6 +865,15 @@
         }
     }
 
+    NSArray *diameter_route_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterRoute type]];
+    for(NSDictionary *diameter_route_config in diameter_route_configs)
+    {
+        UMSS7ConfigDiameterRoute *dr = [[UMSS7ConfigDiameterRoute alloc]initWithConfig:diameter_route_config];
+        if(dr.name.length  > 0)
+        {
+            _diameter_route_dict[dr.name] = dr;
+        }
+    }
 }
 
 
@@ -955,6 +994,7 @@
       /* UMSS7ConfigSMSFilterEntry */
       [self appendSection:s dict:_hlr_dict sectionName:[UMSS7ConfigHLR type]];
       [self appendSection:s dict:_msc_dict sectionName:[UMSS7ConfigMSC type]];
+      [self appendSection:s dict:_ggsn_dict sectionName:[UMSS7ConfigGGSN type]];
       [self appendSection:s dict:_vlr_dict sectionName:[UMSS7ConfigVLR type]];
       [self appendSection:s dict:_eir_dict sectionName:[UMSS7ConfigEIR type]];
       [self appendSection:s dict:_gsmscf_dict sectionName:[UMSS7ConfigGSMSCF type]];
@@ -1028,6 +1068,115 @@
         NSString *s = [NSString stringWithFormat:@"Can not write config file at path %@ due to error: %@",config_file,e];
         @throw([NSException exceptionWithName:@"WRITE_CONFIG" reason:s userInfo:NULL]);
     }
+}
+
+- (UMSynchronizedSortedDictionary *)fullConfigOjbect
+{
+
+#define ADD_SECTION_CONDITIONAL(d,obj,dict) \
+    { \
+        if(dict.count > 0) \
+        { \
+            UMSynchronizedSortedDictionary *d2 = [[UMSynchronizedSortedDictionary alloc]init]; \
+            NSArray *keys = [dict allKeys]; \
+            for(NSString *key in keys)\
+            { \
+                UMSS7ConfigObject *co = dict[key];\
+                d2[key] = co.config;\
+            } \
+            d[ [obj type] ] = d2; \
+        } \
+    }
+
+#define ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d,obj,obj2,dict) \
+    { \
+        if(dict.count > 0) \
+        { \
+            UMSynchronizedSortedDictionary *d2 = [[UMSynchronizedSortedDictionary alloc]init]; \
+            NSArray *keys = [dict allKeys]; \
+            for(NSString *key in keys)\
+            { \
+                UMSS7ConfigObject *co = dict[key];\
+                d2[key] = co.config;\
+            } \
+            d[ [obj type] ] = d2; \
+            UMSynchronizedSortedDictionary *subentries = [[UMSynchronizedSortedDictionary alloc]init]; \
+            for(NSString *key in keys) \
+            { \
+                UMSS7ConfigObject *co = dict[key]; \
+                NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries]; \
+                for(UMSS7ConfigObject *co2 in entries) \
+                { \
+                    subentries[co2.name] = co2.config; \
+                } \
+            } \
+            d[ [obj2 type]] = subentries; \
+        } \
+    }
+
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    d[@"general"]= _generalConfig.config;
+    
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigWebserver,_webserver_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigTelnet,_telnet_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSyslogDestination,_syslog_destination_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSCTP,_sctp_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigM2PA,_m2pa_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3Link,_mtp3_link_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3LinkSet,_mtp3_linkset_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigM3UAAS,_m3ua_as_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigM3UAASP,_m3ua_asp_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3Filter,_mtp3_filter_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigMTP3Route,_mtp3_route_dict);
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSCCP,_sccp_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSCCPDestination,
+                                            UMSS7ConfigSCCPDestinationEntry,
+                                            _sccp_destination_dict);
+
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSCCPTranslationTable,
+                                            UMSS7ConfigSCCPTranslationTableEntry,
+                                            _sccp_translation_table_dict);
+    
+    ADD_SECTION_CONDITIONAL(d,UMSS7ConfigSCCPTranslationTableMap,_sccp_translation_table_map_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSCCPFilter,_sccp_translation_table_dict);
+
+    
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSCCPNumberTranslation,
+                                            UMSS7ConfigSCCPNumberTranslationEntry,
+                                            _sccp_number_translation_dict);
+
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigTCAP,_tcap_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigTCAPFilter,UMSS7ConfigTCAPFilterEntry,_tcap_dict);
+
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGSMMAP,_gsmmap_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigGSMMAPFilter,
+                                            UMSS7ConfigGSMMAPFilterEntry,
+                                            _gsmmap_filter_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSMS,_sms_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSMSFilter,
+                                            UMSS7ConfigSMSFilterEntry,
+                                            _sms_filter_dict);
+
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigHLR,_hlr_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigMSC,_msc_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGGSN,_ggsn_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigVLR,_vlr_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigEIR,_eir_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGSMSCF,_gsmscf_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGMLC,_gmlc_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSMSC,_smsc_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSMSProxy,_smsproxy_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigESTP,_estp_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigAdminUser,_admin_user_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigApiUser,_api_user_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigDatabasePool,_database_pool_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceUser,_service_user_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceUserProfile,_service_user_profile_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceBillingEntity,_service_billing_entity_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigIMSIPool,_imsi_pool_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigCdrWriter,_cdr_writer_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigDiameterConnection,_diameter_connection_dict);
+    return d;
 }
 
 /* returns YES on success */
@@ -2129,7 +2278,7 @@
  **************************************************
  */
 #pragma mark -
-#pragma mark GSMMAP
+#pragma mark MSC
 
 - (NSArray *)getMSCNames
 {
@@ -2170,6 +2319,52 @@
     return @"ok";
 }
 
+/*
+ **************************************************
+ ** GGSN
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GGSN
+
+- (NSArray *)getGGSNNames
+{
+    return [_ggsn_dict allKeys];
+}
+
+- (UMSS7ConfigGGSN *)getGGSN:(NSString *)name
+{
+    return _ggsn_dict[name];
+}
+
+- (NSString *)addGGSN:(UMSS7ConfigGGSN *)ggsn
+{
+    if(_ggsn_dict[ggsn.name] == NULL)
+    {
+        _ggsn_dict[ggsn.name] = ggsn;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceGGSN:(UMSS7ConfigGGSN *)ggsn
+{
+    _ggsn_dict[ggsn.name] = ggsn;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteGGSN:(NSString *)name
+{
+    if(_ggsn_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_ggsn_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 /*
  **************************************************
  ** HLR
@@ -3165,6 +3360,101 @@
     return @"ok";
 }
 
+/*
+ **************************************************
+ ** DiameterRouter
+ **************************************************
+ */
+#pragma mark -
+#pragma mark DiameterRoute
+
+- (NSArray *)getDiameterRoutes
+{
+    return [_diameter_route_dict allKeys];
+}
+
+- (UMSS7ConfigDiameterRoute *)getDiameterRoute:(NSString *)name
+{
+    return _diameter_route_dict [name];
+}
+
+- (NSString *)addDiameterRoute:(UMSS7ConfigDiameterRoute *)dc
+{
+    if(_diameter_route_dict[dc.name] == NULL)
+    {
+        _diameter_route_dict[dc.name] = dc;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceDiameterRoute:(UMSS7ConfigDiameterRoute *)dc
+{
+    _diameter_route_dict[dc.name] = dc;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteDiameterRoute:(NSString *)name
+{
+    if(_diameter_route_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_diameter_route_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** PointcodeTranslationTable
+ **************************************************
+ */
+#pragma mark -
+#pragma mark PointcodeTranslationTable
+- (NSArray *)getPointcodeTranslationTables
+{
+    return [_mtp3_pctrans_dict allKeys];
+
+}
+
+- (UMSS7ConfigMTP3PointCodeTranslationTable *)getPointcodeTranslationTable:(NSString *)name
+{
+    return _mtp3_pctrans_dict [name];
+}
+
+- (NSString *)addPointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)pctt
+{
+    if(_mtp3_pctrans_dict[pctt.name] == NULL)
+    {
+        _mtp3_pctrans_dict[pctt.name] = pctt;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+
+}
+
+- (NSString *)replacePointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)pctt
+{
+    _mtp3_pctrans_dict[pctt.name] = pctt;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deletePointcodeTranslationTable:(NSString *)name
+{
+    if(_mtp3_pctrans_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mtp3_pctrans_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
 
 /***************************************************/
 #pragma mark -
@@ -3205,6 +3495,7 @@
     n.sms_filter_dict = [_sms_filter_dict copy];
     n.hlr_dict = [_hlr_dict copy];
     n.msc_dict = [_msc_dict copy];
+    n.ggsn_dict = [_ggsn_dict copy];
     n.vlr_dict = [_vlr_dict copy];
     n.gsmscf_dict = [_gsmscf_dict copy];
     n.gmlc_dict = [_gmlc_dict copy];
@@ -3225,10 +3516,10 @@
     n.cdr_writer_dict = [_cdr_writer_dict copy];
     n.diameter_connection_dict = [_diameter_connection_dict copy];
     n.diameter_router_dict = [_diameter_router_dict copy];
+    n.diameter_route_dict = [_diameter_route_dict copy];
+    n.mtp3_pctrans_dict = [_mtp3_pctrans_dict copy];
     n.rwconfigFile = _rwconfigFile;
     return n;
-
 }
-
 
 @end

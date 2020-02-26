@@ -2,11 +2,14 @@
 //  DiameterSessionCER.m
 //  ulibss7config
 //
-//  Created by Andreas Fink on 29.05.19.
+//  Created by afink on 2019-07-10 02:01:33.522000
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
 #import "DiameterSessionCER.h"
+#import "WebMacros.h"
+#import <ulibdiameter/ulibdiameter.h>
+
 
 @implementation DiameterSessionCER
 
@@ -16,12 +19,31 @@
     return @"CER";
 }
 
+- (NSString *)webScript
+{
+    return [NSString stringWithFormat:@"    <script>const vars = %@</script>\n" , [UMDiameterPacketCER webJsonDefintion]];
+}
+
 - (void)webDiameterParameters:(NSMutableString *)s
 {
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>not-implemented</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"not-implemented\" type=text placeholder=\"+12345678\">(not-implemented))</td>\n"];
-    [s appendString:@"</tr>\n"];
+    [self webApplicationParameters:s defaultApplicationId:[UMDiameterPacketCER defaultApplicationId] comment:NULL];
+    [UMDiameterPacketCER webDiameterParameters:s];
+}
+
+- (void)main
+{
+    @try
+    {
+        UMDiameterPacketCER *pkt = [[UMDiameterPacketCER alloc]init];
+        [pkt setDictionaryValueFromWeb:_req.params];
+        self.query = pkt;
+        [self submit];
+    }
+    @catch(NSException *e)
+    {
+        [self webException:e];
+    }
 }
 
 @end
+

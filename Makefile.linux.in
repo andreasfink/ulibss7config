@@ -21,12 +21,16 @@ HFILES =  $(wildcard @PROJECT_NAME@/*.h) $(wildcard @PROJECT_NAME@/*/*.h)
 MOFILES  = $(MFILES:.m=.m.o)
 OFILES = $(MOFILES)
 
-INCLUDEDIRS=-I ulibss7config -I ulibss7config/API -I ulibss7config/Config -I ulibss7config/DiameterSessions
+DIAMETER_WEB_GEN_M_FILES=$(wildcard diameter-web-gen/*.m) 
+DIAMETER_WEB_GEN_O_FILES=$(DIAMETER_WEB_GEN_M_FILES:.m=.m.o)
+
+
+INCLUDEDIRS=-I ulibss7config -I ulibss7config/API -I ulibss7config/Config -I ulibss7config/DiameterSessions -I ulibss7config/filter -I ulibss7config/app
 
 lib@PROJECT_NAME@.so: ${OFILES}
 	${CC} -shared -o ${LIB}  ${LDFLAGS} ${OFILES} ${LIBS} ${STATIC_LIBS}
 
-install: ${LIB}
+install: ${LIB} build/diameter-web-gen
 	-mkdir -p ${DESTDIR}/usr/local/lib/pkgconfig
 	rm -f "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}.${MINORVER}.${REVISION}"
 	rm -f "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}.${MINORVER}"
@@ -37,10 +41,16 @@ install: ${LIB}
 	ln -s "${LIB}.${MAJORVER}.${MINORVER}"             "${DESTDIR}/usr/local/lib/${LIB}.${MAJORVER}"
 	ln -s "${LIB}.${MAJORVER}"                         "${DESTDIR}/usr/local/lib/${LIB}"
 	-install -b -g root -o root -m 644 ${PKGCONFIGFILE} ${DESTDIR}/usr/local/lib/pkgconfig/
+	-install -b -g root -o root -m 755 build/diameter-web-gen ${DESTDIR}/usr/local/bin/diameter-web-gen
 	-mkdir -p ${DESTDIR}/usr/local/include/@PROJECT_NAME@
 	cp $(HFILES) ${DESTDIR}/usr/local/include/@PROJECT_NAME@
 	ldconfig
 
+build/diameter-web-gen: $(DIAMETER_WEB_GEN_O_FILES) lib@PROJECT_NAME@.so
+	mkdir -p build
+	${CC} -o build/decode-sms  -L. -l@PROJECT_NAME@ ${LDFLAGS} $(DIAMETER_WEB_GEN_O_FILES)
+	
+	
 clean:
 	rm -f $(LIB) $(OFILES)
 

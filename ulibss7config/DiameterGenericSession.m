@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#import "WebMacros.h"
 
 @implementation DiameterGenericSession
 
@@ -27,7 +27,6 @@
 
 - (void)genericInitialisation:(DiameterGenericInstance *)inst
 {
-    _userIdentifier = [inst getNewUserIdentifier];
     _gInstance = inst;
     _options = [[NSMutableDictionary alloc]init];
     _sessionName = [[self class] description];
@@ -70,6 +69,7 @@
     if(self)
     {
         _req  = xreq;
+        _params = [xreq.params urldecodeStringValues];
         [self genericInitialisation:inst];
         [self setTimeouts];
         [self setOptions];
@@ -81,16 +81,18 @@
 -(DiameterGenericSession *)setHttpRequest:(UMHTTPRequest *)xreq
                                  instance:(DiameterGenericInstance *)inst
 {
+
     [_historyLog addLogEntry:@"DiameterGenericSession: setHttpRequest"];
     [self genericInitialisation:inst];
     [self setTimeouts];
     [self setOptions];
+    _req = xreq;
+    _params = [xreq.params urldecodeStringValues];
     [_req makeAsyncWithTimeout:_timeoutInSeconds delegate:_gInstance];
     return self;
 }
 
 - (DiameterGenericSession *)initWithQuery:(UMDiameterPacket *)packet
-                           userIdentifier:(NSString *)uid
                                       req:(UMHTTPRequest *)xreq
                               commandCode:(uint32_t) cc
                              localAddress:(NSString *)la
@@ -100,8 +102,7 @@
                                  instance:(DiameterGenericInstance *)xInstance
                                   options:(NSDictionary *) xoptions
 {
-    [_historyLog addLogEntry:@"SS7GenericSession: initWithQuery"];
-
+    [_historyLog addLogEntry:@"DiameterGenericSession: initWithQuery"];
     self = [super init];
     if(self)
     {
@@ -135,7 +136,6 @@
     {
         [self genericInitialisation:ot.gInstance];
         _commandCode = ot.commandCode;
-        _userIdentifier = ot.userIdentifier;
         _query = ot.query;
         _gInstance = ot.gInstance;
         _localAddress = ot.localAddress;
@@ -178,7 +178,7 @@
     }
     @catch(id err)
     {
-        [self.logFeed majorErrorText:[NSString stringWithFormat:@"DiameterSession: Sending U_Abort due to exception: %@",err]];
+        [self.logFeed majorErrorText:[NSString stringWithFormat:@"DiameterSession: exception: %@",err]];
     }
     if(!json)
     {
@@ -250,13 +250,45 @@
     {
         [_req makeAsyncWithTimeout:_timeoutInSeconds];
     }
-    _query.commandCode = _commandCode;
+
+    if(_endToEndIdentifier == 0)
+    {
+        _endToEndIdentifier = [_gInstance.diameterRouter nextEndToEndIdentifier];
+    }
+
+    if(_commandCode == 0)
+    {
+       _commandCode = _query.commandCode;
+    }
     _query.endToEndIdentifier = _endToEndIdentifier;
-    _userIdentifier = [NSString stringWithFormat:@"%08lX",(long)_endToEndIdentifier];
+    _userIdentifier = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:_endToEndIdentifier];
     [_gInstance addSession:self userId:_userIdentifier];
-    [[_gInstance diameterRouter] localSendPacket:_query toPeer:NULL];
+    [_gInstance sendOutgoingRequestPacket:_query peer:NULL];
 }
 
+- (void)responsePacket:(UMDiameterPacket *)pkt
+{
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+    [self touch];
+    dict[@"query"] =  _query.objectValue;
+    dict[@"response"] = pkt.objectValue;
+    [_operationMutex lock];
+    [self outputResult2:dict];
+    [self markForTermination];
+    [_operationMutex unlock];
+}
+
+- (void)responseError:(UMDiameterPacket *)pkt
+{
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+    [self touch];
+    dict[@"query"] =  _query.objectValue;
+    dict[@"error"] = pkt.objectValue;
+    [_operationMutex lock];
+    [self outputResult2:dict];
+    [self markForTermination];
+    [_operationMutex unlock];
+}
 
 - (void)webException:(NSException *)e
 {
@@ -305,37 +337,41 @@
     }
 }
 
-+ (void)webFormStart:(NSMutableString *)s title:(NSString *)t
++ (void)webPageStart:(NSMutableString *)s title:(NSString *)t script:(NSString *)script
 {
-    [DiameterGenericInstance webHeader:s title:t];
+    [DiameterGenericInstance webHeader:s title:t script:script];
+}
+
++ (void)webFormStart:(NSMutableString *)s title:(NSString *)t script:(NSString *)script
+{
     [s appendString:@"\n"];
     [s appendString:@"<a href=\"index.php\">menu</a>\n"];
     [s appendFormat:@"<h2>%@</h2>\n",t];
-    [s appendString:@"<form method=\"get\">\n"];
-    [s appendString:@"<table>\n"];
+}
 
++ (void)webFormStart:(NSMutableString *)s title:(NSString *)t
+{
+    return [self webFormStart:s title:t script:@""];
 }
 
 + (void)webFormEnd:(NSMutableString *)s
 {
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td>&nbsp</td>\n"];
-    [s appendString:@"    <td><input type=submit></td>\n"];
-    [s appendString:@"</tr>\n"];
-    [s appendString:@"</table>\n"];
-    [s appendString:@"</form>\n"];
+    [s appendString:@"<script defer src=\"/js/bundle.js\"></script>"];
+}
+
++ (void)webPageEnd:(NSMutableString *)s
+{
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
     [s appendString:@"\n"];
 }
-
 
 + (void)webVariousTitle:(NSMutableString *)s
 {
     [s appendString:@"<tr><td colspan=2 class=subtitle>Various Extensions:</td></tr>\n"];
 }
 
-+ (void)webVarioisOptions:(NSMutableString *)s
++ (void)webVariousOptions:(NSMutableString *)s
 {
     /*
     [s appendString:@"<tr>\n"];
@@ -385,11 +421,9 @@
     [_operationMutex unlock];
 }
 
-
 - (void)writeTraceToDirectory:(NSString *)dir
 {
 }
-
 
 - (BOOL)isTimedOut
 {
@@ -414,28 +448,57 @@
 {
     NSMutableString *s = [[NSMutableString alloc]init];
 
-    [DiameterGenericSession webFormStart:s title: [self webTitle]];
-    [DiameterGenericSession webDiameterTitle:s];
-    [self webDiameterParameters:s];
-    [DiameterGenericSession webDiameterOptions:s];
+    [DiameterGenericSession webPageStart:s title: [self webTitle]  script:[self webScript1]];
+    [DiameterGenericSession webFormStart:s title: [self webTitle]  script:[self webScript1]];
     [DiameterGenericSession webFormEnd:s];
+    [DiameterGenericSession webPageEnd:s];
     return s;
 }
 
+- (NSString *)webScript1
+{
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [s appendString:@"<link rel='stylesheet' href='/css/global.css'>\n"];
+    [s appendString:@"<link rel='stylesheet' href='/css/bundle.css'>\n"];
+    [s appendString:@"<link rel='icon' type='image/png' href='/favicon.png'>\n"];
+    [s appendString:[self webScript]];
+    return s;
+}
+
+- (NSString *)webScript
+{
+    return @"";
+}
 
 - (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment
 {
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=mandatory>application-id</td>\n"];
-    [s appendFormat:@"    <td class=mandatory><input name=\"application-id\" type=text value=%u>(%@)</td>\n",dai,comment];
-    [s appendString:@"</tr>\n"];
+    return [self webApplicationParameters:s defaultApplicationId:dai comment:comment hidden:NO];
+}
+
+- (void)webApplicationParameters:(NSMutableString *)s defaultApplicationId:(uint32_t)dai comment:(NSString *)comment hidden:(BOOL)hidden
+{
+    if(comment==NULL)
+    {
+        comment = umdiameter_application_id_string(dai);
+    }
+    if(hidden)
+    {
+        [s appendFormat:@"<input name=\"application-id\" type=hidden value=%u>\n",dai];
+    }
+    else
+    {
+        [s appendString:@"<tr>\n"];
+        [s appendString:@"    <td class=mandatory>application-id</td>\n"];
+        [s appendFormat:@"    <td class=mandatory><input name=\"application-id\" type=text value=%u>(%@)</td>\n",dai,comment];
+        [s appendString:@"</tr>\n"];
+    }
 }
 
 - (void)webDiameterParameters:(NSMutableString *)s
 {
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>not-implemented</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"not-implemented\" type=text placeholder=\"+12345678\">(not-implemented))</td>\n"];
+    [s appendString:@"    <td class=optional>---</td>\n"];
     [s appendString:@"</tr>\n"];
 }
 
@@ -484,6 +547,120 @@
         pkt.applicationId = def;
     }
 }
+
+- (void)setHostAndRealms:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *originHost;
+    NSString *originRealm;
+    NSString *destinationHost;
+    NSString *destinationRealm;
+    SET_OPTIONAL_CLEAN_PARAMETER(p,originHost,@"origin-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationHost,@"destination-host");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,originRealm,@"origin-realm");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,destinationRealm,@"destination-realm");
+
+    if(originHost.length > 0)
+    {
+        // { Origin-Host }
+        UMDiameterAvpOrigin_Host *avp = [[UMDiameterAvpOrigin_Host alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[originHost dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+    // { Origin-Realm }
+    if(originRealm.length > 0)
+    {
+        UMDiameterAvpOrigin_Realm *avp = [[UMDiameterAvpOrigin_Realm alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[originRealm  dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+
+    if(destinationHost.length > 0)
+    {
+        // { Destination-Host }
+        UMDiameterAvpDestination_Host *avp = [[UMDiameterAvpDestination_Host alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[destinationHost dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+    // { Restination-Realm }
+    if(destinationRealm.length > 0)
+    {
+        UMDiameterAvpDestination_Realm *avp = [[UMDiameterAvpDestination_Realm alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.avpData =[destinationRealm  dataUsingEncoding:NSUTF8StringEncoding];
+        [packet appendAvp:avp];
+    }
+}
+
+- (void)setMandatorySessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *sessionId;
+    SET_MANDATORY_PARAMETER(p,sessionId,@"session-id");
+
+    if(sessionId.length > 0)
+    {
+        // < Session-Id >
+        UMDiameterAvpSession_Id *avp = [[UMDiameterAvpSession_Id alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.value = sessionId;
+        [packet appendAvp:avp];
+    }
+}
+- (void)setSessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
+{
+    NSString *sessionId;
+    SET_OPTIONAL_CLEAN_PARAMETER(p,sessionId,@"session-id");
+
+    if(sessionId.length > 0)
+    {
+        // < Session-Id >
+        UMDiameterAvpSession_Id *avp = [[UMDiameterAvpSession_Id alloc]init];
+        [avp setFlagMandatory:YES];
+        avp.value = sessionId;
+        [packet appendAvp:avp];
+    }
+}
+
+
+- (void)webDiameterOptionalParameter:(NSMutableString *)s name:(NSString *)name
+{
+    [s appendString:@"<tr>\n"];
+    [s appendFormat:@"    <td class=optional>%@</td>\n",name];
+    [s appendFormat:@"    <td class=optional><input name=\"%@\" value=\"\"></td>\n",name];
+    [s appendString:@"</tr>\n"];
+}
+
+- (void)webDiameterParameter:(NSMutableString *)s
+                        name:(NSString *)name
+                defaultValue:(NSString *)def
+                     comment:(NSString *)comment
+                    optional:(BOOL)optional
+                 conditional:(BOOL)conditional
+{
+    NSString *css;
+    if(optional==NO)
+    {
+        css = @"mandatory";
+    }
+    else
+    {
+        if(conditional)
+        {
+            css = @"conditional";
+        }
+        else
+        {
+            css = @"optional";
+        }
+    }
+    [s appendString:@"<tr>\n"];
+    [s appendFormat:@"    <td class=%@>%@</td>\n",css,name];
+    [s appendFormat:@"    <td class=%@><input name=\"%@\" value=\"\" value=\"%@\">%@</td>\n",css,name,def,comment];
+    [s appendString:@"</tr>\n"];
+}
+
 
 @end
 

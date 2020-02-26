@@ -40,6 +40,7 @@
     APPEND_CONFIG_STRING(s,@"m2pa",_m2pa);
     APPEND_CONFIG_INTEGER(s,@"slc",_slc);
     APPEND_CONFIG_DOUBLE(s,@"link-test-time",_linkTestTime);
+    APPEND_CONFIG_INTEGER(s,@"link-test-max-outstanding",_linkTestMax);
 }
 
 
@@ -50,6 +51,8 @@
     APPEND_DICT_STRING(dict,@"m2pa",_m2pa);
     APPEND_DICT_INTEGER(dict,@"slc",_slc);
     APPEND_DICT_DOUBLE(dict,@"link-test-time",_linkTestTime);
+    APPEND_DICT_INTEGER(dict,@"link-test-max-outstanding",_linkTestMax);
+
     return dict;
 }
 
@@ -60,6 +63,8 @@
     SET_DICT_STRING(dict,@"m2pa",_m2pa);
     SET_DICT_INTEGER(dict,@"slc",_slc);
     SET_DICT_DOUBLE(dict,@"link-test-time",_linkTestTime);
+    SET_DICT_INTEGER(dict,@"link-test-max-outstanding",_linkTestMax);
+
 }
 
 - (UMSS7ConfigMTP3Link *)copyWithZone:(NSZone *)zone

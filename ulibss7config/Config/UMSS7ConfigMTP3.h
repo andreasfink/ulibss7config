@@ -26,5 +26,6 @@
 @property(readwrite,strong,atomic)  NSString *opc;
 @property(readwrite,strong,atomic)  NSString *networkIndicator;
 @property(readwrite,strong,atomic)  NSString *problematicPacketDumper;
+@property(readwrite,strong,atomic)  NSString *mode;
 
 @end

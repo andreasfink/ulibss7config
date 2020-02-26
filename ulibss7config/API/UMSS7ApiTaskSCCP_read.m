@@ -32,7 +32,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigSCCP *obj = [cs getSCCP:name];
     if(obj)

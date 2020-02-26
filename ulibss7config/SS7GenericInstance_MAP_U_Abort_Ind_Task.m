@@ -13,13 +13,13 @@
 @implementation SS7GenericInstance_MAP_U_Abort_Ind_Task
 
 - (SS7GenericInstance_MAP_U_Abort_Ind_Task *)initWithInstance:(SS7GenericInstance *)inst
-                                            userIdentifier:(UMGSMMAP_UserIdentifier *)userIdentifier
-                                            callingAddress:(SccpAddress *)callingAddress
-                                             calledAddress:(SccpAddress *)calledAddress
-                                           dialoguePortion:(UMTCAP_asn1_dialoguePortion *)dialoguePortion
-                                               transaction:(NSString *)tcapLocalTransactionId
-                                         remoteTransaction:(NSString *)tcapRemoteTransactionId
-                                                  options:(NSDictionary *)options
+                                               userIdentifier:(UMGSMMAP_UserIdentifier *)userIdentifier
+                                               callingAddress:(SccpAddress *)callingAddress
+                                                calledAddress:(SccpAddress *)calledAddress
+                                              dialoguePortion:(UMTCAP_asn1_dialoguePortion *)dialoguePortion
+                                                  transaction:(NSString *)tcapLocalTransactionId
+                                            remoteTransaction:(NSString *)tcapRemoteTransactionId
+                                                      options:(NSDictionary *)options
 {
     self = [super initWithName:[[self class]description]
                       receiver:inst

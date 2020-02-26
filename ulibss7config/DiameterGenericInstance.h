@@ -12,7 +12,7 @@
 
 @class DiameterGenericSession;
 
-@interface DiameterGenericInstance : UMLayer<UMHTTPServerHttpGetPostDelegate,UMHTTPRequest_TimeoutProtocol>
+@interface DiameterGenericInstance : UMLayer<UMHTTPServerHttpGetPostDelegate,UMHTTPRequest_TimeoutProtocol,UMDiameterLocalUserProtocol>
 {
     NSString                    *_instanceAddress;
     UMSynchronizedDictionary    *_sessions;
@@ -54,11 +54,32 @@
 - (void) markSessionForTermination:(DiameterGenericSession *)t;
 + (NSString *)webIndex;
 
+
++ (void)webHeader:(NSMutableString *)s title:(NSString *)t script:(NSString *)script;
 + (void)webHeader:(NSMutableString *)s title:(NSString *)t;
 - (UMHTTPAuthenticationStatus)httpAuthenticateRequest:(UMHTTPRequest *)req
                                                 realm:(NSString **)realm;
 - (UMHTTPAuthenticationStatus)authenticateUser:(NSString *)user pass:(NSString *)pass;
 - (NSUInteger)sessionsCount;
 - (void)housekeeping;
+- (void)processIncomingRequestPacket:(UMDiameterPacket *)packet
+                              router:(UMDiameterRouter *)router
+                                peer:(UMDiameterPeer *)peer;
+
+- (void)processIncomingErrorPacket:(UMDiameterPacket *)packet
+                            router:(UMDiameterRouter *)router
+                              peer:(UMDiameterPeer *)peer;
+
+- (void)processIncomingResponsePacket:(UMDiameterPacket *)packet
+                               router:(UMDiameterRouter *)router
+                                 peer:(UMDiameterPeer *)peer;
+
+
+- (void)sendOutgoingRequestPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
+- (void)sendOutgoingErrorPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
+- (void)sendOutgoingResponsePacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer;
+
++ (NSString *)localIdentifierFromEndToEndIdentifier:(uint32_t)e2e;
++ (NSString *)remoteIdentifierFromEndToEndIdentifier:(uint32_t)e2e host:(NSString *)host;
 
 @end

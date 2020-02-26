@@ -10,6 +10,8 @@
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterStagingArea_list
 
@@ -32,6 +34,16 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+
+	@try
+	{
+		// Just whatever there is into list because _apiSession.currentStorageAreaName may be NULL
+		NSArray<NSString *> *areas = [_appDelegate getSS7FilterStagingAreaNames];
+		[self sendResultObject:areas];
+	}
+	@catch(NSException *e)
+	{
+		[self sendException:e];
+	}
 }
 @end

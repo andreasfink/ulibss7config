@@ -32,4 +32,5 @@
 @property(readwrite,strong,atomic)  NSNumber *beatTimer;
 @property(readwrite,strong,atomic)  NSNumber *beatMaxOutstanding;
 
+
 @end

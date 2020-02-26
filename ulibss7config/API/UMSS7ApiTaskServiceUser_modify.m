@@ -28,7 +28,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigServiceUser *config_object = [cs getServiceUser:name];
@@ -38,7 +38,7 @@
     }
     else
     {
-        [config_object setConfig:_webRequest.params];
+        [config_object setConfig:_params];
         NSDictionary *config = config_object.config.dictionaryCopy;
         if(config_object.nameChanged)
         {

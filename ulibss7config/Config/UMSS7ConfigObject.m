@@ -61,7 +61,7 @@
     APPEND_CONFIG_BOOLEAN(s,@"enable",_enabled);
     APPEND_CONFIG_INTEGER(s,@"log-level",_logLevel);
     APPEND_CONFIG_STRING(s,@"log-file",_logFile);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"comment",_comments);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"comment",_comments); /* this will write multipe comment=.. lines */
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -73,7 +73,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     APPEND_DICT_STRING(dict,@"group",self.type);
-    if(withoutName==NO)
+    if((withoutName==NO) && (_name.length >0))
     {
         APPEND_DICT_STRING(dict,@"name",_name);
     }
@@ -81,8 +81,8 @@
     APPEND_DICT_BOOLEAN(dict,@"enable",_enabled);
     APPEND_DICT_INTEGER(dict,@"log-level",_logLevel);
     APPEND_DICT_STRING(dict,@"log-file",_logFile);
-    APPEND_DICT_ARRAY(dict,@"comment",_comments);
-    APPEND_DICT_ARRAY(dict,@"comment",_comments);
+    NSString *commentsAsString = [_comments componentsJoinedByString:@"\n"];
+    APPEND_DICT_STRING(dict,@"comment",commentsAsString);
     return dict;
 }
 
@@ -117,10 +117,16 @@
     if(n==NULL)
     {
         if(   (![group isEqualToString:@"general"])
-            &&(![group isEqualToString:@"mtp3-route"])
-            &&(![group isEqualToString:@"sccp-number-translation-entry"])
-            &&(![group isEqualToString:@"tcap-filter-entry"])
-            &&(![group isEqualToString:@"sccp-translation-table-entry"]))
+           &&(![group isEqualToString:@"mtp3-route"])
+           &&(![group isEqualToString:@"sccp-number-translation-entry"])
+           &&(![group isEqualToString:@"tcap-filter-entry"])
+           &&(![group isEqualToString:@"sccp-translation-table-entry"])
+           &&(![group isEqualToString:@"sccp-destination-entry"])
+           &&(![group isEqualToString:@"sccp-filter"])
+           &&(![group isEqualToString:@"cdr-writer"])
+           &&(![group isEqualToString:@"ss7-filter-action"])
+           &&(![group isEqualToString:@"ss7-filter-rule"])
+           &&(![group isEqualToString:@"diameter-route"]))
         {
             NSLog(@"Warning: object of type %@ without a name",group);
         }
@@ -149,7 +155,8 @@
     SET_DICT_BOOLEAN(dict,@"enable",_enabled);
     SET_DICT_INTEGER(dict,@"log-level",_logLevel);
     SET_DICT_STRING(dict,@"log-file",_logFile);
-    SET_DICT_ARRAY(dict,@"comment",_comments);
+    NSString *commentsAsString = [_comments componentsJoinedByString:@"\n"];
+    SET_DICT_STRING(dict,@"comment",commentsAsString);
 }
 
 +(NSString *)filterName:(NSString *)str
@@ -158,24 +165,24 @@
     {
         return NULL;
     }
-    char out[256];
-    const char *in = str.UTF8String;
-    size_t i;
-    size_t j=0;
-    size_t n=strlen(in);
-    if(n>255)
+    NSInteger LIMIT = 64;
+    char out[LIMIT];
+    NSInteger i;
+    NSInteger j=0;
+    NSInteger n=str.length;
+    if(n>LIMIT)
     {
-        n = 255;
+        n = LIMIT;
     }
     memset(out,0x00,sizeof(out));
     for(i=0;i<n;i++)
     {
-        char c = in[i];
+        unichar c = [str characterAtIndex:i];
         if((c>='a') && (c<='z'))
         {
             out[j++]=c;
         }
-        else if((c>='A') && (c<='Z'))
+        else if((c>='A') && (c<='Z')) 
         {
             out[j++]=c-'A'+'a';
         }
@@ -198,6 +205,7 @@
                 case '+':
                 case ',':
                 case '=':
+                case '%':
                     out[j++]=c;
                     break;
                 default:
@@ -205,7 +213,9 @@
             }
         }
     }
-    return @(out);
+    out[LIMIT-1]='\0';
+    NSString *result = @(out);
+    return result;
 }
 
 - (UMSS7ConfigObject *)copyWithZone:(NSZone *)zone
@@ -225,7 +235,6 @@
     [_subEntries addObject:obj];
 }
 
-
 - (NSArray<NSDictionary *> *)subConfigs
 {
     NSMutableArray *configs = [[NSMutableArray alloc]init];
@@ -236,5 +245,9 @@
     return configs;
 }
 
+- (id)proxyForJson
+{
+    return self.config;
+}
 
 @end

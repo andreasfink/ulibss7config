@@ -10,6 +10,7 @@
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigServiceUser.h"
 #import "UMSS7ConfigStorage.h"
+#import "UMSS7ApiTaskMacros.h"
 
 @implementation UMSS7ApiTaskServiceUser_list
 
@@ -34,7 +35,47 @@
 
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     NSArray *names = [cs getServiceUserNames];
-    [self sendResultObject:names];
+
+
+    int details = [((NSString *)_params[@"details"]) intValue];
+    switch(details)
+    {
+         case 0:
+         default:
+             [self sendResultObject:names];
+             break;
+         case 1:
+            {
+                NSMutableArray *entries = [[NSMutableArray alloc]init];
+                for(NSString *name in names)
+                {
+                    UMSS7ConfigServiceUser *obj = [cs getServiceUser:name];
+                    if(obj)
+                    {
+                        UMSynchronizedSortedDictionary *dict;
+                        SET_DICT_STRING_OR_EMPTY(dict,@"name",obj.name);
+                        SET_DICT_STRING_OR_EMPTY(dict,@"profile",obj.userProfile);
+                        SET_DICT_STRING_OR_EMPTY(dict,@"billing-entity",obj.billingEntity);
+                        [entries addObject:dict];
+                    }
+                }
+                [self sendResultObject:entries];
+            }
+         case 2:
+             {
+                 NSMutableArray *entries = [[NSMutableArray alloc]init];
+                 for(NSString *name in names)
+                 {
+                     UMSS7ConfigServiceUser *obj = [cs getServiceUser:name];
+                     if(obj)
+                     {
+                         [entries addObject:obj.config];
+                     }
+                 }
+                 [self sendResultObject:entries];
+             }
+             break;
+    }
 }
 
 @end

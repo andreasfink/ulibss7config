@@ -33,7 +33,7 @@
         return;
     }
 	
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
@@ -50,4 +50,5 @@
         [self sendResultOK];
     }
 }
+
 @end

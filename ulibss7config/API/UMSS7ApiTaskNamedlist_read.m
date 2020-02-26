@@ -7,6 +7,10 @@
 //
 
 #import "UMSS7ApiTaskNamedlist_read.h"
+#import "UMSS7ConfigObject.h"
+#import "UMSS7ConfigStorage.h"
+#import "UMSS7ConfigAppDelegateProtocol.h"
+#import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskNamedlist_read
 
@@ -29,6 +33,32 @@
         [self sendErrorNotAuthorized];
         return;
     }
-    [self sendErrorNotImplemented];
+    
+	@try
+	{
+		// 1. Get external parameters
+		NSString *listName = _params[@"name"];
+        if(listName.length==0)
+        {
+            /* backwards compatibility to old api of SMSProx4 */
+            listName = _params[@"list"];
+        }
+
+		if(listName.length==0)
+		{
+            [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
+		}
+		else
+		{
+			// 2. Read
+			NSArray *ls = [_appDelegate namedlist_get:listName];
+			[self sendResultObject:ls];
+		}
+	}
+	@catch(NSException *e)
+	{
+		[self sendException:e];
+	}
+	
 }
 @end

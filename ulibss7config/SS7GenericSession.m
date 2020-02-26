@@ -184,12 +184,14 @@ else \
     _undefinedSession = YES;
     _sessionName = [[self class] description];
     self.name = _sessionName; /* umtask name */
-    _firstInvokeId = AUTO_ASSIGN_INVOKE_ID;
+    _invokeId = AUTO_ASSIGN_INVOKE_ID;
+    _invokeId2 = AUTO_ASSIGN_INVOKE_ID;
+    _invokeId3 =AUTO_ASSIGN_INVOKE_ID;
     _timeoutInSeconds = inst.timeoutInSeconds;
     _startTime = [NSDate date];
     _lastActiveTime = [[UMAtomicDate alloc]initWithDate:_startTime];
     self.logFeed = inst.logFeed;
-    _logLevel = UMLOG_MAJOR;
+    _logLevel = inst.logLevel; //UMLOG_MAJOR;
     _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericSession_operationMutex"];
     _historyLog = [[UMHistoryLog alloc]init];
     _outputFormat = OutputFormat_json;
@@ -415,6 +417,11 @@ else \
                                 last:(BOOL)xlast
                              options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"SS7GenericSession sessionMAP_ReturnResult_Resp"];
+    }
+
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnResult_Resp"];
 
     VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -476,6 +483,10 @@ else \
                            errorCode:(int64_t)err
                              options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_ReturnError_Resp"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnError_Resp"];
 
     VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -519,7 +530,6 @@ else \
     info[@"ReturnError"] = info_sub;
     comp[@"rx"] = info;
     [_components addObject:comp];
-    [self sessionMAP_Close_Ind:xuserIdentifier options:_options];
 }
 
 - (void) sessionMAP_Reject_Resp:(UMASN1Object *)param
@@ -532,6 +542,11 @@ else \
                       errorCode:(int64_t)err
                         options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Reject_Resp"];
+    }
+
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Reject_Resp"];
 
     VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -570,6 +585,11 @@ else \
 - (void) sessionMAP_Close_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                       options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Close_Req"];
+    }
+
     VERIFY_UID(_userIdentifier,xuserIdentifier);
 
     SccpAddress *calling = xoptions[@"sccp-calling-address"];
@@ -658,6 +678,11 @@ else \
              dialoguePortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion
                      options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Open_Ind"];
+    }
+
     _userIdentifier = xuserIdentifier;
     _remoteAddress = src;
     _localAddress = dst;
@@ -680,7 +705,10 @@ else \
               dialoguePortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion
                       options:(NSDictionary *)options
 {
-
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Open_Resp"];
+    }
 }
 
 -(void)sessionMAP_Delimiter_Ind:(UMGSMMAP_UserIdentifier *)xuserIdentifier
@@ -692,6 +720,11 @@ else \
             remoteTransactionId:(NSString *)xremoteTransactionId
                         options:(NSDictionary *)xoptions
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Delimiter_Ind"];
+    }
+
     _localAddress = src;
     _remoteAddress = dst;
 
@@ -716,11 +749,16 @@ else \
            remoteTransactionId:(NSString *)remoteTransactionId
                        options:(NSDictionary *)options
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Continue_Ind"];
+    }
+
     _localAddress = dst;
     _remoteAddress = src;
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
-        [self.logFeed debugText:@"we got a sessionMAP_Continue_Ind"];
+        [self logDebug:@"sessionMAP_Continue_Ind"];
     }
     [self touch];
 }
@@ -732,6 +770,10 @@ else \
                        transactionId:(NSString *)localTransactionId
                  remoteTransactionId:(NSString *)remoteTransactionId
 {
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Unidirectional_Ind"];
+    }
     [self touch];
 }
 
@@ -739,6 +781,10 @@ else \
 -(void)sessionMAP_Close_Ind:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                     options:(NSDictionary *)xoptions
 {
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Close_Ind"];
+    }
 
     SccpAddress *calling = xoptions[@"sccp-calling-address"];
     SccpAddress *called = xoptions[@"sccp-called-address"];
@@ -753,13 +799,12 @@ else \
 
 
     [_operationMutex lock];
+    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     @try
     {
         VERIFY_UID(_userIdentifier,xuserIdentifier);
 
         /* now we can finish the HTTP request */
-
-        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
         dict[@"query"] =  _query.objectValue;
         if(_query2)
         {
@@ -803,10 +848,15 @@ else \
         dict[@"tcap-remote-transaction-id"] = _tcapRemoteTransactionId;
         dict[@"tcap-end-indicator"] = @(YES);
         [self outputResult2:dict];
-        [self markForTermination];
+    }
+    @catch(NSException *err)
+    {
+        [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_Close_Ind: %@",err]];
+        [self outputResult2:dict];
     }
     @finally
     {
+        [self markForTermination];
         [_operationMutex unlock];
     }
     [self touch];
@@ -816,12 +866,21 @@ else \
 - (void)markForTermination
 {
     [self touch];
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"markForTermination"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: markForTermination"];
     [_gInstance markSessionForTermination:self];
 }
 
 - (void)outputResult2:(UMSynchronizedSortedDictionary *)dict
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"outputResult2"];
+    }
+
     NSString *json;
     @try
     {
@@ -829,11 +888,16 @@ else \
     }
     @catch(id err)
     {
-        [self.logFeed majorErrorText:[NSString stringWithFormat:@"HLRSession: Sending U_Abort due to exception: %@",err]];
+        [self logMajorError:[NSString stringWithFormat:@"Sending U_Abort due to exception: %@",err]];
     }
     if(!json)
     {
         json = [NSString stringWithFormat:@"json-encoding problem %@",dict];
+        [self logMajorError:[NSString stringWithFormat:@"json-encoding problem %@",dict]];
+    }
+    if(_req==NULL)
+    {
+        [self logMajorError:@"_req is NULL"];
     }
     [_req setResponsePlainText:json];
     [_req resumePendingRequest];
@@ -843,6 +907,11 @@ else \
 -(void) sessionMAP_U_Abort_Req:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                        options:(NSDictionary *)options
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_U_Abort_Req"];
+    }
+
     [_gInstance.gsmMap queueMAP_U_Abort_Req:_dialogId
                                    options:@{}
                                     result:NULL
@@ -861,6 +930,11 @@ else \
           remoteTransactionId:(NSString *)xremoteTransactionId
                       options:(NSDictionary *)xoptions
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_U_Abort_Ind"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_U_Abort_Ind"];
 
@@ -932,6 +1006,11 @@ else \
 
         [self markForTermination];
     }
+    @catch(NSException *err)
+    {
+        [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_U_Abort_Ind: %@",err]];
+        [self markForTermination];
+    }
     @finally
     {
         [_operationMutex unlock];
@@ -947,6 +1026,11 @@ else \
           remoteTransactionId:(NSString *)xremoteTransactionId
                       options:(NSDictionary *)xoptions
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_P_Abort_Ind"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_P_Abort_Ind"];
 
@@ -1019,6 +1103,11 @@ else \
 -(void) sessionMAP_Notice_Ind:(UMGSMMAP_UserIdentifier *)userIdentifier
                       options:(NSDictionary *)options
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Notice_Ind(doing nothing)"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Notice_Ind(doing nothing)"];
 }
@@ -1028,6 +1117,11 @@ else \
                        reason:(SCCP_ReturnCause)reason
                       options:(NSDictionary *)options
 {
+    if(_logLevel <= UMLOG_DEBUG)
+    {
+        [self logDebug:@"sessionMAP_Notice_Ind with reason"];
+    }
+
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Notice_Ind with reason"];
     [self.logFeed infoText:@"MAP_Notice_Ind"];
@@ -1089,6 +1183,10 @@ else \
             dict[@"tcap-remote-transaction-id"] = _tcapRemoteTransactionId;
         }
         [self outputResult2:dict];
+    }
+    @catch(NSException *err)
+    {
+        [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_Notice_Ind: %@",err]];
     }
     @finally
     {
@@ -1379,6 +1477,31 @@ else \
         @throw(@"options not initialized!");
     }
 
+    if (p[@"tcap-operation-global"])
+    {
+        NSString *s = [p[@"tcap-operation-global"] stringValue];
+        if((s.length>0) && (![s isEqualToString:@"0"]))
+        {
+            if([s isEqualToString:@"1"])
+            {
+                uint8_t b = (uint8_t)_opcode.operation;
+                _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
+                _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
+            }
+            else if([s isEqualToString:@"2"])
+            {
+                uint8_t b = (uint8_t)_opcode.operation;
+                _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
+                _opcode.family = UMTCAP_itu_operationCodeFamily_GlobalAndLocal;
+            }
+            else
+            {
+                _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithString:s];
+                _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
+            }
+        }
+    }
+
     if (p[@"keep-sccp-calling-addr"])
     {
         if([p[@"keep-sccp-calling-addr"] boolValue])
@@ -1409,6 +1532,29 @@ else \
             _options[@"sccp-segment"] = @(YES);
         }
     }
+    if([p[@"sccp-transport"] stringValue].length > 0)
+    {
+        NSString *s = [p[@"sccp-transport"] stringValue];
+        if([s isEqualToStringCaseInsensitive:@"udt"])
+        {
+            _options[@"sccp-udt"] = @(YES);
+        }
+        else if([s isEqualToStringCaseInsensitive:@"xudt"])
+        {
+            _options[@"sccp-xudt"] = @(YES);
+        }
+        else if([s isEqualToStringCaseInsensitive:@"ludt"])
+        {
+            _options[@"sccp-ludt"] = @(YES);
+        }
+    }
+    if([p[@"sccp-segment-size"] stringValue].length > 0)
+    {
+        _options[@"sccp-segment-size"] = @([p[@"sccp-segment-size"] intValue]);
+    }
+
+
+    
     if (p[@"invoke-count"])
     {
         int i = [p[@"invoke-count"] intValue];
@@ -1464,6 +1610,8 @@ else \
                                                userIdentifier:_userIdentifier
                                                       options:_options];
     [_gInstance addSession:self userId:_userIdentifier];
+
+
     BOOL useHandshake = [_options[@"tcap-handshake"] boolValue];
 
     if(useHandshake)
@@ -1476,65 +1624,178 @@ else \
                                         diagnostic:NULL];
     }
 
-    if((_firstInvokeOpcode) && (_firstInvoke))
+    switch(_multi_invoke_variant)
     {
-        [_gInstance.gsmMap executeMAP_Invoke_Req:_firstInvoke
-                                         dialog:_dialogId
-                                       invokeId:AUTO_ASSIGN_INVOKE_ID
-                                       linkedId:TCAP_UNDEFINED_LINKED_ID
-                                         opCode:_firstInvokeOpcode
-                                           last:YES
-                                        options:_options];
-    }
+        case SS7MultiInvokeVariant_off:
+        {
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+            if(!useHandshake)
+            {
+                [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                            callingAddress:NULL
+                                             calledAddress:NULL
+                                                   options:_options
+                                                    result:NULL
+                                                diagnostic:NULL];
+            }
+            break;
+        }
+        case SS7MultiInvokeVariant_together:
+        {
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
 
-    if((_firstResponseOpcode) && (_firstResponse))
-    {
-        [_gInstance.gsmMap executeMAP_ReturnResult_Req:_firstResponse
-                                               dialog:_dialogId
-                                             invokeId:AUTO_ASSIGN_INVOKE_ID
-                                             linkedId:TCAP_UNDEFINED_LINKED_ID
-                                               opCode:_firstResponseOpcode
-                                                 last:YES
-                                              options:_options];
-    }
-    [_gInstance.gsmMap executeMAP_Invoke_Req:_query
-                                     dialog:_dialogId
-                                   invokeId:AUTO_ASSIGN_INVOKE_ID
-                                   linkedId:TCAP_UNDEFINED_LINKED_ID
-                                     opCode:_opcode
-                                       last:YES
-                                    options:_options];
-    if(_query2)
-    {
-        [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
-                                         dialog:_dialogId
-                                       invokeId:AUTO_ASSIGN_INVOKE_ID
-                                       linkedId:TCAP_UNDEFINED_LINKED_ID
-                                         opCode:_opcode2
-                                           last:YES
-                                        options:_options];
-
-    }
-    if(_query3)
-    {
-        [_gInstance.gsmMap executeMAP_Invoke_Req:_query3
-                                         dialog:_dialogId
-                                       invokeId:AUTO_ASSIGN_INVOKE_ID
-                                       linkedId:TCAP_UNDEFINED_LINKED_ID
-                                         opCode:_opcode3
-                                           last:YES
-                                        options:_options];
-
-    }
-
-    if(!useHandshake)
-    {
-        [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                    callingAddress:NULL
-                                     calledAddress:NULL
-                                           options:_options
-                                            result:NULL
-                                        diagnostic:NULL];
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId2
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            if(!useHandshake)
+            {
+                [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                           callingAddress:NULL
+                                            calledAddress:NULL
+                                                  options:_options
+                                                   result:NULL
+                                               diagnostic:NULL];
+            }
+            break;
+        }
+        case SS7MultiInvokeVariant_one_by_one:
+        {
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+            [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                        callingAddress:NULL
+                                         calledAddress:NULL
+                                               options:_options
+                                                result:NULL
+                                            diagnostic:NULL];
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId2
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            break;
+        }
+        case SS7MultiInvokeVariant_together_same_id:
+        {
+            _invokeId = 0;
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                        callingAddress:NULL
+                                         calledAddress:NULL
+                                               options:_options
+                                                result:NULL
+                                            diagnostic:NULL];
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            break;
+        }
+        case SS7MultiInvokeVariant_together_same_id_different_second:
+        {
+            _invokeId = 0;
+            if((_opcode) && (_query))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode
+                                                    last:YES
+                                                 options:_options];
+            }
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                        callingAddress:NULL
+                                         calledAddress:NULL
+                                               options:_options
+                                                result:NULL
+                                            diagnostic:NULL];
+            _invokeId = 1;
+            if((_opcode2) && (_query2))
+            {
+                [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
+                                                  dialog:_dialogId
+                                                invokeId:_invokeId
+                                                linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                  opCode:_opcode2
+                                                    last:YES
+                                                 options:_options];
+            }
+            break;
+        }
     }
 }
 
@@ -1620,8 +1881,44 @@ else \
 {
     if(_gInstance.logLevel <= UMLOG_DEBUG)
     {
-        NSString *s = [NSString stringWithFormat:@"%@: %@",_sessionName,_req.params ];
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,_req.params ];
         [_gInstance logDebug:s];
+    }
+}
+
+- (void)logDebug:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
+        [_gInstance logDebug:s];
+    }
+}
+
+- (void)logInfo:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_DEBUG)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
+        [_gInstance logInfo:s];
+    }
+}
+
+- (void)logMajorError:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_MAJOR)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
+        [_gInstance logMajorError:s];
+    }
+}
+
+- (void)logMinorError:(NSString *)str
+{
+    if(_gInstance.logLevel <= UMLOG_MINOR)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@[%@]: %@",_sessionName,_userIdentifier,str];
+        [_gInstance logMinorError:s];
     }
 }
 
@@ -1709,6 +2006,12 @@ else \
     [s appendString:@"    <td class=optional>keep-sccp-calling-addr</td>\n"];
     [s appendFormat:@"    <td class=optional><input name=\"keep-sccp-calling-addr\" type=\"text\" value=\"0\"> 0&nbsp;|&nbsp;1</td>\n"];
     [s appendString:@"</tr>\n"];
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>tcap-operation-global</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"tcap-operation-global\" type=\"text\" value=\"0\"> 0 |&nbsp;1</td>\n"];
+    [s appendString:@"</tr>\n"];
+
 }
 
 + (void)webSccpTitle:(NSMutableString *)s
@@ -1745,6 +2048,14 @@ else \
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>called-tt</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"called-tt\" type=\"text\" value=\"0\"></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>sccp-transport</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"sccp-transport\" type=\"text\" value=\"UDT\"></td>\n"];
+    [s appendString:@"</tr>\n"];
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>sccp-segment-size</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"sccp-segment-size\" type=\"text\" value=\"\"></td>\n"];
     [s appendString:@"</tr>\n"];
 }
 
@@ -1784,11 +2095,15 @@ else \
 - (void)timeout /* gets called when timeouts occur */
 {
     [self touch];
+    [self logInfo:@"timeout"];
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"timeout"];
+    }
+
     [_historyLog addLogEntry:@"timeout"];
     [self abort];
     [self writeTraceToDirectory:_gInstance.timeoutTraceDirectory];
-
-    [self.logFeed infoText:@"timeout"];
 
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     dict[@"query"] =  _query.objectValue;
@@ -1856,6 +2171,10 @@ else \
 
 - (void)abortUnknown
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"SS7GenericSession: abortUnknown"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: abortUnknown"];
 
     @try
@@ -1874,13 +2193,22 @@ else \
     }
     @catch(NSException *e)
     {
-        [_historyLog addLogEntry:[NSString stringWithFormat:@"Exception:%@",e.description]];
+        NSString *s = [NSString stringWithFormat:@"Exception: %@",e.description];
+        if(_logLevel <=UMLOG_DEBUG)
+        {
+            [self logDebug:s];
+        }
+        [_historyLog addLogEntry:s];
     }
     [_historyLog addLogEntry:@"abort"];
 }
 
 - (void)abort
 {
+    if(_logLevel <=UMLOG_DEBUG)
+    {
+        [self logDebug:@"SS7GenericSession: abort"];
+    }
     [_historyLog addLogEntry:@"SS7GenericSession: abort"];
 
     @try
@@ -1899,7 +2227,12 @@ else \
     }
     @catch(NSException *e)
     {
-        [_historyLog addLogEntry:[NSString stringWithFormat:@"Exception:%@",e.description]];
+        NSString *s = [NSString stringWithFormat:@"Exception: %@",e.description];
+        if(_logLevel <=UMLOG_DEBUG)
+        {
+            [self logDebug:s];
+        }
+        [_historyLog addLogEntry:s];
     }
     [_historyLog addLogEntry:@"abort"];
 }

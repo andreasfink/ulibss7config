@@ -26,6 +26,7 @@
 @property(readwrite,strong,atomic)  NSString        *name;
 @property(readwrite,strong,atomic)  NSNumber        *enabled;
 @property(readwrite,strong,atomic)  NSNumber        *logLevel;
+@property(readwrite,strong,atomic)  NSString        *logFile;
 @property(readwrite,strong,atomic)  NSArray         *comments;
 @property(readwrite,strong,atomic)  NSString        *objectDescription; /*we have to name this differently due to [NSObject description] */
 @property(readwrite,strong,atomic)  NSMutableArray<UMSS7ConfigObject *> *subEntries;
@@ -54,5 +55,6 @@
 - (void)addSubEntry:(UMSS7ConfigObject *)obj;
 
 - (NSArray<NSDictionary *> *)subConfigs;
+- (id)proxyForJson;
 
 @end

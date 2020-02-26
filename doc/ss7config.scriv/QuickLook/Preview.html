@@ -94,30 +94,9 @@
 <ul>
 <li>
 <p class="itemTitle">sctp</p>
-<p class="itemText">SCTP Config Options</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = sctp</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name of the object. Internally converted to lowercase. only a-z, 0-9 and . - _ + , = allowed. Maximum length 255 characters.</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">descriptive text for internal documentation purposes</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">enable = {boolean}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">If set to NO, then the whole section is completely ignored. Defaults to YES</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log-level = {log-level}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log level has the following values:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">0 = debug</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">1 = info</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">2 = warning</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">3 = minor</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">4 = major</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">5 = panic</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log-file = {filename}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">logfil...</p>
 </li>
 </ul>
-<hr class="afterText"/>
+<hr class="afterTitle"/>
 
 <li>
 <p class="topLevelItemTitle">m2pa</p>
@@ -126,28 +105,9 @@
 <ul>
 <li>
 <p class="itemTitle">sctp</p>
-<p class="itemText">M2PA Config Options</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = m2pa</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name of the object. Internally converted to lowercase. only a-z, 0-9 and . - _ + , = allowed. Maximum length 255 characters.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">descriptive text for internal documentation purposes</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">category = {text}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">category text for internal documentation purposes</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">enable = {boolean}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">If set to NO, then the whole section is completely ignored. Defaults to YES</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log-level = {log-level}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log level has the following values:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">0 = debug</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">1 = info</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">2...</p>
 </li>
 </ul>
-<hr class="afterText"/>
+<hr class="afterTitle"/>
 
 <li>
 <p class="topLevelItemTitle">m3ua</p>
@@ -159,272 +119,34 @@
 <ul>
 <li>
 <p class="itemTitle">Terminology</p>
-<p class="itemText">Terminology</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">A filter-engine is a piece of code which can do certain type of filtering.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">A filter-config is a set of parameters which configure a filter-engine. Filter-config are specific to the engine type while they share some common parameters.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">A filter-rule is a combination of a filter-engine with a specific filter-config</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">A filter-set is a list of filter-rules in a specific order.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">An application-point is the point in the message flow where the filters are being placed on. It can be on a s...</p>
+<p class="itemText">Terminology drop the filtering ruleset procesisng is stopped and the packet is dropped. abort the filtering ruleset processing is stopped and a tcap abort message is sent back. reject the filtering ruleset processing is stopped and a tcap end with a gsmmap reject message is sent back. error(errorcode) the filtering ruleset processing is stopped and a tcap end with a gsmmap ReturnError message is sent back with an indicated eror continue the filtering ruleset is continued on the next filtering ru...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-staging-area</p>
-<p class="itemText">SS7-Filter Staging Area</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">A staging area is a environment where modifications on to objects can be done while not being used.</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">A staging area can become a<span class="Apple-converted-space">  </span>live config and a new staging area can be created. In terms of config files, this will be represented as individual config directories and a symbolic link to the active one.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To create a new staging area</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>/api/ss7—filter-staging-area-add?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To delete a staging area</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-staging-area-delete?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To copy...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-engine</p>
-<p class="itemText">SS7 Filter Engine<span class="Apple-converted-space"> </span></span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}<br></p>
-<p class="itemText">filename = {filename}<br></p>
-<p class="itemText">enable = {boolean}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new engine from a shared libary file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-add?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;file={filename}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To remove an engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-delete?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To activate an engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-modify?name={name}&amp;enable=YES</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To deactivate an engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-modify?name={name}&amp;enable=NO</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To list the current engine names</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-rulesset</p>
-<p class="itemText">SS7 Filter Ruleset</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-ruleset</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">status = { on | off | monitor }</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new filtering ruleset</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/filter-ruleset-add?name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;description={description}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&amp;status={status}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To remove a filtering ruleset</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-ruleset-delete?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To activate a rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-ruleset-modify?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;status=on</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">This switches all individual filtering rules to status on.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To deactivate a rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-fi...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-rule</p>
-<p class="itemText">SS7 Filter Rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">filter-ruleset = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">entry-nr = {integer}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">status = { on | off | monitor }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">engine = {name-of-filter-engine}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">engine-config = {config}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">filter-action-list = {action-list-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">bypass-action-list = {action-list-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">monitor-action-list = {action-list-name}<span class="Apple-converted-space"> </span></span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new filtering rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/filter-rule-add?filter-ruleset = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;entry-nr={integer}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;description={description}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&amp;status={status}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;engine={na...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-action-list</p>
-<p class="itemText">SS7 Filter Action</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filte-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">action = { “pass” | “drop” | “log” \ “reroute” }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log = {ss7-logfile-object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">reroute =<span class="Apple-converted-space">  </span>{sccp-destination-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new filter-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-action-add?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;action={ “pass” | “drop” | “log” \ “reroute” }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;log={ss7-logfile-object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;reroute={sccp-destination-name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To remove a filter-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-action-delete?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To list all...</p>
-</li>
-<li>
-<p class="itemTitle">builtin-ss7-filter-actions</p>
-<p class="itemText">Built in SS7 Filter Actions</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">There are several predefined actions.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>pass<span class="Apple-converted-space"> </span></span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset procesing is stopped and the packet is forwarded normally</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>drop</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset procesisng is stopped and the packet is dropped.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>abort</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset processing is stopped and a tcap abort message is sent back.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>reject</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset processing is stopped and a tcap end with a gsmmap reject message is sent back.</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>error(errorcode)</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To delete a staging area</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-staging-area--delete?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To cop...</p>
-</li>
-<li>
-<p class="itemTitle">ss7-filter-engine</p>
-<p class="itemText">SS7 Filter Engine<span class="Apple-converted-space"> </span></span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filter-engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}<br></p>
-<p class="itemText">file = {filename}<br></p>
-<p class="itemText">enable = {boolean}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new engine from a shared libary file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-add?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;file={filename}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To remove an engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-delete?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To activate an engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-modify?name={name}&amp;enable=YES</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To deactivate an engine</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-engine-modify?name={name}&amp;enable=NO</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To list the current engine names</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7...</p>
-</li>
-<li>
-<p class="itemTitle">ss7-filter-rule</p>
-<p class="itemText">SS7 Filter Rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filter-rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">status = { on | off | monitor }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">engine = {name-of-filter-engine}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">pass-action = {name-of-filter-action}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">drop-action = {name-of-filter-action}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">reroute-action = {name-of-filter-action}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log-action = {name-of-filter-action}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">engine-config = {config}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">Defalt values for the actions are “pass”, “drop”, “reroute”,”log”<span class="Apple-converted-space"> </span></span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new filtering rule</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-rule-add?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;description={description}...</p>
+<p class="itemText">SS7 Filter Action In the config file: group = ss7-filter-action name = {object-name} action = { “pass” | “drop” | “log” \ “reroute” } log = {ss7-logfile-object-name} reroute = {sccp-destination-name} description = {text} As API calls To add a new filter-action /api/ss7-filter-action-add?name={name} &amp;action={ “pass” | “drop” | “log” \ “reroute” } &amp;log={ss7-logfile-object-name} &amp;reroute={sccp-destination-name} To remove a filter-action /api/ss7-filter-action-delete?name={name} To list all filter-a...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-action</p>
-<p class="itemText">SS7 Filter Action</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-filter-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">action = { “pass” | “drop” | “log” \ “reroute” }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">log = {ss7-logfile-object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">reroute =<span class="Apple-converted-space">  </span>{sccp-destination-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">description = {text}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new filter-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-action-add?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;action={ “pass” | “drop” | “log” \ “reroute” }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;log={ss7-logfile-object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;reroute={sccp-destination-name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To remove a filter-action</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-filter-action-delete?name={name}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To list al...</p>
-<p class="itemText"><p class="p1"><span class="s1">the filtering ruleset processing is st...</p>
+</li>
+<li>
+<p class="itemTitle">builtin-ss7-filter-actions</p>
+<p class="itemText">Built in SS7 Filter Actions There are several predefined actions. pass the filtering ruleset procesing is stopped and the packet is forwarded normally category = {text} category text for internal documentation purposes enable = {boolean} If set to NO, then the whole section is completely ignored. Defaults to YES log-level = {log-level} log level has the following values: 0 = debug 1 = info 2 = warning 3 = minor 4 = major 5 = panic log-file = {filename} logfile name local-ip = {ip-addresses} loca...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-log-file</p>
-<p class="itemText">SS7 Log File</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">In the config file:</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">group = ss7-log-file</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">name = {object-name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">file = {filename}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">format = { pcap | text }</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">rotate-minutes = {minutes}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">rotate-packets = {packets-count}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">enable = {boolean}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">As API calls</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To add a new log file object</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-log-file-add?name={name}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;file={filename}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;format={“text” | “pcap”}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;rotate-minutes={minutes}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;rotate-packets={packets-count}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&amp;enable={boolean}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To start logging</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-log-file-modify?name={name}&amp;enable=YES</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1">To stop logging</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">/api/ss7-log-file-...</p>
+<p class="itemText">SS7 Log File In the config file: group = ss7-log-file sets a custom field to a specific value.</p>
 </li>
 </ul>
 <hr class="afterText"/>
@@ -436,69 +158,16 @@
 <ul>
 <li>
 <p class="itemTitle">ss7-filter-engine-screening</p>
-<p class="itemText">SS7 Filter engine “screening”</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">The configuration of the screening engine is a json dictionary with the following objects</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>tag = {tag1,tag2,…}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom1 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom2 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom3 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom4 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom5 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom6 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom7 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom8 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom9 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom10 = {value}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code = {int}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code-list = {named-list}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context = {int}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context-list = {named-list}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-conte...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-engine-sms</p>
-<p class="itemText">SS7 Filter engine “sms”</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">The configuration of the sms engine is a json dictionary with the following fileds</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>tag = {tag1,tag2,….}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom1 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom2 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom3 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom4 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom5 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom6 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom7 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom8 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom9 = {value}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>custom10 = {value}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code = {int}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>gsm-map-operation-code-list = {named-list}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context = {int}</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context-list = {named-list}</span></p></p>
-<p class="itemText"><p class="p2"><span class="s1"></span><br></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>application-context-version = ...</p>
+<p class="itemText">SS7 Filter engine “sms” The configuration of the sms engine is a json dictionary with the following fileds tag = {tag1,tag2,….} custom1 = {value} custom2 = {value} custom3 = {value} custom4 = {value} custom5 = {value} custom6 = {value} custom7 = {value} custom8 = {value} custom9 = {value} custom10 = {value} gsm-map-operation-code = {int} gsm-map-operation-code-list = {named-list} application-context = {int} application-context-list = {named-list} application-context-version = {int} application-c...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-engine-location</p>
-<p class="itemText">SS7 Filter engine “location”</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">This filter engine wll check the location</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">Location process could be enhanced by adding some checks at the reception of a new LocationUpdate (or UpdateGPRSLocation).<span class="Apple-converted-space"> </span></span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">“Check Location” could be implemented in various ways:<span class="Apple-converted-space"> </span></span></p></p>
-<p class="itemText"><p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>- Compare with the previous location: analyse if it is physically possible to move from the previous country to this new one<br></p>
-<p class="itemText">- Check the status on the previous VLR by sending, for example, a PSI message to the old VLR and check that the user is no ...</p>
 </li>
 <li>
 <p class="itemTitle">ss7-filter-engine-cap</p>
-<p class="itemText">SS7 Filter engine “cap”</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">This filter engine wll check CAMEL messages</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">It compares current VLR and calling SCCP address</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">It is a stateful message as it has to remember the VLR (from previous UpdateLocation)</span></p></p>
-<p class="itemText"><p class="p1"><span class="s1">The configuration of this module is still under review. </p>
 </li>
 </ul>
 </ul>

@@ -17,7 +17,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api/sccp-asp-action";
+    return @"/api/sccp-action";
 }
 
 - (void)main
@@ -34,8 +34,8 @@
         return;
     }
 	
-    NSString *name = _webRequest.params[@"name"];
-    NSString *action = _webRequest.params[@"action"];
+    NSString *name = _params[@"name"];
+    NSString *action = _params[@"action"];
     name = [UMSS7ConfigObject filterName:name];
     UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
     if(sccp)

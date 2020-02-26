@@ -33,7 +33,7 @@
         return;
     }
 	
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
 
@@ -46,7 +46,19 @@
     }
     else
     {
-        [config_object setConfig:_webRequest.params];
+        [config_object setConfig:_params];
+        if(![config_object.mode isEqualToStringCaseInsensitive:@"ssp"])
+        {
+            config_object.mode = @"stp";
+        }
+        else
+        {
+            config_object.mode =@"ssp";
+        }
+        if(config_object.variant.length==0)
+        {
+            config_object.variant = @"itu";
+        }
         NSDictionary *config = config_object.config.dictionaryCopy;
         [instance setConfig:config applicationContext:_appDelegate];
         [self sendResultObject:config];

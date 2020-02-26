@@ -14,6 +14,14 @@
 #import "UMSS7ConfigApiUser.h"
 #import "UMSS7ConfigStorage.h"
 
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_list.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_read.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_add.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_modify.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h"
+#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h"
+
 @implementation UMSS7ApiTask
 
 - (UMSS7ApiTask *)initWithWebRequest:(UMHTTPRequest *)webRequest appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad
@@ -23,6 +31,7 @@
     if(self)
     {
         _webRequest = webRequest;
+        _params = [_webRequest.params urldecodeStringValues];
         _appDelegate = ad;
         [_webRequest makeAsync];
     }
@@ -31,7 +40,7 @@
 
 + (NSString *)apiPath
 {
-    return @"/api";
+    return @"";
 }
 
 - (void)main 
@@ -39,9 +48,26 @@
     [self sendErrorNotImplemented];
 }
 
++ (BOOL)doNotList
+{
+    return NO;
+}
+
 + (UMSS7ApiTask *)apiFactory:(UMHTTPRequest *)req appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad
 {
     NSString *path = req.url.relativePath;
+
+
+    /*
+        backwards compatibility. In old SMSProxy4 the API calls things where named with an underscore
+        ex /api/namedlist_add instead of /api/namedlist-add
+        So we rename calls to old API with new API name
+     */
+
+    if([path hasPrefix:@"/api/namedlist_"])
+    {
+        path = [NSString stringWithFormat:@"/api/namedlist-%@", [path substringFromIndex:15]];
+    }
 
 #define API(APICLASS) \
     if([path isEqualTo:[APICLASS apiPath]]) \
@@ -58,7 +84,21 @@
 + (NSArray *)apiPathList
 {
     NSMutableArray *a = [[NSMutableArray alloc]init];
-#define API(APICLASS)  [a addObject:[APICLASS apiPath]];
+#define API(APICLASS) {\
+    NSString *s = [APICLASS apiPath]; \
+    if([APICLASS doNotList]==NO)\
+    {\
+        if(![s hasPrefix:@"/api"]) \
+        {\
+            NSLog(@"%s is not returning an apiPath!",#APICLASS); \
+        } \
+        else \
+        {\
+            [a addObject:[APICLASS apiPath]];\
+        }\
+    }\
+}
+
 #include "UMSS7ApiTaskAll.txt"
 #undef API
     return a;
@@ -71,6 +111,12 @@
     [_webRequest resumePendingRequest];
 }
 
+- (void)sendError:(NSString *)err reason:(NSString *)reason
+{
+    [_webRequest setResponseJsonObject:@{ @"error" : err , @"reason" : reason }];
+    [_webRequest resumePendingRequest];
+}
+
 - (void)sendErrorNotFound
 {
     [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];
@@ -79,8 +125,7 @@
 
 - (void)sendErrorNotFound:(NSString *)param
 {
-    [_webRequest setResponseJsonObject:@{ @"error" : @"not-found" }];
-    if(param)
+    if(param.length > 0)
     {
         [_webRequest setResponseJsonObject:@{ @"error" : @"not-found", @"parameter" : param }];
     }
@@ -146,11 +191,17 @@
     [_webRequest resumePendingRequest];
 }
 
+- (void)sendErrorSessionExpired
+{
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized", @"reason" : @"session-expired" }];
+    [_webRequest resumePendingRequest];
+}
+
 - (BOOL)isAuthenticated
 {
-    NSString *username = _webRequest.params[@"username"];
-    NSString *password = _webRequest.params[@"password"];
-    NSString *session_key = _webRequest.params[@"session-key"];
+    NSString *username = _params[@"username"];
+    NSString *password = _params[@"password"];
+    NSString *session_key = _params[@"session-key"];
     if(session_key.length > 0)
     {
         _apiSession = [_appDelegate getApiSession:session_key];
@@ -207,7 +258,7 @@
 
 - (SccpGttSelector *)getGttSelector
 {
-    NSString *sccp_name     = _webRequest.params[@"sccp"];
+    NSString *sccp_name     = _params[@"sccp"];
     if(sccp_name.length==0)
     {
         [self sendErrorMissingParameter:@"sccp"];
@@ -220,7 +271,7 @@
         [self sendErrorNotFound:@"sccp"];
         return NULL;
     }
-    NSString *table_name    = _webRequest.params[@"translation-table"];
+    NSString *table_name    = _params[@"translation-table"];
     if(table_name.length==0)
     {
         [self sendErrorMissingParameter:@"translation-table"];
@@ -260,7 +311,7 @@
         return NULL;
     }
 
-    NSString *digits     = _webRequest.params[@"digits"];
+    NSString *digits     = _params[@"digits"];
     if(digits.length==0)
     {
         [self sendErrorNotFound:@"digits"];
@@ -279,7 +330,7 @@
         return NULL;
     }
 
-    NSString *name     = _webRequest.params[@"name"];
+    NSString *name     = _params[@"name"];
     if(name.length==0)
     {
         [self sendErrorNotFound:@"name"];

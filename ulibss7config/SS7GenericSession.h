@@ -20,6 +20,15 @@
 
 @class SS7GenericInstance;
 
+typedef enum SS7MultiInvokeVariant
+{
+    SS7MultiInvokeVariant_off = 0,
+    SS7MultiInvokeVariant_together = 1,
+    SS7MultiInvokeVariant_one_by_one = 2,
+    SS7MultiInvokeVariant_together_same_id = 3,
+    SS7MultiInvokeVariant_together_same_id_different_second = 4,
+} SS7MultiInvokeVariant;
+
 @interface SS7GenericSession : UMLayerTask<UMSCCP_TraceProtocol>
 {
     UMGSMMAP_UserIdentifier *_userIdentifier;
@@ -30,8 +39,9 @@
     UMLayerGSMMAP_OpCode    *_opcode;
     UMLayerGSMMAP_OpCode    *_opcode2;
     UMLayerGSMMAP_OpCode    *_opcode3;
-    UMLayerGSMMAP_OpCode    *_firstResponseOpcode;
-    UMLayerGSMMAP_OpCode    *_firstInvokeOpcode;
+    int64_t                 _invokeId;
+    int64_t                 _invokeId2;
+    int64_t                 _invokeId3;
     SS7GenericInstance      *_gInstance;
     SccpAddress             *_initialLocalAddress;
     SccpAddress             *_localAddress;
@@ -68,6 +78,9 @@
     int                         _firstInvokeId;
     UMASN1Object                *_firstInvoke;
     UMASN1Object                *_firstResponse;
+    int                         _secondInvokeId;
+    UMASN1Object                *_secondInvoke;
+    UMASN1Object                *_secondResponse;
     int                         _mapVersion;
     int                         _appContextByte;
     UMLogLevel                  _logLevel;
@@ -81,6 +94,8 @@
     NSInteger                   _hasReceivedInvokes;
     int                         _phase;
     BOOL                        _keepOriginalSccpAddressForTcapContinue;
+    NSString                    *_tcap_operation_global;
+    int                         _multi_invoke_variant;
     NSString *_calling_ssn;
     NSString *_called_ssn;
     NSString *_calling_address;
@@ -102,6 +117,8 @@
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *opcode3;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstResponseOpcode;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstInvokeOpcode;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *secondResponseOpcode;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *secondInvokeOpcode;
 @property(readwrite,strong,atomic)    SS7GenericInstance      *gInstance;
 @property(readwrite,strong,atomic)    SccpAddress             *initialLocalAddress;
 @property(readwrite,strong,atomic)    SccpAddress             *initialRemoteAddress;
@@ -136,6 +153,9 @@
 @property(readwrite,assign,atomic)    int                         firstInvokeId;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstInvoke;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstResponse;
+@property(readwrite,assign,atomic)    int                         secondInvokeId;
+@property(readwrite,strong,atomic)    UMASN1Object                *secondInvoke;
+@property(readwrite,strong,atomic)    UMASN1Object                *secondResponse;
 @property(readwrite,assign,atomic)    int                         mapVersion;
 @property(readwrite,assign,atomic)    int                         appContextByte;
 @property(readwrite,assign,atomic)    UMLogLevel                  logLevel;
@@ -149,6 +169,8 @@
 @property(readwrite,assign,atomic)    NSInteger                   hasReceivedInvokes;
 @property(readwrite,assign,atomic)    int                         phase;
 @property(readwrite,assign,atomic)    BOOL                        keepOriginalSccpAddressForTcapContinue;
+@property(readwrite,assign,atomic)    int                         multi_invoke_variant;
+@property(readwrite,strong,atomic)    NSString *tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;
 @property(readwrite,strong,atomic)    NSString *callingaddress;
@@ -334,6 +356,10 @@
     //--------------------------------------------------------------------------------------------
 
 - (void)logWebSession;
+- (void)logDebug:(NSString *)str;
+- (void)logInfo:(NSString *)str;
+- (void)logMajorError:(NSString *)str;
+- (void)logMinorError:(NSString *)str;
 
 + (void)webFormStart:(NSMutableString *)s title:(NSString *)t;
 + (void)webFormEnd:(NSMutableString *)s;

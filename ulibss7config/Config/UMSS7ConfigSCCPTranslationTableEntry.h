@@ -14,6 +14,8 @@
     NSString *_gta;
     NSString *_sccpDestination;
     NSString *_postTranslation;
+    NSString *_gtOwner;
+    NSString *_gtUser;
 }
 
 + (NSString *)type;
@@ -24,5 +26,7 @@
 @property(readwrite,strong,atomic)  NSString *gta;
 @property(readwrite,strong,atomic)  NSString *sccpDestination;
 @property(readwrite,strong,atomic)  NSString *postTranslation;
+@property(readwrite,strong,atomic)  NSString *gtOwner;
+@property(readwrite,strong,atomic)  NSString *gtUser;
 
 @end

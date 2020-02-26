@@ -22,7 +22,8 @@
 #import "SS7GenericInstance_MAP_U_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_P_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_Notice_Ind_Task.h"
- 
+#import <ulibsms/ulibsms.h>
+
 #include <sys/stat.h>
 
 @implementation SS7GenericInstance
@@ -679,7 +680,6 @@
     }
     [t sessionMAP_Close_Ind:userIdentifier
                     options:options];
-    [self markSessionForTermination:t];
 }
 
 -(void) executeMAP_U_Abort_Ind:(UMGSMMAP_UserIdentifier *)userIdentifier
@@ -793,7 +793,9 @@
 - (UMSynchronizedSortedDictionary *)decodeSmsObject:(NSData *)pdu
                                             context:(id)context
 {
-    return NULL;
+    UMSMS *sms = [[UMSMS alloc]init];
+    [sms decodePdu:pdu context:context];
+    return [sms objectValue];
 }
 
 
@@ -969,10 +971,10 @@
 + (void)webHeader:(NSMutableString *)s title:(NSString *)t
 {
     [s appendString:@"<html>\n"];
-    [s appendString:@"<header>\n"];
+    [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>%@</title>\n",t];
-    [s appendString:@"</header>\n"];
+    [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 }
 

@@ -18,7 +18,9 @@
         _sessionKey = [UMUUID UUID];
         _currentUser = user;
         _connectedFromIp = req.connection.socket.connectedRemoteAddress;
+        _firstUsed = [[UMAtomicDate alloc]init];
         _lastUsed = [[UMAtomicDate alloc]init];
+        _timeout = 30*60;
     }
     return self;
 }

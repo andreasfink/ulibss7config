@@ -41,6 +41,8 @@
     APPEND_CONFIG_STRING(s,@"gta",_gta);
     APPEND_CONFIG_STRING(s,@"destination",_sccpDestination);
     APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
+    APPEND_CONFIG_STRING(s,@"gt-owner",_gtOwner);
+    APPEND_CONFIG_STRING(s,@"gt-user",_gtUser);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -50,6 +52,9 @@
     APPEND_DICT_STRING(dict,@"gta",_gta);
     APPEND_DICT_STRING(dict,@"destination",_sccpDestination);
     APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
+    APPEND_DICT_STRING(dict,@"gt-owner",_gtOwner);
+    APPEND_DICT_STRING(dict,@"gt-user",_gtUser);
+
     return dict;
 }
 
@@ -60,6 +65,9 @@
     SET_DICT_STRING(dict,@"gta",_gta);
     SET_DICT_FILTERED_STRING(dict,@"destination",_sccpDestination);
     SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
+    SET_DICT_FILTERED_STRING(dict,@"gt-owner",_gtOwner);
+    SET_DICT_FILTERED_STRING(dict,@"gt-user",_gtUser);
+
     _name = [SccpGttRoutingTableEntry entryNameForGta:_gta tableName:_translationTableName];
 }
 

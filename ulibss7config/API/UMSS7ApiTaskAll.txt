@@ -1,6 +1,6 @@
 /*
 
-this file can be included to do somethign with all API calls
+this file can be included to do something with all API calls
 simply define a macro API(classname) and let it do what you need to do and
 then include this file and undefine API() again
 
@@ -9,6 +9,9 @@ API(UMSS7ApiTaskVersion)
 API(UMSS7ApiTaskLogin)
 API(UMSS7ApiTaskLogout)
 API(UMSS7ApiTaskList)
+API(UMSS7ApiTaskIdle)
+API(UMSS7ApiTaskSessionsList)
+API(UMSS7ApiTaskConfig_list)
 API(UMSS7ApiTaskSCTP_list)
 API(UMSS7ApiTaskSCTP_read)
 API(UMSS7ApiTaskSCTP_add)
@@ -16,6 +19,7 @@ API(UMSS7ApiTaskSCTP_modify)
 API(UMSS7ApiTaskSCTP_delete)
 API(UMSS7ApiTaskSCTP_status)
 API(UMSS7ApiTaskSCTP_action)
+
 
 API(UMSS7ApiTaskM2PA_list)
 API(UMSS7ApiTaskM2PA_read)
@@ -25,6 +29,7 @@ API(UMSS7ApiTaskM2PA_delete)
 API(UMSS7ApiTaskM2PA_status)
 API(UMSS7ApiTaskM2PA_action)
 
+
 API(UMSS7ApiTaskMTP3_list)
 API(UMSS7ApiTaskMTP3_read)
 API(UMSS7ApiTaskMTP3_add)
@@ -33,13 +38,6 @@ API(UMSS7ApiTaskMTP3_delete)
 API(UMSS7ApiTaskMTP3_status)
 API(UMSS7ApiTaskMTP3_action)
 
-API(UMSS7ApiTaskMTP3Link_list)
-API(UMSS7ApiTaskMTP3Link_read)
-API(UMSS7ApiTaskMTP3Link_add)
-API(UMSS7ApiTaskMTP3Link_modify)
-API(UMSS7ApiTaskMTP3Link_delete)
-API(UMSS7ApiTaskMTP3Link_status)
-API(UMSS7ApiTaskMTP3Link_action)
 
 API(UMSS7ApiTaskMTP3LinkSet_list)
 API(UMSS7ApiTaskMTP3LinkSet_read)
@@ -49,6 +47,14 @@ API(UMSS7ApiTaskMTP3LinkSet_delete)
 API(UMSS7ApiTaskMTP3LinkSet_status)
 API(UMSS7ApiTaskMTP3LinkSet_action)
 
+API(UMSS7ApiTaskMTP3Link_list)
+API(UMSS7ApiTaskMTP3Link_read)
+API(UMSS7ApiTaskMTP3Link_add)
+API(UMSS7ApiTaskMTP3Link_modify)
+API(UMSS7ApiTaskMTP3Link_delete)
+API(UMSS7ApiTaskMTP3Link_status)
+API(UMSS7ApiTaskMTP3Link_action)
+
 API(UMSS7ApiTaskM3UAAS_list)
 API(UMSS7ApiTaskM3UAAS_read)
 API(UMSS7ApiTaskM3UAAS_add)
@@ -56,7 +62,6 @@ API(UMSS7ApiTaskM3UAAS_modify)
 API(UMSS7ApiTaskM3UAAS_delete)
 API(UMSS7ApiTaskM3UAAS_status)
 API(UMSS7ApiTaskM3UAAS_action)
-
 
 API(UMSS7ApiTaskM3UAASP_list)
 API(UMSS7ApiTaskM3UAASP_read)
@@ -146,18 +151,42 @@ API(UMSS7ApiTaskSS7FilterAction_delete)
 API(UMSS7ApiTaskSS7FilterAction_status)
 API(UMSS7ApiTaskSS7FilterAction_action)
 
-API(UMSS7ApiTaskSS7FilterLogFile_list)
-API(UMSS7ApiTaskSS7FilterLogFile_read)
-API(UMSS7ApiTaskSS7FilterLogFile_add)
-API(UMSS7ApiTaskSS7FilterLogFile_modify)
-API(UMSS7ApiTaskSS7FilterLogFile_delete)
-API(UMSS7ApiTaskSS7FilterLogFile_status)
-API(UMSS7ApiTaskSS7FilterLogFile_action)
+API(UMSS7ApiTaskSS7FilterTraceFile_list)
+API(UMSS7ApiTaskSS7FilterTraceFile_read)
+API(UMSS7ApiTaskSS7FilterTraceFile_add)
+API(UMSS7ApiTaskSS7FilterTraceFile_modify)
+API(UMSS7ApiTaskSS7FilterTraceFile_delete)
+API(UMSS7ApiTaskSS7FilterTraceFile_status)
+API(UMSS7ApiTaskSS7FilterTraceFile_action)
 
+API(UMSS7ApiTaskStatistics_list)
+API(UMSS7ApiTaskStatistics_read)
+API(UMSS7ApiTaskStatistics_add)
+API(UMSS7ApiTaskStatistics_modify)
+API(UMSS7ApiTaskStatistics_delete)
+API(UMSS7ApiTaskStatistics_status)
+API(UMSS7ApiTaskStatistics_action)
+
+API(UMSS7ApiTaskSS7FilterEngine_list)
+API(UMSS7ApiTaskSS7FilterEngine_read)
+API(UMSS7ApiTaskSS7FilterEngine_add)
+API(UMSS7ApiTaskSS7FilterEngine_modify)
+API(UMSS7ApiTaskSS7FilterEngine_delete)
+API(UMSS7ApiTaskSS7FilterEngine_status)
+API(UMSS7ApiTaskSS7FilterEngine_action)
+
+
+API(UMSS7ApiTaskNamedlist_lists)
 API(UMSS7ApiTaskNamedlist_list)
 API(UMSS7ApiTaskNamedlist_read)
 API(UMSS7ApiTaskNamedlist_add)
-API(UMSS7ApiTaskNamedlist_modify)
 API(UMSS7ApiTaskNamedlist_delete)
-API(UMSS7ApiTaskNamedlist_status)
-API(UMSS7ApiTaskNamedlist_action)
+API(UMSS7ApiTaskNamedlist_contains)
+
+API(UMSS7ApiTaskMTP3PointCodeTranslationTable_list)
+API(UMSS7ApiTaskMTP3PointCodeTranslationTable_read)
+API(UMSS7ApiTaskMTP3PointCodeTranslationTable_add)
+API(UMSS7ApiTaskMTP3PointCodeTranslationTable_modify)
+API(UMSS7ApiTaskMTP3PointCodeTranslationTable_delete)
+API(UMSS7ApiTaskMTP3PointCodeTranslationTable_status)
+API(UMSS7ApiTaskMTP3PointCodeTranslationTable_action)

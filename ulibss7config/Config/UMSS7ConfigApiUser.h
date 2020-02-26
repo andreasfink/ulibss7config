@@ -12,9 +12,11 @@
 @interface UMSS7ConfigApiUser : UMSS7ConfigObject
 {
     NSString *_password;
+    NSString *_profile;
 }
 
 @property(readwrite,strong,atomic)      NSString *password;
+@property(readwrite,strong,atomic)      NSString *profile;
 
 + (NSString *)type;
 - (NSString *)type;

@@ -34,7 +34,7 @@
         return;
     }
 
-    NSString *name = _webRequest.params[@"name"];
+    NSString *name = _params[@"name"];
     name = [UMSS7ConfigObject filterName:name];
     UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
     UMSS7ConfigSCTP *sctp = [cs getSCTP:name];
@@ -46,7 +46,7 @@
     {
 		@try
 		{
-			sctp = [[UMSS7ConfigSCTP alloc]initWithConfig:_webRequest.params];
+			sctp = [[UMSS7ConfigSCTP alloc]initWithConfig:_params];
 			UMSynchronizedSortedDictionary *config = sctp.config;
 			[_appDelegate addWithConfigSCTP:config.dictionaryCopy];
 			[self sendResultObject:config];
