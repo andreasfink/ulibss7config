@@ -49,8 +49,8 @@
     APPEND_CONFIG_STRING(s,@"filter-srism-resp",_filterSirSmResp);
     APPEND_CONFIG_STRING(s,@"filter-forwardsm",_filterForwardSm);
     APPEND_CONFIG_STRING(s,@"filter-forwardsm-resp",_filterForwardSmResp);
-	APPEND_CONFIG_STRING(s,@"filter-moforwardsm-submit",_filterMoForwardSmSubmit);
-	APPEND_CONFIG_STRING(s,@"filter-moforwardsm-submit-resp",_filterMoForwardSmSubmitResp);
+	APPEND_CONFIG_STRING(s,@"filter-mo-submit",_filterMoForwardSmSubmit);
+	APPEND_CONFIG_STRING(s,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
     APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
     APPEND_CONFIG_DOUBLE(s,@"imsi-timer",_imsiTimer);
     APPEND_CONFIG_STRING(s,@"imsi-prefix",_imsiPrefix);
@@ -79,8 +79,8 @@
     APPEND_DICT_STRING(dict,@"filter-srism-resp",_filterSirSmResp);
     APPEND_DICT_STRING(dict,@"filter-forwardsm",_filterForwardSm);
     APPEND_DICT_STRING(dict,@"filter-forwardsm-resp",_filterForwardSmResp);
-	APPEND_DICT_STRING(dict,@"filter-moforwardsm-submit",_filterMoForwardSmSubmit);
-	APPEND_DICT_STRING(dict,@"filter-moforwardsm-submit-resp",_filterMoForwardSmSubmitResp);
+	APPEND_DICT_STRING(dict,@"filter-mo-submit",_filterMoForwardSmSubmit);
+	APPEND_DICT_STRING(dict,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
     APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
     APPEND_DICT_DOUBLE(dict,@"imsi-timer",_imsiTimer);
     APPEND_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
@@ -108,8 +108,8 @@
     SET_DICT_STRING(dict,@"filter-srism-resp",_filterSirSmResp);
     SET_DICT_STRING(dict,@"filter-forwardsm",_filterForwardSm);
     SET_DICT_STRING(dict,@"filter-forwardsm-resp",_filterForwardSmResp);
-	SET_DICT_STRING(dict,@"filter-moforwardsm-submit",_filterMoForwardSmSubmit);
-	SET_DICT_STRING(dict,@"filter-moforwardsm-submit-resp",_filterMoForwardSmSubmitResp);
+	SET_DICT_STRING(dict,@"filter-mo-submit",_filterMoForwardSmSubmit);
+	SET_DICT_STRING(dict,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
     SET_DICT_DOUBLE(dict,@"timeout",_timeout);
     SET_DICT_DOUBLE(dict,@"imsi-timer",_imsiTimer);
     SET_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);

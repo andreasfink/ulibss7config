@@ -3677,13 +3677,6 @@ static void signalHandler(int signum);
         [r addHardwareIdentifier:hi];
     }
 
-    NSArray *cpus = [UMUtil getCPUSerialNumbers];
-    for(NSString *cpu in cpus)
-    {
-        UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
-        hi.cpuId = cpu;
-        [r addHardwareIdentifier:hi];
-    }
 #if defined(__APPLE__)
     {
         UMTransportHardwareIdentifier *hi = [[UMTransportHardwareIdentifier alloc]init];
