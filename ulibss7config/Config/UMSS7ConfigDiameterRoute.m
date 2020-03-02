@@ -42,6 +42,7 @@
     APPEND_CONFIG_INTEGER(s,@"application-id",_applicationId);
     APPEND_CONFIG_DOUBLE(s,@"weight",_weight);
     APPEND_CONFIG_DOUBLE(s,@"priority",_priority);
+    APPEND_CONFIG_BOOLEAN(s,@"local",_local);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -54,6 +55,8 @@
     APPEND_DICT_INTEGER(dict,@"application-id",_applicationId);
     APPEND_DICT_DOUBLE(dict,@"weight",_weight);
     APPEND_DICT_DOUBLE(dict,@"priority",_priority);
+    APPEND_DICT_BOOLEAN(dict,@"local",_local);
+
     return dict;
 }
 
@@ -67,6 +70,8 @@
     SET_DICT_INTEGER(dict,@"application-id",_applicationId);
     SET_DICT_DOUBLE(dict,@"weight",_weight);
     SET_DICT_DOUBLE(dict,@"priority",_priority);
+    SET_DICT_BOOLEAN(dict,@"local",_local);
+
 }
 
 - (UMSS7ConfigDiameterRoute *)copyWithZone:(NSZone *)zone

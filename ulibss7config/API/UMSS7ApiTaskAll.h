@@ -14,6 +14,7 @@
 #import "UMSS7ApiTaskIdle.h"
 #import "UMSS7ApiTaskSessionsList.h"
 #import "UMSS7ApiTaskConfig_list.h"
+#import "UMSS7ApiTaskConfig_action.h"
 #import "UMSS7ApiTaskSCTP_list.h"
 #import "UMSS7ApiTaskSCTP_read.h"
 #import "UMSS7ApiTaskSCTP_add.h"
@@ -191,3 +192,4 @@
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h"
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h"
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h"
+

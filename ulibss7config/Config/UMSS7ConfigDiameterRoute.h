@@ -17,6 +17,7 @@
     NSNumber *_applicationId;
     NSNumber *_weight;
     NSNumber *_priority;
+    NSNumber *_local;
 }
 
 + (NSString *)type;
@@ -29,6 +30,7 @@
 @property(readwrite,strong,atomic)  NSNumber *applicationId;
 @property(readwrite,strong,atomic)  NSNumber *weight;
 @property(readwrite,strong,atomic)  NSNumber *priority;
+@property(readwrite,strong,atomic)  NSNumber *local;
 
 @end
 

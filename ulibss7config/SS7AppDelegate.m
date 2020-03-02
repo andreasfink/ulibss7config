@@ -5610,6 +5610,60 @@ static void signalHandler(int signum);
 }
 
 
+/************************************************************/
+#pragma mark -
+#pragma mark Configuration Management
+/************************************************************/
+
+
+- (NSString *)exportRunningConfiguration
+{
+    return [_runningConfig configString];
+}
+
+- (NSString *)exportStartupConfiguration
+{
+    return [_startupConfig configString];
+}
+
+- (NSString *)writeCurrentConfigurationToStartup
+{
+    NSString *configFileName = _runningConfig.rwconfigFile;
+    NSString *configFileNameNew = [NSString stringWithFormat:@"%@.new",configFileName];
+    NSString *oldConfigFileName1 = [NSString stringWithFormat:@"%@.old",configFileName];
+    NSString *oldConfigFileName2 = [NSString stringWithFormat:@"%@.old2",configFileName];
+    NSString *oldConfigFileName3 = [NSString stringWithFormat:@"%@.old3",configFileName];
+    NSString *oldConfigFileName4 = [NSString stringWithFormat:@"%@.old4",configFileName];
+    NSString *oldConfigFileName5 = [NSString stringWithFormat:@"%@.old5",configFileName];
+    NSString *oldConfigFileName6 = [NSString stringWithFormat:@"%@.old6",configFileName];
+    NSString *oldConfigFileName7 = [NSString stringWithFormat:@"%@.old7",configFileName];
+    NSString *oldConfigFileName8 = [NSString stringWithFormat:@"%@.old8",configFileName];
+    NSString *oldConfigFileName9 = [NSString stringWithFormat:@"%@.old9",configFileName];
+
+
+    NSString *s = [_runningConfig configString];
+    NSError *e=NULL;
+    [s writeToFile:configFileNameNew atomically:YES encoding:NSUTF8StringEncoding error:&e];
+    if(e)
+    {
+        NSLog(@"Error %@",e);
+        return [e description];
+    }
+    unlink(oldConfigFileName9.UTF8String);
+    rename(oldConfigFileName8.UTF8String,oldConfigFileName9.UTF8String);
+    rename(oldConfigFileName7.UTF8String,oldConfigFileName8.UTF8String);
+    rename(oldConfigFileName6.UTF8String,oldConfigFileName7.UTF8String);
+    rename(oldConfigFileName5.UTF8String,oldConfigFileName6.UTF8String);
+    rename(oldConfigFileName4.UTF8String,oldConfigFileName5.UTF8String);
+    rename(oldConfigFileName3.UTF8String,oldConfigFileName4.UTF8String);
+    rename(oldConfigFileName2.UTF8String,oldConfigFileName3.UTF8String);
+    rename(oldConfigFileName1.UTF8String,oldConfigFileName2.UTF8String);
+    rename(configFileName.UTF8String,oldConfigFileName1.UTF8String);
+    rename(configFileNameNew.UTF8String,configFileName.UTF8String);
+    _startupConfig = _runningConfig;
+    return NULL;
+}
+
 @end
 
 static void signalHandler(int signum)

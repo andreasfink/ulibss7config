@@ -536,6 +536,14 @@ UMSCCP_FilterDelegateProtocol>
 - (SS7CDRWriter *)getCDRWriter:(NSString *)name;
 
 
+/************************************************************/
+#pragma mark -
+#pragma mark Configuration Management
+/************************************************************/
+
+- (NSString *)exportRunningConfiguration;
+- (NSString *)exportStartupConfiguration;
+- (NSString *)writeCurrentConfigurationToStartup;
 
 @end
 
