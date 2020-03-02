@@ -35,7 +35,8 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(s,@"attach-initiator-to",_attachInitiatorTo);
+    APPEND_CONFIG_STRING(s,@"attach-responder-to",_attachResponderTo);
     APPEND_CONFIG_STRING(s,@"router",_router);
 }
 
@@ -43,7 +44,8 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(dict,@"attach-initiator-to",_attachInitiatorTo);
+    APPEND_DICT_STRING(dict,@"attach-responder-to",_attachResponderTo);
     APPEND_DICT_STRING(dict,@"router",_router);
     return dict;
 }
@@ -51,7 +53,8 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
+    SET_DICT_STRING(dict,@"attach-initiator-to",_attachInitiatorTo);
+    SET_DICT_STRING(dict,@"attach-responder-to",_attachResponderTo);
     SET_DICT_STRING(dict,@"router",_router);
 }
 

@@ -11,10 +11,12 @@
 
 @interface UMSS7ConfigDiameterConnection : UMSS7ConfigObject
 {
-    NSString *_attachTo;
+    NSString *_attachInitiatorTo;
+    NSString *_attachResponderTo;
     NSString *_router;
 }
-@property(readwrite,strong,atomic)      NSString *attachTo;
+@property(readwrite,strong,atomic)      NSString *attachInitiatorTo;
+@property(readwrite,strong,atomic)      NSString *attachResponderTo;
 @property(readwrite,strong,atomic)      NSString *router;
 
 + (NSString *)type;
