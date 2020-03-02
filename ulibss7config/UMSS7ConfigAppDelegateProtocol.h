@@ -221,5 +221,4 @@ realm:(NSString **)realm;
 - (NSString *)exportStartupConfiguration;
 - (NSString *)writeCurrentConfigurationToStartup;
 
-
 @end
