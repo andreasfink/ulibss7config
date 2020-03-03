@@ -125,6 +125,7 @@
     UMTimer                  *_dirtyTimer;
     NSString                 *_productName;
     BOOL                    _dirty;
+    BOOL                    _autowrite;
 }
 
 @property(readwrite,strong,atomic)  NSArray *commandLineArguments;
@@ -181,6 +182,7 @@
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 @property(readwrite,assign,atomic)  BOOL dirty;
+@property(readwrite,assign,atomic)  BOOL autowrite;
 
 - (void)startDirtyTimer;
 - (void)stopDirtyTimer;

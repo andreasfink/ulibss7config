@@ -123,7 +123,6 @@
     _diameter_route_dict =  [[UMSynchronizedSortedDictionary alloc]init];
     _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _mapi_dict= [[UMSynchronizedSortedDictionary alloc]init];
-
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -187,6 +186,14 @@
            _rwconfigFile = rwconfigFiles[0];
             [self loadFromFile:_rwconfigFile];
         }
+        if(_commandLine.params[@"rw"])
+        {
+            _rwconfigFile = configFiles[0];
+        }
+        if(_commandLine.params[@"autowrite"])
+        {
+            _autowrite = YES;
+        }
     }
     return self;
 }
@@ -194,7 +201,10 @@
 
 - (void)startDirtyTimer
 {
-    [_dirtyTimer start];
+    if(_autowrite==YES)
+    {
+        [_dirtyTimer start];
+    }
 }
 
 - (void)stopDirtyTimer

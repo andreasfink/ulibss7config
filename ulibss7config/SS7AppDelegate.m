@@ -333,6 +333,18 @@ static void signalHandler(int signum);
             @"help"  : @"reads the indicated config and also writes changes to it",
         },
         @{
+            @"name"  : @"rw",
+            @"short" : @"-W",
+            @"long"  : @"--rw",
+            @"help"  : @"changes --read-config to --read-write-config",
+        },
+        @{
+            @"name"  : @"autowrite",
+            @"short" : @"-A",
+            @"long"  : @"--autowrite",
+            @"help"  : @"automatically write changes to config file. not waiting for api write",
+        },
+        @{
             @"name"  : @"print-config",
             @"short" : @"",
             @"long"  : @"--print-config",
