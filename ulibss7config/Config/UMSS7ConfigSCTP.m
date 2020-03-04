@@ -43,6 +43,9 @@
     APPEND_CONFIG_BOOLEAN(s,@"passive",_passive);
     APPEND_CONFIG_DOUBLE(s,@"heartbeat",_heartbeat);
     APPEND_CONFIG_INTEGER(s,@"mtu",_mtu);
+    APPEND_CONFIG_INTEGER(s,@"max-init-timeout",_maxInitTimeout);
+    APPEND_CONFIG_INTEGER(s,@"max-init-attempts",_maxInitAttempts);
+
 }
 
 
@@ -57,6 +60,8 @@
     APPEND_DICT_BOOLEAN(dict,@"passive",_passive);
     APPEND_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
     APPEND_DICT_INTEGER(dict,@"mtu",_mtu);
+    APPEND_DICT_INTEGER(dict,@"max-init-timeout",_maxInitTimeout);
+    APPEND_DICT_INTEGER(dict,@"max-init-attempts",_maxInitAttempts);
     return dict;
 }
 
@@ -71,6 +76,8 @@
     SET_DICT_BOOLEAN(dict,@"passive",_passive);
     SET_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
     SET_DICT_INTEGER(dict,@"mtu",_mtu);
+    SET_DICT_INTEGER(dict,@"max-init-timeout",_maxInitTimeout);
+    SET_DICT_INTEGER(dict,@"max-init-attempts",_maxInitAttempts);
 }
 
 - (UMSS7ConfigSCTP *)copyWithZone:(NSZone *)zone

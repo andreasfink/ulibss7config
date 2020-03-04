@@ -19,6 +19,8 @@
     NSNumber            *_passive;
     NSNumber            *_heartbeat; /* in seconds */
     NSNumber            *_mtu;
+    NSNumber            *_maxInitTimeout;
+    NSNumber            *_maxInitAttempts;
 }
 
 + (NSString *)type;
@@ -33,5 +35,8 @@
 @property(readwrite,strong,atomic)      NSNumber            *passive;
 @property(readwrite,strong,atomic)      NSNumber            *heartbeat; /* in seconds */
 @property(readwrite,strong,atomic)      NSNumber            *mtu;
+@property(readwrite,strong,atomic)      NSNumber            *maxInitTimeout;
+@property(readwrite,strong,atomic)      NSNumber            *maxInitAttempts;
+
 @end
 
