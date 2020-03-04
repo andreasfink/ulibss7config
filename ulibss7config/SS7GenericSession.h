@@ -95,7 +95,7 @@ typedef enum SS7MultiInvokeVariant
     int                         _phase;
     BOOL                        _keepOriginalSccpAddressForTcapContinue;
     NSString                    *_tcap_operation_global;
-    int                         _multi_invoke_variant;
+    SS7MultiInvokeVariant       _multi_invoke_variant;
     NSString *_calling_ssn;
     NSString *_called_ssn;
     NSString *_calling_address;
@@ -169,7 +169,7 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    NSInteger                   hasReceivedInvokes;
 @property(readwrite,assign,atomic)    int                         phase;
 @property(readwrite,assign,atomic)    BOOL                        keepOriginalSccpAddressForTcapContinue;
-@property(readwrite,assign,atomic)    int                         multi_invoke_variant;
+@property(readwrite,assign,atomic)    SS7MultiInvokeVariant       multi_invoke_variant;
 @property(readwrite,strong,atomic)    NSString *tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;
