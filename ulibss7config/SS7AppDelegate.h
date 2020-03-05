@@ -304,6 +304,8 @@ UMSCCP_FilterDelegateProtocol>
 
 - (NSString *)productName;
 - (NSString *)productVersion;
+- (NSString *)productCopyright;
+
 - (void)umobjectStat:(UMHTTPRequest *)req;
 - (void)ummutexStat:(UMHTTPRequest *)req;
 - (void)umtGetPost:(UMHTTPRequest *)req;

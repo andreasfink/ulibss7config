@@ -286,12 +286,17 @@ static void signalHandler(int signum);
     return self;
 }
 
+- (NSString *)productCopyright
+{
+    return @"© 2020 Andreas Fink";
+}
+
 - (NSDictionary *)appDefinition
 {
     return @{
-        @"version" : @"0.0.0",
-        @"executable" : @"ss7-app",
-        @"copyright" : @"© 2019 Andreas Fink",
+        @"version"    : [self productVersion],
+        @"executable" : [self productName],
+        @"copyright"  : [self productCopyright],
     };
 }
 
