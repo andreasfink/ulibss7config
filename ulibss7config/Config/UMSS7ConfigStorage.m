@@ -67,6 +67,7 @@
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ConfigDiameterRoute.h"
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
+#import "UMSS7ConfigCAMEL.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -3465,6 +3466,46 @@
     return @"ok";
 }
 
+- (NSArray *)getCAMELNames
+{
+    return [_camel_dict allKeys];
+}
+
+- (UMSS7ConfigCAMEL *)getCAMEL:(NSString *)name
+{
+    return _camel_dict[name];
+}
+
+- (NSString *)addCAMEL:(UMSS7ConfigCAMEL *)camel
+{
+    if(_camel_dict[camel.name] == NULL)
+    {
+        _camel_dict[camel.name] = camel;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+
+}
+
+- (NSString *)replaceCAMEL:(UMSS7ConfigCAMEL *)camel
+{
+    _camel_dict[camel.name] = camel;
+    _dirty=YES;
+    return @"ok";
+}
+
+
+- (NSString *)deleteCAMEL:(NSString *)name
+{
+    if(_camel_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_camel_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 /***************************************************/
 #pragma mark -
@@ -3529,6 +3570,7 @@
     n.diameter_route_dict = [_diameter_route_dict copy];
     n.mtp3_pctrans_dict = [_mtp3_pctrans_dict copy];
     n.rwconfigFile = _rwconfigFile;
+    n.camel_dict = [_camel_dict copy];
     return n;
 }
 
