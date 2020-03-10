@@ -72,6 +72,7 @@
 #import "UMSS7ConfigDiameterConnection.h"
 #import "UMSS7ConfigDiameterRoute.h"
 #import "UMSS7ConfigDiameterRouter.h"
+#import "UMSS7ConfigCAMEL.h"
 #import "UMTTask.h"
 #import "UMTTaskPing.h"
 #import "UMTTaskGetVersion.h"
@@ -277,7 +278,6 @@ static void signalHandler(int signum);
         _smsproxyFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsproxy"];
         _rerouterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"rerouter"];
         _diameterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
-
         _dbpool_dict = [[UMSynchronizedDictionary alloc]init];
 
         _filteringActive = YES;
@@ -860,6 +860,10 @@ static void signalHandler(int signum);
                                                        numberOfQueues:UMLAYER_QUEUE_COUNT];
     _gsmmapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                    name:@"gsmmap"
+                                                          enableLogging:NO
+                                                         numberOfQueues:UMLAYER_QUEUE_COUNT];
+    _camelTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+                                                                   name:@"camel"
                                                           enableLogging:NO
                                                          numberOfQueues:UMLAYER_QUEUE_COUNT];
 
@@ -3074,7 +3078,7 @@ static void signalHandler(int signum);
 
 
         UMLayerGSMMAP *gsmmap = [[UMLayerGSMMAP alloc]initWithTaskQueueMulti:_gsmmapTaskQueue];
-        gsmmap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
+        gsmmap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"gsmmap"];
         gsmmap.logFeed.name = name;
         [gsmmap setConfig:config applicationContext:self];
         _gsmmap_dict[name] = gsmmap;
@@ -3107,6 +3111,63 @@ static void signalHandler(int signum);
     layer.layerName = newName;
     _gsmmap_dict[newName] = layer;
 }
+
+/************************************************************/
+#pragma mark -
+#pragma mark CAMEL Service Functions
+/************************************************************/
+
+- (UMLayerCamel *)getCAMEL:(NSString *)name
+{
+    return _camel_dict[name];
+}
+
+- (void)addWithConfigCAMEL:(NSDictionary *)config
+{
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMSS7ConfigCAMEL *co = [[UMSS7ConfigCAMEL alloc]initWithConfig:config];
+        [_runningConfig addCAMEL:co];
+
+        config = co.config.dictionaryCopy;
+
+
+        UMLayerCamel *camel = [[UMLayerCamel alloc]initWithTaskQueueMulti:_camelTaskQueue];
+        camel.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"camel"];
+        camel.logFeed.name = name;
+        [camel setConfig:config applicationContext:self];
+        _camel_dict[name] = camel;
+
+        UMLayerTCAP *tcap  = [self getTCAP:co.attachTo];
+        if(tcap==NULL)
+        {
+            [self.logFeed majorErrorText:[NSString stringWithFormat:@"CAMEL %@ can not attach to TCAP %@",name,co.attachTo]];
+        }
+        else
+        {
+            camel.tcap = tcap;
+            tcap.tcapDefaultUser = camel;
+        }
+    }
+}
+
+- (void)deleteCAMEL:(NSString *)name
+{
+    // UMLayerGSMMAP *instance =  _gsmmap_dict[name];
+    [_camel_dict removeObjectForKey:name];
+    //    [instance stopDetachAndDestroy];
+
+}
+
+- (void)renameCAMEL:(NSString *)oldName to:(NSString *)newName
+{
+    UMLayerCamel *layer =  _camel_dict[oldName];
+    [_camel_dict removeObjectForKey:oldName];
+    layer.layerName = newName;
+    _camel_dict[newName] = layer;
+}
+
 
 /************************************************************/
 #pragma mark -

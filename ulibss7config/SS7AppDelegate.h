@@ -71,6 +71,7 @@ UMLayerMTP3ApplicationContextProtocol,
 UMLayerSCCPApplicationContextProtocol,
 UMLayerTCAPApplicationContextProtocol,
 UMLayerGSMMAPApplicationContextProtocol,
+UMLayerCamelApplicationContextProtocol,
 SS7TelnetSocketHelperProtocol,
 SS7UserAuthenticateProtocol,
 UMSS7ConfigAppDelegateProtocol,
@@ -137,6 +138,7 @@ UMSCCP_FilterDelegateProtocol>
     UMLicenseProductFeature     *_smsproxyFeature;
     UMLicenseProductFeature     *_rerouterFeature;
     UMLicenseProductFeature     *_diameterFeature;
+    UMLicenseProductFeature     *_gsmapiFeature;
 
 	UMTransportService       	*_umtransportService;
 	UMMutex                  	*_umtransportLock;
@@ -153,6 +155,7 @@ UMSCCP_FilterDelegateProtocol>
     UMTaskQueueMulti            *_sccpTaskQueue;
     UMTaskQueueMulti            *_tcapTaskQueue;
     UMTaskQueueMulti            *_gsmmapTaskQueue;
+    UMTaskQueueMulti            *_camelTaskQueue;
     UMTaskQueueMulti            *_diameterTaskQueue;
     SchrittmacherMode           _schrittmacherMode;
     UMLogLevel                  _logLevel;

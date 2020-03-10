@@ -66,6 +66,7 @@
 @class UMSS7ConfigDiameterConnection;
 @class UMSS7ConfigDiameterRouter;
 @class UMSS7ConfigDiameterRoute;
+@class UMSS7ConfigCAMEL;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -121,6 +122,8 @@
     UMSynchronizedSortedDictionary *_diameter_connection_dict;
     UMSynchronizedSortedDictionary *_diameter_router_dict;
     UMSynchronizedSortedDictionary *_diameter_route_dict;
+    UMSynchronizedSortedDictionary *_camel_dict;
+
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
     NSString                 *_productName;
@@ -179,6 +182,8 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_connection_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_router_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_route_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *camel_dict;
+
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
 @property(readwrite,assign,atomic)  BOOL dirty;
@@ -484,5 +489,12 @@
 - (NSString *)addPointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)dc;
 - (NSString *)replacePointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)dc;
 - (NSString *)deletePointcodeTranslationTable:(NSString *)name;
+
+
+- (NSArray *)getCAMELNames;
+- (UMSS7ConfigCAMEL *)getCAMEL:(NSString *)name;
+- (NSString *)addCAMEL:(UMSS7ConfigCAMEL *)camel;
+- (NSString *)replaceCAMEL:(UMSS7ConfigCAMEL *)camel;
+- (NSString *)deleteCAMEL:(NSString *)name;
 
 @end
