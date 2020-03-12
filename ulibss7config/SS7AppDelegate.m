@@ -2257,6 +2257,18 @@ static void signalHandler(int signum);
         UMLayerCamel *map = _camel_dict[key];
         [status appendFormat:@"CAMEL-INSTANCE:%@:%@\n",map.layerName,map.status];
     }
+    
+    keys = [_diameter_connections_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMDiameterPeer *peer = _diameter_connections_dict[key];
+        [status appendFormat:@"DIAMETER_PEER:%@:%@\n",peer.layerName,peer.statusString];
+    }
+
+    keys = [_m2pa_dict allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(compare:)];
+
+
     [req setResponsePlainText:status];
     return;
 }
