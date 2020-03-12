@@ -279,7 +279,6 @@ static void signalHandler(int signum);
         _rerouterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"rerouter"];
         _diameterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
         _dbpool_dict = [[UMSynchronizedDictionary alloc]init];
-
         _filteringActive = YES;
         _sessionTimeout = 30.0*60.0;
     }

@@ -18,6 +18,8 @@
     NSArray *_inbound_filter_rulesets;
     NSArray *_outbound_filter_rulesets;
     NSString *_pctrans;
+    NSString *_pctransIn;
+    NSString *_pctransOut;
     NSNumber *_disableRouteAdvertizement;
 }
 
@@ -33,6 +35,8 @@
 @property(readwrite,strong,atomic)  NSArray *inbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSArray *outbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSString *pctrans;
+@property(readwrite,strong,atomic)  NSString *pctransIn;
+@property(readwrite,strong,atomic)  NSString *pctransOut;
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
 
 

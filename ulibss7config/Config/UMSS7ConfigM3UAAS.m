@@ -43,6 +43,8 @@
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"outbound-filter",_outbound_filter_rulesets);
     APPEND_CONFIG_STRING(s,@"pointcode-translation-table",_pctrans);
+    APPEND_CONFIG_STRING(s,@"pointcode-translation-table-in",_pctransIn);
+    APPEND_CONFIG_STRING(s,@"pointcode-translation-table-out",_pctransOut);
     APPEND_CONFIG_BOOLEAN(s,@"disable-route-advertizement",_disableRouteAdvertizement);
 
 
@@ -59,6 +61,8 @@
     APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
     APPEND_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
     APPEND_DICT_STRING(dict,@"pointcode-translation-table",_pctrans);
+    APPEND_DICT_STRING(dict,@"pointcode-translation-table-in",_pctransIn);
+    APPEND_DICT_STRING(dict,@"pointcode-translation-table-out",_pctransOut);
     APPEND_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
 
 
@@ -76,6 +80,8 @@
     SET_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
     SET_DICT_ARRAY(dict,@"outbound-filter",_outbound_filter_rulesets);
     SET_DICT_STRING(dict,@"pointcode-translation-table",_pctrans);
+    SET_DICT_STRING(dict,@"pointcode-translation-table-in",_pctransIn);
+    SET_DICT_STRING(dict,@"pointcode-translation-table-out",_pctransOut);
     SET_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
 }
 
