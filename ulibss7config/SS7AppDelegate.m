@@ -156,6 +156,7 @@ static void signalHandler(int signum);
         _m3ua_as_dict                   = [[UMSynchronizedDictionary alloc]init];
         _m3ua_asp_dict                  = [[UMSynchronizedDictionary alloc]init];
         _mtp3_pointcode_translation_tables_dict = [[UMSynchronizedDictionary alloc]init];
+        _mtp3_tranlation_table_maps_dict = [[UMSynchronizedDictionary alloc]init];
         _sccp_dict                      = [[UMSynchronizedDictionary alloc]init];
         _webserver_dict                 = [[UMSynchronizedDictionary alloc]init];
         _telnet_dict                    = [[UMSynchronizedDictionary alloc]init];
@@ -169,6 +170,7 @@ static void signalHandler(int signum);
         _ss7FilterStagingAreas_dict     = [[UMSynchronizedDictionary alloc]init];
         _statistics_dict                = [[UMSynchronizedDictionary alloc]init];
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
+
         _registry                       = [[UMSocketSCTPRegistry alloc]init];
         _registry.logLevel =            UMLOG_MINOR;
         _stagingAreaPath                =  [self defaultStagingAreaPath];
