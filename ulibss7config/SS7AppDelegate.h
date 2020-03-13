@@ -101,6 +101,7 @@ UMSCCP_FilterDelegateProtocol>
     UMSynchronizedDictionary    *_m3ua_as_dict;
     UMSynchronizedDictionary    *_m3ua_asp_dict;
     UMSynchronizedDictionary    *_mtp3_pointcode_translation_tables_dict;
+    UMSynchronizedDictionary    *_mtp3_tranlation_table_maps_dict;
     UMSynchronizedDictionary    *_webserver_dict;
     UMSynchronizedDictionary    *_telnet_dict;
     UMSynchronizedDictionary    *_syslog_destination_dict;

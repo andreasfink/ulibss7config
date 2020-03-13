@@ -17,6 +17,7 @@
 - (NSString *)type;
 
 - (UMSS7ConfigSCCPTranslationTableMap *)initWithConfig:(NSDictionary *)dict;
+- (UMSynchronizedSortedDictionary *)config;
 
 @end
 

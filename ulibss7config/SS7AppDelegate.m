@@ -91,6 +91,7 @@
 #import "objc/runtime.h"
 #import "SS7CDRWriter.h"
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
+#import "UMSS7ConfigSCCPTranslationTableMap.h"
 
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
@@ -2714,6 +2715,19 @@ static void signalHandler(int signum);
 }
 
 
+- (UMMTP3TranslationTableMap *)getTTMap:(NSString *)name
+{
+    UMMTP3TranslationTableMap *map = _mtp3_tranlation_table_maps_dict[name];
+    if(map == NULL)
+    {
+        UMSS7ConfigSCCPTranslationTableMap *mapconfig = [_runningConfig getSCCPTranslationTableMap:name];
+        map = [[UMMTP3TranslationTableMap alloc]init];
+        NSDictionary *dict = [mapconfig.config dictionaryCopy];
+        [map setConfig:dict];
+        _mtp3_tranlation_table_maps_dict[name] = map;
+    }
+    return map;
+}
 
 /************************************************************/
 #pragma mark -
@@ -4328,13 +4342,14 @@ static void signalHandler(int signum);
                 NSString *key = sccpLayerKeys[0];
                 UMLayerSCCP *sccp = _sccp_dict[key];
                 UMSCCP_mtpTransfer *task = [[UMSCCP_mtpTransfer alloc]initForSccp:sccp
-                                                     mtp3:NULL
-                                                      opc:label.opc
-                                                      dpc:label.dpc
-                                                       si:3
-                                                       ni:0
-                                                     data:mtp3payload
-                                                  options:@{ @"decode-only" : @YES }];
+                                                                             mtp3:NULL
+                                                                              opc:label.opc
+                                                                              dpc:label.dpc
+                                                                               si:3
+                                                                               ni:0
+                                                                             data:mtp3payload
+                                                                          options:@{ @"decode-only" : @YES }
+                                                                              map:NULL];
                 [task main];
                 dict[@"sccp"] = task.decodedJson;
             }
@@ -4387,7 +4402,8 @@ static void signalHandler(int signum);
                                                        si:3
                                                        ni:0
                                                      data:[pdu unhexedData]
-                                                  options:@{ @"decode-only" : @YES }];
+                                                  options:@{ @"decode-only" : @YES }
+                                                      map:NULL];
             [task main];
 
             NSString *json = [task.decodedJson jsonString];
