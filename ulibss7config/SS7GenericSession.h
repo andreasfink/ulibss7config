@@ -180,8 +180,6 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,strong,atomic)    NSString *opc;
 @property(readwrite,strong,atomic)    NSString *dpc;
 @property(readwrite,assign,atomic)    int sls;
-
-
 @property(readwrite,assign,atomic)    int64_t operation;
 @property(readwrite,assign,atomic)    int64_t operation2;
 @property(readwrite,assign,atomic)    int64_t operation3;

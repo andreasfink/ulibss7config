@@ -236,15 +236,15 @@ else \
 }
 
 - (SS7GenericSession *)initWithQuery:(UMASN1Object *)xquery
-                   userIdentifier:(NSString *)uid
-                              req:(UMHTTPRequest *)xreq
-                        operation:(int64_t) xop
-                   callingAddress:(SccpAddress *)src
-                    calledAddress:(SccpAddress *)dst
-                         instance:(SS7GenericInstance *)xInstance
-               applicationContext:(UMTCAP_asn1_objectIdentifier *)xapplicationContext
-                         userInfo:(UMTCAP_asn1_userInformation *)xuserInfo
-                          options:(NSDictionary *) xoptions
+                      userIdentifier:(NSString *)uid
+                                 req:(UMHTTPRequest *)xreq
+                           operation:(int64_t) xop
+                      callingAddress:(SccpAddress *)src
+                       calledAddress:(SccpAddress *)dst
+                            instance:(SS7GenericInstance *)xInstance
+                  applicationContext:(UMTCAP_asn1_objectIdentifier *)xapplicationContext
+                            userInfo:(UMTCAP_asn1_userInformation *)xuserInfo
+                             options:(NSDictionary *) xoptions
 {
     [_historyLog addLogEntry:@"SS7GenericSession: initWithQuery"];
 
@@ -257,6 +257,7 @@ else \
         _initialLocalAddress = src;
         _initialRemoteAddress = dst;
         _req  = xreq;
+        _opcode = [[UMLayerGSMMAP_OpCode alloc ]initWithOperationCode:xop];
         _applicationContext = xapplicationContext;
         _userInfo = xuserInfo;
         if(xoptions)
@@ -287,6 +288,8 @@ else \
         _gInstance = ot.gInstance;
         _localAddress = ot.localAddress;
         _remoteAddress = ot.remoteAddress;
+        _initialRemoteAddress = ot.initialRemoteAddress;
+        _initialLocalAddress = ot.initialLocalAddress;
         _req = ot.req;
         _options = [ot.options mutableCopy];
         _applicationContext = ot.applicationContext;
@@ -297,7 +300,8 @@ else \
         _sccpTracefileEnabled = ot.sccpTracefileEnabled;
         _pcap = ot.pcap;
         _startTime = ot.startTime;
-        _lastActiveTime = ot.lastActiveTime;
+        //_lastActiveTime = ot.lastActiveTime;
+        [_lastActiveTime touch];
         _timeoutInSeconds = ot.timeoutInSeconds;
         _incoming_map_open = ot.incoming_map_open;
         _dialogId = ot.dialogId;
@@ -312,7 +316,6 @@ else \
         _incoming = ot.incoming;
         _outgoing = ot.outgoing;
         _outputFormat = ot.outputFormat;
-
         _calling_ssn = ot->_calling_ssn;
         _called_ssn = ot->_called_ssn;
         _calling_address = ot->_calling_address;
@@ -321,7 +324,6 @@ else \
         _called_tt = ot->_called_tt;
 
         _undefinedSession = NO; /* we get called for overrided object here */
-
     }
     return self;
 }
@@ -732,9 +734,15 @@ else \
     if(_hasReceivedInvokes==0)
     {
         [_components addObject:@{@"rx" : @"tcap-continue"} ];
+        SccpAddress *remote = NULL;
+        if(_keepOriginalSccpAddressForTcapContinue)
+        {
+            remote = _initialRemoteAddress;
+        }
+
         [_gInstance.gsmMap queueMAP_Delimiter_Req:xdialogId
                                   callingAddress:NULL
-                                   calledAddress:NULL
+                                   calledAddress:remote
                                          options:@{}
                                           result:NULL
                                       diagnostic:NULL];
@@ -1616,9 +1624,14 @@ else \
 
     if(useHandshake)
     {
+        SccpAddress *remote = NULL;
+        if(_keepOriginalSccpAddressForTcapContinue)
+        {
+            remote = _initialRemoteAddress;
+        }
         [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                     callingAddress:NULL
-                                     calledAddress:NULL
+                                     calledAddress:remote
                                            options:_options
                                             result:NULL
                                         diagnostic:NULL];
@@ -1640,9 +1653,15 @@ else \
             }
             if(!useHandshake)
             {
+                SccpAddress *remote = NULL;
+                if(_keepOriginalSccpAddressForTcapContinue)
+                {
+                    remote = _initialRemoteAddress;
+                }
+
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                             callingAddress:NULL
-                                             calledAddress:NULL
+                                             calledAddress:remote
                                                    options:_options
                                                     result:NULL
                                                 diagnostic:NULL];
@@ -1674,9 +1693,15 @@ else \
             }
             if(!useHandshake)
             {
+                SccpAddress *remote = NULL;
+                if(_keepOriginalSccpAddressForTcapContinue)
+                {
+                    remote = _initialRemoteAddress;
+                }
+
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                            callingAddress:NULL
-                                            calledAddress:NULL
+                                            calledAddress:remote
                                                   options:_options
                                                    result:NULL
                                                diagnostic:NULL];
@@ -1695,9 +1720,16 @@ else \
                                                     last:YES
                                                  options:_options];
             }
+            SccpAddress *remote = NULL;
+            if(_keepOriginalSccpAddressForTcapContinue)
+            {
+                remote = _initialRemoteAddress;
+            }
+
+
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                         callingAddress:NULL
-                                         calledAddress:NULL
+                                         calledAddress:remote
                                                options:_options
                                                 result:NULL
                                             diagnostic:NULL];
@@ -1736,9 +1768,15 @@ else \
                                                     last:YES
                                                  options:_options];
             }
+            SccpAddress *remote = NULL;
+            if(_keepOriginalSccpAddressForTcapContinue)
+            {
+                remote = _initialRemoteAddress;
+            }
+
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                         callingAddress:NULL
-                                         calledAddress:NULL
+                                         calledAddress:remote
                                                options:_options
                                                 result:NULL
                                             diagnostic:NULL];
@@ -1777,9 +1815,15 @@ else \
                                                     last:YES
                                                  options:_options];
             }
+            SccpAddress *remote = NULL;
+            if(_keepOriginalSccpAddressForTcapContinue)
+            {
+                remote = _initialRemoteAddress;
+            }
+
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                         callingAddress:NULL
-                                         calledAddress:NULL
+                                         calledAddress:remote
                                                options:_options
                                                 result:NULL
                                             diagnostic:NULL];
@@ -1824,9 +1868,15 @@ else \
                                                       options:_options];
     [_gInstance addSession:self userId:_userIdentifier];
 
+    SccpAddress *remote = NULL;
+    if(_keepOriginalSccpAddressForTcapContinue)
+    {
+        remote = _initialRemoteAddress;
+    }
+
     [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                 callingAddress:NULL
-                                 calledAddress:NULL
+                                 calledAddress:remote
                                        options:_options
                                         result:NULL
                                     diagnostic:NULL];
