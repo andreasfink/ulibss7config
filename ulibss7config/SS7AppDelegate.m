@@ -2267,7 +2267,6 @@ static void signalHandler(int signum);
         UMDiameterPeer *peer = _diameter_connections_dict[key];
         [status appendFormat:@"DIAMETER_PEER:%@:%@\n",peer.layerName,peer.statusString];
     }
-
     keys = [_m2pa_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 
@@ -4404,8 +4403,7 @@ static void signalHandler(int signum);
                                                        si:3
                                                        ni:0
                                                      data:[pdu unhexedData]
-                                                  options:@{ @"decode-only" : @YES }
-                                                      map:NULL];
+                                                  options:@{ @"decode-only" : @YES }];
             [task main];
 
             NSString *json = [task.decodedJson jsonString];
