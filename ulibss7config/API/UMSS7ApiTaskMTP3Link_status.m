@@ -42,9 +42,6 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
         switch(mtp3Link.m2pa.m2pa_status)
         {
-            case  M2PA_STATUS_UNUSED:
-                dict[@"m2pa-status"] = @"unused";
-                break;
             case M2PA_STATUS_OFF:
                 dict[@"m2pa-status"] = @"off";
                 break;
@@ -62,6 +59,12 @@
                 break;
             case M2PA_STATUS_IS:
                 dict[@"m2pa-status"] = @"in-service";
+                break;
+            case M2PA_STATUS_BUSY:
+                dict[@"m2pa-status"] = @"busy";
+                break;
+            case M2PA_STATUS_PROCESSOR_OUTAGE:
+                dict[@"m2pa-status"] = @"processor-outage";
                 break;
             default:
                 dict[@"m2pa-status"] = @"invalid";

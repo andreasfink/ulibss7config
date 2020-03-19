@@ -34,8 +34,8 @@
     {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
 
-        dict[@"link-state-control"]=m2pa.lscState.description;
-        dict[@"initial-alignment-control"]=m2pa.iacState.description;
+  //      dict[@"link-state-control"]=m2pa.lscState.description;
+  //      dict[@"initial-alignment-control"]=m2pa.iacState.description;
         dict[@"inbound-bytes"] = [m2pa.inboundThroughputBytes getSpeedTripleJson];
         dict[@"inbound-packets"] = [m2pa.inboundThroughputPackets getSpeedTripleJson];
         dict[@"outbound-bytes"] = [m2pa.outboundThroughputBytes getSpeedTripleJson];
@@ -56,9 +56,6 @@
 
         switch(m2pa.m2pa_status)
         {
-            case  M2PA_STATUS_UNUSED:
-                dict[@"m2pa-status"] = @"unused";
-                break;
             case M2PA_STATUS_OFF:
                 dict[@"m2pa-status"] = @"off";
                 break;
@@ -76,6 +73,9 @@
                 break;
             case M2PA_STATUS_IS:
                 dict[@"m2pa-status"] = @"in-service";
+                break;
+            case M2PA_STATUS_BUSY:
+                dict[@"m2pa-status"] = @"busy";
                 break;
             default:
                 dict[@"m2pa-status"] = @"invalid";
