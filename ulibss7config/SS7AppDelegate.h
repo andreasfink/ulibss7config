@@ -537,7 +537,7 @@ UMSCCP_FilterDelegateProtocol>
 
 /************************************************************/
 #pragma mark -
-#pragma mark CDRWriter functions
+#pragma mark SS7CDRWriter functions
 /************************************************************/
 - (SS7CDRWriter *)getCDRWriter:(NSString *)name;
 
