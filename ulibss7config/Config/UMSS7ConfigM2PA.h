@@ -23,6 +23,7 @@
     NSNumber        *_t5;
     NSNumber        *_t6;
     NSNumber        *_t7;
+    NSString        *_stateMachineLog;
 }
 
 + (NSString *)type;

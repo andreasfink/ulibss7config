@@ -44,6 +44,8 @@
     APPEND_CONFIG_DOUBLE(s,@"t5",_t5);
     APPEND_CONFIG_DOUBLE(s,@"t6",_t6);
     APPEND_CONFIG_DOUBLE(s,@"t7",_t7);
+    APPEND_CONFIG_STRING(s,@"state-machine-log",_stateMachineLog);
+
 }
 
 
@@ -60,6 +62,8 @@
     APPEND_DICT_DOUBLE(dict,@"t5",_t5);
     APPEND_DICT_DOUBLE(dict,@"t6",_t6);
     APPEND_DICT_DOUBLE(dict,@"t7",_t7);
+    APPEND_DICT_STRING(dict,@"state-machine-log",_stateMachineLog);
+
     return dict;
 }
 
@@ -76,6 +80,7 @@
     SET_DICT_DOUBLE(dict,@"t5",_t5);
     SET_DICT_DOUBLE(dict,@"t6",_t6);
     SET_DICT_DOUBLE(dict,@"t7",_t7);
+    SET_DICT_STRING(dict,@"state-machine-log",_stateMachineLog);
 }
 
 - (UMSS7ConfigM2PA *)copyWithZone:(NSZone *)zone
