@@ -37,7 +37,7 @@
     APPEND_CONFIG_STRING(s,@"m3ua-as",_m3ua_as);
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
     APPEND_CONFIG_DOUBLE(s,@"reopen-timer1",_reopenTimer1);
-    APPEND_CONFIG_DOUBLE(s,@"reopen-timer2",_reopenTimer1);
+    APPEND_CONFIG_DOUBLE(s,@"reopen-timer2",_reopenTimer2);
     APPEND_CONFIG_DOUBLE(s,@"linktest-timer",_linktestTimer);
     APPEND_CONFIG_DOUBLE(s,@"beat-timer",_beatTimer);
     APPEND_CONFIG_INTEGER(s,@"beat-max-outstanding",_beatMaxOutstanding);
@@ -50,7 +50,7 @@
     APPEND_DICT_STRING(dict,@"m3ua-as",_m3ua_as);
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
     APPEND_DICT_DOUBLE(dict,@"reopen-timer1",_reopenTimer1);
-    APPEND_DICT_DOUBLE(dict,@"reopen-timer2",_reopenTimer1);
+    APPEND_DICT_DOUBLE(dict,@"reopen-timer2",_reopenTimer2);
     APPEND_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     APPEND_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     APPEND_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
@@ -63,7 +63,7 @@
     SET_DICT_STRING(dict,@"m3ua-as",_m3ua_as);
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_DOUBLE(dict,@"reopen-timer1",_reopenTimer1);
-    SET_DICT_DOUBLE(dict,@"reopen-timer2",_reopenTimer1);
+    SET_DICT_DOUBLE(dict,@"reopen-timer2",_reopenTimer2);
     SET_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     SET_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     SET_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);

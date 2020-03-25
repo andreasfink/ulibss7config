@@ -17,6 +17,8 @@
     NSString *_overrideNetworkIndicator;
     NSString *_ttmap_in;
     NSString *_ttmap_out;
+    NSArray<NSString *> *_map_tt_in;
+    NSArray<NSString *> *_map_tt_out;
     NSArray *_inbound_filter_rulesets;
     NSArray *_outbound_filter_rulesets;
     NSString *_pctrans;
@@ -36,12 +38,13 @@
 @property(readwrite,strong,atomic)  NSString *overrideNetworkIndicator;
 @property(readwrite,strong,atomic)  NSString *ttmap_in;
 @property(readwrite,strong,atomic)  NSString *ttmap_out;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *map_tt_in;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *map_tt_out;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *inbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *outbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSString *pctrans;
 @property(readwrite,strong,atomic)  NSString *pctransIn;
 @property(readwrite,strong,atomic)  NSString *pctransOut;
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
-
 
 @end

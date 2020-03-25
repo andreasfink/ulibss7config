@@ -40,36 +40,7 @@
     if(mtp3Link)
     {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-        switch(mtp3Link.m2pa.m2pa_status)
-        {
-            case M2PA_STATUS_OFF:
-                dict[@"m2pa-status"] = @"off";
-                break;
-            case M2PA_STATUS_OOS:
-                dict[@"m2pa-status"] = @"out-of-service";
-                break;
-            case M2PA_STATUS_INITIAL_ALIGNMENT:
-                dict[@"m2pa-status"] = @"initial-alignment";
-                break;
-            case M2PA_STATUS_ALIGNED_NOT_READY:
-                dict[@"m2pa-status"] = @"aligned-not-ready";
-                break;
-            case M2PA_STATUS_ALIGNED_READY:
-                dict[@"m2pa-status"] = @"aligned-ready";
-                break;
-            case M2PA_STATUS_IS:
-                dict[@"m2pa-status"] = @"in-service";
-                break;
-            case M2PA_STATUS_BUSY:
-                dict[@"m2pa-status"] = @"busy";
-                break;
-            case M2PA_STATUS_PROCESSOR_OUTAGE:
-                dict[@"m2pa-status"] = @"processor-outage";
-                break;
-            default:
-                dict[@"m2pa-status"] = @"invalid";
-                break;
-        }
+        dict[@"m2pa-status"] = [UMLayerM2PA m2paStatusString:mtp3Link.m2pa.m2pa_status];
         switch(mtp3Link.sctp_status)
         {
             case SCTP_STATUS_M_FOOS:

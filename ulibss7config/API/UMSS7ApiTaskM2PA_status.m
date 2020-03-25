@@ -54,33 +54,10 @@
                 break;
         }
 
-        switch(m2pa.m2pa_status)
-        {
-            case M2PA_STATUS_OFF:
-                dict[@"m2pa-status"] = @"off";
-                break;
-            case M2PA_STATUS_OOS:
-                dict[@"m2pa-status"] = @"out-of-service";
-                break;
-            case M2PA_STATUS_INITIAL_ALIGNMENT:
-                dict[@"m2pa-status"] = @"initial-alignment";
-                break;
-            case M2PA_STATUS_ALIGNED_NOT_READY:
-                dict[@"m2pa-status"] = @"aligned-not-ready";
-                break;
-            case M2PA_STATUS_ALIGNED_READY:
-                dict[@"m2pa-status"] = @"aligned-ready";
-                break;
-            case M2PA_STATUS_IS:
-                dict[@"m2pa-status"] = @"in-service";
-                break;
-            case M2PA_STATUS_BUSY:
-                dict[@"m2pa-status"] = @"busy";
-                break;
-            default:
-                dict[@"m2pa-status"] = @"invalid";
-                break;
-        }
+        dict[@"m2pa-status"] = [UMLayerM2PA m2paStatusString:m2pa.m2pa_status];
+        dict[@"remote-processor-outage"] = @(m2pa.remote_processor_outage);
+        dict[@"congested"] = @(m2pa.congested);
+
         switch(m2pa.sctp_status)
         {
             case SCTP_STATUS_M_FOOS:

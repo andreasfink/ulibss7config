@@ -2158,7 +2158,7 @@ static void signalHandler(int signum);
     {
         UMLayerM2PA *m2pa = _m2pa_dict[key];
 
-        [status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[m2pa m2paStatusString:m2pa.m2pa_status]];
+        [status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[UMLayerM2PA m2paStatusString:m2pa.m2pa_status]];
         [status appendFormat:@"    alignmentsReceived: %d\n", (int)m2pa.alignmentsReceived];
         [status appendFormat:@"    alignmentsSent: %d\n", (int)m2pa.alignmentsReceived];
         [status appendFormat:@"    provingReceived: %d\n", m2pa.provingReceived];
