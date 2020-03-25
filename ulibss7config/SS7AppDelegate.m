@@ -2159,14 +2159,32 @@ static void signalHandler(int signum);
         UMLayerM2PA *m2pa = _m2pa_dict[key];
 
         [status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[UMLayerM2PA m2paStatusString:m2pa.m2pa_status]];
-        [status appendFormat:@"    alignmentsReceived: %d\n", (int)m2pa.alignmentsReceived];
-        [status appendFormat:@"    alignmentsSent: %d\n", (int)m2pa.alignmentsReceived];
-        [status appendFormat:@"    provingReceived: %d\n", m2pa.provingReceived];
-        [status appendFormat:@"    provingSent: %d\n", m2pa.provingSent];
         [status appendFormat:@"    local_processor_outage: %@\n", (m2pa.local_processor_outage ? @"YES" : @"NO")];
         [status appendFormat:@"    remote_processor_outage: %@\n", (m2pa.remote_processor_outage ? @"YES" : @"NO")];
         [status appendFormat:@"    congested: %@\n", (m2pa.congested ? @"YES" : @"NO")];
         [status appendFormat:@"    outstanding: %d\n", m2pa.outstanding];
+        [status appendFormat:@"    startCounter: %d\n", m2pa.startCounter];
+        [status appendFormat:@"    stopCounter: %d\n", m2pa.stopCounter];
+        [status appendFormat:@"    powerOnCounter: %d\n", m2pa.powerOnCounter];
+        [status appendFormat:@"    powerOffCounter: %d\n", m2pa.powerOffCounter];
+        [status appendFormat:@"    sctpUpReceived: %d\n", m2pa.sctpUpReceived];
+        [status appendFormat:@"    sctpDownReceived: %d\n", m2pa.sctpDownReceived];
+        [status appendFormat:@"    linkstateOutOfServiceSent: %d\n", m2pa.linkstateOutOfServiceSent];
+        [status appendFormat:@"    linkstateOutOfServiceReceived: %d\n", m2pa.linkstateOutOfServiceReceived];
+        [status appendFormat:@"    linkstateAlignmentSent: %d\n", m2pa.linkstateAlignmentSent];
+        [status appendFormat:@"    linkstateAlignmentReceived: %d\n", m2pa.linkstateAlignmentReceived];
+        [status appendFormat:@"    linkstateProvingSent %d\n", m2pa.linkstateProvingSent];
+        [status appendFormat:@"    linkstateProvingReceived: %d\n", m2pa.linkstateProvingReceived];
+        [status appendFormat:@"    linkstateProcessorOutageSent: %d\n", m2pa.linkstateProcessorOutageSent];
+        [status appendFormat:@"    linkstateProcessorOutageReceived: %d\n", m2pa.linkstateProcessorOutageReceived];
+        [status appendFormat:@"    linkstateProcessorRecoveredSent: %d\n", m2pa.linkstateProcessorRecoveredSent];
+        [status appendFormat:@"    linkstateProcessorRecoveredReceived: %d\n", m2pa.linkstateProcessorRecoveredReceived];
+        [status appendFormat:@"    linkstateBusySent: %d\n", m2pa.linkstateBusySent];
+        [status appendFormat:@"    linkstateBusyReceived: %d\n", m2pa.linkstateBusyReceived];
+        [status appendFormat:@"    linkstateBusyEndedSent: %d\n", m2pa.linkstateBusyEndedSent];
+        [status appendFormat:@"    linkstateBusyEndedReceived: %d\n", m2pa.linkstateBusyEndedReceived];
+        [status appendFormat:@"    linkstateReadySent: %d\n", m2pa.linkstateReadySent];
+        [status appendFormat:@"    linkstateReadyReceived: %d\n", m2pa.linkstateReadyReceived];
     }
 
     keys = [_mtp3_linkset_dict allKeys];
