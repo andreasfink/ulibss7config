@@ -39,6 +39,8 @@
     APPEND_CONFIG_STRING(s,@"https-key-file",_httpsKeyFile);
     APPEND_CONFIG_STRING(s,@"https-cert-file",_httpsCertFile);
     APPEND_CONFIG_STRING(s,@"document-root",_documentRoot);
+    APPEND_CONFIG_STRING(s,@"ip-version",_ipVersion);
+    APPEND_CONFIG_STRING(s,@"transport-protocol",_transportProtocol);
 }
 
 
@@ -50,6 +52,8 @@
     APPEND_DICT_STRING(dict,@"https-key-file",_httpsKeyFile);
     APPEND_DICT_STRING(dict,@"https-cert-file",_httpsCertFile);
     APPEND_DICT_STRING(dict,@"document-root",_documentRoot);
+    APPEND_DICT_STRING(dict,@"ip-version",_ipVersion);
+    APPEND_DICT_STRING(dict,@"transport-protocol",_transportProtocol);
 
     return dict;
 }
@@ -61,6 +65,8 @@
     SET_DICT_STRING(dict,@"https-key-file",_httpsKeyFile);
     SET_DICT_STRING(dict,@"https-cert-file",_httpsCertFile);
     SET_DICT_STRING(dict,@"document-root",_documentRoot);
+    SET_DICT_STRING(dict,@"ip-version",_ipVersion);
+    SET_DICT_STRING(dict,@"transport-protocol",_transportProtocol);
 }
 
 - (UMSS7ConfigWebserver *)copyWithZone:(NSZone *)zone

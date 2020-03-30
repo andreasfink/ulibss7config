@@ -15,6 +15,8 @@
     NSString            *_httpsKeyFile;
     NSString            *_httpsCertFile;
     NSString            *_documentRoot;
+    NSString            *_ipVersion;
+    NSString            *_transportProtocol;
 }
 
 + (NSString *)type;
@@ -28,6 +30,8 @@
 @property(readwrite,strong,atomic)      NSString            *httpsKeyFile;
 @property(readwrite,strong,atomic)      NSString            *httpsCertFile;
 @property(readwrite,strong,atomic)      NSString            *documentRoot;
+@property(readwrite,strong,atomic)      NSString            *ipVersion;
+@property(readwrite,strong,atomic)      NSString            *transportProtocol;
 
 @end
 

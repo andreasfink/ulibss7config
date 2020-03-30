@@ -947,18 +947,49 @@ static void signalHandler(int signum);
             {
                 webPort = 8086;
             }
+
+            NSString *keyFile;
+            NSString *certFile;
+            BOOL ssl = NO;
+            UMSocketType sockType;
             if([[config configEntry:@"https"] boolValue])
             {
-                NSString *keyFile = [config configEntry:@"https-key-file"];
-                NSString *certFile = [config configEntry:@"https-cert-file"];
-                webServer = [[UMHTTPSServer alloc]initWithPort:webPort
-                                                    sslKeyFile:keyFile
-                                                   sslCertFile:certFile];
+                ssl = YES;
+                keyFile = [config configEntry:@"https-key-file"];
+                certFile = [config configEntry:@"https-cert-file"];
+            }
+            NSString *ipversion = [config configEntry:@"ip-version"];
+            NSString *transport = [config configEntry:@"transport-protocol"];
+            if([ipversion isEqualToString:@"4"])
+            {
+                sockType = UMSOCKET_TYPE_TCP4ONLY;
+                if([transport isEqualToString:@"sctp"])
+                {
+                    sockType = UMSOCKET_TYPE_SCTP;
+                }
+            }
+            else if([ipversion isEqualToString:@"6"])
+            {
+                sockType = UMSOCKET_TYPE_TCP6ONLY;
+                if([transport isEqualToString:@"sctp"])
+                {
+                    sockType = UMSOCKET_TYPE_SCTP6ONLY;
+                }
             }
             else
             {
-                webServer = [[UMHTTPServer alloc]initWithPort:webPort];
+                sockType = UMSOCKET_TYPE_TCP;
+                if([transport isEqualToString:@"sctp"])
+                {
+                    sockType = UMSOCKET_TYPE_SCTP;
+                }
             }
+
+            webServer = [[UMHTTPSServer alloc]initWithPort:webPort
+                                                socketType:sockType
+                                                        ssl:ssl
+                                                sslKeyFile:keyFile
+                                               sslCertFile:certFile];
             if(webServer)
             {
                 webServer.enableKeepalive = YES;
