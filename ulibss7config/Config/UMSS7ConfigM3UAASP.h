@@ -18,6 +18,18 @@
     NSNumber *_linktestTimer;
     NSNumber *_beatTimer;
     NSNumber *_beatMaxOutstanding;
+
+    /* implicit sctp object */
+    NSArray<NSString *> *_sctp_localAddresses;
+    NSArray<NSString *> *_sctp_remoteAddresses;
+    NSNumber            *_sctp_localPort;
+    NSNumber            *_sctp_remotePort;
+    NSNumber            *_sctp_allowAnyRemotePortIncoming;
+    NSNumber            *_sctp_passive;
+    NSNumber            *_sctp_heartbeat; /* in seconds */
+    NSNumber            *_sctp_mtu;
+    NSNumber            *_sctp_maxInitTimeout;
+    NSNumber            *_sctp_maxInitAttempts;
 }
 
 + (NSString *)type;
@@ -31,6 +43,18 @@
 @property(readwrite,strong,atomic)  NSNumber *linktestTimer;
 @property(readwrite,strong,atomic)  NSNumber *beatTimer;
 @property(readwrite,strong,atomic)  NSNumber *beatMaxOutstanding;
+
+@property(readwrite,strong,atomic)  NSArray<NSString *> *sctp_localAddresses;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *sctp_remoteAddresses;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_localPort;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_remotePort;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_allowAnyRemotePortIncoming;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_passive;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_heartbeat; /* in seconds */
+@property(readwrite,strong,atomic)  NSNumber            *sctp_mtu;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_maxInitTimeout;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_maxInitAttempts;
+
 
 
 @end

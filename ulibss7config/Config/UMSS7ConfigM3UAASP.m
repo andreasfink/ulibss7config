@@ -41,6 +41,18 @@
     APPEND_CONFIG_DOUBLE(s,@"linktest-timer",_linktestTimer);
     APPEND_CONFIG_DOUBLE(s,@"beat-timer",_beatTimer);
     APPEND_CONFIG_INTEGER(s,@"beat-max-outstanding",_beatMaxOutstanding);
+    
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"sctp-local-ip",_sctp_localAddresses);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"sctp-remote-ip",_sctp_remoteAddresses);
+    APPEND_CONFIG_INTEGER(s,@"sctp-local-port",_sctp_localPort);
+    APPEND_CONFIG_INTEGER(s,@"sctp-remote-port",_sctp_remotePort);
+    APPEND_CONFIG_BOOLEAN(s,@"sctp-allow-any-remote-port-inbound",_sctp_allowAnyRemotePortIncoming);
+    APPEND_CONFIG_BOOLEAN(s,@"sctp-passive",_sctp_passive);
+    APPEND_CONFIG_DOUBLE(s,@"sctp-heartbeat",_sctp_heartbeat);
+    APPEND_CONFIG_INTEGER(s,@"sctp-mtu",_sctp_mtu);
+    APPEND_CONFIG_INTEGER(s,@"sctp-max-init-timeout",_sctp_maxInitTimeout);
+    APPEND_CONFIG_INTEGER(s,@"sctp-max-init-attempts",_sctp_maxInitAttempts);
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -54,6 +66,18 @@
     APPEND_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     APPEND_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     APPEND_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
+
+    APPEND_DICT_ARRAY(dict,@"sctp-local-ip",_sctp_localAddresses);
+    APPEND_DICT_ARRAY(dict,@"sctp-remote-ip",_sctp_remoteAddresses);
+    APPEND_DICT_INTEGER(dict,@"sctp-local-port",_sctp_localPort);
+    APPEND_DICT_INTEGER(dict,@"sctp-remote-port",_sctp_remotePort);
+    APPEND_DICT_BOOLEAN(dict,@"sctp-allow-any-remote-port-inbound",_sctp_allowAnyRemotePortIncoming);
+    APPEND_DICT_BOOLEAN(dict,@"sctp-passive",_sctp_passive);
+    APPEND_DICT_DOUBLE(dict,@"sctp-heartbeat",_sctp_heartbeat);
+    APPEND_DICT_INTEGER(dict,@"sctp-mtu",_sctp_mtu);
+    APPEND_DICT_INTEGER(dict,@"sctp-max-init-timeout",_sctp_maxInitTimeout);
+    APPEND_DICT_INTEGER(dict,@"sctp-max-init-attempts",_sctp_maxInitAttempts);
+
     return dict;
 }
 
@@ -67,6 +91,18 @@
     SET_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     SET_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     SET_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
+
+    SET_DICT_ARRAY(dict,@"sctp-local-ip",_sctp_localAddresses);
+    SET_DICT_ARRAY(dict,@"sctp-remote-ip",_sctp_remoteAddresses);
+    SET_DICT_INTEGER(dict,@"sctp-local-port",_sctp_localPort);
+    SET_DICT_INTEGER(dict,@"sctp-remote-port",_sctp_remotePort);
+    SET_DICT_BOOLEAN(dict,@"sctp-allow-any-remote-port-inbound",_sctp_allowAnyRemotePortIncoming);
+    SET_DICT_BOOLEAN(dict,@"sctp-passive",_sctp_passive);
+    SET_DICT_DOUBLE(dict,@"sctp-heartbeat",_sctp_heartbeat);
+    SET_DICT_INTEGER(dict,@"sctp-mtu",_sctp_mtu);
+    SET_DICT_INTEGER(dict,@"sctp-max-init-timeout",_sctp_maxInitTimeout);
+    SET_DICT_INTEGER(dict,@"sctp-max-init-attempts",_sctp_maxInitAttempts);
+
 }
 
 - (UMSS7ConfigM3UAASP *)copyWithZone:(NSZone *)zone
