@@ -47,7 +47,7 @@
 		{
 			NSString *old_name = _params[@"name"];
 			NSString *new_name = _params[@"newname"];
-            if(new_name != NULL)
+            if((new_name != NULL) &&  (![old_name isEqualToString:new_name]))
             {
                 [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
                 NSMutableDictionary *ds = [_params mutableCopy];
