@@ -184,7 +184,6 @@
 		A691E5C02370214F00589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_read.m in Sources */ = {isa = PBXBuildFile; fileRef = A691E5BE2370214F00589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_read.m */; };
 		A691E5C32370215700589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h in Headers */ = {isa = PBXBuildFile; fileRef = A691E5C12370215700589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A691E5C42370215700589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_status.m in Sources */ = {isa = PBXBuildFile; fileRef = A691E5C22370215700589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_status.m */; };
-		A693C56323E32DAD0002D9C7 /* ulibdiameter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A693C56223E32DAD0002D9C7 /* ulibdiameter.framework */; };
 		A69429E722DC963100A90936 /* UMSS7FilterRule.h in Headers */ = {isa = PBXBuildFile; fileRef = A69429E522DC963100A90936 /* UMSS7FilterRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A69429E822DC963100A90936 /* UMSS7FilterRule.m in Sources */ = {isa = PBXBuildFile; fileRef = A69429E622DC963100A90936 /* UMSS7FilterRule.m */; };
 		A69429EB22DC963B00A90936 /* UMSS7FilterRuleSet.h in Headers */ = {isa = PBXBuildFile; fileRef = A69429E922DC963B00A90936 /* UMSS7FilterRuleSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1263,7 +1262,6 @@
 				A6798A1F22BB70A80019806C /* ulibdb.framework in Frameworks */,
 				A6798A2322BB70A80019806C /* ulib.framework in Frameworks */,
 				A6798A2A22BB70A80019806C /* ulibdiameter.framework in Frameworks */,
-				A693C56323E32DAD0002D9C7 /* ulibdiameter.framework in Frameworks */,
 				A6798A2522BB70A80019806C /* umscript.framework in Frameworks */,
 				A6798A2622BB70A80019806C /* ulibsms.framework in Frameworks */,
 				A6798A2222BB70A80019806C /* ulibasn1.framework in Frameworks */,
@@ -2368,7 +2366,7 @@
 		A684E38E20774ADA000F3F70 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Andreas Fink";
 				TargetAttributes = {
 					A684E39620774ADA000F3F70 = {
