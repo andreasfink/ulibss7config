@@ -46,7 +46,6 @@
     }
 }
 
-
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
