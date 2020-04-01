@@ -60,16 +60,16 @@
 
         switch(m2pa.sctp_status)
         {
-            case SCTP_STATUS_M_FOOS:
+            case UMSOCKET_STATUS_FOOS:
                 dict[@"sctp-status"]=@"forced-out-of-service";
                 break;
-            case SCTP_STATUS_OFF:
+            case UMSOCKET_STATUS_OFF:
                 dict[@"sctp-status"]=@"off";
                 break;
-            case SCTP_STATUS_OOS:
+            case UMSOCKET_STATUS_OOS:
                 dict[@"status"]=@"out-of-service";
                 break;
-            case SCTP_STATUS_IS:
+            case UMSOCKET_STATUS_IS:
                 dict[@"sctp-status"]=@"in-service";
                 break;
             default:

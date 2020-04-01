@@ -41,7 +41,7 @@
     {
         if([action isEqualToString:@"action-list"])
         {
-            if(sctp.status==SCTP_STATUS_IS)
+            if(sctp.status==UMSOCKET_STATUS_IS)
             {
                 if([sctp.stopButtonPressed timeIntervalSinceNow] < 15)
                 {

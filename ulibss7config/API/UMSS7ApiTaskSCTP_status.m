@@ -41,16 +41,16 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
         switch(sctp.status)
         {
-            case SCTP_STATUS_M_FOOS:
+            case UMSOCKET_STATUS_FOOS:
                 dict[@"status"]=@"forced-out-of-service";
                 break;
-            case SCTP_STATUS_OFF:
+            case UMSOCKET_STATUS_OFF:
                 dict[@"status"]=@"off";
                 break;
-            case SCTP_STATUS_OOS:
+            case UMSOCKET_STATUS_OOS:
                 dict[@"status"]=@"out-of-service";
                 break;
-            case SCTP_STATUS_IS:
+            case UMSOCKET_STATUS_IS:
                 dict[@"status"]=@"in-service";
                 break;
             default:
