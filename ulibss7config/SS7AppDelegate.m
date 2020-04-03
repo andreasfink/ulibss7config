@@ -965,7 +965,7 @@ static void signalHandler(int signum);
                 sockType = UMSOCKET_TYPE_TCP4ONLY;
                 if([transport isEqualToString:@"sctp"])
                 {
-                    sockType = UMSOCKET_TYPE_SCTP;
+                    sockType = UMSOCKET_TYPE_SCTP4ONLY_STREAM;
                 }
             }
             else if([ipversion isEqualToString:@"6"])
@@ -973,7 +973,7 @@ static void signalHandler(int signum);
                 sockType = UMSOCKET_TYPE_TCP6ONLY;
                 if([transport isEqualToString:@"sctp"])
                 {
-                    sockType = UMSOCKET_TYPE_SCTP6ONLY;
+                    sockType = UMSOCKET_TYPE_SCTP6ONLY_STREAM;
                 }
             }
             else
@@ -981,7 +981,7 @@ static void signalHandler(int signum);
                 sockType = UMSOCKET_TYPE_TCP;
                 if([transport isEqualToString:@"sctp"])
                 {
-                    sockType = UMSOCKET_TYPE_SCTP;
+                    sockType = UMSOCKET_TYPE_SCTP_STREAM;
                 }
             }
 
