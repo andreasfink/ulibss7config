@@ -46,6 +46,9 @@
     APPEND_CONFIG_STRING(s,@"pointcode-translation-table-in",_pctransIn);
     APPEND_CONFIG_STRING(s,@"pointcode-translation-table-out",_pctransOut);
     APPEND_CONFIG_BOOLEAN(s,@"disable-route-advertizement",_disableRouteAdvertizement);
+    APPEND_CONFIG_STRING(s,@"tt-map-in",_ttmap_in);
+    APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
+
 
 
 }
@@ -64,7 +67,8 @@
     APPEND_DICT_STRING(dict,@"pointcode-translation-table-in",_pctransIn);
     APPEND_DICT_STRING(dict,@"pointcode-translation-table-out",_pctransOut);
     APPEND_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
-
+    APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
+    APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
 
     return dict;
 }
@@ -83,6 +87,8 @@
     SET_DICT_STRING(dict,@"pointcode-translation-table-in",_pctransIn);
     SET_DICT_STRING(dict,@"pointcode-translation-table-out",_pctransOut);
     SET_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
+    SET_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
+    SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
 }
 
 - (UMSS7ConfigM3UAAS *)copyWithZone:(NSZone *)zone

@@ -21,6 +21,9 @@
     NSString *_pctransIn;
     NSString *_pctransOut;
     NSNumber *_disableRouteAdvertizement;
+    NSString *_ttmap_in;
+    NSString *_ttmap_out;
+
 }
 
 + (NSString *)type;
@@ -38,6 +41,8 @@
 @property(readwrite,strong,atomic)  NSString *pctransIn;
 @property(readwrite,strong,atomic)  NSString *pctransOut;
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
+@property(readwrite,strong,atomic)  NSString *ttmap_in;
+@property(readwrite,strong,atomic)  NSString *ttmap_out;
 
 
 @end
