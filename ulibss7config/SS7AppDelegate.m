@@ -1954,6 +1954,11 @@ static void signalHandler(int signum);
 {
 }
 
+- (void)handleDiameterStatus:(UMHTTPRequest *)req
+{
+}
+
+
 - (void)ummutexStat:(UMHTTPRequest *)req
 {
     NSDictionary *p = req.params;
