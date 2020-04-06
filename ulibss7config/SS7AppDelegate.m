@@ -1737,6 +1737,10 @@ static void signalHandler(int signum);
             [self handleSCTPStatus:req];
         }
 
+        else if([path isEqualToString:@"/status/diameter"])
+        {
+            [self handleDiameterStatus:req];
+        }
 
         /* DECODING MENU */
 
