@@ -1956,6 +1956,14 @@ static void signalHandler(int signum);
 
 - (void)handleDiameterStatus:(UMHTTPRequest *)req
 {
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_diameter_router_dict allKeys];
+    for(NSString *name in names)
+    {
+       UMDiameterRouter *dr = _diameter_router_dict[name];
+       d[name] = [dr diameterStatus];
+    }
+    [req setResponseJsonString:[d jsonString]];
 }
 
 
