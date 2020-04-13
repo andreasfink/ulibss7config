@@ -1516,7 +1516,7 @@ else \
         _tcapOptions = [s componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
     }
 
-    if (p[@"keep-sccp-calling-addr"])whitespaceAndNewlineAndCommaCharacterSet
+    if (p[@"keep-sccp-calling-addr"])
     {
         if([p[@"keep-sccp-calling-addr"] boolValue])
         {
@@ -1616,7 +1616,7 @@ else \
     }
     if(_tcapOptions.count > 0)
     {
-        _options[@"tcap-options] = _tcapOptions;
+        _options[@"tcap-options"] = _tcapOptions;
     }
     _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
                                                       variant:TCAP_VARIANT_DEFAULT
