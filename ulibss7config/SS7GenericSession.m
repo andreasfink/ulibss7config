@@ -322,7 +322,7 @@ else \
         _called_address = ot->_called_address;
         _calling_tt = ot->_calling_tt;
         _called_tt = ot->_called_tt;
-
+        _tcapOptions = ot->_tcapOptions;
         _undefinedSession = NO; /* we get called for overrided object here */
     }
     return self;
@@ -1510,7 +1510,13 @@ else \
         }
     }
 
-    if (p[@"keep-sccp-calling-addr"])
+    if (p[@"tcap-options"])
+    {
+        NSString *s = [p[@"tcap-options"] stringValue];
+        _tcapOptions = [s componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
+    }
+
+    if (p[@"keep-sccp-calling-addr"])whitespaceAndNewlineAndCommaCharacterSet
     {
         if([p[@"keep-sccp-calling-addr"] boolValue])
         {
@@ -1608,7 +1614,10 @@ else \
     {
         _options[@"mtp3-sls"] = [NSString stringWithFormat:@"%d",_sls];
     }
-
+    if(_tcapOptions.count > 0)
+    {
+        _options[@"tcap-options] = _tcapOptions;
+    }
     _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
                                                       variant:TCAP_VARIANT_DEFAULT
                                                callingAddress:_localAddress
@@ -2061,7 +2070,11 @@ else \
     [s appendString:@"    <td class=optional>tcap-operation-global</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"tcap-operation-global\" type=\"text\" value=\"0\"> 0 |&nbsp;1</td>\n"];
     [s appendString:@"</tr>\n"];
-
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>tcap-options</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"tcap-options\" type=\"text\" value=\"\">/td>\n"];
+    [s appendString:@"</tr>\n"];
 }
 
 + (void)webSccpTitle:(NSMutableString *)s
