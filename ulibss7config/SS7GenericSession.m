@@ -2073,7 +2073,7 @@ else \
     
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>tcap-options</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"tcap-options\" type=\"text\" value=\"\">/td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"tcap-options\" type=\"text\" value=\"\"></td>\n"];
     [s appendString:@"</tr>\n"];
 }
 
