@@ -45,37 +45,18 @@
         }
 		if(listName.length==0)
 		{
-            [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
+            [self sendError:@"missing-parameter" reason:@"the 'list' or 'name' parameter is not passed"];
 		}
 		else
 		{
 			// 2. list namedlists
- 			UMSynchronizedArray *names = [_appDelegate namedlist_lists];
-			NSArray *list = [names arrayCopy];
-			BOOL ok = NO;
-			for(NSString *ls in list)
-			{
-				if([ls isEqualToString:listName] )
-				{
-					ok = YES;
-					break;
-				}
-			}
-			
-			if(ok)
-			{
-				[self sendResultObject:listName];
-			}
-			else
-			{
-				[self sendErrorNotFound:listName];
-			}
+            NSArray *items = [_appDelegate namedlist_get:listName];
+            [self sendResultObject:items];
 		}
 	}
 	@catch(NSException *e)
 	{
 		[self sendException:e];
 	}
-	
 }
 @end

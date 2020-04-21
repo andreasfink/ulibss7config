@@ -5115,7 +5115,6 @@ static void signalHandler(int signum);
     return list;
 }
 
-
 - (void)namedlist_add:(NSString *)listName
                 value:(NSString *)value
 {
@@ -5197,8 +5196,9 @@ static void signalHandler(int signum);
     }
     [_namedListLock lock];
     UMNamedList *nl = _namedLists[listName];
+    NSArray *a = [nl allEntries];
     [_namedListLock unlock];
-    return [nl allEntries];
+    return a;
 }
 
 - (void)namedlist_flushAll

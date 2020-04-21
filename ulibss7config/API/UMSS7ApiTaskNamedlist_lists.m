@@ -44,6 +44,6 @@
 	{
 		[self sendException:e];
 	}
-	
 }
+
 @end
