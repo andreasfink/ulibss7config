@@ -590,6 +590,31 @@ static void signalHandler(int signum);
 
         _umtransportService.delegate = self;
 
+        if (_runningConfig.generalConfig.transactionIdRange.length > 0)
+        {
+            NSArray *a = [_runningConfig.generalConfig.transactionIdRange componentsSeparatedByString:@"-"];
+            if(a.count !=2)
+            {
+                NSLog(@"transaction-id-range ignored. should be   <from> - <to>");
+            }
+            else
+            {
+                NSString *a0 = a[0];
+                NSString *a1 = a[1];
+                a0 = [a0 trim];
+                a1 = [a1 trim];
+                NSNumber *start = [[NSNumber alloc]initWithInteger:[a0 integerValue]];
+                NSNumber *end   = [[NSNumber alloc]initWithInteger:[a1 integerValue]];
+                if(start && end)
+                {
+                    UMTCAP_TransactionIdPoolSequential *pool = [[UMTCAP_TransactionIdPoolSequential alloc]init];
+                    pool.first = start;
+                    pool.last = end;
+                    _tidPool = pool;
+                }
+            }
+        }
+
         BOOL actionDone=NO;
         NSDictionary *params = _commandLine.params;
         if(params[@"pid-file"])

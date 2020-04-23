@@ -16,6 +16,7 @@
     NSString *_configStore;
 //    NSNumber *_concurrentTasks;
     NSNumber *_queueHardLimit;
+    NSString *_transactionIdRange;
 }
 
 + (NSString *)type;
@@ -28,6 +29,6 @@
 @property(readwrite,strong,atomic)  NSString *configStore;
 //@property(readwrite,strong,atomic)  NSNumber *concurrentTasks;
 @property(readwrite,strong,atomic)  NSNumber *queueHardLimit;
-
+@property(readwrite,strong,atomic)  NSString *transactionIdRange;
 
 @end

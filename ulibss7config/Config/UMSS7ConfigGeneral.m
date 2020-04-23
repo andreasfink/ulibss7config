@@ -40,6 +40,7 @@
     APPEND_CONFIG_STRING(s,@"config-store",_configStore);
     APPEND_CONFIG_INTEGER(s,@"concurrent-tasks",_concurrentTasks);
     APPEND_CONFIG_INTEGER(s,@"queue-hard-limit",_queueHardLimit);
+    APPEND_CONFIG_INTEGER(s,@"transaction-id-range",_transactionIdRange);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -52,6 +53,7 @@
     APPEND_DICT_STRING(dict,@"config-store",_configStore);
     APPEND_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
     APPEND_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
+    APPEND_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
 
     return dict;
 }
@@ -64,6 +66,8 @@
     SET_DICT_STRING(dict,@"config-store",_configStore);
     SET_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
     SET_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
+    SET_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
+
 }
 
 - (UMSS7ConfigGeneral *)copyWithZone:(NSZone *)zone
