@@ -15,6 +15,7 @@
     NSString *_subsystem;
     NSNumber *_timeout;
     NSString *_number;
+    NSString *_range;
 }
 
 @property(readwrite,strong,atomic)  NSString *attachTo;
@@ -22,6 +23,7 @@
 @property(readwrite,strong,atomic)  NSString *subsystem;
 @property(readwrite,strong,atomic)  NSNumber *timeout;
 @property(readwrite,strong,atomic)  NSString *number;
+@property(readwrite,strong,atomic)  NSString *range;
 
 
 

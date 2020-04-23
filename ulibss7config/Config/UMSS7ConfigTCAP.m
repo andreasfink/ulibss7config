@@ -39,6 +39,7 @@
     APPEND_CONFIG_STRING(s,@"variant",_variant);
     APPEND_CONFIG_STRING(s,@"subsystem",_subsystem);
     APPEND_CONFIG_STRING(s,@"number",_number);
+    APPEND_CONFIG_STRING(s,@"transaction-id-range",_range);
     APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
 }
 
@@ -51,6 +52,7 @@
     APPEND_DICT_STRING(dict,@"variant",_variant);
     APPEND_DICT_STRING(dict,@"subsystem",_subsystem);
     APPEND_DICT_STRING(dict,@"number",_number);
+    APPEND_DICT_STRING(dict,@"transaction-id-range",_range);
     APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
 
     return dict;
@@ -65,6 +67,7 @@
     SET_DICT_STRING(dict,@"subsystem",_subsystem);
     SET_DICT_STRING(dict,@"attach-number",_number);/* backwards compatibility */
     SET_DICT_STRING(dict,@"number",_number);
+    SET_DICT_STRING(dict,@"transaction-id-range",_range);
     SET_DICT_DOUBLE(dict,@"timeout",_timeout);
 }
 
