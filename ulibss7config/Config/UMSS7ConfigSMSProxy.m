@@ -43,7 +43,7 @@
     APPEND_CONFIG_STRING(s,@"attach-as-hlr",_attachAsHlr);
     APPEND_CONFIG_STRING(s,@"attach-as-msc",_attachAsMsc);
     APPEND_CONFIG_STRING(s,@"attach-as-smsc",_attachAsSmsc);
-    APPEND_CONFIG_STRING(s,@"named-list-directory",_namedListsDirectory);
+    APPEND_CONFIG_STRING(s,@"named-lists-directory",_namedListsDirectory);
     APPEND_CONFIG_STRING(s,@"filter-directory",_filterDirectory);
     APPEND_CONFIG_STRING(s,@"filter-srism",_filterSriSm);
     APPEND_CONFIG_STRING(s,@"filter-srism-resp",_filterSirSmResp);
@@ -73,7 +73,7 @@
     APPEND_DICT_STRING(dict,@"attach-as-hlr",_attachAsHlr);
     APPEND_DICT_STRING(dict,@"attach-as-msc",_attachAsMsc);
     APPEND_DICT_STRING(dict,@"attach-as-smsc",_attachAsSmsc);
-    APPEND_DICT_STRING(dict,@"named-list-directory",_namedListsDirectory);
+    APPEND_DICT_STRING(dict,@"named-lists-directory",_namedListsDirectory);
     APPEND_DICT_STRING(dict,@"filter-directory",_filterDirectory);
     APPEND_DICT_STRING(dict,@"filter-srism",_filterSriSm);
     APPEND_DICT_STRING(dict,@"filter-srism-resp",_filterSirSmResp);
@@ -102,7 +102,7 @@
     SET_DICT_STRING(dict,@"attach-as-hlr",_attachAsHlr);
     SET_DICT_STRING(dict,@"attach-as-msc",_attachAsMsc);
     SET_DICT_STRING(dict,@"attach-as-smsc",_attachAsSmsc);
-    SET_DICT_STRING(dict,@"named-list-directory",_namedListsDirectory);
+    SET_DICT_STRING(dict,@"named-lists-directory",_namedListsDirectory);
     SET_DICT_STRING(dict,@"filter-directory",_filterDirectory);
     SET_DICT_STRING(dict,@"filter-srism",_filterSriSm);
     SET_DICT_STRING(dict,@"filter-srism-resp",_filterSirSmResp);
