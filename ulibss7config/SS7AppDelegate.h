@@ -145,7 +145,7 @@ UMSCCP_FilterDelegateProtocol>
 	UMMutex                  	*_umtransportLock;
     NSString                    *_logDirectory;
     NSString                    *_hostname;
-    UMTCAP_TransactionIdPool    *_tidPool;
+    UMObject<UMTCAP_TransactionIdPoolProtocol>    *_tidPool;
     ConfigurationSocket         *_csListener;
     UMSocketSCTPRegistry        *_registry;
     UMTaskQueueMulti            *_generalTaskQueue;

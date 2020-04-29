@@ -459,8 +459,8 @@ static void signalHandler(int signum);
             @"help"  : @"specify the SSL certificate for the https admin interface"
         },
         @{
-            @"name"  : @"tracefiles-path",
-            @"long"  : @"--tracefiles-path",
+            @"name"  : @"tracefiles-directory",
+            @"long"  : @"--tracefiles-directory",
             @"argument" : @"directory",
             @"help"  : @"set the path of the tracefiles directory",
         },
@@ -651,9 +651,9 @@ static void signalHandler(int signum);
             NSLog(@"Error while creating directory %@\n%@",_stagingAreaPath,e);
         }
 
-        if(params[@"named-lists-path"])
+        if(params[@"named-lists-directory"])
         {
-            NSArray *a = params[@"named-lists-path"];
+            NSArray *a = params[@"named-lists-directory"];
             NSString *path = a[a.count-1];
             _namedListsDirectory = path;
         }
@@ -666,10 +666,9 @@ static void signalHandler(int signum);
 
         _namedLists = [[UMSynchronizedDictionary alloc]init];
         [self loadNamedListsFromPath:_namedListsDirectory];
-
-        if(params[@"ss7-filter-engines-path"])
+        if(params[@"ss7-filter-engines-directory"])
         {
-            for(NSString *path in params[@"ss7-filter-engines-path"])
+            for(NSString *path in params[@"ss7-filter-engines-directory"])
             {
                 [self loadSS7FilterEnginesFromDirectory:path];
                 _filterEnginesPath = path;
@@ -680,9 +679,9 @@ static void signalHandler(int signum);
             [self loadSS7FilterEnginesFromDirectory:_filterEnginesPath];
         }
 
-        if(params[@"ss7-filter-staging-area-path"])
+        if(params[@"ss7-filter-staging-area-directory"])
         {
-            for(NSString *path in params[@"ss7-filter-staging-area-path"])
+            for(NSString *path in params[@"ss7-filter-staging-area-directory"])
             {
                 [self loadSS7StagingAreasFromPath:path];
                 _stagingAreaPath = path;
@@ -695,23 +694,23 @@ static void signalHandler(int signum);
 
 
 
-        if(params[@"tracefiles-path"])
+        if(params[@"tracefiles-directory"])
         {
-            NSArray *a = params[@"tracefiles-path"];
+            NSArray *a = params[@"tracefiles-directory"];
             NSString *path = a[a.count-1];
             _ss7TraceFilesDirectory = path;
         }
-        e = NULL;
-        [fm createDirectoryAtPath:_ss7TraceFilesDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
-        if(e)
+        if(_ss7TraceFilesDirectory.length > 0)
         {
-            NSLog(@"Error while creating directory %@\n%@",_ss7TraceFilesDirectory,e);
+            e = NULL;
+            [fm createDirectoryAtPath:_ss7TraceFilesDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
+            if(e)
+            {
+                NSLog(@"Error while creating directory %@\n%@",_ss7TraceFilesDirectory,e);
+            }
+
+            [self loadTracefilesFromPath:_ss7TraceFilesDirectory];
         }
-
-        [self loadTracefilesFromPath:_ss7TraceFilesDirectory];
-
-
-
 
         if(params[@"print-config"])
         {
