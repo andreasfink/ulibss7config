@@ -158,17 +158,13 @@
     [_cdrDateFormatter setDateFormat:dateFormat];
 }
 
+#define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
+
 -(void) setConfig:(NSDictionary *)cfg applicationContext:(SS7AppDelegate *)appContext
 {
     NSString *poolName = cfg[@"pool-name"];
     NSString *tableName = cfg[@"table-name"];
     _name = cfg[@"name"];
-
-    NSDictionary *tableConfig = @{@"enable": @"YES",
-                                  @"table-name" : tableName,
-                                  @"auto-create" : @"NO",
-                                  @"pool-name" : poolName
-                                };
 
     if(cfg[@"reopen-time"])
     {
@@ -209,8 +205,28 @@
     }
     else
     {
-        _dbPool = [appContext getDbPool:poolName];
-        _dbTable = [[UMDbTable alloc] initWithConfig:tableConfig andPools:appContext.dbPools];
+        if(poolName.length == 0)
+        {
+            CONFIG_ERROR(@"cdr-writer: parameter pool-name is missing or empty");
+        }
+        else if(tableName.length == 0)
+        {
+            CONFIG_ERROR(@"cdr-writer: parameter table-name is missing or empty");
+        }
+        else
+        {
+            NSDictionary *tableConfig = @{@"enable": @"YES",
+                                          @"table-name" : tableName,
+                                          @"auto-create" : @"NO",
+                                          @"pool-name" : poolName
+                                        };
+            _dbPool = [appContext getDbPool:poolName];
+            if(_dbPool == NULL)
+            {
+                CONFIG_ERROR(@"cdr-writer: db-pool not found");
+            }
+            _dbTable = [[UMDbTable alloc] initWithConfig:tableConfig andPools:appContext.dbPools];
+        }
     }
     NSString *timeZone = cfg[@"time-zone"];
     if(timeZone.length < 1)

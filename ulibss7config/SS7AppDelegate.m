@@ -2937,7 +2937,7 @@ static void signalHandler(int signum);
         UMSS7ConfigSCCP *co = [[UMSS7ConfigSCCP alloc]initWithConfig:config];
         [_runningConfig addSCCP:co];
 
-        UMLayerSCCP *sccp = [[UMLayerSCCP alloc]initWithTaskQueueMulti:_sccpTaskQueue];
+        UMLayerSCCP *sccp = [[UMLayerSCCP alloc]initWithTaskQueueMulti:_sccpTaskQueue name:@"sccp"];
         sccp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sccp"];
         sccp.logFeed.name = name;
         [sccp setConfig:config applicationContext:self];
