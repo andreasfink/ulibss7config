@@ -33,7 +33,7 @@
 {
     @try
     {
-        UMDiameterPacketUser_Data_Request *pkt = [[UMDiameterPacketUser_Data_Request alloc]init];
+        UMDiameterPacketUser_Data_Request *pkt = [[UMDiameterPacketSend_Routing_Info_for_SM_Request alloc]init];
         [pkt setDictionaryValueFromWeb:_req.params];
         self.query = pkt;
         [self submit];
