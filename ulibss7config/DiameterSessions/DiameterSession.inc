@@ -5,6 +5,7 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
+SESSION("Send_Routing_Info_for_SM_Request",DiameterSession_Send_Routing_Info_for_SM_Request)
 SESSION("Authentication_Information_Request",DiameterSessionAuthentication_Information_Request)
 SESSION("Update_Location_Request",DiameterSessionUpdate_Location_Request)
 SESSION("Insert_Subscriber_Data_Request",DiameterSessionInsert_Subscriber_Data_Request)

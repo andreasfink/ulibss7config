@@ -7,7 +7,7 @@
 //
 
 #import "DiameterGenericSession.h"
-
+#import "DiameterSession_Send_Routing_Info_for_SM_Request.h"
 #import "DiameterSessionACR.h"
 #import "DiameterSessionASR.h"
 #import "DiameterSessionAuthentication_Information_Request.h"

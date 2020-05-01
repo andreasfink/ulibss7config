@@ -56,7 +56,7 @@
 		A6336EA022D578DE00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336E8222D578DE00F803C5 /* DiameterSessionInsert_Subscriber_Data_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6336EA122D578DE00F803C5 /* DiameterSessionASR.m in Sources */ = {isa = PBXBuildFile; fileRef = A6336E8322D578DE00F803C5 /* DiameterSessionASR.m */; };
 		A6336EA322D578EE00F803C5 /* generate.sh in Resources */ = {isa = PBXBuildFile; fileRef = A6336EA222D578EE00F803C5 /* generate.sh */; };
-		A6336EA522D57C0900F803C5 /* DiameterSession_all.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336EA422D57C0800F803C5 /* DiameterSession_all.h */; };
+		A6336EA522D57C0900F803C5 /* DiameterSession_all.h in Headers */ = {isa = PBXBuildFile; fileRef = A6336EA422D57C0800F803C5 /* DiameterSession_all.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBF521A38B3300852462 /* UMSS7ConfigServiceUser.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBEF21A38B3200852462 /* UMSS7ConfigServiceUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBF621A38B3300852462 /* UMSS7ConfigServiceBillingEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */; };
 		A634BBF721A38B3300852462 /* UMSS7ConfigServiceBillingEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -194,7 +194,7 @@
 		A69429F422DC964A00A90936 /* UMSS7FilterActionList.m in Sources */ = {isa = PBXBuildFile; fileRef = A69429F222DC964A00A90936 /* UMSS7FilterActionList.m */; };
 		A69429F922DE5B9700A90936 /* UMSS7App.h in Headers */ = {isa = PBXBuildFile; fileRef = A69429F722DE5B9700A90936 /* UMSS7App.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A69429FA22DE5B9700A90936 /* UMSS7App.m in Sources */ = {isa = PBXBuildFile; fileRef = A69429F822DE5B9700A90936 /* UMSS7App.m */; };
-		A6967AF6245A14C3000AC0CD /* DiameterSession_Send_Routing_Info_for_SM_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6967AF4245A14C3000AC0CD /* DiameterSession_Send_Routing_Info_for_SM_Request.h */; };
+		A6967AF6245A14C3000AC0CD /* DiameterSession_Send_Routing_Info_for_SM_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6967AF4245A14C3000AC0CD /* DiameterSession_Send_Routing_Info_for_SM_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6967AF7245A14C3000AC0CD /* DiameterSession_Send_Routing_Info_for_SM_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6967AF5245A14C3000AC0CD /* DiameterSession_Send_Routing_Info_for_SM_Request.m */; };
 		A69A2CE52327E63800F12046 /* DiameterSessionRIR.h in Headers */ = {isa = PBXBuildFile; fileRef = A69A2CE32327E63800F12046 /* DiameterSessionRIR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A69A2CE62327E63800F12046 /* DiameterSessionRIR.m in Sources */ = {isa = PBXBuildFile; fileRef = A69A2CE42327E63800F12046 /* DiameterSessionRIR.m */; };
@@ -593,9 +593,9 @@
 		A6D2D7CB21A4A01800B1895A /* SS7ConfigurationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D2D7C921A4A01800B1895A /* SS7ConfigurationSession.m */; };
 		A6DB9C03233A15440022B63F /* UMSS7ConfigGGSN.h in Headers */ = {isa = PBXBuildFile; fileRef = A6DB9C01233A15440022B63F /* UMSS7ConfigGGSN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6DB9C04233A15440022B63F /* UMSS7ConfigGGSN.m in Sources */ = {isa = PBXBuildFile; fileRef = A6DB9C02233A15440022B63F /* UMSS7ConfigGGSN.m */; };
-		A6E24811235056AC00742DCA /* DiameterSessionUser_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6E2480F235056AC00742DCA /* DiameterSessionUser_Data_Request.h */; };
+		A6E24811235056AC00742DCA /* DiameterSessionUser_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6E2480F235056AC00742DCA /* DiameterSessionUser_Data_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6E24812235056AC00742DCA /* DiameterSessionUser_Data_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E24810235056AC00742DCA /* DiameterSessionUser_Data_Request.m */; };
-		A6E24EEF23506E6D00742DCA /* DiameterSessionSimpleLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = A6E24EED23506E6D00742DCA /* DiameterSessionSimpleLocation.h */; };
+		A6E24EEF23506E6D00742DCA /* DiameterSessionSimpleLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = A6E24EED23506E6D00742DCA /* DiameterSessionSimpleLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6E24EF023506E6D00742DCA /* DiameterSessionSimpleLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E24EEE23506E6D00742DCA /* DiameterSessionSimpleLocation.m */; };
 		A6EC8E5821B12F3E00B69FDD /* UMTTaskPing.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EC8E5221B12F3D00B69FDD /* UMTTaskPing.m */; };
 		A6EC8E5921B12F3E00B69FDD /* UMTTaskGetVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EC8E5321B12F3D00B69FDD /* UMTTaskGetVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
