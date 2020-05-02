@@ -456,7 +456,9 @@
 }
 
 
-- (void)sendOutgoingRequestPacket:(UMDiameterPacket *)packet peer:(UMDiameterPeer *)peer
+- (void)sendOutgoingRequestPacket:(UMDiameterPacket *)packet
+                             peer:(UMDiameterPeer *)peer
+
 {
     packet.commandFlags |= DIAMETER_COMMAND_FLAG_REQUEST;
     packet.commandFlags &= ~DIAMETER_COMMAND_FLAG_ERROR;

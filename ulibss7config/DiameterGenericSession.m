@@ -263,7 +263,14 @@
     _query.endToEndIdentifier = _endToEndIdentifier;
     _userIdentifier = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:_endToEndIdentifier];
     [_gInstance addSession:self userId:_userIdentifier];
-    [_gInstance sendOutgoingRequestPacket:_query peer:NULL];
+    
+    UMDiameterRouter *r = _gInstance.diameterRouter;
+    UMDiameterRoute *route = [r findRouteForRealm:p.destinationRealm];
+    if(route.peer == NULL)
+    {
+        route = [r findRouteForHost:p.destinationHost];
+    }
+    [_gInstance sendOutgoingRequestPacket:_query peer:route.peer];
 }
 
 - (void)responsePacket:(UMDiameterPacket *)pkt
