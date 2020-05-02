@@ -264,11 +264,12 @@
     _userIdentifier = [DiameterGenericInstance localIdentifierFromEndToEndIdentifier:_endToEndIdentifier];
     [_gInstance addSession:self userId:_userIdentifier];
     
+    [_query beforeEncode];
     UMDiameterRouter *r = _gInstance.diameterRouter;
-    UMDiameterRoute *route = [r findRouteForRealm:p.destinationRealm];
+    UMDiameterRoute *route = [r findRouteForRealm:_query.destinationRealm];
     if(route.peer == NULL)
     {
-        route = [r findRouteForHost:p.destinationHost];
+        route = [r findRouteForHost:_query.destinationHost];
     }
     [_gInstance sendOutgoingRequestPacket:_query peer:route.peer];
 }
