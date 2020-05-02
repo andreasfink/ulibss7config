@@ -43,6 +43,9 @@
     APPEND_CONFIG_DOUBLE(s,@"weight",_weight);
     APPEND_CONFIG_DOUBLE(s,@"priority",_priority);
     APPEND_CONFIG_BOOLEAN(s,@"local",_local);
+    APPEND_CONFIG_BOOLEAN(s,@"default-route",_defaultRoute);
+    APPEND_CONFIG_BOOLEAN(s,@"exact-hostname",_exactHost);
+    APPEND_CONFIG_BOOLEAN(s,@"exact-realm",_exactRealm);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -56,6 +59,9 @@
     APPEND_DICT_DOUBLE(dict,@"weight",_weight);
     APPEND_DICT_DOUBLE(dict,@"priority",_priority);
     APPEND_DICT_BOOLEAN(dict,@"local",_local);
+    APPEND_DICT_BOOLEAN(dict,@"default-route",_defaultRoute);
+    APPEND_DICT_BOOLEAN(dict,@"exact-hostname",_exactHost);
+    APPEND_DICT_BOOLEAN(dict,@"exact-realm",_exactRealm);
 
     return dict;
 }
@@ -71,6 +77,9 @@
     SET_DICT_DOUBLE(dict,@"weight",_weight);
     SET_DICT_DOUBLE(dict,@"priority",_priority);
     SET_DICT_BOOLEAN(dict,@"local",_local);
+    SET_DICT_BOOLEAN(dict,@"default-route",_defaultRoute);
+    SET_DICT_BOOLEAN(dict,@"exact-hostname",_exactHost);
+    SET_DICT_BOOLEAN(dict,@"exact-realm",_exactRealm);
 
 }
 

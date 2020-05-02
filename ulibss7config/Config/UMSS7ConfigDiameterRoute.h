@@ -18,6 +18,9 @@
     NSNumber *_weight;
     NSNumber *_priority;
     NSNumber *_local;
+    NSNumber *_defaultRoute;
+    NSNumber *_exactHost;
+    NSNumber *_exactRealm;
 }
 
 + (NSString *)type;
@@ -31,6 +34,9 @@
 @property(readwrite,strong,atomic)  NSNumber *weight;
 @property(readwrite,strong,atomic)  NSNumber *priority;
 @property(readwrite,strong,atomic)  NSNumber *local;
+@property(readwrite,strong,atomic)  NSNumber *defaultRoute;
+@property(readwrite,strong,atomic)  NSNumber *exactHost;
+@property(readwrite,strong,atomic)  NSNumber *exactRealm;
 
 @end
 
