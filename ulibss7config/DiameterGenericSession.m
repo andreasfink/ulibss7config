@@ -266,10 +266,10 @@
     
     [_query beforeEncode];
     UMDiameterRouter *r = _gInstance.diameterRouter;
-    UMDiameterRoute *route = [r findRouteForRealm:_query.destinationRealm];
+    UMDiameterRoute *route = [r findRouteForRealm:_query.destinationRealm.stringValue];
     if(route.peer == NULL)
     {
-        route = [r findRouteForHost:_query.destinationHost];
+        route = [r findRouteForHost:_query.destinationHost.stringValue];
     }
     [_gInstance sendOutgoingRequestPacket:_query peer:route.peer];
 }
