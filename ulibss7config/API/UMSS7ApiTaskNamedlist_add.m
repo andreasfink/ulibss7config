@@ -54,17 +54,9 @@
             [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
             return;
 		}
-		else if([value isEqualToString:@"_dirty"])
-		{
-            [self sendError:@"invalid-parameter" reason:@"the value '_dirty' is reserved value"];
-		}
-		else
-		{
-			// 2. adding
-			[_appDelegate namedlistAdd:listName value:value];
-			[self sendResultOK];
-		}
-	}
+        [_appDelegate namedlistAdd:listName value:value];
+        [self sendResultOK];
+    }
 	@catch(NSException *e)
 	{
 		[self sendException:e];
