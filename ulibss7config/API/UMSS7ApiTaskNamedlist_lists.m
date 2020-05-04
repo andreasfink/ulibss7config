@@ -37,7 +37,7 @@
 	@try
 	{
 		// 1. list
-		UMSynchronizedArray *names = [_appDelegate namedlist_lists];
+		NSArray<NSString *> *names = [_appDelegate namedlistsListNames];
 		[self sendResultObject:names];
 	}
 	@catch(NSException *e)

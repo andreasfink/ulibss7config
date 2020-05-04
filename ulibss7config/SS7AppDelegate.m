@@ -179,8 +179,8 @@ static void signalHandler(int signum);
         _statisticsPath                 =  [self defaultStatisticsPath];
 
         _mainDiameterInstance           = [[DiameterGenericInstance alloc]init];
-        _namedLists = [[UMSynchronizedDictionary alloc]init];
-        _namedListLock = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
+        _namedLists                     = [[UMSynchronizedDictionary alloc]init];
+        _namedListLock                  = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
         _namedListsDirectory            = [self defaultNamedListPath];
 
         _ss7TraceFiles                  = [[UMSynchronizedDictionary alloc]init];
@@ -259,7 +259,8 @@ static void signalHandler(int signum);
                                                           name:@"api-housekeeping"
                                                        repeats:YES
                                                runInForeground:NO];
-
+        [_apiHousekeepingTimer start];
+        
         _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                             selector:@selector(dirtyCheck)
                                               object:NULL
@@ -663,9 +664,11 @@ static void signalHandler(int signum);
         {
             NSLog(@"Error while creating directory %@\n%@",_namedListsDirectory,e);
         }
-
         _namedLists = [[UMSynchronizedDictionary alloc]init];
-        [self loadNamedListsFromPath:_namedListsDirectory];
+        [self namedlistsLoadFromDirectory:_namedListsDirectory];
+        
+        
+        
         if(params[@"ss7-filter-engines-directory"])
         {
             for(NSString *path in params[@"ss7-filter-engines-directory"])
@@ -1800,6 +1803,18 @@ static void signalHandler(int signum);
                 ||  ([path isEqualToString:@"/sms/decode"]))
         {
             [self handleDecodeSms:req];
+        }
+        else if([path hasPrefix:@"/api"])
+        {
+            UMSS7ApiTask *api = [UMSS7ApiTask apiFactory:req appDelegate:self];
+            if(api)
+            {
+                [self.generalTaskQueue queueTask:api toQueueNumber:UMLAYER_ADMIN_QUEUE];
+            }
+            else
+            {
+                [req setResponseJsonObject:@{ @"error" : @"api-not-found" }];
+            }
         }
         else
         {
@@ -3494,7 +3509,7 @@ static void signalHandler(int signum);
             }
         }
     }
-    [self namedlist_flushAll];
+    [self namedlistsFlushAll];
 }
 
 - (void)addAccessControlAllowOriginHeaders:(UMHTTPRequest *)req
@@ -5133,99 +5148,22 @@ static void signalHandler(int signum);
 #pragma mark -
 #pragma mark namedlists
 
-- (UMSynchronizedArray *)namedlist_lists
+
+- (NSArray<NSString *>*)namedlistsListNames
 {
-    UMSynchronizedArray *list = [[UMSynchronizedArray alloc]initWithArray:[_namedLists allKeys]];
+    NSArray<NSString *> *list = [_namedLists allKeys];
     return list;
 }
 
-- (void)namedlist_add:(NSString *)listName
-                value:(NSString *)value
+- (void)namedlistReplaceList:(NSString *)listName
+           withContentsOfFile:(NSString *)filename
 {
-    if((value) && (listName))
-    {
-        [_namedListLock lock];
-        UMNamedList *list = _namedLists[listName];
-        if(list == NULL)
-        {
-            list = [[UMNamedList alloc]initWithDirectory:_namedListsDirectory name:listName];
-            _namedLists[listName] = list;
-        }
-        [list addEntry:value];
-        [list setDirty:YES];
-        [_namedListLock unlock];
-    }
+    UMNamedList *nl =  [[UMNamedList alloc]initWithPath:filename name:listName];
+    [nl reload];
+    _namedLists[listName] = nl;
 }
 
-- (void)namedlist_remove:(NSString *)listName
-                   value:(NSString *)value
-{
-    if((value) && (listName))
-    {
-        [_namedListLock lock];
-        UMNamedList *list = _namedLists[listName];
-        if(list)
-        {
-            [list removeEntry:value];
-            [list setDirty:YES];
-        }
-        [_namedListLock unlock];
-    }
-}
-
-- (BOOL)namedlist_contains:(NSString *)listName
-                     value:(NSString *)value
-{
-    BOOL returnValue = NO;
-    if((value) && (listName))
-    {
-        [_namedListLock lock];
-        UMNamedList *list = _namedLists[listName];
-        if(list)
-        {
-            returnValue =  [list containsEntry:value];
-        }
-        [_namedListLock unlock];
-    }
-    return returnValue;
-}
-
-
-/* note: this does NOT remove existing entries. only override lists
- this is done so lists can be loaded from multiple path by calling it multiple times */
-
-- (void)loadNamedListsFromPath:(NSString *)directory
-{
-    [_namedListLock lock];
-    NSFileManager *mgr = [NSFileManager defaultManager];
-    for (NSString *filePath in [mgr enumeratorAtPath:directory])
-    {
-        NSString *name = filePath.urldecode; /* the filename is an url encoded version of the name */
-        UMNamedList *nl = [[UMNamedList alloc]initWithDirectory:directory name:name];
-        if(nl)
-        {
-            _namedLists[name] = nl;
-        }
-    }
-    [_namedListLock unlock];
-
-}
-
-
-- (NSArray *)namedlist_get:(NSString *)listName
-{
-    if(listName == NULL)
-    {
-        return @[];
-    }
-    [_namedListLock lock];
-    UMNamedList *nl = _namedLists[listName];
-    NSArray *a = [nl allEntries];
-    [_namedListLock unlock];
-    return a;
-}
-
-- (void)namedlist_flushAll
+- (void)namedlistsFlushAll
 {
     NSArray *allListNames = [_namedLists allKeys];
     for(NSString *listName in allListNames)
@@ -5233,6 +5171,64 @@ static void signalHandler(int signum);
         UMNamedList *nl = _namedLists[listName];
         [nl flush];
     }
+}
+
+- (NSString *)namedlist_filename:(NSString *)name directory:(NSString *)directory
+{
+    name = [name urlencode];
+    NSString *path = [NSString stringWithFormat:@"%@/%@",directory,name];
+    return path;
+}
+
+- (void)namedlist_flush:(NSString *)listName
+{
+    UMNamedList *nl = _namedLists[listName];
+    [nl flush];
+}
+
+
+- (void)namedlistAdd:(NSString *)listName value:(NSString *)value
+{
+    UMNamedList *nl = _namedLists[listName];
+    [nl addEntry:value];
+}
+
+- (void)namedlistRemove:(NSString *)listName value:(NSString *)value
+{
+    UMNamedList *nl = _namedLists[listName];
+    [nl removeEntry:value];
+}
+
+- (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value
+{
+    UMNamedList *nl = _namedLists[listName];
+    if(nl == NULL)
+    {
+        return NO;
+    }
+    return [nl containsEntry:value];
+}
+
+
+- (void)namedlistsLoadFromDirectory:(NSString *)directory
+{
+    NSFileManager *mgr = [NSFileManager defaultManager];
+    for (NSString *filePath in [mgr enumeratorAtPath:directory])
+    {
+        NSString *absolutePath = [NSString stringWithFormat:@"%@/%@",directory,filePath];
+        NSString *listName = [filePath urldecode];
+        [self namedlistReplaceList:listName withContentsOfFile:absolutePath];
+    }
+}
+
+- (NSArray *)namedlistList:(NSString *)listName
+{
+    UMNamedList *nl = _namedLists[listName];
+    if(nl == NULL)
+    {
+        return @[];
+    }
+    return [nl allEntries];
 }
 
 #pragma mark -
@@ -5857,6 +5853,9 @@ static void signalHandler(int signum);
     _startupConfig = _runningConfig;
     return NULL;
 }
+
+
+
 
 @end
 

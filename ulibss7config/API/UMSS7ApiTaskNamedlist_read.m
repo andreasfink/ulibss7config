@@ -51,7 +51,7 @@
 		else
 		{
 			// 2. Read
-			NSArray *ls = [_appDelegate namedlist_get:listName];
+			NSArray *ls = [_appDelegate namedlistList:listName];
 			[self sendResultObject:ls];
 		}
 	}

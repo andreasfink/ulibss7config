@@ -9,6 +9,7 @@
 #import <ulib/ulib.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibdb/ulibdb.h>
+#import <umscript/umscript.h>
 
 @class UMSS7ConfigStorage;
 @class UMSS7ApiSession;
@@ -20,7 +21,8 @@
     UMLayerSctpApplicationContextProtocol,
     UMLayerM2PAApplicationContextProtocol,
     UMLayerMTP3ApplicationContextProtocol,
-    UMLayerSCCPApplicationContextProtocol>
+    UMLayerSCCPApplicationContextProtocol,
+    UMEnvironmentNamedListProviderProtocol>
 
 @property(readwrite,strong,atomic)  UMSS7ConfigStorage *runningConfig;
 @property(readwrite,strong,atomic)  UMSS7ConfigStorage *startupConfig;
@@ -153,7 +155,7 @@ realm:(NSString **)realm;
 #pragma mark -
 #pragma mark Named Lists Functions
 /************************************************************/
-
+/* this is now taken care of in UMEnvironmentNamedListProviderProtocol from umscript
 - (UMSynchronizedArray *)namedlist_lists;
 - (void)namedlist_add:(NSString *)listName value:(NSString *)value;
 - (void)namedlist_remove:(NSString *)listName value:(NSString *)value;
@@ -162,7 +164,7 @@ realm:(NSString **)realm;
 - (void)namedlist_flushAll;
 - (NSArray *)namedlist_get:(NSString *)listName;
 
-
+*/
 /************************************************************/
 #pragma mark -
 #pragma mark Log File Functions

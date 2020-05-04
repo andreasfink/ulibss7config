@@ -13,6 +13,7 @@
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import <ulibdb/ulibdb.h>
+#import <umscript/umscript.h>
 #import "UMSS7ConfigObject.h"
 #import "SS7TelnetSocketHelperProtocol.h"
 #import "SS7UserAuthenticateProtocol.h"
@@ -78,7 +79,8 @@ UMSS7ConfigAppDelegateProtocol,
 UMTransportUserProtocol,
 UMDiameterPeerAppDelegateProtocol,
 UMDiameterRouterAppDelegateProtocol,
-UMSCCP_FilterDelegateProtocol>
+UMSCCP_FilterDelegateProtocol,
+UMEnvironmentNamedListProviderProtocol>
 {
     /* first all pointers... then integers. Workaround for a bug in clang...? */
     NSDictionary                *_enabledOptions;
@@ -175,7 +177,7 @@ UMSCCP_FilterDelegateProtocol>
     DiameterGenericInstance     *_mainDiameterInstance;
     SS7GenericInstance			*_mainCamelInstance;
 	SS7GenericInstance			*_mainMapInstance;
-    UMSynchronizedDictionary     *_namedLists;
+    UMSynchronizedDictionary    *_namedLists; /* key = name, object type = UMNamedList */
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
 
@@ -233,9 +235,8 @@ UMSCCP_FilterDelegateProtocol>
 @property(readwrite,strong)     NSString            *stagingAreaPath;
 @property(readwrite,strong)     NSString            *statisticsPath;
 @property(readwrite,strong)     NSString            *appsPath;
-@property(readwrite,strong)     UMSynchronizedDictionary *ss7FilterEngines;
+@property(readwrite,strong)     UMSynchronizedDictionary    *ss7FilterEngines;
 @property(readwrite,strong)     DiameterGenericInstance     *mainDiameterInstance;
-@property(readwrite,strong)     UMSynchronizedDictionary    *namedLists;
 @property(readwrite,strong)     UMSynchronizedDictionary    *active_ruleset_dict;
 @property(readwrite,strong)     UMSynchronizedDictionary    *active_action_list_dict;
 @property(readwrite,strong)     UMSynchronizedDictionary     *statistics_dict;
@@ -256,6 +257,8 @@ UMSCCP_FilterDelegateProtocol>
 
 @property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile objects */
 @property(readwrite,strong)     UMSynchronizedDictionary    *cdrWriters_dict;
+@property(readwrite,strong)     NSString                    *namedListsDirectory;
+
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -478,12 +481,13 @@ UMSCCP_FilterDelegateProtocol>
 #pragma mark Named Lists Functions
 /************************************************************/
 
-- (UMSynchronizedArray *)namedlist_lists;
-- (void)namedlist_add:(NSString *)listName value:(NSString *)value;
-- (void)namedlist_remove:(NSString *)listName value:(NSString *)value;
-- (BOOL)namedlist_contains:(NSString *)listName value:(NSString *)value;
-- (void)namedlist_flushAll;
-- (NSArray *)namedlist_get:(NSString *)listName;
+- (NSArray<NSString *>*)namedlistsListNames;
+- (void)namedlistReplaceList:(NSString *)listName withContentsOfFile:(NSString *)filename;
+- (void)namedlistsFlushAll;
+- (void)namedlistsLoadFromDirectory:(NSString *)directory;
+- (void)namedlistAdd:(NSString *)listName value:(NSString *)value;
+- (void)namedlistRemove:(NSString *)listName value:(NSString *)value;
+- (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value;
 
 /************************************************************/
 #pragma mark -

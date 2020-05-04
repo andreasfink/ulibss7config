@@ -37,22 +37,19 @@
 	@try
 	{
 		// 1. Get external parameters
-        NSString *listName = _params[@"name"];
+        NSString *listName = [_params[@"name"] urldecode];
         if(listName.length==0)
         {
             /* backwards compatibility to old api of SMSProx4 */
-            listName = _params[@"list"];
+            listName = [_params[@"list"] urldecode];
         }
 		if(listName.length==0)
 		{
             [self sendError:@"missing-parameter" reason:@"the 'list' or 'name' parameter is not passed"];
+            return;
 		}
-		else
-		{
-			// 2. list namedlists
-            NSArray *items = [_appDelegate namedlist_get:listName];
-            [self sendResultObject:items];
-		}
+        NSArray *items = [_appDelegate namedlistList:listName];
+        [self sendResultObject:items];
 	}
 	@catch(NSException *e)
 	{

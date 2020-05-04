@@ -37,15 +37,22 @@
 	@try
 	{
 		// 1. Get external parameters
-		NSString *listName = _params[@"list"];
-		NSString *value = _params[@"value"];
+        NSString *listName = [_params[@"name"] urldecode];
+		NSString *value = [_params[@"value"] urldecode];
 		if(listName.length==0)
 		{
-            [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
+            listName = [_params[@"list"] urldecode];
+            if(listName.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
+                return;
+            }
 		}
-		else if(value.length==0)
+		
+        if(value.length==0)
 		{
             [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
+            return;
 		}
 		else if([value isEqualToString:@"_dirty"])
 		{
@@ -54,7 +61,7 @@
 		else
 		{
 			// 2. adding
-			[_appDelegate namedlist_add:listName value:value];
+			[_appDelegate namedlistAdd:listName value:value];
 			[self sendResultOK];
 		}
 	}

@@ -37,14 +37,14 @@
 	@try
 	{
 		// 1. Get external parameters
-		NSString *listName = _params[@"name"];
+		NSString *listName = [_params[@"name"] urldecode];
         if(listName.length==0)
         {
             /* backwards compatibility to old api of SMSProx4 */
-            listName = _params[@"list"];
+            listName = [_params[@"list"] urldecode];
         }
 
-		NSString *value = _params[@"value"];
+		NSString *value = [_params[@"value"] urldecode];
 		if(listName.length==0)
 		{
             [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
@@ -60,7 +60,7 @@
 		else
 		{
 			// 2. Checking if value is contained in list
-			BOOL ok = [_appDelegate namedlist_contains:listName value:value];
+			BOOL ok = [_appDelegate namedlistContains:listName value:value];
 			NSString *reply = ok ? @"YES" : @"NO";
 			[self sendResultObject:reply];
 		}
