@@ -48,9 +48,6 @@
     APPEND_CONFIG_BOOLEAN(s,@"disable-route-advertizement",_disableRouteAdvertizement);
     APPEND_CONFIG_STRING(s,@"tt-map-in",_ttmap_in);
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
-
-
-
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -96,6 +93,5 @@
     UMSynchronizedSortedDictionary *currentConfig = [self config];
     return [[UMSS7ConfigM3UAAS allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
-
 
 @end
