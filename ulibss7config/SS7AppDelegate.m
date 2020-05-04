@@ -1562,8 +1562,7 @@ static void signalHandler(int signum);
                         NSString *s = [NSString stringWithFormat:@"Can not find router '%@'",router];
                         CONFIG_ERROR(s);
                     }
-                    UMDiameterRoute *route = [[UMDiameterRoute alloc]initWithConfig:dict];
-                    [router addRoute:route];
+                    [router addRouteFromConfig:dict];
                 }
             }
 

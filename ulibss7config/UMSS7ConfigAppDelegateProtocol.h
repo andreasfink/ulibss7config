@@ -16,6 +16,7 @@
 @class UMSS7ConfigSS7FilterStagingArea;
 @class UMSS7ConfigSS7FilterTraceFile;
 @class SS7CDRWriter;
+@class UMDiameterRouter;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -222,5 +223,12 @@ realm:(NSString **)realm;
 - (NSString *)exportRunningConfiguration;
 - (NSString *)exportStartupConfiguration;
 - (NSString *)writeCurrentConfigurationToStartup;
+
+
+/************************************************************/
+#pragma mark -
+#pragma mark Diameter
+/************************************************************/
+- (UMDiameterRouter *)getDiameterRouter:(NSString *)name;
 
 @end

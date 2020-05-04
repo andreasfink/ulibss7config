@@ -193,3 +193,10 @@
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h"
 #import "UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h"
 
+#import "UMSS7ApiTaskDiameterRoute_add.h"
+#import "UMSS7ApiTaskDiameterRoute_read.h"
+#import "UMSS7ApiTaskDiameterRoute_list.h"
+#import "UMSS7ApiTaskDiameterRoute_modify.h"
+#import "UMSS7ApiTaskDiameterRoute_delete.h"
+#import "UMSS7ApiTaskDiameterRoute_status.h"
+#import "UMSS7ApiTaskDiameterRoute_action.h"

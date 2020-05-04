@@ -62,7 +62,6 @@
     APPEND_DICT_BOOLEAN(dict,@"default-route",_defaultRoute);
     APPEND_DICT_BOOLEAN(dict,@"exact-hostname",_exactHost);
     APPEND_DICT_BOOLEAN(dict,@"exact-realm",_exactRealm);
-
     return dict;
 }
 
