@@ -67,6 +67,5 @@
 	{
 		[self sendException:e];
 	}
-	
 }
 @end
