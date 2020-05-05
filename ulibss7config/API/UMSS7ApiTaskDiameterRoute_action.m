@@ -34,7 +34,7 @@
     }
     NSString *routerName = [_webRequest.params[@"router"] urldecode];
     NSString *name       = [_webRequest.params[@"name"] urldecode];
-    NSString *action     = [_webRequest.params[@"action"] urldecode];
+   // NSString *action     = [_webRequest.params[@"action"] urldecode];
 
     UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
     if(router == NULL)
