@@ -1564,7 +1564,7 @@ else \
     }
     if([p[@"sccp-segment-size"] stringValue].length > 0)
     {
-        NSString *s =  [p[@"sccp-segment-size"] stringValue];
+        NSString *s =  [[p[@"sccp-segment-size"] stringValue] urldecode];
         _options[@"sccp-segment-size"] = @([s intValue]);
         NSArray *a = [s componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
         if(a.count > 1)
