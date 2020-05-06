@@ -1564,7 +1564,29 @@ else \
     }
     if([p[@"sccp-segment-size"] stringValue].length > 0)
     {
-        _options[@"sccp-segment-size"] = @([p[@"sccp-segment-size"] intValue]);
+        NSString *s =  [p[@"sccp-segment-size"] stringValue];
+        _options[@"sccp-segment-size"] = @([s intValue]);
+        NSArray *a = [s componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
+        if(a.count > 1)
+        {
+            int max = 0;
+            NSMutableArray *b = [[NSMutableArray alloc]init];
+            for(NSString *s1 in a)
+            {
+                int size = abs([s1 intValue]);
+                [b addObject: @(size)];
+                if(size > max)
+                {
+                    max = size;
+                    _options[@"sccp-segment-size"] = @(max);
+                }
+            }
+            _options[@"sccp-segment-sizes"] = b;
+            if(max > 0)
+            {
+                _options[@"sccp-segment-size"] = @(max);
+            }
+        }
     }
 
     if([p[@"sccp-segment-sizes"] stringValue].length > 0)
