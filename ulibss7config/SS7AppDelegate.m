@@ -882,7 +882,7 @@ static void signalHandler(int signum);
     _sccpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"sccp"
                                                         enableLogging:NO
-                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+                                                       numberOfQueues:3];
     _tcapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"tcap"
                                                         enableLogging:NO
@@ -890,7 +890,7 @@ static void signalHandler(int signum);
     _gsmmapTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                    name:@"gsmmap"
                                                           enableLogging:NO
-                                                         numberOfQueues:UMLAYER_QUEUE_COUNT];
+                                                         numberOfQueues:3];
     _camelTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                    name:@"camel"
                                                           enableLogging:NO
