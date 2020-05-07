@@ -75,7 +75,12 @@
 
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq
 {
-    self = [super initWithTaskQueueMulti:tq];
+    return [self initWithTaskQueueMulti:tq name:@"genetic-ss7-instance"];
+}
+
+- (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name
+{
+    self = [super initWithTaskQueueMulti:tq name:name];
     if(self)
     {
         _sessions = [[UMSynchronizedDictionary alloc]init];
@@ -183,6 +188,9 @@
 
 - (void)addSession:(SS7GenericSession *)t userId:(UMGSMMAP_UserIdentifier *)uidstr
 {
+    UMAssert(_sessions!=NULL,@"Can not add session. _sessions is null");
+    UMAssert(uidstr!=NULL,@"Can not add session. uidstr is null");
+    UMAssert(t!=NULL,@"Can not add session. t is null");
     _sessions[uidstr.userIdentifier] = t;
 }
 
