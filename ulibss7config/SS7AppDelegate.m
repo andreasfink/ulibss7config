@@ -611,6 +611,7 @@ static void signalHandler(int signum);
                     UMTCAP_TransactionIdPoolSequential *pool = [[UMTCAP_TransactionIdPoolSequential alloc]init];
                     pool.first = start;
                     pool.last = end;
+                    pool.nextTransactionId = start.intValue;
                     _tidPool = pool;
                 }
             }
