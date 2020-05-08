@@ -31,6 +31,9 @@
 - (void) genericInitialisation
 {
     _sessions = [[UMSynchronizedDictionary alloc]init];
+    _delayedDestroy1 = [[NSMutableArray alloc]init];
+    _delayedDestroy2 = [[NSMutableArray alloc]init];
+    _delayedDestroy3 = [[NSMutableArray alloc]init];
     _timeoutInSeconds = 80;
     _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_operationMutext"];
     _uidMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_uidMutex"];
@@ -39,7 +42,7 @@
     _houseKeepingTimer = [[UMTimer alloc]initWithTarget:self
                                                selector:@selector(housekeeping)
                                                  object:NULL
-                                                seconds:1.1
+                                                seconds:2.2
                                                    name:@"housekeeping"
                                                 repeats:YES
                                         runInForeground:NO];
@@ -59,6 +62,7 @@
 
 - (NSUInteger)sessionsCount
 {
+    UMAssert(_sessions!=NULL,@"_sessions is null");
     return _sessions.count;
 }
 
@@ -75,6 +79,7 @@
 
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq
 {
+    
     return [self initWithTaskQueueMulti:tq name:@"genetic-ss7-instance"];
 }
 
@@ -95,6 +100,7 @@
                                                        name:@"housekeeping"
                                                     repeats:YES
                                             runInForeground:NO];
+        [self genericInitialisation];
         [_houseKeepingTimer start];
     }
     return self;
@@ -183,6 +189,7 @@
 
 - (SS7GenericSession *)sessionById:(UMGSMMAP_UserIdentifier *)userId
 {
+    UMAssert(_sessions!=NULL,@"Can not find session. _sessions is null");
     return _sessions[userId.userIdentifier];
 }
 
@@ -203,7 +210,7 @@
     {
         [t writeTraceToDirectory:_genericTraceDirectory];
     }
-    [_sessions removeObjectForKey:t.userIdentifier];
+    /* the session is removed by the housekeeping instance */
 }
 
 #pragma mark -
@@ -990,12 +997,17 @@
 {
     if([_housekeeping_lock tryLock] == 0)
     {
+        
+        _delayedDestroy3 = _delayedDestroy2;
+        _delayedDestroy2 = _delayedDestroy1;
+        _delayedDestroy1 = [[NSMutableArray alloc]init];
         NSArray *keys = [_sessions allKeys];
         for(NSString *key in keys)
         {
             SS7GenericSession *t = _sessions[key];
             if(t.hasEnded)
             {
+                [_delayedDestroy1 addObject:t];
                 [_sessions removeObjectForKey:key];
             }
             if([t isTimedOut])

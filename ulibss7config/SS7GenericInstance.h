@@ -35,6 +35,9 @@
     UMAtomicDate                *_houseKeepingTimerRun;
     UMHTTPClient                *_webClient;
     id<SS7UserAuthenticateProtocol> _authDelegate;
+    NSMutableArray              *_delayedDestroy1;
+    NSMutableArray              *_delayedDestroy2;
+    NSMutableArray              *_delayedDestroy3;
 }
 
 @property(readwrite,strong) UMLayerGSMMAP *gsmMap;
