@@ -40,6 +40,8 @@
         NSString *statisticsKey  = _params[@"key"];
         NSString *b = _params[@"no-values"];
         BOOL noValues = [b boolValue];
+#pragma unused(statisticsKey)
+#pragma unused(noValues)
 
         if(statisticsName.length==0)
         {
