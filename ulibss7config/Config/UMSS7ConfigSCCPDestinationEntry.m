@@ -37,6 +37,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"destination",_destination);
+    APPEND_CONFIG_STRING(s,@"next-sccp-instance",_nextSccpInstance);
     APPEND_CONFIG_STRING(s,@"point-code",_dpc);
     APPEND_CONFIG_STRING(s,@"application-server",_applicationServer);
     APPEND_CONFIG_INTEGER(s,@"cost",_cost);
@@ -50,6 +51,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"destination",_destination);
+    APPEND_DICT_STRING(dict,@"next-sccp-instance",_nextSccpInstance);
     APPEND_DICT_STRING(dict,@"point-code",_dpc);
     APPEND_DICT_STRING(dict,@"application-server",_applicationServer);
     APPEND_DICT_INTEGER(dict,@"cost",_cost);
@@ -64,6 +66,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_FILTERED_STRING(dict,@"destination",_destination);
+    SET_DICT_STRING(dict,@"next-sccp-instance",_nextSccpInstance);
     SET_DICT_STRING(dict,@"point-code",_dpc);
     SET_DICT_FILTERED_STRING(dict,@"application-server",_applicationServer);
     SET_DICT_INTEGER(dict,@"cost",_weight);

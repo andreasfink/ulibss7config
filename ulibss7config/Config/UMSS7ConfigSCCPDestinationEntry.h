@@ -11,6 +11,7 @@
 @interface UMSS7ConfigSCCPDestinationEntry : UMSS7ConfigObject
 {
     NSString *_destination;
+    NSString *_nextSccpInstance;
     NSString *_dpc;
     NSString *_applicationServer;
     NSNumber *_cost;
@@ -25,6 +26,7 @@
 - (UMSS7ConfigSCCPDestinationEntry *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *destination;
+@property(readwrite,strong,atomic)  NSString *nextSccpInstance;
 @property(readwrite,strong,atomic)  NSString *dpc;
 @property(readwrite,strong,atomic)  NSString *applicationServer;
 @property(readwrite,strong,atomic)  NSNumber *cost;

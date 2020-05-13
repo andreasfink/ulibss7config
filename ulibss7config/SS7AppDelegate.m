@@ -4846,7 +4846,6 @@ static void signalHandler(int signum);
     {
         [sa setConfig:dict];
     }
-
 }
 
 - (void)selectSS7FilterStagingArea:(NSString *)name forSession:(UMSS7ApiSession *)session
@@ -4930,16 +4929,11 @@ static void signalHandler(int signum);
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
 {
-    NSArray<NSString *> *names = [self getSS7FilterStagingAreaNames];
-    for(NSString *name in names)
-    {
-        UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[name];
-        if(name == oldname)
-        {
-            stagingArea.name = newname;
-            break;
-        }
-    }
+    
+    UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[oldname];
+    [_ss7FilterStagingAreas_dict removeObjectForKey:oldname];
+    stagingArea.name = newname;
+    _ss7FilterStagingAreas_dict[newname] =stagingArea;
 }
 
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname
