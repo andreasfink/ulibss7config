@@ -608,10 +608,7 @@ static void signalHandler(int signum);
                 NSNumber *end   = [[NSNumber alloc]initWithInteger:[a1 integerValue]];
                 if(start && end)
                 {
-                    UMTCAP_TransactionIdPoolSequential *pool = [[UMTCAP_TransactionIdPoolSequential alloc]init];
-                    pool.first = start;
-                    pool.last = end;
-                    pool.nextTransactionId = start.intValue;
+                    UMTCAP_TransactionIdPoolSequential *pool = [[UMTCAP_TransactionIdPoolSequential alloc]initWithStart:start end:end];
                     _tidPool = pool;
                 }
             }
