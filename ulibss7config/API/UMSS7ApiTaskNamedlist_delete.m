@@ -41,13 +41,14 @@
         if(listName.length==0)
         {
             /* backwards compatibility to old api of SMSProx4 */
-            listName = _params[@"list"];
+            listName = [_params[@"list"] urldecode];
         }
-		NSString *value = [_params[@"value"] urldecode];
-		if(listName.length==0)
-		{
+        if(listName.length==0)
+        {
             [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
-		}
+        }
+
+        NSString *value = [_params[@"value"] urldecode];
 		else if(value.length==0)
 		{
             [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
