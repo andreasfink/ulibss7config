@@ -1666,6 +1666,7 @@ static void signalHandler(int signum);
 - (void)startInstances
 {
     [self.logFeed infoText:@"Starting Instances"];
+
     NSArray *names = [_mtp3_dict allKeys];
     for(NSString *name in names)
     {
@@ -1673,6 +1674,33 @@ static void signalHandler(int signum);
         NSLog(@"mtp3 %@ starting",mtp3.layerName);
         [mtp3 start];
         NSLog(@"mtp3 %@ started",mtp3.layerName);
+    }
+
+    NSArray *tcapNames = [_tcap_dict allKeys];
+    for(NSString *name in tcapNames)
+    {
+        UMLayerTCAP *tcap = [self getTCAP:name];
+        NSLog(@"tcap %@ starting",tcap.layerName);
+        [tcap startUp];
+        NSLog(@"tcap %@ started",tcap.layerName);
+    }
+
+    NSArray *gsmmapNames = [_gsmmap_dict allKeys];
+    for(NSString *name in gsmmapNames)
+    {
+        UMLayerGSMMAP *gsmmap = [self getGSMMAP:name];
+        NSLog(@"gsmmap %@ starting",gsmmap.layerName);
+        [gsmmap startUp];
+        NSLog(@"gsmmap %@ started",gsmmap.layerName);
+    }
+
+    NSArray *camelNames = [_camel_dict allKeys];
+    for(NSString *name in camelNames)
+    {
+        UMLayerCamel *camel = [self getCAMEL:name];
+        NSLog(@"camel %@ starting",camel.layerName);
+        [camel startUp];
+        NSLog(@"camel %@ started",camel.layerName);
     }
 
     names = [_diameter_router_dict allKeys];

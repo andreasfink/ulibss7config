@@ -13,8 +13,8 @@
 @implementation SS7CDRWriterTask
 
 - (SS7CDRWriterTask *)initWithRecord:(NSDictionary *)fields
-                            table:(UMDbTable *)dbTable
-                           writer:(SS7CDRWriter *)writer
+                               table:(UMDbTable *)dbTable
+                              writer:(SS7CDRWriter *)writer
 {
     self = [super init];
     if(self)

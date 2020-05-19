@@ -997,7 +997,7 @@
 {
     if([_housekeeping_lock tryLock] == 0)
     {
-        
+        _delayedDestroy3 = NULL;
         _delayedDestroy3 = _delayedDestroy2;
         _delayedDestroy2 = _delayedDestroy1;
         _delayedDestroy1 = [[NSMutableArray alloc]init];
