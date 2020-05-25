@@ -33,6 +33,8 @@ typedef enum SS7MultiInvokeVariant
 {
     UMGSMMAP_UserIdentifier *_userIdentifier;
     BOOL                    _hasEnded;
+    NSString                *_hasEndedReason;
+    NSDate                  *_hasEndedTime;
     UMASN1Object            *_query;
     UMASN1Object            *_query2;
     UMASN1Object            *_query3;
@@ -110,6 +112,8 @@ typedef enum SS7MultiInvokeVariant
 
 @property(readwrite,strong,atomic)    UMGSMMAP_UserIdentifier *userIdentifier;
 @property(readwrite,assign,atomic)    BOOL                    hasEnded;
+@property(readwrite,strong,atomic)    NSString                *hasEndedReason;
+@property(readwrite,strong,atomic)    NSDate                  *hasEndedTime;
 @property(readwrite,strong,atomic)    UMASN1Object            *query;
 @property(readwrite,strong,atomic)    UMASN1Object            *query2;
 @property(readwrite,strong,atomic)    UMASN1Object            *query3;
@@ -212,7 +216,7 @@ typedef enum SS7MultiInvokeVariant
 - (void)submitApplicationContextTest;
 - (void)webException:(NSException *)e;
 - (SS7GenericSession *)initWithSession:(SS7GenericSession *)ot;
-- (void)markForTermination;
+- (void)markForTermination:(NSString *)reason;
 
     //--------------------------------------------------------------------------------------------
 -(void) sessionMAP_Invoke_Ind:(UMASN1Object *)param

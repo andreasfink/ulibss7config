@@ -58,7 +58,7 @@
 - (UMGSMMAP_UserIdentifier *)getNewUserIdentifier;
 - (SS7GenericSession *)sessionById:(UMGSMMAP_UserIdentifier *)userId;
 - (void)addSession:(SS7GenericSession *)t userId:(UMGSMMAP_UserIdentifier *)uidstr;
-- (void) markSessionForTermination:(SS7GenericSession *)t;
+- (void) markSessionForTermination:(SS7GenericSession *)t reason:(NSString *)reason;
 + (NSString *)webIndexForm;
 
 + (void)webHeader:(NSMutableString *)s title:(NSString *)t;

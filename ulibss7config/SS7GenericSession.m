@@ -663,7 +663,7 @@ else \
     {
         [self.logFeed majorErrorText:[NSString stringWithFormat:@"SS7GenericSession: CloseReq exception: %@",err]];
     }
-    [self markForTermination];
+    [self markForTermination:@"map-close-req"];
 }
 
 #pragma mark -
@@ -864,22 +864,22 @@ else \
     }
     @finally
     {
-        [self markForTermination];
+        [self markForTermination:@"map-close-ind"];
         [_operationMutex unlock];
     }
     [self touch];
 }
 
 
-- (void)markForTermination
+- (void)markForTermination:(NSString *)reason
 {
     [self touch];
     if(_logLevel <= UMLOG_DEBUG)
     {
-        [self logDebug:@"markForTermination"];
+        [self logDebug:[NSString stringWithFormat:@"markForTermination(%@)",reason]];
     }
-    [_historyLog addLogEntry:@"SS7GenericSession: markForTermination"];
-    [_gInstance markSessionForTermination:self];
+    [_historyLog addLogEntry:[NSString stringWithFormat:@"SS7GenericSession: markForTermination(%@)",reason]];
+    [_gInstance markSessionForTermination:self reason:reason];
 }
 
 - (void)outputResult2:(UMSynchronizedSortedDictionary *)dict
@@ -1012,12 +1012,12 @@ else \
         }
         [self outputResult2:dict];
 
-        [self markForTermination];
+        [self markForTermination:@"u-abort-ind"];
     }
     @catch(NSException *err)
     {
         [self logMajorError:[NSString stringWithFormat:@"Exception during sessionMAP_U_Abort_Ind: %@",err]];
-        [self markForTermination];
+        [self markForTermination:@"u-abort-ind-exception"];
     }
     @finally
     {
@@ -1103,7 +1103,7 @@ else \
     }
     @finally
     {
-        [self markForTermination];
+        [self markForTermination:@"p-abort-ind"];
         [_operationMutex unlock];
     }
 }
@@ -1198,7 +1198,7 @@ else \
     }
     @finally
     {
-        [self markForTermination];
+        [self markForTermination:@"notice-ind"];
         [_operationMutex unlock];
     }
 }
@@ -2232,7 +2232,7 @@ else \
 
     [_operationMutex lock];
     [self outputResult2:dict];
-    [self markForTermination];
+    [self markForTermination:@"timeout"];
     [_operationMutex unlock];
 }
 
@@ -2296,7 +2296,7 @@ else \
                                     diagnostic:d
                                       userInfo:NULL
                                          cause:UMTCAP_pAbortCause_unrecognizedMessageType];
-        [_gInstance markSessionForTermination:self];
+        [_gInstance markSessionForTermination:self reason:@"abort-unknown"];
         _hasEnded = YES;
     }
     @catch(NSException *e)
@@ -2330,7 +2330,7 @@ else \
                                     diagnostic:d
                                       userInfo:NULL
                                          cause:UMTCAP_pAbortCause_badlyFormattedTransactionPortion];
-        [_gInstance markSessionForTermination:self];
+        [_gInstance markSessionForTermination:self reason:@"abort"];
         _hasEnded = YES;
     }
     @catch(NSException *e)

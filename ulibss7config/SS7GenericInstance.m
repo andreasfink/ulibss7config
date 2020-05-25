@@ -202,10 +202,12 @@
 }
 
 
-- (void) markSessionForTermination:(SS7GenericSession *)t
+- (void) markSessionForTermination:(SS7GenericSession *)t reason:(NSString *)reason
 {
     [t.historyLog addLogEntry:@"markSessionForTermination"];
     t.hasEnded = YES;
+    t.hasEndedReason = reason;
+    t.hasEndedTime = [NSDate date];
     if(_genericTraceDirectory)
     {
         [t writeTraceToDirectory:_genericTraceDirectory];
@@ -725,7 +727,7 @@
                 transactionId:localTransactionId
           remoteTransactionId:remoteTransactionId
                       options:options];
-    [self markSessionForTermination:t];
+    [self markSessionForTermination:t reason:@"u-abort-ind"];
 }
 
 -(void)executeMAP_P_Abort_Ind:(UMGSMMAP_UserIdentifier *)userIdentifier
@@ -750,7 +752,7 @@
                 transactionId:localTransactionId
           remoteTransactionId:remoteTransactionId
                       options:options];
-    [self markSessionForTermination:t];
+    [self markSessionForTermination:t reason:@"p-abort-ind"];
 }
 
 
@@ -769,7 +771,7 @@
            tcapTransactionId:localTransactionId
                       reason:reason
                      options:options];
-    [self markSessionForTermination:t];
+    [self markSessionForTermination:t reason:@"notice-ind"];
 }
 
 -(void)executeMAP_Continue_Ind:(UMGSMMAP_UserIdentifier *)userIdentifier
