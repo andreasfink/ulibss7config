@@ -21,27 +21,30 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        NSString *routerName = [_webRequest.params[@"router"] urldecode];
+        NSString *name       = [_webRequest.params[@"name"] urldecode];
+        
+        UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
+        if(router == NULL)
+        {
+            [self sendErrorNotFound:routerName];
+            return;
+        }
+        
+        [self sendResultObject:router.routes[name]];
     }
-    NSString *routerName = [_webRequest.params[@"router"] urldecode];
-    NSString *name       = [_webRequest.params[@"name"] urldecode];
-    
-    UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
-    if(router == NULL)
-    {
-        [self sendErrorNotFound:routerName];
-        return;
-    }
-    
-    [self sendResultObject:router.routes[name]];
 }
 @end

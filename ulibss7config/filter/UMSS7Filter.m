@@ -118,7 +118,10 @@ NSDictionary *plugin_info(void);
                                                  called:packet.incomingCalledPartyAddress
                                        qualityOfService:0
                                                 options:@{ @"decode-only" : @YES }];
-        [task main];
+        @autoreleasepool
+        {
+            [task main];
+        }
         UMASN1Object *asn1 = task.asn1;
         packet.incomingTcapAsn1 = asn1;
         if([asn1 isKindOfClass:[UMTCAP_itu_asn1_begin class]])

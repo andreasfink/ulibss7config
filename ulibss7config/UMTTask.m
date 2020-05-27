@@ -22,23 +22,26 @@
 
 - (void)main
 {
-    _dialogId =  [_transportService dialogIdentifierForDestination:_remoteAddr];
-    UMTransportDialog *dialog =   [_transportService dialogById:_dialogId];
-    if(dialog.dialogState == UMTransportDialogState_closed)
+    @autoreleasepool
     {
-        UMTransportOpen *openPdu = [[UMTransportOpen alloc]init];
-        openPdu.version = 1;
-        UMTCAP_UserDialogIdentifier *newDialogId;
-        int64_t newInvokeId;
-        [_transportService umtransportOpenRequest:openPdu
-                                    userReference:_userRef
-                                         dialogId:&newDialogId
-                                         invokeId:&newInvokeId
-                                    remoteAddress:_remoteAddr];
-    }
-    else if (dialog.dialogState == UMTransportDialogState_open)
-    {
-        [self executeWhenOpen];
+        _dialogId =  [_transportService dialogIdentifierForDestination:_remoteAddr];
+        UMTransportDialog *dialog =   [_transportService dialogById:_dialogId];
+        if(dialog.dialogState == UMTransportDialogState_closed)
+        {
+            UMTransportOpen *openPdu = [[UMTransportOpen alloc]init];
+            openPdu.version = 1;
+            UMTCAP_UserDialogIdentifier *newDialogId;
+            int64_t newInvokeId;
+            [_transportService umtransportOpenRequest:openPdu
+                                        userReference:_userRef
+                                             dialogId:&newDialogId
+                                             invokeId:&newInvokeId
+                                        remoteAddress:_remoteAddr];
+        }
+        else if (dialog.dialogState == UMTransportDialogState_open)
+        {
+            [self executeWhenOpen];
+        }
     }
 }
 

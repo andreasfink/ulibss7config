@@ -21,35 +21,38 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    NSString *routerName = [_webRequest.params[@"router"] urldecode];
-    NSString *name       = [_webRequest.params[@"name"] urldecode];
-   // NSString *action     = [_webRequest.params[@"action"] urldecode];
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        NSString *routerName = [_webRequest.params[@"router"] urldecode];
+        NSString *name       = [_webRequest.params[@"name"] urldecode];
+       // NSString *action     = [_webRequest.params[@"action"] urldecode];
 
-    UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
-    if(router == NULL)
-    {
-        [self sendErrorNotFound:routerName];
-        return;
+        UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
+        if(router == NULL)
+        {
+            [self sendErrorNotFound:routerName];
+            return;
+        }
+        
+        UMDiameterRoute *route = router.routes[name];
+        if(route == NULL)
+        {
+            [self sendErrorNotFound:name];
+            return;
+        }
+        /* FIXME: do some action */
+        [self sendErrorNotImplemented];
     }
-    
-    UMDiameterRoute *route = router.routes[name];
-    if(route == NULL)
-    {
-        [self sendErrorNotFound:name];
-        return;
-    }
-    /* FIXME: do some action */
-    [self sendErrorNotImplemented];
 }
 @end

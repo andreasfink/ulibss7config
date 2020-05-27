@@ -22,30 +22,33 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        NSString *routerName = [_webRequest.params[@"router"] urldecode];
+        UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
+        if(router == NULL)
+        {
+            [self sendErrorNotFound:routerName];
+            return;
+        }
+        UMSS7ConfigDiameterRoute *routeconfig = [[UMSS7ConfigDiameterRoute alloc]initWithConfig:_params];
+        [_appDelegate.runningConfig addDiameterRoute:routeconfig];
+        UMSynchronizedSortedDictionary *d = [routeconfig config];
+        NSDictionary *dict = [d dictionaryCopy];
+        [router addRouteFromConfig:dict];
+        [self sendResultObject:routeconfig];
     }
-    NSString *routerName = [_webRequest.params[@"router"] urldecode];
-    UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
-    if(router == NULL)
-    {
-        [self sendErrorNotFound:routerName];
-        return;
-    }
-    UMSS7ConfigDiameterRoute *routeconfig = [[UMSS7ConfigDiameterRoute alloc]initWithConfig:_params];
-    [_appDelegate.runningConfig addDiameterRoute:routeconfig];
-    UMSynchronizedSortedDictionary *d = [routeconfig config];
-    NSDictionary *dict = [d dictionaryCopy];
-    [router addRouteFromConfig:dict];
-    [self sendResultObject:routeconfig];
 }
 
 @end

@@ -4480,7 +4480,10 @@ static void signalHandler(int signum);
                                                                              data:mtp3payload
                                                                           options:@{ @"decode-only" : @YES }
                                                                               map:NULL];
-                [task main];
+                @autoreleasepool
+                {
+                    [task main];
+                }
                 dict[@"sccp"] = task.decodedJson;
             }
         }
@@ -4533,7 +4536,10 @@ static void signalHandler(int signum);
                                                        ni:0
                                                      data:[pdu unhexedData]
                                                   options:@{ @"decode-only" : @YES }];
-            [task main];
+            @autoreleasepool
+            {
+                [task main];
+            }
 
             NSString *json = [task.decodedJson jsonString];
             [req setResponsePlainText:json];
@@ -4595,7 +4601,10 @@ static void signalHandler(int signum);
                                                      called:dst
                                            qualityOfService:0
                                                     options:@{ @"decode-only" : @YES }];
-            [task main];
+            @autoreleasepool
+            {
+                [task main];
+            }
 
             NSLog(@"Decoded %@",[task.asn1.objectValue jsonString]);
             UMASN1Object *asn1 = task.asn1;
@@ -4660,7 +4669,10 @@ static void signalHandler(int signum);
                                                      called:dst
                                            qualityOfService:0
                                                     options:@{ @"decode-only" : @YES }];
-            [task main];
+            @autoreleasepool
+            {
+                [task main];
+            }
 
             NSLog(@"Decoded %@",task.asn1.objectValue);
             UMASN1Object *asn1 = task.asn1;

@@ -22,34 +22,37 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        NSString *routerName = [_webRequest.params[@"router"] urldecode];
+        NSString *name       = [_webRequest.params[@"name"] urldecode];
+        
+        UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
+        if(router == NULL)
+        {
+            [self sendErrorNotFound:routerName];
+            return;
+        }
+        
+        UMDiameterRoute *route = router.routes[name];
+        if(route == NULL)
+        {
+            [self sendErrorNotFound:name];
+            return;
+        }
+        /* FIXME: delete runningConfig and route object in parallel here */
+        [self sendErrorNotImplemented];
     }
-    NSString *routerName = [_webRequest.params[@"router"] urldecode];
-    NSString *name       = [_webRequest.params[@"name"] urldecode];
-    
-    UMDiameterRouter *router = [_appDelegate getDiameterRouter:routerName];
-    if(router == NULL)
-    {
-        [self sendErrorNotFound:routerName];
-        return;
-    }
-    
-    UMDiameterRoute *route = router.routes[name];
-    if(route == NULL)
-    {
-        [self sendErrorNotFound:name];
-        return;
-    }
-    /* FIXME: delete runningConfig and route object in parallel here */
-    [self sendErrorNotImplemented];
 }
 @end

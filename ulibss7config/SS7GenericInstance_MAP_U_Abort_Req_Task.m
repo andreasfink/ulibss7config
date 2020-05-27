@@ -29,8 +29,11 @@
 
 - (void)main
 {
-    [_inst executeMAP_U_Abort_Req:_userIdentifier
-                   options:_options];
+    @autoreleasepool
+    {
+        [_inst executeMAP_U_Abort_Req:_userIdentifier
+                              options:_options];
+    }
 }
 
 @end

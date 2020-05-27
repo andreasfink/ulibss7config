@@ -55,72 +55,75 @@
 
 - (void)main
 {
-    @try
+    @autoreleasepool
     {
-        if(_fields)
+        @try
         {
-            _writer.activeSingleTasks++;
-            UMDbQuery *query = [UMDbQuery queryForFile:__FILE__ line: __LINE__];
-            NSArray *fieldNames;
-            if(_fieldNames)
+            if(_fields)
             {
-                fieldNames = _fieldNames;
-            }
-            else
-            {
-                fieldNames = [_fields allKeys];
-            }
-            [query setType:UMDBQUERYTYPE_INSERT];
-            [query setTable:_dbTable];
-            NSMutableArray *fieldNames2 = [[NSMutableArray alloc]init];
-            NSMutableArray *values = [[NSMutableArray alloc]init];
-            for(NSString *fieldName in fieldNames)
-            {
-                if(_fields[fieldName])
+                _writer.activeSingleTasks++;
+                UMDbQuery *query = [UMDbQuery queryForFile:__FILE__ line: __LINE__];
+                NSArray *fieldNames;
+                if(_fieldNames)
                 {
-                    [fieldNames2 addObject:fieldName];
-                    [values addObject:_fields[fieldName]];
+                    fieldNames = _fieldNames;
                 }
-            }
-            [query setFields:fieldNames2];
+                else
+                {
+                    fieldNames = [_fields allKeys];
+                }
+                [query setType:UMDBQUERYTYPE_INSERT];
+                [query setTable:_dbTable];
+                NSMutableArray *fieldNames2 = [[NSMutableArray alloc]init];
+                NSMutableArray *values = [[NSMutableArray alloc]init];
+                for(NSString *fieldName in fieldNames)
+                {
+                    if(_fields[fieldName])
+                    {
+                        [fieldNames2 addObject:fieldName];
+                        [values addObject:_fields[fieldName]];
+                    }
+                }
+                [query setFields:fieldNames2];
 
-            UMDbSession *session = [_dbTable.pool grabSession:__FILE__ line:__LINE__ func:__func__];
-            [session cachedQueryWithNoResult:query parameters:values allowFail:NO];
-            [_dbTable.pool returnSession:session file:__FILE__ line:__LINE__ func:__func__];
-            _writer.activeSingleTasks--;
-        }
-        else if(_records.count > 0)
-        {
-            _writer.activeMultiTasks++;
-            UMDbQuery *query = [UMDbQuery queryForFile:__FILE__ line: __LINE__];
-            [query setType:UMDBQUERYTYPE_INSERT];
-            [query setTable:_dbTable];
-            [query setFields:_fieldNames];
-            NSMutableArray *values = [[NSMutableArray alloc]init];
-            for (NSDictionary *record_fields in _records)
+                UMDbSession *session = [_dbTable.pool grabSession:__FILE__ line:__LINE__ func:__func__];
+                [session cachedQueryWithNoResult:query parameters:values allowFail:NO];
+                [_dbTable.pool returnSession:session file:__FILE__ line:__LINE__ func:__func__];
+                _writer.activeSingleTasks--;
+            }
+            else if(_records.count > 0)
             {
-                for(NSString *record_fieldName in _fieldNames)
+                _writer.activeMultiTasks++;
+                UMDbQuery *query = [UMDbQuery queryForFile:__FILE__ line: __LINE__];
+                [query setType:UMDBQUERYTYPE_INSERT];
+                [query setTable:_dbTable];
+                [query setFields:_fieldNames];
+                NSMutableArray *values = [[NSMutableArray alloc]init];
+                for (NSDictionary *record_fields in _records)
                 {
-                    id value = record_fields[record_fieldName];
-                    if(value == NULL)
+                    for(NSString *record_fieldName in _fieldNames)
                     {
-                        [values addObject:[NSNull null]];
-                    }
-                    else
-                    {
-                        [values addObject:value];
+                        id value = record_fields[record_fieldName];
+                        if(value == NULL)
+                        {
+                            [values addObject:[NSNull null]];
+                        }
+                        else
+                        {
+                            [values addObject:value];
+                        }
                     }
                 }
+                UMDbSession *session = [_dbTable.pool grabSession:__FILE__ line:__LINE__ func:__func__];
+                [session cachedQueryWithNoResult:query parameters:values allowFail:NO];
+                [_dbTable.pool returnSession:session file:__FILE__ line:__LINE__ func:__func__];
+                _writer.activeMultiTasks--;
             }
-            UMDbSession *session = [_dbTable.pool grabSession:__FILE__ line:__LINE__ func:__func__];
-            [session cachedQueryWithNoResult:query parameters:values allowFail:NO];
-            [_dbTable.pool returnSession:session file:__FILE__ line:__LINE__ func:__func__];
-            _writer.activeMultiTasks--;
         }
-    }
-    @catch(NSException *ex)
-    {
-        NSLog(@"%@",ex);
+        @catch(NSException *ex)
+        {
+            NSLog(@"%@",ex);
+        }
     }
 }
 @end
