@@ -21,33 +21,36 @@
 
 - (void)main
 {
-     if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
-    UMSS7ConfigMTP3LinkSet *config_object = [cs getMTP3LinkSet:name];
-    UMMTP3LinkSet *instance = [_appDelegate getMTP3LinkSet:name];
-    if((instance!=NULL) || (config_object==NULL))
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [cs deleteMTP3LinkSet:name];
-        [_appDelegate deleteMTP3LinkSet:name];
-        [self sendResultOK];
+        UMSS7ConfigMTP3LinkSet *config_object = [cs getMTP3LinkSet:name];
+        UMMTP3LinkSet *instance = [_appDelegate getMTP3LinkSet:name];
+        if((instance!=NULL) || (config_object==NULL))
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [cs deleteMTP3LinkSet:name];
+            [_appDelegate deleteMTP3LinkSet:name];
+            [self sendResultOK];
+        }
     }
 }
 

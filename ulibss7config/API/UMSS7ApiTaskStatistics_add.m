@@ -21,38 +21,42 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    @try
-    {
-        // 1. Get external parameters
-        NSString *statisticsName = _params[@"name"];
-
-
-        if(statisticsName.length==0)
+        if(![self isAuthenticated])
         {
-            [self sendErrorMissingParameter:@"name"];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        else
+
+        if(![self isAuthorized])
         {
-            // 2. adding
-            [_appDelegate statistics_add:statisticsName params:_params];
-            [self sendResultOK];
+            [self sendErrorNotAuthorized];
+            return;
         }
-    }
-    @catch(NSException *e)
-    {
-        [self sendException:e];
+
+        @try
+        {
+            // 1. Get external parameters
+            NSString *statisticsName = _params[@"name"];
+
+
+            if(statisticsName.length==0)
+            {
+                [self sendErrorMissingParameter:@"name"];
+            }
+            else
+            {
+                // 2. adding
+                [_appDelegate statistics_add:statisticsName params:_params];
+                [self sendResultOK];
+            }
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
 }
 @end

@@ -32,16 +32,19 @@
 
 - (void)main
 {
-    @try
+    @autoreleasepool
     {
-        UMDiameterPacketReset_Request *pkt = [[UMDiameterPacketReset_Request alloc]init];
-        [pkt setDictionaryValueFromWeb:_req.params];
-        self.query = pkt;
-        [self submit];
-    }
-    @catch(NSException *e)
-    {
-        [self webException:e];
+        @try
+        {
+            UMDiameterPacketReset_Request *pkt = [[UMDiameterPacketReset_Request alloc]init];
+            [pkt setDictionaryValueFromWeb:_req.params];
+            self.query = pkt;
+            [self submit];
+        }
+        @catch(NSException *e)
+        {
+            [self webException:e];
+        }
     }
 }
 

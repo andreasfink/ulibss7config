@@ -24,40 +24,43 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-	// 1. call appDelegate getStagingAreaForSession:  to get current staging area storage.
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			// 2. use filter_rule_set_dict property and add the ruleset to the dictionary with rulese.name as key
-			UMSS7ConfigSS7FilterRuleSet *rule_set = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:_params];
+        // 1. call appDelegate getStagingAreaForSession:  to get current staging area storage.
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"Staging-Area"];
+        }
+        else
+        {
+            @try
+            {
+                // 2. use filter_rule_set_dict property and add the ruleset to the dictionary with rulese.name as key
+                UMSS7ConfigSS7FilterRuleSet *rule_set = [[UMSS7ConfigSS7FilterRuleSet alloc]initWithConfig:_params];
 
-            NSString *name = _params[@"name"];
-			stagingArea.filter_rule_set_dict[name] = rule_set;
-            [stagingArea setDirty:YES];
-			[self sendResultOK];
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+                NSString *name = _params[@"name"];
+                stagingArea.filter_rule_set_dict[name] = rule_set;
+                [stagingArea setDirty:YES];
+                [self sendResultOK];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+        }
     }
 }
 

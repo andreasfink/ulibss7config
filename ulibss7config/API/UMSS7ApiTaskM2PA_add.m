@@ -21,32 +21,36 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
 
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigM2PA *m2pa = [cs getM2PA:name];
-    if(m2pa!=NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else
-    {
-		@try
-		{
-			m2pa = [[UMSS7ConfigM2PA alloc]initWithConfig:_params];
-			UMSynchronizedSortedDictionary *config = m2pa.config;
-			[_appDelegate addWithConfigM2PA:config.dictionaryCopy];
-			[self sendResultObject:config];
-		}
-        @catch(NSException *e)
+        if(![self isAuthenticated])
         {
-			[self sendException:e];
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigM2PA *m2pa = [cs getM2PA:name];
+        if(m2pa!=NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else
+        {
+            @try
+            {
+                m2pa = [[UMSS7ConfigM2PA alloc]initWithConfig:_params];
+                UMSynchronizedSortedDictionary *config = m2pa.config;
+                [_appDelegate addWithConfigM2PA:config.dictionaryCopy];
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

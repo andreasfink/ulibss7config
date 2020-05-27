@@ -23,55 +23,58 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-	name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-	
-    NSString *action = _params[@"action"];
-    UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
-    UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
-    if(sccp != NULL && co != NULL)
-    {
-        if([action isEqualToString:@"action-list"])
+        if(![self isAuthenticated])
         {
-            [self sendResultObject:@[ @"activate", @"deactivate", @"clone"]];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        else if([action isEqualToString:@"activate"])
+        
+        if(![self isAuthorized])
         {
-            UMSynchronizedSortedDictionary *dict = [_appDelegate activateSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai on:YES];
-			[self sendResultObject:dict];
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        
+        NSString *action = _params[@"action"];
+        UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+        UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
+        if(sccp != NULL && co != NULL)
+        {
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"activate", @"deactivate", @"clone"]];
+            }
+            else if([action isEqualToString:@"activate"])
+            {
+                UMSynchronizedSortedDictionary *dict = [_appDelegate activateSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai on:YES];
+                [self sendResultObject:dict];
 
-        }
-        else if([action isEqualToString:@"deactivate"])
-        {
-            UMSynchronizedSortedDictionary *dict = [_appDelegate activateSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai on:NO];
-			[self sendResultObject:dict];
-        }
-        else if([action isEqualToString:@"clone"])
-        {
-			UMSynchronizedSortedDictionary *c = [_appDelegate cloneSCCPTranslationTable:co.config.dictionaryCopy];
-			[self sendResultObject:c];
+            }
+            else if([action isEqualToString:@"deactivate"])
+            {
+                UMSynchronizedSortedDictionary *dict = [_appDelegate activateSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai on:NO];
+                [self sendResultObject:dict];
+            }
+            else if([action isEqualToString:@"clone"])
+            {
+                UMSynchronizedSortedDictionary *c = [_appDelegate cloneSCCPTranslationTable:co.config.dictionaryCopy];
+                [self sendResultObject:c];
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
         }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

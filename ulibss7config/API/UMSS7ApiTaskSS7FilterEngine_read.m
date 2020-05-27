@@ -18,36 +18,38 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        UMPluginHandler *plugin = [_appDelegate getSS7FilterEngineHandler:name];
+
+        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+        NSDictionary *info = plugin.info;
+
+        dict[@"name"] = plugin.name;
+        dict[@"filename"] = plugin.filename;
+        if(info[@"version"])
+        {
+            dict[@"version"] = info[@"version"];
+        }
+        if(info[@"type"])
+        {
+            dict[@"type"] = info[@"type"];
+        }
+        [self sendResultObject:dict];
     }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    UMPluginHandler *plugin = [_appDelegate getSS7FilterEngineHandler:name];
-
-    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
-    NSDictionary *info = plugin.info;
-
-    dict[@"name"] = plugin.name;
-    dict[@"filename"] = plugin.filename;
-    if(info[@"version"])
-    {
-        dict[@"version"] = info[@"version"];
-    }
-    if(info[@"type"])
-    {
-        dict[@"type"] = info[@"type"];
-    }
-
-    [self sendResultObject:dict];
 }
 
 @end

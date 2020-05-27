@@ -32,16 +32,19 @@
 
 - (void)main
 {
-    @try
+    @autoreleasepool
     {
-        UMDiameterPacketDelete_Subscriber_Data_Request *pkt = [[UMDiameterPacketDelete_Subscriber_Data_Request alloc]init];
-        [pkt setDictionaryValueFromWeb:_req.params];
-        self.query = pkt;
-        [self submit];
-    }
-    @catch(NSException *e)
-    {
-        [self webException:e];
+        @try
+        {
+            UMDiameterPacketDelete_Subscriber_Data_Request *pkt = [[UMDiameterPacketDelete_Subscriber_Data_Request alloc]init];
+            [pkt setDictionaryValueFromWeb:_req.params];
+            self.query = pkt;
+            [self submit];
+        }
+        @catch(NSException *e)
+        {
+            [self webException:e];
+        }
     }
 }
 

@@ -21,53 +21,57 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    NSString *name = _params[@"name"];
-    NSString *action = _params[@"action"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMM3UAApplicationServer *m3ua_as = [_appDelegate getM3UAAS:name];
-    if(m3ua_as)
-    {
-        if([action isEqualToString:@"action-list"])
-        {
-            [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
-        }
 
-        else if([action isEqualToString:@"activate"])
+        if(![self isAuthenticated])
         {
-            //[m3ua_as activate];
-            //[self sendResultOK];
-			[self sendErrorNotImplemented];
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMM3UAApplicationServer *m3ua_as = [_appDelegate getM3UAAS:name];
+        if(m3ua_as)
+        {
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
+            }
 
-        }
-        else if([action isEqualToString:@"deactivate"])
-        {
-            //[m3ua_as deactivate];
-            //[self sendResultOK];
-			[self sendErrorNotImplemented];
-        }
-        else if([action isEqualToString:@"start"])
-        {
-            [m3ua_as aspUp:NULL];
-            [self sendResultOK];
-        }
-        else if([action isEqualToString:@"stop"])
-        {
-            [m3ua_as aspDown:NULL];
-            [self sendResultOK];
+            else if([action isEqualToString:@"activate"])
+            {
+                //[m3ua_as activate];
+                //[self sendResultOK];
+                [self sendErrorNotImplemented];
+
+            }
+            else if([action isEqualToString:@"deactivate"])
+            {
+                //[m3ua_as deactivate];
+                //[self sendResultOK];
+                [self sendErrorNotImplemented];
+            }
+            else if([action isEqualToString:@"start"])
+            {
+                [m3ua_as aspUp:NULL];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"stop"])
+            {
+                [m3ua_as aspDown:NULL];
+                [self sendResultOK];
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
         }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

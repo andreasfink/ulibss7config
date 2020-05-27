@@ -23,48 +23,51 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    NSString *pwd = _params[@"password"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigApiUser *usr = [cs getApiUser:name];
-    if(usr!=NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else if(name.length==0)
-    {
-        [self sendError:@"missing-parameter" reason:@"'name' parameter is not passed"];
-    }
-    else if(pwd.length==0)
-    {
-        [self sendError:@"missing-parameter" reason:@"'password' parameter is not passed"];
-
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            UMSS7ConfigApiUser *usr = [[UMSS7ConfigApiUser alloc] initWithConfig:_params];
-            [cs addApiUser:usr];
-            UMSynchronizedSortedDictionary *config = usr.config;
-            [self sendResultObject:config];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        @catch(NSException *e)
+
+        if(![self isAuthorized])
         {
-            [self sendException:e];
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        NSString *pwd = _params[@"password"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigApiUser *usr = [cs getApiUser:name];
+        if(usr!=NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else if(name.length==0)
+        {
+            [self sendError:@"missing-parameter" reason:@"'name' parameter is not passed"];
+        }
+        else if(pwd.length==0)
+        {
+            [self sendError:@"missing-parameter" reason:@"'password' parameter is not passed"];
+
+        }
+        else
+        {
+            @try
+            {
+                UMSS7ConfigApiUser *usr = [[UMSS7ConfigApiUser alloc] initWithConfig:_params];
+                [cs addApiUser:usr];
+                UMSynchronizedSortedDictionary *config = usr.config;
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

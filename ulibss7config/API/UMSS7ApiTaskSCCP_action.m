@@ -22,54 +22,57 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    NSString *action = _params[@"action"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
-    if(sccp)
-    {
-        if([action isEqualToString:@"action-list"])
+        if(![self isAuthenticated])
         {
-            [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
+            [self sendErrorNotAuthenticated];
+            return;
         }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+        if(sccp)
+        {
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
+            }
 
-        else if([action isEqualToString:@"activate"])
-        {
-            [self sendErrorNotImplemented];
+            else if([action isEqualToString:@"activate"])
+            {
+                [self sendErrorNotImplemented];
 
-        }
-        else if([action isEqualToString:@"deactivate"])
-        {
-            [self sendErrorNotImplemented];
-        }
-        else if([action isEqualToString:@"start"])
-        {
-            [self sendErrorNotImplemented];
-        }
-        else if([action isEqualToString:@"stop"])
-        {
-            [self sendErrorNotImplemented];
+            }
+            else if([action isEqualToString:@"deactivate"])
+            {
+                [self sendErrorNotImplemented];
+            }
+            else if([action isEqualToString:@"start"])
+            {
+                [self sendErrorNotImplemented];
+            }
+            else if([action isEqualToString:@"stop"])
+            {
+                [self sendErrorNotImplemented];
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
         }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

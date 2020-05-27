@@ -20,42 +20,45 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *sccp_name     = _params[@"sccp"];
-    if(sccp_name.length==0)
-    {
-        [self sendErrorMissingParameter:@"sccp"];
-        return;
-    }
-    NSString *table_name    = _params[@"translation-table"];
-    if(table_name.length==0)
-    {
-        [self sendErrorMissingParameter:@"translation-table"];
-    }
+        NSString *sccp_name     = _params[@"sccp"];
+        if(sccp_name.length==0)
+        {
+            [self sendErrorMissingParameter:@"sccp"];
+            return;
+        }
+        NSString *table_name    = _params[@"translation-table"];
+        if(table_name.length==0)
+        {
+            [self sendErrorMissingParameter:@"translation-table"];
+        }
 
-    NSString *gta = _params[@"gta"];
-    gta = [UMSS7ConfigObject filterName:gta];
-    NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
+        NSString *gta = _params[@"gta"];
+        gta = [UMSS7ConfigObject filterName:gta];
+        NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
 
-    if(entry==NULL)
-    {
-        [self sendErrorNotFound];
-        return;
+        if(entry==NULL)
+        {
+            [self sendErrorNotFound];
+            return;
+        }
+        [self sendResultObject:entry.config];
     }
-    [self sendResultObject:entry.config];
 }
 
 @end

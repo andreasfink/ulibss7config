@@ -18,14 +18,18 @@
 
 - (void)main
 {
-    /*
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
+
+        /*
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+         */
+        [self sendResultObject:[UMSS7ApiTask apiPathList]];
     }
-     */
-    [self sendResultObject:[UMSS7ApiTask apiPathList]];
 }
 
 @end

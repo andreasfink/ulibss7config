@@ -31,16 +31,19 @@
 
 - (void)main
 {
-    @try
+    @autoreleasepool
     {
-        UMDiameterPacketSend_Routing_Info_for_SM_Request *pkt = [[UMDiameterPacketSend_Routing_Info_for_SM_Request alloc]init];
-        [pkt setDictionaryValueFromWeb:_req.params];
-        self.query = pkt;
-        [self submit];
-    }
-    @catch(NSException *e)
-    {
-        [self webException:e];
+        @try
+        {
+            UMDiameterPacketSend_Routing_Info_for_SM_Request *pkt = [[UMDiameterPacketSend_Routing_Info_for_SM_Request alloc]init];
+            [pkt setDictionaryValueFromWeb:_req.params];
+            self.query = pkt;
+            [self submit];
+        }
+        @catch(NSException *e)
+        {
+            [self webException:e];
+        }
     }
 }
 

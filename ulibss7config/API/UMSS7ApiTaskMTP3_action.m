@@ -21,48 +21,51 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    NSString *action = _params[@"action"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMLayerMTP3 *mtp3 = [_appDelegate getMTP3:name];
-    if(mtp3)
-    {
-        if([action isEqualToString:@"action-list"])
+        if(![self isAuthenticated])
         {
-            [self sendResultObject:@[ @"start", @"stop"]];
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
         }
 
-        else if([action isEqualToString:@"start"])
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerMTP3 *mtp3 = [_appDelegate getMTP3:name];
+        if(mtp3)
         {
-            [mtp3 start];
-            [self sendResultOK];
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"start", @"stop"]];
+            }
 
-        }
-        else if([action isEqualToString:@"stop"])
-        {
-            [mtp3 stop];
-            [self sendResultOK];
+            else if([action isEqualToString:@"start"])
+            {
+                [mtp3 start];
+                [self sendResultOK];
+
+            }
+            else if([action isEqualToString:@"stop"])
+            {
+                [mtp3 stop];
+                [self sendResultOK];
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
         }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

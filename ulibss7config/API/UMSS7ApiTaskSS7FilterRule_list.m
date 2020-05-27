@@ -25,51 +25,53 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"Staging-Area"];
+        }
+        else
+        {
+            @try
+            {
+                // 2. Get Rule-Set
+                NSString *ruleset_name = _params[@"filter-ruleset"];
+                UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
+                
+                // 3. Verify if rule-set exists
+                if(rSet == NULL)
+                {
+                    // 3a. Not found
+                    [self sendErrorNotFound:ruleset_name];
+                }
+                else
+                {
+                    // 3b. Return Rules
+                    NSArray<UMSS7ConfigSS7FilterRule *> *rules = [rSet getAllRules];
+                    [self sendResultObject:rules];
+                }
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+        }
     }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			// 2. Get Rule-Set
-			NSString *ruleset_name = _params[@"filter-ruleset"];
-			UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
-			
-			// 3. Verify if rule-set exists
-			if(rSet == NULL)
-			{
-				// 3a. Not found
-				[self sendErrorNotFound:ruleset_name];
-			}
-			else
-			{
-				// 3b. Return Rules
-				NSArray<UMSS7ConfigSS7FilterRule *> *rules = [rSet getAllRules];
-				[self sendResultObject:rules];
-			}
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
-    }
-	
 }
 
 @end

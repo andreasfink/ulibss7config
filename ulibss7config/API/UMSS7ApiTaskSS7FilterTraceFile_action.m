@@ -23,42 +23,44 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            // 1. Get external parameters
+            NSString *name = _params[@"name"];
+            NSString *action = _params[@"action"];
+            if(name.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
+            }
+            else if(action.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'action' parameter is not passed"];
+            }
+            else
+            {
+                // 2. Action
+                [_appDelegate tracefile_action:name action:action];
+                [self sendResultOK];
+            }
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	@try
-	{
-		// 1. Get external parameters
-		NSString *name = _params[@"name"];
-		NSString *action = _params[@"action"];
-		if(name.length==0)
-		{
-			[self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
-		}
-		else if(action.length==0)
-		{
-            [self sendError:@"missing-parameter" reason:@"the 'action' parameter is not passed"];
-		}
-		else
-		{
-			// 2. Action
-			[_appDelegate tracefile_action:name action:action];
-			[self sendResultOK];
-		}
-	}
-	@catch(NSException *e)
-	{
-		[self sendException:e];
-	}
-	
 }
 @end

@@ -20,28 +20,31 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
 
-    UMSS7ConfigM3UAAS *config_object = [config_storage getM3UAAS:name];
-    UMM3UAApplicationServer *instance = [_appDelegate getM3UAAS:name];
+        UMSS7ConfigM3UAAS *config_object = [config_storage getM3UAAS:name];
+        UMM3UAApplicationServer *instance = [_appDelegate getM3UAAS:name];
 
-    if((instance!=NULL) || (config_object==NULL))
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [config_object setConfig:_params];
-        NSDictionary *config = config_object.config.dictionaryCopy;
-        [instance setConfig:config applicationContext:_appDelegate];
-        [self sendResultObject:config];
+        if((instance!=NULL) || (config_object==NULL))
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [config_object setConfig:_params];
+            NSDictionary *config = config_object.config.dictionaryCopy;
+            [instance setConfig:config applicationContext:_appDelegate];
+            [self sendResultObject:config];
+        }
     }
 }
 @end

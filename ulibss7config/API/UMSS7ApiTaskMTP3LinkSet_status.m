@@ -23,38 +23,41 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMMTP3LinkSet *mtp3LinkSet = [_appDelegate getMTP3LinkSet:name];
-    if(mtp3LinkSet)
-    {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-        dict[@"active-links"] = @(mtp3LinkSet.activeLinks);
-        dict[@"inactive-links"] = @(mtp3LinkSet.inactiveLinks);
-        dict[@"ready-links"] = @(mtp3LinkSet.readyLinks);
-        dict[@"total-links"] = @(mtp3LinkSet.totalLinks);
-        dict[@"congestion-level"] = @(mtp3LinkSet.congestionLevel);
-        dict[@"speed"] = @(mtp3LinkSet.speed);
-        dict[@"trw-received"] = @(mtp3LinkSet.trw_received);
-        dict[@"tra-sent"] = @(mtp3LinkSet.tra_sent);
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMMTP3LinkSet *mtp3LinkSet = [_appDelegate getMTP3LinkSet:name];
+        if(mtp3LinkSet)
+        {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            dict[@"active-links"] = @(mtp3LinkSet.activeLinks);
+            dict[@"inactive-links"] = @(mtp3LinkSet.inactiveLinks);
+            dict[@"ready-links"] = @(mtp3LinkSet.readyLinks);
+            dict[@"total-links"] = @(mtp3LinkSet.totalLinks);
+            dict[@"congestion-level"] = @(mtp3LinkSet.congestionLevel);
+            dict[@"speed"] = @(mtp3LinkSet.speed);
+            dict[@"trw-received"] = @(mtp3LinkSet.trw_received);
+            dict[@"tra-sent"] = @(mtp3LinkSet.tra_sent);
 
-        [self sendResultObject:dict];
-    }
-    else
-    {
-        [self sendErrorNotFound];
+            [self sendResultObject:dict];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
 }
 @end

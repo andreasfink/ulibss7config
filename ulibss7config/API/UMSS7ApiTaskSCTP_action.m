@@ -21,69 +21,72 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    NSString *action = _params[@"action"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMLayerSctp *sctp = [_appDelegate getSCTP:name];
-    if(sctp)
-    {
-        if([action isEqualToString:@"action-list"])
+        if(![self isAuthenticated])
         {
-            if(sctp.status==UMSOCKET_STATUS_IS)
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerSctp *sctp = [_appDelegate getSCTP:name];
+        if(sctp)
+        {
+            if([action isEqualToString:@"action-list"])
             {
-                if([sctp.stopButtonPressed timeIntervalSinceNow] < 15)
+                if(sctp.status==UMSOCKET_STATUS_IS)
                 {
-                    [self sendResultObject:@[ @"!start", @"!stop in progress"]];
+                    if([sctp.stopButtonPressed timeIntervalSinceNow] < 15)
+                    {
+                        [self sendResultObject:@[ @"!start", @"!stop in progress"]];
+                    }
+                    else
+                    {
+                        [self sendResultObject:@[ @"!start", @"stop"]];
+                    }
                 }
                 else
                 {
-                    [self sendResultObject:@[ @"!start", @"stop"]];
+                    if([sctp.startButtonPressed timeIntervalSinceNow] < 15)
+                    {
+                        [self sendResultObject:@[ @"!start in progress", @"!stop"]];
+
+                    }
+                    else
+                    {
+                        [self sendResultObject:@[ @"start", @"!stop"]];
+                    }
                 }
+            }
+            else if([action isEqualToString:@"start"])
+            {
+                [sctp isFor:NULL];
+                [self sendResultOK];
+
+            }
+            else if([action isEqualToString:@"stop"])
+            {
+                [sctp foosFor:NULL];
+                [self sendResultOK];
             }
             else
             {
-                if([sctp.startButtonPressed timeIntervalSinceNow] < 15)
-                {
-                    [self sendResultObject:@[ @"!start in progress", @"!stop"]];
-
-                }
-                else
-                {
-                    [self sendResultObject:@[ @"start", @"!stop"]];
-                }
+                [self sendErrorUnknownAction];
             }
-        }
-        else if([action isEqualToString:@"start"])
-        {
-            [sctp isFor:NULL];
-            [self sendResultOK];
-
-        }
-        else if([action isEqualToString:@"stop"])
-        {
-            [sctp foosFor:NULL];
-            [self sendResultOK];
         }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

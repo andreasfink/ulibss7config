@@ -25,50 +25,52 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    SccpGttRoutingTable *rt = [self getRoutingTable];
-    if(rt==NULL)
-    {
-        return;
-    }
-    NSArray *a = rt.list.allKeys;
-    
-    int details = [((NSString *)_params[@"details"]) intValue];
-    switch(details)
-    {
-        case 0:
-        default:
-            [self sendResultObject:a];
-            break;
-        case 1:
-        case 2:
+        SccpGttRoutingTable *rt = [self getRoutingTable];
+        if(rt==NULL)
+        {
+            return;
+        }
+        NSArray *a = rt.list.allKeys;
+        
+        int details = [((NSString *)_params[@"details"]) intValue];
+        switch(details)
+        {
+            case 0:
+            default:
+                [self sendResultObject:a];
+                break;
+            case 1:
+            case 2:
 
-            {
-                NSMutableArray *entries = [[NSMutableArray alloc]init];
-                for(NSString *name in a)
                 {
-                    SccpGttRoutingTableEntry *obj = rt.list[name];
-                    if(obj)
+                    NSMutableArray *entries = [[NSMutableArray alloc]init];
+                    for(NSString *name in a)
                     {
-                        [entries addObject:obj];
+                        SccpGttRoutingTableEntry *obj = rt.list[name];
+                        if(obj)
+                        {
+                            [entries addObject:obj];
+                        }
                     }
+                    [self sendResultObject:entries];
                 }
-                [self sendResultObject:entries];
-            }
-            break;
+                break;
+        }
     }
 }
-
 @end
 

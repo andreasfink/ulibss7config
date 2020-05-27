@@ -23,57 +23,59 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			// 2. Get Action-List 
-			NSString *name = _params[@"name"];
-			UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
-
-			// 3. Verify if action-list exists
-            if(name.length==0)
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"Staging-Area"];
+        }
+        else
+        {
+            @try
             {
-                [self sendError:@"missing-parameter"  reason:@"'name' parameter is not passed"];
+                // 2. Get Action-List
+                NSString *name = _params[@"name"];
+                UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
+
+                // 3. Verify if action-list exists
+                if(name.length==0)
+                {
+                    [self sendError:@"missing-parameter"  reason:@"'name' parameter is not passed"];
+                }
+                else if(list == NULL)
+                {
+                    // 3a. Not found
+                    [self sendErrorNotFound:name];
+                }
+                else
+                {
+                    // 3b. return list
+                    [self sendResultObject:list.config];
+                }
+                
+                [self sendResultObject:stagingArea.config];
+                
             }
-            else if(list == NULL)
-			{
-				// 3a. Not found
-				[self sendErrorNotFound:name];
-			}
-			else
-			{
-				// 3b. return list
-				[self sendResultObject:list.config];
-			}
-			
-			[self sendResultObject:stagingArea.config];
-			
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+        }
     }
-	
 }
 
 @end

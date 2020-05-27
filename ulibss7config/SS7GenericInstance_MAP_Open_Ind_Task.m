@@ -44,16 +44,19 @@
 
 -(void)main
 {
-    [_inst executeMAP_Open_Ind:_userIdentifier
-                   dialog:_dialogId
-              transaction:_tcapLocalTransactionId
-        remoteTransaction:_tcapRemoteTransactionId
-                      map:_map
-                  variant:_variant
-           callingAddress:_callingAddress
-            calledAddress:_calledAddress
-          dialoguePortion:_dialoguePortion
-                  options:_options];
+    @autoreleasepool
+    {
+        [_inst executeMAP_Open_Ind:_userIdentifier
+                       dialog:_dialogId
+                  transaction:_tcapLocalTransactionId
+            remoteTransaction:_tcapRemoteTransactionId
+                          map:_map
+                      variant:_variant
+               callingAddress:_callingAddress
+                calledAddress:_calledAddress
+              dialoguePortion:_dialoguePortion
+                      options:_options];
+    }
 }
 @end
 

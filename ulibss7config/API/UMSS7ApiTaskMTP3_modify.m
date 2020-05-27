@@ -21,47 +21,50 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
-
-    UMSS7ConfigMTP3 *config_object = [config_storage getMTP3:name];
-    UMLayerMTP3 *instance = [_appDelegate getMTP3:name];
-
-    if((instance!=NULL) || (config_object==NULL))
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [config_object setConfig:_params];
-        if(![config_object.mode isEqualToStringCaseInsensitive:@"ssp"])
+        if(![self isAuthenticated])
         {
-            config_object.mode = @"stp";
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
+
+        UMSS7ConfigMTP3 *config_object = [config_storage getMTP3:name];
+        UMLayerMTP3 *instance = [_appDelegate getMTP3:name];
+
+        if((instance!=NULL) || (config_object==NULL))
+        {
+            [self sendErrorNotFound];
         }
         else
         {
-            config_object.mode =@"ssp";
+            [config_object setConfig:_params];
+            if(![config_object.mode isEqualToStringCaseInsensitive:@"ssp"])
+            {
+                config_object.mode = @"stp";
+            }
+            else
+            {
+                config_object.mode =@"ssp";
+            }
+            if(config_object.variant.length==0)
+            {
+                config_object.variant = @"itu";
+            }
+            NSDictionary *config = config_object.config.dictionaryCopy;
+            [instance setConfig:config applicationContext:_appDelegate];
+            [self sendResultObject:config];
         }
-        if(config_object.variant.length==0)
-        {
-            config_object.variant = @"itu";
-        }
-        NSDictionary *config = config_object.config.dictionaryCopy;
-        [instance setConfig:config applicationContext:_appDelegate];
-        [self sendResultObject:config];
     }
 }
 @end

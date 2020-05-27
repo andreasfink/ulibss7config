@@ -24,48 +24,50 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"staging-area"];
-    }
-    else
-    {
-		@try
-		{
-			NSString *name = _params[@"name"];
-            if(name.length==0)
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"staging-area"];
+        }
+        else
+        {
+            @try
             {
-                [self sendError:@"missing-parameter"  reason:@"'name' parameter is not passed"];
+                NSString *name = _params[@"name"];
+                if(name.length==0)
+                {
+                    [self sendError:@"missing-parameter"  reason:@"'name' parameter is not passed"];
+                }
+                else if(stagingArea.filter_action_list_dict[name]== 0)
+                {
+                    [self sendErrorNotFound:name];
+                }
+                else
+                {
+                    [stagingArea.filter_action_list_dict removeObjectForKey:name];
+                    [self sendResultOK];
+                }
             }
-            else if(stagingArea.filter_action_list_dict[name]== 0)
+            @catch(NSException *e)
             {
-                [self sendErrorNotFound:name];
+                [self sendException:e];
             }
-            else
-            {
-                [stagingArea.filter_action_list_dict removeObjectForKey:name];
-                [self sendResultOK];
-            }
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+        }
     }
-	
 }
 @end

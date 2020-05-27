@@ -23,52 +23,54 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			// 2. Get Action-List 
-			NSString *name = _params[@"filter-action-list"];
-			UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"Staging-Area"];
+        }
+        else
+        {
+            @try
+            {
+                // 2. Get Action-List
+                NSString *name = _params[@"filter-action-list"];
+                UMSS7ConfigSS7FilterActionList* list = stagingArea.filter_action_list_dict[name];
 
-			// 3. Verify if action-list exists
-			if(list == NULL)
-			{
-				// 3a. Not found
-				[self sendErrorNotFound:name];
-			}
-			else
-			{
-				// 3b. return ok
-				[self sendResultOK];
-			}
-			
-			[self sendResultObject:stagingArea.config];
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+                // 3. Verify if action-list exists
+                if(list == NULL)
+                {
+                    // 3a. Not found
+                    [self sendErrorNotFound:name];
+                }
+                else
+                {
+                    // 3b. return ok
+                    [self sendResultOK];
+                }
+                
+                [self sendResultObject:stagingArea.config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+        }
     }
-	
 }
 
 @end

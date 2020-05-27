@@ -18,51 +18,55 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
 
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    NSArray *names = [cs getM2PANames];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    
-    
-    int details = [((NSString *)_params[@"details"]) intValue];
-    switch(details)
-    {
-        case 0:
-            [self sendResultObject:names];
-            break;
-        case 1:
-            {
-                NSMutableArray *entries = [[NSMutableArray alloc]init];
-                for(NSString *name in names)
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        NSArray *names = [cs getM2PANames];
+
+        
+        
+        int details = [((NSString *)_params[@"details"]) intValue];
+        switch(details)
+        {
+            case 0:
+                [self sendResultObject:names];
+                break;
+            case 1:
                 {
-                    UMSS7ConfigM2PA *obj = [cs getM2PA:name];
-                    if(obj)
+                    NSMutableArray *entries = [[NSMutableArray alloc]init];
+                    for(NSString *name in names)
                     {
-                        [entries addObject:obj];
+                        UMSS7ConfigM2PA *obj = [cs getM2PA:name];
+                        if(obj)
+                        {
+                            [entries addObject:obj];
+                        }
                     }
+                    [self sendResultObject:entries];
                 }
-                [self sendResultObject:entries];
-            }
-            break;
-        case 2:
-            {
-                NSMutableArray *entries = [[NSMutableArray alloc]init];
-                for(NSString *name in names)
+                break;
+            case 2:
                 {
-                    UMSS7ConfigM2PA *obj = [cs getM2PA:name];
-                    if(obj)
+                    NSMutableArray *entries = [[NSMutableArray alloc]init];
+                    for(NSString *name in names)
                     {
-                        [entries addObject:obj];
+                        UMSS7ConfigM2PA *obj = [cs getM2PA:name];
+                        if(obj)
+                        {
+                            [entries addObject:obj];
+                        }
                     }
+                    [self sendResultObject:entries];
                 }
-                [self sendResultObject:entries];
-            }
-            break;
+                break;
+        }
     }
 }
 

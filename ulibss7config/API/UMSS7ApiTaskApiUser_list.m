@@ -24,59 +24,62 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    NSArray *names = [cs getApiUserNames];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        NSArray *names = [cs getApiUserNames];
 
 
-    int details = [((NSString *)_params[@"details"]) intValue];
-    switch(details)
-    {
-         case 0:
-         default:
-             [self sendResultObject:names];
-             break;
-         case 1:
-            {
-                NSMutableArray *entries = [[NSMutableArray alloc]init];
-                for(NSString *name in names)
+        int details = [((NSString *)_params[@"details"]) intValue];
+        switch(details)
+        {
+             case 0:
+             default:
+                 [self sendResultObject:names];
+                 break;
+             case 1:
                 {
-                    UMSS7ConfigApiUser *obj = [cs getApiUser:name];
-                    if(obj)
+                    NSMutableArray *entries = [[NSMutableArray alloc]init];
+                    for(NSString *name in names)
                     {
-                        UMSynchronizedSortedDictionary *dict;
-                        SET_DICT_STRING_OR_EMPTY(dict,@"name",obj.name);
-                        SET_DICT_STRING_OR_EMPTY(dict,@"profile",obj.profile);
-                        [entries addObject:dict];
+                        UMSS7ConfigApiUser *obj = [cs getApiUser:name];
+                        if(obj)
+                        {
+                            UMSynchronizedSortedDictionary *dict;
+                            SET_DICT_STRING_OR_EMPTY(dict,@"name",obj.name);
+                            SET_DICT_STRING_OR_EMPTY(dict,@"profile",obj.profile);
+                            [entries addObject:dict];
+                        }
                     }
+                    [self sendResultObject:entries];
                 }
-                [self sendResultObject:entries];
-            }
-         case 2:
-             {
-                 NSMutableArray *entries = [[NSMutableArray alloc]init];
-                 for(NSString *name in names)
+             case 2:
                  {
-                     UMSS7ConfigApiUser *obj = [cs getApiUser:name];
-                     if(obj)
+                     NSMutableArray *entries = [[NSMutableArray alloc]init];
+                     for(NSString *name in names)
                      {
-                         [entries addObject:obj.config];
+                         UMSS7ConfigApiUser *obj = [cs getApiUser:name];
+                         if(obj)
+                         {
+                             [entries addObject:obj.config];
+                         }
                      }
+                     [self sendResultObject:entries];
                  }
-                 [self sendResultObject:entries];
-             }
-             break;
+                 break;
+        }
     }
 }
 

@@ -42,16 +42,19 @@
 
 - (void)main
 {
-    @try
+    @autoreleasepool
     {
-        UMDiameterPacketACR *pkt = [[UMDiameterPacketACR alloc]init];
-        [pkt setDictionaryValueFromWeb:_req.params];
-        self.query = pkt;
-        [self submit];
-    }
-    @catch(NSException *e)
-    {
-        [self webException:e];
+        @try
+        {
+            UMDiameterPacketACR *pkt = [[UMDiameterPacketACR alloc]init];
+            [pkt setDictionaryValueFromWeb:_req.params];
+            self.query = pkt;
+            [self submit];
+        }
+        @catch(NSException *e)
+        {
+            [self webException:e];
+        }
     }
 }
 

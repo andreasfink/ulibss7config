@@ -23,50 +23,53 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-	NSString *name = _params[@"name"];
-	_apiSession.currentStorageAreaName = name;
-	
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea != NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else
-    {
-		@try
-		{
-			if([name isEqualToString:@"current"])
-			{
-                [self sendError: @"invalid-parameter" reason:@"this name is not allowed"];
-			}
-            else if(name.length ==0)
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        NSString *name = _params[@"name"];
+        _apiSession.currentStorageAreaName = name;
+        
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea != NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else
+        {
+            @try
             {
-                [self sendError:@"missing-parameter" reason:@"name is required"];
-            }
-			else
-			{
-				[_appDelegate createSS7FilterStagingArea:_params];
+                if([name isEqualToString:@"current"])
+                {
+                    [self sendError: @"invalid-parameter" reason:@"this name is not allowed"];
+                }
+                else if(name.length ==0)
+                {
+                    [self sendError:@"missing-parameter" reason:@"name is required"];
+                }
+                else
+                {
+                    [_appDelegate createSS7FilterStagingArea:_params];
 
-				[self sendResultOK];
-			}
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+                    [self sendResultOK];
+                }
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+        }
     }
 }
 @end

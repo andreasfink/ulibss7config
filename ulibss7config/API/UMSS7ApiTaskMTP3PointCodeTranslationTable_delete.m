@@ -19,31 +19,34 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigMTP3PointCodeTranslationTable *pctt = [cs getPointcodeTranslationTable:name];
-    if(pctt==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [_appDelegate deleteMTP3PointCodeTranslationTable:name];
-        [self sendResultOK];
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigMTP3PointCodeTranslationTable *pctt = [cs getPointcodeTranslationTable:name];
+        if(pctt==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [_appDelegate deleteMTP3PointCodeTranslationTable:name];
+            [self sendResultOK];
 
+        }
     }
 }
 

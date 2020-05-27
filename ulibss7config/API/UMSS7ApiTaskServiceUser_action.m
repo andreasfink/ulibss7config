@@ -22,28 +22,31 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigServiceUser *obj = [cs getServiceUser:name];
-    if(obj)
-    {
-        [self sendErrorNotImplemented];
-    }
-    else
-    {
-        [self sendErrorNotFound];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigServiceUser *obj = [cs getServiceUser:name];
+        if(obj)
+        {
+            [self sendErrorNotImplemented];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
 }
 

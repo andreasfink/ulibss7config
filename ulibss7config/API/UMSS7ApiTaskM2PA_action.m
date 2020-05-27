@@ -22,64 +22,68 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
 
-    NSString *name = _params[@"name"];
-    NSString *action = _params[@"action"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMLayerM2PA *m2pa = [_appDelegate getM2PA:name];
-    if(m2pa)
-    {
-        if([action isEqualToString:@"action-list"])
+        if(![self isAuthenticated])
         {
-            [self sendResultObject:@[ @"power-on", @"power-off", @"emergency-on", @"emergency-of", @"start", @"stop"]];
-        }
-        else if([action isEqualToString:@"power-on"])
-        {
-            [m2pa powerOnFor:NULL];
-            [self sendResultOK];
-
-        }
-        else if([action isEqualToString:@"power-off"])
-        {
-            [m2pa powerOffFor:NULL];
-            [self sendResultOK];
+            [self sendErrorNotAuthenticated];
+            return;
         }
 
-        else if([action isEqualToString:@"emergency-on"])
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerM2PA *m2pa = [_appDelegate getM2PA:name];
+        if(m2pa)
         {
-            [m2pa emergencyFor:NULL];
-            [self sendResultOK];
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"power-on", @"power-off", @"emergency-on", @"emergency-of", @"start", @"stop"]];
+            }
+            else if([action isEqualToString:@"power-on"])
+            {
+                [m2pa powerOnFor:NULL];
+                [self sendResultOK];
 
-        }
-        else if([action isEqualToString:@"emergency-off"])
-        {
-            [m2pa emergencyCheasesFor:NULL];
-            [self sendResultOK];
-        }
-        else if([action isEqualToString:@"start"])
-        {
-            [m2pa startFor:NULL];
-            [self sendResultOK];
+            }
+            else if([action isEqualToString:@"power-off"])
+            {
+                [m2pa powerOffFor:NULL];
+                [self sendResultOK];
+            }
 
-        }
-        else if([action isEqualToString:@"stop"])
-        {
-            [m2pa stopFor:NULL];
-            [self sendResultOK];
+            else if([action isEqualToString:@"emergency-on"])
+            {
+                [m2pa emergencyFor:NULL];
+                [self sendResultOK];
+
+            }
+            else if([action isEqualToString:@"emergency-off"])
+            {
+                [m2pa emergencyCheasesFor:NULL];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"start"])
+            {
+                [m2pa startFor:NULL];
+                [self sendResultOK];
+
+            }
+            else if([action isEqualToString:@"stop"])
+            {
+                [m2pa stopFor:NULL];
+                [self sendResultOK];
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
         }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

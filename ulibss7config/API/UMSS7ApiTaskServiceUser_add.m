@@ -20,37 +20,39 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigServiceUser *usr = [cs getServiceUser:name];
-    if(usr!=NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            [cs addServiceUser:usr];
-            UMSynchronizedSortedDictionary *config = usr.config;
-            [self sendResultObject:config];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        @catch(NSException *e)
+
+        if(![self isAuthorized])
         {
-            [self sendException:e];
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigServiceUser *usr = [cs getServiceUser:name];
+        if(usr!=NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else
+        {
+            @try
+            {
+                [cs addServiceUser:usr];
+                UMSynchronizedSortedDictionary *config = usr.config;
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

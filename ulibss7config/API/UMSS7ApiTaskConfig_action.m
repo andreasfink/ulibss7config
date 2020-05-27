@@ -19,38 +19,42 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *action = _params[@"action"];
-    if([action isEqualToString:@"action-list"])
-    {
-        [self sendResultObject:@[ @"save"]];
-    }
-    else if([action isEqualToString:@"save"])
-    {
-        NSString *s = [_appDelegate writeCurrentConfigurationToStartup];
-        if(s==NULL)
+        if(![self isAuthenticated])
         {
-            [self sendResultOK];
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *action = _params[@"action"];
+        if([action isEqualToString:@"action-list"])
+        {
+            [self sendResultObject:@[ @"save"]];
+        }
+        else if([action isEqualToString:@"save"])
+        {
+            NSString *s = [_appDelegate writeCurrentConfigurationToStartup];
+            if(s==NULL)
+            {
+                [self sendResultOK];
+            }
+            else
+            {
+                [self sendError:s];
+            }
         }
         else
         {
-            [self sendError:s];
+            [self sendErrorUnknownAction];
         }
-    }
-    else
-    {
-        [self sendErrorUnknownAction];
     }
 }
 @end

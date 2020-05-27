@@ -20,30 +20,32 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigMTP3LinkSet *obj = [cs getMTP3LinkSet:name];
-    if(obj)
-    {
-        [self sendResultObject:obj.config];
+        NSString *name = _params[@"name"];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigMTP3LinkSet *obj = [cs getMTP3LinkSet:name];
+        if(obj)
+        {
+            [self sendResultObject:obj.config];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
-    else
-    {
-        [self sendErrorNotFound];
-    }
-
 }
 
 @end

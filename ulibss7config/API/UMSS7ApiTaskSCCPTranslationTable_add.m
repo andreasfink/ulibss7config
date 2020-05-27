@@ -23,40 +23,43 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-	
-    UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
-    if(sccp != NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else
-    {
-		@try
+        if(![self isAuthenticated])
         {
-			UMSS7ConfigSCCPTranslationTable *co = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_params];
-			UMSynchronizedSortedDictionary *config = co.config;
-            [cs addSCCPTranslationTable:co];
-            //[cs addSCCPTranslationTable:config.dictionaryCopy];
-			[self sendResultObject:config];
-		}
-        @catch(NSException *e)
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
         {
-			[self sendException:e];
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        
+        UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+        if(sccp != NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else
+        {
+            @try
+            {
+                UMSS7ConfigSCCPTranslationTable *co = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_params];
+                UMSynchronizedSortedDictionary *config = co.config;
+                [cs addSCCPTranslationTable:co];
+                //[cs addSCCPTranslationTable:config.dictionaryCopy];
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

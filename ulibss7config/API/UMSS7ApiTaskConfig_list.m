@@ -18,14 +18,17 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    [self sendResultObject:[cs fullConfigOjbect]];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        [self sendResultObject:[cs fullConfigOjbect]];
+    }
 }
 
 @end

@@ -23,36 +23,39 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
-    {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigApiUser *config_object = [cs getApiUser:name];
-    if(config_object==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [config_object setConfig:_params];
-        NSDictionary *config = config_object.config.dictionaryCopy;
-        if(config_object.nameChanged)
+    @autoreleasepool
         {
-            [cs deleteApiUser:name];
-            [cs addApiUser:config_object];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        [self sendResultObject:config];
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigApiUser *config_object = [cs getApiUser:name];
+        if(config_object==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [config_object setConfig:_params];
+            NSDictionary *config = config_object.config.dictionaryCopy;
+            if(config_object.nameChanged)
+            {
+                [cs deleteApiUser:name];
+                [cs addApiUser:config_object];
+            }
+            [self sendResultObject:config];
+        }
     }
 }
 

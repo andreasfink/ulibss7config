@@ -22,38 +22,41 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	@try
-	{
-		// 1. Get external parameters
-        NSString *listName = [_params[@"name"] urldecode];
-        if(listName.length==0)
+        if(![self isAuthenticated])
         {
-            /* backwards compatibility to old api of SMSProx4 */
-            listName = [_params[@"list"] urldecode];
-        }
-		if(listName.length==0)
-		{
-            [self sendError:@"missing-parameter" reason:@"the 'list' or 'name' parameter is not passed"];
+            [self sendErrorNotAuthenticated];
             return;
-		}
-        NSArray *items = [_appDelegate namedlistList:listName];
-        [self sendResultObject:items];
-	}
-	@catch(NSException *e)
-	{
-		[self sendException:e];
-	}
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            // 1. Get external parameters
+            NSString *listName = [_params[@"name"] urldecode];
+            if(listName.length==0)
+            {
+                /* backwards compatibility to old api of SMSProx4 */
+                listName = [_params[@"list"] urldecode];
+            }
+            if(listName.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'list' or 'name' parameter is not passed"];
+                return;
+            }
+            NSArray *items = [_appDelegate namedlistList:listName];
+            [self sendResultObject:items];
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
+    }
 }
 @end

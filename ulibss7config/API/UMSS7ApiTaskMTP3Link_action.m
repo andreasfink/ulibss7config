@@ -21,60 +21,63 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    NSString *action = _params[@"action"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMMTP3Link *mtp3link = [_appDelegate getMTP3Link:name];
-    if(mtp3link)
-    {
-        if([action isEqualToString:@"action-list"])
+        if(![self isAuthenticated])
         {
-            [self sendResultObject:@[ @"start", @"stop"]];
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
         }
 
-        else if([action isEqualToString:@"start"])
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMMTP3Link *mtp3link = [_appDelegate getMTP3Link:name];
+        if(mtp3link)
         {
-            [mtp3link start];
-            [self sendResultOK];
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"start", @"stop"]];
+            }
 
-        }
-        else if([action isEqualToString:@"stop"])
-        {
-            [mtp3link stop];
-            [self sendResultOK];
-        }
-        else if([action isEqualToString:@"power-on"])
-        {
-            [mtp3link powerOn];
-            [self sendResultOK];
+            else if([action isEqualToString:@"start"])
+            {
+                [mtp3link start];
+                [self sendResultOK];
 
-        }
-        else if([action isEqualToString:@"power-off"])
-        {
-            [mtp3link powerOff];
-            [self sendResultOK];
-        }
+            }
+            else if([action isEqualToString:@"stop"])
+            {
+                [mtp3link stop];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"power-on"])
+            {
+                [mtp3link powerOn];
+                [self sendResultOK];
 
+            }
+            else if([action isEqualToString:@"power-off"])
+            {
+                [mtp3link powerOff];
+                [self sendResultOK];
+            }
+
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
+        }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

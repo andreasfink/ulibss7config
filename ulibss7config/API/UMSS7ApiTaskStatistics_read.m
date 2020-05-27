@@ -22,71 +22,74 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    @try
-    {
-        NSString *statisticsName = _params[@"name"];
-        NSString *statisticsKey = _params[@"key"];
-        NSString *b = _params[@"no-values"];
-        BOOL noValues = [b boolValue];
-
-        if(statisticsName.length==0)
+        if(![self isAuthenticated])
         {
-            [self sendErrorMissingParameter:statisticsName];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        else
+
+        if(![self isAuthorized])
         {
-            UMStatistic *stat = [_appDelegate statistics_get:statisticsName];
-            if(stat==NULL)
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        @try
+        {
+            NSString *statisticsName = _params[@"name"];
+            NSString *statisticsKey = _params[@"key"];
+            NSString *b = _params[@"no-values"];
+            BOOL noValues = [b boolValue];
+
+            if(statisticsName.length==0)
             {
-                [self sendErrorNotFound];
+                [self sendErrorMissingParameter:statisticsName];
             }
             else
             {
-                id result;
-
-                if(noValues == YES)
-                {
-                    result = [stat getStatistic];
-                }
-                else
-                {
-                    if(statisticsKey.length> 0)
-                    {
-                        result = [stat getStatisticForKey:statisticsKey];
-                    }
-                    else
-                    {
-                        result = [stat getStatistics];
-                    }
-                }
-                if(result==NULL)
+                UMStatistic *stat = [_appDelegate statistics_get:statisticsName];
+                if(stat==NULL)
                 {
                     [self sendErrorNotFound];
                 }
                 else
                 {
-                    [self sendResultObject:result];
+                    id result;
+
+                    if(noValues == YES)
+                    {
+                        result = [stat getStatistic];
+                    }
+                    else
+                    {
+                        if(statisticsKey.length> 0)
+                        {
+                            result = [stat getStatisticForKey:statisticsKey];
+                        }
+                        else
+                        {
+                            result = [stat getStatistics];
+                        }
+                    }
+                    if(result==NULL)
+                    {
+                        [self sendErrorNotFound];
+                    }
+                    else
+                    {
+                        [self sendResultObject:result];
+                    }
                 }
             }
         }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
-    @catch(NSException *e)
-    {
-        [self sendException:e];
-    }
-
 }
 
 @end

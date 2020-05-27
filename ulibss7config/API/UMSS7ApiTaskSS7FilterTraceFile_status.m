@@ -21,38 +21,40 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            // 1. Get external parameters
+            NSString *name = _params[@"name"];
+            if(name.length==0)
+            {
+                [self sendError:@"missing-parameter" reason: @"the name parameter is not passed"];
+            }
+            else
+            {
+                // 2. Status ?
+                //[_appDelegate logfile_getstatus:name];
+                [self sendErrorNotImplemented];
+            }
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	@try
-	{
-		// 1. Get external parameters
-		NSString *name = _params[@"name"];
-		if(name.length==0)
-		{
-            [self sendError:@"missing-parameter" reason: @"the name parameter is not passed"];
-		}
-		else
-		{
-			// 2. Status ?
-			//[_appDelegate logfile_getstatus:name];
-			[self sendErrorNotImplemented];
-		}
-	}
-	@catch(NSException *e)
-	{
-		[self sendException:e];
-	}
-	
 }
 
 @end

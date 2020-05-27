@@ -19,43 +19,46 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    NSArray *names = [cs getSCTPNames];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        NSArray *names = [cs getSCTPNames];
 
-    int details = [((NSString *)_params[@"details"]) intValue];
-    switch(details)
-    {
-        case 0:
-        default:
-             [self sendResultObject:names];
-             break;
-         case 1:
-         case 2:
-             {
-                 NSMutableArray *entries = [[NSMutableArray alloc]init];
-                 for(NSString *name in names)
+        int details = [((NSString *)_params[@"details"]) intValue];
+        switch(details)
+        {
+            case 0:
+            default:
+                 [self sendResultObject:names];
+                 break;
+             case 1:
+             case 2:
                  {
-                     UMSS7ConfigSCTP *obj = [cs getSCTP:name];
-                     if(obj)
+                     NSMutableArray *entries = [[NSMutableArray alloc]init];
+                     for(NSString *name in names)
                      {
-                         [entries addObject:obj.config];
+                         UMSS7ConfigSCTP *obj = [cs getSCTP:name];
+                         if(obj)
+                         {
+                             [entries addObject:obj.config];
+                         }
                      }
+                     [self sendResultObject:entries];
                  }
-                 [self sendResultObject:entries];
-             }
-             break;
+                 break;
+        }
     }
 }
 

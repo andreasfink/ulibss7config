@@ -21,41 +21,44 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigSCCP *sccp = [cs getSCCP:name];
-    if(sccp!=NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else
-    {
-	
-		@try
+        if(![self isAuthenticated])
         {
-			sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:_params];
-			UMSynchronizedSortedDictionary *config = sccp.config;
-			[_appDelegate addWithConfigSCCP:config.dictionaryCopy];
-			[self sendResultObject:config];
-		}
-        @catch(NSException *e)
-        {
-			[self sendException:e];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-		
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigSCCP *sccp = [cs getSCCP:name];
+        if(sccp!=NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else
+        {
+        
+            @try
+            {
+                sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:_params];
+                UMSynchronizedSortedDictionary *config = sccp.config;
+                [_appDelegate addWithConfigSCCP:config.dictionaryCopy];
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+            
+        }
     }
 }
 

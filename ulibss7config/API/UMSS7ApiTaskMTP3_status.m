@@ -21,39 +21,42 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMLayerMTP3 *mtp3 = [_appDelegate getMTP3:name];
-    if(mtp3)
-    {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-        dict[@"started"] = @(mtp3.isStarted);
-        if(mtp3.ready)
+        if(![self isAuthenticated])
         {
-            dict[@"status"] = @"ready";
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerMTP3 *mtp3 = [_appDelegate getMTP3:name];
+        if(mtp3)
+        {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            dict[@"started"] = @(mtp3.isStarted);
+            if(mtp3.ready)
+            {
+                dict[@"status"] = @"ready";
+            }
+            else
+            {
+                dict[@"status"] = @"unknown";
+            }
+            dict[@"routes"] = mtp3.routeStatus;
+            [self sendResultObject:dict];
         }
         else
         {
-            dict[@"status"] = @"unknown";
+            [self sendErrorNotFound];
         }
-        dict[@"routes"] = mtp3.routeStatus;
-        [self sendResultObject:dict];
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

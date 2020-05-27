@@ -21,33 +21,36 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
-    UMSS7ConfigSCCP *config_object = [cs getSCCP:name];
-    UMLayerSCCP *instance = [_appDelegate getSCCP:name];
-    if((instance!=NULL) || (config_object==NULL))
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [cs deleteSCCP:name];
-        [_appDelegate deleteSCCP:name];
-        [self sendResultOK];
+        UMSS7ConfigSCCP *config_object = [cs getSCCP:name];
+        UMLayerSCCP *instance = [_appDelegate getSCCP:name];
+        if((instance!=NULL) || (config_object==NULL))
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [cs deleteSCCP:name];
+            [_appDelegate deleteSCCP:name];
+            [self sendResultOK];
+        }
     }
 }
 @end

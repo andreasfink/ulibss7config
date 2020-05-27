@@ -23,59 +23,62 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *sccp_name = _params[@"sccp"];
-    sccp_name = [UMSS7ConfigObject filterName:sccp_name];
-    int details = [((NSString *)_params[@"details"]) intValue];
-
-    NSArray *sccp_names;
-    if(sccp_name.length == 0)
-    {
-        sccp_names = [_appDelegate getSCCPNames];
-    }
-    else
-    {
-        sccp_names = @[sccp_name];
-    }
-
-    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
-    for(sccp_name in sccp_names)
-    {
-        UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
-        NSArray *names = [instance.gttSelectorRegistry listSelectorNames];
-        if(details==0)
+        if(![self isAuthenticated])
         {
-            dict[sccp_name] = names;
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *sccp_name = _params[@"sccp"];
+        sccp_name = [UMSS7ConfigObject filterName:sccp_name];
+        int details = [((NSString *)_params[@"details"]) intValue];
+
+        NSArray *sccp_names;
+        if(sccp_name.length == 0)
+        {
+            sccp_names = [_appDelegate getSCCPNames];
         }
         else
         {
-            NSMutableArray *entries = [[NSMutableArray alloc]init];
-            for(NSString *name in names)
-            {
-                SccpGttSelector *selector = [instance.gttSelectorRegistry getSelectorByName:name];
-                UMSynchronizedSortedDictionary *d2 = [[UMSynchronizedSortedDictionary alloc]init];
-                d2[@"name"] = selector.name;
-                d2[@"tt"]  = @(selector.tt);
-                d2[@"gti"]  = @(selector.gti);
-                d2[@"mp"]  = @(selector.np);
-                d2[@"nai"]  = @(selector.nai);
-                [entries addObject:d2];
-            }
-            dict[sccp_name] = entries;
+            sccp_names = @[sccp_name];
         }
+
+        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+        for(sccp_name in sccp_names)
+        {
+            UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
+            NSArray *names = [instance.gttSelectorRegistry listSelectorNames];
+            if(details==0)
+            {
+                dict[sccp_name] = names;
+            }
+            else
+            {
+                NSMutableArray *entries = [[NSMutableArray alloc]init];
+                for(NSString *name in names)
+                {
+                    SccpGttSelector *selector = [instance.gttSelectorRegistry getSelectorByName:name];
+                    UMSynchronizedSortedDictionary *d2 = [[UMSynchronizedSortedDictionary alloc]init];
+                    d2[@"name"] = selector.name;
+                    d2[@"tt"]  = @(selector.tt);
+                    d2[@"gti"]  = @(selector.gti);
+                    d2[@"mp"]  = @(selector.np);
+                    d2[@"nai"]  = @(selector.nai);
+                    [entries addObject:d2];
+                }
+                dict[sccp_name] = entries;
+            }
+        }
+        [self sendResultObject:dict];
     }
-    [self sendResultObject:dict];
 }
 
 @end

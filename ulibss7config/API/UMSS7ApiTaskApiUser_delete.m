@@ -21,40 +21,43 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigApiUser *usr = [cs getApiUser:name];
-    NSUInteger users = [[cs getApiUserNames] count];
-    UMSS7ConfigApiUser *currentUser = _apiSession.currentUser;
-    if(usr==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else if([name isEqualToString:currentUser.name])
-    {
-        [self sendError: @"invalid-parameter" reason: @"current user is not allowed to be deleted"];
-    }
-    else if(users < 2)
-    {
-        [self sendError: @"invalid-parameter" reason: @"system has only 1 user and can't be deleted"];
-    }
-    else
-    {
-        [cs deleteApiUser:name];
-        [self sendResultOK];
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigApiUser *usr = [cs getApiUser:name];
+        NSUInteger users = [[cs getApiUserNames] count];
+        UMSS7ConfigApiUser *currentUser = _apiSession.currentUser;
+        if(usr==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else if([name isEqualToString:currentUser.name])
+        {
+            [self sendError: @"invalid-parameter" reason: @"current user is not allowed to be deleted"];
+        }
+        else if(users < 2)
+        {
+            [self sendError: @"invalid-parameter" reason: @"system has only 1 user and can't be deleted"];
+        }
+        else
+        {
+            [cs deleteApiUser:name];
+            [self sendResultOK];
+        }
     }
 }
 

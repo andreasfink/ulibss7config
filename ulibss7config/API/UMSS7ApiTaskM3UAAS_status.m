@@ -21,55 +21,58 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMM3UAApplicationServer *m3ua_as = [_appDelegate getM3UAAS:name];
-    if(m3ua_as)
-    {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-        switch(m3ua_as.m3ua_status)
+        if(![self isAuthenticated])
         {
-
-            case M3UA_STATUS_OFF:
-                dict[@"m3ua-as-status"] = @"off";
-                break;
-            case M3UA_STATUS_OOS:
-                dict[@"m3ua-as-status"] = @"out-of-service";
-                break;
-            case M3UA_STATUS_BUSY:
-                dict[@"m3ua-as-status"] = @"busy";
-                break;
-            case M3UA_STATUS_INACTIVE:
-                dict[@"m3ua-as-status"] = @"inactive";
-                break;
-            case M3UA_STATUS_IS:
-                dict[@"m3ua-as-status"] = @"in-service";
-                break;
-            case  M3UA_STATUS_UNUSED:
-            default:
-                dict[@"m3ua-as-status"] = @"undefined";
-                break;
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        dict[@"congestion-level"] = @(m3ua_as.congestionLevel);
-        dict[@"speed"] = @(m3ua_as.speed);
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMM3UAApplicationServer *m3ua_as = [_appDelegate getM3UAAS:name];
+        if(m3ua_as)
+        {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            switch(m3ua_as.m3ua_status)
+            {
 
-        [self sendResultObject:dict];
-    }
-    else
-    {
-        [self sendErrorNotFound];
+                case M3UA_STATUS_OFF:
+                    dict[@"m3ua-as-status"] = @"off";
+                    break;
+                case M3UA_STATUS_OOS:
+                    dict[@"m3ua-as-status"] = @"out-of-service";
+                    break;
+                case M3UA_STATUS_BUSY:
+                    dict[@"m3ua-as-status"] = @"busy";
+                    break;
+                case M3UA_STATUS_INACTIVE:
+                    dict[@"m3ua-as-status"] = @"inactive";
+                    break;
+                case M3UA_STATUS_IS:
+                    dict[@"m3ua-as-status"] = @"in-service";
+                    break;
+                case  M3UA_STATUS_UNUSED:
+                default:
+                    dict[@"m3ua-as-status"] = @"undefined";
+                    break;
+            }
+            dict[@"congestion-level"] = @(m3ua_as.congestionLevel);
+            dict[@"speed"] = @(m3ua_as.speed);
+
+            [self sendResultObject:dict];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
 }
 @end

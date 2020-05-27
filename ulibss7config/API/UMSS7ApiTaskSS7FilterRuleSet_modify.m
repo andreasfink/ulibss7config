@@ -23,45 +23,48 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    // 1. Get Staging Area
-    UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-    if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"staging-area"];
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            NSString *name = _params[@"name"];
-            UMSS7ConfigSS7FilterRuleSet *rs = stagingArea.filter_rule_set_dict[name];
-            if(rs == NULL)
-            {
-                [self sendErrorNotFound:name];
-            }
-            else
-            {
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:_params];
-                [rs setConfig:dict];
-                [stagingArea setDirty:YES];
-                [self sendResultObject:rs.config];
-            }
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        @catch(NSException *e)
+
+        if(![self isAuthorized])
         {
-            [self sendException:e];
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"staging-area"];
+        }
+        else
+        {
+            @try
+            {
+                NSString *name = _params[@"name"];
+                UMSS7ConfigSS7FilterRuleSet *rs = stagingArea.filter_rule_set_dict[name];
+                if(rs == NULL)
+                {
+                    [self sendErrorNotFound:name];
+                }
+                else
+                {
+                    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:_params];
+                    [rs setConfig:dict];
+                    [stagingArea setDirty:YES];
+                    [self sendResultObject:rs.config];
+                }
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

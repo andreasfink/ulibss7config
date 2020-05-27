@@ -23,33 +23,36 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        
+        UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+        UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
+        
+        if(sccp)
+        {
+            UMSynchronizedSortedDictionary *dict = [_appDelegate statusSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
+            [self sendResultObject:dict];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-	NSString *name = _params[@"name"];
-	name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-	
-    UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
-    UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
-	
-	if(sccp)
-	{
-		UMSynchronizedSortedDictionary *dict = [_appDelegate statusSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
-		[self sendResultObject:dict];
-	}
-	else
-	{
-		[self sendErrorNotFound];
-	}
 }
 @end

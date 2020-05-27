@@ -22,69 +22,72 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    NSString *action = _params[@"action"];
-    int slc = [_params[@"lsc"] intValue];
-    name = [UMSS7ConfigObject filterName:name];
-    UMMTP3LinkSet *mtp3linkset = [_appDelegate getMTP3LinkSet:name];
-    if(mtp3linkset)
-    {
-        if([action isEqualToString:@"action-list"])
+        if(![self isAuthenticated])
         {
-            [self sendResultObject:@[ @"add-link", @"remove-link", @"power-on", @"power-off",@"start-slc",@"stop-slc"]];
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
         }
 
-        else if([action isEqualToString:@"add-link"])
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        int slc = [_params[@"lsc"] intValue];
+        name = [UMSS7ConfigObject filterName:name];
+        UMMTP3LinkSet *mtp3linkset = [_appDelegate getMTP3LinkSet:name];
+        if(mtp3linkset)
         {
-            [self sendErrorNotImplemented];
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"add-link", @"remove-link", @"power-on", @"power-off",@"start-slc",@"stop-slc"]];
+            }
 
-        }
-        else if([action isEqualToString:@"remove-link"])
-        {
-            [self sendErrorNotImplemented];
-        }
-        else if([action isEqualToString:@"power-on"])
-        {
-            [mtp3linkset powerOn];
-            [self sendResultOK];
+            else if([action isEqualToString:@"add-link"])
+            {
+                [self sendErrorNotImplemented];
 
-        }
-        else if([action isEqualToString:@"power-off"])
-        {
-            [mtp3linkset powerOff];
-            [self sendResultOK];
-        }
-        else if([action isEqualToString:@"start-slc"])
-        {
-            [mtp3linkset start:slc];
-            [self sendResultOK];
+            }
+            else if([action isEqualToString:@"remove-link"])
+            {
+                [self sendErrorNotImplemented];
+            }
+            else if([action isEqualToString:@"power-on"])
+            {
+                [mtp3linkset powerOn];
+                [self sendResultOK];
 
-        }
-        else if([action isEqualToString:@"stop-slc"])
-        {
-            [mtp3linkset stop:slc];
-            [self sendResultOK];
+            }
+            else if([action isEqualToString:@"power-off"])
+            {
+                [mtp3linkset powerOff];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"start-slc"])
+            {
+                [mtp3linkset start:slc];
+                [self sendResultOK];
+
+            }
+            else if([action isEqualToString:@"stop-slc"])
+            {
+                [mtp3linkset stop:slc];
+                [self sendResultOK];
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
         }
         else
         {
-            [self sendErrorUnknownAction];
+            [self sendErrorNotFound];
         }
-    }
-    else
-    {
-        [self sendErrorNotFound];
     }
 }
 @end

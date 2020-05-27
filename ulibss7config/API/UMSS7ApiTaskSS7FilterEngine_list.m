@@ -18,19 +18,22 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        NSArray *arr = [_appDelegate getSS7FilterEngineNames];
+        [self sendResultObject:arr];
     }
-    NSArray *arr = [_appDelegate getSS7FilterEngineNames];
-    [self sendResultObject:arr];
 }
 
 @end

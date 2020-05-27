@@ -21,32 +21,35 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+        
+        if(sccp)
+        {
+            UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+            dict[@"routing-table"] = [sccp.mtp3RoutingTable status];
+            dict[@"statistics"] = [sccp statisticalInfo];
+            [self sendResultObject:dict];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-	NSString *name = _params[@"name"];
-	name = [UMSS7ConfigObject filterName:name];
-	UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
-	
-	if(sccp)
-	{
-        UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
-        dict[@"routing-table"] = [sccp.mtp3RoutingTable status];
-        dict[@"statistics"] = [sccp statisticalInfo];
-        [self sendResultObject:dict];
-	}
-	else
-	{
-		[self sendErrorNotFound];
-	}
 }
 @end

@@ -24,45 +24,48 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"staging-area"];
-    }
-    else
-    {
-		@try
-		{
-			NSString *name = _params[@"name"];
-            UMSS7ConfigSS7FilterRuleSet *rs = stagingArea.filter_rule_set_dict[name];
-			if(rs == NULL)
-			{
-				[self sendErrorNotFound:name];
-			}
-			else
-			{
-                [self sendResultObject:rs.config];
-			}
-			
-			[self sendResultObject:stagingArea.config];
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"staging-area"];
+        }
+        else
+        {
+            @try
+            {
+                NSString *name = _params[@"name"];
+                UMSS7ConfigSS7FilterRuleSet *rs = stagingArea.filter_rule_set_dict[name];
+                if(rs == NULL)
+                {
+                    [self sendErrorNotFound:name];
+                }
+                else
+                {
+                    [self sendResultObject:rs.config];
+                }
+                
+                [self sendResultObject:stagingArea.config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+        }
     }
 }
 

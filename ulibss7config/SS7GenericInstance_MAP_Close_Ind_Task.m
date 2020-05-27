@@ -29,8 +29,11 @@
 
 - (void)main
 {
-    [_inst executeMAP_Close_Ind:_userIdentifier
-                   options:_options];
+    @autoreleasepool
+    {
+        [_inst executeMAP_Close_Ind:_userIdentifier
+                       options:_options];
+    }
 }
 
 @end

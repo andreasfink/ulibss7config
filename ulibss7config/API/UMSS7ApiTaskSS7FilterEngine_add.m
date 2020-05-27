@@ -21,36 +21,39 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"file"];
-    name = [UMSS7ConfigObject filterName:name];
-
-    @try
-    {
-        if(name.length==0)
+        if(![self isAuthenticated])
         {
-            [self sendError:@"missing-parameter" reason:@"the 'file' parameter is not passed"];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        else
+
+        if(![self isAuthorized])
         {
-            [_appDelegate addWithConfigSS7FilterEngine:_params];
-            [self sendResultOK];
+            [self sendErrorNotAuthorized];
+            return;
         }
-    }
-    @catch(NSException *e)
-    {
-        [self sendException:e];
+
+        NSString *name = _params[@"file"];
+        name = [UMSS7ConfigObject filterName:name];
+
+        @try
+        {
+            if(name.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'file' parameter is not passed"];
+            }
+            else
+            {
+                [_appDelegate addWithConfigSS7FilterEngine:_params];
+                [self sendResultOK];
+            }
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
 }
 

@@ -23,73 +23,75 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-    @try
-    {
-        
-        NSString *action = _params[@"action"];
-        NSString *name = _params[@"name"];
-        if(name.length==0)
+        if(![self isAuthenticated])
         {
-            [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        else if([action isEqualToString:@"copy"])
+        
+        if(![self isAuthorized])
         {
-            NSString *new_name = _params[@"destination"];
-            UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-            if(stagingArea == NULL)
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            
+            NSString *action = _params[@"action"];
+            NSString *name = _params[@"name"];
+            if(name.length==0)
             {
-                [self sendErrorNotFound:@"Staging-Area"];
+                [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
             }
-            else
+            else if([action isEqualToString:@"copy"])
             {
-                [stagingArea setConfig:_params];
-                [_appDelegate copySS7FilterStagingArea:name toNewName:new_name];
-                [self sendResultOK];
-            }
+                NSString *new_name = _params[@"destination"];
+                UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+                if(stagingArea == NULL)
+                {
+                    [self sendErrorNotFound:@"Staging-Area"];
+                }
+                else
+                {
+                    [stagingArea setConfig:_params];
+                    [_appDelegate copySS7FilterStagingArea:name toNewName:new_name];
+                    [self sendResultOK];
+                }
 
-        }
-        else if([action isEqualToString:@"activate"])
-        {
-            UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-            if(stagingArea == NULL)
+            }
+            else if([action isEqualToString:@"activate"])
             {
-                [self sendErrorNotFound:@"Staging-Area"];
+                UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+                if(stagingArea == NULL)
+                {
+                    [self sendErrorNotFound:@"Staging-Area"];
+                }
+                else
+                {
+                    [_appDelegate makeStagingAreaCurrent:name];
+                    [stagingArea setConfig:_params];
+                    [self sendResultOK];
+                }
+            }
+            else if([action isEqualToString:@"select"])
+            {
+               
+                [_appDelegate selectSS7FilterStagingArea:name forSession:_apiSession];
+                [self sendResultOK];
             }
             else
             {
-                [_appDelegate makeStagingAreaCurrent:name];
-                [stagingArea setConfig:_params];
-                [self sendResultOK];
+                [self sendError:@"not-supported-value" reason:@"the 'action' must have known value (e.g. select)!"];
             }
+            
         }
-        else if([action isEqualToString:@"select"])
+        @catch(NSException *e)
         {
-           
-            [_appDelegate selectSS7FilterStagingArea:name forSession:_apiSession];
-            [self sendResultOK];
+            [self sendException:e];
         }
-        else
-        {
-            [self sendError:@"not-supported-value" reason:@"the 'action' must have known value (e.g. select)!"];            
-        }
-        
     }
-    @catch(NSException *e)
-    {
-        [self sendException:e];
-    }
-    
 }
 @end

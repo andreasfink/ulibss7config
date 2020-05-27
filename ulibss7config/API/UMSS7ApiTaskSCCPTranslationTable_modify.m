@@ -21,41 +21,44 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-	name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-	
-    UMLayerSCCP *instance = [_appDelegate getSCCP:name];
-    UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
-	if(co==NULL || instance==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-		@try
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        
+        UMLayerSCCP *instance = [_appDelegate getSCCP:name];
+        UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
+        if(co==NULL || instance==NULL)
         {
-			// Find from sccp layer the old RoutingTable  by _gti, _np, _nai, _tt
-			UMSynchronizedSortedDictionary *oldCo = [_appDelegate readSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
-			UMSS7ConfigSCCPTranslationTable *newCo = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_params];
-			UMSynchronizedSortedDictionary *config = [_appDelegate modifySCCPTranslationTable:newCo.config.dictionaryCopy old:oldCo.dictionaryCopy];
-			[self sendResultObject:config];
-		}
-        @catch(NSException *e)
+            [self sendErrorNotFound];
+        }
+        else
         {
-			[self sendException:e];
+            @try
+            {
+                // Find from sccp layer the old RoutingTable  by _gti, _np, _nai, _tt
+                UMSynchronizedSortedDictionary *oldCo = [_appDelegate readSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
+                UMSS7ConfigSCCPTranslationTable *newCo = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:_params];
+                UMSynchronizedSortedDictionary *config = [_appDelegate modifySCCPTranslationTable:newCo.config.dictionaryCopy old:oldCo.dictionaryCopy];
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

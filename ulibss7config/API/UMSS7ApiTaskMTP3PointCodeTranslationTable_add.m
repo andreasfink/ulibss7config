@@ -19,39 +19,42 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigMTP3PointCodeTranslationTable *pctt = [cs getPointcodeTranslationTable:name];
-    if(pctt!=NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            pctt = [[UMSS7ConfigMTP3PointCodeTranslationTable alloc]initWithConfig:_params];
-            UMSynchronizedSortedDictionary *config = pctt.config;
-            [_appDelegate addWithConfigMTP3PointCodeTranslationTable:config.dictionaryCopy];
-            [self sendResultObject:config];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        @catch(NSException *e)
+
+        if(![self isAuthorized])
         {
-            [self sendException:e];
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigMTP3PointCodeTranslationTable *pctt = [cs getPointcodeTranslationTable:name];
+        if(pctt!=NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else
+        {
+            @try
+            {
+                pctt = [[UMSS7ConfigMTP3PointCodeTranslationTable alloc]initWithConfig:_params];
+                UMSynchronizedSortedDictionary *config = pctt.config;
+                [_appDelegate addWithConfigMTP3PointCodeTranslationTable:config.dictionaryCopy];
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

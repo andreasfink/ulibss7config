@@ -22,27 +22,29 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    @try
-    {
-        [self sendErrorNotImplemented];
+        @try
+        {
+            [self sendErrorNotImplemented];
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
-    @catch(NSException *e)
-    {
-        [self sendException:e];
-    }
-
 }
 
 @end

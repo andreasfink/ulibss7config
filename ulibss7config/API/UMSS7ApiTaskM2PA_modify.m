@@ -21,29 +21,32 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
 
-    UMSS7ConfigM2PA *config_object = [config_storage getM2PA:name];
-    UMLayerM2PA *instance = [_appDelegate getM2PA:name];
+        UMSS7ConfigM2PA *config_object = [config_storage getM2PA:name];
+        UMLayerM2PA *instance = [_appDelegate getM2PA:name];
 
-    if((instance!=NULL) || (config_object==NULL))
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [config_object setConfig:_params];
-        NSDictionary *config = config_object.config.dictionaryCopy;
-        [instance setConfig:config applicationContext:_appDelegate];
-        [self sendResultObject:config];
+        if((instance!=NULL) || (config_object==NULL))
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [config_object setConfig:_params];
+            NSDictionary *config = config_object.config.dictionaryCopy;
+            [instance setConfig:config applicationContext:_appDelegate];
+            [self sendResultObject:config];
+        }
     }
 }
 @end

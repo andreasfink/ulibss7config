@@ -20,115 +20,118 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *sccp_name     = _params[@"sccp"];
-    if(sccp_name.length==0)
-    {
-        [self sendErrorMissingParameter:@"sccp"];
-        return;
-    }
-    NSString *table_name    = _params[@"translation-table"];
-    if(table_name.length==0)
-    {
-        [self sendErrorMissingParameter:@"translation-table"];
-    }
-
-    NSString *gta = _params[@"gta"];
-    gta = [UMSS7ConfigObject filterName:gta];
-    NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
-
-    if(entry==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            UMLayerSCCP *sccp_instance = [_appDelegate getSCCP:sccp_name];
-            if(sccp_instance==NULL)
-            {
-                [self sendErrorNotFound:@"sccp"];
-                return;
-            }
-            SccpGttSelector *selector = [sccp_instance.gttSelectorRegistry getSelectorByName:table_name];
-            if(selector==NULL)
-            {
-                [self sendErrorNotFound:@"translation-table"];
-                return;
-            }
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-            SccpGttRoutingTable *rt = selector.routingTable;
-            if(rt==NULL)
-            {
-                [self sendErrorNotFound:@"translation-table.routing-table"];
-                return;
-            }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-            NSString *gta = _params[@"gta"];
-            gta = [UMSS7ConfigObject filterName:gta];
-            NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+        NSString *sccp_name     = _params[@"sccp"];
+        if(sccp_name.length==0)
+        {
+            [self sendErrorMissingParameter:@"sccp"];
+            return;
+        }
+        NSString *table_name    = _params[@"translation-table"];
+        if(table_name.length==0)
+        {
+            [self sendErrorMissingParameter:@"translation-table"];
+        }
 
+        NSString *gta = _params[@"gta"];
+        gta = [UMSS7ConfigObject filterName:gta];
+        NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
 
-            SccpGttRoutingTableEntry *rte = [rt findEntryByName:entryName];
-            if(rte==NULL)
-            {
-                rte = [rt findEntryByDigits:gta];
-            }
-            if(rte==NULL)
-            {
-                [self sendErrorNotFound:@"translation-table-entry"];
-                return;
-            }
-            NSLog(@"sccp_instance.mtp3RoutingTable=%@",sccp_instance.mtp3RoutingTable);
-
-            UMSynchronizedSortedDictionary *dict = [rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable];
-
+        if(entry==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
             @try
             {
-                UMJsonWriter *writer = [[UMJsonWriter alloc]init];
-                writer.humanReadable = YES;
-                NSString *string =  [writer stringWithObject:dict];
-                if(string.length==0)
+                UMLayerSCCP *sccp_instance = [_appDelegate getSCCP:sccp_name];
+                if(sccp_instance==NULL)
                 {
-                    NSLog(@"can not serialize dict: %@",dict);
-                    NSLog(@"writer.error: %@",writer.error);
+                    [self sendErrorNotFound:@"sccp"];
+                    return;
+                }
+                SccpGttSelector *selector = [sccp_instance.gttSelectorRegistry getSelectorByName:table_name];
+                if(selector==NULL)
+                {
+                    [self sendErrorNotFound:@"translation-table"];
+                    return;
+                }
+
+                SccpGttRoutingTable *rt = selector.routingTable;
+                if(rt==NULL)
+                {
+                    [self sendErrorNotFound:@"translation-table.routing-table"];
+                    return;
+                }
+
+                NSString *gta = _params[@"gta"];
+                gta = [UMSS7ConfigObject filterName:gta];
+                NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+
+
+                SccpGttRoutingTableEntry *rte = [rt findEntryByName:entryName];
+                if(rte==NULL)
+                {
+                    rte = [rt findEntryByDigits:gta];
+                }
+                if(rte==NULL)
+                {
+                    [self sendErrorNotFound:@"translation-table-entry"];
+                    return;
+                }
+                NSLog(@"sccp_instance.mtp3RoutingTable=%@",sccp_instance.mtp3RoutingTable);
+
+                UMSynchronizedSortedDictionary *dict = [rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable];
+
+                @try
+                {
+                    UMJsonWriter *writer = [[UMJsonWriter alloc]init];
+                    writer.humanReadable = YES;
+                    NSString *string =  [writer stringWithObject:dict];
+                    if(string.length==0)
+                    {
+                        NSLog(@"can not serialize dict: %@",dict);
+                        NSLog(@"writer.error: %@",writer.error);
+                    }
+                    else
+                    {
+                        NSLog(@"json response: %@",string);
+                    }
+                }
+                @catch(NSException *e)
+                {
+                    NSLog(@"Exception = %@",e);
+                }
+                if(dict)
+                {
+                    [self sendResultObject:dict];
                 }
                 else
                 {
-                    NSLog(@"json response: %@",string);
+                    [self sendError:@"statusForL3RoutingTable returns NULL"];
                 }
             }
+
             @catch(NSException *e)
             {
-                NSLog(@"Exception = %@",e);
+                [self sendException:e];
             }
-            if(dict)
-            {
-                [self sendResultObject:dict];
-            }
-            else
-            {
-                [self sendError:@"statusForL3RoutingTable returns NULL"];
-            }
-        }
-
-        @catch(NSException *e)
-        {
-            [self sendException:e];
         }
     }
 }

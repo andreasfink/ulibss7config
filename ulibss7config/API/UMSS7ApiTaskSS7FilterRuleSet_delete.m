@@ -24,45 +24,47 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"staging-area"];
-    }
-    else
-    {
-		@try
-		{
-			NSString *name = _params[@"name"];
-            if(stagingArea.filter_rule_set_dict[name]== 0)
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"staging-area"];
+        }
+        else
+        {
+            @try
             {
-                [self sendErrorNotFound:name];
+                NSString *name = _params[@"name"];
+                if(stagingArea.filter_rule_set_dict[name]== 0)
+                {
+                    [self sendErrorNotFound:name];
+                }
+                else
+                {
+                    [stagingArea.filter_rule_set_dict removeObjectForKey:name];
+                    [self sendResultOK];
+                }
             }
-            else
+            @catch(NSException *e)
             {
-                [stagingArea.filter_rule_set_dict removeObjectForKey:name];
-                [self sendResultOK];
+                [self sendException:e];
             }
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+        }
     }
-	
 }
 
 @end

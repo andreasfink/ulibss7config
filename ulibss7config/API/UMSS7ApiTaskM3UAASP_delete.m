@@ -21,33 +21,36 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
-    UMSS7ConfigM3UAASP *config_object = [cs getM3UAASP:name];
-    UMM3UAApplicationServerProcess *instance = [_appDelegate getM3UAASP:name];
-    if((instance!=NULL) || (config_object==NULL))
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [cs deleteM3UAASP:name];
-        [_appDelegate deleteM3UAASP:name];
-        [self sendResultOK];
+        UMSS7ConfigM3UAASP *config_object = [cs getM3UAASP:name];
+        UMM3UAApplicationServerProcess *instance = [_appDelegate getM3UAASP:name];
+        if((instance!=NULL) || (config_object==NULL))
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [cs deleteM3UAASP:name];
+            [_appDelegate deleteM3UAASP:name];
+            [self sendResultOK];
+        }
     }
 }
 @end

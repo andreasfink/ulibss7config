@@ -19,38 +19,41 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigMTP3PointCodeTranslationTable *pctt_conf = [cs getPointcodeTranslationTable:name];
-    if(pctt_conf==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            [cs replacePointcodeTranslationTable:pctt_conf];
-            [_appDelegate addWithConfigMTP3PointCodeTranslationTable:pctt_conf.config.dictionaryCopy];
-            [self sendResultObject:pctt_conf.config];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        @catch(NSException *e)
+
+        if(![self isAuthorized])
         {
-            [self sendException:e];
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigMTP3PointCodeTranslationTable *pctt_conf = [cs getPointcodeTranslationTable:name];
+        if(pctt_conf==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            @try
+            {
+                [cs replacePointcodeTranslationTable:pctt_conf];
+                [_appDelegate addWithConfigMTP3PointCodeTranslationTable:pctt_conf.config.dictionaryCopy];
+                [self sendResultObject:pctt_conf.config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

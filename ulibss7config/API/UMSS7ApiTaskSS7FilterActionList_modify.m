@@ -23,47 +23,49 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-    UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-    if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"staging-area"];
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            NSString *name = _params[@"name"];
-            UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[name];
-            if(ls == NULL)
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"staging-area"];
+        }
+        else
+        {
+            @try
             {
-                [self sendErrorNotFound:name];
+                NSString *name = _params[@"name"];
+                UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[name];
+                if(ls == NULL)
+                {
+                    [self sendErrorNotFound:name];
+                }
+                else
+                {
+                    [ls setConfig:_params];
+                    [stagingArea setDirty:YES];
+                    [self sendResultObject:ls.config];
+                }
             }
-            else
+            @catch(NSException *e)
             {
-                [ls setConfig:_params];
-                [stagingArea setDirty:YES];
-                [self sendResultObject:ls.config];
+                [self sendException:e];
             }
         }
-        @catch(NSException *e)
-        {
-            [self sendException:e];
-        }
     }
-	
 }
 
 @end

@@ -22,49 +22,52 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMLayerSctp *sctp = [_appDelegate getSCTP:name];
-    if(sctp)
-    {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-        switch(sctp.status)
+        if(![self isAuthenticated])
         {
-            case UMSOCKET_STATUS_FOOS:
-                dict[@"status"]=@"forced-out-of-service";
-                break;
-            case UMSOCKET_STATUS_OFF:
-                dict[@"status"]=@"off";
-                break;
-            case UMSOCKET_STATUS_OOS:
-                dict[@"status"]=@"out-of-service";
-                break;
-            case UMSOCKET_STATUS_IS:
-                dict[@"status"]=@"in-service";
-                break;
-            default:
-                dict[@"status"]=[NSString stringWithFormat:@"Unknown-%d",sctp.status];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        dict[@"inbound-bytes"] = [sctp.inboundThroughputBytes getSpeedTripleJson];
-        dict[@"inbound-packets"] = [sctp.inboundThroughputPackets getSpeedTripleJson];
-        dict[@"outbound-bytes"] = [sctp.outboundThroughputBytes getSpeedTripleJson];
-        dict[@"outbound-packets"] = [sctp.outboundThroughputPackets getSpeedTripleJson];
-        [self sendResultObject:dict];
-    }
-    else
-    {
-        [self sendErrorNotFound];
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerSctp *sctp = [_appDelegate getSCTP:name];
+        if(sctp)
+        {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            switch(sctp.status)
+            {
+                case UMSOCKET_STATUS_FOOS:
+                    dict[@"status"]=@"forced-out-of-service";
+                    break;
+                case UMSOCKET_STATUS_OFF:
+                    dict[@"status"]=@"off";
+                    break;
+                case UMSOCKET_STATUS_OOS:
+                    dict[@"status"]=@"out-of-service";
+                    break;
+                case UMSOCKET_STATUS_IS:
+                    dict[@"status"]=@"in-service";
+                    break;
+                default:
+                    dict[@"status"]=[NSString stringWithFormat:@"Unknown-%d",sctp.status];
+            }
+            dict[@"inbound-bytes"] = [sctp.inboundThroughputBytes getSpeedTripleJson];
+            dict[@"inbound-packets"] = [sctp.inboundThroughputPackets getSpeedTripleJson];
+            dict[@"outbound-bytes"] = [sctp.outboundThroughputBytes getSpeedTripleJson];
+            dict[@"outbound-packets"] = [sctp.outboundThroughputPackets getSpeedTripleJson];
+            [self sendResultObject:dict];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
 }
 @end

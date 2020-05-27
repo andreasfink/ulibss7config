@@ -22,50 +22,52 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    @try
-    {
-        NSString *statisticsName = _params[@"name"];
-        NSString *statisticsKey  = _params[@"key"];
-        NSString *b = _params[@"no-values"];
-        BOOL noValues = [b boolValue];
-#pragma unused(statisticsKey)
-#pragma unused(noValues)
-
-        if(statisticsName.length==0)
+        if(![self isAuthenticated])
         {
-            [self sendErrorMissingParameter:statisticsName];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        else
+
+        if(![self isAuthorized])
         {
-            UMStatistic *stat = [_appDelegate statistics_get:statisticsName];
-            if(stat==NULL)
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        @try
+        {
+            NSString *statisticsName = _params[@"name"];
+            NSString *statisticsKey  = _params[@"key"];
+            NSString *b = _params[@"no-values"];
+            BOOL noValues = [b boolValue];
+    #pragma unused(statisticsKey)
+    #pragma unused(noValues)
+
+            if(statisticsName.length==0)
             {
-                [self sendErrorNotFound];
+                [self sendErrorMissingParameter:statisticsName];
             }
             else
             {
-                [_appDelegate statistics_modify:_name params:_params];
-                [self sendResultOK];
+                UMStatistic *stat = [_appDelegate statistics_get:statisticsName];
+                if(stat==NULL)
+                {
+                    [self sendErrorNotFound];
+                }
+                else
+                {
+                    [_appDelegate statistics_modify:_name params:_params];
+                    [self sendResultOK];
+                }
             }
         }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
-    @catch(NSException *e)
-    {
-        [self sendException:e];
-    }
-
 }
 
 @end

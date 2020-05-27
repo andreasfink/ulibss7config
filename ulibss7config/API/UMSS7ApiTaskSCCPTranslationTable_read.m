@@ -22,60 +22,62 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *sccp_name = _params[@"sccp"];
-	sccp_name = [UMSS7ConfigObject filterName:sccp_name];
+        NSString *sccp_name = _params[@"sccp"];
+        sccp_name = [UMSS7ConfigObject filterName:sccp_name];
 
-    NSString *selector_name = _params[@"name"];
-    selector_name = [UMSS7ConfigObject filterName:selector_name];
+        NSString *selector_name = _params[@"name"];
+        selector_name = [UMSS7ConfigObject filterName:selector_name];
 
-    if(sccp_name.length ==0)
-    {
-        [self sendErrorMissingParameter:@"sccp"];
-    }
-    if(selector_name.length ==0)
-    {
-        [self sendErrorMissingParameter:@"name"];
-    }
+        if(sccp_name.length ==0)
+        {
+            [self sendErrorMissingParameter:@"sccp"];
+        }
+        if(selector_name.length ==0)
+        {
+            [self sendErrorMissingParameter:@"name"];
+        }
 
-    UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
-	if(instance==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        UMSynchronizedSortedDictionary *config = [instance.gttSelectorRegistry config];
-        if(config==NULL)
+        UMLayerSCCP *instance = [_appDelegate getSCCP:sccp_name];
+        if(instance==NULL)
         {
             [self sendErrorNotFound];
         }
         else
         {
-            UMSynchronizedSortedDictionary *dict = config[selector_name];
-            if(dict ==NULL)
+            UMSynchronizedSortedDictionary *config = [instance.gttSelectorRegistry config];
+            if(config==NULL)
             {
                 [self sendErrorNotFound];
             }
             else
             {
-                [self sendResultObject:dict];
+                UMSynchronizedSortedDictionary *dict = config[selector_name];
+                if(dict ==NULL)
+                {
+                    [self sendErrorNotFound];
+                }
+                else
+                {
+                    [self sendResultObject:dict];
+                }
             }
         }
     }
 }
-
 @end
 
 

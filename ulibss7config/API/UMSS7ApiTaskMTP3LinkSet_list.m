@@ -21,82 +21,85 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    NSArray *names = [cs getMTP3LinkSetNames];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        NSArray *names = [cs getMTP3LinkSetNames];
 
-    int details = [((NSString *)_params[@"details"]) intValue];
-    switch(details)
-    {
-         case 0:
-         default:
-             [self sendResultObject:names];
-             break;
-         case 1:
-         case 2:
-             {
-                 NSMutableArray *entries = [[NSMutableArray alloc]init];
-                 for(NSString *name in names)
+        int details = [((NSString *)_params[@"details"]) intValue];
+        switch(details)
+        {
+             case 0:
+             default:
+                 [self sendResultObject:names];
+                 break;
+             case 1:
+             case 2:
                  {
-                     UMSS7ConfigMTP3LinkSet *obj = [cs getMTP3LinkSet:name];
-                     if(obj)
+                     NSMutableArray *entries = [[NSMutableArray alloc]init];
+                     for(NSString *name in names)
                      {
-                         [entries addObject:obj.config];
+                         UMSS7ConfigMTP3LinkSet *obj = [cs getMTP3LinkSet:name];
+                         if(obj)
+                         {
+                             [entries addObject:obj.config];
+                         }
                      }
+                     [self sendResultObject:entries];
                  }
-                 [self sendResultObject:entries];
-             }
-            break;
-        case 3:
-            {
-                NSMutableArray *entries = [[NSMutableArray alloc]init];
-                for(NSString *name in names)
+                break;
+            case 3:
                 {
-                    UMSS7ConfigMTP3LinkSet *obj = [cs getMTP3LinkSet:name];
-                    if(obj)
+                    NSMutableArray *entries = [[NSMutableArray alloc]init];
+                    for(NSString *name in names)
                     {
-                        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-                        dict[@"config"] = obj.config;
-                        UMMTP3LinkSet *mtp3LinkSet = [_appDelegate getMTP3LinkSet:name];
-                        if(mtp3LinkSet)
+                        UMSS7ConfigMTP3LinkSet *obj = [cs getMTP3LinkSet:name];
+                        if(obj)
                         {
-                            NSMutableDictionary *sdict = [[NSMutableDictionary alloc]init];
-                            sdict[@"active-links"] = @(mtp3LinkSet.activeLinks);
-                            sdict[@"inactive-links"] = @(mtp3LinkSet.inactiveLinks);
-                            sdict[@"ready-links"] = @(mtp3LinkSet.readyLinks);
-                            sdict[@"total-links"] = @(mtp3LinkSet.totalLinks);
-                            sdict[@"congestion-level"] = @(mtp3LinkSet.congestionLevel);
-                            sdict[@"speed"] = @(mtp3LinkSet.speed);
-                            sdict[@"trw-received"] = @(mtp3LinkSet.trw_received);
-                            sdict[@"tra-sent"] = @(mtp3LinkSet.tra_sent);
-                            dict[@"status"] = sdict;
+                            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                            dict[@"config"] = obj.config;
+                            UMMTP3LinkSet *mtp3LinkSet = [_appDelegate getMTP3LinkSet:name];
+                            if(mtp3LinkSet)
+                            {
+                                NSMutableDictionary *sdict = [[NSMutableDictionary alloc]init];
+                                sdict[@"active-links"] = @(mtp3LinkSet.activeLinks);
+                                sdict[@"inactive-links"] = @(mtp3LinkSet.inactiveLinks);
+                                sdict[@"ready-links"] = @(mtp3LinkSet.readyLinks);
+                                sdict[@"total-links"] = @(mtp3LinkSet.totalLinks);
+                                sdict[@"congestion-level"] = @(mtp3LinkSet.congestionLevel);
+                                sdict[@"speed"] = @(mtp3LinkSet.speed);
+                                sdict[@"trw-received"] = @(mtp3LinkSet.trw_received);
+                                sdict[@"tra-sent"] = @(mtp3LinkSet.tra_sent);
+                                dict[@"status"] = sdict;
 
-                            dict[@"action"] =
-                            @[ @"add-link",
-                               @"remove-link",
-                               @"power-on",
-                               @"power-off",
-                               @"start-slc",
-                               @"stop-slc"];
+                                dict[@"action"] =
+                                @[ @"add-link",
+                                   @"remove-link",
+                                   @"power-on",
+                                   @"power-off",
+                                   @"start-slc",
+                                   @"stop-slc"];
+                            }
+                            [entries addObject:dict];
                         }
-                        [entries addObject:dict];
                     }
+                    [self sendResultObject:entries];
                 }
-                [self sendResultObject:entries];
-            }
-            break;
-     }
+                break;
+         }
+    }
 }
 
 @end

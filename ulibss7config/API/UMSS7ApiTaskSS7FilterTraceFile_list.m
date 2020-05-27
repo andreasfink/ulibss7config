@@ -21,21 +21,23 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // Return an array
+        UMSynchronizedArray *ls = [_appDelegate tracefile_list];
+        [self sendResultObject:ls];
     }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// Return an array
-	UMSynchronizedArray *ls = [_appDelegate tracefile_list];
-	[self sendResultObject:ls];
 }
-
 @end

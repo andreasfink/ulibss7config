@@ -43,15 +43,18 @@
 
 -(void)main
 {
-    [_inst executeMAP_Reject_Resp:_param
-                      userId:_userIdentifier
-                      dialog:_dialogId
-                 transaction:_transactionId
-                      opCode:_opcode
-                    invokeId:_invokeId
-                    linkedId:_linkedId
-                   errorCode:_errorCode
-                     options:_options];
+    @autoreleasepool
+    {
+        [_inst executeMAP_Reject_Resp:_param
+                          userId:_userIdentifier
+                          dialog:_dialogId
+                     transaction:_transactionId
+                          opCode:_opcode
+                        invokeId:_invokeId
+                        linkedId:_linkedId
+                       errorCode:_errorCode
+                         options:_options];
+    }
 }
 @end
 

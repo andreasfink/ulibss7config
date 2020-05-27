@@ -23,50 +23,52 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	// 1. Get Staging Area
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			NSString *old_name = _params[@"name"];
-			NSString *new_name = _params[@"newname"];
-            if((new_name != NULL) &&  (![old_name isEqualToString:new_name]))
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"Staging-Area"];
+        }
+        else
+        {
+            @try
             {
-                [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
-                NSMutableDictionary *ds = [_params mutableCopy];
-                [ds setValue:new_name forKey:@"name"];
-                
-                [_appDelegate updateSS7FilterStagingArea:ds];
+                NSString *old_name = _params[@"name"];
+                NSString *new_name = _params[@"newname"];
+                if((new_name != NULL) &&  (![old_name isEqualToString:new_name]))
+                {
+                    [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
+                    NSMutableDictionary *ds = [_params mutableCopy];
+                    [ds setValue:new_name forKey:@"name"];
+                    
+                    [_appDelegate updateSS7FilterStagingArea:ds];
+                }
+                else
+                {
+                    [_appDelegate updateSS7FilterStagingArea:_params];
+                }
+                [stagingArea setDirty:YES];
+                [self sendResultOK];
             }
-            else
+            @catch(NSException *e)
             {
-                [_appDelegate updateSS7FilterStagingArea:_params];
+                [self sendException:e];
             }
-            [stagingArea setDirty:YES];
-			[self sendResultOK];
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
+        }
     }
-	
 }
 @end

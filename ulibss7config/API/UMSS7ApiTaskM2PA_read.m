@@ -21,22 +21,25 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigM2PA *obj = [cs getM2PA:name];
-    if(obj)
-    {
-        [self sendResultObject:obj.config];
-    }
-    else
-    {
-        [self sendErrorNotFound];
+        NSString *name = _params[@"name"];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigM2PA *obj = [cs getM2PA:name];
+        if(obj)
+        {
+            [self sendResultObject:obj.config];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
 }
 

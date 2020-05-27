@@ -21,54 +21,57 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMM3UAApplicationServerProcess *asp = [_appDelegate getM3UAASP:name];
-    if(asp)
-    {
-
-
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-
-        switch(asp.sctp_status)
+        if(![self isAuthenticated])
         {
-            case UMSOCKET_STATUS_FOOS:
-                dict[@"sctp-status"]=@"forced-out-of-service";
-                break;
-            case UMSOCKET_STATUS_OFF:
-                dict[@"sctp-status"]=@"off";
-                break;
-            case UMSOCKET_STATUS_OOS:
-                dict[@"status"]=@"out-of-service";
-                break;
-            case UMSOCKET_STATUS_IS:
-                dict[@"sctp-status"]=@"in-service";
-                break;
-            default:
-                dict[@"sctp-status"]=@"invalid";
-                break;
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        dict[@"sctp-connecting"]=@(asp.sctp_connecting);
-        dict[@"sctp-up"]=@(asp.sctp_up);
-        dict[@"m3ua-asp-up"]=@(asp.up);
-        dict[@"m3ua-asp-active"]=@(asp.active);
-        [self sendResultObject:dict];
-    }
-    else
-    {
-        [self sendErrorNotFound];
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMM3UAApplicationServerProcess *asp = [_appDelegate getM3UAASP:name];
+        if(asp)
+        {
+
+
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+
+            switch(asp.sctp_status)
+            {
+                case UMSOCKET_STATUS_FOOS:
+                    dict[@"sctp-status"]=@"forced-out-of-service";
+                    break;
+                case UMSOCKET_STATUS_OFF:
+                    dict[@"sctp-status"]=@"off";
+                    break;
+                case UMSOCKET_STATUS_OOS:
+                    dict[@"status"]=@"out-of-service";
+                    break;
+                case UMSOCKET_STATUS_IS:
+                    dict[@"sctp-status"]=@"in-service";
+                    break;
+                default:
+                    dict[@"sctp-status"]=@"invalid";
+                    break;
+            }
+            dict[@"sctp-connecting"]=@(asp.sctp_connecting);
+            dict[@"sctp-up"]=@(asp.sctp_up);
+            dict[@"m3ua-asp-up"]=@(asp.up);
+            dict[@"m3ua-asp-active"]=@(asp.active);
+            [self sendResultObject:dict];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
     }
 }
 @end

@@ -22,30 +22,33 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigServiceUser *config_object = [cs getServiceUser:name];
-    if(config_object==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [config_object setConfig:_params];
-        NSDictionary *config = config_object.config.dictionaryCopy;
-        if(config_object.nameChanged)
+        if(![self isAuthenticated])
         {
-            [cs deleteServiceUser:name];
-            [cs addServiceUser:config_object];
+            [self sendErrorNotAuthenticated];
+            return;
         }
-        [self sendResultObject:config];
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigServiceUser *config_object = [cs getServiceUser:name];
+        if(config_object==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [config_object setConfig:_params];
+            NSDictionary *config = config_object.config.dictionaryCopy;
+            if(config_object.nameChanged)
+            {
+                [cs deleteServiceUser:name];
+                [cs addServiceUser:config_object];
+            }
+            [self sendResultObject:config];
+        }
     }
 }
 

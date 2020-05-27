@@ -22,34 +22,38 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
-    UMLayerSCCP *instance = [_appDelegate getSCCP:name];
-    UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
-    if(co==NULL || instance==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [cs deleteSCCPTranslationTable:name];
-		// Find sccp layer by name and then delete RoutingTable  by _gti, _np, _nai, _tt
-		[_appDelegate deleteSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
-        [self sendResultOK];
+        UMLayerSCCP *instance = [_appDelegate getSCCP:name];
+        UMSS7ConfigSCCPTranslationTable *co = [cs getSCCPTranslationTable:name];
+        if(co==NULL || instance==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [cs deleteSCCPTranslationTable:name];
+            // Find sccp layer by name and then delete RoutingTable  by _gti, _np, _nai, _tt
+            [_appDelegate deleteSCCPTranslationTable:name tt:co.tt gti:co.gti np:co.np nai:co.nai];
+            [self sendResultOK];
+        }
     }
 }
+
 @end

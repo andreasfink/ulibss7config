@@ -39,13 +39,16 @@
 
 -(void)main
 {
-    [_inst executeMAP_P_Abort_Ind:_userIdentifier
-               callingAddress:_callingAddress
-                calledAddress:_calledAddress
-              dialoguePortion:_dialoguePortion
-                transactionId:_tcapLocalTransactionId
-          remoteTransactionId:_tcapRemoteTransactionId
-                      options:_options];
+    @autoreleasepool
+    {
+        [_inst executeMAP_P_Abort_Ind:_userIdentifier
+                   callingAddress:_callingAddress
+                    calledAddress:_calledAddress
+                  dialoguePortion:_dialoguePortion
+                    transactionId:_tcapLocalTransactionId
+              remoteTransactionId:_tcapRemoteTransactionId
+                          options:_options];
+    }
 }
 
 @end

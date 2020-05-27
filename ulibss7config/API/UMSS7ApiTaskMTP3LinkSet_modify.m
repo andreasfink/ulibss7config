@@ -21,35 +21,38 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-	
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *config_storage = [_appDelegate runningConfig];
 
-    UMSS7ConfigMTP3LinkSet *config_object = [config_storage getMTP3LinkSet:name];
-    UMMTP3LinkSet *instance = [_appDelegate getMTP3LinkSet:name];
+        UMSS7ConfigMTP3LinkSet *config_object = [config_storage getMTP3LinkSet:name];
+        UMMTP3LinkSet *instance = [_appDelegate getMTP3LinkSet:name];
 
-    if((instance!=NULL) || (config_object==NULL))
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        [config_object setConfig:_params];
-        NSDictionary *config = config_object.config.dictionaryCopy;
-        [instance setConfig:config applicationContext:_appDelegate];
-        [self sendResultObject:config];
+        if((instance!=NULL) || (config_object==NULL))
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            [config_object setConfig:_params];
+            NSDictionary *config = config_object.config.dictionaryCopy;
+            [instance setConfig:config applicationContext:_appDelegate];
+            [self sendResultObject:config];
+        }
     }
 }
 @end

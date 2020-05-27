@@ -22,48 +22,51 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	@try
-	{
-		// 1. Get external parameters
-		NSString *name = _params[@"name"];
-		NSString *file = _params[@"filename"];
-		if(name.length==0)
-		{
-            [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
-		}
-		else if(file.length==0)
-		{
-            [self sendError:@"missing-parameter" reason:@"the 'filename' parameter is not passed"];
-		}
-		else
-		{
-			// 2. adding
-            UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_params];
-            [_appDelegate tracefile_add:traceFile];
-            if(traceFile.enabled)
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            // 1. Get external parameters
+            NSString *name = _params[@"name"];
+            NSString *file = _params[@"filename"];
+            if(name.length==0)
             {
-                [_appDelegate tracefile_enable:traceFile.name enable:[traceFile.enabled boolValue]];
+                [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
             }
-            [self sendResultObject:traceFile.config];
-            
-		}
-	}
-	@catch(NSException *e)
-	{
-		[self sendException:e];
-	}
+            else if(file.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'filename' parameter is not passed"];
+            }
+            else
+            {
+                // 2. adding
+                UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_params];
+                [_appDelegate tracefile_add:traceFile];
+                if(traceFile.enabled)
+                {
+                    [_appDelegate tracefile_enable:traceFile.name enable:[traceFile.enabled boolValue]];
+                }
+                [self sendResultObject:traceFile.config];
+                
+            }
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
+    }
 }
 
 @end

@@ -23,30 +23,33 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
 
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigApiUser *usr = [cs getApiUser:name];
-    if(usr==NULL)
-    {
-        [self sendErrorNotFound];
-    }
-    else
-    {
-        UMSynchronizedSortedDictionary *config = usr.config;
-        [self sendResultObject:config];
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigApiUser *usr = [cs getApiUser:name];
+        if(usr==NULL)
+        {
+            [self sendErrorNotFound];
+        }
+        else
+        {
+            UMSynchronizedSortedDictionary *config = usr.config;
+            [self sendResultObject:config];
+        }
     }
 }
 @end

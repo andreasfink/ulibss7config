@@ -22,36 +22,38 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        _apiSession.currentStorageAreaName = _params[@"name"];
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"Staging-Area"];
+        }
+        else
+        {
+            @try
+            {
+                [self sendResultObject:stagingArea.config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
+        }
     }
-    
-	// 1. Get Staging Area
-	_apiSession.currentStorageAreaName = _params[@"name"];
-	UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-	if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"Staging-Area"];
-    }
-    else
-    {
-		@try
-		{
-			[self sendResultObject:stagingArea.config];
-		}
-		@catch(NSException *e)
-		{
-			[self sendException:e];
-		}
-    }
-	
 }
 @end

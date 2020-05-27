@@ -22,28 +22,31 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
 
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            // 1. list
+            NSArray<NSString *> *names = [_appDelegate namedlistsListNames];
+            [self sendResultObject:names];
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
     }
-    
-	@try
-	{
-		// 1. list
-		NSArray<NSString *> *names = [_appDelegate namedlistsListNames];
-		[self sendResultObject:names];
-	}
-	@catch(NSException *e)
-	{
-		[self sendException:e];
-	}
 }
 
 @end

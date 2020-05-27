@@ -32,10 +32,13 @@
 }
 -(void)main
 {
-    [_inst executeMAP_Notice_Ind:_userIdentifier
-          tcapTransactionId:_tcapLocalTransactionId
-                     reason:_reason
-                    options:_options];
+    @autoreleasepool
+    {
+        [_inst executeMAP_Notice_Ind:_userIdentifier
+              tcapTransactionId:_tcapLocalTransactionId
+                         reason:_reason
+                        options:_options];
+    }
 }
 
 @end

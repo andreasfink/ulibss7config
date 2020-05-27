@@ -22,53 +22,56 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	@try
-	{
-		// 1. Get external parameters
-		NSString *listName = [_params[@"name"] urldecode];
-        NSString *value = [_params[@"value"] urldecode];
-
-        if(listName.length==0)
+        if(![self isAuthenticated])
         {
-            /* backwards compatibility to old api of SMSProx4 */
-            listName = [_params[@"list"] urldecode];
-        }
-        if(listName.length==0)
-        {
-            [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
+            [self sendErrorNotAuthenticated];
             return;
         }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            // 1. Get external parameters
+            NSString *listName = [_params[@"name"] urldecode];
+            NSString *value = [_params[@"value"] urldecode];
 
-		if(value.length==0)
-		{
-            [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
-            return;
-		}
-        if([value isEqualToString:@"_dirty"])
-		{
-            [self sendError:@"invalid-parameter" reason:@"the value '_dirty' is a reserved value"];
-            return;
-		}
-		
-        // 2. Remove if value is contained in list
-		[_appDelegate namedlistRemove:listName value:value];
-		[self sendResultOK];
-	}
-	@catch(NSException *e)
-	{
-		[self sendException:e];
-	}
+            if(listName.length==0)
+            {
+                /* backwards compatibility to old api of SMSProx4 */
+                listName = [_params[@"list"] urldecode];
+            }
+            if(listName.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
+                return;
+            }
+
+            if(value.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
+                return;
+            }
+            if([value isEqualToString:@"_dirty"])
+            {
+                [self sendError:@"invalid-parameter" reason:@"the value '_dirty' is a reserved value"];
+                return;
+            }
+            
+            // 2. Remove if value is contained in list
+            [_appDelegate namedlistRemove:listName value:value];
+            [self sendResultOK];
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
+    }
 }
 @end

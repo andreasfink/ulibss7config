@@ -22,52 +22,55 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-	@try
-	{
-		// 1. Get external parameters
-		NSString *listName = [_params[@"name"] urldecode];
-        if(listName.length==0)
+        if(![self isAuthenticated])
         {
-            /* backwards compatibility to old api of SMSProx4 */
-            listName = [_params[@"list"] urldecode];
+            [self sendErrorNotAuthenticated];
+            return;
         }
 
-		NSString *value = [_params[@"value"] urldecode];
-		if(listName.length==0)
-		{
-            [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
-		}
-		else if(value.length==0)
-		{
-            [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
-		}
-		else if([value isEqualToString:@"_dirty"])
-		{
-            [self sendError:@"invalid-parameter" reason:@"the value '_dirty' is a reserved value"];
-		}
-		else
-		{
-			// 2. Checking if value is contained in list
-			BOOL ok = [_appDelegate namedlistContains:listName value:value];
-			NSString *reply = ok ? @"YES" : @"NO";
-			[self sendResultObject:reply];
-		}
-	}
-	@catch(NSException *e)
-	{
-		[self sendException:e];
-	}
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        @try
+        {
+            // 1. Get external parameters
+            NSString *listName = [_params[@"name"] urldecode];
+            if(listName.length==0)
+            {
+                /* backwards compatibility to old api of SMSProx4 */
+                listName = [_params[@"list"] urldecode];
+            }
+
+            NSString *value = [_params[@"value"] urldecode];
+            if(listName.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'list' parameter is not passed"];
+            }
+            else if(value.length==0)
+            {
+                [self sendError:@"missing-parameter" reason:@"the 'value' parameter is not passed"];
+            }
+            else if([value isEqualToString:@"_dirty"])
+            {
+                [self sendError:@"invalid-parameter" reason:@"the value '_dirty' is a reserved value"];
+            }
+            else
+            {
+                // 2. Checking if value is contained in list
+                BOOL ok = [_appDelegate namedlistContains:listName value:value];
+                NSString *reply = ok ? @"YES" : @"NO";
+                [self sendResultObject:reply];
+            }
+        }
+        @catch(NSException *e)
+        {
+            [self sendException:e];
+        }
+    }
 }
 @end

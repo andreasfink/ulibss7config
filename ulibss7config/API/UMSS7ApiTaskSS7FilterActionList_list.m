@@ -22,68 +22,70 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-    
-    if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-    
-    // 1. Get Staging Area
-    UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
-    if(stagingArea == NULL)
-    {
-        [self sendErrorNotFound:@"staging-area"];
-    }
-    else
-    {
-        @try
+        if(![self isAuthenticated])
         {
-            
-            NSString *no_values = _params[@"no-values"];
-            BOOL only_names = YES;
-            if(no_values.length > 0)
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+        
+        // 1. Get Staging Area
+        UMSS7ConfigSS7FilterStagingArea *stagingArea = [_appDelegate getStagingAreaForSession:_apiSession];
+        if(stagingArea == NULL)
+        {
+            [self sendErrorNotFound:@"staging-area"];
+        }
+        else
+        {
+            @try
             {
-                only_names = [no_values boolValue];
-            }
-            
-            if(only_names)
-            {
-                NSArray<NSString *> *names = [stagingArea.filter_action_list_dict allKeys];
-                [self sendResultObject:names];
-            }
-            else
-            {
-                NSMutableArray *gls = [[NSMutableArray alloc]init];
-                NSArray *keys = [stagingArea.filter_action_list_dict allKeys];
-                for(NSString *k in keys)
+                
+                NSString *no_values = _params[@"no-values"];
+                BOOL only_names = YES;
+                if(no_values.length > 0)
                 {
-                    NSMutableArray *arr = [[NSMutableArray alloc]init];
-                    UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[k];
-                    NSArray *actions = [ls getAllActions];
-                    for(UMSS7ConfigSS7FilterAction *it in actions)
-                    {
-                        UMSynchronizedSortedDictionary *config = it.config;
-                        [arr addObject:config];
-                    }
-                    [gls addObject:arr];
+                    only_names = [no_values boolValue];
                 }
-                [self sendResultObject:gls];
+                
+                if(only_names)
+                {
+                    NSArray<NSString *> *names = [stagingArea.filter_action_list_dict allKeys];
+                    [self sendResultObject:names];
+                }
+                else
+                {
+                    NSMutableArray *gls = [[NSMutableArray alloc]init];
+                    NSArray *keys = [stagingArea.filter_action_list_dict allKeys];
+                    for(NSString *k in keys)
+                    {
+                        NSMutableArray *arr = [[NSMutableArray alloc]init];
+                        UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[k];
+                        NSArray *actions = [ls getAllActions];
+                        for(UMSS7ConfigSS7FilterAction *it in actions)
+                        {
+                            UMSynchronizedSortedDictionary *config = it.config;
+                            [arr addObject:config];
+                        }
+                        [gls addObject:arr];
+                    }
+                    [self sendResultObject:gls];
+                    
+                }
                 
             }
-            
-        }
-        @catch(NSException *e)
-        {
-            [self sendException:e];
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
-    
 }
 
 @end

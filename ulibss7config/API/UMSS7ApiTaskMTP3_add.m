@@ -21,38 +21,41 @@
 
 - (void)main
 {
-    if(![self isAuthenticated])
+    @autoreleasepool
     {
-        [self sendErrorNotAuthenticated];
-        return;
-    }
-	
-	if(![self isAuthorized])
-    {
-        [self sendErrorNotAuthorized];
-        return;
-    }
-
-    NSString *name = _params[@"name"];
-    name = [UMSS7ConfigObject filterName:name];
-    UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
-    UMSS7ConfigMTP3 *mtp3 = [cs getMTP3:name];
-    if(mtp3!=NULL)
-    {
-        [self sendErrorAlreadyExisting];
-    }
-    else
-    {
-		@try
-		{
-			mtp3 = [[UMSS7ConfigMTP3 alloc]initWithConfig:_params];
-			UMSynchronizedSortedDictionary *config = mtp3.config;
-			[_appDelegate addWithConfigMTP3:config.dictionaryCopy];
-			[self sendResultObject:config];
-		}
-        @catch(NSException *e)
+        if(![self isAuthenticated])
         {
-			[self sendException:e];
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorized])
+        {
+            [self sendErrorNotAuthorized];
+            return;
+        }
+
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
+        UMSS7ConfigMTP3 *mtp3 = [cs getMTP3:name];
+        if(mtp3!=NULL)
+        {
+            [self sendErrorAlreadyExisting];
+        }
+        else
+        {
+            @try
+            {
+                mtp3 = [[UMSS7ConfigMTP3 alloc]initWithConfig:_params];
+                UMSynchronizedSortedDictionary *config = mtp3.config;
+                [_appDelegate addWithConfigMTP3:config.dictionaryCopy];
+                [self sendResultObject:config];
+            }
+            @catch(NSException *e)
+            {
+                [self sendException:e];
+            }
         }
     }
 }

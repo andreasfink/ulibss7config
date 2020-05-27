@@ -19,16 +19,18 @@
 
 - (void)main
 {
-
-    [self sendResultObject:
-     @{ @"api-version" : @"1.0.0",
-        @"product-name": @"e-stp",
-        @"product-version": @"1.0.0",
-        @"authentication-required": @(YES),
-        @"https-supported": @(YES),
-        @"https-port": @(8083),
-      }
-     ];
+    @autoreleasepool
+    {
+        [self sendResultObject:
+         @{ @"api-version" : @"1.0.0",
+            @"product-name": @"e-stp",
+            @"product-version": @"1.0.0",
+            @"authentication-required": @(YES),
+            @"https-supported": @(YES),
+            @"https-port": @(8083),
+          }
+         ];
+    }
 }
 
 
