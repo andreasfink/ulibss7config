@@ -74,6 +74,15 @@
             {
                 dict[@"current-tx-speed"] = [m3ua_as.speedometerTx  getSpeedTripleJson];
             }
+            if(m3ua_as.speedometerRxBytes)
+            {
+                dict[@"current-rx-speed-bytes"] = [m3ua_as.speedometerRxBytes getSpeedTripleJson];
+            }
+            if(m3ua_as.speedometerTxBytes)
+            {
+                dict[@"current-tx-speed-bytes"] = [m3ua_as.speedometerTxBytes  getSpeedTripleJson];
+            }
+
             [self sendResultObject:dict];
         }
         else
