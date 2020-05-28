@@ -1007,14 +1007,17 @@
         for(NSString *key in keys)
         {
             SS7GenericSession *t = _sessions[key];
-            if(t.hasEnded)
+            if(t)
             {
-                [_delayedDestroy1 addObject:t];
-                [_sessions removeObjectForKey:key];
-            }
-            if([t isTimedOut])
-            {
-                [t timeout];
+                if(t.hasEnded)
+                {
+                    [_delayedDestroy1 addObject:t];
+                    [_sessions removeObjectForKey:key];
+                }
+                if([t isTimedOut])
+                {
+                    [t timeout];
+                }
             }
         }
         [_houseKeepingTimerRun touch];
