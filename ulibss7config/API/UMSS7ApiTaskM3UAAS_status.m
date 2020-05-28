@@ -65,8 +65,15 @@
                     break;
             }
             dict[@"congestion-level"] = @(m3ua_as.congestionLevel);
-            dict[@"speed"] = @(m3ua_as.speed);
-
+            dict[@"configured-speed"] = @(m3ua_as.speed);
+            if(m3ua_as.speedometerRx)
+            {
+                dict[@"current-rx-speed"] = [m3ua_as.speedometerRx getSpeedTripleJson];
+            }
+            if(m3ua_as.speedometerTx)
+            {
+                dict[@"current-tx-speed"] = [m3ua_as.speedometerTx  getSpeedTripleJson];
+            }
             [self sendResultObject:dict];
         }
         else

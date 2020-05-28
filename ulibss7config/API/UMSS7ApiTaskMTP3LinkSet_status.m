@@ -48,10 +48,17 @@
             dict[@"ready-links"] = @(mtp3LinkSet.readyLinks);
             dict[@"total-links"] = @(mtp3LinkSet.totalLinks);
             dict[@"congestion-level"] = @(mtp3LinkSet.congestionLevel);
-            dict[@"speed"] = @(mtp3LinkSet.speed);
+            dict[@"configured-speed"] = @(mtp3LinkSet.speed);
             dict[@"trw-received"] = @(mtp3LinkSet.trw_received);
             dict[@"tra-sent"] = @(mtp3LinkSet.tra_sent);
-
+            if(mtp3LinkSet.speedometerRx)
+            {
+                dict[@"current-rx-speed"] = [mtp3LinkSet.speedometerRx getSpeedTripleJson];
+            }
+            if(mtp3LinkSet.speedometerTx)
+            {
+                dict[@"current-tx-speed"] = [mtp3LinkSet.speedometerTx  getSpeedTripleJson];
+            }
             [self sendResultObject:dict];
         }
         else
