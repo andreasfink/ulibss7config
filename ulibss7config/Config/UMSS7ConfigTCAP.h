@@ -16,6 +16,7 @@
     NSNumber *_timeout;
     NSString *_number;
     NSString *_range;
+    NSString *_poolType;
 }
 
 @property(readwrite,strong,atomic)  NSString *attachTo;
@@ -24,6 +25,7 @@
 @property(readwrite,strong,atomic)  NSNumber *timeout;
 @property(readwrite,strong,atomic)  NSString *number;
 @property(readwrite,strong,atomic)  NSString *range;
+@property(readwrite,strong,atomic)  NSString *poolType;
 
 
 

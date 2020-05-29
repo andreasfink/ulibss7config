@@ -41,6 +41,8 @@
     APPEND_CONFIG_STRING(s,@"number",_number);
     APPEND_CONFIG_STRING(s,@"transaction-id-range",_range);
     APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
+    APPEND_CONFIG_STRING(s,@"transaction-id-pool-type",_poolType);
+
 }
 
 
@@ -54,6 +56,7 @@
     APPEND_DICT_STRING(dict,@"number",_number);
     APPEND_DICT_STRING(dict,@"transaction-id-range",_range);
     APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
+    APPEND_DICT_STRING(dict,@"transaction-id-pool-type",_poolType);
 
     return dict;
 }
@@ -68,6 +71,7 @@
     SET_DICT_STRING(dict,@"attach-number",_number);/* backwards compatibility */
     SET_DICT_STRING(dict,@"number",_number);
     SET_DICT_STRING(dict,@"transaction-id-range",_range);
+    SET_DICT_STRING(dict,@"transaction-id-pool-type",_poolType);
     SET_DICT_DOUBLE(dict,@"timeout",_timeout);
 }
 
