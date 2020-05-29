@@ -2008,12 +2008,24 @@ static void signalHandler(int signum);
     [req setResponseJsonString:[d jsonString]];
 
 }
+
 - (void)handleM2PAStatus:(UMHTTPRequest *)req
 {
 }
+
 - (void)handleM3UAStatus:(UMHTTPRequest *)req
 {
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_m3ua_as_dict allKeys];
+    for(NSString *name in names)
+    {
+       UMM3UAApplicationServer *as = _m3ua_as_dict[name];
+       d[name] = [as m3uaStatusDict];
+    }
+    [req setResponseJsonString:[d jsonString]];
+
 }
+
 - (void)handleSCTPStatus:(UMHTTPRequest *)req
 {
 }
