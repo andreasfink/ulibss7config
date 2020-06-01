@@ -45,7 +45,10 @@
     APPEND_CONFIG_STRING(s,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     APPEND_CONFIG_STRING(s,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
     APPEND_CONFIG_BOOLEAN(s,@"route-errors-back-to-originating-pointcode",_routeErrorsBackToOriginatingPointCode);
-
+    APPEND_CONFIG_STRING(s,@"statistic-db-pool",_statisticDbPool);
+    APPEND_CONFIG_STRING(s,@"statistic-db-table",_statisticDbTable);
+    APPEND_CONFIG_STRING(s,@"statistic-db-instance",_statisticDbInstance);
+    APPEND_CONFIG_BOOLEAN(s,@"statistic-db-autocreate",_statisticDbAutocreate);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -61,7 +64,10 @@
     APPEND_DICT_STRING(dict,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     APPEND_DICT_STRING(dict,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
     APPEND_DICT_BOOLEAN(dict,@"route-errors-back-to-originating-pointcode",_routeErrorsBackToOriginatingPointCode);
-
+    APPEND_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
+    APPEND_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
+    APPEND_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
+    APPEND_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
     return dict;
 }
 
@@ -77,6 +83,10 @@
     SET_DICT_STRING(dict,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     SET_DICT_STRING(dict,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
     SET_DICT_BOOLEAN(dict,@"route-errors-back-to-originating-pointcode",_routeErrorsBackToOriginatingPointCode);
+    SET_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
+    SET_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
+    SET_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
+    SET_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
 }
 
 - (UMSS7ConfigSCCP *)copyWithZone:(NSZone *)zone

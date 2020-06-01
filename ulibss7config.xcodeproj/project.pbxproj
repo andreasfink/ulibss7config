@@ -202,6 +202,7 @@
 		A69A2D2B2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A69A2D292329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m */; };
 		A6A66903240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.h in Headers */ = {isa = PBXBuildFile; fileRef = A6A66901240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6A66904240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A66902240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.m */; };
+		A6AA23D424855035008D5A57 /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = A6AA23D324855035008D5A57 /* VERSION */; };
 		A6B011AD21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B011AE21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */; };
 		A6B011B121DA56EF00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B011AF21DA56EF00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -852,6 +853,7 @@
 		A69A2D292329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiameterSessionLCS_Routing_Info_Request.m; sourceTree = "<group>"; };
 		A6A66901240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskConfig_action.h; sourceTree = "<group>"; };
 		A6A66902240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskConfig_action.m; sourceTree = "<group>"; };
+		A6AA23D324855035008D5A57 /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSCCPTranslationTable_list.h; sourceTree = "<group>"; };
 		A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSCCPTranslationTable_list.m; sourceTree = "<group>"; };
 		A6B011AF21DA56EF00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSCCPTranslationTableEntry_list.h; sourceTree = "<group>"; };
@@ -1335,6 +1337,7 @@
 		A684E38D20774ADA000F3F70 = {
 			isa = PBXGroup;
 			children = (
+				A6AA23D324855035008D5A57 /* VERSION */,
 				A63EF6B9228D981F00E4F190 /* doc */,
 				A6BC434520774FB6008C3CEB /* Frameworks */,
 				A684E39920774ADA000F3F70 /* ulibss7config */,
@@ -2462,6 +2465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6336EA322D578EE00F803C5 /* generate.sh in Resources */,
+				A6AA23D424855035008D5A57 /* VERSION in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

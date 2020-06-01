@@ -16,6 +16,10 @@
     NSString *_networkIndicator;
     NSString *_problematicPacketDumper;
     NSString *_mode; /* either "stp" or "ssp". defaults to "stp" */
+    NSString *_statisticDbPool;
+    NSString *_statisticDbTable;
+    NSString *_statisticDbInstance;
+    NSNumber *_statisticDbAutocreate;
 }
 
 + (NSString *)type;
@@ -27,5 +31,9 @@
 @property(readwrite,strong,atomic)  NSString *networkIndicator;
 @property(readwrite,strong,atomic)  NSString *problematicPacketDumper;
 @property(readwrite,strong,atomic)  NSString *mode;
+@property(readwrite,strong,atomic)  NSString *statisticDbPool;
+@property(readwrite,strong,atomic)  NSString *statisticDbTable;
+@property(readwrite,strong,atomic)  NSString *statisticDbInstance;
+@property(readwrite,strong,atomic)  NSNumber *statisticDbAutocreate;
 
 @end

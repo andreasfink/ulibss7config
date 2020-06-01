@@ -21,6 +21,10 @@
     NSString *_problematicPacketsTraceFile;
     NSString *_unrouteablePacketsTraceFile;
     NSNumber *_routeErrorsBackToOriginatingPointCode;
+    NSString *_statisticDbPool;
+    NSString *_statisticDbTable;
+    NSString *_statisticDbInstance;
+    NSNumber *_statisticDbAutocreate;
 }
 
 + (NSString *)type;
@@ -38,5 +42,9 @@
 @property(readwrite,strong,atomic)  NSString *problematicPacketsTraceFile;
 @property(readwrite,strong,atomic)  NSString *unrouteablePacketsTraceFile;
 @property(readwrite,strong,atomic)  NSNumber *routeErrorsBackToSource;
+@property(readwrite,strong,atomic)  NSString *statisticDbPool;
+@property(readwrite,strong,atomic)  NSString *statisticDbTable;
+@property(readwrite,strong,atomic)  NSString *statisticDbInstance;
+@property(readwrite,strong,atomic)  NSNumber *statisticDbAutocreate;
 
 @end

@@ -1407,6 +1407,7 @@ static void signalHandler(int signum);
         for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
         {
             SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
+            
             if(entry.postTranslationName)
             {
                 entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
@@ -1417,6 +1418,23 @@ static void signalHandler(int signum);
              entry.routeTo = [self getSCCPDestination: entry.routeToName];
              }*/
             [selector.routingTable addEntry:entry];
+            NSString *destination = entry.digits;
+
+            if([destination isNotEqualTo:@"default"])
+            {
+                if(selector.np == SCCP_NPI_ISDN_MOBILE_E214)
+                {
+                    [sccp.statisticDb addE214prefix:destination];
+                }
+                else if(selector.np == SCCP_NPI_LAND_MOBILE_E212)
+                {
+                    [sccp.statisticDb addE212prefix:destination];
+                }
+                else
+                {
+                    [sccp.statisticDb addE164prefix:destination];
+                }
+            }
         }
 
 
