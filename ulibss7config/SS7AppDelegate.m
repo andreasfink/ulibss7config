@@ -1684,7 +1684,6 @@ static void signalHandler(int signum);
 - (void)startInstances
 {
     [self.logFeed infoText:@"Starting Instances"];
-
     NSArray *names = [_mtp3_dict allKeys];
     for(NSString *name in names)
     {
@@ -1692,6 +1691,15 @@ static void signalHandler(int signum);
         NSLog(@"mtp3 %@ starting",mtp3.layerName);
         [mtp3 start];
         NSLog(@"mtp3 %@ started",mtp3.layerName);
+    }
+
+    NSArray *sccpNames = [_sccp_dict allKeys];
+    for(NSString *name in sccpNames)
+    {
+        UMLayerSCCP *sccp = [self getSCCP:name];
+        NSLog(@"sccp %@ starting",sccp.layerName);
+        [sccp startUp];
+        NSLog(@"sccp %@ started",sccp.layerName);
     }
 
     NSArray *tcapNames = [_tcap_dict allKeys];
@@ -5785,6 +5793,8 @@ static void signalHandler(int signum);
 {
     return _dbpool_dict;
 }
+
+
 
 - (void)startDatabaseConnections
 {
