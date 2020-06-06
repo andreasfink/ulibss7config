@@ -45,9 +45,7 @@
     APPEND_CONFIG_INTEGER(s,@"mtu",_mtu);
     APPEND_CONFIG_INTEGER(s,@"max-init-timeout",_maxInitTimeout);
     APPEND_CONFIG_INTEGER(s,@"max-init-attempts",_maxInitAttempts);
-
 }
-
 
 - (UMSynchronizedSortedDictionary *)config
 {

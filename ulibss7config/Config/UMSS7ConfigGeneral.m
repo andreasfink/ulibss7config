@@ -41,6 +41,7 @@
     APPEND_CONFIG_INTEGER(s,@"concurrent-tasks",_concurrentTasks);
     APPEND_CONFIG_INTEGER(s,@"queue-hard-limit",_queueHardLimit);
     APPEND_CONFIG_INTEGER(s,@"transaction-id-range",_transactionIdRange);
+    APPEND_CONFIG_BOOLEAN(s,@"send-sctp-aborts",_sendSctpAborts);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -54,6 +55,8 @@
     APPEND_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
     APPEND_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
     APPEND_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
+    APPEND_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
+
 
     return dict;
 }
@@ -67,6 +70,7 @@
     SET_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
     SET_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
     SET_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
+    SET_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
 
 }
 

@@ -172,7 +172,7 @@ static void signalHandler(int signum);
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 
         _registry                       = [[UMSocketSCTPRegistry alloc]init];
-        _registry.logLevel =            UMLOG_MINOR;
+        _registry.logLevel              =  UMLOG_MINOR;
         _stagingAreaPath                =  [self defaultStagingAreaPath];
         _filterEnginesPath              =  [self defaultFilterEnginesPath];
         _appsPath                       =  [self defaultAppsPath];
@@ -824,6 +824,16 @@ static void signalHandler(int signum);
     {
         _logDirectory = [self defaultLogDirectory];
     }
+    
+    if(generalConfig.sendSctpAborts)
+    {
+        _registry.sendAborts            =  [generalConfig.sendSctpAborts boolValue];
+    }
+    else
+    {
+        _registry.sendAborts            =  NO;
+    }
+
     if(generalConfig.logRotations!=NULL)
     {
         _logRotations = [generalConfig.logRotations intValue];
