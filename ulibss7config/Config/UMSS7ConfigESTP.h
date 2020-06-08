@@ -13,12 +13,20 @@
     NSString *_number;
     NSString *_sccp;
     NSString *_licenseDirectory;
+    
+    NSString *_gttAccountingDbPool;
+    NSString *_gttAccountingTable;
+    NSString *_gttAccountingPrefixesTable;
+
 }
 
 @property(readwrite,strong,atomic)   NSString *number;
 @property(readwrite,strong,atomic)   NSString *sccp;
 @property(readwrite,strong,atomic)   NSString *licenseDirectory;
 
+@property(readwrite,strong,atomic)  NSString *gttAccountingDbPool;
+@property(readwrite,strong,atomic)  NSString *gttAccountingTable;
+@property(readwrite,strong,atomic)  NSString *gttAccountingPrefixesTable;
 
 + (NSString *)type;
 - (NSString *)type;
