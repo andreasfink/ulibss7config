@@ -42,6 +42,7 @@
 #import "UMSS7ConfigHLR.h"
 #import "UMSS7ConfigMSC.h"
 #import "UMSS7ConfigGGSN.h"
+#import "UMSS7ConfigSGSN.h"
 #import "UMSS7ConfigSMSC.h"
 #import "UMSS7ConfigSMSProxy.h"
 #import "UMSS7ConfigDatabasePool.h"
@@ -104,6 +105,7 @@
     _hlr_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _msc_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _ggsn_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _sgsn_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _vlr_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _eir_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _gsmscf_dict= [[UMSynchronizedSortedDictionary alloc]init];
@@ -278,6 +280,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigHLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigMSC type]];
     [cfg allowMultiGroup:[UMSS7ConfigGGSN type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSGSN type]];
     [cfg allowMultiGroup:[UMSS7ConfigVLR type]];
     [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
     [cfg allowMultiGroup:[UMSS7ConfigGSMSCF type]];
@@ -681,6 +684,15 @@
         }
     }
 
+    NSArray *sgsn_configs = [cfg getMultiGroups:[UMSS7ConfigSGSN type]];
+    for(NSDictionary *sgsn_config in sgsn_configs)
+    {
+        UMSS7ConfigSGSN *sgsn = [[UMSS7ConfigSGSN alloc]initWithConfig:sgsn_config];
+        if(sgsn.name.length  > 0)
+        {
+            _sgsn_dict[sgsn.name] = sgsn;
+        }
+    }
 
     NSArray *vlr_configs = [cfg getMultiGroups:[UMSS7ConfigVLR type]];
     for(NSDictionary *vlr_config in vlr_configs)
@@ -1006,6 +1018,7 @@
       [self appendSection:s dict:_hlr_dict sectionName:[UMSS7ConfigHLR type]];
       [self appendSection:s dict:_msc_dict sectionName:[UMSS7ConfigMSC type]];
       [self appendSection:s dict:_ggsn_dict sectionName:[UMSS7ConfigGGSN type]];
+      [self appendSection:s dict:_sgsn_dict sectionName:[UMSS7ConfigSGSN type]];
       [self appendSection:s dict:_vlr_dict sectionName:[UMSS7ConfigVLR type]];
       [self appendSection:s dict:_eir_dict sectionName:[UMSS7ConfigEIR type]];
       [self appendSection:s dict:_gsmscf_dict sectionName:[UMSS7ConfigGSMSCF type]];
@@ -1171,6 +1184,7 @@
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigHLR,_hlr_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigMSC,_msc_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGGSN,_ggsn_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigSGSN,_sgsn_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigVLR,_vlr_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigEIR,_eir_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigGSMSCF,_gsmscf_dict);
@@ -2376,6 +2390,53 @@
     _dirty=YES;
     return @"ok";
 }
+
+/*
+ **************************************************
+ ** SGSN
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SGSN
+
+- (NSArray *)getSGSNNames
+{
+    return [_sgsn_dict allKeys];
+}
+
+- (UMSS7ConfigSGSN *)getSGSN:(NSString *)name
+{
+    return _sgsn_dict[name];
+}
+
+- (NSString *)addSGSN:(UMSS7ConfigSGSN *)sgsn
+{
+    if(_sgsn_dict[sgsn.name] == NULL)
+    {
+        _sgsn_dict[sgsn.name] = sgsn;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSGSN:(UMSS7ConfigSGSN *)sgsn
+{
+    _sgsn_dict[sgsn.name] = sgsn;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSGSN:(NSString *)name
+{
+    if(_sgsn_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_sgsn_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 /*
  **************************************************
  ** HLR
@@ -3547,6 +3608,7 @@
     n.hlr_dict = [_hlr_dict copy];
     n.msc_dict = [_msc_dict copy];
     n.ggsn_dict = [_ggsn_dict copy];
+    n.sgsn_dict = [_sgsn_dict copy];
     n.vlr_dict = [_vlr_dict copy];
     n.gsmscf_dict = [_gsmscf_dict copy];
     n.gmlc_dict = [_gmlc_dict copy];
