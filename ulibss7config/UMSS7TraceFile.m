@@ -27,15 +27,15 @@
         _enabled=YES;
         _isOpen = NO;
         _isDirty = YES;
-        if(config.maxRotations)
+        if(config.maxRotations!=NULL)
         {
             _maxRotations = [config.maxRotations intValue];
         }
-        if(config.minutes)
+        if(config.minutes!=NULL)
         {
             _maxMinutes = [config.minutes intValue];
         }
-        if(config.packets)
+        if(config.packets!=NULL)
         {
             _maxPackets = [config.packets intValue];
         }

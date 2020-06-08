@@ -168,24 +168,40 @@ NSDictionary *plugin_info(void);
     return filterResult;
 }
 
-- (void)processConfig:(NSString *)jsonString error:(NSError**)eptr
+- (BOOL)processConfig:(NSString *)jsonString error:(NSError**)eptr
 {
+    BOOL returnValue = NO;
+    if(eptr)
+    {
+        *eptr = NULL;
+    }
     UMJsonParser *parser = [[UMJsonParser alloc]init];
     id jsonObject = [parser objectWithString:jsonString error:eptr];
 
     if(![jsonObject isKindOfClass:[NSDictionary class]])
     {
-        *eptr = [[NSError alloc]initWithDomain:@"PARSING" code:105 userInfo:@{@"reason":@"json object is not dictionary" }];
+        if(eptr)
+        {
+            *eptr = [[NSError alloc]initWithDomain:@"PARSING" code:105 userInfo:@{@"reason":@"json object is not dictionary" }];
+            returnValue = YES;
+        }
     }
     else
     {
         NSDictionary *dict = (NSDictionary *)jsonObject;
-        [self processConfigDict:dict error:eptr];
+        returnValue = [self processConfigDict:dict error:eptr];
     }
+    return returnValue;
 }
 
-- (void)processConfigDict:(NSDictionary *)dict error:(NSError**)eptr
+- (BOOL)processConfigDict:(NSDictionary *)dict error:(NSError**)eptr
 {
+    BOOL returnValue = NO;
+    if(eptr)
+    {
+        *eptr = NULL;
+    }
+    return returnValue;
     /* this should be overwritten */
 }
 

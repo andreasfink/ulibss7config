@@ -825,7 +825,7 @@ static void signalHandler(int signum);
         _logDirectory = [self defaultLogDirectory];
     }
     
-    if(generalConfig.sendSctpAborts)
+    if(generalConfig.sendSctpAborts!=NULL)
     {
         _registry.sendAborts            =  [generalConfig.sendSctpAborts boolValue];
     }
