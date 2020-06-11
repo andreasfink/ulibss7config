@@ -92,6 +92,7 @@
 #import "SS7CDRWriter.h"
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 #import "UMSS7ConfigSCCPTranslationTableMap.h"
+#import <ulibtcap/ulibtcap.h>
 
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
@@ -247,7 +248,8 @@ static void signalHandler(int signum);
         {
             _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
-        _tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000 start:0 end:0x3FFFFFFF];
+        
+        //_tidPool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:0 start:0 end:16]; /* temporary until config */
         _umtransportLock = [[UMMutex alloc]initWithName:@"SS7AppDelegate_umtransportLock"];
         _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         _pendingUMT = [[UMSynchronizedDictionary alloc]init];
@@ -606,9 +608,18 @@ static void signalHandler(int signum);
                 a1 = [a1 trim];
                 NSNumber *start = [[NSNumber alloc]initWithInteger:[a0 integerValue]];
                 NSNumber *end   = [[NSNumber alloc]initWithInteger:[a1 integerValue]];
-                if(start && end)
+                
+                int istart = start.intValue;
+                int iend = end.intValue;
+                int icount = iend - istart;
+
+                if((istart <0) || (istart > iend) || ( icount==0))
                 {
-                    UMTCAP_TransactionIdPoolSequential *pool = [[UMTCAP_TransactionIdPoolSequential alloc]initWithStart:start end:end];
+                    NSLog(@"transaction-id-range ignored. should be   <from> - <to>");
+                }
+                else
+                {
+                    UMTCAP_TransactionIdFastPool *pool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:icount  start:istart end:iend];
                     _tidPool = pool;
                 }
             }
@@ -924,6 +935,8 @@ static void signalHandler(int signum);
     {
         _queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
     }
+
+    
 
     /*****************************************************************/
     /* Section USER */
