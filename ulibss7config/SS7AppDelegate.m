@@ -5027,11 +5027,17 @@ static void signalHandler(int signum);
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
 {
-    
+    NSString *filename_old = oldname.urlencode;
+    NSString *filepath_old = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename_old];
+
+    NSString *filename_new = newname.urlencode;
+    NSString *filepath_new = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename_new];
+    rename(filepath_old.UTF8String,filepath_new.UTF8String);
+
     UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[oldname];
     [_ss7FilterStagingAreas_dict removeObjectForKey:oldname];
     stagingArea.name = newname;
-    _ss7FilterStagingAreas_dict[newname] =stagingArea;
+    _ss7FilterStagingAreas_dict[newname] = stagingArea;
 }
 
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname

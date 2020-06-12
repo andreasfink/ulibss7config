@@ -69,6 +69,7 @@
 #import "UMSS7ConfigDiameterRoute.h"
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 #import "UMSS7ConfigCAMEL.h"
+#import "UMSS7ConfigMnpDatabase.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -126,6 +127,7 @@
     _diameter_route_dict =  [[UMSynchronizedSortedDictionary alloc]init];
     _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _mapi_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mnpDatabases_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -300,6 +302,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigDiameterRoute type]];
     [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
     [cfg allowMultiGroup:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
+    [cfg allowMultiGroup:[UMSS7ConfigMnpDatabase type]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -3526,6 +3529,13 @@
     _dirty=YES;
     return @"ok";
 }
+/*
+ **************************************************
+ ** Camel
+ **************************************************
+ */
+#pragma mark -
+#pragma mark CAMEL
 
 - (NSArray *)getCAMELNames
 {
@@ -3567,6 +3577,56 @@
     _dirty=YES;
     return @"ok";
 }
+
+/*
+ **************************************************
+ ** MNP Databases
+ **************************************************
+ */
+#pragma mark -
+#pragma mark MNP
+
+- (NSArray *)getMnpDatabaseNames
+{
+    return [_mnpDatabases_dict allKeys];
+}
+
+- (UMSS7ConfigMnpDatabase *)getMnpDatabase:(NSString *)name
+{
+    return _mnpDatabases_dict[name];
+}
+
+- (NSString *)addMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb
+{
+    if(_mnpDatabases_dict[mnpdb.name] == NULL)
+    {
+        _mnpDatabases_dict[mnpdb.name] = mnpdb;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+
+}
+
+- (NSString *)replaceMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb
+{
+    _mnpDatabases_dict[mnpdb.name] = mnpdb;
+    _dirty=YES;
+    return @"ok";
+}
+
+
+- (NSString *)deleteMnpDatabase:(NSString *)name
+{
+    if(_mnpDatabases_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mnpDatabases_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
 
 /***************************************************/
 #pragma mark -
@@ -3633,6 +3693,7 @@
     n.mtp3_pctrans_dict = [_mtp3_pctrans_dict copy];
     n.rwconfigFile = _rwconfigFile;
     n.camel_dict = [_camel_dict copy];
+    n.mnpDatabases_dict = [_mnpDatabases_dict copy];
     return n;
 }
 
