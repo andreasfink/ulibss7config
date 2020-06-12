@@ -5288,6 +5288,14 @@ static void signalHandler(int signum);
 - (void)namedlistAdd:(NSString *)listName value:(NSString *)value
 {
     UMNamedList *nl = _namedLists[listName];
+    if(nl==NULL)
+    {
+        NSString *filePath = [listName urlencode];
+        NSString *absolutePath = [NSString stringWithFormat:@"%@/%@",_namedListsDirectory,filePath];
+        nl = [[UMNamedList alloc]initWithPath:absolutePath name:listName];
+        nl.name = listName;
+        _namedLists[listName] = nl;
+    }
     [nl addEntry:value];
 }
 
