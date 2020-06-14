@@ -78,7 +78,7 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
         _filterStatus = UMSS7FilterStatus_monitor;
     }
 
-    if(_config.inverseMatch)
+    if(_config.inverseMatch!=NULL)
     {
         _engineInverseMatch = [_config.inverseMatch boolValue];
     }
@@ -459,7 +459,7 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
                                 [logFeed debugText:[NSString stringWithFormat:@" called address set to %@",packet.outgoingCalledPartyAddress.address]];
                             }
                         }
-                        if(fa.rerouteTranslationType)
+                        if(fa.rerouteTranslationType!=NULL)
                         {
                             packet.outgoingCalledPartyAddress.tt.tt = [fa.rerouteTranslationType intValue];
                             if(logLevel<=UMLOG_DEBUG)

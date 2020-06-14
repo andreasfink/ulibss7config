@@ -54,7 +54,6 @@
                     [_appDelegate renameSS7FilterStagingArea:old_name newName:new_name];
                     NSMutableDictionary *ds = [_params mutableCopy];
                     [ds setValue:new_name forKey:@"name"];
-                    
                     [_appDelegate updateSS7FilterStagingArea:ds];
                 }
                 else

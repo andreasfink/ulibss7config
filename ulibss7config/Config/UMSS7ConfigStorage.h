@@ -42,7 +42,8 @@
 @class  UMSS7ConfigSyslogDestination;
 @class  UMSS7ConfigHLR;
 @class  UMSS7ConfigMSC;
-@class UMSS7ConfigGGSN;
+@class  UMSS7ConfigGGSN;
+@class  UMSS7ConfigSGSN;
 @class  UMSS7ConfigVLR;
 @class  UMSS7ConfigGSMSCF;
 @class  UMSS7ConfigGMLC;
@@ -67,6 +68,7 @@
 @class UMSS7ConfigDiameterRouter;
 @class UMSS7ConfigDiameterRoute;
 @class UMSS7ConfigCAMEL;
+@class UMSS7ConfigMnpDatabase;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -102,6 +104,7 @@
     UMSynchronizedSortedDictionary *_hlr_dict;
     UMSynchronizedSortedDictionary *_msc_dict;
     UMSynchronizedSortedDictionary *_ggsn_dict;
+    UMSynchronizedSortedDictionary *_sgsn_dict;
     UMSynchronizedSortedDictionary *_vlr_dict;
     UMSynchronizedSortedDictionary *_gsmscf_dict;
     UMSynchronizedSortedDictionary *_gmlc_dict;
@@ -123,7 +126,7 @@
     UMSynchronizedSortedDictionary *_diameter_router_dict;
     UMSynchronizedSortedDictionary *_diameter_route_dict;
     UMSynchronizedSortedDictionary *_camel_dict;
-
+    UMSynchronizedSortedDictionary *_mnpDatabases_dict;
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
     NSString                 *_productName;
@@ -162,6 +165,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *hlr_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *msc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *ggsn_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *sgsn_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *vlr_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *gsmscf_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *gmlc_dict;
@@ -183,6 +187,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_router_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_route_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *camel_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mnpDatabases_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -333,6 +338,13 @@
 - (NSString *)addGGSN:(UMSS7ConfigGGSN *)msc;
 - (NSString *)replaceGGSN:(UMSS7ConfigGGSN *)msc;
 - (NSString *)deleteGGSN:(NSString *)name;
+
+- (NSArray *)getSGSNNames;
+- (UMSS7ConfigSGSN *)getSGSN:(NSString *)name;
+- (NSString *)addSGSN:(UMSS7ConfigSGSN *)msc;
+- (NSString *)replaceSGSN:(UMSS7ConfigSGSN *)msc;
+- (NSString *)deleteSGSN:(NSString *)name;
+
 
 - (NSArray *)getVLRNames;
 - (UMSS7ConfigVLR *)getVLR:(NSString *)name;
@@ -490,11 +502,16 @@
 - (NSString *)replacePointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)dc;
 - (NSString *)deletePointcodeTranslationTable:(NSString *)name;
 
-
 - (NSArray *)getCAMELNames;
 - (UMSS7ConfigCAMEL *)getCAMEL:(NSString *)name;
 - (NSString *)addCAMEL:(UMSS7ConfigCAMEL *)camel;
 - (NSString *)replaceCAMEL:(UMSS7ConfigCAMEL *)camel;
 - (NSString *)deleteCAMEL:(NSString *)name;
+
+- (NSArray *)getMnpDatabaseNames;
+- (UMSS7ConfigMnpDatabase *)getMnpDatabase:(NSString *)name;
+- (NSString *)addMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
+- (NSString *)replaceMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
+- (NSString *)deleteMnpDatabase:(NSString *)name;
 
 @end

@@ -39,19 +39,18 @@
         {
             // 1. Get external parameters
             NSString *name = _params[@"name"];
-            NSString *enable = _params[@"enabled"];
+            NSString *enable = _params[@"enable"];
             if(name.length==0)
             {
                 [self sendError:@"missing-parameter" reason:@"the name parameter is not passed"];
             }
             else if(enable.length==0)
             {
-                [self sendError:@"missing-parameter" reason:@"the enabled parameter is not passed"];
+                [self sendError:@"missing-parameter" reason:@"the enable parameter is not passed"];
             }
             else
             {
                 // 2. Enable
-                NSString *enable = _params[@"enable"];
                 BOOL en = [enable boolValue];
                 
                 [_appDelegate tracefile_enable:name enable:en];

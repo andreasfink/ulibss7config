@@ -92,6 +92,7 @@
 #import "SS7CDRWriter.h"
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 #import "UMSS7ConfigSCCPTranslationTableMap.h"
+#import <ulibtcap/ulibtcap.h>
 
 #ifdef __APPLE__
 #import "/Library/Application Support/FinkTelecomServices/frameworks/uliblicense/uliblicense.h"
@@ -247,7 +248,8 @@ static void signalHandler(int signum);
         {
             _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
-        _tidPool = [[UMTCAP_TransactionIdPool alloc]initWithPrefabricatedIds:100000 start:0 end:0x3FFFFFFF];
+        
+        //_tidPool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:0 start:0 end:16]; /* temporary until config */
         _umtransportLock = [[UMMutex alloc]initWithName:@"SS7AppDelegate_umtransportLock"];
         _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         _pendingUMT = [[UMSynchronizedDictionary alloc]init];
@@ -606,9 +608,18 @@ static void signalHandler(int signum);
                 a1 = [a1 trim];
                 NSNumber *start = [[NSNumber alloc]initWithInteger:[a0 integerValue]];
                 NSNumber *end   = [[NSNumber alloc]initWithInteger:[a1 integerValue]];
-                if(start && end)
+                
+                int istart = start.intValue;
+                int iend = end.intValue;
+                int icount = iend - istart;
+
+                if((istart <0) || (istart > iend) || ( icount==0))
                 {
-                    UMTCAP_TransactionIdPoolSequential *pool = [[UMTCAP_TransactionIdPoolSequential alloc]initWithStart:start end:end];
+                    NSLog(@"transaction-id-range ignored. should be   <from> - <to>");
+                }
+                else
+                {
+                    UMTCAP_TransactionIdFastPool *pool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:icount  start:istart end:iend];
                     _tidPool = pool;
                 }
             }
@@ -825,7 +836,7 @@ static void signalHandler(int signum);
         _logDirectory = [self defaultLogDirectory];
     }
     
-    if(generalConfig.sendSctpAborts)
+    if(generalConfig.sendSctpAborts!=NULL)
     {
         _registry.sendAborts            =  [generalConfig.sendSctpAborts boolValue];
     }
@@ -924,6 +935,8 @@ static void signalHandler(int signum);
     {
         _queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
     }
+
+    
 
     /*****************************************************************/
     /* Section USER */
@@ -5014,11 +5027,17 @@ static void signalHandler(int signum);
 
 - (void)renameSS7FilterStagingArea:(NSString *)oldname newName:(NSString *)newname
 {
-    
+    NSString *filename_old = oldname.urlencode;
+    NSString *filepath_old = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename_old];
+
+    NSString *filename_new = newname.urlencode;
+    NSString *filepath_new = [NSString stringWithFormat:@"%@/%@",_stagingAreaPath,filename_new];
+    rename(filepath_old.UTF8String,filepath_new.UTF8String);
+
     UMSS7ConfigSS7FilterStagingArea *stagingArea = _ss7FilterStagingAreas_dict[oldname];
     [_ss7FilterStagingAreas_dict removeObjectForKey:oldname];
     stagingArea.name = newname;
-    _ss7FilterStagingAreas_dict[newname] =stagingArea;
+    _ss7FilterStagingAreas_dict[newname] = stagingArea;
 }
 
 - (void)copySS7FilterStagingArea:(NSString *)oldname toNewName:(NSString *)newname
@@ -5269,6 +5288,14 @@ static void signalHandler(int signum);
 - (void)namedlistAdd:(NSString *)listName value:(NSString *)value
 {
     UMNamedList *nl = _namedLists[listName];
+    if(nl==NULL)
+    {
+        NSString *filePath = [listName urlencode];
+        NSString *absolutePath = [NSString stringWithFormat:@"%@/%@",_namedListsDirectory,filePath];
+        nl = [[UMNamedList alloc]initWithPath:absolutePath name:listName];
+        nl.name = listName;
+        _namedLists[listName] = nl;
+    }
     [nl addEntry:value];
 }
 

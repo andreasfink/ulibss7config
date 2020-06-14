@@ -51,6 +51,8 @@
 
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
+- (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name;
+
 - (NSString *)status;
 - (void) setConfig:(NSDictionary *)cfg applicationContext:(id)appContext;
 
