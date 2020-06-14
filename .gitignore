@@ -17,6 +17,9 @@ Classes/ulib_config.h
 /libs/osx/openssl-1.1.0f/
 .DS_Store
 version.h
+ulibss7config.pc
+ulibss7config_config.h
+ulibss7config.xcodeproj/project.xcworkspace/xcshareddata
 
 #########################
 # .gitignore file for Xcode4 and Xcode5 Source projects
