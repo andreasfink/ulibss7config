@@ -1459,8 +1459,6 @@ static void signalHandler(int signum);
                 }
             }
         }
-
-
     }
 
     NSArray *sccp_names = [_sccp_dict allKeys];
@@ -3053,6 +3051,7 @@ static void signalHandler(int signum);
         {
             sccp.unrouteablePacketsTraceDestination = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
         }
+        [sccp startStatisticsDb];
     }
 }
 
