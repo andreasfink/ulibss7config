@@ -11,7 +11,7 @@
 @interface UMSS7ConfigM3UAAS : UMSS7ConfigObject
 {
     NSString *_mtp3;
-    NSNumber *_routingKey;
+    NSNumber *_routingContext;
     NSString *_apc;
     NSString *_trafficMode;
     NSString *_overrideNetworkIndicator;
@@ -31,7 +31,7 @@
 - (UMSS7ConfigM3UAAS *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *mtp3;
-@property(readwrite,strong,atomic)  NSNumber *routingKey;
+@property(readwrite,strong,atomic)  NSNumber *routingContext;
 @property(readwrite,strong,atomic)  NSString *apc;
 @property(readwrite,strong,atomic)  NSString *trafficMode;
 @property(readwrite,strong,atomic)  NSString *overrideNetworkIndicator;

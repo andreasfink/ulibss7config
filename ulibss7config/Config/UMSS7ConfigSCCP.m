@@ -49,6 +49,9 @@
     APPEND_CONFIG_STRING(s,@"statistic-db-table",_statisticDbTable);
     APPEND_CONFIG_STRING(s,@"statistic-db-instance",_statisticDbInstance);
     APPEND_CONFIG_BOOLEAN(s,@"statistic-db-autocreate",_statisticDbAutocreate);
+    APPEND_CONFIG_BOOLEAN(s,@"automatic-ansi-itu-conversion",_automaticAnsiItuConversion);
+    APPEND_CONFIG_INTEGER(s,@"ansi-tt-e164",_ansi_tt_e164);
+    APPEND_CONFIG_INTEGER(s,@"ansi-tt-e212",_ansi_tt_e212);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -68,6 +71,10 @@
     APPEND_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
     APPEND_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
     APPEND_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
+    APPEND_DICT_BOOLEAN(dict,@"automatic-ansi-itu-conversion",_automaticAnsiItuConversion);
+    APPEND_DICT_INTEGER(dict,@"ansi-tt-e164",_ansi_tt_e164);
+    APPEND_DICT_INTEGER(dict,@"ansi-tt-e212",_ansi_tt_e212);
+
     return dict;
 }
 
@@ -87,6 +94,9 @@
     SET_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
     SET_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
     SET_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
+    SET_DICT_BOOLEAN(dict,@"automatic-ansi-itu-conversion",_automaticAnsiItuConversion);
+    SET_DICT_INTEGER(dict,@"ansi-tt-e164",_ansi_tt_e164);
+    SET_DICT_INTEGER(dict,@"ansi-tt-e212",_ansi_tt_e212);
 }
 
 - (UMSS7ConfigSCCP *)copyWithZone:(NSZone *)zone

@@ -37,7 +37,7 @@
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"mtp3",_mtp3);
     APPEND_CONFIG_STRING(s,@"apc",_apc);
-    APPEND_CONFIG_INTEGER(s,@"routing-key",_routingKey);
+    APPEND_CONFIG_INTEGER(s,@"routing-context",_routingContext);
     APPEND_CONFIG_STRING(s,@"traffic-mode",_trafficMode);
     APPEND_CONFIG_STRING(s,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
@@ -55,7 +55,7 @@
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"mtp3",_mtp3);
     APPEND_DICT_STRING(dict,@"apc",_apc);
-    APPEND_DICT_INTEGER(dict,@"routing-key",_routingKey);
+    APPEND_DICT_INTEGER(dict,@"routing-context",_routingContext);
     APPEND_DICT_STRING(dict,@"traffic-mode",_trafficMode);
     APPEND_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
@@ -75,7 +75,8 @@
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"mtp3",_mtp3);
     SET_DICT_STRING(dict,@"apc",_apc);
-    SET_DICT_INTEGER(dict,@"routing-key",_routingKey);
+    SET_DICT_INTEGER(dict,@"routing-key",_routingContext); /* backwards compatibility */
+    SET_DICT_INTEGER(dict,@"routing-context",_routingContext);
     SET_DICT_STRING(dict,@"traffic-mode",_trafficMode);
     SET_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     SET_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);

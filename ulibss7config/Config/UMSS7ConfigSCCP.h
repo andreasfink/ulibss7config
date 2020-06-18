@@ -25,6 +25,11 @@
     NSString *_statisticDbTable;
     NSString *_statisticDbInstance;
     NSNumber *_statisticDbAutocreate;
+    
+    NSNumber *_automaticAnsiItuConversion;
+    NSNumber *_ansi_tt_e164;
+    NSNumber *_ansi_tt_e212
+
 }
 
 + (NSString *)type;
@@ -46,5 +51,8 @@
 @property(readwrite,strong,atomic)  NSString *statisticDbTable;
 @property(readwrite,strong,atomic)  NSString *statisticDbInstance;
 @property(readwrite,strong,atomic)  NSNumber *statisticDbAutocreate;
+@property(readwrite,strong,atomic)  NSNumber *_automaticAnsiItuConversion;
+@property(readwrite,strong,atomic)  NSNumber *_ansi_tt_e164;
+@property(readwrite,strong,atomic)  NSNumber *_ansi_tt_e212
 
 @end
