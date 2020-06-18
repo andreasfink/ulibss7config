@@ -2208,6 +2208,7 @@ static void signalHandler(int signum);
     return s;
 }
 
+
 - (NSString *)webIndex
 {
     static NSMutableString *s = NULL;
@@ -3050,6 +3051,10 @@ static void signalHandler(int signum);
         if(co.unrouteablePacketsTraceFile)
         {
             sccp.unrouteablePacketsTraceDestination = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
+        }
+        if(_mainSccpInstance==NULL)
+        {
+            _mainSccpInstance = sccp;
         }
         [sccp startStatisticsDb];
     }
@@ -4066,6 +4071,7 @@ static void signalHandler(int signum);
     NSLog(@"UMTransport[%@:%llu] TransportConfirmation",userDialogRef,(unsigned long long)invokeId);
     NSLog(@"PDU: %@",pdu.objectValue);
 }
+
 
 - (NSString *)umtWebIndexForm
 {
