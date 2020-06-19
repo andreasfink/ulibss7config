@@ -100,7 +100,7 @@
 
 - (UMMTP3Variant)mtp3Variant
 {
-    return _gInstance.gsmMap.tcap.attachedLayer.variant;
+    return _gInstance.gsmMap.tcap.attachedLayer.mtp3variant;
 }
 
 - (SccpVariant)sccpVariant
