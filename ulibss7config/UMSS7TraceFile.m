@@ -189,6 +189,7 @@
 {
     [_lock lock];
     _enabled=YES;
+    _config.enabled = @(YES);
     [self open];
     [_lock unlock];
 }
@@ -197,6 +198,7 @@
 {
     [_lock lock];
     _enabled=NO;
+    _config.enabled = @(NO);
     [self close];
     [_lock unlock];
 }
