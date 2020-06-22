@@ -45,6 +45,14 @@
     APPEND_CONFIG_INTEGER(s,@"subsystem",_subsystem);
     APPEND_CONFIG_INTEGER(s,@"ntt",_ntt);
     APPEND_CONFIG_STRING(s,@"add-prefix",_addPrefix);
+    APPEND_CONFIG_STRING(s,@"mtp3",_mtp3Instance);
+    APPEND_CONFIG_INTEGER(s,@"set-gti",_setGti);
+    APPEND_CONFIG_INTEGER(s,@"set-nai",_setNai);
+    APPEND_CONFIG_INTEGER(s,@"set-npi",_setNpi);
+    APPEND_CONFIG_INTEGER(s,@"set-encoding",_setEncoding);
+    APPEND_CONFIG_INTEGER(s,@"set-national",_setNational);
+    APPEND_CONFIG_BOOLEAN(s,@"ansi-to-itu",_ansiToItu);
+    APPEND_CONFIG_BOOLEAN(s,@"itu-to-ansi",_ituToAnsi);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -59,6 +67,15 @@
     APPEND_DICT_INTEGER(dict,@"subsystem",_subsystem);
     APPEND_DICT_INTEGER(dict,@"ntt",_ntt);
     APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
+    APPEND_DICT_STRING(dict,@"mtp3",_mtp3Instance);
+    APPEND_DICT_INTEGER(dict,@"set-gti",_setGti);
+    APPEND_DICT_INTEGER(dict,@"set-nai",_setNai);
+    APPEND_DICT_INTEGER(dict,@"set-npi",_setNpi);
+    APPEND_DICT_INTEGER(dict,@"set-encoding",_setEncoding);
+    APPEND_DICT_INTEGER(dict,@"set-national",_setNational);
+    APPEND_DICT_BOOLEAN(dict,@"ansi-to-itu",_ansiToItu);
+    APPEND_DICT_BOOLEAN(dict,@"itu-to-ansi",_ituToAnsi);
+
     return dict;
 }
 
@@ -74,6 +91,15 @@
     SET_DICT_INTEGER(dict,@"subsystem",_subsystem);
     SET_DICT_INTEGER(dict,@"ntt",_ntt);
     SET_DICT_STRING(dict,@"add-prefix",_addPrefix);
+    SET_DICT_STRING(dict,@"mtp3",_mtp3Instance);
+    SET_DICT_INTEGER(dict,@"set-gti",_setGti);
+    SET_DICT_INTEGER(dict,@"set-nai",_setNai);
+    SET_DICT_INTEGER(dict,@"set-npi",_setNpi);
+    SET_DICT_INTEGER(dict,@"set-encoding",_setEncoding);
+    SET_DICT_INTEGER(dict,@"set-national",_setNational);
+    SET_DICT_BOOLEAN(dict,@"ansi-to-itu",_ansiToItu);
+    SET_DICT_BOOLEAN(dict,@"itu-to-ansi",_ituToAnsi);
+
 }
 
 - (UMSS7ConfigSCCPDestinationEntry *)copyWithZone:(NSZone *)zone

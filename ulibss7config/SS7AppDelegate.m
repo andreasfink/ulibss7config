@@ -1535,7 +1535,8 @@ static void signalHandler(int signum);
             SccpDestination *destination = [[SccpDestination alloc]initWithConfig:
                                             @{ @"name" : @"_umtransport-1",
                                                @"ssn"  : @(SCCP_SSN_ULIBTRANSPORT) }
-                                                                          variant:UMMTP3Variant_ITU];
+                                                                          variant:UMMTP3Variant_ITU
+                                                                    mtp3Instances:_mtp3_dict];
             [dstgrp addEntry:destination];
             [sccp.gttSelectorRegistry addDestinationGroup:dstgrp];
             /*****************************************************************************/
@@ -1991,13 +1992,9 @@ static void signalHandler(int signum);
     [s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
     [s appendString:@"</UL>\n"];
 
-
-
     if(umobject_object_stat_is_enabled())
     {
-
         [s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
-
         NSArray *arr = umobject_object_stat(NO);
         [s appendString:@"<table class=\"object_table\">\n"];
         [s appendString:@"    <tr>\r\n"];
@@ -3116,7 +3113,7 @@ static void signalHandler(int signum);
         for(NSDictionary *subConfig in subConfigs)
         {
             UMSS7ConfigSCCPDestinationEntry *coe = [[UMSS7ConfigSCCPDestinationEntry alloc]initWithConfig:subConfig];
-            SccpDestination *destination = [[SccpDestination alloc]initWithConfig:subConfig variant:variant];
+            SccpDestination *destination = [[SccpDestination alloc]initWithConfig:subConfig variant:variant mtp3Instances:_mtp3_dict];
             [dstgrp addEntry:destination];
             [co addSubEntry:coe];
         }

@@ -19,6 +19,14 @@
     NSNumber *_subsystem;
     NSNumber *_ntt;
     NSString *_addPrefix;
+    NSString *_mtp3Instance;
+    NSNumber *_setGti;
+    NSNumber *_setNai;
+    NSNumber *_setNpi;
+    NSNumber *_setEncoding;
+    NSNumber *_setNational;
+    NSNumber *_ansiToItu;
+    NSNumber *_ituToAnsi;
 }
 
 + (NSString *)type;
@@ -34,5 +42,13 @@
 @property(readwrite,strong,atomic)  NSNumber *subsystem;
 @property(readwrite,strong,atomic)  NSNumber *ntt;
 @property(readwrite,strong,atomic)  NSString *addPrefix;
+@property(readwrite,strong,atomic)  NSString *mtp3Instance;
+@property(readwrite,strong,atomic)  NSNumber *setGti;
+@property(readwrite,strong,atomic)  NSNumber *setNai;
+@property(readwrite,strong,atomic)  NSNumber *setNpi;
+@property(readwrite,strong,atomic)  NSNumber *setEncoding;
+@property(readwrite,strong,atomic)  NSNumber *setNational;
+@property(readwrite,strong,atomic)  NSNumber *ansiToItu;
+@property(readwrite,strong,atomic)  NSNumber *ituToAnsi;
 
 @end
