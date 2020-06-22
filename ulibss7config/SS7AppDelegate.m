@@ -5317,6 +5317,11 @@ static void signalHandler(int signum);
     return [nl containsEntry:value];
 }
 
+- (NSArray *)namedlistGetAllEntries:(NSString *)listName
+{
+    UMNamedList *nl = _namedLists[listName];
+    return [nl allEntries];
+}
 
 - (void)namedlistsLoadFromDirectory:(NSString *)directory
 {

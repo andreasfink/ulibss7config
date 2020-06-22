@@ -214,7 +214,6 @@ NSDictionary *plugin_info(void);
 {
 }
 
-
 - (NSString *)filterName
 {
     return @"undefined";

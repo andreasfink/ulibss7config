@@ -490,6 +490,7 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)namedlistAdd:(NSString *)listName value:(NSString *)value;
 - (void)namedlistRemove:(NSString *)listName value:(NSString *)value;
 - (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value;
+- (NSArray *)namedlistGetAllEntries:(NSString *)listName;
 
 /************************************************************/
 #pragma mark -
