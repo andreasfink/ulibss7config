@@ -76,6 +76,7 @@
                     // 4c. Get action
                     NSInteger i = [idx integerValue];
                     UMSS7ConfigSS7FilterAction* filterAction = [list getActionAtIndex:i];
+                    
                     if(filterAction == NULL)
                     {
                         [self sendError:@"missing-parameter" reason:@"the entry-nr is not found in this filter-action-list"];
@@ -84,8 +85,19 @@
                     {
                         if([action isEqualToString:@"action-list"])
                         {
-                            [self sendResultObject:@[@"disable" , @"enable"]];
-}
+                            if(filterAction.enabled == NULL)
+                            {
+                                filterAction.enabled = @(YES);
+                            }
+                            if(filterAction.enabled.boolValue)
+                            {
+                                [self sendResultObject:@[@"enable"]];
+                            }
+                            else
+                            {
+                                [self sendResultObject:@[@"disable"]];
+                            }
+                        }
                         else if([action isEqualToString:@"disable"])
                         {
                            filterAction.enabled = @(NO);
