@@ -75,21 +75,33 @@
                 {
                     // 4c. Get action
                     NSInteger i = [idx integerValue];
-                    UMSS7ConfigSS7FilterAction* action = [list getActionAtIndex:i];
-                    if(action == NULL)
+                    UMSS7ConfigSS7FilterAction* filterAction = [list getActionAtIndex:i];
+                    if(filterAction == NULL)
                     {
-                        // 4c-1. Action not found
-                        [self sendErrorNotFound:@"entry-nr"];
+                        [self sendError:@"missing-parameter" reason:@"the entry-nr is not found in this filter-action-list"];
                     }
                     else
                     {
-                        // 4c-2. return action
-                        //UMSynchronizedSortedDictionary *conf = action.config;
-                        //[self sendResultObject:conf];
-                        /* we shoudl now call the live API to do some action for this object. */
-                        /* FIXME Andreas */
-                        [stagingArea setDirty:YES];
-                        [self sendResultOK];
+                        if([action isEqualToString:@"action-list"])
+                        {
+                            [self sendResultObject:@[@"disable" , @"enable"]];
+}
+                        else if([action isEqualToString:@"disable"])
+                        {
+                           filterAction.enabled = @(NO);
+                           [self sendResultOK];
+                           [stagingArea setDirty:YES];
+                        }
+                        else if([action isEqualToString:@"enable"])
+                        {
+                            filterAction.enabled = @(YES);
+                            [self sendResultOK];
+                            [stagingArea setDirty:YES];
+                        }
+                        else
+                        {
+                            [self sendErrorUnknownAction];
+                        }
                     }
                 }
             }
