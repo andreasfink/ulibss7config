@@ -519,7 +519,6 @@ static void signalHandler(int signum);
     return @"/opt/ulibss7/apps/";
 }
 
-
 - (NSString *)defaultStatisticsPath
 {
     return @"/opt/ulibss7/statistics/";
