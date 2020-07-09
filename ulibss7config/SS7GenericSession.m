@@ -1494,18 +1494,18 @@ else \
             {
                 uint8_t b = (uint8_t)_opcode.operation;
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
-                _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
+                _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_Global;
             }
             else if([s isEqualToString:@"2"])
             {
                 uint8_t b = (uint8_t)_opcode.operation;
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
-                _opcode.family = UMTCAP_itu_operationCodeFamily_GlobalAndLocal;
+                _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_GlobalAndLocal;
             }
             else
             {
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithString:s];
-                _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
+                _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_Global;
             }
         }
     }
@@ -1513,6 +1513,7 @@ else \
     if (p[@"tcap-options"])
     {
         NSString *s = [p[@"tcap-options"] stringValue];
+        s = [s urldecode];
         _tcapOptions = [s componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
     }
 
