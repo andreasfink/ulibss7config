@@ -1488,7 +1488,7 @@ else \
     if (p[@"tcap-operation-global"])
     {
         NSString *s = [p[@"tcap-operation-global"] stringValue];
-        if((s.length>0) && (![s isEqualToString:@"0"]))
+        if(s.length>0)
         {
             if([s isEqualToString:@"1"])
             {
