@@ -1502,7 +1502,7 @@ else \
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
                 _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_GlobalAndLocal;
             }
-            else
+            else if(![s isEqualToString:@"0"])
             {
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithString:s];
                 _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_Global;
