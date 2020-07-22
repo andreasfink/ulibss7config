@@ -40,9 +40,9 @@
     APPEND_CONFIG_STRING(s,@"variant",_variant);
     APPEND_CONFIG_STRING(s,@"mode",_mode);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"next-pc",_next_pc);
-    APPEND_CONFIG_INTEGER(s,@"ntt",_ntt);
-    APPEND_CONFIG_INTEGER(s,@"set-called-tt",_ntt);
-    APPEND_CONFIG_INTEGER(s,@"set-calling-tt",_callingNtt);
+    //APPEND_CONFIG_INTEGER(s,@"ntt",_overrideCalledTT);
+    APPEND_CONFIG_INTEGER(s,@"set-called-tt",_overrideCalledTT);
+    APPEND_CONFIG_INTEGER(s,@"set-calling-tt",_overrideCallingTT);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"gt-file",_gtFiles);
     APPEND_CONFIG_STRING(s,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     APPEND_CONFIG_STRING(s,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
@@ -64,9 +64,9 @@
     APPEND_DICT_STRING(dict,@"variant",_variant);
     APPEND_DICT_STRING(dict,@"mode",_mode);
     APPEND_DICT_ARRAY(dict,@"next-pc",_next_pc);
-    APPEND_DICT_INTEGER(dict,@"ntt",_ntt);
-    APPEND_DICT_INTEGER(dict,@"set-called-tt",_ntt);
-    APPEND_DICT_INTEGER(dict,@"set-calling-tt",_callingNtt);
+    //APPEND_DICT_INTEGER(dict,@"ntt",_overrideCalledTT);
+    APPEND_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
+    APPEND_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     APPEND_DICT_ARRAY(dict,@"gt-file",_gtFiles);
     APPEND_DICT_STRING(dict,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     APPEND_DICT_STRING(dict,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
@@ -89,9 +89,9 @@
     SET_DICT_STRING(dict,@"variant",_variant);
     SET_DICT_STRING(dict,@"mode",_mode);
     SET_DICT_ARRAY(dict,@"next-pc",_next_pc);
-    SET_DICT_INTEGER(dict,@"ntt",_ntt);
-    SET_DICT_INTEGER(dict,@"set-called-tt",_ntt); /* new name for ntt */
-    SET_DICT_INTEGER(dict,@"set-calling-tt",_callingNtt);
+    SET_DICT_INTEGER(dict,@"ntt",_overrideCalledTT);
+    SET_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT); /* new name for ntt */
+    SET_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     SET_DICT_ARRAY(dict,@"gt-file",_gtFiles);
     SET_DICT_STRING(dict,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
     SET_DICT_STRING(dict,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);

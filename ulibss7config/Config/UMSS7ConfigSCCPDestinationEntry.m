@@ -43,7 +43,9 @@
     APPEND_CONFIG_INTEGER(s,@"cost",_cost);
     APPEND_CONFIG_INTEGER(s,@"weigth",_weigth);
     APPEND_CONFIG_INTEGER(s,@"subsystem",_subsystem);
-    APPEND_CONFIG_INTEGER(s,@"ntt",_ntt);
+    //APPEND_CONFIG_INTEGER(s,@"ntt",_overrideCalledTT);
+    APPEND_CONFIG_INTEGER(s,@"set-called-tt",_overrideCalledTT);
+    APPEND_CONFIG_INTEGER(s,@"set-calling-tt",_overrideCallingTT);
     APPEND_CONFIG_STRING(s,@"add-prefix",_addPrefix);
     APPEND_CONFIG_STRING(s,@"mtp3",_mtp3Instance);
     APPEND_CONFIG_INTEGER(s,@"set-gti",_setGti);
@@ -65,7 +67,9 @@
     APPEND_DICT_INTEGER(dict,@"cost",_cost);
     APPEND_DICT_INTEGER(dict,@"weight",_weigth);
     APPEND_DICT_INTEGER(dict,@"subsystem",_subsystem);
-    APPEND_DICT_INTEGER(dict,@"ntt",_ntt);
+    //APPEND_DICT_INTEGER(dict,@"ntt",_overrideCalledTT);
+    APPEND_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
+    APPEND_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
     APPEND_DICT_STRING(dict,@"mtp3",_mtp3Instance);
     APPEND_DICT_INTEGER(dict,@"set-gti",_setGti);
@@ -89,7 +93,9 @@
     SET_DICT_INTEGER(dict,@"cost",_weight);
     SET_DICT_INTEGER(dict,@"weigth",_weight);
     SET_DICT_INTEGER(dict,@"subsystem",_subsystem);
-    SET_DICT_INTEGER(dict,@"ntt",_ntt);
+    SET_DICT_INTEGER(dict,@"ntt",_overrideCalledTT);
+    SET_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
+    SET_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     SET_DICT_STRING(dict,@"add-prefix",_addPrefix);
     SET_DICT_STRING(dict,@"mtp3",_mtp3Instance);
     SET_DICT_INTEGER(dict,@"set-gti",_setGti);
