@@ -148,7 +148,7 @@ UMEnvironmentNamedListProviderProtocol>
 	UMMutex                  	*_umtransportLock;
     NSString                    *_logDirectory;
     NSString                    *_hostname;
-    UMObject<UMTCAP_TransactionIdPoolProtocol>    *_tidPool;
+    UMObject<UMTCAP_TransactionIdPoolProtocol>    *_applicationWideTransactionIdPool;
     ConfigurationSocket         *_csListener;
     UMSocketSCTPRegistry        *_registry;
     UMTaskQueueMulti            *_generalTaskQueue;

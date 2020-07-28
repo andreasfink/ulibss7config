@@ -100,6 +100,8 @@
 #import <uliblicense/uliblicense.h>
 #endif
 
+#define PREFABRICATED_TRANSACTION_ID_COUNT  100000
+
 extern UMLicenseDirectory * UMLicense_loadLicensesFromPath(NSString *directory, BOOL debug);
 
 //@class SS7AppDelegate;
@@ -249,7 +251,8 @@ static void signalHandler(int signum);
             _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
         
-        //_tidPool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:0 start:0 end:16]; /* temporary until config */
+        _applicationWideTransactionIdPool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:PREFABRICATED_TRANSACTION_ID_COUNT start:0 end:0x3FFFFFF0]; /* temporary until config */
+        _applicationWideTransactionIdPool.isShared = YES;
         _umtransportLock = [[UMMutex alloc]initWithName:@"SS7AppDelegate_umtransportLock"];
         _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         _pendingUMT = [[UMSynchronizedDictionary alloc]init];
@@ -619,7 +622,7 @@ static void signalHandler(int signum);
                 else
                 {
                     UMTCAP_TransactionIdFastPool *pool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:icount  start:istart end:iend];
-                    _tidPool = pool;
+                    _applicationWideTransactionIdPool = pool;
                 }
             }
         }
@@ -1512,7 +1515,8 @@ static void signalHandler(int signum);
             tcapConfig[@"number"] =co.number;
 
 
-            UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
+            UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue
+                                                                   tidPool:_applicationWideTransactionIdPool];
             tcap.logFeed = [[UMLogFeed alloc]initWithHandler:self.logHandler section:@"tcap"];
             tcap.logFeed.name = tcapName;
             tcap.attachedLayer = sccp;
@@ -3227,7 +3231,8 @@ static void signalHandler(int signum);
 
         config = co.config.dictionaryCopy;
 
-        UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:_tidPool];
+        UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue
+                                                               tidPool:_applicationWideTransactionIdPool];
 
         tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         tcap.logFeed.name = name;
