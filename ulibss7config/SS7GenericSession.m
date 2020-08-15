@@ -1515,6 +1515,27 @@ else \
         NSString *s = [p[@"tcap-options"] stringValue];
         s = [s urldecode];
         _tcapOptions = [s componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
+        for(NSString *option in _tcapOptions)
+        {
+            if([option isEqualToString:@"invoke5"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke5;
+            }
+            else if([option isEqualToString:@"invoke6"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke6;
+
+            }
+            else if([option isEqualToString:@"invoke7"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke7;
+
+            }
+            else if([option isEqualToString:@"invoke8"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke8;
+            }
+        }
     }
 
     if (p[@"keep-sccp-calling-addr"])
@@ -1639,6 +1660,7 @@ else \
 
 - (void)submit
 {
+    int invokeCount = 0;
     if(_nowait)
     {
         [_req setResponsePlainText:@"Sent"];
@@ -1894,6 +1916,45 @@ else \
                                                  options:_options];
             }
             break;
+        }
+        case SS7MultiInvokeVariant_invoke8:
+            invokeCount = 8;
+            break;
+        case SS7MultiInvokeVariant_invoke7:
+            invokeCount = 7;
+            break;
+        case SS7MultiInvokeVariant_invoke6:
+            invokeCount = 6;
+            break;
+        case SS7MultiInvokeVariant_invoke5:
+            invokeCount = 5;
+            break;
+    }
+    if((invokeCount > 0) && (_opcode) && (_query))
+    {
+        while(invokeCount-- > 0)
+        {
+            [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                              dialog:_dialogId
+                                            invokeId:_invokeId
+                                            linkedId:TCAP_UNDEFINED_LINKED_ID
+                                              opCode:_opcode
+                                                last:YES
+                                             options:_options];
+        }
+        if(!useHandshake)
+        {
+            SccpAddress *remote = NULL;
+            if(_keepOriginalSccpAddressForTcapContinue)
+            {
+                remote = _initialRemoteAddress;
+            }
+            [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                         callingAddress:NULL
+                                          calledAddress:remote
+                                                options:_options
+                                            result:NULL
+                                             diagnostic:NULL];
         }
     }
 }

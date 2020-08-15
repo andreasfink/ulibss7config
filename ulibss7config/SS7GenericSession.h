@@ -27,6 +27,10 @@ typedef enum SS7MultiInvokeVariant
     SS7MultiInvokeVariant_one_by_one = 2,
     SS7MultiInvokeVariant_together_same_id = 3,
     SS7MultiInvokeVariant_together_same_id_different_second = 4,
+    SS7MultiInvokeVariant_invoke5 = 5,
+    SS7MultiInvokeVariant_invoke6 = 6,
+    SS7MultiInvokeVariant_invoke7 = 7,
+    SS7MultiInvokeVariant_invoke8 = 8,
 } SS7MultiInvokeVariant;
 
 @interface SS7GenericSession : UMLayerTask<UMSCCP_TraceProtocol>
