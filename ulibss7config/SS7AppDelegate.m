@@ -1880,6 +1880,18 @@ static void signalHandler(int signum);
         {
             [self handleDecodeSms:req];
         }
+        
+        else if(([path isEqualToString:@"/decode/diameter"])
+                ||  ([path isEqualToString:@"/diameter/decode"]))
+        {
+            [self handleDecodeDiameter:req];
+        }
+        else if(([path isEqualToString:@"/decode/diameter-inject"])
+                ||  ([path isEqualToString:@"/diameter/inject"]))
+        {
+            [self handleInjectDiameter:req];
+        }
+
         else if([path hasPrefix:@"/api"])
         {
             UMSS7ApiTask *api = [UMSS7ApiTask apiFactory:req appDelegate:self];
@@ -4783,6 +4795,8 @@ static void signalHandler(int signum);
     [s appendString:@"<LI><a href=\"/decode/tcap\">Decode TCAP</a></LI>\n"];
     [s appendString:@"<LI><a href=\"/decode/asn1\">Decode ASN1</a></LI>\n"];
     [s appendString:@"<LI><a href=\"/decode/sms\">Decode SMS</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/diameter\">Decode Diameter</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/decode/diameter-inject\">Inject Diameter PDU</a></LI>\n"];
     [s appendString:@"</UL>\n"];
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
@@ -4831,6 +4845,97 @@ static void signalHandler(int signum);
         [s appendFormat:@"</body>\r"];
         [s appendFormat:@"</html>\r"];
         [req setResponseHtmlString:s];
+    }
+    return;
+}
+
+- (void)  handleDecodeDiameter:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"Diameter PDU Decode"];
+
+        [s appendString:@"<h2>Diameter PDU Decode</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data = [pdu unhexedData];
+        
+        UMDiameterPacket *p = [[UMDiameterPacket alloc]initWithData:data];
+        [p afterDecode];
+        NSString *s = [[p objectValue] jsonString];
+        [req setResponsePlainText:s];
+    }
+    return;
+}
+
+- (void)  handleInjectDiameter:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"Inject Diameter PDU"];
+
+        [s appendString:@"<h2>Inject Diameter PDU</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"<input type=\"checkbox\" name=\"initiator\"> Initiator\r"];
+        
+        [s appendFormat:@"<selector name=peer>"];
+        
+        NSArray *names = [_diameter_connections_dict allKeys];
+        for(NSString *name in names)
+        {
+            [s appendFormat:@"<option>%@</option>",name];
+        }
+        [s appendFormat:@"</selector>\r"];
+
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data = [pdu unhexedData];
+        BOOL initiator = NO;
+        UMDiameterPacket *packet = [[UMDiameterPacket alloc]initWithData:data];
+        
+        NSString *peerName = req.params[@"peer"];
+        if( [req.params[@"initiator"] boolValue])
+        {
+            initiator = YES;
+        }
+        UMDiameterPeer *peer = _diameter_connections_dict[peerName];
+        if(peer == NULL)
+        {
+            peer = [[UMDiameterPeer alloc]init];
+        }
+        [peer processPacket:packet initiator:initiator];
+        [req setResponsePlainText:@"ok"];
     }
     return;
 }
