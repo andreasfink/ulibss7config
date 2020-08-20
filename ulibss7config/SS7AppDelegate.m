@@ -4903,14 +4903,14 @@ static void signalHandler(int signum);
         [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=\"checkbox\" name=\"initiator\"> Initiator\r"];
         
-        [s appendFormat:@"<selector name=peer>"];
+        [s appendFormat:@"<select name=peer>"];
         
         NSArray *names = [_diameter_connections_dict allKeys];
         for(NSString *name in names)
         {
             [s appendFormat:@"<option>%@</option>",name];
         }
-        [s appendFormat:@"</selector>\r"];
+        [s appendFormat:@"</select>\r"];
 
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];
