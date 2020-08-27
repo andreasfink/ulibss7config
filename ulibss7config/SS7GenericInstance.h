@@ -12,6 +12,7 @@
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
+#import <ulibcamel/ulibcamel.h>
 #import "UMSS7ConfigObject.h"
 #import "SS7UserAuthenticateProtocol.h"
 
@@ -49,7 +50,6 @@
 @property(readwrite,strong) UMHTTPClient *webClient;
 @property(readwrite,strong) id<SS7UserAuthenticateProtocol>    authDelegate;
 
-
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name;
 
@@ -58,7 +58,9 @@
 
 
 - (UMGSMMAP_UserIdentifier *)getNewUserIdentifier;
+- (UMCamelUserIdentifier *)getNewCamelUserIdentifier;
 - (SS7GenericSession *)sessionById:(UMGSMMAP_UserIdentifier *)userId;
+- (SS7GenericSession *)sessionByCamelId:(UMCamelUserIdentifier *)userId;
 - (void)addSession:(SS7GenericSession *)t userId:(UMGSMMAP_UserIdentifier *)uidstr;
 - (void) markSessionForTermination:(SS7GenericSession *)t reason:(NSString *)reason;
 + (NSString *)webIndexForm;
@@ -281,4 +283,11 @@
             tcapTransactionId:(NSString *)localTransactionId
                        reason:(SCCP_ReturnCause)reason
                       options:(NSDictionary *)options;
+
+
+
+
+- (UMCamelUserIdentifier *)camelCreateSession;
+- (void)camel:(UMCamelUserIdentifier *)user InitialDP:(UMCamelInitialDPArg *)arg;
+
 @end

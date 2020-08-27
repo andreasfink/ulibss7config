@@ -4934,6 +4934,14 @@ static void signalHandler(int signum);
         {
             peer = [[UMDiameterPeer alloc]init];
         }
+        
+        [packet beforeEncode];
+        data = [packet packedData];
+        if(data==NULL)
+        {
+            [req setResponsePlainText:@"decoding ok but encoding failed"];
+            return;
+        }
         [peer processPacket:packet initiator:initiator];
         [req setResponsePlainText:@"ok"];
     }

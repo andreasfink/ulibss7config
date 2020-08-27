@@ -172,6 +172,20 @@
     return @"G";
 }
 
+- (NSString *)getNewCamelUserIdentifier
+{
+    NSString *uidstr;
+    int64_t uid;
+    static int64_t lastUserId = 1;
+
+    [_uidMutex lock];
+    lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
+    uid = lastUserId;
+    [_uidMutex unlock];
+    uidstr =  [NSString stringWithFormat:@"%@%08llX",self.instancePrefix,(long long)uid];
+    return  [[UMCamelUserIdentifier alloc]initWithString:uidstr];;
+}
+
 - (UMGSMMAP_UserIdentifier *)getNewUserIdentifier
 {
     NSString *uidstr;
@@ -193,6 +207,13 @@
     return _sessions[userId.userIdentifier];
 }
 
+- (SS7GenericSession *)sessionByCamelId:(UMCamelUserIdentifier *)userId;
+{
+    UMAssert(_sessions!=NULL,@"Can not find session. _sessions is null");
+    return _sessions[userId.userIdentifier];
+}
+
+}
 - (void)addSession:(SS7GenericSession *)t userId:(UMGSMMAP_UserIdentifier *)uidstr
 {
     UMAssert(_sessions!=NULL,@"Can not add session. _sessions is null");
