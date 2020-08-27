@@ -17,6 +17,7 @@
 #import "SS7UserAuthenticateProtocol.h"
 
 @class SS7GenericSession;
+@class UMCamelInitialDPArg;
 
 @interface SS7GenericInstance : UMLayer<UMLayerGSMMAP_UserProtocol,
                                 UMHTTPServerHttpGetPostDelegate,

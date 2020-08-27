@@ -172,7 +172,7 @@
     return @"G";
 }
 
-- (NSString *)getNewCamelUserIdentifier
+- (UMCamelUserIdentifier *)getNewCamelUserIdentifier
 {
     NSString *uidstr;
     int64_t uid;
@@ -183,7 +183,7 @@
     uid = lastUserId;
     [_uidMutex unlock];
     uidstr =  [NSString stringWithFormat:@"%@%08llX",self.instancePrefix,(long long)uid];
-    return  [[UMCamelUserIdentifier alloc]initWithString:uidstr];;
+    return  [[UMCamelUserIdentifier alloc]initWithString:uidstr];
 }
 
 - (UMGSMMAP_UserIdentifier *)getNewUserIdentifier
@@ -213,7 +213,7 @@
     return _sessions[userId.userIdentifier];
 }
 
-}
+
 - (void)addSession:(SS7GenericSession *)t userId:(UMGSMMAP_UserIdentifier *)uidstr
 {
     UMAssert(_sessions!=NULL,@"Can not add session. _sessions is null");
