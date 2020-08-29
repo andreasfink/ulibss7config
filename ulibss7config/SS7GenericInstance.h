@@ -288,7 +288,7 @@
 
 
 
-- (UMCamelUserIdentifier *)camelCreateSession;
+//- (UMCamelUserIdentifier *)camelCreateSession;
 - (void)camel:(UMCamelUserIdentifier *)user InitialDP:(UMCamelInitialDPArg *)arg;
 
 @end
