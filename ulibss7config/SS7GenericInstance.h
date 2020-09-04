@@ -286,9 +286,4 @@
                       options:(NSDictionary *)options;
 
 
-
-
-//- (UMCamelUserIdentifier *)camelCreateSession;
-- (void)camel:(UMCamelUserIdentifier *)user InitialDP:(UMCamelInitialDPArg *)arg;
-
 @end

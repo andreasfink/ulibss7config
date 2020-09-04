@@ -1422,12 +1422,17 @@ else \
     NSString *mapopen_origination_msisdn;
     NSString *mapopen_destination_imsi;
     NSString *mapopen_destination_msisdn;
-
+    NSString *mapopen_code2;
+    NSString *mapopen_code3;
+    
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_imsi,@"map-open-destination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_msisdn,@"map-open-destination-msisdn");
 
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_imsi,@"map-open-origination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_msisdn,@"map-open-origination-msisdn");
+
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code2,@"map-open-code2");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code3,@"map-open-code3");
 
     /** MAP OPEN **/
     _userInfo = [[UMTCAP_asn1_userInformation alloc]init];
@@ -1439,7 +1444,6 @@ else \
        (mapopen_destination_msisdn.length == 0) &&
        (mapopen_origination_imsi.length == 0) &&
        (mapopen_origination_msisdn.length == 0))
-
     {
         _userInfo = NULL;
     }
@@ -1447,7 +1451,16 @@ else \
     UMGSMMAP_MAP_OpenInfo *map_open = [[UMGSMMAP_MAP_OpenInfo alloc]init];
     if(mapopen_destination_imsi.length>0)
     {
-        map_open.destinationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_destination_imsi];
+        if([mapopen_destination_imsi hasPrefix:@"*"])
+        {
+            NSString * s = [mapopen_destination_imsi substringFromIndex:1];
+            map_open.destinationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:s];
+            map_open.destinationReference.skipTypeByte = YES;
+        }
+        else
+        {
+            map_open.destinationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_destination_imsi];
+        }
     }
     else if(mapopen_destination_msisdn.length>0)
     {
@@ -1456,11 +1469,34 @@ else \
 
     if(mapopen_origination_imsi.length>0)
     {
-        map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_origination_imsi];
+        if([mapopen_origination_imsi hasPrefix:@"*"])
+        {
+            NSString * s = [mapopen_origination_imsi substringFromIndex:1];
+            map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:s];
+            map_open.destinationReference.skipTypeByte = YES;
+        }
+        else
+        {
+            map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_origination_imsi];
+        }
     }
     else if(mapopen_origination_msisdn.length>0)
     {
         map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithMsisdn:mapopen_origination_msisdn];
+    }
+    
+    if(mapopen_code2.length>0)
+    {
+        map_open.unknownMapOpen2 = [[UMGSMMAP_AddressString alloc]initWithMsisdn:mapopen_code2];
+    }
+    else if(mapopen_code3.length>0)
+    {
+        map_open.unknownMapOpen3 = [[UMGSMMAP_AddressString alloc]initWithMsisdn:mapopen_code3];
+    }
+
+    if(mapopen_origination_imsi.length>0)
+    {
+        map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_origination_imsi];
     }
     e.externalObject = map_open;
     [_userInfo addIdentification:e];
