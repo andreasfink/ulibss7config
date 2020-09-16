@@ -6,6 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
+#define DEBUG 1
 
 #import "SS7AppDelegate.h"
 
@@ -5375,6 +5376,7 @@ static void signalHandler(int signum);
 - (void)namedlistReplaceList:(NSString *)listName
            withContentsOfFile:(NSString *)filename
 {
+    UMAssert(_namedLists != NULL,@"_namedLists is NULL");
     UMNamedList *nl =  [[UMNamedList alloc]initWithPath:filename name:listName];
     [nl reload];
     _namedLists[listName] = nl;
@@ -5388,6 +5390,7 @@ static void signalHandler(int signum);
         UMNamedList *nl = _namedLists[listName];
         [nl flush];
     }
+
 }
 
 - (NSString *)namedlist_filename:(NSString *)name directory:(NSString *)directory
@@ -5428,10 +5431,17 @@ static void signalHandler(int signum);
 
 - (void)namedlistRemove:(NSString *)listName value:(NSString *)value
 {
-#if defined(CONFIG_DEBUG)
-    NSLog(@"[SS7AppDelegate namedlistAdd] Removing '%@' from list '%@'",value,listName);
+#ifdef  DEBUG
+    NSLog(@"[SS7AppDelegate namedlistRemove:%@ value:%@]",listName,value);
 #endif
     UMNamedList *nl = _namedLists[listName];
+#ifdef  DEBUG
+    [nl dump];
+#endif
+    if(nl==NULL)
+    {
+        NSLog(@" no such namedlist found '%@'",listName);
+    }
     [nl removeEntry:value];
 }
 

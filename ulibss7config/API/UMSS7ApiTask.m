@@ -69,6 +69,11 @@
         path = [NSString stringWithFormat:@"/api/namedlist-%@", [path substringFromIndex:15]];
     }
 
+    if([path hasPrefix:@"/api/namedlist-remove"])
+    {
+        path = [NSString stringWithFormat:@"/api/namedlist-delete%@", [path substringFromIndex:21]];
+    }
+
 #define API(APICLASS) \
     if([path isEqualTo:[APICLASS apiPath]]) \
     { \

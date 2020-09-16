@@ -174,7 +174,7 @@
 #import "UMSS7ApiTaskNamedlist_lists.h"
 #import "UMSS7ApiTaskNamedlist_read.h"
 #import "UMSS7ApiTaskNamedlist_add.h"
-#import "UMSS7ApiTaskNamedlist_delete.h"
+#import "UMSS7ApiTaskNamedlist_remove.h"
 #import "UMSS7ApiTaskNamedlist_contains.h"
 
 #import "UMSS7ApiTaskStatistics_list.h"
