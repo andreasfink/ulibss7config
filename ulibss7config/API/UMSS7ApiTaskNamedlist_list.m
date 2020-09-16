@@ -52,7 +52,7 @@
                 [self sendError:@"missing-parameter" reason:@"the 'list' or 'name' parameter is not passed"];
                 return;
             }
-            NSArray *items = [_appDelegate namedlistList:listName];
+            NSArray *items = [_appDelegate namedlistGetAllEntriesOfList:listName];
             [self sendResultObject:items];
         }
         @catch(NSException *e)

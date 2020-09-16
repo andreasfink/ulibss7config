@@ -5366,31 +5366,44 @@ static void signalHandler(int signum);
 #pragma mark -
 #pragma mark namedlists
 
+- (UMNamedList *)getNamedList:(NSString *)name
+{
+    [_namedListLock lock];
+    UMNamedList *nl = _namedLists[name];
+    [_namedListLock unlock];
+    return nl;
+}
 
 - (NSArray<NSString *>*)namedlistsListNames
 {
+    [_namedListLock lock];
     NSArray<NSString *> *list = [_namedLists allKeys];
+    [_namedListLock unlock];
     return list;
 }
 
 - (void)namedlistReplaceList:(NSString *)listName
            withContentsOfFile:(NSString *)filename
 {
+    [_namedListLock lock];
     UMAssert(_namedLists != NULL,@"_namedLists is NULL");
     UMNamedList *nl =  [[UMNamedList alloc]initWithPath:filename name:listName];
     [nl reload];
     _namedLists[listName] = nl;
+    [_namedListLock unlock];
+
 }
 
 - (void)namedlistsFlushAll
 {
-    NSArray *allListNames = [_namedLists allKeys];
+    [_namedListLock lock];
+    NSArray<NSString *> *allListNames = [self namedlistsListNames];
     for(NSString *listName in allListNames)
     {
         UMNamedList *nl = _namedLists[listName];
         [nl flush];
     }
-
+    [_namedListLock unlock];
 }
 
 - (NSString *)namedlist_filename:(NSString *)name directory:(NSString *)directory
@@ -5402,7 +5415,7 @@ static void signalHandler(int signum);
 
 - (void)namedlist_flush:(NSString *)listName
 {
-    UMNamedList *nl = _namedLists[listName];
+    UMNamedList *nl = [self getNamedList:listName];
     [nl flush];
 }
 
@@ -5413,7 +5426,7 @@ static void signalHandler(int signum);
     NSLog(@"[SS7AppDelegate namedlistAdd] Adding '%@' to list '%@'",value,list);
 #endif
 
-    UMNamedList *nl = _namedLists[listName];
+    UMNamedList *nl = [self getNamedList:listName];
     if(nl==NULL)
     {
 #if defined(CONFIG_DEBUG)
@@ -5431,6 +5444,7 @@ static void signalHandler(int signum);
 
 - (void)namedlistRemove:(NSString *)listName value:(NSString *)value
 {
+    [_namedListLock lock];
 #ifdef  DEBUG
     NSLog(@"[SS7AppDelegate namedlistRemove:%@ value:%@]",listName,value);
 #endif
@@ -5443,23 +5457,30 @@ static void signalHandler(int signum);
         NSLog(@" no such namedlist found '%@'",listName);
     }
     [nl removeEntry:value];
+    [_namedListLock unlock];
 }
 
 - (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value
 {
+    [_namedListLock lock];
     UMNamedList *nl = _namedLists[listName];
     if(nl == NULL)
     {
+        [_namedListLock unlock];
         return NO;
     }
+    [_namedListLock unlock];
     return [nl containsEntry:value];
 }
 
-- (NSArray *)namedlistGetAllEntries:(NSString *)listName
+- (NSArray *)namedlistGetAllEntriesOfList:(NSString *)listName
 {
-    UMNamedList *nl = _namedLists[listName];
+    [_namedListLock unlock];
+    UMNamedList *nl = [self getNamedList:listName];
+    [_namedListLock unlock];
     return [nl allEntries];
 }
+
 
 - (void)namedlistsLoadFromDirectory:(NSString *)directory
 {
@@ -5472,15 +5493,7 @@ static void signalHandler(int signum);
     }
 }
 
-- (NSArray *)namedlistList:(NSString *)listName
-{
-    UMNamedList *nl = _namedLists[listName];
-    if(nl == NULL)
-    {
-        return @[];
-    }
-    return [nl allEntries];
-}
+
 
 #pragma mark -
 #pragma mark logfile
