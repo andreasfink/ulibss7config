@@ -5406,9 +5406,17 @@ static void signalHandler(int signum);
 
 - (void)namedlistAdd:(NSString *)listName value:(NSString *)value
 {
+#if defined(CONFIG_DEBUG)
+    NSLog(@"[SS7AppDelegate namedlistAdd] Adding '%@' to list '%@'",value,list);
+#endif
+
     UMNamedList *nl = _namedLists[listName];
     if(nl==NULL)
     {
+#if defined(CONFIG_DEBUG)
+        NSLog(@"[SS7AppDelegate namedlistAdd] List doesnt exist in memory. lets load if from disk");
+#endif
+
         NSString *filePath = [listName urlencode];
         NSString *absolutePath = [NSString stringWithFormat:@"%@/%@",_namedListsDirectory,filePath];
         nl = [[UMNamedList alloc]initWithPath:absolutePath name:listName];
@@ -5420,6 +5428,9 @@ static void signalHandler(int signum);
 
 - (void)namedlistRemove:(NSString *)listName value:(NSString *)value
 {
+#if defined(CONFIG_DEBUG)
+    NSLog(@"[SS7AppDelegate namedlistAdd] Removing '%@' from list '%@'",value,listName);
+#endif
     UMNamedList *nl = _namedLists[listName];
     [nl removeEntry:value];
 }

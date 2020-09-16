@@ -40,12 +40,14 @@
         {
             // 1. Get external parameters
             NSString *listName = [_params[@"name"] urldecode];
+            listName = [UMSS7ConfigObject filterName:listName];
             NSString *value = [_params[@"value"] urldecode];
 
             if(listName.length==0)
             {
                 /* backwards compatibility to old api of SMSProx4 */
                 listName = [_params[@"list"] urldecode];
+                listName = [UMSS7ConfigObject filterName:listName];
             }
             if(listName.length==0)
             {
