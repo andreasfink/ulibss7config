@@ -183,7 +183,7 @@ static void signalHandler(int signum);
         _statisticsPath                 =  [self defaultStatisticsPath];
 
         _mainDiameterInstance           = [[DiameterGenericInstance alloc]init];
-        _namedLists                     = [[UMSynchronizedDictionary alloc]init];
+        _namedLists                     = [[NSMutableDictionary alloc]init];
         _namedListLock                  = [[UMMutex alloc]initWithName:@"namedlist-mutex"];
         _namedListsDirectory            = [self defaultNamedListPath];
 
@@ -676,7 +676,7 @@ static void signalHandler(int signum);
         {
             NSLog(@"Error while creating directory %@\n%@",_namedListsDirectory,e);
         }
-        _namedLists = [[UMSynchronizedDictionary alloc]init];
+        _namedLists = [[NSMutableDictionary alloc]init];
         [self namedlistsLoadFromDirectory:_namedListsDirectory];
         
         
@@ -5385,6 +5385,16 @@ static void signalHandler(int signum);
 - (void)namedlistReplaceList:(NSString *)listName
            withContentsOfFile:(NSString *)filename
 {
+    if(listName.length == 0)
+    {
+        NSLog(@"name of namedlist is zero length or NULL. Skipping");
+        return;
+    }
+    if(filename.length==0)
+    {
+        NSLog(@"filename of namedlist is zero length or NULL. Skipping");
+        return;
+    }
     [_namedListLock lock];
     UMAssert(_namedLists != NULL,@"_namedLists is NULL");
     UMNamedList *nl =  [[UMNamedList alloc]initWithPath:filename name:listName];
@@ -5463,30 +5473,23 @@ static void signalHandler(int signum);
     NSLog(@"content after removal:");
     [nl dump];
 #endif
-    [_namedListLock unlock];
 }
 
 - (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value
 {
-    [_namedListLock lock];
-    UMNamedList *nl = _namedLists[listName];
+    UMNamedList *nl = [self getNamedList:listName];
     if(nl == NULL)
     {
-        [_namedListLock unlock];
         return NO;
     }
-    [_namedListLock unlock];
     return [nl containsEntry:value];
 }
 
 - (NSArray *)namedlistGetAllEntriesOfList:(NSString *)listName
 {
-    [_namedListLock unlock];
     UMNamedList *nl = [self getNamedList:listName];
-    [_namedListLock unlock];
     return [nl allEntries];
 }
-
 
 - (void)namedlistsLoadFromDirectory:(NSString *)directory
 {
