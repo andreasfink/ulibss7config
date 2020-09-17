@@ -5444,19 +5444,25 @@ static void signalHandler(int signum);
 
 - (void)namedlistRemove:(NSString *)listName value:(NSString *)value
 {
-    [_namedListLock lock];
 #ifdef  DEBUG
-    NSLog(@"[SS7AppDelegate namedlistRemove:%@ value:%@]",listName,value);
+   NSLog(@"[SS7AppDelegate namedlistRemove:%@ value:%@]",listName,value);
 #endif
-    UMNamedList *nl = _namedLists[listName];
+
+    UMNamedList *nl = [self getNamedList:listName];
 #ifdef  DEBUG
+    NSLog(@"content before removal:");
     [nl dump];
 #endif
+
     if(nl==NULL)
     {
         NSLog(@" no such namedlist found '%@'",listName);
     }
     [nl removeEntry:value];
+#ifdef  DEBUG
+    NSLog(@"content after removal:");
+    [nl dump];
+#endif
     [_namedListLock unlock];
 }
 

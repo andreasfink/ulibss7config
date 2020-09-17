@@ -75,7 +75,7 @@
                 return;
             }
 #ifdef  DEBUG
-            NSLog(@"[_appDelegate namedlistRemove:%@ value:%@]",listName,value);
+            NSLog(@"calling [_appDelegate namedlistRemove:%@ value:%@]",listName,value);
 #endif
             [_appDelegate namedlistRemove:listName value:value];
             [self sendResultOK];
