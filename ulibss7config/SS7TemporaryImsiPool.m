@@ -215,9 +215,8 @@
 
 - (void)unregisterMscNumber:(NSString *)msc
 {
-    [_mscPool removeObjectIdenticalTo:msc];
+    [_mscPool removeObject:msc];
 }
-
 
 - (void)housekeeping
 {

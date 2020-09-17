@@ -12,7 +12,7 @@
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
 
-#define DEBUG 1
+//#define DEBUG 1
 
 @implementation UMSS7ApiTaskNamedlist_remove
 

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#define DEBUG 1
+//#define DEBUG 1
 
 #import "SS7AppDelegate.h"
 
