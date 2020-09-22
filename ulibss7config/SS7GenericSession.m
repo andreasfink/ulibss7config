@@ -1327,22 +1327,29 @@ else \
         self.remoteAddress.npi.npi = numberplan;
     }
     self.localAddress.ai.nationalReservedBit=NO;
-    self.localAddress.ai.subSystemIndicator = YES;
-    if((_calling_ssn == NULL) || (_calling_ssn.length <=0)  || ([_calling_ssn isEqualToString:@"default"]))
+    if(([_calling_ssn isEqualToString:@"missing"]) || (_calling_ssn.intValue == -1))
     {
-        if(defaultCallingSsn.length <=0)
-        {
-            self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_VLR];
-        }
-        else
-        {
-            self.localAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCallingSsn];
-        }
+        self.localAddress.ai.subSystemIndicator = NO;
+        self.localAddress.ssn = NULL;
     }
     else
     {
-        self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_calling_ssn];
-
+        self.localAddress.ai.subSystemIndicator = YES;
+        if((_calling_ssn == NULL) || (_calling_ssn.length <=0)  || ([_calling_ssn isEqualToString:@"default"]))
+        {
+            if(defaultCallingSsn.length <=0)
+            {
+                self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_VLR];
+            }
+            else
+            {
+                self.localAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCallingSsn];
+            }
+        }
+        else
+        {
+            self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_calling_ssn];
+        }
     }
     self.localAddress.tt.tt = 0;
 
@@ -1351,20 +1358,30 @@ else \
     self.remoteAddress.ai.globalTitleIndicator = SCCP_GTI_ITU_NAI_TT_NPI_ENCODING;
     self.remoteAddress.ai.subSystemIndicator = YES;
     self.remoteAddress.ssn.ssn=SCCP_SSN_HLR;
-    if((_called_ssn == NULL) || (_called_ssn.length <=0)  || ([_called_ssn isEqualToString:@"default"]))
+    
+    if(([_called_ssn isEqualToString:@"missing"]) || (_called_ssn.intValue == -1))
     {
-        if(defaultCalledSsn.length <=0)
-        {
-            self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_HLR];
-        }
-        else
-        {
-            self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCalledSsn];
-        }
+        self.remoteAddress.ai.subSystemIndicator = NO;
+        self.remoteAddress.ssn = NULL;
     }
     else
     {
-        self.remoteAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_called_ssn];
+            
+        if((_called_ssn == NULL) || (_called_ssn.length <=0)  || ([_called_ssn isEqualToString:@"default"]))
+        {
+            if(defaultCalledSsn.length <=0)
+            {
+                self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_HLR];
+            }
+            else
+            {
+                self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCalledSsn];
+            }
+        }
+        else
+        {
+            self.remoteAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_called_ssn];
+        }
     }
     if(_calling_tt.length > 0)
     {
