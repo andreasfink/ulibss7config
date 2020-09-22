@@ -18,6 +18,7 @@
     NSDictionary    *_params;
     id<UMSS7ConfigAppDelegateProtocol> _appDelegate;
     UMSS7ApiSession      *_apiSession;
+    UMHistoryLog         *_history;
 }
 
 - (UMSS7ApiTask *)initWithWebRequest:(UMHTTPRequest *)webRequest appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad;

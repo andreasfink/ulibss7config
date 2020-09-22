@@ -208,6 +208,7 @@ UMEnvironmentNamedListProviderProtocol>
     UMTaskQueueMulti            *_databaseQueue;
     UMSynchronizedDictionary    *_cdrWriters_dict;
     NSTimeInterval              _sessionTimeout;
+    UMLogFeed                   *_apiLogFeed;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -260,7 +261,7 @@ UMEnvironmentNamedListProviderProtocol>
 @property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile objects */
 @property(readwrite,strong)     UMSynchronizedDictionary    *cdrWriters_dict;
 @property(readwrite,strong)     NSString                    *namedListsDirectory;
-
+@property(readwrite,strong,atomic)  UMLogFeed *apiLogFeed;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;

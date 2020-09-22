@@ -25,9 +25,12 @@
     UMLayerSCCPApplicationContextProtocol,
     UMEnvironmentNamedListProviderProtocol>
 
+
 @property(readwrite,strong,atomic)  UMSS7ConfigStorage *runningConfig;
 @property(readwrite,strong,atomic)  UMSS7ConfigStorage *startupConfig;
 @property(readwrite,strong,atomic)  UMCommandLine *commandLine;
+@property(readwrite,strong,atomic)  UMLogFeed *apiLogFeed;
+
 - (void)applicationGoToHot;
 - (void)applicationGoToStandby;
 

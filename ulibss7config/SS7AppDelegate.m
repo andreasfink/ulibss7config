@@ -471,6 +471,13 @@ static void signalHandler(int signum);
             @"argument" : @"directory",
             @"help"  : @"set the path of the tracefiles directory",
         },
+        @{
+            @"name"  : @"api-log",
+            @"short" : @"",
+            @"long"  : @"--api-log",
+            @"argument" : @"filename",
+            @"help"  : @"log all api-calls to file"
+        }
     ];
 }
 
@@ -502,6 +509,7 @@ static void signalHandler(int signum);
 {
     return @"admin";
 }
+
 - (NSString *)defaultApiPassword
 {
     return @"admin";
@@ -708,7 +716,16 @@ static void signalHandler(int signum);
         }
 
 
-
+        if(params[@"api-log"])
+        {
+            NSArray *a = params[@"api-log"];
+            NSString *path = a[a.count-1];
+            UMLogFile *apiLogFile = [[UMLogFile alloc]initWithFileName:path];
+            UMLogHandler *apiLogHandler = [[UMLogHandler alloc]init];
+            [apiLogHandler addLogDestination:apiLogFile];
+            _apiLogFeed = [[UMLogFeed alloc]init];
+            _apiLogFeed.handler = apiLogHandler;
+        }
         if(params[@"tracefiles-directory"])
         {
             NSArray *a = params[@"tracefiles-directory"];
@@ -1895,6 +1912,7 @@ static void signalHandler(int signum);
 
         else if([path hasPrefix:@"/api"])
         {
+            
             UMSS7ApiTask *api = [UMSS7ApiTask apiFactory:req appDelegate:self];
             if(api)
             {
@@ -3520,11 +3538,6 @@ static void signalHandler(int signum);
 }
 
 
-
-
-
-
-
 /************************************************************/
 #pragma mark -
 #pragma mark API Handling
@@ -3561,10 +3574,6 @@ static void signalHandler(int signum);
 {
     return NULL;
 }
-
-
-
-
 
 - (void)deleteSCCPTranslationTable:(NSString *)name tt:(NSNumber *)tt gti:(NSNumber *)gti np:(NSNumber *)np nai:(NSNumber *)nai
 {

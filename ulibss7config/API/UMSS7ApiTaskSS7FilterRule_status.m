@@ -59,14 +59,7 @@
                 // 4. Get index of rule
                 NSString *idx = _params[@"entry-nr"];
                 
-                // 5. Verify if engine, rule-set, rule exist
-                if(engine == NULL)
-                {
-                    // 5a. Not found
-                    [self sendErrorNotFound:engine_name];
-                    
-                }
-                else if(rSet == NULL)
+                if(rSet == NULL)
                 {
                     // 5b. Not found
                     [self sendErrorNotFound:ruleset_name];
