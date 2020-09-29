@@ -57,13 +57,14 @@
             {
                 [self sendErrorNotImplemented];
             }
-            else if([action isEqualToString:@"power-on"])
+            else if(([action isEqualToString:@"power-on"]) || ([action isEqualToString:@"start"]))
+
             {
                 [mtp3linkset powerOn];
                 [self sendResultOK];
 
             }
-            else if([action isEqualToString:@"power-off"])
+            else if(([action isEqualToString:@"power-off"]) || ([action isEqualToString:@"stop"]))
             {
                 [mtp3linkset powerOff];
                 [self sendResultOK];
