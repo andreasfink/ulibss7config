@@ -252,7 +252,7 @@ static void signalHandler(int signum);
             _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
         
-        _applicationWideTransactionIdPool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:PREFABRICATED_TRANSACTION_ID_COUNT start:0 end:0x3FFFFFF0]; /* temporary until config */
+        _applicationWideTransactionIdPool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:PREFABRICATED_TRANSACTION_ID_COUNT start:0x10000000 end:0x1FFFFFF0]; /* temporary until config */
         _applicationWideTransactionIdPool.isShared = YES;
         _umtransportLock = [[UMMutex alloc]initWithName:@"SS7AppDelegate_umtransportLock"];
         _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
@@ -631,6 +631,7 @@ static void signalHandler(int signum);
                 else
                 {
                     UMTCAP_TransactionIdFastPool *pool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:icount  start:istart end:iend];
+                    _applicationWideTransactionIdPool.isShared = YES;
                     _applicationWideTransactionIdPool = pool;
                 }
             }
