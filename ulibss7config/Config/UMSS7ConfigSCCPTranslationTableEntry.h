@@ -16,6 +16,8 @@
     NSString *_postTranslation;
     NSString *_gtOwner;
     NSString *_gtUser;
+    NSNumber *_tidStart;
+    NSNumber *_tidEnd;
 }
 
 + (NSString *)type;
@@ -28,5 +30,7 @@
 @property(readwrite,strong,atomic)  NSString *postTranslation;
 @property(readwrite,strong,atomic)  NSString *gtOwner;
 @property(readwrite,strong,atomic)  NSString *gtUser;
+@property(readwrite,strong,atomic)  NSNumber *_tidStart;
+@property(readwrite,strong,atomic)  NSNumber *_tidEnd;
 
 @end

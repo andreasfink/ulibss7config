@@ -163,7 +163,8 @@ if(dict[name]!=NULL) \
     id o = dict[name]; \
     if([o isKindOfClass:[NSString class]]) \
     { \
-        value = [NSNumber numberWithInt:[o intValue]]; \
+    NSString *str = (NSString *)o; \
+        value = @([str intergerValueSupportingHex]); \
     } \
     else if([o isKindOfClass:[NSArray class]]) \
     { \

@@ -2302,9 +2302,10 @@ static void signalHandler(int signum);
         [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
     }
     [s appendString:@"</select>\n"];
-    [s appendString:@"MSISDN: <input name=\"msisdn\">\n"];
-    [s appendString:@"TT:     <input name=\"tt\" value=0>\n"];
-    [s appendString:@"        <input type=submit>\n"];
+    [s appendString:@"MSISDN:             <input name=\"msisdn\">\n"];
+    [s appendString:@"TT:                 <input name=\"tt\" value=0>\n"];
+    [s appendString:@"Transaction Number: <input name=\"tid\" value=0>\n"];
+    [s appendString:@"                    <input type=submit>\n"];
 
     [s appendString:@"</form>\n"];
     [s appendString:@"</pre>\n"];
@@ -2320,6 +2321,12 @@ static void signalHandler(int signum);
     NSDictionary *p = req.params;
     NSString *msisdn    =    [[p[@"msisdn"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *sccp_name = [[p[@"sccp"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *tidString = [[p[@"tid"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSNumber *tid = NULL;
+    if(tidString.length > 0)
+    {
+        tid = @([tidString intergerValueSupportingHex]);
+    }
     int tt        = [p[@"tt"] intValue];
 
 
@@ -2338,7 +2345,8 @@ static void signalHandler(int signum);
 
     UMSynchronizedSortedDictionary *resutlDict = [sccp routeTestForMSISDN:msisdn
                                                           translationType:tt
-                                                                fromLocal:NO];
+                                                                fromLocal:NO
+                                                        transactionNumber:tid];
     [req setResponseJsonObject:resutlDict];
     return;
 }
