@@ -51,7 +51,8 @@
                 // 2. Get Engine
                 NSString *engine_name = _params[@"engine"];
                 UMPluginHandler *engine = [_appDelegate getSS7FilterEngineHandler:engine_name];
-                
+                #pragma unused(engine)
+
                 // 3. Get Rule-Set
                 NSString *ruleset_name = _params[@"filter-ruleset"];
                 UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];

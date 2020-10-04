@@ -56,7 +56,7 @@ typedef enum SchrittmacherMode
 
 #ifdef __APPLE__
 /* this is for unit tests to work in Xcode */
-#import <cocoa/cocoa.h>
+#import <Cocoa/Cocoa.h>
 #endif
 
 @interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
