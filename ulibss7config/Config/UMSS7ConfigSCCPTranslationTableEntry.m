@@ -45,6 +45,7 @@
     APPEND_CONFIG_STRING(s,@"gt-user",_gtUser);
     APPEND_CONFIG_INTEGER(s,@"transaction-id-start",_tidStart);
     APPEND_CONFIG_INTEGER(s,@"transaction-id-end",_tidEnd);
+    APPEND_CONFIG_STRING(s,@"transaction-id-range",_tidRange);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -58,6 +59,7 @@
     APPEND_DICT_STRING(dict,@"gt-user",_gtUser);
     APPEND_DICT_INTEGER(dict,@"transaction-id-start",_tidStart);
     APPEND_DICT_INTEGER(dict,@"transaction-id-end",_tidEnd);
+    APPEND_DICT_STRING(dict,@"transaction-id-range",_tidRange);
 
 
     return dict;
@@ -74,6 +76,8 @@
     SET_DICT_FILTERED_STRING(dict,@"gt-user",_gtUser);
     SET_DICT_INTEGER(dict,@"transaction-id-start",_tidStart);
     SET_DICT_INTEGER(dict,@"transaction-id-end",_tidEnd);
+    SET_DICT_STRING(dict,@"transaction-id-range",_tidRange);
+
     _name = [SccpGttRoutingTableEntry entryNameForGta:_gta tableName:_translationTableName];
 }
 

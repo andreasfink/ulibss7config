@@ -18,6 +18,7 @@
     NSString *_gtUser;
     NSNumber *_tidStart;
     NSNumber *_tidEnd;
+    NSString *_tidRange;
 }
 
 + (NSString *)type;
@@ -32,5 +33,6 @@
 @property(readwrite,strong,atomic)  NSString *gtUser;
 @property(readwrite,strong,atomic)  NSNumber *tidStart;
 @property(readwrite,strong,atomic)  NSNumber *tidEnd;
+@property(readwrite,strong,atomic)  NSString *tidRange;
 
 @end
