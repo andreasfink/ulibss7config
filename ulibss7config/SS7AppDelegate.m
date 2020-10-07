@@ -863,7 +863,7 @@ static void signalHandler(int signum);
     }
     else
     {
-        _registry.sendAborts            =  NO;
+        _registry.sendAborts            =  YES;
     }
 
     if(generalConfig.logRotations!=NULL)
