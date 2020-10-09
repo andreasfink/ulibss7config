@@ -50,7 +50,8 @@
     APPEND_CONFIG_STRING(s,@"pointcode-translation-table-in",_pctransIn);
     APPEND_CONFIG_STRING(s,@"pointcode-translation-table-out",_pctransOut);
     APPEND_CONFIG_BOOLEAN(s,@"disable-route-advertizement",_disableRouteAdvertizement);
-
+    APPEND_CONFIG_STRING(s,@"screening-plugin-name",_screeningPluginName);
+    APPEND_CONFIG_STRING(s,@"screening-plugin-config",_screeningPluginConfig);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -71,6 +72,8 @@
     APPEND_DICT_STRING(dict,@"pointcode-translation-table-in",_pctransIn);
     APPEND_DICT_STRING(dict,@"pointcode-translation-table-out",_pctransOut);
     APPEND_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
+    APPEND_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
+    APPEND_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
     return dict;
 }
 
@@ -92,8 +95,8 @@
     SET_DICT_STRING(dict,@"pointcode-translation-table-in",_pctransIn);
     SET_DICT_STRING(dict,@"pointcode-translation-table-out",_pctransOut);
     SET_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
-
-
+    SET_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
+    SET_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
 }
 
 - (UMSS7ConfigMTP3LinkSet *)copyWithZone:(NSZone *)zone

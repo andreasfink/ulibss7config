@@ -25,6 +25,8 @@
     NSString *_pctransIn;
     NSString *_pctransOut;
     NSNumber *_disableRouteAdvertizement;
+    NSString *_screeningPluginName;
+    NSString *_screeningPluginConfig;
 }
 
 + (NSString *)type;
@@ -46,5 +48,7 @@
 @property(readwrite,strong,atomic)  NSString *pctransIn;
 @property(readwrite,strong,atomic)  NSString *pctransOut;
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
+@property(readwrite,strong,atomic)  NSString *screeningPluginName;
+@property(readwrite,strong,atomic)  NSString *screeningPluginConfig;
 
 @end

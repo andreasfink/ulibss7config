@@ -32,6 +32,9 @@
     NSNumber *_automaticAnsiItuConversion;
     NSNumber *_ansi_tt_e164;
     NSNumber *_ansi_tt_e212;
+    NSString *_screeningPluginName;
+    NSString *_screeningPluginConfig;
+
 }
 
 + (NSString *)type;
@@ -57,5 +60,7 @@
 @property(readwrite,strong,atomic)  NSNumber *automaticAnsiItuConversion;
 @property(readwrite,strong,atomic)  NSNumber *ansi_tt_e164;
 @property(readwrite,strong,atomic)  NSNumber *ansi_tt_e212;
+@property(readwrite,strong,atomic)  NSString *screeningPluginName;
+@property(readwrite,strong,atomic)  NSString *screeningPluginConfig;
 
 @end
