@@ -48,6 +48,8 @@
     APPEND_CONFIG_BOOLEAN(s,@"disable-route-advertizement",_disableRouteAdvertizement);
     APPEND_CONFIG_STRING(s,@"tt-map-in",_ttmap_in);
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
+    APPEND_CONFIG_STRING(s,@"screening-plugin-name",_screeningPluginName);
+    APPEND_CONFIG_STRING(s,@"screening-plugin-config",_screeningPluginConfig);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -66,6 +68,8 @@
     APPEND_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
     APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
+    APPEND_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
+    APPEND_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
 
     return dict;
 }
@@ -87,6 +91,8 @@
     SET_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
     SET_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
+    SET_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
+    SET_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
 }
 
 - (UMSS7ConfigM3UAAS *)copyWithZone:(NSZone *)zone

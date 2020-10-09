@@ -903,6 +903,11 @@ static void signalHandler(int signum);
                                                                   numberOfQueues:UMLAYER_QUEUE_COUNT];
         }
     }
+    if(generalConfig.filterEngineDirectory.length > 0)
+    {
+        _filterEnginesPath = generalConfig.filterEngineDirectory;
+    }
+    
     _sctpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"sctp"
                                                         enableLogging:NO

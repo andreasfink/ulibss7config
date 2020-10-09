@@ -40,6 +40,7 @@
     APPEND_CONFIG_STRING(s,@"number",_number);
     APPEND_CONFIG_STRING(s,@"sccp",_sccp);
     APPEND_CONFIG_STRING(s,@"license-directory",_licenseDirectory);
+    APPEND_CONFIG_STRING(s,@"filter-engine-directory",_filterEngineDirectory);
     APPEND_CONFIG_STRING(s,@"gtt-accounting-db-pool",_gttAccountingDbPool);
     APPEND_CONFIG_STRING(s,@"gtt-accounting-table",_gttAccountingTable);
     APPEND_CONFIG_STRING(s,@"gtt-accounting-prefixes-table",_gttAccountingPrefixesTable);
@@ -53,6 +54,7 @@
     APPEND_DICT_STRING(dict,@"number",_number);
     APPEND_DICT_STRING(dict,@"sccp",_sccp);
     APPEND_DICT_STRING(dict,@"license-directory",_licenseDirectory);
+    APPEND_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
     APPEND_DICT_STRING(dict,@"gtt-accounting-db-pool",_gttAccountingDbPool);
     APPEND_DICT_STRING(dict,@"gtt-accounting-table",_gttAccountingTable);
     APPEND_DICT_STRING(dict,@"gtt-accounting-prefixes-table",_gttAccountingPrefixesTable);
@@ -65,6 +67,7 @@
     SET_DICT_STRING(dict,@"number",_number);
     SET_DICT_STRING(dict,@"sccp",_sccp);
     SET_DICT_STRING(dict,@"license-directory",_licenseDirectory);
+    SET_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
     SET_DICT_STRING(dict,@"gtt-accounting-db-pool",_gttAccountingDbPool);
     SET_DICT_STRING(dict,@"gtt-accounting-table",_gttAccountingTable);
     SET_DICT_STRING(dict,@"gtt-accounting-prefixes-table",_gttAccountingPrefixesTable);

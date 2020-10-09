@@ -23,7 +23,8 @@
     NSNumber *_disableRouteAdvertizement;
     NSString *_ttmap_in;
     NSString *_ttmap_out;
-
+    NSString *_screeningPluginName;
+    NSString *_screeningPluginConfig;
 }
 
 + (NSString *)type;
@@ -43,6 +44,8 @@
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
 @property(readwrite,strong,atomic)  NSString *ttmap_in;
 @property(readwrite,strong,atomic)  NSString *ttmap_out;
+@property(readwrite,strong,atomic)  NSString *screeningPluginName;
+@property(readwrite,strong,atomic)  NSString *screeningPluginConfig;
 
 
 @end
