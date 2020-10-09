@@ -6152,8 +6152,15 @@ static void signalHandler(int signum);
     return NULL;
 }
 
+- (NSString *)filterEnginesPath
+{
+    return _filterEnginesPath;
+}
 
-
+- (id)licenseDirectory
+{
+    return _globalLicenseDirectory;
+}
 
 @end
 

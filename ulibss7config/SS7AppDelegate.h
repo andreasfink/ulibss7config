@@ -561,5 +561,8 @@ UMEnvironmentNamedListProviderProtocol>
 - (NSString *)exportStartupConfiguration;
 - (NSString *)writeCurrentConfigurationToStartup;
 
+-(NSString *)filterEnginesPath;
+-(id)licenseDirectory;
+
 @end
 
