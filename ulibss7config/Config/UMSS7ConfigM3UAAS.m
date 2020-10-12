@@ -50,6 +50,10 @@
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
     APPEND_CONFIG_STRING(s,@"screening-plugin-name",_screeningPluginName);
     APPEND_CONFIG_STRING(s,@"screening-plugin-config",_screeningPluginConfig);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-update-allow",_routingUpdateAllow);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-update-deny",_routingUpdateDeny);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-advertisement-allow",_routingAdvertisementAllow);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-advertisement-deny",_routingAdvertisementDeny);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -70,6 +74,10 @@
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
     APPEND_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
     APPEND_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
+    APPEND_DICT_ARRAY(dict,@"routing-update-allow",_routingUpdateAllow);
+    APPEND_DICT_ARRAY(dict,@"routing-update-deny",_routingUpdateDeny);
+    APPEND_DICT_ARRAY(dict,@"routing-advertisement-allow",_routingAdvertisementAllow);
+    APPEND_DICT_ARRAY(dict,@"routing-advertisement-deny",_routingAdvertisementDeny);
 
     return dict;
 }
@@ -93,6 +101,10 @@
     SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
     SET_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
     SET_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
+    SET_DICT_ARRAY(dict,@"routing-update-allow",_routingUpdateAllow);
+    SET_DICT_ARRAY(dict,@"routing-update-deny",_routingUpdateDeny);
+    SET_DICT_ARRAY(dict,@"routing-advertisement-allow",_routingAdvertisementAllow);
+    SET_DICT_ARRAY(dict,@"routing-advertisement-deny",_routingAdvertisementDeny);
 }
 
 - (UMSS7ConfigM3UAAS *)copyWithZone:(NSZone *)zone

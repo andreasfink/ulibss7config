@@ -27,6 +27,10 @@
     NSNumber *_disableRouteAdvertizement;
     NSString *_screeningPluginName;
     NSString *_screeningPluginConfig;
+    NSArray<NSString *> *_routingUpdateAllow;
+    NSArray<NSString *> *_routingUpdateDeny;
+    NSArray<NSString *> *_routingAdvertisementAllow;
+    NSArray<NSString *> *_routingAdvertisementDeny;
 }
 
 + (NSString *)type;
@@ -50,5 +54,9 @@
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
 @property(readwrite,strong,atomic)  NSString *screeningPluginName;
 @property(readwrite,strong,atomic)  NSString *screeningPluginConfig;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingUpdateAllow;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingUpdateDeny;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementAllow;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementDeny;
 
 @end
