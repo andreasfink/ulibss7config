@@ -271,6 +271,8 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)applicationGoToStandby;
 - (UMHTTPAuthenticationStatus)httpAuthenticateRequest:(UMHTTPRequest *)req
                                                 realm:(NSString **)realm;
+- (UMHTTPAuthenticationStatus)httpRequireAdminAuthorisation:(UMHTTPRequest *)req
+                                                      realm:(NSString *)realm;
 
 - (void)processCommandLine:(int)argc argv:(const char **)argv;
 - (void)signal_SIGINT;

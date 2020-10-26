@@ -1034,6 +1034,7 @@ static void signalHandler(int signum);
             }
             NSString *ipversion = [config configEntry:@"ip-version"];
             NSString *transport = [config configEntry:@"transport-protocol"];
+
             if([ipversion isEqualToString:@"4"])
             {
                 sockType = UMSOCKET_TYPE_TCP4ONLY;
@@ -1058,6 +1059,7 @@ static void signalHandler(int signum);
                     sockType = UMSOCKET_TYPE_SCTP_STREAM;
                 }
             }
+            NSNumber *disableAuth = config[@"disable-authentication"];
 
             webServer = [[UMHTTPSServer alloc]initWithPort:webPort
                                                 socketType:sockType
@@ -1066,6 +1068,10 @@ static void signalHandler(int signum);
                                                sslCertFile:certFile];
             if(webServer)
             {
+                if(disableAuth)
+                {
+                    webServer.disableAuthentication = [disableAuth boolValue];
+                }
                 webServer.enableKeepalive = YES;
                 webServer.httpGetPostDelegate = self;
                 webServer.httpOptionsDelegate = self;
@@ -1832,90 +1838,143 @@ static void signalHandler(int signum);
 
         if([path isEqualToString:@"/debug"])
         {
-            NSString *s = [self webIndexDebug];
-            [req setResponseHtmlString:s];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                NSString *s = [self webIndexDebug];
+                [req setResponseHtmlString:s];
+            }
         }
         else if([path isEqualToString:@"/debug/umobject-stat"])
         {
-            [self umobjectStat:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self umobjectStat:req];
+            }
         }
         else if([path isEqualToString:@"/debug/ummutex-stat"])
         {
-            [self ummutexStat:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self ummutexStat:req];
+            }
         }
         else if([path isEqualToString:@"/status/sccp/route"])
         {
-            [self hanldeSCCPRouteStatus:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self httpAuthenticateRequest:req realm:@"admin"];
+                [self hanldeSCCPRouteStatus:req];
+            }
         }
         else if([path isEqualToString:@"/status/mtp3/route"])
         {
-            [self handleMTP3RouteStatus:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleMTP3RouteStatus:req];
+            }
         }
         else if([path isEqualToString:@"/status/m2pa"])
         {
-            [self handleM2PAStatus:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleM2PAStatus:req];
+            }
         }
         else if([path isEqualToString:@"/status/m3ua"])
         {
-            [self handleM3UAStatus:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleM3UAStatus:req];
+            }
         }
         else if([path isEqualToString:@"/status/sctp"])
         {
-            [self handleSCTPStatus:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleSCTPStatus:req];
+            }
         }
 
         else if([path isEqualToString:@"/status/diameter"])
         {
-            [self handleDiameterStatus:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDiameterStatus:req];
+            }
         }
 
         /* DECODING MENU */
 
         else if([path isEqualToString:@"/decode"])
         {
-            [self handleDecode:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecode:req];
+            }
         }
         else if(([path isEqualToString:@"/decode/mtp3"])
                 ||([path isEqualToString:@"/mtp3/decode"]))
         {
-            [self handleDecodeMtp3:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecodeMtp3:req];
+            }
         }
         else if(([path isEqualToString:@"/decode/sccp"])
                 ||([path isEqualToString:@"/sccp/decode"]))
         {
-            [self handleDecodeSccp:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecodeSccp:req];
+            }
         }
         else if(([path isEqualToString:@"/decode/tcap"])
                 ||  ([path isEqualToString:@"/tcap/decode"]))
         {
-            [self handleDecodeTcap:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecodeTcap:req];
+            }
         }
         else if([path isEqualToString:@"/decode/tcap2"])
         {
-            [self handleDecodeTcap2:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecodeTcap2:req];
+            }
         }
         else if(([path isEqualToString:@"/decode/asn1"])
                 || ([path isEqualToString:@"/asn1/decode"]))
         {
-            [self handleDecodeAsn1:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecodeAsn1:req];
+            }
         }
         else if(([path isEqualToString:@"/decode/sms"])
                 ||  ([path isEqualToString:@"/sms/decode"]))
         {
-            [self handleDecodeSms:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecodeSms:req];
+            }
         }
-        
         else if(([path isEqualToString:@"/decode/diameter"])
                 ||  ([path isEqualToString:@"/diameter/decode"]))
         {
-            [self handleDecodeDiameter:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleDecodeDiameter:req];
+            }
         }
         else if(([path isEqualToString:@"/decode/diameter-inject"])
                 ||  ([path isEqualToString:@"/diameter/inject"]))
         {
-            [self handleInjectDiameter:req];
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleInjectDiameter:req];
+            }
         }
-
         else if([path hasPrefix:@"/api"])
         {
             
@@ -1955,8 +2014,11 @@ static void signalHandler(int signum);
                 /* default files which can be overriden */
                 if([path isEqualToString:@"/"])
                 {
-                    NSString *s = [self webIndex];
-                    [req setResponseHtmlString:s];
+                    if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+                    {
+                        NSString *s = [self webIndex];
+                        [req setResponseHtmlString:s];
+                    }
                 }
                 else if([path isEqualToString:@"/css/style.css"])
                 {
@@ -1964,14 +2026,18 @@ static void signalHandler(int signum);
                 }
                 else if([path isEqualToString:@"/status"])
                 {
-                    [self handleStatus:req];
+                    if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+                    {
+                        [self handleStatus:req];
+                    }
                 }
                 else if([path isEqualToString:@"/route-test"])
                 {
-                    [self handleRouteTest:req];
+                    if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+                    {
+                        [self handleRouteTest:req];
+                    }
                 }
-
-
                 else
                 {
                     NSString *s = @"Result: Error\nReason: Unknown request\n";
@@ -2617,11 +2683,51 @@ static void signalHandler(int signum);
 - (UMHTTPAuthenticationStatus)httpAuthenticateRequest:(UMHTTPRequest *)req
                                                 realm:(NSString **)realm
 {
-    return UMHTTP_AUTHENTICATION_STATUS_NOT_REQUESTED;
-
+    if([req.path hasPrefix:@"/api"])
+    {
+        /* API has its own authentication */
+        return UMHTTP_AUTHENTICATION_STATUS_NOT_REQUESTED;
+    }
     return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
 }
 
+- (UMHTTPAuthenticationStatus)httpRequireAdminAuthorisation:(UMHTTPRequest *)req
+                                                      realm:(NSString *)realm
+{
+    if(req.connection.server.disableAuthentication == YES)
+    {
+        return UMHTTP_AUTHENTICATION_STATUS_PASSED;
+    }
+    NSString *user = req.authUsername;
+    NSString *pass = req.authPassword;
+    if(user.length == 0)
+    {
+        user = req.params[@"username"];
+        pass = req.params[@"password"];
+    }
+    if(user.length > 0)
+    {
+        if([realm isEqualToString:@"admin"])
+        {
+            UMSS7ConfigAdminUser *u = [_runningConfig getAdminUser:user];
+            if([u.password isEqualToString:pass])
+            {
+                return UMHTTP_AUTHENTICATION_STATUS_PASSED;
+            }
+        }
+        else if([realm isEqualToString:@"service"])
+        {
+            UMSS7ConfigServiceUser *u = [_runningConfig getServiceUser:user];
+            if([u.password isEqualToString:pass])
+            {
+                return UMHTTP_AUTHENTICATION_STATUS_PASSED;
+            }
+        }
+    }
+    [req setNotAuthorizedForRealm:realm];
+    return UMHTTP_AUTHENTICATION_STATUS_FAILED;
+
+}
 - (void)webHeader:(NSMutableString *)s title:(NSString *)t
 {
     [s appendString:@"<html>\n"];
