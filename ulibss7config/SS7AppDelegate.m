@@ -1862,7 +1862,6 @@ static void signalHandler(int signum);
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
             {
-                [self httpAuthenticateRequest:req realm:@"admin"];
                 [self hanldeSCCPRouteStatus:req];
             }
         }
