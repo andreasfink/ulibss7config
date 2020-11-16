@@ -40,6 +40,8 @@
     APPEND_CONFIG_INTEGER(s,@"new-nai",_replacementNAI);
     APPEND_CONFIG_INTEGER(s,@"new-np",_replacementNP);
     APPEND_CONFIG_INTEGER(s,@"remove-digits",_removeDigits);
+    APPEND_CONFIG_STRING(s,@"append-digits",_appendDigits);
+
 
 }
 
@@ -52,6 +54,7 @@
     APPEND_DICT_INTEGER(dict,@"new-nai",_replacementNAI);
     APPEND_DICT_INTEGER(dict,@"new-np",_replacementNP);
     APPEND_DICT_INTEGER(dict,@"remove-digits",_removeDigits);
+    APPEND_DICT_STRING(dict,@"append-digits",_appendDigits);
     return dict;
 }
 
@@ -64,6 +67,7 @@
     SET_DICT_INTEGER(dict,@"new-nai",_replacementNAI);
     SET_DICT_INTEGER(dict,@"new-np",_replacementNP);
     SET_DICT_INTEGER(dict,@"remove-digits",_removeDigits);
+    SET_DICT_STRING(dict,@"append-digits",_appendDigits);
 }
 
 - (UMSS7ConfigSCCPNumberTranslationEntry *)copyWithZone:(NSZone *)zone
