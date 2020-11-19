@@ -325,7 +325,7 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)handleRouteTest:(UMHTTPRequest *)req;
 
 
-- (void)addPendingUMTTask:(UMTask *)task
+- (void)addPendingUMTTask:(UMTaskQueueTask *)task
 				   dialog:(UMTCAP_UserDialogIdentifier *)_dialogId
 				 invokeId:(int64_t)_invokeId;
 

@@ -12,7 +12,7 @@
 
 #import "UMSS7ConfigAppDelegateProtocol.h"
 @class UMSS7ApiSession;
-@interface UMSS7ApiTask : UMTask
+@interface UMSS7ApiTask : UMTaskQueueTask
 {
     UMHTTPRequest   *_webRequest;
     NSDictionary    *_params;
