@@ -65,6 +65,7 @@
                     }
                     [self sendResultObject:entries];
                 }
+                break;
              case 2:
                  {
                      NSMutableArray *entries = [[NSMutableArray alloc]init];
