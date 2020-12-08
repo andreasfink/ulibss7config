@@ -27,6 +27,8 @@
     NSNumber *_setNpi;
     NSNumber *_setEncoding;
     NSNumber *_setNational;
+    NSNumber *_removeDigits;
+    NSNumber *_limitDigitLength;
     NSNumber *_ansiToItu;
     NSNumber *_ituToAnsi;
 }
@@ -52,6 +54,8 @@
 @property(readwrite,strong,atomic)  NSNumber *setNpi;
 @property(readwrite,strong,atomic)  NSNumber *setEncoding;
 @property(readwrite,strong,atomic)  NSNumber *setNational;
+@property(readwrite,strong,atomic)  NSNumber *removeDigits;
+@property(readwrite,strong,atomic)  NSNumber *limitDigitLength;
 @property(readwrite,strong,atomic)  NSNumber *ansiToItu;
 @property(readwrite,strong,atomic)  NSNumber *ituToAnsi;
 

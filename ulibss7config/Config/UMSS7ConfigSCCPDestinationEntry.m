@@ -54,6 +54,9 @@
     APPEND_CONFIG_INTEGER(s,@"set-npi",_setNpi);
     APPEND_CONFIG_INTEGER(s,@"set-encoding",_setEncoding);
     APPEND_CONFIG_INTEGER(s,@"set-national",_setNational);
+    APPEND_CONFIG_INTEGER(s,@"remove-digits",_removeDigits);
+    APPEND_CONFIG_INTEGER(s,@"limit-digit-length",_limitDigitLength);
+
     APPEND_CONFIG_BOOLEAN(s,@"ansi-to-itu",_ansiToItu);
     APPEND_CONFIG_BOOLEAN(s,@"itu-to-ansi",_ituToAnsi);
 }
@@ -79,6 +82,8 @@
     APPEND_DICT_INTEGER(dict,@"set-npi",_setNpi);
     APPEND_DICT_INTEGER(dict,@"set-encoding",_setEncoding);
     APPEND_DICT_INTEGER(dict,@"set-national",_setNational);
+    APPEND_DICT_INTEGER(dict,@"remove-digits",_removeDigits);
+    APPEND_DICT_INTEGER(dict,@"limit-digit-length",_limitDigitLength);
     APPEND_DICT_BOOLEAN(dict,@"ansi-to-itu",_ansiToItu);
     APPEND_DICT_BOOLEAN(dict,@"itu-to-ansi",_ituToAnsi);
 
@@ -106,6 +111,8 @@
     SET_DICT_INTEGER(dict,@"set-npi",_setNpi);
     SET_DICT_INTEGER(dict,@"set-encoding",_setEncoding);
     SET_DICT_INTEGER(dict,@"set-national",_setNational);
+    SET_DICT_INTEGER(dict,@"remove-digits",_removeDigits);
+    SET_DICT_INTEGER(dict,@"limit-digit-length",_limitDigitLength);
     SET_DICT_BOOLEAN(dict,@"ansi-to-itu",_ansiToItu);
     SET_DICT_BOOLEAN(dict,@"itu-to-ansi",_ituToAnsi);
 
