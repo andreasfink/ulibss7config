@@ -47,6 +47,7 @@
     APPEND_CONFIG_INTEGER(s,@"set-called-tt",_overrideCalledTT);
     APPEND_CONFIG_INTEGER(s,@"set-calling-tt",_overrideCallingTT);
     APPEND_CONFIG_STRING(s,@"add-prefix",_addPrefix);
+    APPEND_CONFIG_STRING(s,@"add-postfix",_addPostfix);
     APPEND_CONFIG_STRING(s,@"mtp3",_mtp3Instance);
     APPEND_CONFIG_INTEGER(s,@"set-gti",_setGti);
     APPEND_CONFIG_INTEGER(s,@"set-nai",_setNai);
@@ -71,6 +72,7 @@
     APPEND_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
     APPEND_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
+    APPEND_DICT_STRING(dict,@"add-prefix",_addPostfix);
     APPEND_DICT_STRING(dict,@"mtp3",_mtp3Instance);
     APPEND_DICT_INTEGER(dict,@"set-gti",_setGti);
     APPEND_DICT_INTEGER(dict,@"set-nai",_setNai);
@@ -97,6 +99,7 @@
     SET_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
     SET_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     SET_DICT_STRING(dict,@"add-prefix",_addPrefix);
+    SET_DICT_STRING(dict,@"add-postfix",_addPostfix);
     SET_DICT_STRING(dict,@"mtp3",_mtp3Instance);
     SET_DICT_INTEGER(dict,@"set-gti",_setGti);
     SET_DICT_INTEGER(dict,@"set-nai",_setNai);
