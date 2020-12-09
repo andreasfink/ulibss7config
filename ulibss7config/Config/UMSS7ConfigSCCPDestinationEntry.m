@@ -47,12 +47,16 @@
     APPEND_CONFIG_INTEGER(s,@"set-called-tt",_overrideCalledTT);
     APPEND_CONFIG_INTEGER(s,@"set-calling-tt",_overrideCallingTT);
     APPEND_CONFIG_STRING(s,@"add-prefix",_addPrefix);
+    APPEND_CONFIG_STRING(s,@"add-postfix",_addPostfix);
     APPEND_CONFIG_STRING(s,@"mtp3",_mtp3Instance);
     APPEND_CONFIG_INTEGER(s,@"set-gti",_setGti);
     APPEND_CONFIG_INTEGER(s,@"set-nai",_setNai);
     APPEND_CONFIG_INTEGER(s,@"set-npi",_setNpi);
     APPEND_CONFIG_INTEGER(s,@"set-encoding",_setEncoding);
     APPEND_CONFIG_INTEGER(s,@"set-national",_setNational);
+    APPEND_CONFIG_INTEGER(s,@"remove-digits",_removeDigits);
+    APPEND_CONFIG_INTEGER(s,@"limit-digit-length",_limitDigitLength);
+
     APPEND_CONFIG_BOOLEAN(s,@"ansi-to-itu",_ansiToItu);
     APPEND_CONFIG_BOOLEAN(s,@"itu-to-ansi",_ituToAnsi);
 }
@@ -71,12 +75,15 @@
     APPEND_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
     APPEND_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
+    APPEND_DICT_STRING(dict,@"add-prefix",_addPostfix);
     APPEND_DICT_STRING(dict,@"mtp3",_mtp3Instance);
     APPEND_DICT_INTEGER(dict,@"set-gti",_setGti);
     APPEND_DICT_INTEGER(dict,@"set-nai",_setNai);
     APPEND_DICT_INTEGER(dict,@"set-npi",_setNpi);
     APPEND_DICT_INTEGER(dict,@"set-encoding",_setEncoding);
     APPEND_DICT_INTEGER(dict,@"set-national",_setNational);
+    APPEND_DICT_INTEGER(dict,@"remove-digits",_removeDigits);
+    APPEND_DICT_INTEGER(dict,@"limit-digit-length",_limitDigitLength);
     APPEND_DICT_BOOLEAN(dict,@"ansi-to-itu",_ansiToItu);
     APPEND_DICT_BOOLEAN(dict,@"itu-to-ansi",_ituToAnsi);
 
@@ -97,12 +104,15 @@
     SET_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
     SET_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     SET_DICT_STRING(dict,@"add-prefix",_addPrefix);
+    SET_DICT_STRING(dict,@"add-postfix",_addPostfix);
     SET_DICT_STRING(dict,@"mtp3",_mtp3Instance);
     SET_DICT_INTEGER(dict,@"set-gti",_setGti);
     SET_DICT_INTEGER(dict,@"set-nai",_setNai);
     SET_DICT_INTEGER(dict,@"set-npi",_setNpi);
     SET_DICT_INTEGER(dict,@"set-encoding",_setEncoding);
     SET_DICT_INTEGER(dict,@"set-national",_setNational);
+    SET_DICT_INTEGER(dict,@"remove-digits",_removeDigits);
+    SET_DICT_INTEGER(dict,@"limit-digit-length",_limitDigitLength);
     SET_DICT_BOOLEAN(dict,@"ansi-to-itu",_ansiToItu);
     SET_DICT_BOOLEAN(dict,@"itu-to-ansi",_ituToAnsi);
 

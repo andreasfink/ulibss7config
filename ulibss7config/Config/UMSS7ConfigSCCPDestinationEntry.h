@@ -20,12 +20,15 @@
     NSNumber *_overrideCalledTT;
     NSNumber *_overrideCallingTT;
     NSString *_addPrefix;
+    NSString *_addPostfix;
     NSString *_mtp3Instance;
     NSNumber *_setGti;
     NSNumber *_setNai;
     NSNumber *_setNpi;
     NSNumber *_setEncoding;
     NSNumber *_setNational;
+    NSNumber *_removeDigits;
+    NSNumber *_limitDigitLength;
     NSNumber *_ansiToItu;
     NSNumber *_ituToAnsi;
 }
@@ -44,12 +47,15 @@
 @property(readwrite,strong,atomic)  NSNumber *overrideCalledTT;
 @property(readwrite,strong,atomic)  NSNumber *overrideCallingTT;
 @property(readwrite,strong,atomic)  NSString *addPrefix;
+@property(readwrite,strong,atomic)  NSString *addPostfix;
 @property(readwrite,strong,atomic)  NSString *mtp3Instance;
 @property(readwrite,strong,atomic)  NSNumber *setGti;
 @property(readwrite,strong,atomic)  NSNumber *setNai;
 @property(readwrite,strong,atomic)  NSNumber *setNpi;
 @property(readwrite,strong,atomic)  NSNumber *setEncoding;
 @property(readwrite,strong,atomic)  NSNumber *setNational;
+@property(readwrite,strong,atomic)  NSNumber *removeDigits;
+@property(readwrite,strong,atomic)  NSNumber *limitDigitLength;
 @property(readwrite,strong,atomic)  NSNumber *ansiToItu;
 @property(readwrite,strong,atomic)  NSNumber *ituToAnsi;
 
