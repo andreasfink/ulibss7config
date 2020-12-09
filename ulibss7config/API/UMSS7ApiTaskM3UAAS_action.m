@@ -37,7 +37,7 @@
         {
             if([action isEqualToString:@"action-list"])
             {
-                [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
+                [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop",@"forced-power-off",@"forced-power-on"]];
             }
 
             else if([action isEqualToString:@"activate"])
@@ -63,6 +63,17 @@
                 [m3ua_as aspDown:NULL];
                 [self sendResultOK];
             }
+            else if([action isEqualToString:@"forced-power-on"])
+            {
+                [m3ua_as forcedPowerOn];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"forced-power-off"])
+            {
+                [m3ua_as forcedPowerOff];
+                [self sendResultOK];
+            }
+
             else
             {
                 [self sendErrorUnknownAction];
@@ -75,3 +86,4 @@
     }
 }
 @end
+
