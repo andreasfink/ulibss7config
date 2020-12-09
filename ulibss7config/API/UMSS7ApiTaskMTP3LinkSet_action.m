@@ -45,7 +45,7 @@
         {
             if([action isEqualToString:@"action-list"])
             {
-                [self sendResultObject:@[ @"add-link", @"remove-link", @"power-on", @"power-off",@"start-slc",@"stop-slc"]];
+                [self sendResultObject:@[ @"add-link", @"remove-link", @"power-on", @"power-off",@"forced-power-on", @"forced-power-off",@"start-slc",@"stop-slc"]];
             }
 
             else if([action isEqualToString:@"add-link"])
@@ -69,6 +69,17 @@
                 [mtp3linkset powerOff];
                 [self sendResultOK];
             }
+            else if([action isEqualToString:@"forced-power-off"])
+            {
+                [mtp3linkset forcedPowerOff];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"forced-power-on"])
+            {
+                [mtp3linkset forcedPowerOn];
+                [self sendResultOK];
+            }
+
             else if([action isEqualToString:@"start-slc"])
             {
                 [mtp3linkset start:slc];
