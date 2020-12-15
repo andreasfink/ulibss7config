@@ -21,8 +21,7 @@
     NSNumber            *_mtu;
     NSNumber            *_maxInitTimeout;
     NSNumber            *_maxInitAttempts;
-    NSNumber            *_tcpListener;
-    NSNumber            *_tcpClient;
+    NSNumber            *_sctpOverTcp;
 }
 
 + (NSString *)type;
@@ -39,8 +38,7 @@
 @property(readwrite,strong,atomic)      NSNumber            *mtu;
 @property(readwrite,strong,atomic)      NSNumber            *maxInitTimeout;
 @property(readwrite,strong,atomic)      NSNumber            *maxInitAttempts;
-@property(readwrite,strong,atomic)      NSNumber            *tcpListener;
-@property(readwrite,strong,atomic)      NSNumber            *tcpClient;
+@property(readwrite,strong,atomic)      NSNumber            *sctpOverTcp;
 
 @end
 
