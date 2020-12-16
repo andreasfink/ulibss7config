@@ -32,8 +32,9 @@
     NSNumber *_automaticAnsiItuConversion;
     NSNumber *_ansi_tt_e164;
     NSNumber *_ansi_tt_e212;
-    NSString *_screeningPluginName;
-    NSString *_screeningPluginConfig;
+    NSString *_screeningSccpPluginName;
+    NSString *_screeningSccpPluginConfigFile;
+    NSString *_screeningSccpPluginTraceFile;
 
 }
 
@@ -60,7 +61,8 @@
 @property(readwrite,strong,atomic)  NSNumber *automaticAnsiItuConversion;
 @property(readwrite,strong,atomic)  NSNumber *ansi_tt_e164;
 @property(readwrite,strong,atomic)  NSNumber *ansi_tt_e212;
-@property(readwrite,strong,atomic)  NSString *screeningPluginName;
-@property(readwrite,strong,atomic)  NSString *screeningPluginConfig;
+@property(readwrite,strong,atomic)  NSString *screeningSccpPluginName;
+@property(readwrite,strong,atomic)  NSString *screeningSccpPluginConfigFile;
+@property(readwrite,strong,atomic)  NSString *screeningSccpPluginTraceFile;
 
 @end

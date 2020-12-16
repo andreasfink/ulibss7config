@@ -2786,12 +2786,43 @@ static void signalHandler(int signum);
 }
 - (void)signal_SIGHUP
 {
-    NSLog(@"SIGHUP received, should be reopening logfile...");
+    NSLog(@"SIGHUP received, reopening logfiles...");
+    NSArray *allMtp3InstanceNames = [_mtp3_dict allKeys];
+    
+    for(NSString *mtp3_instance_name in allMtp3InstanceNames)
+    {
+        UMLayerMTP3 *mtp3 = _mtp3_dict[mtp3_instance_name];
+        [mtp3 reopenLogfiles];
+    }
+    
+    NSArray *allSccpInstanceNames = [_sccp_dict allKeys];
+    for(NSString *sccp_instance_name in allSccpInstanceNames)
+    {
+        UMLayerSCCP *sccp = _sccp_dict[sccp_instance_name];
+        [sccp reopenLogfiles];
+    }
 }
 
 - (void)signal_SIGINFO
 {
-    NSLog(@"SIGINFO received, should be reloading plugin config files...");
+    NSLog(@"SIGINFO received, reloading plugin config files...");
+    NSArray *allMtp3InstanceNames = [_mtp3_dict allKeys];
+    
+    for(NSString *mtp3_instance_name in allMtp3InstanceNames)
+    {
+        UMLayerMTP3 *mtp3 = _mtp3_dict[mtp3_instance_name];
+        [mtp3 reloadPlugins];
+        [mtp3 reloadPluginConfigs];
+    }
+    
+    NSArray *allSccpInstanceNames = [_sccp_dict allKeys];
+    
+    for(NSString *sccp_instance_name in allSccpInstanceNames)
+    {
+        UMLayerSCCP *sccp = _mtp3_dict[sccp_instance_name];
+        [sccp reloadPlugins];
+        [sccp reloadPluginConfigs];
+    }
 }
 
 /************************************************************/
