@@ -112,6 +112,8 @@ static int _signal_sigint = 0;
 static int _signal_sighup = 0;
 static int _signal_sigusr1 = 0;
 static int _signal_sigusr2 = 0;
+static int _signal_siginfo = 0;
+
 static void signalHandler(int signum);
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
@@ -2787,6 +2789,10 @@ static void signalHandler(int signum);
     NSLog(@"SIGHUP received, should be reopening logfile...");
 }
 
+- (void)signal_SIGINFO
+{
+    NSLog(@"SIGINFO received, should be reloading plugin config files...");
+}
 
 /************************************************************/
 #pragma mark -
@@ -3879,23 +3885,28 @@ static void signalHandler(int signum);
 {
     if(_signal_sighup>0)
     {
-        [self signal_SIGHUP];
         _signal_sighup--;
+        [self signal_SIGHUP];
     }
     if(_signal_sigint>0)
     {
-        [self signal_SIGINT];
         _signal_sigint--;
+        [self signal_SIGINT];
     }
     if(_signal_sigusr1>0)
     {
-        [self signal_SIGUSR1];/* go into Hot mode */
         _signal_sigusr1--;
+        [self signal_SIGUSR1];/* go into Hot mode */
     }
     if(_signal_sigusr2>0)
     {
-        [self signal_SIGUSR2]; /* go into Standby Mode */
         _signal_sigusr2--;
+        [self signal_SIGUSR2]; /* go into Standby Mode */
+    }
+    if(_signal_siginfo)
+    {
+        _signal_siginfo--;
+        [self signal_SIGINFO]; /* go into Standby Mode */
     }
 }
 
@@ -6287,5 +6298,9 @@ static void signalHandler(int signum)
 	{
 		_signal_sigusr2++;
 	}
+    else if (signum == SIGINFO)
+    {
+        _signal_siginfo++;
+    }
 }
 

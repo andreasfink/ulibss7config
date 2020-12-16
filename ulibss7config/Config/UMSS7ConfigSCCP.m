@@ -55,7 +55,7 @@
     APPEND_CONFIG_INTEGER(s,@"ansi-tt-e164",_ansi_tt_e164);
     APPEND_CONFIG_INTEGER(s,@"ansi-tt-e212",_ansi_tt_e212);
     APPEND_CONFIG_STRING(s,@"screening-plugin-name",_screeningPluginName);
-    APPEND_CONFIG_STRING(s,@"screening-plugin-config",_screeningPluginConfig);
+    APPEND_CONFIG_STRING(s,@"screening-plugin-config-file",_screeningPluginConfig);
 
 }
 
@@ -82,7 +82,7 @@
     APPEND_DICT_INTEGER(dict,@"ansi-tt-e164",_ansi_tt_e164);
     APPEND_DICT_INTEGER(dict,@"ansi-tt-e212",_ansi_tt_e212);
     APPEND_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
-    APPEND_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
+    APPEND_DICT_STRING(dict,@"screening-plugin-config-file",_screeningPluginConfig);
     return dict;
 }
 
@@ -108,7 +108,7 @@
     SET_DICT_INTEGER(dict,@"ansi-tt-e164",_ansi_tt_e164);
     SET_DICT_INTEGER(dict,@"ansi-tt-e212",_ansi_tt_e212);
     SET_DICT_STRING(dict,@"screening-plugin-name",_screeningPluginName);
-    SET_DICT_STRING(dict,@"screening-plugin-config",_screeningPluginConfig);
+    SET_DICT_STRING(dict,@"screening-plugin-config-file",_screeningPluginConfig);
 }
 
 - (UMSS7ConfigSCCP *)copyWithZone:(NSZone *)zone

@@ -279,6 +279,7 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)signal_SIGHUP;  /* reopen logfile */
 - (void)signal_SIGUSR1; /* go into Hot mode      */
 - (void)signal_SIGUSR2;  /* go into Standby mode */
+- (void)signal_SIGINFO;
 
 - (NSDictionary *)appDefinition; /* has to be overloaded */
 - (NSArray *)commandLineSyntax;
