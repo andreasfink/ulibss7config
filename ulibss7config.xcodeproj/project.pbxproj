@@ -3042,7 +3042,7 @@
 					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.14.0;
+				MARKETING_VERSION = 1.14.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fink.ulibss7config;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				WARNING_CFLAGS = "-Wimplicit-fallthrough";
@@ -3092,7 +3092,7 @@
 					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.14.0;
+				MARKETING_VERSION = 1.14.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fink.ulibss7config;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				WARNING_CFLAGS = "-Wimplicit-fallthrough";
