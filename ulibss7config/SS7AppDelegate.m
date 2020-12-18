@@ -112,7 +112,6 @@ static int _signal_sigint = 0;
 static int _signal_sighup = 0;
 static int _signal_sigusr1 = 0;
 static int _signal_sigusr2 = 0;
-static int _signal_siginfo = 0;
 
 static void signalHandler(int signum);
 
@@ -2793,6 +2792,8 @@ static void signalHandler(int signum);
     {
         UMLayerMTP3 *mtp3 = _mtp3_dict[mtp3_instance_name];
         [mtp3 reopenLogfiles];
+        [mtp3 reloadPlugins];
+        [mtp3 reloadPluginConfigs];
     }
     
     NSArray *allSccpInstanceNames = [_sccp_dict allKeys];
@@ -2800,30 +2801,11 @@ static void signalHandler(int signum);
     {
         UMLayerSCCP *sccp = _sccp_dict[sccp_instance_name];
         [sccp reopenLogfiles];
-    }
-}
-
-- (void)signal_SIGINFO
-{
-    NSLog(@"SIGINFO received, reloading plugin config files...");
-    NSArray *allMtp3InstanceNames = [_mtp3_dict allKeys];
-    
-    for(NSString *mtp3_instance_name in allMtp3InstanceNames)
-    {
-        UMLayerMTP3 *mtp3 = _mtp3_dict[mtp3_instance_name];
-        [mtp3 reloadPlugins];
-        [mtp3 reloadPluginConfigs];
-    }
-    
-    NSArray *allSccpInstanceNames = [_sccp_dict allKeys];
-    
-    for(NSString *sccp_instance_name in allSccpInstanceNames)
-    {
-        UMLayerSCCP *sccp = _mtp3_dict[sccp_instance_name];
         [sccp reloadPlugins];
         [sccp reloadPluginConfigs];
     }
 }
+
 
 /************************************************************/
 #pragma mark -
@@ -3933,11 +3915,6 @@ static void signalHandler(int signum);
     {
         _signal_sigusr2--;
         [self signal_SIGUSR2]; /* go into Standby Mode */
-    }
-    if(_signal_siginfo)
-    {
-        _signal_siginfo--;
-        [self signal_SIGINFO]; /* go into Standby Mode */
     }
 }
 
@@ -6329,9 +6306,5 @@ static void signalHandler(int signum)
 	{
 		_signal_sigusr2++;
 	}
-    else if (signum == SIGINFO)
-    {
-        _signal_siginfo++;
-    }
 }
 

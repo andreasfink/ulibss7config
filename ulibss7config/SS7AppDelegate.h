@@ -276,10 +276,9 @@ UMEnvironmentNamedListProviderProtocol>
 
 - (void)processCommandLine:(int)argc argv:(const char **)argv;
 - (void)signal_SIGINT;
-- (void)signal_SIGHUP;  /* reopen logfile */
+- (void)signal_SIGHUP;  /* reopen logfile and reload external configs */
 - (void)signal_SIGUSR1; /* go into Hot mode      */
 - (void)signal_SIGUSR2;  /* go into Standby mode */
-- (void)signal_SIGINFO;
 
 - (NSDictionary *)appDefinition; /* has to be overloaded */
 - (NSArray *)commandLineSyntax;
