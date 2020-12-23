@@ -53,9 +53,11 @@
     APPEND_CONFIG_STRING(s,@"screening-mtp3-plugin-name",_screeningMtp3PluginName);
     APPEND_CONFIG_STRING(s,@"screening-mtp3-plugin-config-file",_screeningMtp3PluginConfigFile);
     APPEND_CONFIG_STRING(s,@"screening-mtp3-plugin-trace-file",_screeningMtp3PluginTraceFile);
+    APPEND_CONFIG_INTEGER(s,@"screening-mtp3-plugin-trace-level",_screeningMtp3PluginTraceLevel);
     APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-name",_screeningSccpPluginName);
     APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-config-file",_screeningSccpPluginConfigFile);
     APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile);
+    APPEND_CONFIG_INTEGER(s,@"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-update-allow",_routingUpdateAllow);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-update-deny",_routingUpdateDeny);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-advertisement-allow",_routingAdvertisementAllow);
@@ -84,9 +86,11 @@
     APPEND_DICT_STRING(dict,@"screening-mtp3-plugin-name",_screeningMtp3PluginName);
     APPEND_DICT_STRING(dict,@"screening-mtp3-plugin-config-file",_screeningMtp3PluginConfigFile);
     APPEND_DICT_STRING(dict,@"screening-mtp3-plugin-trace-file",_screeningMtp3PluginConfigTrace);
+    APPEND_DICT_INTEGER(dict,@"screening-mtp3-plugin-trace-level",_screeningMtp3PluginTraceLevel);
     APPEND_DICT_STRING(dict,@"screening-sccp-plugin-name",_screeningSccpPluginName);
     APPEND_DICT_STRING(dict,@"screening-sccp-plugin-config-file",_screeningSccpPluginConfigFile);
     APPEND_DICT_STRING(dict,@"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile);
+    APPEND_DICT_INTEGER(dict,@"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel);
     APPEND_DICT_ARRAY(dict,@"routing-update-allow",_routingUpdateAllow);
     APPEND_DICT_ARRAY(dict,@"routing-update-deny",_routingUpdateDeny);
     APPEND_DICT_ARRAY(dict,@"routing-advertisement-allow",_routingAdvertisementAllow);
@@ -116,9 +120,11 @@
     SET_DICT_STRING(dict,@"screening-mtp3-plugin-name",_screeningMtp3PluginName);
     SET_DICT_STRING(dict,@"screening-mtp3-plugin-config-file",_screeningMtp3PluginConfigFile);
     SET_DICT_STRING(dict,@"screening-mtp3-plugin-trace-file",_screeningMtp3PluginTraceFile);
+    SET_DICT_INTEGER(dict,@"screening-mtp3-plugin-trace-level",_screeningMtp3PluginTraceLevel);
     SET_DICT_STRING(dict,@"screening-sccp-plugin-name",_screeningSccpPluginName);
     SET_DICT_STRING(dict,@"screening-sccp-plugin-config-file",_screeningSccpPluginConfigFile);
     SET_DICT_STRING(dict,@"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile);
+    SET_DICT_INTEGER(dict,@"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel);
     SET_DICT_ARRAY(dict,@"routing-update-allow",_routingUpdateAllow);
     SET_DICT_ARRAY(dict,@"routing-update-deny",_routingUpdateDeny);
     SET_DICT_ARRAY(dict,@"routing-advertisement-allow",_routingAdvertisementAllow);
