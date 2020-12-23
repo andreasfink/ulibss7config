@@ -57,6 +57,12 @@
                                           @"close-mtp3-screening-trace",
                                           @"open-sccp-screening-trace",
                                           @"close-sccp-screening-trace",
+                                          @"set-mtp3-screening-trace-level-none",
+                                          @"set-mtp3-screening-trace-level-rejected-only",
+                                          @"set-mtp3-screening-trace-level-everything",
+                                          @"set-sccp-screening-trace-level-none",
+                                          @"set-sccp-screening-trace-level-rejected-only",
+                                          @"set-sccp-screening-trace-level-everything",
                                           ]];
             }
             else if([action isEqualToString:@"add-link"])
@@ -111,6 +117,55 @@
                 [self sendResultOK];
             }
 
+            else if([action isEqualToString:@"set-mtp3-screening-trace-level-none"])
+            {
+                mtp3linkset.mtp3ScreeningTraceLevel = UMMTP3ScreeningTraceLevel_none;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-mtp3-screening-trace-level-rejected-only"])
+            {
+                mtp3linkset.mtp3ScreeningTraceLevel = UMMTP3ScreeningTraceLevel_rejected_only;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-mtp3-screening-trace-level-everything"])
+            {
+                mtp3linkset.mtp3ScreeningTraceLevel = UMMTP3ScreeningTraceLevel_everything;
+                [self sendResultOK];
+            }
+
+            
+            else if([action isEqualToString:@"set-sccp-screening-trace-level-none"])
+            {
+                mtp3linkset.sccpScreeningTraceLevel = UMMTP3ScreeningTraceLevel_none;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-sccp-screening-trace-level-rejected-only"])
+            {
+                mtp3linkset.sccpScreeningTraceLevel = UMMTP3ScreeningTraceLevel_rejected_only;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-sccp-screening-trace-level-everything"])
+            {
+                mtp3linkset.sccpScreeningTraceLevel = UMMTP3ScreeningTraceLevel_everything;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-mtp3-screening-trace"])
+            {
+                [mtp3linkset closeMtp3ScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"open-sccp-screening-trace"])
+            {
+                [mtp3linkset openSccpScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-sccp-screening-trace"])
+            {
+                [mtp3linkset closeSccpScreeningTraceFile];
+                [self sendResultOK];
+            }
+
+
             else if([action isEqualToString:@"start-slc"])
             {
                 [mtp3linkset start:slc];
@@ -133,4 +188,5 @@
         }
     }
 }
+
 @end
