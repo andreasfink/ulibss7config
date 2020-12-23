@@ -45,9 +45,20 @@
         {
             if([action isEqualToString:@"action-list"])
             {
-                [self sendResultObject:@[ @"add-link", @"remove-link", @"power-on", @"power-off",@"forced-power-on", @"forced-power-off",@"start-slc",@"stop-slc"]];
+                [self sendResultObject:@[ @"add-link",
+                                          @"remove-link",
+                                          @"power-on",
+                                          @"power-off",
+                                          @"forced-power-on",
+                                          @"forced-power-off",
+                                          @"start-slc",
+                                          @"stop-slc",
+                                          @"open-mtp3-screening-trace",
+                                          @"close-mtp3-screening-trace",
+                                          @"open-sccp-screening-trace",
+                                          @"close-sccp-screening-trace",
+                                          ]];
             }
-
             else if([action isEqualToString:@"add-link"])
             {
                 [self sendErrorNotImplemented];
@@ -77,6 +88,26 @@
             else if([action isEqualToString:@"forced-power-on"])
             {
                 [mtp3linkset forcedPowerOn];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"open-mtp3-screening-trace"])
+            {
+                [mtp3linkset openMtp3ScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-mtp3-screening-trace"])
+            {
+                [mtp3linkset closeMtp3ScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"open-sccp-screening-trace"])
+            {
+                [mtp3linkset openSccpScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-sccp-screening-trace"])
+            {
+                [mtp3linkset closeSccpScreeningTraceFile];
                 [self sendResultOK];
             }
 
