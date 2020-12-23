@@ -79,7 +79,6 @@
             {
                 [mtp3linkset powerOn];
                 [self sendResultOK];
-
             }
             else if(([action isEqualToString:@"power-off"]) || ([action isEqualToString:@"stop"]))
             {
