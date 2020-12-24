@@ -2038,6 +2038,13 @@ static void signalHandler(int signum);
                         [self handleRouteTest:req];
                     }
                 }
+                else if([path isEqualToString:@"/diameter-route-test"])
+                {
+                    if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+                    {
+                        [self handleDiameterRouteTest:req];
+                    }
+                }
                 else
                 {
                     NSString *s = @"Result: Error\nReason: Unknown request\n";
@@ -2326,6 +2333,7 @@ static void signalHandler(int signum);
     [s appendString:@"<UL>\n"];
     [s appendString:@"<LI><a href=\"/status\">status</a></LI>\n"];
     [s appendString:@"<LI><a href=\"/route-test\">route-test</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/diameter-route-test\">diameter-route-test</a></LI>\n"];
     /* FIXME
      if(mainMscInstance)
      {
@@ -2388,6 +2396,68 @@ static void signalHandler(int signum);
     return s;
 }
 
+- (NSString *)routeTestFormDiameter:(NSString *)err
+{
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [SS7GenericInstance webHeader:s title:@"Route Test"];
+
+    [s appendString:@"<h2>Diameter Route Test</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">main-menu</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
+
+    if(err)
+    {
+        [s appendFormat:@"<p>%@</p>\n",err];
+    }
+    [s appendString:@"<pre>\n"];
+    [s appendString:@"<form>\n"];
+    NSArray *drnames = [self getDiameterRouterNames];
+    NSMutableArray *peerNames = [[NSMutableArray alloc]init];
+    for(NSString *drname in drnames)
+    {
+        UMDiameterRouter *dr = [self getDiameterRouter:drname];
+        UMSynchronizedDictionary *peers = dr.peers;
+        NSArray *pn = [peers allKeys];
+        for(NSString *n in pn)
+        {
+            [peerNames addObject:n];
+        }
+    }
+    if(drnames.count == 1)
+    {
+        NSString *drname = drnames[0];
+        [s appendFormat:@"diameter:    %@<input name=\"diameter\" value=\"%@\" type=hidden>\n",drname,drname];
+    }
+    else
+    {
+        [s appendString:@"Diameter:   <select name=\"diameter\">"];
+        for(NSString *name in drnames)
+        {
+            [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+        }
+    }
+    [s appendString:@"</select>\n"];
+    [s appendString:@"realm:       <input name=\"realm\">\n"];
+    [s appendString:@"host:        <input name=\"host\">\n"];
+    [s appendString:@"session-id:  <input name=\"session-id\">\n"];
+    [s appendString:@"source-peer: <select name=\"source-peer\">"];
+    for(NSString *name in peerNames)
+    {
+        [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+    }
+    [s appendString:@"</select>\n"];
+    [s appendString:@"             <input type=submit>\n"];
+
+    [s appendString:@"</form>\n"];
+    [s appendString:@"</pre>\n"];
+
+
+    [s appendString:@"</body>\n"];
+    [s appendString:@"</html>\n"];
+    return s;
+}
+
 - (void)handleRouteTest:(UMHTTPRequest *)req
 {
     NSDictionary *p = req.params;
@@ -2420,6 +2490,36 @@ static void signalHandler(int signum);
                                                                 fromLocal:NO
                                                         transactionNumber:tid];
     [req setResponseJsonObject:resutlDict];
+    return;
+}
+
+- (void)handleDiameterRouteTest:(UMHTTPRequest *)req
+{
+    NSDictionary *p = req.params;
+    NSString *dr            = [[p[@"diameter"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *host          = [[p[@"host"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *source_peer   = [[p[@"source-peer"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *realm         = [[p[@"realm"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *session_id    = [[p[@"session-id"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+
+    if((dr.length == 0) || (source_peer.length == 0))
+    {
+        [req setResponseHtmlString:[self routeTestFormDiameter:NULL] ];
+        return;
+    }
+
+    UMDiameterRouter *diameterRouter = [self getDiameterRouter:dr];
+    if(dr==NULL)
+    {
+        [req setResponseHtmlString:[self routeTestForm:@"can not find DiameterRouter object"] ];
+        return;
+    }
+
+   UMSynchronizedSortedDictionary *resultDict = [diameterRouter routeTestForSessionId:session_id
+                                                                             peerName:source_peer
+                                                                                realm:realm
+                                                                                 host:host];
+    [req setResponseJsonObject:resultDict];
     return;
 }
 

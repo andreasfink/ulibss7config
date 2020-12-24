@@ -323,6 +323,7 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)umtGetPost:(UMHTTPRequest *)req;
 - (void)webHeader:(NSMutableString *)s title:(NSString *)t;
 - (void)handleRouteTest:(UMHTTPRequest *)req;
+- (void)handleDiameterRouteTest:(UMHTTPRequest *)req;
 
 
 - (void)addPendingUMTTask:(UMTaskQueueTask *)task
