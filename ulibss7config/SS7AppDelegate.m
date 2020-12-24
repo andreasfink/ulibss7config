@@ -2440,7 +2440,6 @@ static void signalHandler(int signum);
     [s appendString:@"</select>\n"];
     [s appendString:@"realm:       <input name=\"realm\">\n"];
     [s appendString:@"host:        <input name=\"host\">\n"];
-    [s appendString:@"session-id:  <input name=\"session-id\">\n"];
     [s appendString:@"source-peer: <select name=\"source-peer\">"];
     for(NSString *name in peerNames)
     {
@@ -2500,7 +2499,6 @@ static void signalHandler(int signum);
     NSString *host          = [[p[@"host"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *source_peer   = [[p[@"source-peer"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *realm         = [[p[@"realm"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-    NSString *session_id    = [[p[@"session-id"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
 
     if((dr.length == 0) || (source_peer.length == 0))
     {
@@ -2515,10 +2513,9 @@ static void signalHandler(int signum);
         return;
     }
 
-   UMSynchronizedSortedDictionary *resultDict = [diameterRouter routeTestForSessionId:session_id
-                                                                             peerName:source_peer
-                                                                                realm:realm
-                                                                                 host:host];
+   UMSynchronizedSortedDictionary *resultDict = [diameterRouter routeTestForPeerName:source_peer
+                                                                               realm:realm
+                                                                                host:host];
     [req setResponseJsonObject:resultDict];
     return;
 }
