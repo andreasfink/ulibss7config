@@ -9,7 +9,7 @@
 
 #import "UMSS7ConfigObject.h"
 
-@interface UMSS7ConfigMTP3PointCodeTranslationTable : UMSS7ConfigObject
+@interface UMSS7ConfigMTP3remoteNi : UMSS7ConfigObject
 {
     NSNumber    *_localNi;
     NSNumber    *_remoteNi;
