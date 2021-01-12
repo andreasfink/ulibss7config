@@ -9,7 +9,7 @@
 
 #import "UMSS7ConfigObject.h"
 
-@interface UMSS7ConfigMTP3remoteNi : UMSS7ConfigObject
+@interface UMSS7ConfigMTP3PointCodeTranslationTable : UMSS7ConfigObject
 {
     NSNumber    *_localNi;
     NSNumber    *_remoteNi;
@@ -24,7 +24,6 @@
 @property(readwrite,strong,atomic)  NSString    *defaultLocalPc;
 @property(readwrite,strong,atomic)  NSString    *defaultRemotePc;
 @property(readwrite,strong,atomic)  NSArray<NSString *>*pcmap;
-
 
 + (NSString *)type;
 - (NSString *)type;

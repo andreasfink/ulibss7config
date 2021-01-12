@@ -22,7 +22,6 @@
     return [UMSS7ConfigMTP3PointCodeTranslationTable type];
 }
 
-
 - (UMSS7ConfigMTP3PointCodeTranslationTable *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
@@ -32,7 +31,6 @@
     }
     return self;
 }
-
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
@@ -64,8 +62,6 @@
     SET_DICT_INTEGER(dict,@"remote-ni",_remoteNi);
     SET_DICT_ARRAY(dict,@"map",_pcmap);
 }
-
-
 
 - (UMSS7ConfigMTP3PointCodeTranslationTable *)copyWithZone:(NSZone *)zone
 {
