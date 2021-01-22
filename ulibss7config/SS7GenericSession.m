@@ -2148,7 +2148,7 @@ else \
     [s appendString:@"<a href=\"index.php\">menu</a>\n"];
     [s appendFormat:@"<h2>%@</h2>\n",t];
     [s appendString:@"<form method=\"get\">\n"];
-    [s appendString:@"<table>\n"];
+    [s appendString:@"<table><tbody>\n"];
 
 }
 
@@ -2158,7 +2158,7 @@ else \
     [s appendString:@"    <td>&nbsp</td>\n"];
     [s appendString:@"    <td><input type=submit></td>\n"];
     [s appendString:@"</tr>\n"];
-    [s appendString:@"</table>\n"];
+    [s appendString:@"</tbody></table>\n"];
     [s appendString:@"</form>\n"];
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
