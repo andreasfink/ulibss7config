@@ -796,7 +796,7 @@ static void signalHandler(int signum);
             NSLog(@"schrittmacher-port specified but no schrittmacher-id. Ignoring");
         }
 
-        if(params[@"schrittmacher-id"])
+        if((params[@"schrittmacher-id"]) && (params[@"schrittmacher-port"]))
         {
             int schrittmacherPort =7700;
             NSArray<NSString *> *a = params[@"schrittmacher-id"];
@@ -814,21 +814,20 @@ static void signalHandler(int signum);
             [_schrittmacherClient start];
             if(params[@"standby"])
             {
-                _schrittmacherMode = SchrittmacherMode_standby;
-                [_schrittmacherClient heartbeatStandby];
+                [_schrittmacherClient reportTransitingToStandby];
                 _startInStandby = YES;
             }
             else if(params[@"hot"])
             {
-                _schrittmacherMode = SchrittmacherMode_hot;
-                [_schrittmacherClient heartbeatHot];
+                [_schrittmacherClient reportTransitingToHot];
                 _startInStandby = NO;
             }
             else
             {
-                _schrittmacherMode = SchrittmacherMode_unknown;
-                [_schrittmacherClient heartbeatUnknown];
+                [_schrittmacherClient reportUnknown];
+                _startInStandby = YES; /* schrittmacher will tell us to go hot or not*/
             }
+            [_schrittmacherClient doHeartbeat];
         }
 
         if(actionDone)
