@@ -6292,7 +6292,11 @@ static void signalHandler(int signum);
 {
     if(_databaseQueue == NULL)
     {
-        int concurrentThreads = ulib_cpu_count() * 2;
+        int concurrentThreads = ulib_cpu_count();
+        if(concurrentThreads > 16)
+        {
+            concurrentThreads = 16;
+        }
         if(concurrentThreads<4)
         {
             concurrentThreads = 4;
