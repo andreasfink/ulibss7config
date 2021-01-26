@@ -566,6 +566,7 @@ UMEnvironmentNamedListProviderProtocol>
 
 -(NSString *)filterEnginesPath;
 -(id)licenseDirectory;
+- (BOOL)increaseMaximumOpenFiles:(NSUInteger)count; /* returns YES if successful */
 
 @end
 

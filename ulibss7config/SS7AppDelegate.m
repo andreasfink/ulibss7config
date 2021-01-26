@@ -6386,6 +6386,31 @@ static void signalHandler(int signum);
     return _globalLicenseDirectory;
 }
 
+- (BOOL)increaseMaximumOpenFiles:(NSUInteger )newMax /* returns true if successful */
+{
+    NSUInteger currentCount=0;
+    
+    struct rlimit r;
+    getrlimit(RLIMIT_NOFILE, &r);
+    fprintf(stderr,"open file limit is  %ld\n", (long)r.rlim_cur);
+    currentCount=(unsigned long)r.rlim_cur;
+    if(currentCount < newMax)
+    {
+        r.rlim_cur = newMax;
+        if(r.rlim_max < r.rlim_cur)
+        {
+            r.rlim_max = r.rlim_cur;
+        };
+        setrlimit(RLIMIT_NOFILE, &r);
+        getrlimit(RLIMIT_NOFILE, &r);
+        if(r.rlim_cur != newMax)
+        {
+            return NO;
+        }
+    }
+    return YES;
+}
+
 @end
 
 static void signalHandler(int signum)
