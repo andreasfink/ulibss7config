@@ -555,6 +555,7 @@
                          last:(BOOL)xlast
                       options:(NSDictionary *)xoptions
 {
+    _hasReceivedInvokes++;
     [self.logFeed minorErrorText:[NSString stringWithFormat:@"incoming executeMAP_Invoke_Ind for unknown userIdentifier %@",userIdentifier]];
     return;
 }

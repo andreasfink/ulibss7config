@@ -731,7 +731,7 @@ else \
     _remoteAddress = dst;
 
     [self touch];
-    if(_hasReceivedInvokes==0)
+    if(_hasReceivedInvokes > 0)
     {
         [_components addObject:@{@"rx" : @"tcap-continue"} ];
         SccpAddress *remote = NULL;
@@ -739,13 +739,13 @@ else \
         {
             remote = _initialRemoteAddress;
         }
-
         [_gInstance.gsmMap queueMAP_Delimiter_Req:xdialogId
                                    callingAddress:NULL
                                     calledAddress:remote
                                           options:@{}
                                            result:NULL
                                        diagnostic:NULL];
+        _hasReceivedInvokes =0;
     }
 }
 
