@@ -22,6 +22,7 @@
     NSNumber            *_maxInitTimeout;
     NSNumber            *_maxInitAttempts;
     NSNumber            *_sctpOverTcp;
+    NSString            *_sctpOverTcpSessionKey;
 }
 
 + (NSString *)type;
@@ -39,6 +40,6 @@
 @property(readwrite,strong,atomic)      NSNumber            *maxInitTimeout;
 @property(readwrite,strong,atomic)      NSNumber            *maxInitAttempts;
 @property(readwrite,strong,atomic)      NSNumber            *sctpOverTcp;
-
+@property(readwrite,strong,atomic)      NSString            *sctpOverTcpSessionKey
 @end
 

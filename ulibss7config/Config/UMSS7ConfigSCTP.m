@@ -40,6 +40,7 @@
     APPEND_CONFIG_INTEGER(s,@"local-port",_localPort);
     APPEND_CONFIG_INTEGER(s,@"remote-port",_remotePort);
     APPEND_CONFIG_BOOLEAN(s,@"sctp-over-tcp",_sctpOverTcp);
+    APPEND_CONFIG_STRING(s,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
     APPEND_CONFIG_BOOLEAN(s,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
     APPEND_CONFIG_BOOLEAN(s,@"passive",_passive);
     APPEND_CONFIG_DOUBLE(s,@"heartbeat",_heartbeat);
@@ -56,6 +57,7 @@
     APPEND_DICT_INTEGER(dict,@"local-port",_localPort);
     APPEND_DICT_INTEGER(dict,@"remote-port",_remotePort);
     APPEND_DICT_BOOLEAN(dict,@"sctp-over-tcp",_sctpOverTcp);
+    APPEND_DICT_STRING(dict,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
     APPEND_DICT_BOOLEAN(dict,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
     APPEND_DICT_BOOLEAN(dict,@"passive",_passive);
     APPEND_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
@@ -73,6 +75,7 @@
     SET_DICT_INTEGER(dict,@"local-port",_localPort);
     SET_DICT_INTEGER(dict,@"remote-port",_remotePort);
     SET_DICT_BOOLEAN(dict,@"sctp-over-tcp",_sctpOverTcp);
+    SET_DICT_STRING(dict,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
     SET_DICT_BOOLEAN(dict,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
     SET_DICT_BOOLEAN(dict,@"passive",_passive);
     SET_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
