@@ -58,6 +58,10 @@
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-update-deny",_routingUpdateDeny);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-advertisement-allow",_routingAdvertisementAllow);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"routing-advertisement-deny",_routingAdvertisementDeny);
+    APPEND_CONFIG_BOOLEAN(s,@"send-aspup",_send_aspup);
+    APPEND_CONFIG_BOOLEAN(s,@"send-aspac",_send_aspac);
+    APPEND_CONFIG_STRING(s,@"mode",_mode);
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -86,7 +90,9 @@
     APPEND_DICT_ARRAY(dict,@"routing-update-deny",_routingUpdateDeny);
     APPEND_DICT_ARRAY(dict,@"routing-advertisement-allow",_routingAdvertisementAllow);
     APPEND_DICT_ARRAY(dict,@"routing-advertisement-deny",_routingAdvertisementDeny);
-
+    APPEND_DICT_BOOLEAN(dict,@"send-aspup",_send_aspup);
+    APPEND_DICT_BOOLEAN(dict,@"send-aspac",_send_aspac);
+    APPEND_DICT_STRING(dict,@"mode",_mode);
     return dict;
 }
 
@@ -117,6 +123,9 @@
     SET_DICT_ARRAY(dict,@"routing-update-deny",_routingUpdateDeny);
     SET_DICT_ARRAY(dict,@"routing-advertisement-allow",_routingAdvertisementAllow);
     SET_DICT_ARRAY(dict,@"routing-advertisement-deny",_routingAdvertisementDeny);
+    SET_DICT_BOOLEAN(dict,@"send-aspup",_send_aspup);
+    SET_DICT_BOOLEAN(dict,@"send-aspac",_send_aspac);
+    SET_DICT_STRING(dict,@"mode",_mode);
 }
 
 - (UMSS7ConfigM3UAAS *)copyWithZone:(NSZone *)zone

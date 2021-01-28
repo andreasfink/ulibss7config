@@ -33,7 +33,9 @@
     NSArray<NSString *> *_routingUpdateDeny;
     NSArray<NSString *> *_routingAdvertisementAllow;
     NSArray<NSString *> *_routingAdvertisementDeny;
-
+    NSNumber *_send_aspup;
+    NSNumber *_send_aspac;
+    NSString *_mode;
 }
 
 + (NSString *)type;
@@ -63,6 +65,8 @@
 @property(readwrite,strong,atomic)  NSArray<NSString *> *routingUpdateDeny;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementAllow;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementDeny;
-
+@property(readwrite,strong,atomic)  NSNumber *send_aspup;
+@property(readwrite,strong,atomic)  NSNumber *send_aspac;
+@property(readwrite,strong,atomic)  NSString *mode;
 
 @end
