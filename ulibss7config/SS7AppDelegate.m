@@ -2536,7 +2536,6 @@ static void signalHandler(int signum);
     for(NSString *key in keys)
     {
         UMLayerM2PA *m2pa = _m2pa_dict[key];
-
         [status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[UMLayerM2PA m2paStatusString:m2pa.m2pa_status]];
         [status appendFormat:@"    local_processor_outage: %@\n", (m2pa.local_processor_outage ? @"YES" : @"NO")];
         [status appendFormat:@"    remote_processor_outage: %@\n", (m2pa.remote_processor_outage ? @"YES" : @"NO")];
@@ -2564,8 +2563,15 @@ static void signalHandler(int signum);
         [status appendFormat:@"    linkstateBusyEndedReceived: %d\n", m2pa.linkstateBusyEndedReceived];
         [status appendFormat:@"    linkstateReadySent: %d\n", m2pa.linkstateReadySent];
         [status appendFormat:@"    linkstateReadyReceived: %d\n", m2pa.linkstateReadyReceived];
+        if(m2pa.controlLock.lockedInFunction != NULL)
+        {
+            [status appendFormat:@"    controlLockEngaged: %s (%s:%ld)\n", m2pa.controlLock.lockedInFunction,m2pa.controlLock.lockedInFile,m2pa.controlLock.lockedAtLine];
+        }
+        if(m2pa.dataLock.lockedInFunction != NULL)
+        {
+            [status appendFormat:@"    dataLockEngaged: %s (%s:%ld)\n", m2pa.dataLock.lockedInFunction,m2pa.dataLock.lockedInFile,m2pa.dataLock.lockedAtLine];
+        }
     }
-
     keys = [_mtp3_linkset_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
     for(NSString *key in keys)
