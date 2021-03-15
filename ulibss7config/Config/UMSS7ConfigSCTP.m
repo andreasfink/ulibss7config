@@ -49,7 +49,6 @@
     APPEND_CONFIG_INTEGER(s,@"max-init-attempts",_maxInitAttempts);
     APPEND_CONFIG_INTEGER(s,@"min-receive-buffer-size",_minReceiveBufferSize);
     APPEND_CONFIG_INTEGER(s,@"min-send-buffer-size",_minSendBufferSize);
-
 }
 
 - (UMSynchronizedSortedDictionary *)config
