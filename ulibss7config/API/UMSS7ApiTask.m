@@ -206,6 +206,13 @@
     [_webRequest resumePendingRequest];
 }
 
+
+-(void)sendResultHtml:(NSString *)html
+{
+    [_webRequest setResponseHtmlString:html];
+    [_webRequest resumePendingRequest];
+}
+
 - (void)sendErrorNotImplemented
 {
     [_webRequest setResponseJsonObject:@{ @"error" : @"not-implemented" }];

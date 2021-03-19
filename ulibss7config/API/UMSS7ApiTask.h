@@ -14,11 +14,11 @@
 @class UMSS7ApiSession;
 @interface UMSS7ApiTask : UMTaskQueueTask
 {
-    UMHTTPRequest   *_webRequest;
-    NSDictionary    *_params;
-    id<UMSS7ConfigAppDelegateProtocol> _appDelegate;
-    UMSS7ApiSession      *_apiSession;
-    UMHistoryLog         *_history;
+    UMHTTPRequest                       *_webRequest;
+    NSDictionary                        *_params;
+    id<UMSS7ConfigAppDelegateProtocol>  _appDelegate;
+    UMSS7ApiSession                     *_apiSession;
+    UMHistoryLog                        *_history;
 }
 
 - (UMSS7ApiTask *)initWithWebRequest:(UMHTTPRequest *)webRequest appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad;
@@ -28,6 +28,7 @@
 + (UMSS7ApiTask *)apiFactory:(UMHTTPRequest *)req appDelegate:(id<UMSS7ConfigAppDelegateProtocol>)ad;
 + (NSArray *)apiPathList;
 
+- (void)sendResultHtml:(NSString *)html;
 - (void)sendError:(NSString *)err;
 - (void)sendError:(NSString *)err reason:(NSString *)reason;
 - (void)sendErrorNotFound;

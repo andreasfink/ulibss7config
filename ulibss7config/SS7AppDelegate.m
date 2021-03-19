@@ -3709,6 +3709,18 @@ static void signalHandler(int signum);
 
 - (UMDiameterRouter *)getDiameterRouter:(NSString *)name
 {
+    if(name == NULL)
+    {
+        NSArray *a = [_diameter_router_dict allKeys];
+        if(a.count >= 1)
+        {
+            name = a[0];
+        }
+    }
+    if(name==NULL)
+    {
+        return NULL;
+    }
     return _diameter_router_dict[name];
 }
 
