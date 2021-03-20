@@ -1600,7 +1600,7 @@ static void signalHandler(int signum);
     names = [_runningConfig getDiameterRouterNames];
     if(names.count > 0)
     {
-        if(_sccpFeature.isAvailable==NO)
+        if((_sccpFeature.isAvailable==NO) && (0))
         {
             [self.logFeed majorErrorText:@"No license for Diameter available but Diameter objects configured"];
         }
