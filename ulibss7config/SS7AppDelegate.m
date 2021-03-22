@@ -5137,9 +5137,8 @@ static void signalHandler(int signum);
     else
     {
         NSData *data = [pdu unhexedData];
-        
         UMDiameterPacket *p = [[UMDiameterPacket alloc]initWithData:data];
-        [p afterDecode];
+        p = [p decodeCommand];
         NSString *s = [[p objectValue] jsonString];
         [req setResponsePlainText:s];
     }
