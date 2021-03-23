@@ -1068,7 +1068,7 @@ static void signalHandler(int signum);
                                                sslCertFile:certFile];
             if(webServer)
             {
-                if(disableAuth)
+                if(disableAuth != NULL)
                 {
                     webServer.disableAuthentication = [disableAuth boolValue];
                 }
@@ -2671,8 +2671,6 @@ static void signalHandler(int signum);
     }
     keys = [_m2pa_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-
-
     [req setResponsePlainText:status];
     return;
 }
