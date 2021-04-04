@@ -1274,7 +1274,16 @@ static void signalHandler(int signum);
                 linkset = as;
             }
 
-            UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
+            UMLayerMTP3 *mtp3_instance
+
+            if(instance.length == 0)
+            {
+                = [self getMTP3:instance];
+            }
+            else
+            {
+                UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
+            }
             if(mtp3_instance)
             {
                 UMMTP3LinkSet *mtp3_linkset = [mtp3_instance getLinkSetByName:linkset];
