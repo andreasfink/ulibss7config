@@ -1274,16 +1274,7 @@ static void signalHandler(int signum);
                 linkset = as;
             }
 
-            UMLayerMTP3 *mtp3_instance
-
-            if(instance.length == 0)
-            {
-                = [self getMTP3:instance];
-            }
-            else
-            {
-                UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
-            }
+            UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
             if(mtp3_instance)
             {
                 UMMTP3LinkSet *mtp3_linkset = [mtp3_instance getLinkSetByName:linkset];
@@ -3009,6 +3000,18 @@ static void signalHandler(int signum);
 
 - (UMLayerMTP3 *)getMTP3:(NSString *)name
 {
+    if(name.length == 0)
+    {
+        NSArray *_allKeys = [_mtp3_dict allKeys];
+        if(_allKeys.count >= 1)
+        {
+            name = _allKeys[0];
+        }
+        else
+        {
+            return NULL;
+        }
+    }
     return _mtp3_dict[name];
 }
 
