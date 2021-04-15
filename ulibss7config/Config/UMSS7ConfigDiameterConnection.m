@@ -43,7 +43,10 @@
     APPEND_CONFIG_STRING(s,@"protocol",_protocol);
     APPEND_CONFIG_DOUBLE(s,@"heartbeat",_heartbeat);
     APPEND_CONFIG_INTEGER(s,@"mtu",_mtu);
-
+    APPEND_CONFIG_STRING(s,@"local-hostname",_localHostName);
+    APPEND_CONFIG_STRING(s,@"local-realm",_localRealm);
+    APPEND_CONFIG_STRING(s,@"peer-hostname",_peerHostName);
+    APPEND_CONFIG_STRING(s,@"peer-realm",_peerRealm);
 }
 
 
@@ -58,7 +61,10 @@
     APPEND_DICT_STRING(dict,@"protocol",_protocol);
     APPEND_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
     APPEND_DICT_INTEGER(dict,@"mtu",_mtu);
-
+    APPEND_DICT_STRING(dict,@"local-hostname",_localHostName);
+    APPEND_DICT_STRING(dict,@"local-realm",_localRealm);
+    APPEND_DICT_STRING(dict,@"peer-hostname",_peerHostName);
+    APPEND_DICT_STRING(dict,@"peer-realm",_peerRealm);
     return dict;
 }
 
@@ -73,6 +79,11 @@
     SET_DICT_STRING(dict,@"protocol",_protocol);
     SET_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
     SET_DICT_INTEGER(dict,@"mtu",_mtu);
+    SET_DICT_STRING(dict,@"local-hostname",_localHostName);
+    SET_DICT_STRING(dict,@"local-realm",_localRealm);
+    SET_DICT_STRING(dict,@"peer-hostname",_peerHostName);
+    SET_DICT_STRING(dict,@"peer-realm",_peerRealm);
+
 }
 
 - (UMSS7ConfigDiameterConnection *)copyWithZone:(NSZone *)zone
