@@ -49,6 +49,8 @@
     APPEND_CONFIG_INTEGER(s,@"max-init-attempts",_maxInitAttempts);
     APPEND_CONFIG_INTEGER(s,@"min-receive-buffer-size",_minReceiveBufferSize);
     APPEND_CONFIG_INTEGER(s,@"min-send-buffer-size",_minSendBufferSize);
+    APPEND_CONFIG_STRING(s,@"dscp",_dscp);
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -68,6 +70,8 @@
     APPEND_DICT_INTEGER(dict,@"max-init-attempts",_maxInitAttempts);
     APPEND_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
     APPEND_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
+    APPEND_DICT_STRING(dict,@"dscp",_dscp);
+
     return dict;
 }
 
@@ -88,6 +92,7 @@
     SET_DICT_INTEGER(dict,@"max-init-attempts",_maxInitAttempts);
     SET_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
     SET_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
+    SET_DICT_STRING(dict,@"dscp",_dscp);
 }
 
 - (UMSS7ConfigSCTP *)copyWithZone:(NSZone *)zone

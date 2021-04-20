@@ -35,7 +35,6 @@
     NSString *_screeningSccpPluginName;
     NSString *_screeningSccpPluginConfigFile;
     NSString *_screeningSccpPluginTraceFile;
-
 }
 
 + (NSString *)type;
