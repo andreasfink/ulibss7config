@@ -23,6 +23,9 @@
     NSString *_localRealm;
     NSString *_peerHostName;
     NSString *_peerRealm;
+    NSNumber *_sendReverseCER;
+    NSNumber *_sendCUR;
+
 
 }
 @property(readwrite,strong,atomic)  NSArray *localAddresses;
@@ -37,6 +40,8 @@
 @property(readwrite,strong,atomic)  NSString *localRealm;
 @property(readwrite,strong,atomic)  NSString *peerHostName;
 @property(readwrite,strong,atomic)  NSString *peerRealm;
+@property(readwrite,strong,atomic)  NSNumber *sendReverseCER;
+@property(readwrite,strong,atomic)  NSNumber *sendCUR;
 
 
 + (NSString *)type;

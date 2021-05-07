@@ -47,6 +47,9 @@
     APPEND_CONFIG_STRING(s,@"local-realm",_localRealm);
     APPEND_CONFIG_STRING(s,@"peer-hostname",_peerHostName);
     APPEND_CONFIG_STRING(s,@"peer-realm",_peerRealm);
+    APPEND_CONFIG_BOOLEAN(s,@"reverse-cer",_sendReverseCER);
+    APPEND_CONFIG_BOOLEAN(s,@"send-cur",_sendCUR);
+
 }
 
 
@@ -65,6 +68,8 @@
     APPEND_DICT_STRING(dict,@"local-realm",_localRealm);
     APPEND_DICT_STRING(dict,@"peer-hostname",_peerHostName);
     APPEND_DICT_STRING(dict,@"peer-realm",_peerRealm);
+    APPEND_DICT_BOOLEAN(dict,@"reverse-cer",_sendReverseCER);
+    APPEND_DICT_BOOLEAN(dict,@"send-cur",_sendCUR);
     return dict;
 }
 
@@ -83,7 +88,8 @@
     SET_DICT_STRING(dict,@"local-realm",_localRealm);
     SET_DICT_STRING(dict,@"peer-hostname",_peerHostName);
     SET_DICT_STRING(dict,@"peer-realm",_peerRealm);
-
+    SET_DICT_BOOLEAN(dict,@"reverse-cer",_sendReverseCER);
+    SET_DICT_BOOLEAN(dict,@"send-cur",_sendCUR);
 }
 
 - (UMSS7ConfigDiameterConnection *)copyWithZone:(NSZone *)zone
