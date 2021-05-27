@@ -44,6 +44,10 @@
     APPEND_CONFIG_DOUBLE(s,@"t5",_t5);
     APPEND_CONFIG_DOUBLE(s,@"t6",_t6);
     APPEND_CONFIG_DOUBLE(s,@"t7",_t7);
+    APPEND_CONFIG_DOUBLE(s,@"t16",_t16);
+    APPEND_CONFIG_DOUBLE(s,@"t17",_t17);
+    APPEND_CONFIG_DOUBLE(s,@"t18",_t18);
+    APPEND_CONFIG_DOUBLE(s,@"ack-timer",_ackTimer);
     APPEND_CONFIG_STRING(s,@"state-machine-log",_stateMachineLog);
 
 }
@@ -62,6 +66,10 @@
     APPEND_DICT_DOUBLE(dict,@"t5",_t5);
     APPEND_DICT_DOUBLE(dict,@"t6",_t6);
     APPEND_DICT_DOUBLE(dict,@"t7",_t7);
+    APPEND_DICT_DOUBLE(dict,@"t16",_t16);
+    APPEND_DICT_DOUBLE(dict,@"t17",_t17);
+    APPEND_DICT_DOUBLE(dict,@"t18",_t18);
+    APPEND_DICT_DOUBLE(dict,@"ack-timer",_ackTimer);
     APPEND_DICT_STRING(dict,@"state-machine-log",_stateMachineLog);
 
     return dict;
@@ -80,6 +88,10 @@
     SET_DICT_DOUBLE(dict,@"t5",_t5);
     SET_DICT_DOUBLE(dict,@"t6",_t6);
     SET_DICT_DOUBLE(dict,@"t7",_t7);
+    SET_DICT_DOUBLE(dict,@"t16",_t16);
+    SET_DICT_DOUBLE(dict,@"t17",_t17);
+    SET_DICT_DOUBLE(dict,@"t18",_t18);
+    SET_DICT_DOUBLE(dict,@"ack-timer",_ackTimer);
     SET_DICT_STRING(dict,@"state-machine-log",_stateMachineLog);
 }
 

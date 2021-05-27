@@ -23,6 +23,10 @@
     NSNumber        *_t5;
     NSNumber        *_t6;
     NSNumber        *_t7;
+    NSNumber        *_t16;
+    NSNumber        *_t17;
+    NSNumber        *_t18;
+    NSNumber        *_ackTimer;
     NSString        *_stateMachineLog;
 }
 
@@ -43,5 +47,9 @@
 @property(readwrite,strong,atomic)      NSNumber        *t5;
 @property(readwrite,strong,atomic)      NSNumber        *t6;
 @property(readwrite,strong,atomic)      NSNumber        *t7;
+@property(readwrite,strong,atomic)      NSNumber        *t16;
+@property(readwrite,strong,atomic)      NSNumber        *t17;
+@property(readwrite,strong,atomic)      NSNumber        *t18;
+@property(readwrite,strong,atomic)      NSNumber        *ackTimer;
 
 @end
