@@ -195,13 +195,12 @@ static void signalHandler(int signum);
         _active_action_list_dict        = [[UMSynchronizedDictionary alloc]init];
         _ss7FilterEngines               = [[UMSynchronizedDictionary alloc]init];
 
-        _incomingLinksetFilters = [[UMSynchronizedDictionary alloc]init];
-        _outgoingLinksetFilters = [[UMSynchronizedDictionary alloc]init];
-        _incomingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
-        _outgoingLocalSubsystemFilters = [[UMSynchronizedDictionary alloc]init];
-
+        _incomingLinksetFilters         = [[UMSynchronizedDictionary alloc]init];
+        _outgoingLinksetFilters         = [[UMSynchronizedDictionary alloc]init];
+        _incomingLocalSubsystemFilters  = [[UMSynchronizedDictionary alloc]init];
+        _outgoingLocalSubsystemFilters  = [[UMSynchronizedDictionary alloc]init];
         _cdrWriters_dict               = [[UMSynchronizedDictionary alloc]init];
-
+        _prometheus                    = [[UMPrometheus alloc]init];
         if(_enabledOptions[@"name"])
         {
             self.logFeed.name =_enabledOptions[@"name"];
@@ -3028,6 +3027,7 @@ static void signalHandler(int signum);
         UMLayerMTP3 *mtp3 = [[UMLayerMTP3 alloc]initWithTaskQueueMulti:_mtp3TaskQueue];
         mtp3.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"mtp3"];
         mtp3.logFeed.name = name;
+        mtp3.prometheus = _prometheus;
         [mtp3 setConfig:config applicationContext:self];
         _mtp3_dict[name] = mtp3;
     }

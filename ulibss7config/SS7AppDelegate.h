@@ -209,6 +209,7 @@ UMEnvironmentNamedListProviderProtocol>
     UMSynchronizedDictionary    *_cdrWriters_dict;
     NSTimeInterval              _sessionTimeout;
     UMLogFeed                   *_apiLogFeed;
+    UMPrometheus                *_prometheus;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -262,6 +263,8 @@ UMEnvironmentNamedListProviderProtocol>
 @property(readwrite,strong)     UMSynchronizedDictionary    *cdrWriters_dict;
 @property(readwrite,strong)     NSString                    *namedListsDirectory;
 @property(readwrite,strong,atomic)  UMLogFeed *apiLogFeed;
+@property(readwrite,strong,atomic)  UMPrometheus            *prometheus;
+
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
