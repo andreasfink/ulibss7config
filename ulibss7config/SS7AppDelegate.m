@@ -6059,6 +6059,7 @@ static void signalHandler(int signum);
 
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
 {
+    [UMSS7Filter sccpDecodeTcapGsmmap:packet];
     if(_logLevel<= UMLOG_DEBUG)
     {
         [packet.logFeed infoText:@"filterInbound called"];

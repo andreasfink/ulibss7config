@@ -57,6 +57,7 @@
 
 - (void)refreshConfig; /* this is called if a namedlist is updated so the engines can readjust its internal structures if needed */
 
++ (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult) filterInbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterMatchResult) matchesPacket:(UMSCCP_Packet *)packet;
 
