@@ -81,31 +81,20 @@ NSDictionary *plugin_info(void);
 {
     UMTCAP_sccpNUnitdata *task;
     UMLayerTCAP *tcap;
+    UMLayerCamel *camel;
+    UMLayerGSMMAP *gsmmap;
+    
     if((packet.incomingCalledPartyAddress.ssn.ssn == SCCP_SSN_CAP) || (packet.incomingCallingPartyAddress.ssn.ssn == SCCP_SSN_CAP))
     {
-        if(_tcap_camel == NULL)
-        {
-            _tcap_camel = [[UMLayerTCAP alloc]init];
-            if(_camel == NULL)
-            {
-                _camel =[[UMLayerCamel alloc]init];
-            }
-            _tcap_camel.tcapDefaultUser = _camel;
-        }
-        tcap = _tcap_camel;
+        tcap = [[UMLayerTCAP alloc]init];
+        camel = [[UMLayerCamel alloc]init];
+        tcap.tcapDefaultUser = camel;
     }
     else
     {
-        if(_tcap_gsmmap == NULL)
-        {
-            _tcap_gsmmap = [[UMLayerTCAP alloc]init];
-            if(_gsmmap == NULL)
-            {
-                _gsmmap = [[UMLayerGSMMAP alloc]init];
-            }
-            _tcap_gsmmap.tcapDefaultUser = _gsmmap;
-        }
-        tcap = _tcap_gsmmap;
+        tcap = [[UMLayerTCAP alloc]init];
+        gsmmap = [[UMLayerGSMMAP alloc]init];
+        tcap.tcapDefaultUser = gsmmap;
     }
     @try
     {
@@ -127,7 +116,14 @@ NSDictionary *plugin_info(void);
             packet.incomingTcapBegin = (UMTCAP_itu_asn1_begin *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_BEGIN;
             packet.incoming_tcap_otid = packet.incomingTcapBegin.otid.asn1_data.hexString;
-            packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
+            if(gsmmap)
+            {
+                packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
+            }
+            else if(camel)
+            {
+                /* FIXME: what to decode for camel? */
+            }
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_continue class]])
         {
@@ -135,29 +131,40 @@ NSDictionary *plugin_info(void);
             packet.incomingTcapCommand = TCAP_TAG_ITU_CONTINUE;
             packet.incoming_tcap_otid = packet.incomingTcapContinue.otid.asn1_data.hexString;
             packet.incoming_tcap_dtid = packet.incomingTcapContinue.dtid.asn1_data.hexString;
-            packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
+            if(gsmmap)
+            {
+                packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
+            }
+            else if(camel)
+            {
+                /* FIXME: what to decode for camel? */
+            }
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_end class]])
         {
             packet.incomingTcapEnd = (UMTCAP_itu_asn1_end *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_END;
             packet.incoming_tcap_dtid = packet.incomingTcapEnd.dtid.asn1_data.hexString;
-            packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
+            if(gsmmap)
+            {
+                packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
+            }
+            else if(camel)
+            {
+                /* FIXME: what to decode for camel? */
+            }
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_abort class]])
         {
             packet.incomingTcapAbort = (UMTCAP_itu_asn1_abort *)asn1;
             packet.incoming_tcap_dtid = packet.incomingTcapAbort.dtid.asn1_data.hexString;
             packet.incomingTcapCommand = TCAP_TAG_ITU_ABORT;
-
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_unidirectional class]])
         {
             packet.incomingTcapUnidirectional = (UMTCAP_itu_asn1_unidirectional *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_UNIDIRECTIONAL;
-
         }
-
         packet.incomingLocalTransactionId   = task.currentLocalTransactionId;
         packet.incomingRemoteTransactionId  = task.currentRemoteTransactionId;
     }
