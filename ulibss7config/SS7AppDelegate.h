@@ -532,6 +532,7 @@ UMEnvironmentNamedListProviderProtocol>
 #pragma mark Filter Packet
 /************************************************************/
 
+- (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet;

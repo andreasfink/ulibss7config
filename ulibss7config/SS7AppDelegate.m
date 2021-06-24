@@ -6057,6 +6057,11 @@ static void signalHandler(int signum);
 
 
 
+- (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet
+{
+    [UMSS7Filter sccpDecodeTcapGsmmap:packet];
+}
+
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet
 {
     [UMSS7Filter sccpDecodeTcapGsmmap:packet];
