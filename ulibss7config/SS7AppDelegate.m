@@ -1988,7 +1988,6 @@ static void signalHandler(int signum);
         }
         else if(([path isEqualToString:@"/metrics"]) && (_prometheus))
         {
-            
             NSString *html = [_prometheus prometheusOutput];
             NSData *d = [html dataUsingEncoding:NSUTF8StringEncoding];
             [req setResponseHeader:@"Content-Type" withValue:@"text/plain; version=0.0.4"];
