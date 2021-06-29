@@ -8,7 +8,6 @@
 
 #import "UMSS7ConfigObject.h"
 
-
 @interface UMSS7ConfigDiameterConnection : UMSS7ConfigObject
 {
     NSArray  *_localAddresses;
@@ -25,11 +24,10 @@
     NSString *_peerRealm;
     NSNumber *_sendReverseCER;
     NSNumber *_sendCUR;
-
-
 }
-@property(readwrite,strong,atomic)  NSArray *localAddresses;
-@property(readwrite,strong,atomic)  NSArray *remoteAddresses;
+
+@property(readwrite,strong,atomic)  NSArray  *localAddresses;
+@property(readwrite,strong,atomic)  NSArray  *remoteAddresses;
 @property(readwrite,strong,atomic)  NSNumber *localPort;
 @property(readwrite,strong,atomic)  NSNumber *remotePort;
 @property(readwrite,strong,atomic)  NSString *protocol;
@@ -42,7 +40,6 @@
 @property(readwrite,strong,atomic)  NSString *peerRealm;
 @property(readwrite,strong,atomic)  NSNumber *sendReverseCER;
 @property(readwrite,strong,atomic)  NSNumber *sendCUR;
-
 
 + (NSString *)type;
 - (NSString *)type;

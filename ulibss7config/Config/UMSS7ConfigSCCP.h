@@ -18,7 +18,6 @@
     NSString *_next_pc2;
     NSNumber *_overrideCallingTT;
     NSNumber *_overrideCalledTT;
-    
 
     NSArray<NSString *> *_gtFiles;
     NSString *_problematicPacketsTraceFile;
@@ -28,7 +27,6 @@
     NSString *_statisticDbTable;
     NSString *_statisticDbInstance;
     NSNumber *_statisticDbAutocreate;
-    
     NSNumber *_automaticAnsiItuConversion;
     NSNumber *_ansi_tt_e164;
     NSNumber *_ansi_tt_e212;

@@ -49,7 +49,6 @@
     APPEND_CONFIG_STRING(s,@"peer-realm",_peerRealm);
     APPEND_CONFIG_BOOLEAN(s,@"reverse-cer",_sendReverseCER);
     APPEND_CONFIG_BOOLEAN(s,@"send-cur",_sendCUR);
-
 }
 
 
