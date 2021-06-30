@@ -201,6 +201,8 @@ static void signalHandler(int signum);
         _outgoingLocalSubsystemFilters  = [[UMSynchronizedDictionary alloc]init];
         _cdrWriters_dict               = [[UMSynchronizedDictionary alloc]init];
         _prometheus                    = [[UMPrometheus alloc]init];
+        UMPrometheusMetricUptime *uptimeMetric = [[UMPrometheusMetricUptime alloc]init];
+        [_prometheus addMetric:uptimeMetric];
         if(_enabledOptions[@"name"])
         {
             self.logFeed.name =_enabledOptions[@"name"];
