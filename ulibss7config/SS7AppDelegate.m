@@ -1547,7 +1547,8 @@ static void signalHandler(int signum);
 
 
             UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue
-                                                                   tidPool:_applicationWideTransactionIdPool];
+                                                                   tidPool:_applicationWideTransactionIdPool
+                                                                      name:tcapName];
             tcap.logFeed = [[UMLogFeed alloc]initWithHandler:self.logHandler section:@"tcap"];
             tcap.logFeed.name = tcapName;
             tcap.attachedLayer = sccp;
@@ -3522,7 +3523,8 @@ static void signalHandler(int signum);
         config = co.config.dictionaryCopy;
 
         UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue
-                                                               tidPool:_applicationWideTransactionIdPool];
+                                                               tidPool:_applicationWideTransactionIdPool
+                                                                  name:name];
 
         tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         tcap.logFeed.name = name;
@@ -3954,7 +3956,9 @@ static void signalHandler(int signum);
     tcapConfig[@"subsystem"] = @(SCCP_SSN_ULIBTRANSPORT);
     tcapConfig[@"timeout"] = @(30);
     tcapConfig[@"number"] = number;
-    UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue tidPool:pool];
+    UMLayerTCAP *tcap = [[UMLayerTCAP alloc]initWithTaskQueueMulti:_tcapTaskQueue
+                                                           tidPool:pool
+                                                              name:tcapName];
     tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
     tcap.logFeed.name = tcapName;
     tcap.attachedLayer = sccp;
