@@ -2580,6 +2580,13 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"    dataLockEngaged: %s (%s:%ld)\n", m2pa.dataLock.lockedInFunction,m2pa.dataLock.lockedInFile,m2pa.dataLock.lockedAtLine];
         }
+        if(m2pa.sctpLink.linkLock.lockedInFunction!=NULL)
+        {
+            [status appendFormat:@"    sctpLinkLockEngaged: %s (%s:%ld)\n",
+                m2pa.sctpLink.linkLock.lockedInFunction,
+                m2pa.sctpLink.linkLock.lockedInFile,
+                m2pa.sctpLink.linkLock.lockedAtLine];
+        }
     }
     keys = [_mtp3_linkset_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
