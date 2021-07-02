@@ -77,24 +77,45 @@ NSDictionary *plugin_info(void);
     return UMSCCP_FilterMatchResult_untested;
 }
 
+static UMLayerTCAP *tcapCamelDecodeInstance;
+static UMLayerTCAP *tcapGsmmapDecodeInstance;
+static UMLayerCamel *camelDecodeInstance;
+static UMLayerGSMMAP *gsmmapDecodeInstance;
+
 + (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet;
 {
     UMTCAP_sccpNUnitdata *task;
     UMLayerTCAP *tcap;
-    UMLayerCamel *camel;
-    UMLayerGSMMAP *gsmmap;
+    BOOL isCamel;
+    
+    if(tcapCamelDecodeInstance == NULL)
+    {
+        tcapCamelDecodeInstance = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-decode-camel"];
+    }
+    if(tcapGsmmapDecodeInstance == NULL)
+    {
+        tcapGsmmapDecodeInstance = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-decode-gsmmap"];
+    }
+    if(camelDecodeInstance == NULL)
+    {
+        camelDecodeInstance = [[UMLayerCamel alloc]initWithoutExecutionQueue:@"camel-decode"];
+        tcapCamelDecodeInstance.tcapDefaultUser = camelDecodeInstance;
+    }
+    if(gsmmapDecodeInstance)
+    {
+        gsmmapDecodeInstance = [[UMLayerGSMMAP alloc]initWithoutExecutionQueue:@"gsmmap-decode"];
+        tcapGsmmapDecodeInstance.tcapDefaultUser = gsmmapDecodeInstance;
+    }
     
     if((packet.incomingCalledPartyAddress.ssn.ssn == SCCP_SSN_CAP) || (packet.incomingCallingPartyAddress.ssn.ssn == SCCP_SSN_CAP))
     {
-        tcap = [[UMLayerTCAP alloc]init];
-        camel = [[UMLayerCamel alloc]init];
-        tcap.tcapDefaultUser = camel;
+        tcap = tcapCamelDecodeInstance;
+        isCamel = YES;
     }
     else
     {
-        tcap = [[UMLayerTCAP alloc]init];
-        gsmmap = [[UMLayerGSMMAP alloc]init];
-        tcap.tcapDefaultUser = gsmmap;
+        tcap = tcapGsmmapDecodeInstance;
+        isCamel = NO;
     }
     @try
     {
@@ -116,11 +137,11 @@ NSDictionary *plugin_info(void);
             packet.incomingTcapBegin = (UMTCAP_itu_asn1_begin *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_BEGIN;
             packet.incoming_tcap_otid = packet.incomingTcapBegin.otid.asn1_data.hexString;
-            if(gsmmap)
+            if(!isCamel)
             {
                 packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
             }
-            else if(camel)
+            else
             {
                 /* FIXME: what to decode for camel? */
             }
@@ -131,11 +152,11 @@ NSDictionary *plugin_info(void);
             packet.incomingTcapCommand = TCAP_TAG_ITU_CONTINUE;
             packet.incoming_tcap_otid = packet.incomingTcapContinue.otid.asn1_data.hexString;
             packet.incoming_tcap_dtid = packet.incomingTcapContinue.dtid.asn1_data.hexString;
-            if(gsmmap)
+            if(!isCamel)
             {
                 packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
             }
-            else if(camel)
+            else
             {
                 /* FIXME: what to decode for camel? */
             }
@@ -145,11 +166,11 @@ NSDictionary *plugin_info(void);
             packet.incomingTcapEnd = (UMTCAP_itu_asn1_end *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_END;
             packet.incoming_tcap_dtid = packet.incomingTcapEnd.dtid.asn1_data.hexString;
-            if(gsmmap)
+            if(!isCamel)
             {
                 packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
             }
-            else if(camel)
+            else
             {
                 /* FIXME: what to decode for camel? */
             }
