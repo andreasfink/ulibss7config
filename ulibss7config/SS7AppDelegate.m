@@ -2978,7 +2978,7 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigM2PA *co = [[UMSS7ConfigM2PA alloc]initWithConfig:config];
         [_runningConfig addM2PA:co];
-        UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:_m2paTaskQueue];
+        UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:_m2paTaskQueue name:name];
         m2pa.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m2pa"];
         m2pa.logFeed.name = name;
         [m2pa setConfig:config applicationContext:self];
