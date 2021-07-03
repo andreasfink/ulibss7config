@@ -4962,7 +4962,7 @@ static void signalHandler(int signum);
             UMLayerTCAP *tcap = [sccp getUserForSubsystem:ssn number:dst];
             if(tcap==NULL)
             {
-                tcap = [[UMLayerTCAP alloc]init];
+                tcap = [[UMLayerTCAP alloc]initWithoutExecutionQueue];
             }
             UMTCAP_sccpNUnitdata *task;
             task = [[UMTCAP_sccpNUnitdata alloc]initForTcap:tcap

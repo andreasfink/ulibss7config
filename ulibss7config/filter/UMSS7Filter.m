@@ -205,10 +205,10 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
     {
         if(_tcap_camel == NULL)
         {
-            _tcap_camel = [[UMLayerTCAP alloc]init];
+            _tcap_camel = [[UMLayerTCAP alloc]initWithoutExecutionQueue];
             if(_camel == NULL)
             {
-                _camel =[[UMLayerCamel alloc]init];
+                _camel =[[UMLayerCamel alloc]initWithoutExecutionQueue];
             }
             _tcap_camel.tcapDefaultUser = _camel;
         }
@@ -218,10 +218,10 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
     {
         if(_tcap_gsmmap == NULL)
         {
-            _tcap_gsmmap = [[UMLayerTCAP alloc]init];
+            _tcap_gsmmap = [[UMLayerTCAP alloc]initWithoutExecutionQueue];
             if(_gsmmap == NULL)
             {
-                _gsmmap = [[UMLayerGSMMAP alloc]init];
+                _gsmmap = [[UMLayerGSMMAP alloc]initWithoutExecutionQueue];
             }
             _tcap_gsmmap.tcapDefaultUser = _gsmmap;
         }
