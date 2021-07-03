@@ -2587,6 +2587,20 @@ static void signalHandler(int signum);
                 m2pa.sctpLink.linkLock.lockedInFile,
                 m2pa.sctpLink.linkLock.lockedAtLine];
         }
+        if(m2pa.sctpLink.directSocket.controlLock.lockedInFunction!=NULL)
+        {
+            [status appendFormat:@"    directSocketControlLock: %s (%s:%ld)\n",
+                m2pa.sctpLink.directSocket.controlLock.lockedInFunction,
+                m2pa.sctpLink.directSocket.controlLock.lockedInFile,
+                m2pa.sctpLink.directSocket.controlLock.lockedAtLine];
+        }
+        if(m2pa.sctpLink.directSocket.dataLock.lockedInFunction!=NULL)
+        {
+            [status appendFormat:@"    directSocketDataLock: %s (%s:%ld)\n",
+                m2pa.sctpLink.directSocket.dataLock.lockedInFunction,
+                m2pa.sctpLink.directSocket.dataLock.lockedInFile,
+                m2pa.sctpLink.directSocket.dataLock.lockedAtLine];
+        }
     }
     keys = [_mtp3_linkset_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
