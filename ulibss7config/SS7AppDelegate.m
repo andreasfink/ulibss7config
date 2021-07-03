@@ -4967,7 +4967,7 @@ static void signalHandler(int signum);
             UMTCAP_sccpNUnitdata *task;
             task = [[UMTCAP_sccpNUnitdata alloc]initForTcap:tcap
                                                        sccp:sccp
-                                                   userData: [pdu unhexedData]
+                                                   userData:[pdu unhexedData]
                                                     calling:src
                                                      called:dst
                                            qualityOfService:0
