@@ -6,8 +6,10 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7Filter.h"
+#import <ulibcamel/ulibcamel.h>
 #import <ulibtcap/ulibtcap.h>
+
+#import "UMSS7Filter.h"
 
 int         plugin_init(void);
 int         plugin_exit(void);
@@ -205,10 +207,10 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
     {
         if(_tcap_camel == NULL)
         {
-            _tcap_camel = [[UMLayerTCAP alloc]initWithoutExecutionQueue];
+            _tcap_camel = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-camel"];
             if(_camel == NULL)
             {
-                _camel =[[UMLayerCamel alloc]initWithoutExecutionQueue];
+                _camel =[[UMLayerCamel alloc]initWithoutExecutionQueue:@"camel"];
             }
             _tcap_camel.tcapDefaultUser = _camel;
         }
@@ -218,10 +220,10 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
     {
         if(_tcap_gsmmap == NULL)
         {
-            _tcap_gsmmap = [[UMLayerTCAP alloc]initWithoutExecutionQueue];
+            _tcap_gsmmap = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-gsmmap"];
             if(_gsmmap == NULL)
             {
-                _gsmmap = [[UMLayerGSMMAP alloc]initWithoutExecutionQueue];
+                _gsmmap = [[UMLayerGSMMAP alloc]initWithoutExecutionQueue:@"gsmmap"];
             }
             _tcap_gsmmap.tcapDefaultUser = _gsmmap;
         }
