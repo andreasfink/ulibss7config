@@ -913,10 +913,10 @@ static void signalHandler(int signum);
                                                                  name:@"sctp"
                                                         enableLogging:NO
                                                        numberOfQueues:UMLAYER_QUEUE_COUNT];
-    _m2paTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
+    /*_m2paTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"m2pa"
                                                         enableLogging:NO
-                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];
+                                                       numberOfQueues:UMLAYER_QUEUE_COUNT];*/
     _m3uaTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"m3ua"
                                                         enableLogging:NO
@@ -3000,7 +3000,11 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigM2PA *co = [[UMSS7ConfigM2PA alloc]initWithConfig:config];
         [_runningConfig addM2PA:co];
-        UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:_m2paTaskQueue name:name];
+        UMTaskQueueMulti *tq = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:1
+                                                                           name:[NSString stringWithFormat:@"m2pa(%@)",name"]
+                                                                  enableLogging:NO
+                                                                 numberOfQueues:UMLAYER_QUEUE_COUNT];*/
+        UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:tq name:name];
         m2pa.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m2pa"];
         m2pa.logFeed.name = name;
         [m2pa setConfig:config applicationContext:self];

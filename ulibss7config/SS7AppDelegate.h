@@ -153,7 +153,7 @@ UMEnvironmentNamedListProviderProtocol>
     UMSocketSCTPRegistry        *_registry;
     UMTaskQueueMulti            *_generalTaskQueue;
     UMTaskQueueMulti            *_sctpTaskQueue;
-    UMTaskQueueMulti            *_m2paTaskQueue;
+    //UMTaskQueueMulti            *_m2paTaskQueue;
     UMTaskQueueMulti            *_m3uaTaskQueue;
     UMTaskQueueMulti            *_mtp3TaskQueue;
     UMTaskQueueMulti            *_sccpTaskQueue;
