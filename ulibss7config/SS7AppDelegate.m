@@ -3000,10 +3000,11 @@ static void signalHandler(int signum);
     {
         UMSS7ConfigM2PA *co = [[UMSS7ConfigM2PA alloc]initWithConfig:config];
         [_runningConfig addM2PA:co];
+        NSString *n = [NSString stringWithFormat:@"m2pa(%@)",name];
         UMTaskQueueMulti *tq = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:1
-                                                                           name:[NSString stringWithFormat:@"m2pa(%@)",name"]
+                                                                           name:n
                                                                   enableLogging:NO
-                                                                 numberOfQueues:UMLAYER_QUEUE_COUNT];*/
+                                                                 numberOfQueues:UMLAYER_QUEUE_COUNT];
         UMLayerM2PA *m2pa = [[UMLayerM2PA alloc]initWithTaskQueueMulti:tq name:name];
         m2pa.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"m2pa"];
         m2pa.logFeed.name = name;
@@ -3056,7 +3057,7 @@ static void signalHandler(int signum);
     if(build>0)
     {
         UMPrometheusMetric *bn = [[UMPrometheusMetric alloc]initWithMetricName:@"build_number"
-                                                                          type:UMPrometheusMetricType_counter];
+                                                                          type:UMPrometheusMetricType_gauge];
         [_prometheus addMetric:bn];
     }
 }
