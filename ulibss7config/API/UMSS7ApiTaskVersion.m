@@ -21,15 +21,23 @@
 {
     @autoreleasepool
     {
-        [self sendResultObject:
-         @{ @"api-version" : @"1.0.0",
-            @"product-name": @"e-stp",
-            @"product-version": @"1.0.0",
-            @"authentication-required": @(YES),
-            @"https-supported": @(YES),
-            @"https-port": @(8083),
-          }
-         ];
+        if([_appDelegate respondsToSelector:@selector(apiVersionDict)])
+        {
+            UMSynchronizedSortedDictionary *d = [_appDelegate apiVersionDict];
+            [self sendResultObject:d];
+        }
+        else
+        {
+            [self sendResultObject:
+             @{ @"api-version" : @"1.0.0",
+                @"product-name": @"e-stp",
+                @"product-version": @"1.0.0",
+                @"authentication-required": @(YES),
+                @"https-supported": @(YES),
+                @"https-port": @(8083),
+              }
+             ];
+        }
     }
 }
 

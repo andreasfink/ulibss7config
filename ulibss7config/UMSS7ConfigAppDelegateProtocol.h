@@ -236,4 +236,7 @@ realm:(NSString **)realm;
 /************************************************************/
 - (UMDiameterRouter *)getDiameterRouter:(NSString *)name;
 
+@optional
+- (UMSynchronizedSortedDictionary *)apiVersionDict;
+
 @end
