@@ -3050,6 +3050,22 @@ static void signalHandler(int signum);
 }
 
 
+- (void)setAppBuildNumber:(long)build
+{
+    _appBuildNumber = build;
+    if(build>0)
+    {
+        UMPrometheusMetric *bn = [[UMPrometheusMetric alloc]initWithMetricName:@"build_number"
+                                                                          type:UMPrometheusMetricType_counter];
+        [_prometheus addMetric:bn];
+    }
+}
+
+
+- (long)appBuildNumber
+{
+    return _appBuildNumber;
+}
 
 - (void)addWithConfigMTP3:(NSDictionary *)config
 {

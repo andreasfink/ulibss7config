@@ -210,6 +210,7 @@ UMEnvironmentNamedListProviderProtocol>
     NSTimeInterval              _sessionTimeout;
     UMLogFeed                   *_apiLogFeed;
     UMPrometheus                *_prometheus;
+    long                        _appBuildNumber;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -264,6 +265,7 @@ UMEnvironmentNamedListProviderProtocol>
 @property(readwrite,strong)     NSString                    *namedListsDirectory;
 @property(readwrite,strong,atomic)  UMLogFeed *apiLogFeed;
 @property(readwrite,strong,atomic)  UMPrometheus            *prometheus;
+@property(readwrite,assign,atomic)  long    appBuildNumber;
 
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
