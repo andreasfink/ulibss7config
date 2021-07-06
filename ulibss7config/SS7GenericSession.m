@@ -1694,13 +1694,22 @@ else \
         int i = [p[@"invoke-count"] intValue];
         _options[@"invoke-count"] = @(i);
     }
+    
 
-    if(_opc)
+    if (p[@"opc"])
+    {
+        _options[@"opc"] = p[@"opc"];
+    }
+    else if(_opc)
     {
         _options[@"opc"] = _opc;
     }
 
-    if(_dpc)
+    if (p[@"dpc"])
+    {
+        _options[@"dpc"] = p[@"dpc"];
+    }
+    else if(_dpc)
     {
         _options[@"dpc"] = _dpc;
     }
@@ -1723,14 +1732,7 @@ else \
     {
         [_req makeAsyncWithTimeout:_timeoutInSeconds];
     }
-    if(_opc)
-    {
-        _options[@"opc"] = _opc;
-    }
-    if(_dpc)
-    {
-        _options[@"dpc"] = _dpc;
-    }
+    
     if(_sls>=0)
     {
         _options[@"mtp3-sls"] = [NSString stringWithFormat:@"%d",_sls];
