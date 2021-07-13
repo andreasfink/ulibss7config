@@ -40,6 +40,7 @@
     NSMutableArray              *_delayedDestroy1;
     NSMutableArray              *_delayedDestroy2;
     NSMutableArray              *_delayedDestroy3;
+
 }
 
 @property(readwrite,strong) UMLayerGSMMAP *gsmMap;
@@ -285,5 +286,7 @@
                        reason:(SCCP_ReturnCause)reason
                       options:(NSDictionary *)options;
 
+
+- (void)handleUMT:(NSData *)data;
 
 @end

@@ -1063,5 +1063,10 @@
     }
 }
 
+- (void)handleUMT:(NSData *)data
+{
+    
+}
+
 @end
 
