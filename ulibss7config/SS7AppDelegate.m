@@ -4207,6 +4207,12 @@ static void signalHandler(int signum);
                           invokeId:invokeId];
 
             break;
+        case UMTransportCMD_Shell:
+            [self umtShell:pdu
+             userReference:userDialogRef
+                  dialogId:dialogId
+                  invokeId:invokeId];
+            break;
     }
 }
 
@@ -4404,6 +4410,14 @@ static void signalHandler(int signum);
 
 }
 
+
+- (void)umtShell:(UMTransportRequest *)pdu
+   userReference:(NSString *)userDialogRef
+        dialogId:(UMTCAP_UserDialogIdentifier *)dialogId
+         invokeId:(int64_t)invokeId
+{
+
+}
 
 /* the UMTransportService tells us about an answer to our request we sent to a remote */
 - (void)umtransportTransportConfirmation:(UMTransportResponse *)pdu
