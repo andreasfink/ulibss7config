@@ -22,7 +22,10 @@
 #import "SS7GenericInstance_MAP_U_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_P_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_Notice_Ind_Task.h"
+#import <ulibtransport/ulibtransport.h>
+
 #import <ulibsms/ulibsms.h>
+#import <ulibgsmmap/ulibgsmmap.h>
 
 #include <sys/stat.h>
 
@@ -1063,9 +1066,11 @@
     }
 }
 
-- (void)handleUMT:(NSData *)data
+- (void)handleUMTSMS:(NSData *)data
+              source:(NSString *)src
+         destination:(NSString *)dst
 {
-    
+    [_umTransportService handleUMTSMS:data source:src destination:dst];
 }
 
 @end

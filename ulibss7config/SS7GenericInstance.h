@@ -18,7 +18,7 @@
 
 @class SS7GenericSession;
 @class UMCamelInitialDPArg;
-
+@class UMTransportService;
 @interface SS7GenericInstance : UMLayer<UMLayerGSMMAP_UserProtocol,
                                 UMHTTPServerHttpGetPostDelegate,
                                 UMHTTPRequest_TimeoutProtocol
@@ -40,6 +40,7 @@
     NSMutableArray              *_delayedDestroy1;
     NSMutableArray              *_delayedDestroy2;
     NSMutableArray              *_delayedDestroy3;
+    UMTransportService          *_umTransportService;
 
 }
 
@@ -51,6 +52,7 @@
 @property(readwrite,strong) UMAtomicDate *houseKeepingTimerRun;
 @property(readwrite,strong) UMHTTPClient *webClient;
 @property(readwrite,strong) id<SS7UserAuthenticateProtocol>    authDelegate;
+@property(readwrite,strong) UMTransportService  *umTransportService;
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name;
@@ -287,6 +289,8 @@
                       options:(NSDictionary *)options;
 
 
-- (void)handleUMT:(NSData *)data;
+- (void)handleUMTSMS:(NSData *)data
+              source:(NSString *)src
+         destination:(NSString *)dst;
 
 @end
