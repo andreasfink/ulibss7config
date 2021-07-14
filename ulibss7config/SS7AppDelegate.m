@@ -290,6 +290,8 @@ static void signalHandler(int signum);
         _smsproxyFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsproxy"];
         _rerouterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"rerouter"];
         _diameterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
+        _speedLimitFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"speed-limit"];
+        _speedLimit = _speedLimitFeature.doubleValue;
         _dbpool_dict = [[UMSynchronizedDictionary alloc]init];
         _filteringActive = YES;
         _sessionTimeout = 30.0*60.0;

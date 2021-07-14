@@ -143,7 +143,9 @@ UMEnvironmentNamedListProviderProtocol>
     UMLicenseProductFeature     *_rerouterFeature;
     UMLicenseProductFeature     *_diameterFeature;
     UMLicenseProductFeature     *_gsmapiFeature;
-
+    UMLicenseProductFeature     *_speedLimitFeature;
+    double                      _speedLimit;
+    
 	UMTransportService       	*_umtransportService;
 	UMMutex                  	*_umtransportLock;
     NSString                    *_logDirectory;
