@@ -1978,6 +1978,11 @@ static void signalHandler(int signum);
                 [self handleInjectDiameter:req];
             }
         }
+        else if([path isEqualToString:@"/umt"])
+        {
+            [self handleUmt:req];
+        }
+
         else if([path hasPrefix:@"/api"])
         {
             
@@ -2195,6 +2200,141 @@ static void signalHandler(int signum);
 
 - (void)handleSCTPStatus:(UMHTTPRequest *)req
 {
+}
+
+- (void)handleUmt:(UMHTTPRequest *)req
+{
+    NSDictionary *p = req.params;
+    if (p[@"code"])
+    {
+        UMTransportMessage *m = [[UMTransportMessage alloc]init];
+        UMTransportRequest *r = [[UMTransportRequest alloc]init];
+        m.request = r;
+        
+        NSString *s1;
+        
+        s1 = p[@"ref"];
+        r.requestReference = [s1 unhexedData];
+
+        s1 = p[@"code"];
+        r.requestOperationCode = (int64_t)[s1 integerValue];
+
+        s1 = p[@"payload"];
+        r.requestPayload = [s1 unhexedData];
+
+        s1 = p[@"resp-sms"];
+        r.requestResponseAddressSMS = s1;
+
+        s1 = p[@"resp-sccp"];
+        r.requestResponseAddressSccp = s1;
+
+
+        s1 = p[@"src-sccp"];
+        if(s1.length > 0)
+        {
+            SccpAddress *sccp = [[SccpAddress alloc]initWithHumanReadableString:s1 variant:UMMTP3Variant_ITU];
+            m.src = [[UMTransportAddress alloc]initWithSccpAddress:sccp];
+        }
+        s1 = p[@"src-sms"];
+        if(s1.length > 0)
+        {
+            m.src = [[UMTransportAddress alloc]initWithSMSAddress:s1];
+        }
+
+        s1 = p[@"dst-sccp"];
+        if(s1.length > 0)
+        {
+            SccpAddress *sccp = [[SccpAddress alloc]initWithHumanReadableString:s1 variant:UMMTP3Variant_ITU];
+            m.dst = [[UMTransportAddress alloc]initWithSccpAddress:sccp];
+        }
+
+        s1 = p[@"dst-sms"];
+        if(s1.length > 0)
+        {
+            m.dst = [[UMTransportAddress alloc]initWithSMSAddress:s1];
+        }
+
+        [_umtransportService sendMessage:m];
+        
+        NSString *path = req.path;
+        NSArray *a = [path componentsSeparatedByString:@"?"];
+        if(a.count > 1)
+        {
+            path=a[0];
+        }
+        [req redirect:path];
+        return;
+    }
+
+    NSMutableString *s = [[NSMutableString alloc]init];
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<head>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>UMT via SMS</title>\n"];
+    [s appendString:@"</head>\n"];
+    [s appendString:@"<body>\n"];
+
+    [s appendString:@"<h2>UMT via SMS</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">main-menu</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
+
+    [s appendFormat:@"<form method=get>"];
+    [s appendString:@"<table class=\"object_table\">\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Source SCCP</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"src-sccp\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Source SMS</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"src-sms\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Destination SCCP</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"dst-sccp\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Destination SMS</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"dst-sms\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Request Reference</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"ref\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Request Code</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"code\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Request Payload</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"payload\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Response SMS Addr</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"resp-sms\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">Response SCCP Addr</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input name=\"resp-sccp\"></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <td class=\"object_title\">&nbsp;</td>\r\n"];
+    [s appendString:@"        <td class=\"object_value\"><input type=submit name=submit></td>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+    [s appendString:@"</table>\r\n"];
+    [s appendString:@"</form>\n"];
+    [s appendString:@"</body>\r\n"];
+    [s appendString:@"</html>\r\n"];
+    [req setResponseHtmlString:s];
 }
 
 - (void)handleDiameterStatus:(UMHTTPRequest *)req
