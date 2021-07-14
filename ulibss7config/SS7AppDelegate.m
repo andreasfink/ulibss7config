@@ -301,7 +301,7 @@ static void signalHandler(int signum);
 
 - (NSString *)productCopyright
 {
-    return @"© 2020 Andreas Fink";
+    return @"© 2021 Andreas Fink";
 }
 
 - (NSDictionary *)appDefinition
