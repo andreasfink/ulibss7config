@@ -97,7 +97,7 @@
     SET_DICT_STRING(dict,@"next-sccp-instance",_nextSccpInstance);
     SET_DICT_STRING(dict,@"point-code",_dpc);
     SET_DICT_FILTERED_STRING(dict,@"application-server",_applicationServer);
-    SET_DICT_INTEGER(dict,@"cost",_weight);
+    SET_DICT_INTEGER(dict,@"cost",_cost);
     SET_DICT_INTEGER(dict,@"weigth",_weight);
     SET_DICT_INTEGER(dict,@"subsystem",_subsystem);
     SET_DICT_INTEGER(dict,@"ntt",_overrideCalledTT);
