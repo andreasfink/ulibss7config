@@ -2687,7 +2687,7 @@ static void signalHandler(int signum);
     for(NSString *key in keys)
     {
         UMLayerM2PA *m2pa = _m2pa_dict[key];
-        [status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[UMLayerM2PA m2paStatusString:m2pa.m2pa_status]];
+        [status appendFormat:@"M2PA-LINK:%@:%@\n",m2pa.layerName,[UMLayerM2PA m2paStatusString:m2pa.state.statusCode]];
         [status appendFormat:@"    local_processor_outage: %@\n", (m2pa.local_processor_outage ? @"YES" : @"NO")];
         [status appendFormat:@"    remote_processor_outage: %@\n", (m2pa.remote_processor_outage ? @"YES" : @"NO")];
         [status appendFormat:@"    congested: %@\n", (m2pa.congested ? @"YES" : @"NO")];

@@ -57,7 +57,7 @@
                     break;
             }
 
-            dict[@"m2pa-status"] = [UMLayerM2PA m2paStatusString:m2pa.m2pa_status];
+            dict[@"m2pa-status"] = [UMLayerM2PA m2paStatusString:current_m2pa_status];
             dict[@"remote-processor-outage"] = @(m2pa.remote_processor_outage);
             dict[@"congested"] = @(m2pa.congested);
 
