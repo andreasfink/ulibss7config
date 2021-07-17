@@ -42,7 +42,7 @@
         if(mtp3Link)
         {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-            dict[@"m2pa-status"] = m2pa.statusString;
+            dict[@"m2pa-status"] = mtp3Link.m2pa.stateString;
             switch(mtp3Link.sctp_status)
             {
                 case UMSOCKET_STATUS_FOOS:
