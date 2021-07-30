@@ -2692,6 +2692,7 @@ static void signalHandler(int signum);
         [status appendFormat:@"    remote_processor_outage: %@\n", (m2pa.remote_processor_outage ? @"YES" : @"NO")];
         [status appendFormat:@"    congested: %@\n", (m2pa.congested ? @"YES" : @"NO")];
         [status appendFormat:@"    outstanding: %d\n", m2pa.outstanding];
+        [status appendFormat:@"    unackedMSU: %d\n", (int)m2pa.unackedMsu.count];
         [status appendFormat:@"    startCounter: %d\n", m2pa.startCounter];
         [status appendFormat:@"    stopCounter: %d\n", m2pa.stopCounter];
         [status appendFormat:@"    powerOnCounter: %d\n", m2pa.powerOnCounter];
@@ -2714,35 +2715,17 @@ static void signalHandler(int signum);
         [status appendFormat:@"    linkstateBusyEndedReceived: %d\n", m2pa.linkstateBusyEndedReceived];
         [status appendFormat:@"    linkstateReadySent: %d\n", m2pa.linkstateReadySent];
         [status appendFormat:@"    linkstateReadyReceived: %d\n", m2pa.linkstateReadyReceived];
-        if(m2pa.controlLock.lockedInFunction != NULL)
-        {
-            [status appendFormat:@"    controlLockEngaged: %s (%s:%ld)\n", m2pa.controlLock.lockedInFunction,m2pa.controlLock.lockedInFile,m2pa.controlLock.lockedAtLine];
-        }
-        if(m2pa.dataLock.lockedInFunction != NULL)
-        {
-            [status appendFormat:@"    dataLockEngaged: %s (%s:%ld)\n", m2pa.dataLock.lockedInFunction,m2pa.dataLock.lockedInFile,m2pa.dataLock.lockedAtLine];
-        }
-        if(m2pa.sctpLink.linkLock.lockedInFunction!=NULL)
-        {
-            [status appendFormat:@"    sctpLinkLockEngaged: %s (%s:%ld)\n",
-                m2pa.sctpLink.linkLock.lockedInFunction,
-                m2pa.sctpLink.linkLock.lockedInFile,
-                m2pa.sctpLink.linkLock.lockedAtLine];
-        }
-        if(m2pa.sctpLink.directSocket.controlLock.lockedInFunction!=NULL)
-        {
-            [status appendFormat:@"    directSocketControlLock: %s (%s:%ld)\n",
-                m2pa.sctpLink.directSocket.controlLock.lockedInFunction,
-                m2pa.sctpLink.directSocket.controlLock.lockedInFile,
-                m2pa.sctpLink.directSocket.controlLock.lockedAtLine];
-        }
-        if(m2pa.sctpLink.directSocket.dataLock.lockedInFunction!=NULL)
-        {
-            [status appendFormat:@"    directSocketDataLock: %s (%s:%ld)\n",
-                m2pa.sctpLink.directSocket.dataLock.lockedInFunction,
-                m2pa.sctpLink.directSocket.dataLock.lockedInFile,
-                m2pa.sctpLink.directSocket.dataLock.lockedAtLine];
-        }
+        
+        [status appendFormat:@"    controlLock: %@\n",
+            m2pa.controlLock.lockStatusDescription];
+        [status appendFormat:@"    dataLock: %@\n",
+            m2pa.dataLock.lockStatusDescription];
+        [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",
+            m2pa.sctpLink.linkLock.lockStatusDescription];
+        [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",
+            m2pa.sctpLink.directSocket.controlLock.lockStatusDescription];
+        [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
+            m2pa.sctpLink.directSocket.dataLock.lockStatusDescription];
     }
     keys = [_mtp3_linkset_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
@@ -2768,6 +2751,8 @@ static void signalHandler(int signum);
              linkset.totalLinks];
             [status appendString:[linkset webStatus]];
         }
+        [status appendFormat:@"    linksLock: %@\n",linkset.linksLock.lockStatusDescription];
+        [status appendFormat:@"    slsLock: %@\n",linkset.slsLock.lockStatusDescription];
     }
 
     keys = [_m3ua_asp_dict allKeys];
@@ -4938,7 +4923,6 @@ static void signalHandler(int signum);
         NSMutableString *s = [[NSMutableString alloc]init];
         [SS7GenericInstance webHeader:s title:@"MTP3 Decode"];
         [s appendString:@"<h2>MTP3 Decode</h2>\n"];
-
         [s appendString:@"<UL>\n"];
         [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
