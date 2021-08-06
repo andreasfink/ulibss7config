@@ -2761,6 +2761,10 @@ static void signalHandler(int signum);
     {
         UMM3UAApplicationServerProcess *m3ua_asp = _m3ua_asp_dict[key];
         [status appendFormat:@"M3UA-ASP:%@:%@\n",m3ua_asp.layerName,m3ua_asp.statusString];
+        if(m3ua_asp.lastError != NULL)
+        {
+            [status appendFormat:@"    Last M3UA-ERR: %@\n",m3ua_asp.lastError];
+        }
     }
 
     keys = [_m3ua_as_dict allKeys];
