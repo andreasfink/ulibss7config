@@ -70,6 +70,7 @@
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 #import "UMSS7ConfigCAMEL.h"
 #import "UMSS7ConfigMnpDatabase.h"
+#import "UMSS7ConfigSMSDeliveryProvider.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -3627,6 +3628,19 @@
     return @"ok";
 }
 
+/*
+ **************************************************
+ ** SMS Delivery Providers
+ **************************************************
+ */
+- (NSArray *)getSMSDeliveryProviderNames
+{
+    
+}
+- (UMSS7ConfigDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name;
+- (NSString *)addSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)rpoxy;
+- (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)proxy;
+- (NSString *)deleteSMSDeliveryProvider:(NSString *)name;
 
 /***************************************************/
 #pragma mark -

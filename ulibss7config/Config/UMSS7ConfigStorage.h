@@ -57,7 +57,6 @@
 @class UMSS7ConfigServiceUser;
 @class UMSS7ConfigServiceUserProfile;
 @class UMSS7ConfigServiceBillingEntity;
-@class UMSS7ConfigSMSProxy;
 @class UMSS7ConfigESTP;
 @class UMSS7ConfigMAPI;
 @class UMSS7ConfigIMSIPool;
@@ -69,6 +68,7 @@
 @class UMSS7ConfigDiameterRoute;
 @class UMSS7ConfigCAMEL;
 @class UMSS7ConfigMnpDatabase;
+@class UMSS7ConfigSMSDeliveryProvider;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -513,5 +513,12 @@
 - (NSString *)addMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
 - (NSString *)replaceMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
 - (NSString *)deleteMnpDatabase:(NSString *)name;
+
+- (NSArray *)getSMSDeliveryProviderNames;
+- (UMSS7ConfigDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name;
+- (NSString *)addSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)rpoxy;
+- (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)proxy;
+- (NSString *)deleteSMSDeliveryProvider:(NSString *)name;
+
 
 @end
