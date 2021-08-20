@@ -129,6 +129,7 @@
     _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _mapi_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _mnpDatabases_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _smsDeliveryProviders_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -3633,14 +3634,44 @@
  ** SMS Delivery Providers
  **************************************************
  */
+
 - (NSArray *)getSMSDeliveryProviderNames
 {
-    
+    return [_smsDeliveryProviders_dict allKeys];
 }
-- (UMSS7ConfigDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name;
-- (NSString *)addSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)rpoxy;
-- (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)proxy;
-- (NSString *)deleteSMSDeliveryProvider:(NSString *)name;
+- (UMSS7ConfigSMSDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name
+{
+    return _smsDeliveryProviders_dict[name];
+}
+
+- (NSString *)addSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)provider
+{
+    if(_smsDeliveryProviders_dict[provider.name] == NULL)
+    {
+        _smsDeliveryProviders_dict[provider.name] = provider;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)provider
+{
+    _smsDeliveryProviders_dict[provider.name] = provider;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMSDeliveryProvider:(NSString *)name
+{
+    if(_smsDeliveryProviders_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsDeliveryProviders_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 /***************************************************/
 #pragma mark -
@@ -3708,6 +3739,7 @@
     n.rwconfigFile = _rwconfigFile;
     n.camel_dict = [_camel_dict copy];
     n.mnpDatabases_dict = [_mnpDatabases_dict copy];
+    n.smsDeliveryProviders_dict = [_smsDeliveryProviders_dict copy];
     return n;
 }
 

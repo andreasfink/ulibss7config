@@ -33,7 +33,6 @@
     return self;
 }
 
-
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
@@ -41,9 +40,9 @@
     APPEND_CONFIG_STRING(s,@"protocol",_protocolType);
     APPEND_CONFIG_STRING(s,@"host",_host);
     APPEND_CONFIG_INTEGER(s,@"port",_port);
-    APPEND_CONFIG_INTEGER(s,"concurrent-connections",_concurrentConnections);
+    APPEND_CONFIG_INTEGER(s,@"concurrent-connections",_concurrentConnections);
     APPEND_CONFIG_STRING(s,@"alternate-host",_alternateHost);
-    APPEND_CONFIG_INTEGER(s,"alternate-port",_alternatePort);
+    APPEND_CONFIG_INTEGER(s,@"alternate-port",_alternatePort);
     APPEND_CONFIG_STRING(s,@"device",_device);
     APPEND_CONFIG_STRING(s,@"phone",_phone);
     APPEND_CONFIG_STRING(s,@"smsc-username",_smsc_username);
@@ -57,14 +56,14 @@
     APPEND_CONFIG_DOUBLE(s,@"wait-ack",_wait_ack);
     APPEND_CONFIG_DOUBLE(s,@"wait-ack-expire",_wait_ack_expire);
     APPEND_CONFIG_INTEGER(s,@"flow-control",_flowControl);
-    APPEND_CONFIG_INTEGER(s,"window",_window);
+    APPEND_CONFIG_INTEGER(s,@"window",_window);
     APPEND_CONFIG_STRING(s,@"my-number",_myNumber);
     APPEND_CONFIG_STRING(s,@"alt-charset",_altCharset);
     APPEND_CONFIG_STRING(s,@"alt-addr-charset",_altAddrCharset);
     APPEND_CONFIG_STRING(s,@"notification-pid",_notificationPid);
     APPEND_CONFIG_STRING(s,@"notification-addr",_notificationAddr);
     APPEND_CONFIG_DOUBLE(s,@"reconnect-delay",_reconnectDelay);
-    APPEND_CONFIG_BOOLEAN(s,@"transceiver-mode",transceiverMode);
+    APPEND_CONFIG_BOOLEAN(s,@"transceiver-mode",_transceiverMode);
     APPEND_CONFIG_BOOLEAN(s,@"use-ssl",_useSSL);
     APPEND_CONFIG_STRING(s,@"ssl-client-cert-key-file",_sslClientCertKeyFile);
     APPEND_CONFIG_STRING(s,@"system-type",_systemType);
@@ -95,9 +94,9 @@
     APPEND_DICT_STRING(dict,@"protocol",_protocolType);
     APPEND_DICT_STRING(dict,@"host",_host);
     APPEND_DICT_INTEGER(dict,@"port",_port);
-    APPEND_DICT_INTEGER(dict,"concurrent-connections",_concurrentConnections);
+    APPEND_DICT_INTEGER(dict,@"concurrent-connections",_concurrentConnections);
     APPEND_DICT_STRING(dict,@"alternate-host",_alternateHost);
-    APPEND_DICT_INTEGER(dict,"alternate-port",_alternatePort);
+    APPEND_DICT_INTEGER(dict,@"alternate-port",_alternatePort);
     APPEND_DICT_STRING(dict,@"device",_device);
     APPEND_DICT_STRING(dict,@"phone",_phone);
     APPEND_DICT_STRING(dict,@"smsc-username",_smsc_username);
@@ -111,14 +110,14 @@
     APPEND_DICT_DOUBLE(dict,@"wait-ack",_wait_ack);
     APPEND_DICT_DOUBLE(dict,@"wait-ack-expire",_wait_ack_expire);
     APPEND_DICT_INTEGER(dict,@"flow-control",_flowControl);
-    APPEND_DICT_INTEGER(dict,"window",_window);
+    APPEND_DICT_INTEGER(dict,@"window",_window);
     APPEND_DICT_STRING(dict,@"my-number",_myNumber);
     APPEND_DICT_STRING(dict,@"alt-charset",_altCharset);
     APPEND_DICT_STRING(dict,@"alt-addr-charset",_altAddrCharset);
     APPEND_DICT_STRING(dict,@"notification-pid",_notificationPid);
     APPEND_DICT_STRING(dict,@"notification-addr",_notificationAddr);
     APPEND_DICT_DOUBLE(dict,@"reconnect-delay",_reconnectDelay);
-    APPEND_DICT_BOOLEAN(dict,@"transceiver-mode",transceiverMode);
+    APPEND_DICT_BOOLEAN(dict,@"transceiver-mode",_transceiverMode);
     APPEND_DICT_BOOLEAN(dict,@"use-ssl",_useSSL);
     APPEND_DICT_STRING(dict,@"ssl-client-cert-key-file",_sslClientCertKeyFile);
     APPEND_DICT_STRING(dict,@"system-type",_systemType);
@@ -149,9 +148,9 @@
     SET_DICT_STRING(dict,@"protocol",_protocolType);
     SET_DICT_STRING(dict,@"host",_host);
     SET_DICT_INTEGER(dict,@"port",_port);
-    SET_DICT_INTEGER(dict,"concurrent-connections",_concurrentConnections);
+    SET_DICT_INTEGER(dict,@"concurrent-connections",_concurrentConnections);
     SET_DICT_STRING(dict,@"alternate-host",_alternateHost);
-    SET_DICT_INTEGER(dict,"alternate-port",_alternatePort);
+    SET_DICT_INTEGER(dict,@"alternate-port",_alternatePort);
     SET_DICT_STRING(dict,@"device",_device);
     SET_DICT_STRING(dict,@"phone",_phone);
     SET_DICT_STRING(dict,@"smsc-username",_smsc_username);
@@ -165,14 +164,14 @@
     SET_DICT_DOUBLE(dict,@"wait-ack",_wait_ack);
     SET_DICT_DOUBLE(dict,@"wait-ack-expire",_wait_ack_expire);
     SET_DICT_INTEGER(dict,@"flow-control",_flowControl);
-    SET_DICT_INTEGER(dict,"window",_window);
+    SET_DICT_INTEGER(dict,@"window",_window);
     SET_DICT_STRING(dict,@"my-number",_myNumber);
     SET_DICT_STRING(dict,@"alt-charset",_altCharset);
     SET_DICT_STRING(dict,@"alt-addr-charset",_altAddrCharset);
     SET_DICT_STRING(dict,@"notification-pid",_notificationPid);
     SET_DICT_STRING(dict,@"notification-addr",_notificationAddr);
     SET_DICT_DOUBLE(dict,@"reconnect-delay",_reconnectDelay);
-    SET_DICT_BOOLEAN(dict,@"transceiver-mode",transceiverMode);
+    SET_DICT_BOOLEAN(dict,@"transceiver-mode",_transceiverMode);
     SET_DICT_BOOLEAN(dict,@"use-ssl",_useSSL);
     SET_DICT_STRING(dict,@"ssl-client-cert-key-file",_sslClientCertKeyFile);
     SET_DICT_STRING(dict,@"system-type",_systemType);

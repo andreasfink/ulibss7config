@@ -127,6 +127,7 @@
     UMSynchronizedSortedDictionary *_diameter_route_dict;
     UMSynchronizedSortedDictionary *_camel_dict;
     UMSynchronizedSortedDictionary *_mnpDatabases_dict;
+    UMSynchronizedSortedDictionary *_smsDeliveryProviders_dict;
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
     NSString                 *_productName;
@@ -188,6 +189,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_route_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *camel_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mnpDatabases_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smsDeliveryProviders_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -515,9 +517,9 @@
 - (NSString *)deleteMnpDatabase:(NSString *)name;
 
 - (NSArray *)getSMSDeliveryProviderNames;
-- (UMSS7ConfigDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name;
-- (NSString *)addSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)rpoxy;
-- (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigDeliveryProvider *)proxy;
+- (UMSS7ConfigSMSDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name;
+- (NSString *)addSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)rpoxy;
+- (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)proxy;
 - (NSString *)deleteSMSDeliveryProvider:(NSString *)name;
 
 

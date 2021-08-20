@@ -8,7 +8,6 @@
 
 #import "UMSS7ConfigObject.h"
 
-
 @interface UMSS7ConfigSMSDeliveryProvider : UMSS7ConfigObject
 {
     NSString    *_protocolType;
@@ -86,7 +85,7 @@
 @property(readwrite,strong,atomic)  NSString    *altAddrCharset;
 @property(readwrite,strong,atomic)  NSString    *notificationPid;
 @property(readwrite,strong,atomic)  NSString    *notificationAddr;
-@property(readwrite,strong,atomic)  NSString    *reconnectDelay;
+@property(readwrite,strong,atomic)  NSNumber    *reconnectDelay;
 @property(readwrite,strong,atomic)  NSNumber    *transceiverMode;
 @property(readwrite,strong,atomic)  NSNumber    *useSSL;
 @property(readwrite,strong,atomic)  NSString    *sslClientCertKeyFile;
