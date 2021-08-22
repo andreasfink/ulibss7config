@@ -2925,7 +2925,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				VERSIONING_SYSTEM = "";
 				VERSION_INFO_PREFIX = "";
-				WARNING_CFLAGS = "-Wimplicit-fallthrough=3";
+				WARNING_CFLAGS = "-Wimplicit-fallthrough";
 			};
 			name = Debug;
 		};
@@ -2989,7 +2989,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				VERSIONING_SYSTEM = "";
 				VERSION_INFO_PREFIX = "";
-				WARNING_CFLAGS = "-Wimplicit-fallthrough=3";
+				WARNING_CFLAGS = "-Wimplicit-fallthrough";
 			};
 			name = Release;
 		};
@@ -3146,6 +3146,7 @@
 					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				INSTALL_PATH = "/Library/Application Support/FinkTelecomServices/bin";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -3168,6 +3169,7 @@
 					"$(LOCAL_LIBRARY_DIR)/Application\\ Support/FinkTelecomServices/frameworks",
 				);
 				INSTALL_PATH = "/Library/Application Support/FinkTelecomServices/bin";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.fink.diameter-web-gen";
