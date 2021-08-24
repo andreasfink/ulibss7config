@@ -598,8 +598,6 @@
 		A6D350D5248EE94300BE6171 /* UMSS7ConfigSGSN.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D350D3248EE94300BE6171 /* UMSS7ConfigSGSN.m */; };
 		A6D350D824938FDD00BE6171 /* UMSS7ConfigMnpDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D350D624938FDD00BE6171 /* UMSS7ConfigMnpDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6D350D924938FDD00BE6171 /* UMSS7ConfigMnpDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D350D724938FDD00BE6171 /* UMSS7ConfigMnpDatabase.m */; };
-		A6D350DC249393AA00BE6171 /* SS7MnpDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D350DA249393AA00BE6171 /* SS7MnpDatabase.h */; };
-		A6D350DD249393AA00BE6171 /* SS7MnpDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A6D350DB249393AA00BE6171 /* SS7MnpDatabase.m */; };
 		A6DB9C03233A15440022B63F /* UMSS7ConfigGGSN.h in Headers */ = {isa = PBXBuildFile; fileRef = A6DB9C01233A15440022B63F /* UMSS7ConfigGGSN.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6DB9C04233A15440022B63F /* UMSS7ConfigGGSN.m in Sources */ = {isa = PBXBuildFile; fileRef = A6DB9C02233A15440022B63F /* UMSS7ConfigGGSN.m */; };
 		A6E24811235056AC00742DCA /* DiameterSessionUser_Data_Request.h in Headers */ = {isa = PBXBuildFile; fileRef = A6E2480F235056AC00742DCA /* DiameterSessionUser_Data_Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1260,8 +1258,6 @@
 		A6D350D3248EE94300BE6171 /* UMSS7ConfigSGSN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSGSN.m; sourceTree = "<group>"; };
 		A6D350D624938FDD00BE6171 /* UMSS7ConfigMnpDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigMnpDatabase.h; sourceTree = "<group>"; };
 		A6D350D724938FDD00BE6171 /* UMSS7ConfigMnpDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigMnpDatabase.m; sourceTree = "<group>"; };
-		A6D350DA249393AA00BE6171 /* SS7MnpDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7MnpDatabase.h; sourceTree = "<group>"; };
-		A6D350DB249393AA00BE6171 /* SS7MnpDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7MnpDatabase.m; sourceTree = "<group>"; };
 		A6DB9C01233A15440022B63F /* UMSS7ConfigGGSN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigGGSN.h; sourceTree = "<group>"; };
 		A6DB9C02233A15440022B63F /* UMSS7ConfigGGSN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigGGSN.m; sourceTree = "<group>"; };
 		A6E2480F235056AC00742DCA /* DiameterSessionUser_Data_Request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiameterSessionUser_Data_Request.h; sourceTree = "<group>"; };
@@ -1387,8 +1383,6 @@
 				A6BC434820775064008C3CEB /* UMSS7ConfigAppDelegateProtocol.h */,
 				A61FCE35219AD59B00A67026 /* SS7AppDelegate.h */,
 				A6F178C321AEFDC90084D972 /* SS7AppDelegate.m */,
-				A6D350DA249393AA00BE6171 /* SS7MnpDatabase.h */,
-				A6D350DB249393AA00BE6171 /* SS7MnpDatabase.m */,
 				A6C2914E23618B8E00A34651 /* SS7CDRWriter.h */,
 				A6C2914F23618B8E00A34651 /* SS7CDRWriter.m */,
 				A6C2915223618F7500A34651 /* SS7CDRWriterTask.h */,
@@ -2314,7 +2308,6 @@
 				A613F14022B1444700053ED7 /* UMSS7ApiTaskNamedlist_lists.h in Headers */,
 				A6C0AFB02089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.h in Headers */,
 				A6BF3175229443DE0000578B /* UMSS7ConfigSS7FilterRuleSet.h in Headers */,
-				A6D350DC249393AA00BE6171 /* SS7MnpDatabase.h in Headers */,
 				A661A527229D651400CCEE02 /* UMSS7ApiTaskNamedlist_remove.h in Headers */,
 				A634BC3621A40E7400852462 /* SS7GenericInstance_MAP_Reject_Resp_Task.h in Headers */,
 				A69429EB22DC963B00A90936 /* UMSS7FilterRuleSet.h in Headers */,
@@ -2679,7 +2672,6 @@
 				A6C0AFB12089E87700DAB157 /* UMSS7ConfigSCCPNumberTranslation.m in Sources */,
 				A661A504229D559400CCEE02 /* UMSS7ApiTaskSS7FilterActionList_action.m in Sources */,
 				A634BC3221A40E7400852462 /* SS7GenericInstance_MAP_Invoke_Ind_Task.m in Sources */,
-				A6D350DD249393AA00BE6171 /* SS7MnpDatabase.m in Sources */,
 				A6BF30E1229437240000578B /* UMSS7ApiTaskSS7FilterRule_delete.m in Sources */,
 				A6336E8E22D578DE00F803C5 /* DiameterSessionSTR.m in Sources */,
 				A6BC44DB207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_status.m in Sources */,

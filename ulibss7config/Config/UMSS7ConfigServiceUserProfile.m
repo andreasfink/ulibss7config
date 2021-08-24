@@ -68,6 +68,16 @@
     APPEND_CONFIG_BOOLEAN(s,@"smpp-access",_smppAccess);
     APPEND_CONFIG_BOOLEAN(s,@"emiucp-access",_emiucpAccess);
 
+    
+    APPEND_CONFIG_STRING(s,@"categorizer",_categorizer);
+    APPEND_CONFIG_STRING(s,@"pre-routing-filter",_preRoutingFilter);
+    APPEND_CONFIG_STRING(s,@"pre-billing-filter",_preBillingFilter);
+    APPEND_CONFIG_STRING(s,@"routing-engine",_routingEngine);
+    APPEND_CONFIG_STRING(s,@"post-routing-filter",_postRoutingFilter);
+    APPEND_CONFIG_STRING(s,@"post-billing-filter",_postBillingFilter);
+    APPEND_CONFIG_STRING(s,@"delivery-report-filter",_deliveryReportFilter);
+    APPEND_CONFIG_STRING(s,@"cdr-writer-plugin",_cdrWriter);
+    APPEND_CONFIG_STRING(s,@"storage-engine",_storageEngine);
 }
 
 
@@ -108,6 +118,16 @@
     APPEND_DICT_BOOLEAN(dict,@"smpp-access",_smppAccess);
     APPEND_DICT_BOOLEAN(dict,@"emiucp-access",_emiucpAccess);
 
+    APPEND_DICT_STRING(dict,@"categorizer",_categorizer);
+    APPEND_DICT_STRING(dict,@"pre-routing-filter",_preRoutingFilter);
+    APPEND_DICT_STRING(dict,@"pre-billing-filter",_preBillingFilter);
+    APPEND_DICT_STRING(dict,@"routing-engine",_routingEngine);
+    APPEND_DICT_STRING(dict,@"post-routing-filter",_postRoutingFilter);
+    APPEND_DICT_STRING(dict,@"post-billing-filter",_postBillingFilter);
+    APPEND_DICT_STRING(dict,@"delivery-report-filter",_deliveryReportFilter);
+    APPEND_DICT_STRING(dict,@"cdr-writer-plugin",_cdrWriter);
+    APPEND_DICT_STRING(dict,@"storage-engine",_storageEngine);
+
     return dict;
 }
 
@@ -147,6 +167,15 @@
     SET_DICT_BOOLEAN(dict,@"smpp-access",_smppAccess);
     SET_DICT_BOOLEAN(dict,@"emiucp-access",_emiucpAccess);
 
+    SET_DICT_STRING(dict,@"categorizer",_categorizer);
+    SET_DICT_STRING(dict,@"pre-routing-filter",_preRoutingFilter);
+    SET_DICT_STRING(dict,@"pre-billing-filter",_preBillingFilter);
+    SET_DICT_STRING(dict,@"routing-engine",_routingEngine);
+    SET_DICT_STRING(dict,@"post-routing-filter",_postRoutingFilter);
+    SET_DICT_STRING(dict,@"post-billing-filter",_postBillingFilter);
+    SET_DICT_STRING(dict,@"delivery-report-filter",_deliveryReportFilter);
+    SET_DICT_STRING(dict,@"cdr-writer-plugin",_cdrWriter);
+    SET_DICT_STRING(dict,@"storage-engine",_storageEngine);
 }
 
 - (UMSS7ConfigServiceUserProfile *)copyWithZone:(NSZone *)zone

@@ -14,6 +14,7 @@
 #import <ulibcamel/ulibcamel.h>
 #import <ulibdiameter/ulibdiameter.h>
 #import <ulibmtp3/ulibmtp3.h>
+#import <ulibsmpp/ulibsmpp.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigGeneral.h"
@@ -74,6 +75,7 @@
 #import "UMSS7ConfigDiameterRoute.h"
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ConfigCAMEL.h"
+#import "UMSS7ConfigSMSDeliveryProvider.h"
 #import "UMTTask.h"
 #import "UMTTaskPing.h"
 #import "UMTTaskGetVersion.h"
@@ -176,6 +178,14 @@ static void signalHandler(int signum);
         _statistics_dict                = [[UMSynchronizedDictionary alloc]init];
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
 
+        if(_enabledOptions[@"smpp-listener"])
+        {
+            _smppListeners              = [[UMSynchronizedDictionary alloc]init];
+        }
+
+        _smppUserConnections            = [[UMSynchronizedDictionary alloc]init];
+        _smppProviderConnections        = [[UMSynchronizedDictionary alloc]init];
+
         _registry                       = [[UMSocketSCTPRegistry alloc]init];
         _registry.logLevel              =  UMLOG_MINOR;
         _stagingAreaPath                =  [self defaultStagingAreaPath];
@@ -199,8 +209,19 @@ static void signalHandler(int signum);
         _outgoingLinksetFilters         = [[UMSynchronizedDictionary alloc]init];
         _incomingLocalSubsystemFilters  = [[UMSynchronizedDictionary alloc]init];
         _outgoingLocalSubsystemFilters  = [[UMSynchronizedDictionary alloc]init];
-        _cdrWriters_dict               = [[UMSynchronizedDictionary alloc]init];
-        _prometheus                    = [[UMPrometheus alloc]init];
+        _cdrWriters_dict                = [[UMSynchronizedDictionary alloc]init];
+        _prometheus                     = [[UMPrometheus alloc]init];
+        _smsDeliveryProfiles            = [[UMSynchronizedDictionary alloc]init];
+        _smsCategorizerPluings          = [[UMSynchronizedDictionary alloc]init];
+        _smsPreRoutingFilterPlugins     = [[UMSynchronizedDictionary alloc]init];
+        _smsPreBillingFilterPlugins     = [[UMSynchronizedDictionary alloc]init];
+        _smsRoutingEnginePlugins        = [[UMSynchronizedDictionary alloc]init];
+        _smsPostRoutingFilterPlugins    = [[UMSynchronizedDictionary alloc]init];
+        _smsPostBillingPlugins          = [[UMSynchronizedDictionary alloc]init];
+        _smsDeliveryReportFilterPlugins = [[UMSynchronizedDictionary alloc]init];
+        _smsCdrWriterPlugins            = [[UMSynchronizedDictionary alloc]init];
+        _smsStoragePlugins              = [[UMSynchronizedDictionary alloc]init];
+        
         UMPrometheusMetricUptime *uptimeMetric = [[UMPrometheusMetricUptime alloc]init];
         [_prometheus addMetric:uptimeMetric];
         if(_enabledOptions[@"name"])
@@ -254,6 +275,7 @@ static void signalHandler(int signum);
             _umtransportService = [[UMTransportService alloc]initWithTaskQueueMulti:_generalTaskQueue];
         }
         
+
         _applicationWideTransactionIdPool = [[UMTCAP_TransactionIdFastPool alloc]initWithPrefabricatedIds:PREFABRICATED_TRANSACTION_ID_COUNT start:0x10000000 end:0x1FFFFFF0]; /* temporary until config */
         _applicationWideTransactionIdPool.isShared = YES;
         _umtransportLock = [[UMMutex alloc]initWithName:@"SS7AppDelegate_umtransportLock"];
@@ -278,23 +300,24 @@ static void signalHandler(int signum);
                                      runInForeground:NO];
 
         _globalLicenseDirectory = UMLicense_loadLicensesFromPath(NULL,NO);
-        _coreFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"core"];
-        _sctpFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"sctp"];
-        _m2paFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"m2pa"];
-        _mtp3Feature = [_globalLicenseDirectory getProduct:[self productName] feature:@"mtp3"];
-        _m3uaFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"m3ua"];
-        _sccpFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"sccp"];
-        _tcapFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"tcap"];
-        _gsmmapFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"gsmmap"];
-        _smscFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsc"];
-        _smsproxyFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsproxy"];
-        _rerouterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"rerouter"];
-        _diameterFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
-        _speedLimitFeature = [_globalLicenseDirectory getProduct:[self productName] feature:@"speed-limit"];
-        _speedLimit = _speedLimitFeature.doubleValue;
-        _dbpool_dict = [[UMSynchronizedDictionary alloc]init];
-        _filteringActive = YES;
-        _sessionTimeout = 30.0*60.0;
+        _coreFeature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"core"];
+        _sctpFeature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"sctp"];
+        _m2paFeature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"m2pa"];
+        _mtp3Feature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"mtp3"];
+        _m3uaFeature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"m3ua"];
+        _sccpFeature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"sccp"];
+        _tcapFeature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"tcap"];
+        _gsmmapFeature      = [_globalLicenseDirectory getProduct:[self productName] feature:@"gsmmap"];
+        _smscFeature        = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsc"];
+        _smsproxyFeature    = [_globalLicenseDirectory getProduct:[self productName] feature:@"smsproxy"];
+        _rerouterFeature    = [_globalLicenseDirectory getProduct:[self productName] feature:@"rerouter"];
+        _diameterFeature    = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
+        _speedLimitFeature  = [_globalLicenseDirectory getProduct:[self productName] feature:@"speed-limit"];
+        _speedLimit         = _speedLimitFeature.doubleValue;
+    
+        _dbpool_dict        = [[UMSynchronizedDictionary alloc]init];
+        _filteringActive    = YES;
+        _sessionTimeout     = 30.0*60.0;
     }
     return self;
 }
@@ -1788,6 +1811,24 @@ static void signalHandler(int signum);
         NSLog(@"camel %@ started",camel.layerName);
     }
 
+    NSArray *smppNames = [_smppListeners allKeys];
+    for(NSString *name in smppNames)
+    {
+        SmscConnection *smpp = _smppListeners[name];
+        NSLog(@"starting smpp-listener %@",name);
+        [smpp startListener];
+        NSLog(@"smpp-listener %@ started",name);
+    }
+
+    NSArray *smppClients = [_smppProviderConnections allKeys];
+    for(NSString *name in smppClients)
+    {
+        SmscConnection *smpp = _smppProviderConnections[name];
+        NSLog(@"starting smpp-provider %@ ",name);
+        [smpp startOutgoing];
+        NSLog(@"smpp-provider %@ started",name);
+    }
+    
     names = [_diameter_router_dict allKeys];
     for(NSString *name in names)
     {
@@ -3065,7 +3106,38 @@ static void signalHandler(int signum);
         [sccp reloadPlugins];
         [sccp reloadPluginConfigs];
     }
+    
+    /* _smsDeliveryProfiles */
+    
+#define PLUGIN_DICT_RELOAD(PLUGIN)                              \
+    {                                                           \
+        NSArray *a = [PLUGIN allKeys];                          \
+        for(NSString *key in a)                                   \
+        {                                                       \
+            UMPluginHandler *ph = PLUGIN[key];                  \
+            NSString *err = [ph reload];                        \
+            if(err)                                             \
+            {                                                   \
+                NSLog(@"Error while reloading plugin %@",err);  \
+            }                                                   \
+        }                                                       \
+    }
+
+    PLUGIN_DICT_RELOAD(_smsCategorizerPluings)
+    PLUGIN_DICT_RELOAD(_smsPreRoutingFilterPlugins)
+    PLUGIN_DICT_RELOAD(_smsPreBillingFilterPlugins)
+    PLUGIN_DICT_RELOAD(_smsRoutingEnginePlugins)
+    PLUGIN_DICT_RELOAD(_smsPostRoutingFilterPlugins)
+    PLUGIN_DICT_RELOAD(_smsPostBillingPlugins)
+    PLUGIN_DICT_RELOAD(_smsDeliveryReportFilterPlugins)
+    PLUGIN_DICT_RELOAD(_smsCdrWriterPlugins)
+    PLUGIN_DICT_RELOAD(_smsStoragePlugins)
+    
+#undef PLUGIN_DICT_RELOAD
+    
 }
+
+
 
 
 /************************************************************/

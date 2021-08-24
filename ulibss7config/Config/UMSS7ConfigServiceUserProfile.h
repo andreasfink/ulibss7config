@@ -42,6 +42,16 @@
     NSNumber *_webAdminAccess;
     NSNumber *_smppAccess;
     NSNumber *_emiucpAccess;
+ 
+    NSString    *_categorizer;
+    NSString    *_preRoutingFilter;
+    NSString    *_preBillingFilter;
+    NSString    *_routingEngine;
+    NSString    *_postRoutingFilter;
+    NSString    *_postBillingFilter;
+    NSString    *_deliveryReportFilter;
+    NSString    *_cdrWriter;
+    NSString    *_storageEngine;
 }
 
 @property(readwrite,strong,atomic)      NSString *groupProfile;
