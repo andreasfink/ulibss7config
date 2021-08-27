@@ -56,7 +56,7 @@
                         {
                             UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
                             SET_DICT_STRING_OR_EMPTY(dict,@"name",obj.name);
-                            SET_DICT_STRING_OR_EMPTY(dict,@"profile",obj.userProfile);
+                            SET_DICT_STRING_OR_EMPTY(dict,@"profile",obj.serviceProfile);
                             SET_DICT_STRING_OR_EMPTY(dict,@"billing-entity",obj.billingEntity);
                             [entries addObject:dict];
                         }

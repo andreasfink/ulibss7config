@@ -8,7 +8,7 @@
 
 #import "UMSS7ConfigObject.h"
 
-@interface UMSS7ConfigServiceUserProfile : UMSS7ConfigObject
+@interface UMSS7ConfigServiceProfile : UMSS7ConfigObject
 {
     NSString *_instance;
     NSString *_deliveryMethod;
@@ -58,6 +58,6 @@
 
 + (NSString *)type;
 - (NSString *)type;
-- (UMSS7ConfigServiceUserProfile *)initWithConfig:(NSDictionary *)dict;
+- (UMSS7ConfigServiceProfile *)initWithConfig:(NSDictionary *)dict;
 
 @end

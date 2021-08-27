@@ -47,8 +47,8 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     return [self appendConfigToString:s withoutName:NO];
-
 }
+
 - (void)appendConfigToString:(NSMutableString *)s withoutName:(BOOL)withoutName
 {
     [s appendFormat:@"\n"];

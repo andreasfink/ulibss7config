@@ -68,7 +68,7 @@
 #import "UMSS7ConfigSCCPNumberTranslation.h"
 #import "UMSS7ConfigSCCPNumberTranslationEntry.h"
 #import "UMSS7ConfigServiceUser.h"
-#import "UMSS7ConfigServiceUserProfile.h"
+#import "UMSS7ConfigServiceProfile.h"
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ConfigDiameterConnection.h"

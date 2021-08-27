@@ -11,12 +11,12 @@
 @interface UMSS7ConfigServiceUser : UMSS7ConfigObject
 {
     NSString *_password;
-    NSString *_userProfile;
+    NSString *_serviceProfile;
     NSString *_billingEntity;
 }
 
 @property(readwrite,strong,atomic)      NSString *password;
-@property(readwrite,strong,atomic)      NSString *userProfile;
+@property(readwrite,strong,atomic)      NSString *serviceProfile;
 @property(readwrite,strong,atomic)      NSString *billingEntity;
 
 + (NSString *)type;

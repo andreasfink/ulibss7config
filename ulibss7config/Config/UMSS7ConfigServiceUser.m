@@ -35,7 +35,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"password",_password);
-    APPEND_CONFIG_STRING(s,@"profile",_userProfile);
+    APPEND_CONFIG_STRING(s,@"profile",_serviceProfile);
     APPEND_CONFIG_STRING(s,@"billing-entity",_billingEntity);
 }
 
@@ -44,7 +44,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"password",_password);
-    APPEND_DICT_STRING(dict,@"profile",_userProfile);
+    APPEND_DICT_STRING(dict,@"profile",_serviceProfile);
     APPEND_DICT_STRING(dict,@"billing-entity",_billingEntity);
     return dict;
 }
@@ -52,7 +52,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     SET_DICT_STRING(dict,@"password",_password);
-    SET_DICT_STRING(dict,@"profile",_userProfile);
+    SET_DICT_STRING(dict,@"profile",_serviceProfile);
     SET_DICT_STRING(dict,@"billing-entity",_billingEntity);
 }
 

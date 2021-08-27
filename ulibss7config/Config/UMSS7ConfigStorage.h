@@ -55,7 +55,7 @@
 @class UMSS7ConfigEIR;
 @class UMSS7ConfigSCCPNumberTranslation;
 @class UMSS7ConfigServiceUser;
-@class UMSS7ConfigServiceUserProfile;
+@class UMSS7ConfigServiceProfile;
 @class UMSS7ConfigServiceBillingEntity;
 @class UMSS7ConfigESTP;
 @class UMSS7ConfigMAPI;
@@ -449,9 +449,9 @@
 - (NSString *)deleteServiceUser:(NSString *)name;
 
 - (NSArray *)getServiceUserProfileNames;
-- (UMSS7ConfigServiceUserProfile *)getServiceUserProfile:(NSString *)name;
-- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceUserProfile *)smsc;
-- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceUserProfile *)smsc;
+- (UMSS7ConfigServiceProfile *)getServiceUserProfile:(NSString *)name;
+- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceProfile *)smsc;
+- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceProfile *)smsc;
 - (NSString *)deleteServiceUserProfile:(NSString *)name;
 
 - (NSArray *)getServiceBillingEntityNames;

@@ -67,7 +67,7 @@
 #import "UMSS7ConfigSCCPNumberTranslation.h"
 #import "UMSS7ConfigSCCPNumberTranslationEntry.h"
 #import "UMSS7ConfigServiceUser.h"
-#import "UMSS7ConfigServiceUserProfile.h"
+#import "UMSS7ConfigServiceProfile.h"
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
@@ -4416,7 +4416,6 @@ static void signalHandler(int signum);
             break;
     }
 }
-
 
 - (void)umtransportTransportConfirmation:(UMTransportResponse *)pdu
                            userReference:(NSString *)userDialogRef

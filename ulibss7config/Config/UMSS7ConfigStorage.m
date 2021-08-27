@@ -59,7 +59,7 @@
 #import "UMSS7ConfigSCCPNumberTranslation.h"
 #import "UMSS7ConfigSCCPNumberTranslationEntry.h"
 #import "UMSS7ConfigServiceUser.h"
-#import "UMSS7ConfigServiceUserProfile.h"
+#import "UMSS7ConfigServiceProfile.h"
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
@@ -296,7 +296,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigApiUser type]];
     [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
     [cfg allowMultiGroup:[UMSS7ConfigServiceUser type]];
-    [cfg allowMultiGroup:[UMSS7ConfigServiceUserProfile type]];
+    [cfg allowMultiGroup:[UMSS7ConfigServiceProfile type]];
     [cfg allowMultiGroup:[UMSS7ConfigServiceBillingEntity type]];
     [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
     [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
@@ -833,10 +833,10 @@
         }
     }
 
-    NSArray *service_user_profile_configs = [cfg getMultiGroups:[UMSS7ConfigServiceUserProfile type]];
+    NSArray *service_user_profile_configs = [cfg getMultiGroups:[UMSS7ConfigServiceProfile type]];
     for(NSDictionary *service_user_profile_config in service_user_profile_configs)
     {
-        UMSS7ConfigServiceUserProfile *up = [[UMSS7ConfigServiceUserProfile alloc]initWithConfig:service_user_profile_config];
+        UMSS7ConfigServiceProfile *up = [[UMSS7ConfigServiceProfile alloc]initWithConfig:service_user_profile_config];
         if(up.name.length  > 0)
         {
             _service_user_profile_dict[up.name] = up;
@@ -1035,7 +1035,7 @@
       [self appendSection:s dict:_api_user_dict sectionName:[UMSS7ConfigApiUser type]];
       [self appendSection:s dict:_database_pool_dict sectionName:[UMSS7ConfigDatabasePool type]];
       [self appendSection:s dict:_service_user_dict sectionName:[UMSS7ConfigServiceUser type]];
-      [self appendSection:s dict:_service_user_profile_dict sectionName:[UMSS7ConfigServiceUserProfile type]];
+      [self appendSection:s dict:_service_user_profile_dict sectionName:[UMSS7ConfigServiceProfile type]];
       [self appendSection:s dict:_service_billing_entity_dict sectionName:[UMSS7ConfigServiceBillingEntity type]];
       [self appendSection:s dict:_imsi_pool_dict sectionName:[UMSS7ConfigIMSIPool type]];
       [self appendSection:s dict:_cdr_writer_dict sectionName:[UMSS7ConfigCdrWriter type]];
@@ -1201,7 +1201,7 @@
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigApiUser,_api_user_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigDatabasePool,_database_pool_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceUser,_service_user_dict);
-    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceUserProfile,_service_user_profile_dict);
+    ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceProfile,_service_user_profile_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigServiceBillingEntity,_service_billing_entity_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigIMSIPool,_imsi_pool_dict);
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigCdrWriter,_cdr_writer_dict);
@@ -3260,12 +3260,12 @@
     return [_service_user_profile_dict allKeys];
 }
 
-- (UMSS7ConfigServiceUserProfile *)getServiceUserProfile:(NSString *)name
+- (UMSS7ConfigServiceProfile *)getServiceUserProfile:(NSString *)name
 {
     return _service_user_profile_dict[name];
 }
 
-- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceUserProfile *)profile
+- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceProfile *)profile
 {
     if(_service_user_profile_dict[profile.name] == NULL)
     {
@@ -3276,7 +3276,7 @@
     return @"already exists";
 }
 
-- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceUserProfile *)profile
+- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceProfile *)profile
 {
     _service_user_profile_dict[profile.name] = profile;
     _dirty=YES;

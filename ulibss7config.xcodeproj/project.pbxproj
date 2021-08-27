@@ -61,8 +61,8 @@
 		A634BBF621A38B3300852462 /* UMSS7ConfigServiceBillingEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */; };
 		A634BBF721A38B3300852462 /* UMSS7ConfigServiceBillingEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBF821A38B3300852462 /* UMSS7ConfigServiceUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF221A38B3200852462 /* UMSS7ConfigServiceUser.m */; };
-		A634BBF921A38B3300852462 /* UMSS7ConfigServiceUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF321A38B3300852462 /* UMSS7ConfigServiceUserProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A634BBFA21A38B3300852462 /* UMSS7ConfigServiceUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF421A38B3300852462 /* UMSS7ConfigServiceUserProfile.m */; };
+		A634BBF921A38B3300852462 /* UMSS7ConfigServiceProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBF321A38B3300852462 /* UMSS7ConfigServiceProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A634BBFA21A38B3300852462 /* UMSS7ConfigServiceProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBF421A38B3300852462 /* UMSS7ConfigServiceProfile.m */; };
 		A634BBFD21A3954000852462 /* SS7GenericInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBFB21A3954000852462 /* SS7GenericInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A634BBFE21A3954000852462 /* SS7GenericInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = A634BBFC21A3954000852462 /* SS7GenericInstance.m */; };
 		A634BC0121A3954B00852462 /* SS7GenericSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A634BBFF21A3954B00852462 /* SS7GenericSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -712,8 +712,8 @@
 		A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigServiceBillingEntity.m; sourceTree = "<group>"; };
 		A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigServiceBillingEntity.h; sourceTree = "<group>"; };
 		A634BBF221A38B3200852462 /* UMSS7ConfigServiceUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigServiceUser.m; sourceTree = "<group>"; };
-		A634BBF321A38B3300852462 /* UMSS7ConfigServiceUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigServiceUserProfile.h; sourceTree = "<group>"; };
-		A634BBF421A38B3300852462 /* UMSS7ConfigServiceUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigServiceUserProfile.m; sourceTree = "<group>"; };
+		A634BBF321A38B3300852462 /* UMSS7ConfigServiceProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigServiceProfile.h; sourceTree = "<group>"; };
+		A634BBF421A38B3300852462 /* UMSS7ConfigServiceProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigServiceProfile.m; sourceTree = "<group>"; };
 		A634BBFB21A3954000852462 /* SS7GenericInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7GenericInstance.h; sourceTree = "<group>"; };
 		A634BBFC21A3954000852462 /* SS7GenericInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7GenericInstance.m; sourceTree = "<group>"; };
 		A634BBFF21A3954B00852462 /* SS7GenericSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7GenericSession.h; sourceTree = "<group>"; };
@@ -1950,10 +1950,10 @@
 				A6B011CC21DB82DD00B1B4B5 /* UMSS7ConfigApiUser.m */,
 				A634BBEF21A38B3200852462 /* UMSS7ConfigServiceUser.h */,
 				A634BBF221A38B3200852462 /* UMSS7ConfigServiceUser.m */,
+				A634BBF321A38B3300852462 /* UMSS7ConfigServiceProfile.h */,
+				A634BBF421A38B3300852462 /* UMSS7ConfigServiceProfile.m */,
 				A634BBF121A38B3200852462 /* UMSS7ConfigServiceBillingEntity.h */,
 				A634BBF021A38B3200852462 /* UMSS7ConfigServiceBillingEntity.m */,
-				A634BBF321A38B3300852462 /* UMSS7ConfigServiceUserProfile.h */,
-				A634BBF421A38B3300852462 /* UMSS7ConfigServiceUserProfile.m */,
 				A62B183C226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.h */,
 				A62B183D226FC0E400B7F315 /* UMSS7ConfigDiameterConnection.m */,
 				A6BF3184229BC1020000578B /* UMSS7ConfigDiameterRouter.h */,
@@ -2253,7 +2253,7 @@
 				A6BC431D20774F93008C3CEB /* UMSS7ConfigSMSProxy.h in Headers */,
 				A691E5B3237020EC00589718 /* UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h in Headers */,
 				A6BC4509207753ED008C3CEB /* UMSS7ApiTaskSCTP_delete.h in Headers */,
-				A634BBF921A38B3300852462 /* UMSS7ConfigServiceUserProfile.h in Headers */,
+				A634BBF921A38B3300852462 /* UMSS7ConfigServiceProfile.h in Headers */,
 				A6EE9BB424609AB700A7F42A /* UMSS7ApiTaskDiameterRoute_action.h in Headers */,
 				A6BC453C207753EE008C3CEB /* UMSS7ApiTaskM3UAASP_action.h in Headers */,
 				A6BC4530207753EE008C3CEB /* UMSS7ApiTaskM3UAASP_list.h in Headers */,
@@ -2543,7 +2543,7 @@
 				A6BC4520207753EE008C3CEB /* UMSS7ApiTaskMTP3LinkSet_add.m in Sources */,
 				A69429EC22DC963B00A90936 /* UMSS7FilterRuleSet.m in Sources */,
 				A6BC44F4207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_modify.m in Sources */,
-				A634BBFA21A38B3300852462 /* UMSS7ConfigServiceUserProfile.m in Sources */,
+				A634BBFA21A38B3300852462 /* UMSS7ConfigServiceProfile.m in Sources */,
 				A6BF3119229437E40000578B /* UMSS7ApiTaskSS7FilterAction_delete.m in Sources */,
 				A69429E822DC963100A90936 /* UMSS7FilterRule.m in Sources */,
 				A6BC434220774F93008C3CEB /* UMSS7ConfigMTP3Route.m in Sources */,

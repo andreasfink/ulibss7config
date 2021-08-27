@@ -6,10 +6,10 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigServiceUserProfile.h"
+#import "UMSS7ConfigServiceProfile.h"
 #import "UMSS7ConfigMacros.h"
 
-@implementation UMSS7ConfigServiceUserProfile
+@implementation UMSS7ConfigServiceProfile
 
 + (NSString *)type
 {
@@ -17,10 +17,10 @@
 }
 - (NSString *)type
 {
-    return [UMSS7ConfigServiceUserProfile type];
+    return [UMSS7ConfigServiceProfile type];
 }
 
-- (UMSS7ConfigServiceUserProfile *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigServiceProfile *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -178,10 +178,10 @@
     SET_DICT_STRING(dict,@"storage-engine",_storageEngine);
 }
 
-- (UMSS7ConfigServiceUserProfile *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigServiceProfile *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigServiceUserProfile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigServiceProfile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end
