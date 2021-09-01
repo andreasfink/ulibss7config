@@ -2576,6 +2576,8 @@ static void signalHandler(int signum);
     [s appendString:@"MSISDN:             <input name=\"msisdn\">\n"];
     [s appendString:@"TT:                 <input name=\"tt\" value=0>\n"];
     [s appendString:@"Transaction Number: <input name=\"tid\" value=0>\n"];
+    [s appendString:@"Application Context:<input name=\"application-context\" value=''> (hex bytes)\n"];
+    [s appendString:@"MAP Operation Code: <input name=\"op\" value=''>\n"];
     [s appendString:@"                    <input type=submit>\n"];
 
     [s appendString:@"</form>\n"];
@@ -2654,6 +2656,13 @@ static void signalHandler(int signum);
     NSString *msisdn    =    [[p[@"msisdn"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *sccp_name = [[p[@"sccp"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *tidString = [[p[@"tid"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *ac = [[p[@"appication-context"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *opString = [[p[@"operation"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSNumber *op =NULL;
+    if(opString.length > 0)
+    {
+        op = @([opString intValue]);
+    }
     NSNumber *tid = NULL;
     if(tidString.length > 0)
     {
@@ -2678,7 +2687,9 @@ static void signalHandler(int signum);
     UMSynchronizedSortedDictionary *resutlDict = [sccp routeTestForMSISDN:msisdn
                                                           translationType:tt
                                                                 fromLocal:NO
-                                                        transactionNumber:tid];
+                                                        transactionNumber:tid
+                                                                operation:op
+                                                       applicationContext:ac];
     [req setResponseJsonObject:resutlDict];
     return;
 }
@@ -3578,6 +3589,7 @@ static void signalHandler(int signum);
         sccp.logFeed.name = name;
         [sccp setConfig:config applicationContext:self];
         _sccp_dict[name] = sccp;
+        sccp.tcapDecoder = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-decode"];
         [sccp.gttSelectorRegistry setSccp_number_translations_dict:_sccp_number_translations_dict];
 
         if(co.problematicPacketsTraceFile)

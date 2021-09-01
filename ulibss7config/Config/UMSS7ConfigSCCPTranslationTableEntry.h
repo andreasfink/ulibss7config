@@ -19,6 +19,10 @@
     NSNumber *_tidStart;
     NSNumber *_tidEnd;
     NSString *_tidRange;
+    NSString *_ssn;
+    NSString *_opcode;
+    NSString *_appcontext;
+
 }
 
 + (NSString *)type;
@@ -34,5 +38,8 @@
 @property(readwrite,strong,atomic)  NSNumber *tidStart;
 @property(readwrite,strong,atomic)  NSNumber *tidEnd;
 @property(readwrite,strong,atomic)  NSString *tidRange;
+@property(readwrite,strong,atomic)  NSString *ssn;
+@property(readwrite,strong,atomic)  NSString *opcode;
+@property(readwrite,strong,atomic)  NSString *appcontext;
 
 @end
