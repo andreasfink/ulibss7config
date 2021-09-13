@@ -1694,6 +1694,20 @@ static void signalHandler(int signum);
         }
     }
 
+    
+    /*****************************************************************/
+    /* CAMEL */
+    /*****************************************************************/
+    names = [_runningConfig getCAMELNames];
+    for(NSString *name in names)
+    {
+        UMSS7ConfigObject *co = [_runningConfig getCAMEL:name];
+        NSDictionary *config = co.config.dictionaryCopy;
+        if( [config configEnabledWithYesDefault])
+        {
+            [self addWithConfigCAMEL:config];
+        }
+    }
     [self startDatabaseConnections];
 
     /*****************************************************************/
@@ -3903,7 +3917,7 @@ static void signalHandler(int signum);
         config = co.config.dictionaryCopy;
 
 
-        UMLayerCamel *camel = [[UMLayerCamel alloc]initWithTaskQueueMulti:_camelTaskQueue];
+        UMLayerCamel *camel = [[UMLayerCamel alloc]initWithTaskQueueMulti:_camelTaskQueue name:@"camel"];
         camel.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"camel"];
         camel.logFeed.name = name;
         [camel setConfig:config applicationContext:self];

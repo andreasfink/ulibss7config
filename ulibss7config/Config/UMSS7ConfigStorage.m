@@ -111,6 +111,7 @@
     _vlr_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _eir_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _gsmscf_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _camel_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _gmlc_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _smsc_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _smsproxy_dict= [[UMSynchronizedSortedDictionary alloc]init];
@@ -290,6 +291,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigGSMSCF type]];
     [cfg allowMultiGroup:[UMSS7ConfigGMLC type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
+    [cfg allowMultiGroup:[UMSS7ConfigCAMEL type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
     [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
     [cfg allowMultiGroup:[UMSS7ConfigAdminUser type]];
@@ -736,6 +738,16 @@
         if(gmlc.name.length  > 0)
         {
             _gmlc_dict[gmlc.name] = gmlc;
+        }
+    }
+    
+    NSArray *camel_configs = [cfg getMultiGroups:[UMSS7ConfigCAMEL type]];
+    for(NSDictionary *camel_config in camel_configs)
+    {
+        UMSS7ConfigCAMEL *camel = [[UMSS7ConfigCAMEL alloc]initWithConfig:camel_config];
+        if(camel.name.length  > 0)
+        {
+            _camel_dict[camel.name] = camel;
         }
     }
 

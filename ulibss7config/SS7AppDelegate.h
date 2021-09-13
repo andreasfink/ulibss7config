@@ -603,5 +603,10 @@ UMEnvironmentNamedListProviderProtocol>
 -(id)licenseDirectory;
 - (BOOL)increaseMaximumOpenFiles:(NSUInteger)count; /* returns YES if successful */
 
+- (UMLayerCamel *)getCAMEL:(NSString *)name;
+- (void)addWithConfigCAMEL:(NSDictionary *)config;
+- (void)deleteCAMEL:(NSString *)name;
+- (void)renameCAMEL:(NSString *)oldName to:(NSString *)newName;
+
 @end
 
