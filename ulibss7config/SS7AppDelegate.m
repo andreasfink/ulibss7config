@@ -5235,8 +5235,13 @@ static void signalHandler(int signum);
             UMLayerSCCP *sccp = _sccp_dict[key];
             SccpAddress *src = [[SccpAddress alloc]init];
             SccpAddress *dst = [[SccpAddress alloc]init];
-            UMLayerTCAP *tcap = [sccp getUserForSubsystem:ssn number:dst];
-            if(tcap==NULL)
+            UMLayerTCAP *tcap = NULL;
+            id sccp_user  = [sccp getUserForSubsystem:ssn number:dst];
+            if([sccp_user isKindOfClass:[UMLayerTCAP class]])
+            {
+                tcap = (UMLayerTCAP *)sccp_user;
+            }
+            else
             {
                 tcap = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap"];
             }
@@ -5306,8 +5311,16 @@ static void signalHandler(int signum);
             UMLayerSCCP *sccp = _sccp_dict[key];
             SccpAddress *src = [[SccpAddress alloc]init];
             SccpAddress *dst = [[SccpAddress alloc]init];
-            UMLayerTCAP *tcap = [sccp getUserForSubsystem:ssn number:dst];
-
+            UMLayerTCAP *tcap = NULL;
+            id sccp_user  = [sccp getUserForSubsystem:ssn number:dst];
+            if([sccp_user isKindOfClass:[UMLayerTCAP class]])
+            {
+                tcap = (UMLayerTCAP *)sccp_user;
+            }
+            else
+            {
+                tcap = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap"];
+            }
             UMTCAP_sccpNUnitdata *task;
             task = [[UMTCAP_sccpNUnitdata alloc]initForTcap:tcap
                                                        sccp:sccp
