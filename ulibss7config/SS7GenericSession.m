@@ -1441,13 +1441,19 @@ else \
     NSString *mapopen_destination_msisdn;
     NSString *mapopen_code2;
     NSString *mapopen_code3;
+    NSString *map_options;
     
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_imsi,@"map-open-destination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_msisdn,@"map-open-destination-msisdn");
 
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_imsi,@"map-open-origination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_msisdn,@"map-open-origination-msisdn");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,map_options,@"map-options");
 
+    if(map_options.length > 0)
+    {
+        _mapOptions = [map_options componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
+    }
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code2,@"map-open-code2");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code3,@"map-open-code3");
 
@@ -1741,6 +1747,11 @@ else \
     {
         _options[@"tcap-options"] = _tcapOptions;
     }
+    if(_mapOptions.count > 0)
+    {
+        _options[@"gsmmap-options"] = _mapOptions;
+    }
+
     _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
                                                         variant:TCAP_VARIANT_DEFAULT
                                                  callingAddress:_localAddress

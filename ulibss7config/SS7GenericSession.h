@@ -72,6 +72,7 @@ typedef enum SS7MultiInvokeVariant
     UMTCAP_asn1_userInformation *_userInfo;
     UMTCAP_asn1_userInformation *_incomingUserInfo;
     UMGSMMAP_DialogIdentifier   *_dialogId;
+    NSArray<NSString *>         *_mapOptions;
     BOOL                        _doEnd;
     UMTCAP_Variant              _tcapVariant;
     NSString                    *_tcapLocalTransactionId;
@@ -155,6 +156,7 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,strong,atomic)    NSString                    *tcapLocalTransactionId;
 @property(readwrite,strong,atomic)    NSString                    *tcapRemoteTransactionId;
 @property(readwrite,strong,atomic)    NSArray<NSString *>         *tcapOptions;
+@property(readwrite,strong,atomic)    NSArray<NSString *>         *mapOptions;
 @property(readwrite,strong,atomic)    NSDictionary                *incomingOptions;
 @property(readwrite,strong,atomic)    UMSynchronizedArray         *components;
 @property(readwrite,assign,atomic)    int                         nowait;
