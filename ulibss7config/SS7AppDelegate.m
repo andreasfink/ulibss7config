@@ -4712,6 +4712,7 @@ static void signalHandler(int signum);
 
 - (void)webDialogOptions:(NSMutableString *)s
 {
+
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>map-open-destination-msisdn</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"map-open-destination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open destination reference</td>\n"];

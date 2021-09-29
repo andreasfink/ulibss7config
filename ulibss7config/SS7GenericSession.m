@@ -2206,6 +2206,12 @@ else \
     [s appendString:@"    <td class=optional>map-open-origination-imsi</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"map-open-origination-imsi\" type=text> imsi in map-open origination reference</td>\n"];
     [s appendString:@"</tr>\n"];
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-options</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-options\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+
 }
 
 + (void)webTcapTitle:(NSMutableString *)s
