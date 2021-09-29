@@ -1749,7 +1749,7 @@ else \
     }
     if(_mapOptions.count > 0)
     {
-        _options[@"gsmmap-options"] = _mapOptions;
+        _options[@"map-options"] = _mapOptions;
     }
 
     _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
