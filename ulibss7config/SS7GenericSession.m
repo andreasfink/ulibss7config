@@ -1441,13 +1441,19 @@ else \
     NSString *mapopen_destination_msisdn;
     NSString *mapopen_code2;
     NSString *mapopen_code3;
+    NSString *map_options;
     
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_imsi,@"map-open-destination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_msisdn,@"map-open-destination-msisdn");
 
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_imsi,@"map-open-origination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_msisdn,@"map-open-origination-msisdn");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,map_options,@"map-options");
 
+    if(map_options.length > 0)
+    {
+        _mapOptions = [map_options componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
+    }
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code2,@"map-open-code2");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code3,@"map-open-code3");
 
@@ -1741,6 +1747,11 @@ else \
     {
         _options[@"tcap-options"] = _tcapOptions;
     }
+    if(_mapOptions.count > 0)
+    {
+        _options[@"map-options"] = _mapOptions;
+    }
+
     _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
                                                         variant:TCAP_VARIANT_DEFAULT
                                                  callingAddress:_localAddress
@@ -2195,6 +2206,12 @@ else \
     [s appendString:@"    <td class=optional>map-open-origination-imsi</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"map-open-origination-imsi\" type=text> imsi in map-open origination reference</td>\n"];
     [s appendString:@"</tr>\n"];
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-options</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-options\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+
 }
 
 + (void)webTcapTitle:(NSMutableString *)s
