@@ -100,12 +100,12 @@
 
 - (UMMTP3Variant)mtp3Variant
 {
-    return _gInstance.gsmMap._tcap.attachedLayer.mtp3variant;
+    return _gInstance.gsmMap.tcap.attachedLayer.mtp3variant;
 }
 
 - (SccpVariant)sccpVariant
 {
-    return _gInstance.gsmMap._tcap.attachedLayer.sccpVariant;
+    return _gInstance.gsmMap.tcap.attachedLayer.sccpVariant;
 }
 
 #define VERIFY_MAP(a,b)\
