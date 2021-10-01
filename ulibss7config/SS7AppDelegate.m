@@ -5236,7 +5236,7 @@ static void signalHandler(int signum);
             SccpAddress *src = [[SccpAddress alloc]init];
             SccpAddress *dst = [[SccpAddress alloc]init];
             UMLayerTCAP *tcap = NULL;
-            id sccp_user  = [sccp getUserForSubsystem:ssn number:dst];
+            id<UMSCCP_UserProtocol> sccp_user  = [sccp getUserForSubsystem:ssn number:dst];
             if([sccp_user isKindOfClass:[UMLayerTCAP class]])
             {
                 tcap = (UMLayerTCAP *)sccp_user;
@@ -5312,7 +5312,7 @@ static void signalHandler(int signum);
             SccpAddress *src = [[SccpAddress alloc]init];
             SccpAddress *dst = [[SccpAddress alloc]init];
             UMLayerTCAP *tcap = NULL;
-            id sccp_user  = [sccp getUserForSubsystem:ssn number:dst];
+            id <UMSCCP_UserProtocol> sccp_user = [sccp getUserForSubsystem:ssn number:dst];
             if([sccp_user isKindOfClass:[UMLayerTCAP class]])
             {
                 tcap = (UMLayerTCAP *)sccp_user;
@@ -5333,7 +5333,6 @@ static void signalHandler(int signum);
             {
                 [task main];
             }
-
             NSLog(@"Decoded %@",task.asn1.objectValue);
             UMASN1Object *asn1 = task.asn1;
 

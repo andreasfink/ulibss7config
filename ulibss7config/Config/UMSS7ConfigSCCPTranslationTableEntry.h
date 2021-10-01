@@ -22,7 +22,6 @@
     NSString *_ssn;
     NSString *_opcode;
     NSString *_appcontext;
-
 }
 
 + (NSString *)type;
