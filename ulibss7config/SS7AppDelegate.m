@@ -5316,7 +5316,7 @@ static void signalHandler(int signum);
             UMLayerSCCP *sccp = _sccp_dict[key];
             SccpAddress *src = [[SccpAddress alloc]init];
             SccpAddress *dst = [[SccpAddress alloc]init];
-<<<<<<< HEAD
+
             UMLayerTCAP *tcap = NULL;
             id <UMSCCP_UserProtocol> sccp_user = [sccp getUserForSubsystem:ssn number:dst];
             if([sccp_user isKindOfClass:[UMLayerTCAP class]])
@@ -5329,48 +5329,19 @@ static void signalHandler(int signum);
             }
             UMTCAP_sccpNUnitdata *task;
             task = [[UMTCAP_sccpNUnitdata alloc]initForTcap:tcap
-=======
-            id <UMSCCP_UserProtocol> tcap1 = [sccp getUserForSubsystem:ssn number:dst];
-            if( [tcap1 isKindOfClass:[UMLayerTCAP class]])
-            {
-                UMLayerTCAP *tcap = (UMLayerTCAP *)tcap1;
-                UMTCAP_sccpNUnitdata *task;
-                task = [[UMTCAP_sccpNUnitdata alloc]initForTcap:tcap
->>>>>>> 5842548439828f4a71e15c43204e4a147d9c8c3f
                                                        sccp:sccp
                                                    userData: [pdu unhexedData]
                                                     calling:src
                                                      called:dst
                                            qualityOfService:0
                                                     options:@{ @"decode-only" : @YES }];
-                @autoreleasepool
-                {
-                    [task main];
-                }
-
-                NSLog(@"Decoded %@",task.asn1.objectValue);
-                UMASN1Object *asn1 = task.asn1;
-                NSMutableString *s = [[NSMutableString alloc]init];
-                [SS7GenericInstance webHeader:s title:@"TCAP2 Decode"];
-                [s appendFormat:@"<form>\r"];
-                [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
-                [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
-                [s appendFormat:@"<input type=submit>\r"];
-                [s appendFormat:@"</form>\r"];
-                [s appendFormat:@"<pre>%@ = %@</pre>\r",asn1.objectName,asn1.description];
-                [s appendFormat:@"</pre>\r"];
-                [s appendFormat:@"</body>\r"];
-                [s appendFormat:@"</html>\r"];
-                [req setResponseHtmlString:s];
-            }
-            else
+            @autoreleasepool
             {
-                [req setResponseHtmlString:@"no tcap user found"];
+                [task main];
             }
-<<<<<<< HEAD
+
             NSLog(@"Decoded %@",task.asn1.objectValue);
             UMASN1Object *asn1 = task.asn1;
-
             NSMutableString *s = [[NSMutableString alloc]init];
             [SS7GenericInstance webHeader:s title:@"TCAP2 Decode"];
             [s appendFormat:@"<form>\r"];
@@ -5383,8 +5354,6 @@ static void signalHandler(int signum);
             [s appendFormat:@"</body>\r"];
             [s appendFormat:@"</html>\r"];
             [req setResponseHtmlString:s];
-=======
->>>>>>> 5842548439828f4a71e15c43204e4a147d9c8c3f
         }
         else
         {
