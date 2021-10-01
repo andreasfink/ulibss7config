@@ -2288,7 +2288,9 @@ static void signalHandler(int signum);
         if(s1.length > 0)
         {
             SccpAddress *sccp = [[SccpAddress alloc]initWithHumanReadableString:s1 variant:UMMTP3Variant_ITU];
+            sccp.ssn.ssn = SCCP_SSN_ULIBTRANSPORT;
             m.src = [[UMTransportAddress alloc]initWithSccpAddress:sccp];
+            
         }
         s1 = p[@"src-sms"];
         if(s1.length > 0)
@@ -2300,6 +2302,7 @@ static void signalHandler(int signum);
         if(s1.length > 0)
         {
             SccpAddress *sccp = [[SccpAddress alloc]initWithHumanReadableString:s1 variant:UMMTP3Variant_ITU];
+            sccp.ssn.ssn = SCCP_SSN_ULIBTRANSPORT;
             m.dst = [[UMTransportAddress alloc]initWithSccpAddress:sccp];
         }
 
@@ -4891,6 +4894,8 @@ static void signalHandler(int signum);
                     UMTTaskPing *t = [[UMTTaskPing alloc]init];
                     t.req = req;
                     t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
+                    t.remoteAddr.ssn.ssn = SCCP_SSN_ULIBTRANSPORT;
+
                     t.transportService = _umtransportService;
                     [req makeAsyncWithTimeout:6];
                     [self.generalTaskQueue queueTask:t toQueueNumber:0];
@@ -4909,6 +4914,7 @@ static void signalHandler(int signum);
                     t.req = req;
                     NSString *addr = p[@"destination"];
                     t.remoteAddr = [[SccpAddress alloc]initWithHumanReadableString:addr variant:UMMTP3Variant_ITU];
+                    t.remoteAddr.ssn.ssn = SCCP_SSN_ULIBTRANSPORT;
                     [self.generalTaskQueue queueTask:t toQueueNumber:0];
                 }
             }
