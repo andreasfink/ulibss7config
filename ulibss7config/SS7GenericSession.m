@@ -1366,7 +1366,6 @@ else \
     }
     else
     {
-            
         if((_called_ssn == NULL) || (_called_ssn.length <=0)  || ([_called_ssn isEqualToString:@"default"]))
         {
             if(defaultCalledSsn.length <=0)
