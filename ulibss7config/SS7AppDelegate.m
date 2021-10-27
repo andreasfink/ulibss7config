@@ -2784,7 +2784,6 @@ static void signalHandler(int signum);
         [status appendFormat:@"    linkstateBusyEndedReceived: %d\n", m2pa.linkstateBusyEndedReceived];
         [status appendFormat:@"    linkstateReadySent: %d\n", m2pa.linkstateReadySent];
         [status appendFormat:@"    linkstateReadyReceived: %d\n", m2pa.linkstateReadyReceived];
-        
         [status appendFormat:@"    controlLock: %@\n",
             m2pa.controlLock.lockStatusDescription];
         [status appendFormat:@"    dataLock: %@\n",
@@ -2796,6 +2795,28 @@ static void signalHandler(int signum);
         [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
             m2pa.sctpLink.directSocket.dataLock.lockStatusDescription];
     }
+	keys = [_mtp3_link_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMMTP3Link *mtp3link = _mtp3_link_dict[key];
+        [status appendFormat:@"MTP3-LINK:%@\n",mtp3link.name];
+		[status appendFormat:@"    slc: %d\n", mtp3link.slc];
+		[status appendFormat:@"    congested: %@\n",mtp3link.congested ? @"YES" : @"NO"];
+		[status appendFormat:@"    processorOutage: %@\n",mtp3link.processorOutage ? @"YES" : @"NO"];
+		[status appendFormat:@"    speedLimitReached: %@\n",mtp3link.speedLimitReached ? @"YES" : @"NO"];
+		[status appendFormat:@"    FOOS: %@\n",mtp3link.forcedOutOfService ? @"YES" : @"NO"];
+		[status appendFormat:@"    sentSLTM: %d\n",mtp3link.sentSLTM];
+		[status appendFormat:@"    receivedSLTA: %d\n",mtp3link.receivedSLTA];
+		[status appendFormat:@"    receivedSLTM: %d\n",mtp3link.receivedSLTM];
+		[status appendFormat:@"    sentSLTA: %d\n",mtp3link.sentSLTA];
+		[status appendFormat:@"    sentSSLTM: %d\n",mtp3link.sentSSLTM];
+		[status appendFormat:@"    receivedSSLTA: %d\n",mtp3link.receivedSSLTA];
+		[status appendFormat:@"    receivedSSLTM: %d\n",mtp3link.receivedSSLTM];
+		[status appendFormat:@"    sentSSLTA: %d\n",mtp3link.sentSSLTA];
+		[status appendFormat:@"    outstandingSLTA: %d\n",mtp3link.outstandingSLTA];
+		[status appendFormat:@"    linkRestartsDueToFailedLinktest: %d\n",mtp3link.linkRestartsDueToFailedLinktest];
+	}
+
     keys = [_mtp3_linkset_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
     for(NSString *key in keys)
