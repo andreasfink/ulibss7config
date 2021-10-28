@@ -2815,9 +2815,9 @@ static void signalHandler(int signum);
 		[status appendFormat:@"    sentSSLTA: %d\n",mtp3link.sentSSLTA];
 		[status appendFormat:@"    outstandingSLTA: %d\n",mtp3link.outstandingSLTA];
 		[status appendFormat:@"    linkRestartsDueToFailedLinktest: %d\n",mtp3link.linkRestartsDueToFailedLinktest];
-        if(mtp3link.linkRestartTime)
+        if(mtp3link.linkRestartTime != NULL)
         {
-            [status appendFormat:@"    lastLinkRestart: %@\n",mtp3link.linkRestartTime];
+            [status appendFormat:@"    lastLinkRestart: %@\n",mtp3link.linkRestartTime.stringValue];
         }
 	}
 
