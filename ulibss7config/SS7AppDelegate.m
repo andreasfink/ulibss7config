@@ -2814,6 +2814,10 @@ static void signalHandler(int signum);
 		[status appendFormat:@"    receivedSSLTM: %d\n",mtp3link.receivedSSLTM];
 		[status appendFormat:@"    sentSSLTA: %d\n",mtp3link.sentSSLTA];
 		[status appendFormat:@"    outstandingSLTA: %d\n",mtp3link.outstandingSLTA];
+        [status appendFormat:@"    receivedInvalidSLTM: %d\n",mtp3link.receivedInvalidSLTM];
+        [status appendFormat:@"    receivedInvalidSLTA: %d\n",mtp3link.receivedInvalidSLTA];
+        [status appendFormat:@"    receivedInvalidSSLTM: %d\n",mtp3link.receivedInvalidSSLTM];
+        [status appendFormat:@"    receivedInvalidSSLTA: %d\n",mtp3link.receivedInvalidSSLTA];
 		[status appendFormat:@"    linkRestartsDueToFailedLinktest: %d\n",mtp3link.linkRestartsDueToFailedLinktest];
         if(mtp3link.linkRestartTime != NULL)
         {
