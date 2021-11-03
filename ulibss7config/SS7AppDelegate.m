@@ -2823,6 +2823,14 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"    lastLinkRestart: %@\n",mtp3link.linkRestartTime.stringValue];
         }
+        if(mtp3link.lastLinkUp != NULL)
+        {
+            [status appendFormat:@"    lastLinkUp: %@\n",mtp3link.lastLinkUp.stringValue];
+        }
+        if(mtp3link.lastLinkDown != NULL)
+        {
+            [status appendFormat:@"    lastLinkDown: %@\n",mtp3link.lastLinkDown.stringValue];
+        }
 	}
 
     keys = [_mtp3_linkset_dict allKeys];
