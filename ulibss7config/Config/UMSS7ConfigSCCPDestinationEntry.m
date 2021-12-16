@@ -75,7 +75,7 @@
     APPEND_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
     APPEND_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
-    APPEND_DICT_STRING(dict,@"add-prefix",_addPostfix);
+    APPEND_DICT_STRING(dict,@"add-postfix",_addPostfix);
     APPEND_DICT_STRING(dict,@"mtp3",_mtp3Instance);
     APPEND_DICT_INTEGER(dict,@"set-gti",_setGti);
     APPEND_DICT_INTEGER(dict,@"set-nai",_setNai);

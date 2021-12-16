@@ -45,7 +45,6 @@
     APPEND_CONFIG_STRING(s,@"pre-translation",_preTranslation);
     APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
     APPEND_CONFIG_STRING(s,@"default-destination",_defaultDestination);
-
     for(UMSS7ConfigSCCPTranslationTableEntry *e in _subEntries)
     {
         [s appendString:@"\n"];
