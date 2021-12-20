@@ -52,7 +52,6 @@
     }
 }
 
-
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
@@ -65,7 +64,6 @@
     APPEND_DICT_STRING(dict,@"pre-translation",_preTranslation);
     APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
     APPEND_DICT_STRING(dict,@"default-destination",_defaultDestination);
-
     return dict;
 }
 
