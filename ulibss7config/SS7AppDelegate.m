@@ -2879,6 +2879,23 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"    lastLinkDown: %@\n",m3ua_asp.lastLinkDown.stringValue];
         }
+        if(m3ua_asp.lastLUp != NULL)
+        {
+            [status appendFormat:@"    lastLinkUp: %@\n",m3ua_asp.lastUp.stringValue];
+        }
+        if(m3ua_asp.lastDown != NULL)
+        {
+            [status appendFormat:@"    lastLinkDown: %@\n",m3ua_asp.lastDown.stringValue];
+        }
+        if(m3ua_asp.lastActive != NULL)
+        {
+            [status appendFormat:@"    lastLinkUp: %@\n",m3ua_asp.lastActive.stringValue];
+        }
+        if(m3ua_asp.lastInactive != NULL)
+        {
+            [status appendFormat:@"    lastLinkDown: %@\n",m3ua_asp.lastInactive.stringValue];
+        }
+
     }
 
     keys = [_m3ua_as_dict allKeys];
