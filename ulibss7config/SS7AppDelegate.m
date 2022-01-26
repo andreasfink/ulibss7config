@@ -2871,6 +2871,14 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"    Last M3UA-ERR: %@\n",m3ua_asp.lastError];
         }
+        if(m3ua_asp.lastLinkUp != NULL)
+        {
+            [status appendFormat:@"    lastLinkUp: %@\n",m3ua_asp.lastLinkUp.stringValue];
+        }
+        if(m3ua_asp.lastLinkDown != NULL)
+        {
+            [status appendFormat:@"    lastLinkDown: %@\n",m3ua_asp.lastLinkDown.stringValue];
+        }
     }
 
     keys = [_m3ua_as_dict allKeys];
