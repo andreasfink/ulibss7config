@@ -2879,7 +2879,7 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"    lastLinkDown: %@\n",m3ua_asp.lastLinkDown.stringValue];
         }
-        if(m3ua_asp.lastLUp != NULL)
+        if(m3ua_asp.lastUp != NULL)
         {
             [status appendFormat:@"    lastLinkUp: %@\n",m3ua_asp.lastUp.stringValue];
         }
