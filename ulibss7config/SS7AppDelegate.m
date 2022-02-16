@@ -5196,6 +5196,7 @@ static void signalHandler(int signum);
                                                                               dpc:label.dpc
                                                                                si:3
                                                                                ni:0
+                                                                              sls:label.sls
                                                                              data:mtp3payload
                                                                           options:@{ @"decode-only" : @YES }
                                                                               map:NULL];
@@ -5253,6 +5254,7 @@ static void signalHandler(int signum);
                                                       dpc:pc
                                                        si:3
                                                        ni:0
+                                                      sls:-1
                                                      data:[pdu unhexedData]
                                                   options:@{ @"decode-only" : @YES }];
             @autoreleasepool
