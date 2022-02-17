@@ -33,6 +33,7 @@
         _webRequest = webRequest;
         _params = [_webRequest.params urldecodeStringValues];
         _appDelegate = ad;
+        _logFeed = _appDelegate.apiLogFeed;
         [_webRequest makeAsync];
     }
     return self;
@@ -43,9 +44,41 @@
     return @"";
 }
 
+- (void)startup
+{
+    if(_logFeed)
+    {
+        _history = [[UMHistoryLog alloc]init];
+
+        [_history addPrintableString:_webRequest.path];
+        NSArray *allKeys = [_params allKeys];
+        for(NSString *key in allKeys)
+        {
+            NSString *value = _params[key];
+            [_history addPrintableString:[NSString stringWithFormat:@"    %@=%@",key,value]];
+        }
+    }
+}
+
 - (void)main 
 {
     [self sendErrorNotImplemented];
+}
+
+- (void)shutdown
+{
+    if(_logFeed)
+    {
+        NSData *response = [_webRequest extractResponse];
+        
+        NSString *s = [[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
+        if(s)
+        {
+            [_history addPrintableString:s];
+        }
+        [_logFeed debugText:[_history stringLines]];
+        _history = NULL;
+    }
 }
 
 + (BOOL)doNotList
@@ -170,6 +203,13 @@
 -(void)sendResultObject:(id)result
 {
     [_webRequest setResponseJsonObject:@{ @"result" : result }];
+    [_webRequest resumePendingRequest];
+}
+
+
+-(void)sendResultHtml:(NSString *)html
+{
+    [_webRequest setResponseHtmlString:html];
     [_webRequest resumePendingRequest];
 }
 
@@ -339,6 +379,7 @@
     SccpGttRoutingTableEntry *rte = [rt findEntryByName:name];
     return rte;
 }
+
 
 @end
 

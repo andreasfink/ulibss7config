@@ -12,11 +12,13 @@
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
+#import <ulibcamel/ulibcamel.h>
 #import "UMSS7ConfigObject.h"
 #import "SS7UserAuthenticateProtocol.h"
 
 @class SS7GenericSession;
-
+@class UMCamelInitialDPArg;
+@class UMTransportService;
 @interface SS7GenericInstance : UMLayer<UMLayerGSMMAP_UserProtocol,
                                 UMHTTPServerHttpGetPostDelegate,
                                 UMHTTPRequest_TimeoutProtocol
@@ -38,6 +40,8 @@
     NSMutableArray              *_delayedDestroy1;
     NSMutableArray              *_delayedDestroy2;
     NSMutableArray              *_delayedDestroy3;
+    UMTransportService          *_umTransportService;
+
 }
 
 @property(readwrite,strong) UMLayerGSMMAP *gsmMap;
@@ -48,15 +52,19 @@
 @property(readwrite,strong) UMAtomicDate *houseKeepingTimerRun;
 @property(readwrite,strong) UMHTTPClient *webClient;
 @property(readwrite,strong) id<SS7UserAuthenticateProtocol>    authDelegate;
-
+@property(readwrite,strong) UMTransportService  *umTransportService;
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
+- (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name;
+
 - (NSString *)status;
 - (void) setConfig:(NSDictionary *)cfg applicationContext:(id)appContext;
 
 
 - (UMGSMMAP_UserIdentifier *)getNewUserIdentifier;
+- (UMCamelUserIdentifier *)getNewCamelUserIdentifier;
 - (SS7GenericSession *)sessionById:(UMGSMMAP_UserIdentifier *)userId;
+- (SS7GenericSession *)sessionByCamelId:(UMCamelUserIdentifier *)userId;
 - (void)addSession:(SS7GenericSession *)t userId:(UMGSMMAP_UserIdentifier *)uidstr;
 - (void) markSessionForTermination:(SS7GenericSession *)t reason:(NSString *)reason;
 + (NSString *)webIndexForm;
@@ -279,4 +287,10 @@
             tcapTransactionId:(NSString *)localTransactionId
                        reason:(SCCP_ReturnCause)reason
                       options:(NSDictionary *)options;
+
+
+- (void)handleUMTSMS:(NSData *)data
+              source:(NSString *)src
+         destination:(NSString *)dst;
+
 @end

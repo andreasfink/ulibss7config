@@ -27,6 +27,10 @@ typedef enum SS7MultiInvokeVariant
     SS7MultiInvokeVariant_one_by_one = 2,
     SS7MultiInvokeVariant_together_same_id = 3,
     SS7MultiInvokeVariant_together_same_id_different_second = 4,
+    SS7MultiInvokeVariant_invoke5 = 5,
+    SS7MultiInvokeVariant_invoke6 = 6,
+    SS7MultiInvokeVariant_invoke7 = 7,
+    SS7MultiInvokeVariant_invoke8 = 8,
 } SS7MultiInvokeVariant;
 
 @interface SS7GenericSession : UMLayerTask<UMSCCP_TraceProtocol>
@@ -68,6 +72,7 @@ typedef enum SS7MultiInvokeVariant
     UMTCAP_asn1_userInformation *_userInfo;
     UMTCAP_asn1_userInformation *_incomingUserInfo;
     UMGSMMAP_DialogIdentifier   *_dialogId;
+    NSArray<NSString *>         *_mapOptions;
     BOOL                        _doEnd;
     UMTCAP_Variant              _tcapVariant;
     NSString                    *_tcapLocalTransactionId;
@@ -151,6 +156,7 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,strong,atomic)    NSString                    *tcapLocalTransactionId;
 @property(readwrite,strong,atomic)    NSString                    *tcapRemoteTransactionId;
 @property(readwrite,strong,atomic)    NSArray<NSString *>         *tcapOptions;
+@property(readwrite,strong,atomic)    NSArray<NSString *>         *mapOptions;
 @property(readwrite,strong,atomic)    NSDictionary                *incomingOptions;
 @property(readwrite,strong,atomic)    UMSynchronizedArray         *components;
 @property(readwrite,assign,atomic)    int                         nowait;

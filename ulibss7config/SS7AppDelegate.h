@@ -46,6 +46,7 @@
 @class SS7GenericInstance;
 @class DiameterGenericInstance;
 @class UMSS7ConfigSS7FilterTraceFile;
+@class SmscConnection;
 
 typedef enum SchrittmacherMode
 {
@@ -56,7 +57,7 @@ typedef enum SchrittmacherMode
 
 #ifdef __APPLE__
 /* this is for unit tests to work in Xcode */
-#import <cocoa/cocoa.h>
+#import <Cocoa/Cocoa.h>
 #endif
 
 @interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
@@ -115,6 +116,7 @@ UMEnvironmentNamedListProviderProtocol>
     UMSynchronizedDictionary    *_hlr_dict;
     UMSynchronizedDictionary    *_msc_dict;
     UMSynchronizedDictionary    *_ggsn_dict;
+    UMSynchronizedDictionary    *_sgsn_dict;
     UMSynchronizedDictionary    *_smsc_dict;
     UMSynchronizedDictionary    *_vlr_dict;
     UMSynchronizedDictionary    *_eir_dict;
@@ -125,8 +127,22 @@ UMEnvironmentNamedListProviderProtocol>
     UMSynchronizedDictionary    *_diameter_router_dict;
     UMSynchronizedDictionary    *_smsproxy_dict;
 	UMSynchronizedDictionary 	*_ss7FilterStagingAreas_dict;
-
+    UMSynchronizedDictionary    *_smppListeners;
+    UMSynchronizedDictionary    *_smppUserConnections;
+    UMSynchronizedDictionary    *_smppProviderConnections;
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
+    
+    UMSynchronizedDictionary     *_smsDeliveryProfiles;
+    UMSynchronizedDictionary     *_smsCategorizerPluings;
+    UMSynchronizedDictionary     *_smsPreRoutingFilterPlugins;
+    UMSynchronizedDictionary     *_smsPreBillingFilterPlugins;
+    UMSynchronizedDictionary     *_smsRoutingEnginePlugins;
+    UMSynchronizedDictionary     *_smsPostRoutingFilterPlugins;
+    UMSynchronizedDictionary     *_smsPostBillingPlugins;
+    UMSynchronizedDictionary     *_smsDeliveryReportFilterPlugins;
+    UMSynchronizedDictionary     *_smsCdrWriterPlugins;
+    UMSynchronizedDictionary     *_smsStoragePlugins;
+
     SS7AppTransportHandler      *_appTransport;
 	UMLicenseDirectory       	*_globalLicenseDirectory;
     UMLicenseProductFeature     *_coreFeature;
@@ -142,17 +158,19 @@ UMEnvironmentNamedListProviderProtocol>
     UMLicenseProductFeature     *_rerouterFeature;
     UMLicenseProductFeature     *_diameterFeature;
     UMLicenseProductFeature     *_gsmapiFeature;
-
+    UMLicenseProductFeature     *_speedLimitFeature;
+    double                      _speedLimit;
+    
 	UMTransportService       	*_umtransportService;
 	UMMutex                  	*_umtransportLock;
     NSString                    *_logDirectory;
     NSString                    *_hostname;
-    UMObject<UMTCAP_TransactionIdPoolProtocol>    *_tidPool;
+    UMObject<UMTCAP_TransactionIdPoolProtocol>    *_applicationWideTransactionIdPool;
     ConfigurationSocket         *_csListener;
     UMSocketSCTPRegistry        *_registry;
     UMTaskQueueMulti            *_generalTaskQueue;
     UMTaskQueueMulti            *_sctpTaskQueue;
-    UMTaskQueueMulti            *_m2paTaskQueue;
+    //UMTaskQueueMulti            *_m2paTaskQueue;
     UMTaskQueueMulti            *_m3uaTaskQueue;
     UMTaskQueueMulti            *_mtp3TaskQueue;
     UMTaskQueueMulti            *_sccpTaskQueue;
@@ -177,7 +195,8 @@ UMEnvironmentNamedListProviderProtocol>
     DiameterGenericInstance     *_mainDiameterInstance;
     SS7GenericInstance			*_mainCamelInstance;
 	SS7GenericInstance			*_mainMapInstance;
-    UMSynchronizedDictionary    *_namedLists; /* key = name, object type = UMNamedList */
+    UMLayerSCCP                 *_mainSccpInstance;
+    NSMutableDictionary<NSString *,UMNamedList *>   *_namedLists; /* key = name, object type = UMNamedList */
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
 
@@ -206,6 +225,9 @@ UMEnvironmentNamedListProviderProtocol>
     UMTaskQueueMulti            *_databaseQueue;
     UMSynchronizedDictionary    *_cdrWriters_dict;
     NSTimeInterval              _sessionTimeout;
+    UMLogFeed                   *_apiLogFeed;
+    UMPrometheus                *_prometheus;
+    long                        _appBuildNumber;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -255,9 +277,24 @@ UMEnvironmentNamedListProviderProtocol>
 @property(readwrite,strong)     UMLicenseProductFeature     *rerouterFeature;
 @property(readwrite,strong)     UMLicenseProductFeature     *diameterFeature;
 
+
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsDeliveryProfiles;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsCategorizerPluings;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsPreRoutingFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsPreBillingFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsRoutingEnginePlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsPostRoutingFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsPostBillingPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsDeliveryReportFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsCdrWriterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary     *smsStoragePlugins;
+
 @property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile objects */
 @property(readwrite,strong)     UMSynchronizedDictionary    *cdrWriters_dict;
 @property(readwrite,strong)     NSString                    *namedListsDirectory;
+@property(readwrite,strong,atomic)  UMLogFeed               *apiLogFeed;
+@property(readwrite,strong,atomic)  UMPrometheus            *prometheus;
+@property(readwrite,assign,atomic)  long                    appBuildNumber;
 
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
@@ -268,10 +305,12 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)applicationGoToStandby;
 - (UMHTTPAuthenticationStatus)httpAuthenticateRequest:(UMHTTPRequest *)req
                                                 realm:(NSString **)realm;
+- (UMHTTPAuthenticationStatus)httpRequireAdminAuthorisation:(UMHTTPRequest *)req
+                                                      realm:(NSString *)realm;
 
 - (void)processCommandLine:(int)argc argv:(const char **)argv;
 - (void)signal_SIGINT;
-- (void)signal_SIGHUP;  /* reopen logfile */
+- (void)signal_SIGHUP;  /* reopen logfile and reload external configs */
 - (void)signal_SIGUSR1; /* go into Hot mode      */
 - (void)signal_SIGUSR2;  /* go into Standby mode */
 
@@ -318,9 +357,10 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)umtGetPost:(UMHTTPRequest *)req;
 - (void)webHeader:(NSMutableString *)s title:(NSString *)t;
 - (void)handleRouteTest:(UMHTTPRequest *)req;
+- (void)handleDiameterRouteTest:(UMHTTPRequest *)req;
 
 
-- (void)addPendingUMTTask:(UMTask *)task
+- (void)addPendingUMTTask:(UMTaskQueueTask *)task
 				   dialog:(UMTCAP_UserDialogIdentifier *)_dialogId
 				 invokeId:(int64_t)_invokeId;
 
@@ -488,6 +528,9 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)namedlistAdd:(NSString *)listName value:(NSString *)value;
 - (void)namedlistRemove:(NSString *)listName value:(NSString *)value;
 - (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value;
+- (NSArray *)namedlistGetAllEntriesOfList:(NSString *)listName;
+- (UMNamedList *)getNamedList:(NSString *)name;
+
 
 /************************************************************/
 #pragma mark -
@@ -520,6 +563,7 @@ UMEnvironmentNamedListProviderProtocol>
 #pragma mark Filter Packet
 /************************************************************/
 
+- (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterInbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterOutbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult)filterToLocalSubsystem:(UMSCCP_Packet *)packet;
@@ -554,6 +598,15 @@ UMEnvironmentNamedListProviderProtocol>
 - (NSString *)exportRunningConfiguration;
 - (NSString *)exportStartupConfiguration;
 - (NSString *)writeCurrentConfigurationToStartup;
+
+-(NSString *)filterEnginesPath;
+-(id)licenseDirectory;
+- (BOOL)increaseMaximumOpenFiles:(NSUInteger)count; /* returns YES if successful */
+
+- (UMLayerCamel *)getCAMEL:(NSString *)name;
+- (void)addWithConfigCAMEL:(NSDictionary *)config;
+- (void)deleteCAMEL:(NSString *)name;
+- (void)renameCAMEL:(NSString *)oldName to:(NSString *)newName;
 
 @end
 

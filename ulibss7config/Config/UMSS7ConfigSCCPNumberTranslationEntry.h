@@ -16,6 +16,7 @@
     NSNumber *_replacementNAI;
     NSNumber *_replacementNP;
     NSNumber *_removeDigits;
+    NSString *_appendDigits;
 }
 
 + (NSString *)type;
@@ -28,5 +29,6 @@
 @property(readwrite,strong,atomic)  NSNumber *replacementNAI;
 @property(readwrite,strong,atomic)  NSNumber *replacementNP;
 @property(readwrite,strong,atomic)  NSNumber *removeDigits;
+@property(readwrite,strong,atomic)  NSString *appendDigits;
 
 @end

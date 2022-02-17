@@ -11,7 +11,7 @@
 
 @class SS7AppDelegate;
 
-@interface UMTTask : UMTask
+@interface UMTTask : UMTaskQueueTask
 {
     UMHTTPRequest               *_req;
     SccpAddress                 *_remoteAddr;

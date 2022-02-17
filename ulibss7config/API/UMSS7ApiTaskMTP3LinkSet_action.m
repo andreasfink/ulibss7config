@@ -45,9 +45,26 @@
         {
             if([action isEqualToString:@"action-list"])
             {
-                [self sendResultObject:@[ @"add-link", @"remove-link", @"power-on", @"power-off",@"start-slc",@"stop-slc"]];
+                [self sendResultObject:@[ @"add-link",
+                                          @"remove-link",
+                                          @"power-on",
+                                          @"power-off",
+                                          @"forced-power-on",
+                                          @"forced-power-off",
+                                          @"start-slc",
+                                          @"stop-slc",
+                                          @"open-mtp3-screening-trace",
+                                          @"close-mtp3-screening-trace",
+                                          @"open-sccp-screening-trace",
+                                          @"close-sccp-screening-trace",
+                                          @"set-mtp3-screening-trace-level-none",
+                                          @"set-mtp3-screening-trace-level-rejected-only",
+                                          @"set-mtp3-screening-trace-level-everything",
+                                          @"set-sccp-screening-trace-level-none",
+                                          @"set-sccp-screening-trace-level-rejected-only",
+                                          @"set-sccp-screening-trace-level-everything",
+                                          ]];
             }
-
             else if([action isEqualToString:@"add-link"])
             {
                 [self sendErrorNotImplemented];
@@ -57,17 +74,97 @@
             {
                 [self sendErrorNotImplemented];
             }
-            else if([action isEqualToString:@"power-on"])
+            else if(([action isEqualToString:@"power-on"]) || ([action isEqualToString:@"start"]))
+
             {
                 [mtp3linkset powerOn];
                 [self sendResultOK];
-
             }
-            else if([action isEqualToString:@"power-off"])
+            else if(([action isEqualToString:@"power-off"]) || ([action isEqualToString:@"stop"]))
             {
                 [mtp3linkset powerOff];
                 [self sendResultOK];
             }
+            else if([action isEqualToString:@"forced-power-off"])
+            {
+                [mtp3linkset forcedPowerOff];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"forced-power-on"])
+            {
+                [mtp3linkset forcedPowerOn];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"open-mtp3-screening-trace"])
+            {
+                [mtp3linkset openMtp3ScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-mtp3-screening-trace"])
+            {
+                [mtp3linkset closeMtp3ScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"open-sccp-screening-trace"])
+            {
+                [mtp3linkset openSccpScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-sccp-screening-trace"])
+            {
+                [mtp3linkset closeSccpScreeningTraceFile];
+                [self sendResultOK];
+            }
+
+            else if([action isEqualToString:@"set-mtp3-screening-trace-level-none"])
+            {
+                mtp3linkset.mtp3ScreeningTraceLevel = UMMTP3ScreeningTraceLevel_none;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-mtp3-screening-trace-level-rejected-only"])
+            {
+                mtp3linkset.mtp3ScreeningTraceLevel = UMMTP3ScreeningTraceLevel_rejected_only;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-mtp3-screening-trace-level-everything"])
+            {
+                mtp3linkset.mtp3ScreeningTraceLevel = UMMTP3ScreeningTraceLevel_everything;
+                [self sendResultOK];
+            }
+
+            
+            else if([action isEqualToString:@"set-sccp-screening-trace-level-none"])
+            {
+                mtp3linkset.sccpScreeningTraceLevel = UMMTP3ScreeningTraceLevel_none;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-sccp-screening-trace-level-rejected-only"])
+            {
+                mtp3linkset.sccpScreeningTraceLevel = UMMTP3ScreeningTraceLevel_rejected_only;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"set-sccp-screening-trace-level-everything"])
+            {
+                mtp3linkset.sccpScreeningTraceLevel = UMMTP3ScreeningTraceLevel_everything;
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-mtp3-screening-trace"])
+            {
+                [mtp3linkset closeMtp3ScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"open-sccp-screening-trace"])
+            {
+                [mtp3linkset openSccpScreeningTraceFile];
+                [self sendResultOK];
+            }
+            else if([action isEqualToString:@"close-sccp-screening-trace"])
+            {
+                [mtp3linkset closeSccpScreeningTraceFile];
+                [self sendResultOK];
+            }
+
+
             else if([action isEqualToString:@"start-slc"])
             {
                 [mtp3linkset start:slc];
@@ -90,4 +187,5 @@
         }
     }
 }
+
 @end

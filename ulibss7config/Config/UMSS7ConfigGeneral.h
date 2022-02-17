@@ -17,6 +17,8 @@
 //    NSNumber *_concurrentTasks;
     NSNumber *_queueHardLimit;
     NSString *_transactionIdRange;
+    NSNumber *_sendSctpAborts;
+    NSString *_filterEngineDirectory;
 }
 
 + (NSString *)type;
@@ -30,5 +32,7 @@
 //@property(readwrite,strong,atomic)  NSNumber *concurrentTasks;
 @property(readwrite,strong,atomic)  NSNumber *queueHardLimit;
 @property(readwrite,strong,atomic)  NSString *transactionIdRange;
+@property(readwrite,strong,atomic)  NSNumber *sendSctpAborts;
+@property(readwrite,strong,atomic)  NSString *filterEngineDirectory;
 
 @end

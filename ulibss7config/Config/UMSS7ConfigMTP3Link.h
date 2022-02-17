@@ -14,7 +14,7 @@
     NSString *_m2pa;
     NSNumber *_slc;
     NSNumber *_linkTestTime;
-    NSNumber *_linkTestMax;
+    NSNumber *_linkTestAckTime;
     NSNumber *_reopenTimer1;
     NSNumber *_reopenTimer2;
 
@@ -53,7 +53,7 @@
 @property(readwrite,strong,atomic)  NSString *m2pa;
 @property(readwrite,strong,atomic)  NSNumber *slc;
 @property(readwrite,strong,atomic)  NSNumber *linkTestTime;
-@property(readwrite,strong,atomic)  NSNumber *linkTestMax;
+@property(readwrite,strong,atomic)  NSNumber *linkTestAckTime;
 @property(readwrite,strong,atomic)  NSNumber *reopenTimer1;
 @property(readwrite,strong,atomic)  NSNumber *reopenTimer2;
 

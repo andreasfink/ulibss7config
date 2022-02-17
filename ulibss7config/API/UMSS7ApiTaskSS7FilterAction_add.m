@@ -54,7 +54,6 @@
                 
                 // 3. Get Required external params
                 NSString *action = _params[@"action"];
-                
 
                 // 4. Verify if action-list exists
                 if(list == NULL)

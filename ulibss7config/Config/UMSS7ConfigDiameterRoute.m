@@ -46,6 +46,8 @@
     APPEND_CONFIG_BOOLEAN(s,@"default-route",_defaultRoute);
     APPEND_CONFIG_BOOLEAN(s,@"exact-hostname",_exactHost);
     APPEND_CONFIG_BOOLEAN(s,@"exact-realm",_exactRealm);
+    APPEND_CONFIG_INTEGER(s,@"route-selector",_routeSelector);
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -62,6 +64,8 @@
     APPEND_DICT_BOOLEAN(dict,@"default-route",_defaultRoute);
     APPEND_DICT_BOOLEAN(dict,@"exact-hostname",_exactHost);
     APPEND_DICT_BOOLEAN(dict,@"exact-realm",_exactRealm);
+    APPEND_DICT_INTEGER(dict,@"route-selector",_routeSelector);
+
     return dict;
 }
 
@@ -79,6 +83,7 @@
     SET_DICT_BOOLEAN(dict,@"default-route",_defaultRoute);
     SET_DICT_BOOLEAN(dict,@"exact-hostname",_exactHost);
     SET_DICT_BOOLEAN(dict,@"exact-realm",_exactRealm);
+    SET_DICT_INTEGER(dict,@"route-selector",_routeSelector);
 
 }
 

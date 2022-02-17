@@ -27,15 +27,15 @@
         _enabled=YES;
         _isOpen = NO;
         _isDirty = YES;
-        if(config.maxRotations)
+        if(config.maxRotations!=NULL)
         {
             _maxRotations = [config.maxRotations intValue];
         }
-        if(config.minutes)
+        if(config.minutes!=NULL)
         {
             _maxMinutes = [config.minutes intValue];
         }
-        if(config.packets)
+        if(config.packets!=NULL)
         {
             _maxPackets = [config.packets intValue];
         }
@@ -189,6 +189,7 @@
 {
     [_lock lock];
     _enabled=YES;
+    _config.enabled = @(YES);
     [self open];
     [_lock unlock];
 }
@@ -197,6 +198,7 @@
 {
     [_lock lock];
     _enabled=NO;
+    _config.enabled = @(NO);
     [self close];
     [_lock unlock];
 }

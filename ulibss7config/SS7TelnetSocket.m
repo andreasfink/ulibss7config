@@ -18,7 +18,7 @@
     self = [super init];
     if(self)
     {
-        _txSleeper = [[UMSleeper alloc]init];
+        _txSleeper = [[UMSleeper alloc]initFromFile:__FILE__ line:__LINE__ function:__func__];
     }
     return self;
 }

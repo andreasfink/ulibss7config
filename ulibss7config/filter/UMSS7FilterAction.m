@@ -125,7 +125,7 @@
         {
             _reroutePrefix = _config.rerouteCalledAddressPrefix;
         }
-        if(_config.reroute_tt)
+        if(_config.reroute_tt!=NULL)
         {
             _rerouteTranslationType = _config.reroute_tt;
         }

@@ -17,6 +17,7 @@
 @class UMSS7ConfigSS7FilterTraceFile;
 @class SS7CDRWriter;
 @class UMDiameterRouter;
+@class DiameterGenericInstance;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -25,9 +26,13 @@
     UMLayerSCCPApplicationContextProtocol,
     UMEnvironmentNamedListProviderProtocol>
 
+
 @property(readwrite,strong,atomic)  UMSS7ConfigStorage *runningConfig;
 @property(readwrite,strong,atomic)  UMSS7ConfigStorage *startupConfig;
 @property(readwrite,strong,atomic)  UMCommandLine *commandLine;
+@property(readwrite,strong,atomic)  UMLogFeed *apiLogFeed;
+@property(readwrite,strong,atomic)  DiameterGenericInstance *mainDiameterInstance;
+
 - (void)applicationGoToHot;
 - (void)applicationGoToStandby;
 
@@ -230,5 +235,8 @@ realm:(NSString **)realm;
 #pragma mark Diameter
 /************************************************************/
 - (UMDiameterRouter *)getDiameterRouter:(NSString *)name;
+
+@optional
+- (UMSynchronizedSortedDictionary *)apiVersionDict;
 
 @end

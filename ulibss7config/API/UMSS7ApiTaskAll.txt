@@ -181,7 +181,7 @@ API(UMSS7ApiTaskNamedlist_lists)
 API(UMSS7ApiTaskNamedlist_list)
 API(UMSS7ApiTaskNamedlist_read)
 API(UMSS7ApiTaskNamedlist_add)
-API(UMSS7ApiTaskNamedlist_delete)
+API(UMSS7ApiTaskNamedlist_remove)
 API(UMSS7ApiTaskNamedlist_contains)
 
 API(UMSS7ApiTaskMTP3PointCodeTranslationTable_list)

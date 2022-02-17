@@ -2025,7 +2025,10 @@ case "$host" in
     else
         CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -DHAS_ULIBLICENSE=1"
 	fi
-
+	if [ "$DEBIAN_VERSION" == "9" ]
+	then
+		LDFLAGS=$LDFLAGS -Lldap
+	fi
 	CFLAGS="${CFLAGS} -Wno-trigraphs  -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties"
 	CFLAGS="${CFLAGS} -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label"
 	CFLAGS="${CFLAGS} -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow"
@@ -3155,7 +3158,8 @@ if test "${enable_debug+set}" = set; then :
 else
 
 	echo Using Release target
-	CFLAGS="$CFLAGS -O2 -D${CONFIG_DEFINE}=Release"
+	CFLAGS="$CFLAGS -g -O2 -D${CONFIG_DEFINE}=Release"
+	LDFLAGS="$LDFLAGS -g"
 	CONFIGURATION="-configuration Release"
 
 fi
@@ -3190,6 +3194,8 @@ ac_config_files="$ac_config_files Makefile.linux"
 ac_config_files="$ac_config_files Makefile.freebsd"
 
 ac_config_files="$ac_config_files ulibss7config.pc"
+
+ac_config_files="$ac_config_files make_buildnr.sh"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -3886,6 +3892,7 @@ do
     "Makefile.linux") CONFIG_FILES="$CONFIG_FILES Makefile.linux" ;;
     "Makefile.freebsd") CONFIG_FILES="$CONFIG_FILES Makefile.freebsd" ;;
     "ulibss7config.pc") CONFIG_FILES="$CONFIG_FILES ulibss7config.pc" ;;
+    "make_buildnr.sh") CONFIG_FILES="$CONFIG_FILES make_buildnr.sh" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -4503,6 +4510,18 @@ fi
 if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
+fi
+
+
+chmod 755 make_buildnr.sh
+
+if [ -f BUILDNR ]
+then
+	echo "Buildnumber: `cat BUILDNR`"
+else
+	echo "1" > BUILDNR
+	echo "Buildnumber: 1"
+	./make_buildnr.sh
 fi
 
 case "$host" in

@@ -21,6 +21,7 @@
     NSNumber *_defaultRoute;
     NSNumber *_exactHost;
     NSNumber *_exactRealm;
+    NSNumber *_routeSelector;
 }
 
 + (NSString *)type;
@@ -37,6 +38,7 @@
 @property(readwrite,strong,atomic)  NSNumber *defaultRoute;
 @property(readwrite,strong,atomic)  NSNumber *exactHost;
 @property(readwrite,strong,atomic)  NSNumber *exactRealm;
+@property(readwrite,strong,atomic)  NSNumber *routeSelector;
 
 @end
 

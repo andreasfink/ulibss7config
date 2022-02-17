@@ -13,7 +13,25 @@
 {
     NSString *_localHostName;
     NSString *_localRealm;
+    NSString *_statisticDbPool;
+    NSString *_statisticDbTable;
+    NSString *_statisticDbInstance;
+    NSNumber *_statisticDbAutocreate;
+    NSString *_screeningDiameterPluginName;
+    NSString *_screeningDiameterPluginConfigFile;
+    NSString *_screeningDiameterPluginTraceFile;
 }
+
+@property(readwrite,strong,atomic)  NSString *localHostName;
+@property(readwrite,strong,atomic)  NSString *localRealm;
+@property(readwrite,strong,atomic)  NSString *statisticDbPool;
+@property(readwrite,strong,atomic)  NSString *statisticDbTable;
+@property(readwrite,strong,atomic)  NSString *statisticDbInstance;
+@property(readwrite,strong,atomic)  NSNumber *statisticDbAutocreate;
+@property(readwrite,strong,atomic)  NSString *screeningDiameterPluginName;
+@property(readwrite,strong,atomic)  NSString *screeningDiameterPluginConfigFile;
+@property(readwrite,strong,atomic)  NSString *screeningDiameterPluginTraceFile;
+
 
 + (NSString *)type;
 - (NSString *)type;

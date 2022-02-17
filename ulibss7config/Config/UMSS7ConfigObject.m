@@ -47,8 +47,8 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     return [self appendConfigToString:s withoutName:NO];
-
 }
+
 - (void)appendConfigToString:(NSMutableString *)s withoutName:(BOOL)withoutName
 {
     [s appendFormat:@"\n"];
@@ -155,8 +155,15 @@
     SET_DICT_BOOLEAN(dict,@"enable",_enabled);
     SET_DICT_INTEGER(dict,@"log-level",_logLevel);
     SET_DICT_STRING(dict,@"log-file",_logFile);
-    NSString *commentsAsString = [_comments componentsJoinedByString:@"\n"];
-    SET_DICT_STRING(dict,@"comment",commentsAsString);
+    id comments = dict[@"comment"];
+    if([comments isKindOfClass:[NSArray class]])
+    {
+        _comments = (NSArray *)comments;
+    }
+    else if([comments isKindOfClass:[NSString class]])
+    {
+        _comments = [((NSString *)comments) componentsSeparatedByString:@"\n"];
+    }
 }
 
 +(NSString *)filterName:(NSString *)str

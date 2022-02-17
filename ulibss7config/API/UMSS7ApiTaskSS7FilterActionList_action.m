@@ -49,17 +49,46 @@
             @try
             {
                 NSString *name = _params[@"filter-action-list"];
-                //NSString *action = _params[@"action"];
-                UMSS7ConfigSS7FilterActionList *ls = stagingArea.filter_action_list_dict[name];
-                if(ls == NULL)
+                NSString *action = _params[@"action"];
+                UMSS7ConfigSS7FilterActionList *filterActionList = stagingArea.filter_action_list_dict[name];
+
+                if(filterActionList == NULL)
                 {
                     [self sendErrorNotFound:name];
                 }
                 else
                 {
-                    /* we shoudl now call the live API to do some action for this object. */
-                    /* FIXME Andreas */
-                    [self sendResultOK];
+                    if([action isEqualToString:@"action-list"])
+                    {
+                        if(filterActionList.enabled == NULL)
+                        {
+                            filterActionList.enabled = @(YES);
+                        }
+                        if(filterActionList.enabled.boolValue)
+                        {
+                            [self sendResultObject:@[@"enable"]];
+                        }
+                        else
+                        {
+                            [self sendResultObject:@[@"disable"]];
+                        }
+                    }
+                    else if([action isEqualToString:@"disable"])
+                    {
+                       filterActionList.enabled = @(NO);
+                       [self sendResultOK];
+                       [stagingArea setDirty:YES];
+                    }
+                    else if([action isEqualToString:@"enable"])
+                    {
+                        filterActionList.enabled = @(YES);
+                        [self sendResultOK];
+                        [stagingArea setDirty:YES];
+                    }
+                    else
+                    {
+                        [self sendErrorUnknownAction];
+                    }
                 }
             }
             @catch(NSException *e)

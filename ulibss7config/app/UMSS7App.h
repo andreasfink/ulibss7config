@@ -27,17 +27,17 @@ typedef enum UMSS7AppType
 
 @interface UMSS7App : UMPlugin
 {
-    UMSS7AppType    _appType;
-    BOOL            _isActive;
-    UMMTP3PointCode *_pc;
-    NSNumber        *_mtp3_si;
+    UMSS7AppType     _appType;
+    BOOL             _isActive;
+    UMMTP3PointCode  *_pc;
+    NSNumber         *_mtp3_si;
 
-    SS7AppDelegate  *_appDelegate;
-    SccpAddress     *_globalTitle;
-    UMLayerSCCP     *_sccp;
-    UMLayerTCAP     *_tcap;
-    UMLayerGSMMAP   *_map;
-    UMLayerCamel    *_camel;
+    SS7AppDelegate   *_appDelegate;
+    SccpAddress      *_globalTitle;
+    UMLayerSCCP      *_sccp;
+    UMLayerTCAP      *_tcap;
+    UMLayerGSMMAP    *_map;
+    UMLayerCamel     *_camel;
     UMDiameterRouter *_diameterRouter;
 }
 

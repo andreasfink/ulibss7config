@@ -52,11 +52,12 @@
 - (BOOL)hasTag:(NSString *)tag;
 - (void)clearAllTags;
 
-- (void)processConfig:(NSString *)jsonString error:(NSError**)eptr;
-- (void)processConfigDict:(NSDictionary *)dict error:(NSError**)eptr;
+- (BOOL)processConfig:(NSString *)jsonString error:(NSError**)eptr;
+- (BOOL)processConfigDict:(NSDictionary *)dict error:(NSError**)eptr;
 
 - (void)refreshConfig; /* this is called if a namedlist is updated so the engines can readjust its internal structures if needed */
 
++ (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterResult) filterInbound:(UMSCCP_Packet *)packet;
 - (UMSCCP_FilterMatchResult) matchesPacket:(UMSCCP_Packet *)packet;
 

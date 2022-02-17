@@ -11,6 +11,7 @@
 @interface UMSS7ConfigMTP3Filter : UMSS7ConfigObject
 {
     NSString *_defaultResult;
+    NSString *_plugIn;
 }
 
 @property(readwrite,strong,atomic)      NSString *defaultResult;

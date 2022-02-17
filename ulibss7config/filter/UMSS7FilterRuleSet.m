@@ -80,15 +80,15 @@
             [packet.logFeed debugText:[NSString stringWithFormat:@"calling filterPacket on entry Nr %d",i]];
         }
         result = result | [rule filterPacket:packet];
-        if(result | UMSCCP_FILTER_RESULT_DROP )
+        if(result & UMSCCP_FILTER_RESULT_DROP )
         {
             break;
         }
-        if(result | UMSCCP_FILTER_RESULT_STATUS )
+        if(result & UMSCCP_FILTER_RESULT_STATUS )
         {
             break;
         }
-        if(result | UMSCCP_FILTER_RESULT_CAN_NOT_DECODE )
+        if(result & UMSCCP_FILTER_RESULT_CAN_NOT_DECODE )
         {
             break;
         }
