@@ -21,6 +21,7 @@
     NSNumber *_overrideCallingTT;
     NSString *_addPrefix;
     NSString *_addPostfix;
+    NSString *_postTranslation;
     NSString *_mtp3Instance;
     NSNumber *_setGti;
     NSNumber *_setNai;
@@ -48,6 +49,7 @@
 @property(readwrite,strong,atomic)  NSNumber *overrideCallingTT;
 @property(readwrite,strong,atomic)  NSString *addPrefix;
 @property(readwrite,strong,atomic)  NSString *addPostfix;
+@property(readwrite,strong,atomic)  NSString *postTranslation;
 @property(readwrite,strong,atomic)  NSString *mtp3Instance;
 @property(readwrite,strong,atomic)  NSNumber *setGti;
 @property(readwrite,strong,atomic)  NSNumber *setNai;
