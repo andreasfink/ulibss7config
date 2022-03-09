@@ -1498,6 +1498,11 @@ static void signalHandler(int signum);
              {
              entry.routeTo = [self getSCCPDestination: entry.routeToName];
              }*/
+            if(entry.tcapTransactionRangeStart || entry.tcapTransactionRangeEnd)
+            {
+                NSLog(@"ADDING ENTRY=%@",entry.description);
+            
+            }
             [selector.routingTable addEntry:entry];
             NSString *destination = entry.digits;
 

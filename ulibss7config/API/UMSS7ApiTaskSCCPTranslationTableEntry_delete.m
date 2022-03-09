@@ -96,8 +96,10 @@
                     [self sendErrorNotFound:@"translation-table-entry"];
                     return;
                 }
-                [rt deleteEntryByName:rte.name];
-                [self sendResultOK];
+                
+                [self sendErrorNotImplemented];
+//              [rt deleteEntryByName:rte.name];
+//              [self sendResultOK];
             }
 
             @catch(NSException *e)
