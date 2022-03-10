@@ -48,12 +48,10 @@
 
         NSString *gta = _params[@"gta"];
         gta = [UMSS7ConfigObject filterName:gta];
-        NSString *tid = _params[@"tid"];
-        NSString *ac = _params[@"ac"];
-        NSString *op = _params[@"op"];
-        NSString *ssn = _params[@"op"];
         
-        NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+        SccpGttRoutingTableEntry *e = [[SccpGttRoutingTableEntry alloc]initWithConfig:_params];
+        NSString *entryName = e.name;
+        e = NULL;
         UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
         UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
 

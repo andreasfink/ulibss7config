@@ -46,12 +46,16 @@
         {
             [self sendErrorMissingParameter:@"translation-table"];
         }
+        
 
         NSString *gta = _params[@"gta"];
         gta = [UMSS7ConfigObject filterName:gta];
         UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
 
-        NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+        SccpGttRoutingTableEntry *e = [[SccpGttRoutingTableEntry alloc]initWithConfig:_params];
+        NSString *entryName = e.name;
+        e = NULL;
+
         UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
         if(entry!=NULL)
         {
