@@ -257,4 +257,21 @@
     return self.config;
 }
 
+- (UMSS7ConfigObject *)initWithString:(NSString *)s
+{
+    NSArray *lines = [s componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    for(NSString *line in lines)
+    {
+        NSArray *items  = [line componentsSeparatedByString:@"="];
+        if ([items count] == 2)
+        {
+            NSString *tag = [[items objectAtIndex:0] trim];
+            NSString *val = [[items objectAtIndex:1] trim];
+            dict[tag] = val;
+        }
+    }
+    return [self initWithConfig:dict];
+}
+
 @end
