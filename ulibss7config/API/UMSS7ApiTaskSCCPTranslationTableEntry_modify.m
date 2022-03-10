@@ -91,7 +91,7 @@
                 if(rte==NULL)
                 {
                     NSString *gta = newConfig[@"gta"];
-                    rte = [rt findEntryByDigits:gta];
+                    rte = [rt findEntryByDigits:gta transactionNumber:NULL ssn:NULL operation:NULL appContext:NULL];
                 }
                 if(rte==NULL)
                 {

@@ -357,7 +357,7 @@
         [self sendErrorNotFound:@"digits"];
         return NULL;
     }
-    SccpGttRoutingTableEntry *rte = [rt findEntryByDigits:digits];
+    SccpGttRoutingTableEntry *rte = [rt findEntryByDigits:digits transactionNumber:NULL ssn:NULL operation:NULL appContext:NULL];
     return rte;
 }
 
