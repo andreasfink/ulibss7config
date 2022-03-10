@@ -47,6 +47,7 @@
         }
 
         NSString *gta = _params[@"gta"];
+
         gta = [UMSS7ConfigObject filterName:gta];
         NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
         UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
@@ -88,7 +89,7 @@
                 SccpGttRoutingTableEntry *rte = [rt findEntryByName:entryName];
                 if(rte==NULL)
                 {
-                    rte = [rt findEntryByDigits:gta];
+                    rte = [rt findEntryByDigits:gta transactionNumber:NULL ssn:NULL operation:NULL appContext:NULL];
                 }
                 if(rte==NULL)
                 {

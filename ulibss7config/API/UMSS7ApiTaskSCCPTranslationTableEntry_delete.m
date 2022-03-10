@@ -86,12 +86,11 @@
                     return;
                 }
                 SccpGttRoutingTableEntry *rte = [rt findEntryByName:name];
-                /*if(rte==NULL)
+                if(rte==NULL)
                 {
                     NSString *gta = oldConfig[@"gta"];
-                    rte = [rt findEntryByDigits:gta];
-                }
-                 */
+                    rte = [rt findEntryByDigits:gta transactionNumber:NULL ssn:NULL operation:NULL appContext:NULL];
+                }                
                 if(rte==NULL)
                 {
                     [self sendErrorNotFound:@"translation-table-entry"];
