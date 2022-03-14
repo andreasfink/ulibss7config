@@ -85,7 +85,6 @@
     SET_DICT_STRING(dict,@"opcopde",_opcode);
     SET_DICT_STRING(dict,@"application-context",_appcontext);
     
-    
     if(_tidRange)
     {
         NSArray *a  = [_appcontext componentsSeparatedByString:@"-"];
