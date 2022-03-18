@@ -2706,13 +2706,13 @@ static void signalHandler(int signum);
         return;
     }
 
-    UMSynchronizedSortedDictionary *resutlDict = [sccp routeTestForMSISDN:msisdn
+    UMSynchronizedSortedDictionary *resultDict = [sccp routeTestForMSISDN:msisdn
                                                           translationType:tt
                                                                 fromLocal:NO
                                                         transactionNumber:tid
                                                                 operation:op
                                                        applicationContext:ac];
-    [req setResponseJsonObject:resutlDict];
+    [req setResponseJsonObject:resultDict];
     return;
 }
 
