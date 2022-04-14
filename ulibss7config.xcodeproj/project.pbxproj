@@ -145,6 +145,8 @@
 		A661A528229D651400CCEE02 /* UMSS7ApiTaskNamedlist_remove.m in Sources */ = {isa = PBXBuildFile; fileRef = A661A526229D651400CCEE02 /* UMSS7ApiTaskNamedlist_remove.m */; };
 		A6679E53229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.h in Headers */ = {isa = PBXBuildFile; fileRef = A6679E51229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6679E54229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = A6679E52229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m */; };
+		A66958512804045300B913EB /* UMSS7ConfigSMPPPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = A669584F2804045300B913EB /* UMSS7ConfigSMPPPlugin.h */; };
+		A66958522804045300B913EB /* UMSS7ConfigSMPPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A66958502804045300B913EB /* UMSS7ConfigSMPPPlugin.m */; };
 		A6798A1F22BB70A80019806C /* ulibdb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1022BB70A60019806C /* ulibdb.framework */; };
 		A6798A2022BB70A80019806C /* ulibpcap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1122BB70A70019806C /* ulibpcap.framework */; };
 		A6798A2122BB70A80019806C /* ulibtcap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1222BB70A70019806C /* ulibtcap.framework */; };
@@ -797,6 +799,8 @@
 		A661A526229D651400CCEE02 /* UMSS7ApiTaskNamedlist_remove.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskNamedlist_remove.m; sourceTree = "<group>"; };
 		A6679E51229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSS7FilterStagingArea.h; sourceTree = "<group>"; };
 		A6679E52229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSS7FilterStagingArea.m; sourceTree = "<group>"; };
+		A669584F2804045300B913EB /* UMSS7ConfigSMPPPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSMPPPlugin.h; sourceTree = "<group>"; };
+		A66958502804045300B913EB /* UMSS7ConfigSMPPPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSMPPPlugin.m; sourceTree = "<group>"; };
 		A6798A1022BB70A60019806C /* ulibdb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibdb.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/ulibdb.framework"; sourceTree = "<absolute>"; };
 		A6798A1122BB70A70019806C /* ulibpcap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibpcap.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/ulibpcap.framework"; sourceTree = "<absolute>"; };
 		A6798A1222BB70A70019806C /* ulibtcap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibtcap.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/ulibtcap.framework"; sourceTree = "<absolute>"; };
@@ -1974,6 +1978,8 @@
 				A6BF316C229443DD0000578B /* UMSS7ConfigSS7FilterRuleSet.m */,
 				A6679E51229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.h */,
 				A6679E52229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m */,
+				A669584F2804045300B913EB /* UMSS7ConfigSMPPPlugin.h */,
+				A66958502804045300B913EB /* UMSS7ConfigSMPPPlugin.m */,
 				A6D350D624938FDD00BE6171 /* UMSS7ConfigMnpDatabase.h */,
 				A6D350D724938FDD00BE6171 /* UMSS7ConfigMnpDatabase.m */,
 			);
@@ -2182,6 +2188,7 @@
 				A6B011AD21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h in Headers */,
 				A661A4FB229D548100CCEE02 /* UMSS7ApiTaskSS7FilterRuleSet_action.h in Headers */,
 				A6336E9522D578DE00F803C5 /* DiameterSessionDWR.h in Headers */,
+				A66958512804045300B913EB /* UMSS7ConfigSMPPPlugin.h in Headers */,
 				A6BC431520774F93008C3CEB /* UMSS7ConfigCdrWriter.h in Headers */,
 				A6BF3124229437FD0000578B /* UMSS7ApiTaskSS7FilterAction_read.h in Headers */,
 				A6BC4507207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_modify.h in Headers */,
@@ -2531,6 +2538,7 @@
 				A6BC4514207753EE008C3CEB /* UMSS7ApiTaskMTP3LinkSet_delete.m in Sources */,
 				A6D2D7CB21A4A01800B1895A /* SS7ConfigurationSession.m in Sources */,
 				A6BC451B207753EE008C3CEB /* UMSS7ApiTaskSCCP_read.m in Sources */,
+				A66958522804045300B913EB /* UMSS7ConfigSMPPPlugin.m in Sources */,
 				A6BB6A0221522FFE00749D40 /* UMSS7ApiTaskSCCPTranslationTable_action.m in Sources */,
 				A6D350D5248EE94300BE6171 /* UMSS7ConfigSGSN.m in Sources */,
 				A6BF30B5229436A20000578B /* UMSS7ApiTaskSS7FilterStagingArea_read.m in Sources */,
