@@ -11,12 +11,14 @@
 
 @interface UMSS7ConfigSMPPPlugin : UMSS7ConfigObject
 {
+    NSString    *_defaultFileNameilename;
     NSString    *_pluginFileName;
     NSString    *_configFile;
     NSString    *_configString;
 }
 
 
+@property(readwrite,strong,atomic)  NSString    *defaultFileNameilename;
 @property(readwrite,strong,atomic)  NSString    *pluginFileName;
 @property(readwrite,strong,atomic)  NSString    *configFile;
 @property(readwrite,strong,atomic)  NSString    *configString;
