@@ -2862,7 +2862,6 @@ static void signalHandler(int signum);
              linkset.totalLinks];
             [status appendString:[linkset webStatus]];
         }
-        [status appendFormat:@"    linksLock: %@\n",linkset.linksLock.lockStatusDescription];
         [status appendFormat:@"    slsLock: %@\n",linkset.slsLock.lockStatusDescription];
     }
 
