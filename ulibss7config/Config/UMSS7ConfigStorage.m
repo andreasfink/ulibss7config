@@ -70,6 +70,7 @@
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 #import "UMSS7ConfigCAMEL.h"
 #import "UMSS7ConfigMnpDatabase.h"
+#import "UMSS7ConfigMirrorPort.h"
 #import "UMSS7ConfigSMSDeliveryProvider.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
@@ -130,6 +131,7 @@
     _estp_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _mapi_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _mnpDatabases_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _mirrorPorts_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _smsDeliveryProviders_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
@@ -3643,6 +3645,53 @@
 
 /*
  **************************************************
+ ** Mirror Port
+ **************************************************
+ */
+#pragma mark -
+#pragma mark Mirror Port
+
+- (NSArray *)getMirrorPortNames
+{
+    return [_mirrorPorts_dict allKeys];
+}
+
+- (UMSS7ConfigMirrorPort *)getMirrorPort:(NSString *)name
+{
+    return _mirrorPorts_dict[name];
+}
+
+- (NSString *)addMirrorPort:(UMSS7ConfigMirrorPort *)mp
+{
+    if(_mirrorPorts_dict[mp.name] == NULL)
+    {
+        _mirrorPorts_dict[mp.name] = mp;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceMirrorPort:(UMSS7ConfigMirrorPort *)mp
+{
+    _mirrorPorts_dict[mp.name] = mp;
+    _dirty=YES;
+    return @"ok";
+}
+- (NSString *)deleteMirrorPort:(NSString *)name
+{
+    if(_mirrorPorts_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_mirrorPorts_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
  ** SMS Delivery Providers
  **************************************************
  */
@@ -3751,6 +3800,7 @@
     n.rwconfigFile = _rwconfigFile;
     n.camel_dict = [_camel_dict copy];
     n.mnpDatabases_dict = [_mnpDatabases_dict copy];
+    n.mirrorPorts_dict = [_mirrorPorts_dict copy];
     n.smsDeliveryProviders_dict = [_smsDeliveryProviders_dict copy];
     return n;
 }

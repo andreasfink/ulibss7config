@@ -68,6 +68,7 @@
 @class UMSS7ConfigDiameterRoute;
 @class UMSS7ConfigCAMEL;
 @class UMSS7ConfigMnpDatabase;
+@class UMSS7ConfigMirrorPort;
 @class UMSS7ConfigSMSDeliveryProvider;
 
 @interface UMSS7ConfigStorage : UMObject
@@ -127,6 +128,7 @@
     UMSynchronizedSortedDictionary *_diameter_route_dict;
     UMSynchronizedSortedDictionary *_camel_dict;
     UMSynchronizedSortedDictionary *_mnpDatabases_dict;
+    UMSynchronizedSortedDictionary *_mirrorPorts_dict;
     UMSynchronizedSortedDictionary *_smsDeliveryProviders_dict;
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
@@ -189,6 +191,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_route_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *camel_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mnpDatabases_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mirrorPorts_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smsDeliveryProviders_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
@@ -515,6 +518,12 @@
 - (NSString *)addMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
 - (NSString *)replaceMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
 - (NSString *)deleteMnpDatabase:(NSString *)name;
+
+- (NSArray *)getMirrorPortNames;
+- (UMSS7ConfigMirrorPort *)getMirrorPort:(NSString *)name;
+- (NSString *)addMirrorPort:(UMSS7ConfigMirrorPort *)mnpdb;
+- (NSString *)replaceMirrorPort:(UMSS7ConfigMirrorPort *)mnpdb;
+- (NSString *)deleteMirrorPort:(NSString *)name;
 
 - (NSArray *)getSMSDeliveryProviderNames;
 - (UMSS7ConfigSMSDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name;

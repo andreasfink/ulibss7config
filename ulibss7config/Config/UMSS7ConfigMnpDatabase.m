@@ -7,6 +7,7 @@
 //
 
 #import "UMSS7ConfigMnpDatabase.h"
+#import "UMSS7ConfigMacros.h"
 
 @implementation UMSS7ConfigMnpDatabase
 
