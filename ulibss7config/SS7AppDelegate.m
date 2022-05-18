@@ -2823,10 +2823,20 @@ static void signalHandler(int signum);
         [status appendFormat:@"    receivedInvalidSLTA: %d\n",mtp3link.receivedInvalidSLTA];
         [status appendFormat:@"    receivedInvalidSSLTM: %d\n",mtp3link.receivedInvalidSSLTM];
         [status appendFormat:@"    receivedInvalidSSLTA: %d\n",mtp3link.receivedInvalidSSLTA];
-		[status appendFormat:@"    linkRestartsDueToFailedLinktest: %d\n",mtp3link.linkRestartsDueToFailedLinktest];
-        if(mtp3link.linkRestartTime != NULL)
+		[status appendFormat:@"    linkRestartsDueToFailedLinktest: %d",mtp3link.linkRestartsDueToFailedLinktest];
+        if(mtp3link.linkRestartTimes != NULL)
         {
-            [status appendFormat:@"    lastLinkRestart: %@\n",mtp3link.linkRestartTime.stringValue];
+            NSArray<NSDate *>*a = mtp3link.linkRestartTimes;
+            if(a.count > 0)
+            {
+                NSDate *d0 = a[0];
+                [status appendFormat:@"    linkRestarts: %@\n",d0.stringValue];
+                for(int i=1;i<a.count;i++)
+                {
+                    NSDate *d = a[i];
+                    [status appendFormat:@"                : %@\n",d.stringValue];
+                }
+            }
         }
         if(mtp3link.lastLinkUp != NULL)
         {
