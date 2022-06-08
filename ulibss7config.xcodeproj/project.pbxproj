@@ -582,6 +582,8 @@
 		A6C2915123618B8E00A34651 /* SS7CDRWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C2914F23618B8E00A34651 /* SS7CDRWriter.m */; };
 		A6C2915423618F7500A34651 /* SS7CDRWriterTask.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C2915223618F7500A34651 /* SS7CDRWriterTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6C2915523618F7500A34651 /* SS7CDRWriterTask.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C2915323618F7500A34651 /* SS7CDRWriterTask.m */; };
+		A6C2C26C28510FA700A09BA7 /* RELEASE-NOTES.txt in Resources */ = {isa = PBXBuildFile; fileRef = A6C2C26A28510FA700A09BA7 /* RELEASE-NOTES.txt */; };
+		A6C2C26D28510FA700A09BA7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A6C2C26B28510FA700A09BA7 /* README.md */; };
 		A6C4164C21C4134B0033F993 /* SS7TemporaryImsiPool.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C4164A21C4134B0033F993 /* SS7TemporaryImsiPool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6C4164D21C4134B0033F993 /* SS7TemporaryImsiPool.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4164B21C4134B0033F993 /* SS7TemporaryImsiPool.m */; };
 		A6C4165021C4139F0033F993 /* SS7TemporaryImsiEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C4164E21C4139F0033F993 /* SS7TemporaryImsiEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1244,6 +1246,8 @@
 		A6C2914F23618B8E00A34651 /* SS7CDRWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7CDRWriter.m; sourceTree = "<group>"; };
 		A6C2915223618F7500A34651 /* SS7CDRWriterTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7CDRWriterTask.h; sourceTree = "<group>"; };
 		A6C2915323618F7500A34651 /* SS7CDRWriterTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7CDRWriterTask.m; sourceTree = "<group>"; };
+		A6C2C26A28510FA700A09BA7 /* RELEASE-NOTES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "RELEASE-NOTES.txt"; sourceTree = "<group>"; };
+		A6C2C26B28510FA700A09BA7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A6C4164A21C4134B0033F993 /* SS7TemporaryImsiPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7TemporaryImsiPool.h; sourceTree = "<group>"; };
 		A6C4164B21C4134B0033F993 /* SS7TemporaryImsiPool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SS7TemporaryImsiPool.m; sourceTree = "<group>"; };
 		A6C4164E21C4139F0033F993 /* SS7TemporaryImsiEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SS7TemporaryImsiEntry.h; sourceTree = "<group>"; };
@@ -1358,6 +1362,8 @@
 			isa = PBXGroup;
 			children = (
 				A6AA23D324855035008D5A57 /* VERSION */,
+				A6C2C26B28510FA700A09BA7 /* README.md */,
+				A6C2C26A28510FA700A09BA7 /* RELEASE-NOTES.txt */,
 				A63EF6B9228D981F00E4F190 /* doc */,
 				A6BC434520774FB6008C3CEB /* Frameworks */,
 				A684E39920774ADA000F3F70 /* ulibss7config */,
@@ -2499,7 +2505,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6C2C26C28510FA700A09BA7 /* RELEASE-NOTES.txt in Resources */,
 				A6336EA322D578EE00F803C5 /* generate.sh in Resources */,
+				A6C2C26D28510FA700A09BA7 /* README.md in Resources */,
 				A6AA23D424855035008D5A57 /* VERSION in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
