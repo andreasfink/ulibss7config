@@ -1958,6 +1958,14 @@ static void signalHandler(int signum);
             }
         }
 
+        else if([path isEqualToString:@"/status/sctp-registry"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleSCTPStatusRegistry:req];
+            }
+        }
+
         else if([path isEqualToString:@"/status/diameter"])
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
@@ -2260,6 +2268,15 @@ static void signalHandler(int signum);
 
 - (void)handleSCTPStatus:(UMHTTPRequest *)req
 {
+    UMSynchronizedSortedDictionary *d = [_registry descriptionDict];
+    [req setResponsePlainText:[d jsonString]];
+
+}
+
+- (void)handleSCTPStatusRegistry:(UMHTTPRequest *)req
+{
+    NSString *s = [_registry description];
+    [req setResponsePlainText:s];
 }
 
 - (void)handleUmt:(UMHTTPRequest *)req
