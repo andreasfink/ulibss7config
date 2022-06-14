@@ -2840,7 +2840,7 @@ static void signalHandler(int signum);
         [status appendFormat:@"    receivedInvalidSLTA: %d\n",mtp3link.receivedInvalidSLTA];
         [status appendFormat:@"    receivedInvalidSSLTM: %d\n",mtp3link.receivedInvalidSSLTM];
         [status appendFormat:@"    receivedInvalidSSLTA: %d\n",mtp3link.receivedInvalidSSLTA];
-		[status appendFormat:@"    linkRestartsDueToFailedLinktest: %d",mtp3link.linkRestartsDueToFailedLinktest];
+		[status appendFormat:@"    linkRestartsDueToFailedLinktest: %d\n",mtp3link.linkRestartsDueToFailedLinktest];
         if(mtp3link.linkRestartTimes != NULL)
         {
             NSArray<NSDate *>*a = mtp3link.linkRestartTimes;
