@@ -11,7 +11,6 @@
 
 @implementation UMSS7ConfigSMPPPlugin
 
-
 + (NSString *)type
 {
     return @"smpp-plugin";
