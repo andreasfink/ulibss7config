@@ -70,6 +70,9 @@
 @class UMSS7ConfigMnpDatabase;
 @class UMSS7ConfigMirrorPort;
 @class UMSS7ConfigSMSDeliveryProvider;
+@class UMSS7ConfigSMPPServer;
+@class UMSS7ConfigSMPPConnection;
+@class UMSS7ConfigSMPPPlugin;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -130,6 +133,10 @@
     UMSynchronizedSortedDictionary *_mnpDatabases_dict;
     UMSynchronizedSortedDictionary *_mirrorPorts_dict;
     UMSynchronizedSortedDictionary *_smsDeliveryProviders_dict;
+    UMSynchronizedSortedDictionary *_smppServers_dict;
+    UMSynchronizedSortedDictionary *_smppConnections_dict;
+    UMSynchronizedSortedDictionary *_smppPlugins_dict;
+
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
     NSString                 *_productName;
@@ -193,6 +200,9 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mnpDatabases_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mirrorPorts_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smsDeliveryProviders_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppServers_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppConnections_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppPlugins_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -530,6 +540,25 @@
 - (NSString *)addSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)rpoxy;
 - (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)proxy;
 - (NSString *)deleteSMSDeliveryProvider:(NSString *)name;
+
+
+- (NSArray *)getSMPPServers;
+- (UMSS7ConfigSMPPServer *)getSMPPServer:(NSString *)name;
+- (NSString *)addSMPPServer:(UMSS7ConfigSMPPServer *)provider;
+- (NSString *)replaceSMPPServer:(UMSS7ConfigSMPPServer *)provider;
+- (NSString *)deleteSMPPServer:(NSString *)name;
+
+- (NSArray *)getSMPPConnections;
+- (UMSS7ConfigSMPPConnection *)getSMPPConnections:(NSString *)name;
+- (NSString *)addSMPPConnection:(UMSS7ConfigSMPPConnection *)provider;
+- (NSString *)replaceSMPPConnection:(UMSS7ConfigSMPPConnection *)provider;
+- (NSString *)deleteSMPPConnection:(NSString *)name;
+
+- (NSArray *)getSMPPPlugins;
+- (UMSS7ConfigSMPPPlugin *)getSMPPPlugin:(NSString *)name;
+- (NSString *)addSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider;
+- (NSString *)replaceSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider;
+- (NSString *)deleteSMPPPlugin:(NSString *)name;
 
 
 @end

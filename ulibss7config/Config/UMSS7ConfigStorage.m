@@ -72,6 +72,9 @@
 #import "UMSS7ConfigMnpDatabase.h"
 #import "UMSS7ConfigMirrorPort.h"
 #import "UMSS7ConfigSMSDeliveryProvider.h"
+#import "UMSS7ConfigSMPPServer.h"
+#import "UMSS7ConfigSMPPConnection.h"
+#import "UMSS7ConfigSMPPPlugin.h"
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -133,6 +136,9 @@
     _mnpDatabases_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _mirrorPorts_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _smsDeliveryProviders_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _smppServers_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _smppConnections_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _smppPlugins_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -3734,6 +3740,146 @@
     return @"ok";
 }
 
+
+/*
+ **************************************************
+ ** SMPPServers
+ **************************************************
+ */
+
+- (NSArray *)getSMPPServers
+{
+    return [_smppServers_dict allKeys];
+}
+
+- (UMSS7ConfigSMPPServer *)getSMPPServer:(NSString *)name
+{
+    return _smppServers_dict[name];
+}
+
+- (NSString *)addSMPPServer:(UMSS7ConfigSMPPServer *)provider
+{
+    if(_smppServers_dict[provider.name] == NULL)
+    {
+        _smppServers_dict[provider.name] = provider;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMPPServer:(UMSS7ConfigSMPPServer *)provider
+{
+    _smppServers_dict[provider.name] = provider;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMPPServer:(NSString *)name
+{
+    if(_smppServers_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smppServers_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
+ ** SMPPConnections
+ **************************************************
+ */
+
+
+- (NSArray *)getSMPPConnections
+{
+    return [_smppConnections_dict allKeys];
+}
+
+- (UMSS7ConfigSMPPConnection *)getSMPPConnections:(NSString *)name
+{
+    return _smppConnections_dict[name];
+}
+
+- (NSString *)addSMPPConnection:(UMSS7ConfigSMPPConnection *)provider
+{
+    if(_smppConnections_dict[provider.name] == NULL)
+    {
+        _smppConnections_dict[provider.name] = provider;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMPPConnection:(UMSS7ConfigSMPPConnection *)provider
+{
+    _smppConnections_dict[provider.name] = provider;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMPPConnection:(NSString *)name
+{
+    if(_smppConnections_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smppConnections_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SMPP Plugins
+ **************************************************
+ */
+
+- (NSArray *)getSMPPPlugins
+{
+    return [_smppPlugins_dict allKeys];
+}
+
+- (UMSS7ConfigSMPPPlugin *)getSMPPPlugin:(NSString *)name
+{
+    return _smppPlugins_dict[name];
+}
+
+- (NSString *)addSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider
+{
+    if(_smppPlugins_dict[provider.name] == NULL)
+    {
+        _smppPlugins_dict[provider.name] = provider;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider
+{
+    _smppPlugins_dict[provider.name] = provider;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSMPPPlugin:(NSString *)name
+{
+    if(_smppPlugins_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smppPlugins_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+
 /***************************************************/
 #pragma mark -
 
@@ -3802,6 +3948,10 @@
     n.mnpDatabases_dict = [_mnpDatabases_dict copy];
     n.mirrorPorts_dict = [_mirrorPorts_dict copy];
     n.smsDeliveryProviders_dict = [_smsDeliveryProviders_dict copy];
+    n.smppServers_dict = [_smppServers_dict copy];
+    n.smppConnections_dict = [_smppConnections_dict copy];
+    n.smppPlugins_dict = [_smppPlugins_dict copy];
+    
     return n;
 }
 
