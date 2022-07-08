@@ -75,6 +75,10 @@
 #import "UMSS7ConfigSMPPServer.h"
 #import "UMSS7ConfigSMPPConnection.h"
 #import "UMSS7ConfigSMPPPlugin.h"
+#import "UMSS7ConfigAuthServer.h"
+#import "UMSS7ConfigStorageServer.h"
+#import "UMSS7ConfigCdrServer.h"
+
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -139,6 +143,11 @@
     _smppServers_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _smppConnections_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _smppPlugins_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    
+    _authServers_dict       = [[UMSynchronizedSortedDictionary alloc]init];
+    _storageServers_dict    = [[UMSynchronizedSortedDictionary alloc]init];
+    _cdrServers_dict        = [[UMSynchronizedSortedDictionary alloc]init];
+
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -3878,6 +3887,140 @@
     return @"ok";
 }
 
+/*
+ **************************************************
+ ** AuthServer
+ **************************************************
+ */
+
+- (NSArray *)getAuthServers
+{
+    return [_authServers_dict allKeys];
+}
+
+- (UMSS7ConfigAuthServer *)getAuthServer:(NSString *)name
+{
+    return _authServers_dict[name];
+}
+
+- (NSString *)addAuthServer:(UMSS7ConfigAuthServer *)provider
+{
+    if(_authServers_dict[provider.name] == NULL)
+    {
+        _authServers_dict[provider.name] = provider;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceAuthServer:(UMSS7ConfigAuthServer *)provider
+{
+    _authServers_dict[provider.name] = provider;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteAuthServer:(NSString *)name
+{
+    if(_authServers_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_authServers_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** StorageServer
+ **************************************************
+ */
+
+- (NSArray *)getStorageServers
+{
+    return [_storageServers_dict allKeys];
+}
+
+- (UMSS7ConfigStorageServer *)getStorageServer:(NSString *)name
+{
+    return _storageServers_dict[name];
+}
+
+- (NSString *)addStorageServer:(UMSS7ConfigStorageServer *)provider
+{
+    if(_storageServers_dict[provider.name] == NULL)
+    {
+        _storageServers_dict[provider.name] = provider;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceStorageServer:(UMSS7ConfigStorageServer *)provider
+{
+    _storageServers_dict[provider.name] = provider;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteStorageServer:(NSString *)name
+{
+    if(_storageServers_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_storageServers_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** CdrServer
+ **************************************************
+ */
+
+- (NSArray *)getCdrServers
+{
+    return [_cdrServers_dict allKeys];
+}
+
+- (UMSS7ConfigCdrServer *)getCdrServer:(NSString *)name
+{
+    return _cdrServers_dict[name];
+}
+
+- (NSString *)addCdrServer:(UMSS7ConfigCdrServer *)provider
+{
+    if(_cdrServers_dict[provider.name] == NULL)
+    {
+        _cdrServers_dict[provider.name] = provider;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceCdrServer:(UMSS7ConfigCdrServer *)provider
+{
+    _cdrServers_dict[provider.name] = provider;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteCdrServer:(NSString *)name
+{
+    if(_cdrServers_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_cdrServers_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
 
 
 /***************************************************/
@@ -3951,7 +4094,10 @@
     n.smppServers_dict = [_smppServers_dict copy];
     n.smppConnections_dict = [_smppConnections_dict copy];
     n.smppPlugins_dict = [_smppPlugins_dict copy];
-    
+    n.authServers_dict = [_authServers_dict copy];
+    n.storageServers_dict = [_storageServers_dict copy];
+    n.cdrServers_dict = [_cdrServers_dict copy];
+
     return n;
 }
 

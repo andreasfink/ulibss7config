@@ -66,7 +66,10 @@
     APPEND_CONFIG_INTEGER(s,@"default-validity-period",_defaultValidityPeriod);
     APPEND_CONFIG_INTEGER(s,@"esm-class",_esmClass);
     APPEND_CONFIG_BOOLEAN(s,@"supoprt-long-sms",_supportLongSMS);
-
+    APPEND_CONFIG_STRING(s,@"zmq-socket",_zmqSocket);
+    APPEND_CONFIG_STRING(s,@"router",_router);
+    APPEND_CONFIG_STRING(s,@"storage-server",_storageServer);
+    APPEND_CONFIG_STRING(s,@"cdr-server",_cdrServer);
 }
 
 
@@ -105,6 +108,11 @@
     APPEND_DICT_INTEGER(dict,@"default-validity-period",_defaultValidityPeriod);
     APPEND_DICT_INTEGER(dict,@"esm-class",_esmClass);
     APPEND_DICT_BOOLEAN(dict,@"supoprt-long-sms",_supportLongSMS);
+    APPEND_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    APPEND_DICT_STRING(dict,@"router",_router);
+    APPEND_DICT_STRING(dict,@"storage-server",_storageServer);
+    APPEND_DICT_STRING(dict,@"cdr-server",_cdrServer);
+
     return dict;
 }
 
@@ -141,6 +149,10 @@
     SET_DICT_INTEGER(dict,@"default-validity-period",_defaultValidityPeriod);
     SET_DICT_INTEGER(dict,@"esm-class",_esmClass);
     SET_DICT_BOOLEAN(dict,@"supoprt-long-sms",_supportLongSMS);
+    SET_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    SET_DICT_STRING(dict,@"router",_router);
+    SET_DICT_STRING(dict,@"storage-server",_storageServer);
+    SET_DICT_STRING(dict,@"cdr-server",_cdrServer);
 }
 
 - (UMSS7ConfigSMPPConnection *)copyWithZone:(NSZone *)zone

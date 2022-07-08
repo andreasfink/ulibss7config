@@ -127,6 +127,12 @@
 		A648B68F23EDE531006A0230 /* UMSS7ApiTaskConfig_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A648B68D23EDE531006A0230 /* UMSS7ApiTaskConfig_list.m */; };
 		A651A47B26CEC1A90020DCD6 /* UMSS7ConfigSMSDeliveryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = A651A47926CEC1A90020DCD6 /* UMSS7ConfigSMSDeliveryProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A651A47C26CEC1A90020DCD6 /* UMSS7ConfigSMSDeliveryProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = A651A47A26CEC1A90020DCD6 /* UMSS7ConfigSMSDeliveryProvider.m */; };
+		A65FDB5028789B7A006BEDAA /* UMSS7ConfigAuthServer.h in Headers */ = {isa = PBXBuildFile; fileRef = A65FDB4E28789B7A006BEDAA /* UMSS7ConfigAuthServer.h */; };
+		A65FDB5128789B7A006BEDAA /* UMSS7ConfigAuthServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A65FDB4F28789B7A006BEDAA /* UMSS7ConfigAuthServer.m */; };
+		A65FDB542878A506006BEDAA /* UMSS7ConfigStorageServer.h in Headers */ = {isa = PBXBuildFile; fileRef = A65FDB522878A506006BEDAA /* UMSS7ConfigStorageServer.h */; };
+		A65FDB552878A506006BEDAA /* UMSS7ConfigStorageServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A65FDB532878A506006BEDAA /* UMSS7ConfigStorageServer.m */; };
+		A65FDB582878A50D006BEDAA /* UMSS7ConfigCdrServer.h in Headers */ = {isa = PBXBuildFile; fileRef = A65FDB562878A50D006BEDAA /* UMSS7ConfigCdrServer.h */; };
+		A65FDB592878A50D006BEDAA /* UMSS7ConfigCdrServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A65FDB572878A50D006BEDAA /* UMSS7ConfigCdrServer.m */; };
 		A661A4F7229D53A900CCEE02 /* UMSS7ApiTaskSS7FilterStagingArea_action.h in Headers */ = {isa = PBXBuildFile; fileRef = A661A4F5229D53A900CCEE02 /* UMSS7ApiTaskSS7FilterStagingArea_action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A661A4F8229D53A900CCEE02 /* UMSS7ApiTaskSS7FilterStagingArea_action.m in Sources */ = {isa = PBXBuildFile; fileRef = A661A4F6229D53A900CCEE02 /* UMSS7ApiTaskSS7FilterStagingArea_action.m */; };
 		A661A4FB229D548100CCEE02 /* UMSS7ApiTaskSS7FilterRuleSet_action.h in Headers */ = {isa = PBXBuildFile; fileRef = A661A4F9229D548100CCEE02 /* UMSS7ApiTaskSS7FilterRuleSet_action.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -789,6 +795,12 @@
 		A648B68D23EDE531006A0230 /* UMSS7ApiTaskConfig_list.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskConfig_list.m; sourceTree = "<group>"; };
 		A651A47926CEC1A90020DCD6 /* UMSS7ConfigSMSDeliveryProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSMSDeliveryProvider.h; sourceTree = "<group>"; };
 		A651A47A26CEC1A90020DCD6 /* UMSS7ConfigSMSDeliveryProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSMSDeliveryProvider.m; sourceTree = "<group>"; };
+		A65FDB4E28789B7A006BEDAA /* UMSS7ConfigAuthServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigAuthServer.h; sourceTree = "<group>"; };
+		A65FDB4F28789B7A006BEDAA /* UMSS7ConfigAuthServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigAuthServer.m; sourceTree = "<group>"; };
+		A65FDB522878A506006BEDAA /* UMSS7ConfigStorageServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigStorageServer.h; sourceTree = "<group>"; };
+		A65FDB532878A506006BEDAA /* UMSS7ConfigStorageServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigStorageServer.m; sourceTree = "<group>"; };
+		A65FDB562878A50D006BEDAA /* UMSS7ConfigCdrServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigCdrServer.h; sourceTree = "<group>"; };
+		A65FDB572878A50D006BEDAA /* UMSS7ConfigCdrServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigCdrServer.m; sourceTree = "<group>"; };
 		A661A4F5229D53A900CCEE02 /* UMSS7ApiTaskSS7FilterStagingArea_action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterStagingArea_action.h; sourceTree = "<group>"; };
 		A661A4F6229D53A900CCEE02 /* UMSS7ApiTaskSS7FilterStagingArea_action.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSS7FilterStagingArea_action.m; sourceTree = "<group>"; };
 		A661A4F9229D548100CCEE02 /* UMSS7ApiTaskSS7FilterRuleSet_action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSS7FilterRuleSet_action.h; sourceTree = "<group>"; };
@@ -2002,6 +2014,12 @@
 				A61ACBD9287725450052C8DB /* UMSS7ConfigSMPPConnection.m */,
 				A669584F2804045300B913EB /* UMSS7ConfigSMPPPlugin.h */,
 				A66958502804045300B913EB /* UMSS7ConfigSMPPPlugin.m */,
+				A65FDB4E28789B7A006BEDAA /* UMSS7ConfigAuthServer.h */,
+				A65FDB4F28789B7A006BEDAA /* UMSS7ConfigAuthServer.m */,
+				A65FDB522878A506006BEDAA /* UMSS7ConfigStorageServer.h */,
+				A65FDB532878A506006BEDAA /* UMSS7ConfigStorageServer.m */,
+				A65FDB562878A50D006BEDAA /* UMSS7ConfigCdrServer.h */,
+				A65FDB572878A50D006BEDAA /* UMSS7ConfigCdrServer.m */,
 				A6D350D624938FDD00BE6171 /* UMSS7ConfigMnpDatabase.h */,
 				A6D350D724938FDD00BE6171 /* UMSS7ConfigMnpDatabase.m */,
 				A6FD69202828F864000C0E03 /* UMSS7ConfigMirrorPort.h */,
@@ -2106,6 +2124,7 @@
 			files = (
 				A6BC44DA207753ED008C3CEB /* UMSS7ApiTaskM2PA_modify.h in Headers */,
 				A638466522CFF45700D62749 /* UMSS7ApiTaskStatistics_read.h in Headers */,
+				A65FDB582878A50D006BEDAA /* UMSS7ConfigCdrServer.h in Headers */,
 				A6BC44E6207753ED008C3CEB /* UMSS7ApiTaskM2PA_action.h in Headers */,
 				A6BF3120229437F60000578B /* UMSS7ApiTaskSS7FilterAction_modify.h in Headers */,
 				A684F77222C10E83004F77C0 /* UMSS7ConfigSS7FilterTraceFile.h in Headers */,
@@ -2267,6 +2286,7 @@
 				A6BF307F229430350000578B /* UMSS7ApiTaskServiceUser_modify.h in Headers */,
 				A6D350D824938FDD00BE6171 /* UMSS7ConfigMnpDatabase.h in Headers */,
 				A6EE9BA024609A5D00A7F42A /* UMSS7ApiTaskDiameterRoute_list.h in Headers */,
+				A65FDB5028789B7A006BEDAA /* UMSS7ConfigAuthServer.h in Headers */,
 				A6BC44FC207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_add.h in Headers */,
 				A6B011C921DA572900B1B4B5 /* UMSS7ApiTaskSCCPTranslationTableEntry_action.h in Headers */,
 				A6A66903240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.h in Headers */,
@@ -2328,6 +2348,7 @@
 				A6D350D4248EE94300BE6171 /* UMSS7ConfigSGSN.h in Headers */,
 				A6BC44FE207753ED008C3CEB /* UMSS7ApiTaskM3UAASP_status.h in Headers */,
 				A6BF3186229BC1020000578B /* UMSS7ConfigDiameterRouter.h in Headers */,
+				A65FDB542878A506006BEDAA /* UMSS7ConfigStorageServer.h in Headers */,
 				A6BF31BC229EACFC0000578B /* UMSS7ApiTaskSS7FilterEngine_list.h in Headers */,
 				A6BB6A0421522FFE00749D40 /* UMSS7ApiTaskSCCPTranslationTable_action.h in Headers */,
 				A6BC4518207753EE008C3CEB /* UMSS7ApiTaskVersion.h in Headers */,
@@ -2579,6 +2600,7 @@
 				A6BC4508207753ED008C3CEB /* UMSS7ApiTaskM3UAAS_list.m in Sources */,
 				A6BC4520207753EE008C3CEB /* UMSS7ApiTaskMTP3LinkSet_add.m in Sources */,
 				A69429EC22DC963B00A90936 /* UMSS7FilterRuleSet.m in Sources */,
+				A65FDB592878A50D006BEDAA /* UMSS7ConfigCdrServer.m in Sources */,
 				A6BC44F4207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_modify.m in Sources */,
 				A634BBFA21A38B3300852462 /* UMSS7ConfigServiceProfile.m in Sources */,
 				A6BF3119229437E40000578B /* UMSS7ApiTaskSS7FilterAction_delete.m in Sources */,
@@ -2733,6 +2755,7 @@
 				A6BC4524207753EE008C3CEB /* UMSS7ApiTaskMTP3Link_add.m in Sources */,
 				A6BF3115229437DA0000578B /* UMSS7ApiTaskSS7FilterAction_add.m in Sources */,
 				A6BC452B207753EE008C3CEB /* UMSS7ApiTaskLogout.m in Sources */,
+				A65FDB552878A506006BEDAA /* UMSS7ConfigStorageServer.m in Sources */,
 				A6BC42F620774F93008C3CEB /* UMSS7ConfigMSC.m in Sources */,
 				A6BF308D229430E80000578B /* UMSS7ApiTaskApiUser_add.m in Sources */,
 				A6BF30FD2294378A0000578B /* UMSS7ApiTaskSS7FilterActionList_add.m in Sources */,
@@ -2753,6 +2776,7 @@
 				A6BC450C207753ED008C3CEB /* UMSS7ApiTaskMTP3_modify.m in Sources */,
 				A6BC431720774F93008C3CEB /* UMSS7ConfigSCTP.m in Sources */,
 				A6BF31292294380A0000578B /* UMSS7ApiTaskSS7FilterAction_status.m in Sources */,
+				A65FDB5128789B7A006BEDAA /* UMSS7ConfigAuthServer.m in Sources */,
 				A6BC432C20774F93008C3CEB /* UMSS7ConfigSCCP.m in Sources */,
 				A634BC3B21A40E7400852462 /* SS7GenericInstance_MAP_Reject_Resp_Task.m in Sources */,
 				A6BF3080229430350000578B /* UMSS7ApiTaskServiceUser_add.m in Sources */,

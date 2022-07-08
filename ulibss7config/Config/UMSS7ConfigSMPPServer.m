@@ -47,6 +47,12 @@
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"dlr-plugin",_dlrPlugins);
     APPEND_CONFIG_STRING(s,@"storage-plugin",_storagePlugin);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"cdr-plugin",_cdrPlugins);
+    APPEND_CONFIG_STRING(s,@"auth-server",_authServer);
+    APPEND_CONFIG_STRING(s,@"router",_router);
+    APPEND_CONFIG_STRING(s,@"storage-server",_storageServer);
+    APPEND_CONFIG_STRING(s,@"cdr-server",_cdrServer);
+    APPEND_CONFIG_STRING(s,@"zmq-socket",_zmqSocket);
+
 }
 
 
@@ -66,6 +72,11 @@
     APPEND_DICT_ARRAY(dict,@"dlr-plugin",_dlrPlugins);
     APPEND_DICT_STRING(dict,@"storage-plugin",_storagePlugin);
     APPEND_DICT_ARRAY(dict,@"cdr-plugin",_cdrPlugins);
+    APPEND_DICT_STRING(dict,@"auth-server",_authServer);
+    APPEND_DICT_STRING(dict,@"router",_router);
+    APPEND_DICT_STRING(dict,@"storage-server",_storageServer);
+    APPEND_DICT_STRING(dict,@"cdr-server",_cdrServer);
+    APPEND_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
     return dict;
 }
 
@@ -83,6 +94,11 @@
     SET_DICT_ARRAY(dict,@"dlr-plugin",_dlrPlugins);
     SET_DICT_STRING(dict,@"storage-plugin",_storagePlugin);
     SET_DICT_ARRAY(dict,@"cdr-plugin",_cdrPlugins);
+    SET_DICT_STRING(dict,@"auth-server",_authServer);
+    SET_DICT_STRING(dict,@"router",_router);
+    SET_DICT_STRING(dict,@"storage-server",_storageServer);
+    SET_DICT_STRING(dict,@"cdr-server",_cdrServer);
+    SET_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
 }
 
 - (UMSS7ConfigSMPPServer *)copyWithZone:(NSZone *)zone

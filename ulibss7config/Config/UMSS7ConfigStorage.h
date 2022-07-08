@@ -73,6 +73,9 @@
 @class UMSS7ConfigSMPPServer;
 @class UMSS7ConfigSMPPConnection;
 @class UMSS7ConfigSMPPPlugin;
+@class UMSS7ConfigAuthServer;
+@class UMSS7ConfigStorageServer;
+@class UMSS7ConfigCdrServer;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -136,6 +139,9 @@
     UMSynchronizedSortedDictionary *_smppServers_dict;
     UMSynchronizedSortedDictionary *_smppConnections_dict;
     UMSynchronizedSortedDictionary *_smppPlugins_dict;
+    UMSynchronizedSortedDictionary *_authServers_dict;
+    UMSynchronizedSortedDictionary *_storageServers_dict;
+    UMSynchronizedSortedDictionary *_cdrServers_dict;
 
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
@@ -203,6 +209,9 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppServers_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppConnections_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppPlugins_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *authServers_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *storageServers_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *cdrServers_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -559,6 +568,24 @@
 - (NSString *)addSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider;
 - (NSString *)replaceSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider;
 - (NSString *)deleteSMPPPlugin:(NSString *)name;
+
+- (NSArray *)getAuthServers;
+- (UMSS7ConfigAuthServer *)getAuthServer:(NSString *)name;
+- (NSString *)addAuthServer:(UMSS7ConfigAuthServer *)provider;
+- (NSString *)replaceAuthServer:(UMSS7ConfigAuthServer *)provider;
+- (NSString *)deleteAuthServer:(NSString *)name;
+
+- (NSArray *)getStorageServers;
+- (UMSS7ConfigStorageServer *)getStorageServer:(NSString *)name;
+- (NSString *)addStorageServer:(UMSS7ConfigStorageServer *)provider;
+- (NSString *)replaceStorageServer:(UMSS7ConfigStorageServer *)provider;
+- (NSString *)deleteStorageServer:(NSString *)name;
+
+- (NSArray *)getCdrServers;
+- (UMSS7ConfigCdrServer *)getCdrServer:(NSString *)name;
+- (NSString *)addCdrServer:(UMSS7ConfigCdrServer *)provider;
+- (NSString *)replaceCdrServer:(UMSS7ConfigCdrServer *)provider;
+- (NSString *)deleteCdrServer:(NSString *)name;
 
 
 @end

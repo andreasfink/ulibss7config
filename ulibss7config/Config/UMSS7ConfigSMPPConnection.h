@@ -45,6 +45,11 @@
     NSNumber *              _defaultValidityPeriod;
     NSNumber *              _esmClass;
     NSNumber *              _supportLongSMS;
+    NSString *              _zmqSocket;
+    NSString *              _router;
+    NSString *              _cdrServer;
+    NSString *              _storageServer;
+
 }
 
 @property(readwrite,strong,atomic) NSString * host;
@@ -79,5 +84,10 @@
 @property(readwrite,strong,atomic) NSNumber * defaultValidityPeriod;
 @property(readwrite,strong,atomic) NSNumber * esmClass;
 @property(readwrite,strong,atomic) NSNumber * supportLongSMS;
+@property(readwrite,strong,atomic) NSString * zmqSocket;
+@property(readwrite,strong,atomic) NSString * router;
+@property(readwrite,strong,atomic) NSString * cdrServer;
+@property(readwrite,strong,atomic) NSString * storageServer;
+
 @end
 
