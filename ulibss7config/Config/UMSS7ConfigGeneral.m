@@ -43,12 +43,12 @@
     APPEND_CONFIG_INTEGER(s,@"transaction-id-range",_transactionIdRange);
     APPEND_CONFIG_BOOLEAN(s,@"send-sctp-aborts",_sendSctpAborts);
     APPEND_CONFIG_STRING(s,@"filter-engine-directory",_filterEngineDirectory);
+    APPEND_CONFIG_STRING(s,@"zmq-socket",_zmqSocket);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
-    
     APPEND_DICT_STRING(dict,@"hostname",_hostname);
     APPEND_DICT_STRING(dict,@"log-directory",_logDirectory);
     APPEND_DICT_INTEGER(dict,@"log-rotations",_logRotations);
@@ -58,7 +58,7 @@
     APPEND_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
     APPEND_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
     APPEND_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
-
+    APPEND_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
 
     return dict;
 }
@@ -74,6 +74,7 @@
     SET_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
     SET_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
     SET_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
+    SET_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
 }
 
 - (UMSS7ConfigGeneral *)copyWithZone:(NSZone *)zone
