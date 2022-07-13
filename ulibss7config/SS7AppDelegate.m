@@ -1862,12 +1862,12 @@ static void signalHandler(int signum);
 {
     if(!self.startInStandby)
     {
-        [self.logFeed infoText:@"Stating instances"];
+        [self.logFeed infoText:@"Starting instances"];
         [self startInstances];
     }
     else
     {
-        [self.logFeed infoText:@"Stating up in standby"];
+        [self.logFeed infoText:@"Starting up in standby"];
     }
 }
 

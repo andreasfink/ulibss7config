@@ -72,6 +72,13 @@
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ConfigDiameterConnection.h"
+#import "UMSS7ConfigSMPPServer.h"
+#import "UMSS7ConfigSMPPConnection.h"
+#import "UMSS7ConfigSMPPPlugin.h"
+#import "UMSS7ConfigAuthServer.h"
+#import "UMSS7ConfigStorageServer.h"
+#import "UMSS7ConfigCdrServer.h"
+
 #import "UMSS7ConfigCAMEL.h"
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
