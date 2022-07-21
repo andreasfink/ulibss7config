@@ -43,7 +43,7 @@
     APPEND_CONFIG_INTEGER(s,@"cost",_cost);
     APPEND_CONFIG_INTEGER(s,@"weigth",_weigth);
     APPEND_CONFIG_INTEGER(s,@"subsystem",_subsystem);
-    //APPEND_CONFIG_INTEGER(s,@"ntt",_overrideCalledTT);
+    APPEND_CONFIG_INTEGER(s,@"ntt",_overrideCalledTT);
     APPEND_CONFIG_INTEGER(s,@"set-called-tt",_overrideCalledTT);
     APPEND_CONFIG_INTEGER(s,@"set-calling-tt",_overrideCallingTT);
     APPEND_CONFIG_STRING(s,@"add-prefix",_addPrefix);
@@ -71,7 +71,7 @@
     APPEND_DICT_INTEGER(dict,@"cost",_cost);
     APPEND_DICT_INTEGER(dict,@"weight",_weigth);
     APPEND_DICT_INTEGER(dict,@"subsystem",_subsystem);
-    //APPEND_DICT_INTEGER(dict,@"ntt",_overrideCalledTT);
+    APPEND_DICT_INTEGER(dict,@"ntt",_overrideCalledTT);
     APPEND_DICT_INTEGER(dict,@"set-called-tt",_overrideCalledTT);
     APPEND_DICT_INTEGER(dict,@"set-calling-tt",_overrideCallingTT);
     APPEND_DICT_STRING(dict,@"add-prefix",_addPrefix);
@@ -87,7 +87,6 @@
     APPEND_DICT_INTEGER(dict,@"limit-digit-length",_limitDigitLength);
     APPEND_DICT_BOOLEAN(dict,@"ansi-to-itu",_ansiToItu);
     APPEND_DICT_BOOLEAN(dict,@"itu-to-ansi",_ituToAnsi);
-
     return dict;
 }
 
