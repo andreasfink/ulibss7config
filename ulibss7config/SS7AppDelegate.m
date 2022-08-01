@@ -882,7 +882,6 @@ static void signalHandler(int signum);
     {
         _logDirectory = [self defaultLogDirectory];
     }
-    
     if(generalConfig.sendSctpAborts!=NULL)
     {
         _registry.sendAborts            =  [generalConfig.sendSctpAborts boolValue];
@@ -891,7 +890,6 @@ static void signalHandler(int signum);
     {
         _registry.sendAborts            =  YES;
     }
-
     if(generalConfig.logRotations!=NULL)
     {
         _logRotations = [generalConfig.logRotations intValue];
@@ -900,7 +898,6 @@ static void signalHandler(int signum);
     {
         _logRotations = 5;
     }
-
     if(generalConfig.logLevel!=NULL)
     {
         _logLevel = [generalConfig.logLevel intValue];
@@ -909,7 +906,6 @@ static void signalHandler(int signum);
     {
         _logLevel = UMLOG_MAJOR;
     }
-
     if(_concurrentThreads<4)
     {
         _concurrentThreads = ulib_cpu_count();
@@ -933,7 +929,6 @@ static void signalHandler(int signum);
     {
         _filterEnginesPath = generalConfig.filterEngineDirectory;
     }
-    
     _sctpTaskQueue = [[UMTaskQueueMulti alloc]initWithNumberOfThreads:_concurrentThreads
                                                                  name:@"sctp"
                                                         enableLogging:NO
@@ -971,8 +966,6 @@ static void signalHandler(int signum);
                                                                      name:@"diameter"
                                                             enableLogging:NO
                                                            numberOfQueues:UMLAYER_QUEUE_COUNT];
-
-
     _webClient = [[UMHTTPClient alloc]init];
     if(generalConfig.hostname)
     {
@@ -987,8 +980,6 @@ static void signalHandler(int signum);
     {
         _queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
     }
-
-    
 
     /*****************************************************************/
     /* Section USER */
@@ -1111,7 +1102,6 @@ static void signalHandler(int signum);
             _webserver_dict[name] = webServer;
         }
     }
-
     [self.logFeed infoText:@"configuring syslog"];
 
     /*****************************************************************/
@@ -2770,11 +2760,11 @@ static void signalHandler(int signum);
     {
         UMLayerSctp *sctp = _sctp_dict[key];
         [status appendFormat:@"SCTP:%@:%@\n",sctp.layerName,sctp.statusString];
+        [status appendFormat:@"    currentMtu:%d\n",sctp.currentMtu];
+        [status appendFormat:@"    pathMtuDiscovery:%@\n",sctp.isPathMtuDiscoveryEnabled ? @"YES": @"NO"];
     }
-
     keys = [_m2pa_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-
     for(NSString *key in keys)
     {
         UMLayerM2PA *m2pa = _m2pa_dict[key];
@@ -2864,7 +2854,6 @@ static void signalHandler(int signum);
             [status appendFormat:@"    lastLinkDown: %@\n",mtp3link.lastLinkDown.stringValue];
         }
 	}
-
     keys = [_mtp3_linkset_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
     for(NSString *key in keys)
