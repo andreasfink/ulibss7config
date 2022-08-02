@@ -35,7 +35,10 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"password",_password);
-    APPEND_CONFIG_STRING(s,@"profile",_serviceProfile);
+    APPEND_CONFIG_STRING(s,@"groupname",_groupname);
+    APPEND_CONFIG_STRING(s,@"useroptions",_useroptions);
+    APPEND_CONFIG_STRING(s,@"short-id",_shortId);
+    APPEND_CONFIG_DOUBLE(s,@"speed-limit",_speedLimit);
     APPEND_CONFIG_STRING(s,@"billing-entity",_billingEntity);
 }
 
@@ -44,7 +47,10 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"password",_password);
-    APPEND_DICT_STRING(dict,@"profile",_serviceProfile);
+    APPEND_DICT_STRING(dict,@"groupname",_groupname);
+    APPEND_DICT_STRING(dict,@"useroptions",_useroptions);
+    APPEND_DICT_STRING(dict,@"short-id",_shortId);
+    APPEND_DICT_DOUBLE(dict,@"speed-limit",_speedLimit);
     APPEND_DICT_STRING(dict,@"billing-entity",_billingEntity);
     return dict;
 }
@@ -52,7 +58,10 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     SET_DICT_STRING(dict,@"password",_password);
-    SET_DICT_STRING(dict,@"profile",_serviceProfile);
+    SET_DICT_STRING(dict,@"groupname",_groupname);
+    SET_DICT_STRING(dict,@"useroptions",_useroptions);
+    SET_DICT_STRING(dict,@"short-id",_shortId);
+    SET_DICT_DOUBLE(dict,@"speed-limit",_speedLimit);
     SET_DICT_STRING(dict,@"billing-entity",_billingEntity);
 }
 
