@@ -1587,7 +1587,7 @@ static void signalHandler(int signum);
             /*****************************************************************************/
             SccpDestinationGroup *dstgrp = [[SccpDestinationGroup alloc]init];
             [dstgrp setConfig:@{ @"name" : @"_umtransport" } applicationContext:self];
-            SccpDestination *destination = [[SccpDestination alloc]initWithConfig:
+            SccpDestinationEntry *destination = [[SccpDestinationEntry alloc]initWithConfig:
                                             @{ @"name" : @"_umtransport-1",
                                                @"ssn"  : @(SCCP_SSN_ULIBTRANSPORT) }
                                                                           variant:UMMTP3Variant_ITU
@@ -3762,7 +3762,7 @@ static void signalHandler(int signum);
         for(NSDictionary *subConfig in subConfigs)
         {
             UMSS7ConfigSCCPDestinationEntry *coe = [[UMSS7ConfigSCCPDestinationEntry alloc]initWithConfig:subConfig];
-            SccpDestination *destination = [[SccpDestination alloc]initWithConfig:subConfig variant:variant mtp3Instances:_mtp3_dict];
+            SccpDestinationEntry *destination = [[SccpDestinationEntry alloc]initWithConfig:subConfig variant:variant mtp3Instances:_mtp3_dict];
             [dstgrp addEntry:destination];
             [co addSubEntry:coe];
         }
@@ -3793,7 +3793,7 @@ static void signalHandler(int signum);
 #pragma mark SCCP Destination Entry Functions
 /************************************************************/
 
-- (SccpDestination *)getSCCPDestinationEntry:(NSString *)name sccpName:(NSString *)sccp_name index:(int)idx
+- (SccpDestinationEntry *)getSCCPDestinationEntry:(NSString *)name sccpName:(NSString *)sccp_name index:(int)idx
 {
     /* FIXME: this is now moved into SCCP gttSelectorRegistry */
 #if 0

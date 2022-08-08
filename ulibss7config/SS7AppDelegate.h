@@ -39,7 +39,7 @@
 @class SchrittmacherClient;
 @class UMSS7ConfigStorage;
 @class UMSS7ConfigSS7FilterStagingArea;
-@class SccpDestination;
+@class SccpDestinationEntry;
 @class SS7AppTransportHandler;
 @class ApiSession;
 @class SS7TemporaryImsiPool;
