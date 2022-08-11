@@ -49,6 +49,7 @@
             }
             else if([action isEqualToString:@"power-off"])
             {
+                [m2pa.stateMachineLogFeed debugText:@"api requesting power-off"];
                 [m2pa powerOffFor:NULL];
                 [self sendResultOK];
             }
