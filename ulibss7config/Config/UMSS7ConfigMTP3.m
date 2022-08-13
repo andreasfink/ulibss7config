@@ -47,7 +47,6 @@
     APPEND_CONFIG_BOOLEAN(s,@"statistic-db-autocreate",_statisticDbAutocreate);
 }
 
-
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
