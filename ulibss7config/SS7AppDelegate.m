@@ -2893,29 +2893,29 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"    Last M3UA-ERR: %@\n",m3ua_asp.lastError];
         }
-        if(m3ua_asp.lastLinkUp != NULL)
+        if(m3ua_asp.lastLinkUps != NULL)
         {
-            [status appendFormat:@"    lastLinkUp: %@\n",m3ua_asp.lastLinkUp.stringValue];
+            [status appendFormat:@"    lastLinkUps: %@\n",m3ua_asp.lastLinkUps.stringValue];
         }
-        if(m3ua_asp.lastLinkDown != NULL)
+        if(m3ua_asp.lastLinkDowns != NULL)
         {
-            [status appendFormat:@"    lastLinkDown: %@\n",m3ua_asp.lastLinkDown.stringValue];
+            [status appendFormat:@"    lastLinkDowns: %@\n",m3ua_asp.lastLinkDowns.stringValue];
         }
-        if(m3ua_asp.lastUp != NULL)
+        if(m3ua_asp.lastUps != NULL)
         {
-            [status appendFormat:@"    lastUp: %@\n",m3ua_asp.lastUp.stringValue];
+            [status appendFormat:@"    lastUp: %@\n",m3ua_asp.lastUps.stringValue];
         }
-        if(m3ua_asp.lastDown != NULL)
+        if(m3ua_asp.lastDowns != NULL)
         {
-            [status appendFormat:@"    lastDown: %@\n",m3ua_asp.lastDown.stringValue];
+            [status appendFormat:@"    lastDown: %@\n",m3ua_asp.lastDowns.stringValue];
         }
-        if(m3ua_asp.lastActive != NULL)
+        if(m3ua_asp.lastActives != NULL)
         {
-            [status appendFormat:@"    lastActive: %@\n",m3ua_asp.lastActive.stringValue];
+            [status appendFormat:@"    lastActive: %@\n",m3ua_asp.lastActives.stringValue];
         }
-        if(m3ua_asp.lastInactive != NULL)
+        if(m3ua_asp.lastInactives != NULL)
         {
-            [status appendFormat:@"    lastInactive: %@\n",m3ua_asp.lastInactive.stringValue];
+            [status appendFormat:@"    lastInactive: %@\n",m3ua_asp.lastInactives.stringValue];
         }
     }
 
