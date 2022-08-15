@@ -68,12 +68,12 @@
             }
             else if([action isEqualToString:@"start"])
             {
-                [m3ua_as aspUp:NULL];
+                [m3ua_as aspUp:NULL reason:@"start"];
                 [self sendResultOK];
             }
             else if([action isEqualToString:@"stop"])
             {
-                [m3ua_as aspDown:NULL];
+                [m3ua_as aspDown:NULL reason:@"stop"];
                 [self sendResultOK];
             }
             else if([action isEqualToString:@"forced-power-on"])
