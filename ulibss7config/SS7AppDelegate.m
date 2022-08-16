@@ -2946,7 +2946,6 @@ static void signalHandler(int signum);
             [status appendFormat:@"    lastInactive: %@\n",m3ua_asp.lastInactives.stringValue];
         }
     }
-
     keys = [_m3ua_as_dict allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(compare:)];
     for(NSString *key in keys)
