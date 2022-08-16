@@ -20,6 +20,7 @@
     NSNumber *_sendSctpAborts;
     NSString *_filterEngineDirectory;
     NSString *_zmqSocket;
+    NSString *_gui;
 }
 
 + (NSString *)type;
@@ -36,5 +37,6 @@
 @property(readwrite,strong,atomic)  NSNumber *sendSctpAborts;
 @property(readwrite,strong,atomic)  NSString *filterEngineDirectory;
 @property(readwrite,strong,atomic)  NSString *zmqSocket;
+@property(readwrite,strong,atomic)  NSString *gui;
 
 @end

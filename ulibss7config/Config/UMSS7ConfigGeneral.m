@@ -44,6 +44,7 @@
     APPEND_CONFIG_BOOLEAN(s,@"send-sctp-aborts",_sendSctpAborts);
     APPEND_CONFIG_STRING(s,@"filter-engine-directory",_filterEngineDirectory);
     APPEND_CONFIG_STRING(s,@"zmq-socket",_zmqSocket);
+    APPEND_CONFIG_STRING(s,@"gui",_gui);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -59,6 +60,7 @@
     APPEND_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
     APPEND_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
     APPEND_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    APPEND_DICT_STRING(dict,@"gui",_gui);
 
     return dict;
 }
@@ -75,6 +77,7 @@
     SET_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
     SET_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
     SET_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    SET_DICT_STRING(dict,@"gui",_gui);
 }
 
 - (UMSS7ConfigGeneral *)copyWithZone:(NSZone *)zone
