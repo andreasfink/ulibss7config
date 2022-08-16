@@ -2274,8 +2274,7 @@ static void signalHandler(int signum);
 
 - (void)handleSCTPStatus:(UMHTTPRequest *)req
 {
-    UMSynchronizedSortedDictionary *d = [_registry descriptionDict];
-    [req setResponsePlainText:[d jsonString]];
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
 
     NSArray *names = [_sctp_dict allKeys];
     NSString *n = req.params[@"name"];
