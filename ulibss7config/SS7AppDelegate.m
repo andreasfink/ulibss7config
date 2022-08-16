@@ -2243,6 +2243,20 @@ static void signalHandler(int signum);
 
 - (void)handleM2PAStatus:(UMHTTPRequest *)req
 {
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_m2pa_dict allKeys];
+    NSString *n = req.params[@"name"];
+    if(n.length > 0)
+    {
+        names = @[n];
+    }
+    for(NSString *name in names)
+    {
+       UMLayerM2PA *m2pa = _m2pa_dict[name];
+       d[name] = [m2pa m2paStatusDict];
+    }
+    [req setResponseJsonString:[d jsonString]];
+
 }
 
 - (void)handleM3UAStatus:(UMHTTPRequest *)req
@@ -2262,6 +2276,20 @@ static void signalHandler(int signum);
 {
     UMSynchronizedSortedDictionary *d = [_registry descriptionDict];
     [req setResponsePlainText:[d jsonString]];
+
+    NSArray *names = [_sctp_dict allKeys];
+    NSString *n = req.params[@"name"];
+    if(n.length > 0)
+    {
+        names = @[n];
+    }
+    for(NSString *name in names)
+    {
+       UMLayerSctp *sctp = _sctp_dict[name];
+       d[name] = [sctp sctpStatusDict];
+    }
+    d[@"registry"] = [_registry descriptionDict];
+    [req setResponseJsonString:[d jsonString]];
 
 }
 
