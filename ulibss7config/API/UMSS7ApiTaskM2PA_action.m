@@ -43,14 +43,14 @@
             }
             else if([action isEqualToString:@"power-on"])
             {
-                [m2pa powerOnFor:NULL];
+                [m2pa powerOnFor:NULL forced:NO reason:@"api-action power-on"];
                 [self sendResultOK];
 
             }
             else if([action isEqualToString:@"power-off"])
             {
                 [m2pa.stateMachineLogFeed debugText:@"api requesting power-off"];
-                [m2pa powerOffFor:NULL];
+                [m2pa powerOffFor:NULL forced:NO reason:@"api-action power-off"];
                 [self sendResultOK];
             }
 
@@ -67,13 +67,13 @@
             }
             else if([action isEqualToString:@"start"])
             {
-                [m2pa startFor:NULL];
+                [m2pa startFor:NULL forced:NO reason:@"api-action start"];
                 [self sendResultOK];
 
             }
             else if([action isEqualToString:@"stop"])
             {
-                [m2pa stopFor:NULL];
+                [m2pa stopFor:NULL forced:NO reason:@"api-action stop"];
                 [self sendResultOK];
             }
             else
