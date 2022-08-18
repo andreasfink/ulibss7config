@@ -41,7 +41,6 @@
     APPEND_CONFIG_DOUBLE(s,@"linktest-timer",_linktestTimer);
     APPEND_CONFIG_DOUBLE(s,@"beat-timer",_beatTimer);
     APPEND_CONFIG_INTEGER(s,@"beat-max-outstanding",_beatMaxOutstanding);
-    
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"sctp-local-ip",_sctp_localAddresses);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"sctp-remote-ip",_sctp_remoteAddresses);
     APPEND_CONFIG_INTEGER(s,@"sctp-local-port",_sctp_localPort);
@@ -66,7 +65,6 @@
     APPEND_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     APPEND_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     APPEND_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
-
     APPEND_DICT_ARRAY(dict,@"sctp-local-ip",_sctp_localAddresses);
     APPEND_DICT_ARRAY(dict,@"sctp-remote-ip",_sctp_remoteAddresses);
     APPEND_DICT_INTEGER(dict,@"sctp-local-port",_sctp_localPort);
@@ -91,7 +89,6 @@
     SET_DICT_DOUBLE(dict,@"linktest-timer",_linktestTimer);
     SET_DICT_DOUBLE(dict,@"beat-timer",_beatTimer);
     SET_DICT_INTEGER(dict,@"beat-max-outstanding",_beatMaxOutstanding);
-
     SET_DICT_ARRAY(dict,@"sctp-local-ip",_sctp_localAddresses);
     SET_DICT_ARRAY(dict,@"sctp-remote-ip",_sctp_remoteAddresses);
     SET_DICT_INTEGER(dict,@"sctp-local-port",_sctp_localPort);
@@ -102,7 +99,6 @@
     SET_DICT_INTEGER(dict,@"sctp-mtu",_sctp_mtu);
     SET_DICT_INTEGER(dict,@"sctp-max-init-timeout",_sctp_maxInitTimeout);
     SET_DICT_INTEGER(dict,@"sctp-max-init-attempts",_sctp_maxInitAttempts);
-
 }
 
 - (UMSS7ConfigM3UAASP *)copyWithZone:(NSZone *)zone
