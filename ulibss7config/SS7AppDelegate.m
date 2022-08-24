@@ -3403,6 +3403,12 @@ static void signalHandler(int signum);
 }
 
 
+- (NSArray<NSString *>*)getMTP3Names
+{
+    return  [_mtp3_dict allKeys];
+}
+
+
 - (void)setAppBuildNumber:(long)build
 {
     _appBuildNumber = build;
@@ -3508,6 +3514,11 @@ static void signalHandler(int signum);
     return _mtp3_link_dict[name];
 }
 
+- (NSArray<NSString *>*)getMTP3LinkNames
+{
+    return  [_mtp3_link_dict allKeys];
+}
+
 - (void)addWithConfigMTP3Link:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
@@ -3546,6 +3557,12 @@ static void signalHandler(int signum);
 - (UMMTP3LinkSet *)getMTP3LinkSet:(NSString *)name
 {
     return _mtp3_linkset_dict[name];
+}
+
+
+- (NSArray<NSString *>*)getMTP3LinkSetNames
+{
+    return  [_mtp3_linkset_dict allKeys];
 }
 
 - (void)addWithConfigMTP3LinkSet:(NSDictionary *)config
@@ -3614,6 +3631,11 @@ static void signalHandler(int signum);
     return  _m3ua_as_dict[name];
 }
 
+- (NSArray<NSString *>*)getM3UAASNames
+{
+    return  [_m3ua_as_dict allKeys];
+}
+
 - (void)addWithConfigM3UAAS:(NSDictionary *)config
 {
     NSString *name = config[@"name"];
@@ -3668,6 +3690,10 @@ static void signalHandler(int signum);
     return _m3ua_asp_dict[name];
 }
 
+- (NSArray <NSString *>*)getM3UAASPNames
+{
+    return [_m3ua_asp_dict allKeys];
+}
 
 - (void)addWithConfigM3UAASP:(NSDictionary *)config
 {
@@ -5564,7 +5590,7 @@ static void signalHandler(int signum);
     return;
 }
 
-- (void)  handleDecodeDiameter:(UMHTTPRequest *)req
+- (void) handleDecodeDiameter:(UMHTTPRequest *)req
 {
     NSString *pdu = req.params[@"hexpdu"];
     if(pdu==NULL)
