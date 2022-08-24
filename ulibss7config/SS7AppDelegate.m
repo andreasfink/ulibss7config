@@ -3282,6 +3282,11 @@ static void signalHandler(int signum);
 #pragma mark SCTP Service Functions
 /************************************************************/
 
+- (NSArray<NSString *>*)getSCTPNames
+{
+    return [_sctp_dict allKeys];
+
+}
 - (UMLayerSctp *)getSCTP:(NSString *)name
 {
     return _sctp_dict[name];
