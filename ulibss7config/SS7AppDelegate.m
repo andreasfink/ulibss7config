@@ -3333,6 +3333,13 @@ static void signalHandler(int signum);
 #pragma mark M2PA Service Functions
 /************************************************************/
 
+
+- (NSArray <NSString *>*)getM2PANames
+{
+    return [_m2pa_dict allKeys];
+}
+
+
 - (UMLayerM2PA *)getM2PA:(NSString *)name
 {
     return _m2pa_dict[name];

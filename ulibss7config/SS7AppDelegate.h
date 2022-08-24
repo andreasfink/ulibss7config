@@ -479,8 +479,8 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)deleteIMSIPool:(NSString *)name;
 - (void)renameIMSIPool:(NSString *)oldName to:(NSString *)newName;
 
-
-- (NSArray<NSString *>*)getSCTPNames;
+- (NSArray <NSString *>*)getM2PANames;
+- (NSArray <NSString *>*)getSCTPNames;
 - (UMLayerSctp *)getSCTP:(NSString *)name;
 
 - (NSArray *)getSCCPNames;
