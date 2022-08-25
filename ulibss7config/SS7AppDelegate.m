@@ -3284,9 +3284,9 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *>*)getSCTPNames
 {
-    return [_sctp_dict allKeys];
-
+    NSArray *a =  [[_sctp_dict allKeys]sortedStringsArray];
 }
+
 - (UMLayerSctp *)getSCTP:(NSString *)name
 {
     return _sctp_dict[name];
@@ -3336,7 +3336,7 @@ static void signalHandler(int signum);
 
 - (NSArray <NSString *>*)getM2PANames
 {
-    return [_m2pa_dict allKeys];
+    return [[_m2pa_dict allKeys]sortedStringsArray];
 }
 
 
@@ -3405,7 +3405,7 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *>*)getMTP3Names
 {
-    return  [_mtp3_dict allKeys];
+    return  [[_mtp3_dict allKeys]sortedStringsArray];
 }
 
 
@@ -3516,7 +3516,7 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *>*)getMTP3LinkNames
 {
-    return  [_mtp3_link_dict allKeys];
+    return  [[_mtp3_link_dict allKeys]sortedStringsArray];
 }
 
 - (void)addWithConfigMTP3Link:(NSDictionary *)config
@@ -3562,7 +3562,7 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *>*)getMTP3LinkSetNames
 {
-    return  [_mtp3_linkset_dict allKeys];
+    return  [[_mtp3_linkset_dict allKeys]sortedStringsArray];
 }
 
 - (void)addWithConfigMTP3LinkSet:(NSDictionary *)config
@@ -3633,7 +3633,7 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *>*)getM3UAASNames
 {
-    return  [_m3ua_as_dict allKeys];
+    return  [[_m3ua_as_dict allKeys]sortedStringsArray];
 }
 
 - (void)addWithConfigM3UAAS:(NSDictionary *)config
@@ -3692,7 +3692,7 @@ static void signalHandler(int signum);
 
 - (NSArray <NSString *>*)getM3UAASPNames
 {
-    return [_m3ua_asp_dict allKeys];
+    return [[_m3ua_asp_dict allKeys]sortedStringsArray];
 }
 
 - (void)addWithConfigM3UAASP:(NSDictionary *)config

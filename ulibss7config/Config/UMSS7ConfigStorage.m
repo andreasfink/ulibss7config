@@ -1296,7 +1296,7 @@
 
 - (NSArray *)getSCTPNames
 {
-    return [_sctp_dict allKeys];
+    return [[_sctp_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCTP *)getSCTP:(NSString *)name
@@ -1344,7 +1344,7 @@
 
 - (NSArray *)getM2PANames
 {
-    return [_m2pa_dict allKeys];
+    return [[_m2pa_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigM2PA *)getM2PA:(NSString *)name
@@ -1392,7 +1392,7 @@
 
 - (NSArray *)getMTP3Names
 {
-    return [_mtp3_dict allKeys];
+    return [[_mtp3_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMTP3 *)getMTP3:(NSString *)name
@@ -1439,7 +1439,7 @@
 
 - (NSArray *)getMTP3RouteNames
 {
-    return [_mtp3_route_dict allKeys];
+    return [[_mtp3_route_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMTP3Route *)getMTP3Route:(NSString *)name
@@ -1486,7 +1486,7 @@
 
 - (NSArray *)getMTP3FilterNames
 {
-    return [_mtp3_filter_dict allKeys];
+    return [[_mtp3_filter_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMTP3Filter *)getMTP3Filter:(NSString *)name
@@ -1534,7 +1534,7 @@
 
 - (NSArray *)getMTP3LinkNames
 {
-    return [_mtp3_link_dict allKeys];
+    return [[_mtp3_link_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMTP3Link *)getMTP3Link:(NSString *)name
@@ -1582,7 +1582,7 @@
 
 - (NSArray *)getMTP3LinkSetNames
 {
-    return [_mtp3_linkset_dict allKeys];
+    return [[_mtp3_linkset_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMTP3LinkSet *)getMTP3LinkSet:(NSString *)name
@@ -1630,7 +1630,7 @@
 
 - (NSArray *)getM3UAASNames
 {
-    return [_m3ua_as_dict allKeys];
+    return [[_m3ua_as_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigM3UAAS *)getM3UAAS:(NSString *)name
@@ -1678,7 +1678,7 @@
 
 - (NSArray *)getM3UAASPNames
 {
-    return [_m3ua_asp_dict allKeys];
+    return [[_m3ua_asp_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigM3UAASP *)getM3UAASP:(NSString *)name
@@ -1726,7 +1726,7 @@
 
 - (NSArray *)getSCCPNames
 {
-    return [_sccp_dict allKeys];
+    return [[_sccp_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCCP *)getSCCP:(NSString *)name
@@ -1773,7 +1773,7 @@
 
 - (NSArray *)getSCCPFilterNames
 {
-    return  [_sccp_filter_dict allKeys];
+    return  [[_sccp_filter_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCCPFilter *)getSCCPFilter:(NSString *)name
@@ -1820,7 +1820,7 @@
 
 - (NSArray *)getSCCPDestinationNames
 {
-    return [_sccp_destination_dict allKeys];
+    return [[_sccp_destination_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCCPDestination *)getSCCPDestination:(NSString *)name
@@ -1867,7 +1867,7 @@
 
 - (NSArray *)getSCCPTranslationTableNames
 {
-    return [_sccp_translation_table_dict allKeys];
+    return [[_sccp_translation_table_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCCPTranslationTable *)getSCCPTranslationTable:(NSString *)name
@@ -1915,7 +1915,7 @@
 
 - (NSArray *)getSCCPTranslationTableEntryNames
 {
-    return [_sccp_translation_table_entry_dict allKeys];
+    return [[_sccp_translation_table_entry_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCCPTranslationTableEntry *)getSCCPTranslationTableEntry:(NSString *)name
@@ -1962,7 +1962,7 @@
 
 - (NSArray *)getSCCPTranslationTableMap
 {
-    return [_sccp_translation_table_map_dict allKeys];
+    return [[_sccp_translation_table_map_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCCPTranslationTableMap *)getSCCPTranslationTableMap:(NSString *)name
@@ -2010,7 +2010,7 @@
 
 - (NSArray *)getSCCPNumberTranslationNames
 {
-    return [_sccp_number_translation_dict allKeys];
+    return [[_sccp_number_translation_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSCCPNumberTranslation *)getSCCPNumberTranslation:(NSString *)name;
@@ -2057,7 +2057,7 @@
 
 - (NSArray *)getTCAPNames
 {
-    return [_tcap_dict allKeys];
+    return [[_tcap_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigTCAP *)getTCAP:(NSString *)name
@@ -2104,7 +2104,8 @@
 
 - (NSArray *)getTCAPFilterNames
 {
-    return [_tcap_filter_dict allKeys];
+    return [[_tcap_filter_dict allKeys]sortedStringsArray];
+
 }
 
 - (UMSS7ConfigTCAPFilter *)getTCAPFilter:(NSString *)name
@@ -2151,7 +2152,7 @@
 
 - (NSArray *)getGSMMAPNames
 {
-    return [_gsmmap_dict allKeys];
+    return [[_gsmmap_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigGSMMAP *)getGSMMAP:(NSString *)name
@@ -2199,7 +2200,7 @@
 
 - (NSArray *)getGSMMAPFilterNames
 {
-    return [_gsmmap_filter_dict allKeys];
+    return [[_gsmmap_filter_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigGSMMAPFilter *)getGSMMAPFilter:(NSString *)name
@@ -2246,7 +2247,7 @@
 
 - (NSArray *)getSMSNames
 {
-    return [_sms_dict allKeys];
+    return [[_sms_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSMS *)getSMS:(NSString *)name
@@ -2293,7 +2294,7 @@
 
 - (NSArray *)getSMSFilterNames
 {
-    return [_sms_filter_dict allKeys];
+    return [[_sms_filter_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSMSFilter *)getSMSFilter:(NSString *)name
@@ -2341,7 +2342,7 @@
 
 - (NSArray *)getMSCNames
 {
-    return [_msc_dict allKeys];
+    return [[_msc_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMSC *)getMSC:(NSString *)name
@@ -2388,7 +2389,7 @@
 
 - (NSArray *)getGGSNNames
 {
-    return [_ggsn_dict allKeys];
+    return [[_ggsn_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigGGSN *)getGGSN:(NSString *)name
@@ -2435,7 +2436,7 @@
 
 - (NSArray *)getSGSNNames
 {
-    return [_sgsn_dict allKeys];
+    return [[_sgsn_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSGSN *)getSGSN:(NSString *)name
@@ -2481,7 +2482,7 @@
 
 - (NSArray *)getHLRNames
 {
-    return [_hlr_dict allKeys];
+    return [[_hlr_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigHLR *)getHLR:(NSString *)name
@@ -2528,7 +2529,7 @@
 
 - (NSArray *)getVLRNames
 {
-    return [_vlr_dict allKeys];
+    return [[_vlr_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigVLR *)getVLR:(NSString *)name
@@ -2575,7 +2576,7 @@
 
 - (NSArray *)getSMSCNames
 {
-    return [_smsc_dict allKeys];
+    return [[_smsc_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSMSC *)getSMSC:(NSString *)name
@@ -2621,7 +2622,7 @@
 
 - (NSArray *)getGSMSCFNames
 {
-    return [_gsmscf_dict allKeys];
+    return [[_gsmscf_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigGSMSCF *)getGSMSCF:(NSString *)name
@@ -2668,7 +2669,7 @@
 
 - (NSArray *)getGMLCNames
 {
-    return [_gmlc_dict allKeys];
+    return [[_gmlc_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigGMLC *)getGMLC:(NSString *)name
@@ -2716,7 +2717,7 @@
 
 - (NSArray *)getEIRNames
 {
-    return [_eir_dict allKeys];
+    return [[_eir_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigEIR *)getEIR:(NSString *)name
@@ -2763,7 +2764,7 @@
 
 - (NSArray *)getSMSProxyNames
 {
-    return [_smsproxy_dict allKeys];
+    return [[_smsproxy_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSMSProxy *)getSMSProxy:(NSString *)name
@@ -2810,7 +2811,7 @@
 
 - (NSArray *)getESTPNames
 {
-    return [_estp_dict allKeys];
+    return [[_estp_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigESTP *)getESTP:(NSString *)name
@@ -2857,7 +2858,7 @@
 
 - (NSArray *)getMAPINames
 {
-    return [_mapi_dict allKeys];
+    return [[_mapi_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMAPI *)getMAPI:(NSString *)name
@@ -2906,7 +2907,7 @@
 
 - (NSArray *)getIMSIPoolNames
 {
-    return [_imsi_pool_dict allKeys];
+    return [[_imsi_pool_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigIMSIPool *)getIMSIPool:(NSString *)name
@@ -2954,7 +2955,7 @@
 
 - (NSArray *)getCdrWriterNames
 {
-    return [_cdr_writer_dict allKeys];
+    return [[_cdr_writer_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigCdrWriter *)getCdrWriter:(NSString *)name
@@ -3001,7 +3002,7 @@
 
 - (NSArray *)getWebserverNames
 {
-    return [_webserver_dict allKeys];
+    return [[_webserver_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigWebserver *)getWebserver:(NSString *)name
@@ -3048,7 +3049,7 @@
 
 - (NSArray *)getTelnetNames
 {
-    return [_telnet_dict allKeys];
+    return [[_telnet_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigTelnet *)getTelnet:(NSString *)name
@@ -3095,7 +3096,7 @@
 
 - (NSArray *)getSyslogDestinationNames
 {
-    return [_syslog_destination_dict allKeys];
+    return [[_syslog_destination_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSyslogDestination *)getSyslogDestination:(NSString *)name
@@ -3143,7 +3144,7 @@
 
 - (NSArray *)getAdminUserNames
 {
-    return [_admin_user_dict allKeys];
+    return [[_admin_user_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigAdminUser *)getAdminUser:(NSString *)name
@@ -3191,7 +3192,7 @@
 
 - (NSArray *)getApiUserNames
 {
-    return [_api_user_dict allKeys];
+    return [[_api_user_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigApiUser *)getApiUser:(NSString *)name
@@ -3238,7 +3239,7 @@
 
 - (NSArray *)getServiceUserNames
 {
-    return [_service_user_dict allKeys];
+    return [[_service_user_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigServiceUser *)getServiceUser:(NSString *)name
@@ -3286,7 +3287,7 @@
 
 - (NSArray *)getServiceUserProfileNames
 {
-    return [_service_user_profile_dict allKeys];
+    return [[_service_user_profile_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigServiceProfile *)getServiceUserProfile:(NSString *)name
@@ -3335,7 +3336,7 @@
 
 - (NSArray *)getServiceBillingEntityNames
 {
-    return [_service_billing_entity_dict allKeys];
+    return [[_service_billing_entity_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigServiceBillingEntity *)getServiceBillingEntity:(NSString *)name
@@ -3383,7 +3384,7 @@
 
 - (NSArray *)getDiameterConnectionNames
 {
-    return [_diameter_connection_dict allKeys];
+    return [[_diameter_connection_dict allKeys]sortedStringsArray];
 }
 - (UMSS7ConfigDiameterConnection *)getDiameterConnection:(NSString *)name
 {
@@ -3429,7 +3430,7 @@
 
 - (NSArray *)getDiameterRouterNames
 {
-    return [_diameter_router_dict allKeys];
+    return [[_diameter_router_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigDiameterRouter *)getDiameterRouter:(NSString *)name
@@ -3476,7 +3477,7 @@
 
 - (NSArray *)getDiameterRoutes
 {
-    return [_diameter_route_dict allKeys];
+    return [[_diameter_route_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigDiameterRoute *)getDiameterRoute:(NSString *)name
@@ -3522,7 +3523,7 @@
 #pragma mark PointcodeTranslationTable
 - (NSArray *)getPointcodeTranslationTables
 {
-    return [_mtp3_pctrans_dict allKeys];
+    return [[_mtp3_pctrans_dict allKeys]sortedStringsArray];
 
 }
 
@@ -3570,7 +3571,7 @@
 
 - (NSArray *)getCAMELNames
 {
-    return [_camel_dict allKeys];
+    return [[_camel_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigCAMEL *)getCAMEL:(NSString *)name
@@ -3619,7 +3620,7 @@
 
 - (NSArray *)getMnpDatabaseNames
 {
-    return [_mnpDatabases_dict allKeys];
+    return [[_mnpDatabases_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMnpDatabase *)getMnpDatabase:(NSString *)name
@@ -3668,7 +3669,7 @@
 
 - (NSArray *)getMirrorPortNames
 {
-    return [_mirrorPorts_dict allKeys];
+    return [[_mirrorPorts_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigMirrorPort *)getMirrorPort:(NSString *)name
@@ -3713,7 +3714,7 @@
 
 - (NSArray *)getSMSDeliveryProviderNames
 {
-    return [_smsDeliveryProviders_dict allKeys];
+    return [[_smsDeliveryProviders_dict allKeys]sortedStringsArray];
 }
 - (UMSS7ConfigSMSDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name
 {
@@ -3758,7 +3759,7 @@
 
 - (NSArray *)getSMPPServers
 {
-    return [_smppServers_dict allKeys];
+    return [[_smppServers_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSMPPServer *)getSMPPServer:(NSString *)name
@@ -3805,7 +3806,7 @@
 
 - (NSArray *)getSMPPConnections
 {
-    return [_smppConnections_dict allKeys];
+    return [[_smppConnections_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSMPPConnection *)getSMPPConnections:(NSString *)name
@@ -3850,7 +3851,7 @@
 
 - (NSArray *)getSMPPPlugins
 {
-    return [_smppPlugins_dict allKeys];
+    return [[_smppPlugins_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigSMPPPlugin *)getSMPPPlugin:(NSString *)name
@@ -3895,7 +3896,7 @@
 
 - (NSArray *)getAuthServers
 {
-    return [_authServers_dict allKeys];
+    return [[_authServers_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigAuthServer *)getAuthServer:(NSString *)name
@@ -3940,7 +3941,7 @@
 
 - (NSArray *)getStorageServers
 {
-    return [_storageServers_dict allKeys];
+    return [[_storageServers_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigStorageServer *)getStorageServer:(NSString *)name
@@ -3985,7 +3986,7 @@
 
 - (NSArray *)getCdrServers
 {
-    return [_cdrServers_dict allKeys];
+    return [[_cdrServers_dict allKeys]sortedStringsArray];
 }
 
 - (UMSS7ConfigCdrServer *)getCdrServer:(NSString *)name
