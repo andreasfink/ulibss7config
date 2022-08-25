@@ -3284,7 +3284,7 @@ static void signalHandler(int signum);
 
 - (NSArray<NSString *>*)getSCTPNames
 {
-    NSArray *a =  [[_sctp_dict allKeys]sortedStringsArray];
+    return [[_sctp_dict allKeys]sortedStringsArray];
 }
 
 - (UMLayerSctp *)getSCTP:(NSString *)name
