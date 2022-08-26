@@ -51,7 +51,6 @@
     APPEND_CONFIG_INTEGER(s,@"min-send-buffer-size",_minSendBufferSize);
     APPEND_CONFIG_STRING(s,@"dscp",_dscp);
     APPEND_CONFIG_BOOLEAN(s,@"use-peeloff",_usePeelOff);
-
 }
 
 - (UMSynchronizedSortedDictionary *)config
