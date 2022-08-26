@@ -72,7 +72,7 @@
     APPEND_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
     APPEND_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
     APPEND_DICT_STRING(dict,@"dscp",_dscp);
-    APPEND_DICT_STRING(dict,@"use-peeloff",_usePeelOff);
+    APPEND_DICT_BOOLEAN(dict,@"use-peeloff",_usePeelOff);
     return dict;
 }
 
@@ -94,7 +94,7 @@
     SET_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
     SET_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
     SET_DICT_STRING(dict,@"dscp",_dscp);
-    SET_DICT_STRING(dict,@"use-peeloff",_usePeelOff);
+    SET_DICT_BOOLEAN(dict,@"use-peeloff",_usePeelOff);
 }
 
 - (UMSS7ConfigSCTP *)copyWithZone:(NSZone *)zone
