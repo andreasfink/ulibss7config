@@ -26,6 +26,8 @@
     NSNumber            *_minReceiveBufferSize;
     NSNumber            *_minSendBufferSize;
     NSString            *_dscp;
+    NSNumber            *_usePeelOff;
+
 }
 
 + (NSString *)type;
@@ -47,6 +49,7 @@
 @property(readwrite,strong,atomic)      NSNumber            *minReceiveBufferSize;
 @property(readwrite,strong,atomic)      NSNumber            *minSendBufferSize;
 @property(readwrite,strong,atomic)      NSString            *dscp;
+@property(readwrite,strong,atomic)      NSNumber            *usePeelOff;
 
 @end
 
