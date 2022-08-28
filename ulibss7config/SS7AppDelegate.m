@@ -2825,16 +2825,6 @@ static void signalHandler(int signum);
         [status appendFormat:@"    linkstateBusyEndedReceived: %d\n", m2pa.linkstateBusyEndedReceived];
         [status appendFormat:@"    linkstateReadySent: %d\n", m2pa.linkstateReadySent];
         [status appendFormat:@"    linkstateReadyReceived: %d\n", m2pa.linkstateReadyReceived];
-        [status appendFormat:@"    controlLock: %@\n",
-            m2pa.controlLock.lockStatusDescription];
-        [status appendFormat:@"    dataLock: %@\n",
-            m2pa.dataLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",
-            m2pa.sctpLink.linkLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",
-            m2pa.sctpLink.directSocket.controlLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
-            m2pa.sctpLink.directSocket.dataLock.lockStatusDescription];
     }
 	keys = [_mtp3_link_dict allKeys];
     for(NSString *key in keys)
@@ -2907,7 +2897,6 @@ static void signalHandler(int signum);
              linkset.totalLinks];
             [status appendString:[linkset webStatus]];
         }
-        [status appendFormat:@"    slsLock: %@\n",linkset.slsLock.lockStatusDescription];
     }
 
     keys = [_m3ua_asp_dict allKeys];
