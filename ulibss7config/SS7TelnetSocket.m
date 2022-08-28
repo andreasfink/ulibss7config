@@ -612,8 +612,8 @@
             case CS_STATUS_INCOMING_BOUND:
                 if(self.advertizeName)
                 {
-                    _sock._advertizeName = self.advertizeName;
-                    _sock._advertizeDomain = @"";
+                    _sock.advertizeName = self.advertizeName;
+                    _sock.advertizeDomain = @"";
                     _sock.advertizeType = @"_telnet._tcp";
                 }
                 err = [_sock listen];
