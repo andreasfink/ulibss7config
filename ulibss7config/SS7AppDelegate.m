@@ -2944,6 +2944,7 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"    lastInactive: %@\n",m3ua_asp.lastInactives.stringValue];
         }
+        [status appendFormat:@"    aspLock: %@\n", m3ua_asp.aspLock.lockStatusDescription];
         [status appendFormat:@"    incomingStreamLock: %@\n", m3ua_asp.incomingStreamLock.lockStatusDescription];
         [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",m3ua_asp.sctpLink.linkLock.lockStatusDescription];
         [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",m3ua_asp.sctpLink.directSocket.controlLock.lockStatusDescription];
