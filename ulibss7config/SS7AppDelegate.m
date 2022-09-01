@@ -1854,7 +1854,6 @@ static void signalHandler(int signum);
 {
     if(!self.startInStandby)
     {
-        [self.logFeed infoText:@"Starting instances"];
         [self startInstances];
     }
     else
