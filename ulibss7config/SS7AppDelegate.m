@@ -2889,7 +2889,7 @@ static void signalHandler(int signum);
     for(NSString *key in keys)
     {
         UMMTP3LinkSet *linkset = _mtp3_linkset_dict[key];
-        [linkset updateLinkSetStatus];
+        //[linkset updateLinkSetStatus];
         if(linkset.activeLinks > 0)
         {
             [status appendFormat:@"MTP3-LINKSET:%@:IS:%d/%d/%d\n",
