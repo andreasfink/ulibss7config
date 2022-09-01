@@ -2830,9 +2830,9 @@ static void signalHandler(int signum);
             m2pa.dataLock.lockStatusDescription];
         [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",
             m2pa.sctpLink.linkLock.lockStatusDescription];
-        if(sctpLink.directSocket)
+        if(m2pa.sctpLink.directSocket)
         {
-            [status appendFormat:@"    sctpLink.directSocket.sock: %d\n",sctpLink.directSocket.sock];
+            [status appendFormat:@"    sctpLink.directSocket.sock: %d\n",m2pa.sctpLink.directSocket.sock];
             [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",
             m2pa.sctpLink.directSocket.controlLock.lockStatusDescription];
             [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
