@@ -2830,11 +2830,14 @@ static void signalHandler(int signum);
             m2pa.dataLock.lockStatusDescription];
         [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",
             m2pa.sctpLink.linkLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",
+        if(sctpLink.directSocket)
+        {
+            [status appendFormat:@"    sctpLink.directSocket.sock: %d\n",sctpLink.directSocket.sock];
+            [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",
             m2pa.sctpLink.directSocket.controlLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
+            [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
             m2pa.sctpLink.directSocket.dataLock.lockStatusDescription];
-
+        }
     }
 	keys = [_mtp3_link_dict allKeys];
     for(NSString *key in keys)
