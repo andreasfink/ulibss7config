@@ -2950,7 +2950,7 @@ static void signalHandler(int signum);
         [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",m3ua_asp.sctpLink.linkLock.lockStatusDescription];
         if(m3ua_asp.sctpLink.directSocket)
         {
-            [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.sock: %d\n",m2pa.sctpLink.directSocket.sock];
+            [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.sock: %d\n",m3ua_asp.sctpLink.directSocket.sock];
             [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.controlLock: %@\n",
              m3ua_asp.sctpLink.directSocket.controlLock.lockStatusDescription];
             [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
