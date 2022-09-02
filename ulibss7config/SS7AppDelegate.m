@@ -2832,7 +2832,8 @@ static void signalHandler(int signum);
             m2pa.sctpLink.linkLock.lockStatusDescription];
         if(m2pa.sctpLink.directSocket)
         {
-            [status appendFormat:@"    m2pa.sctpLink.directSocket.sock: %d\n",m2pa.sctpLink.directSocket.sock];
+            [status appendFormat:@"    m2pa.sctpLink.directSocket.sock: %d\n",m2pa.sctpLink.directSocket.fileDescriptor
+];
             [status appendFormat:@"    m2pa.sctpLink.directSocket.controlLock: %@\n",
             m2pa.sctpLink.directSocket.controlLock.lockStatusDescription];
             [status appendFormat:@"    m2pa.sctpLink.directSocket.dataLock: %@\n",
@@ -2950,7 +2951,7 @@ static void signalHandler(int signum);
         [status appendFormat:@"    m3ua_asp.sctpLink.sctpLinkLock: %@\n",m3ua_asp.sctpLink.linkLock.lockStatusDescription];
         if(m3ua_asp.sctpLink.directSocket)
         {
-            [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.sock: %d\n",m3ua_asp.sctpLink.directSocket.sock];
+            [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.sock: %d\n",m3ua_asp.sctpLink.directSocket.fileDescriptor];
             [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.controlLock: %@\n",
              m3ua_asp.sctpLink.directSocket.controlLock.lockStatusDescription];
             [status appendFormat:@"    m3ua.sctpLink.directSocket.dataLock: %@\n",
