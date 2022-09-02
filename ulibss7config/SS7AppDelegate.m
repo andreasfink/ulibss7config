@@ -2828,14 +2828,14 @@ static void signalHandler(int signum);
             m2pa.controlLock.lockStatusDescription];
         [status appendFormat:@"    dataLock: %@\n",
             m2pa.dataLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",
+        [status appendFormat:@"    m2pa.sctpLink.sctpLinkLock: %@\n",
             m2pa.sctpLink.linkLock.lockStatusDescription];
         if(m2pa.sctpLink.directSocket)
         {
-            [status appendFormat:@"    sctpLink.directSocket.sock: %d\n",m2pa.sctpLink.directSocket.sock];
-            [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",
+            [status appendFormat:@"    m2pa.sctpLink.directSocket.sock: %d\n",m2pa.sctpLink.directSocket.sock];
+            [status appendFormat:@"    m2pa.sctpLink.directSocket.controlLock: %@\n",
             m2pa.sctpLink.directSocket.controlLock.lockStatusDescription];
-            [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
+            [status appendFormat:@"    m2pa.sctpLink.directSocket.dataLock: %@\n",
             m2pa.sctpLink.directSocket.dataLock.lockStatusDescription];
         }
     }
@@ -2947,19 +2947,15 @@ static void signalHandler(int signum);
         }
         [status appendFormat:@"    aspLock: %@\n", m3ua_asp.aspLock.lockStatusDescription];
         [status appendFormat:@"    incomingStreamLock: %@\n", m3ua_asp.incomingStreamLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.sctpLinkLock: %@\n",m3ua_asp.sctpLink.linkLock.lockStatusDescription];
+        [status appendFormat:@"    m3ua_asp.sctpLink.sctpLinkLock: %@\n",m3ua_asp.sctpLink.linkLock.lockStatusDescription];
         if(m3ua_asp.sctpLink.directSocket)
         {
             [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.sock: %d\n",m3ua_asp.sctpLink.directSocket.sock];
             [status appendFormat:@"    m3ua_asp.sctpLink.directSocket.controlLock: %@\n",
              m3ua_asp.sctpLink.directSocket.controlLock.lockStatusDescription];
-            [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",
+            [status appendFormat:@"    m3ua.sctpLink.directSocket.dataLock: %@\n",
              m3ua_asp.sctpLink.directSocket.dataLock.lockStatusDescription];
         }
-
-        [status appendFormat:@"    sctpLink.directSocket.controlLock: %@\n",m3ua_asp.sctpLink.directSocket.controlLock.lockStatusDescription];
-        [status appendFormat:@"    sctpLink.directSocket.dataLock: %@\n",m3ua_asp.sctpLink.directSocket.dataLock.lockStatusDescription];
-
     }
     
     keys = [_m3ua_as_dict allKeys];
