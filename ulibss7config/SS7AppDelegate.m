@@ -2982,7 +2982,14 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"MTP3-INSTANCE:%@:OOS\n",mtp3.layerName];
         }
-        [status appendFormat:@"    m3ua.routingTable.lock: %@\n",mtp3.routingTable.lock.lockStatusDescription];
+        if(mtp3.routingTable.lock)
+        {
+            NSString *s = [mtp3.routingTable.lock lockStatusDescription];
+            if(s)
+            {
+                [status appendFormat:@"    mtp3.routingTable.lock: %@\n",s];
+            }
+        }
     }
 
     keys = [_sccp_dict allKeys];
