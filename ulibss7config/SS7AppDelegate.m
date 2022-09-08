@@ -2982,12 +2982,12 @@ static void signalHandler(int signum);
         {
             [status appendFormat:@"MTP3-INSTANCE:%@:OOS\n",mtp3.layerName];
         }
-        if(mtp3.routingTable.lock)
+        if(mtp3.routingTable.routingTableLock)
         {
-            NSString *s = [mtp3.routingTable.lock lockStatusDescription];
+            NSString *s = [mtp3.routingTable.routingTableLock lockStatusDescription];
             if(s)
             {
-                [status appendFormat:@"    mtp3.routingTable.lock: %@\n",s];
+                [status appendFormat:@"    mtp3.routingTable.routingTableLock: %@\n",s];
             }
         }
     }
