@@ -673,7 +673,11 @@
                     }
                     else
                     {
-                        [_txSleeper sleep:100000]; /* check again in 100ms */
+                        UMSleeper_Signal s = [_txSleeper sleep:100000]; /* check again in 100ms */
+                        if(s == UMSleeper_Error)
+                        {
+                            self.endThisConnection = YES;
+                        }
                     }
                 }
                 self.incomingStatus = CS_STATUS_INCOMING_LISTENING;
@@ -837,7 +841,11 @@
         UMSocketError err = [_sock receiveSingleChar:&c];
         if(err<0)
         {
-            [_txSleeper sleep:10000]; /* check again in 10 ms */
+            UMSleeper_Signal s = [_txSleeper sleep:10000]; /* check again in 10 ms */
+            if(s == UMSleeper_Error)
+            {
+                self.endThisConnection = YES;
+            }
             continue;
         }
         [self incomingCharacterProcessing:c];
