@@ -50,7 +50,7 @@
     APPEND_CONFIG_INTEGER(s,@"min-receive-buffer-size",_minReceiveBufferSize);
     APPEND_CONFIG_INTEGER(s,@"min-send-buffer-size",_minSendBufferSize);
     APPEND_CONFIG_STRING(s,@"dscp",_dscp);
-
+    APPEND_CONFIG_BOOLEAN(s,@"use-peeloff",_usePeelOff);
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -71,7 +71,7 @@
     APPEND_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
     APPEND_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
     APPEND_DICT_STRING(dict,@"dscp",_dscp);
-
+    APPEND_DICT_BOOLEAN(dict,@"use-peeloff",_usePeelOff);
     return dict;
 }
 
@@ -93,6 +93,7 @@
     SET_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
     SET_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
     SET_DICT_STRING(dict,@"dscp",_dscp);
+    SET_DICT_BOOLEAN(dict,@"use-peeloff",_usePeelOff);
 }
 
 - (UMSS7ConfigSCTP *)copyWithZone:(NSZone *)zone
