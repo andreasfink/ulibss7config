@@ -219,6 +219,7 @@ UMEnvironmentNamedListProviderProtocol>
     UMLogFeed                   *_apiLogFeed;
     UMPrometheus                *_prometheus;
     long                        _appBuildNumber;
+    BOOL                        _doRunTestCase;
 }
 
 @property(readwrite,assign)     UMLogLevel      logLevel;
@@ -278,7 +279,7 @@ UMEnvironmentNamedListProviderProtocol>
 @property(readwrite,strong,atomic)  UMLogFeed               *apiLogFeed;
 @property(readwrite,strong,atomic)  UMPrometheus            *prometheus;
 @property(readwrite,assign,atomic)  long                    appBuildNumber;
-
+@property(readwrite,assign,atomic)  BOOL                    doRunTestCase;
 
 - (SS7AppDelegate *)initWithOptions:(NSDictionary *)options;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
@@ -359,6 +360,7 @@ UMEnvironmentNamedListProviderProtocol>
 - (UMTTask *)getAndRemovePendingUMTTaskForDialog:(UMTCAP_UserDialogIdentifier *)dialogId
 										invokeId:(int64_t)invokeId;
 
+- (void)runTestCase;
 
 
 /* @Description : Modifies a Routing Table for a specific SCCP Layer to Registry

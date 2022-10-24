@@ -506,6 +506,13 @@ static void signalHandler(int signum);
             @"long"  : @"--api-log",
             @"argument" : @"filename",
             @"help"  : @"log all api-calls to file"
+        },
+        @{
+            @"name"  : @"runtest",
+            @"short" : @"",
+            @"long"  : @"--run-test",
+            @"help"  : @"run debug test case",
+            @"hidden": @(YES) // dont show it with --help
         }
     ];
 }
@@ -857,7 +864,10 @@ static void signalHandler(int signum);
             }
             [_schrittmacherClient doHeartbeat];
         }
-
+        if(params[@"run-test"])
+        {
+            _doRunTestCase = 1;
+        }
         if(actionDone)
         {
             exit(0);
@@ -1866,6 +1876,10 @@ static void signalHandler(int signum);
     else
     {
         [self.logFeed infoText:@"Starting up in standby"];
+    }
+    if(_doRunTestCase)
+    {
+        [self runTestCase];
     }
 }
 
@@ -6982,6 +6996,12 @@ static void signalHandler(int signum);
     return YES;
 }
 
+
+- (void)runTestCase
+{
+    
+}
+
 @end
 
 static void signalHandler(int signum)
@@ -7003,4 +7023,3 @@ static void signalHandler(int signum)
 		_signal_sigusr2++;
 	}
 }
-
