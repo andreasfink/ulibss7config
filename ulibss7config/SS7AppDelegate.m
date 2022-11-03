@@ -107,6 +107,7 @@
 #include <sys/resource.h>
 #define PREFABRICATED_TRANSACTION_ID_COUNT  100000
 
+@class UMLicenseDirectory;
 extern UMLicenseDirectory * UMLicense_loadLicensesFromPath(NSString *directory, BOOL debug);
 
 //@class SS7AppDelegate;
@@ -1879,7 +1880,7 @@ static void signalHandler(int signum);
     }
     if(_doRunTestCase)
     {
-        [self runTestCase];
+        [self runSelectorInBackground:@selector(runTestCase:)];
     }
 }
 
