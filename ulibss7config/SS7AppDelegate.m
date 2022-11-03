@@ -865,7 +865,7 @@ static void signalHandler(int signum);
             }
             [_schrittmacherClient doHeartbeat];
         }
-        if(params[@"run-test"])
+        if(params[@"runtest"])
         {
             _doRunTestCase = 1;
         }
