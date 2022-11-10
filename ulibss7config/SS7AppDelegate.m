@@ -57,7 +57,6 @@
 #import "UMSS7ConfigSMSProxy.h"
 #import "UMSS7ConfigDatabasePool.h"
 #import "UMSS7ConfigCdrWriter.h"
-#import "UMSS7ConfigAdminUser.h"
 #import "UMSS7ConfigMSC.h"
 #import "UMSS7ConfigHLR.h"
 #import "UMSS7ConfigVLR.h"
@@ -3174,9 +3173,12 @@ static void signalHandler(int signum);
     return UMHTTP_AUTHENTICATION_STATUS_UNTESTED;
 }
 
+
 - (UMHTTPAuthenticationStatus)httpRequireAdminAuthorisation:(UMHTTPRequest *)req
                                                       realm:(NSString *)realm
 {
+    NSString *ip = [req.connection.socket.remoteHost address:UMSOCKET_TYPE_TCP];
+
     if(req.connection.server.disableAuthentication == YES)
     {
         return UMHTTP_AUTHENTICATION_STATUS_PASSED;
@@ -3192,7 +3194,14 @@ static void signalHandler(int signum);
     {
         if([realm isEqualToString:@"admin"])
         {
-            UMSS7ConfigAdminUser *u = [_runningConfig getAdminUser:user];
+            UMSS7ConfigAdminUser *u = [_runningConfig getAdminUserByIp:ip];
+            {
+                if(u)
+                {
+                    return UMHTTP_AUTHENTICATION_STATUS_PASSED;
+                }
+            }
+            u = [_runningConfig getAdminUser:user];
             if([u.password isEqualToString:pass])
             {
                 return UMHTTP_AUTHENTICATION_STATUS_PASSED;
@@ -3205,6 +3214,10 @@ static void signalHandler(int signum);
             {
                 return UMHTTP_AUTHENTICATION_STATUS_PASSED;
             }
+        }
+        else
+        {
+            
         }
     }
     [req setNotAuthorizedForRealm:realm];

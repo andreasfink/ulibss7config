@@ -3152,6 +3152,20 @@
     return _admin_user_dict[name];
 }
 
+- (UMSS7ConfigAdminUser *)getAdminUserByIp:(NSString *)ip
+{
+    NSArray *keys = [_admin_user_dict allKeys];
+    for(NSString *key in keys)
+    {
+        UMSS7ConfigAdminUser *u = _admin_user_dict[key];
+        if([u matchesIpAddress:ip])
+        {
+            return u;
+        }
+    }
+    return NULL;
+}
+
 - (NSString *)addAdminUser:(UMSS7ConfigAdminUser *)user
 {
     if(_admin_user_dict[user.name] == NULL)
