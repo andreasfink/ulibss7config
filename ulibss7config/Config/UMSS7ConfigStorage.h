@@ -453,6 +453,7 @@
 
 - (NSArray *)getAdminUserNames;
 - (UMSS7ConfigAdminUser *)getAdminUser:(NSString *)name;
+- (UMSS7ConfigAdminUser *)getAdminUserByIp:(NSString *)ip;
 - (NSString *)addAdminUser:(UMSS7ConfigAdminUser *)user;
 - (NSString *)replaceAdminUser:(UMSS7ConfigAdminUser *)user;
 - (NSString *)deleteAdminUser:(NSString *)name;
