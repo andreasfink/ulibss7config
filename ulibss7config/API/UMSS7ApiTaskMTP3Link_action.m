@@ -59,13 +59,13 @@
             }
             else if([action isEqualToString:@"power-on"])
             {
-                [mtp3link powerOn];
+                [mtp3link powerOn:@"api-action"];
                 [self sendResultOK];
 
             }
             else if([action isEqualToString:@"power-off"])
             {
-                [mtp3link powerOff];
+                [mtp3link powerOff:@"api-action"];
                 [self sendResultOK];
             }
 
