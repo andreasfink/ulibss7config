@@ -1879,11 +1879,9 @@ static void signalHandler(int signum);
     }
     if(_doRunTestCase)
     {
-        [self runSelectorInBackground:@selector(runTestCase:)];
+        [self runSelectorInBackground:@selector(runTestCase)];
     }
 }
-
-
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
