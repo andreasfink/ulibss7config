@@ -643,9 +643,14 @@
                     {
                         TRACK_FILE_ADD_COMMENT_FOR_FDES([_sock sock],@"accept");
                         BOOL doAccept = YES;
-                        if([_delegate respondsToSelector:@selector(isAddressWhitelisted:)])
+                        if([_delegate respondsToSelector:@selector(isAddressWhitelisted:remotePort:localIpAddress:localPort:serviceType:user:)])
                         {
-                            doAccept = [_delegate isAddressWhitelisted:newUc.connectedRemoteAddress];
+                            doAccept = [_delegate isAddressWhitelisted:newUc.connectedRemoteAddress
+                                                          remotePort:@(newUc.connectedRemotePort)
+                                                      localIpAddress:newUc.connectedLocalAddress
+                                                           localPort:@(newUc.connectedLocalPort)
+                                                         serviceType:@"telnet"
+                                                                user:NULL];
                         }
                         if(doAccept)
                         {

@@ -40,10 +40,10 @@
 - (void)sendResultOK;
 - (void)sendResultObject:(id)result;
 - (void)sendErrorNotAuthenticated;
-- (void)sendErrorNotAuthorized;
+- (void)sendErrorNotAuthorised;
 - (void)sendErrorMissingParameter:(NSString *)param;
 - (BOOL) isAuthenticated;
-- (BOOL) isAuthorized;
+- (BOOL) isAuthorised;
 - (void)sendException:(NSException *)e;
 - (SccpGttSelector *)getGttSelector;
 - (SccpGttRoutingTable *)getRoutingTable;

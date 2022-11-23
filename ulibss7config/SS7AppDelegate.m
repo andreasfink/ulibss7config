@@ -3218,7 +3218,7 @@ static void signalHandler(int signum);
             
         }
     }
-    [req setNotAuthorizedForRealm:realm];
+    [req setNotAuthorisedForRealm:realm];
     return UMHTTP_AUTHENTICATION_STATUS_FAILED;
 
 }
@@ -3237,8 +3237,13 @@ static void signalHandler(int signum);
 #pragma mark Console Handling
 /************************************************************/
 
-/* this is used for incoming telnet sessions to authorize by IP */
-- (BOOL) isAddressWhitelisted:(NSString *)ipAddress
+/* this is used for incoming telnet sessions to authorise by IP */
+- (BOOL) isAddressWhitelisted:(NSString *)remoteIpAddress
+                   remotePort:(NSNumber *)remotePort
+               localIpAddress:(NSString *)localIpAddress
+                    localPort:(NSNumber *)localPort
+                  serviceType:(NSString *)serviceType
+                         user:(NSString *)username
 {
     return YES;
 }

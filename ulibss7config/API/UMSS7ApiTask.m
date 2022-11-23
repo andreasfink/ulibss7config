@@ -225,15 +225,15 @@
     [_webRequest resumePendingRequest];
 }
 
-- (void)sendErrorNotAuthorized
+- (void)sendErrorNotAuthorised
 {
-    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized" }];
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorised" }];
     [_webRequest resumePendingRequest];
 }
 
 - (void)sendErrorSessionExpired
 {
-    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized", @"reason" : @"session-expired" }];
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorised", @"reason" : @"session-expired" }];
     [_webRequest resumePendingRequest];
 }
 
@@ -266,7 +266,7 @@
     return NO;
 }
 
-- (BOOL)isAuthorized
+- (BOOL)isAuthorised
 {
     /* this will be expanded in the future to more fine grained user authorisation method. For now a user can do all or nothing */
     return YES;

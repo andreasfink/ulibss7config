@@ -254,7 +254,7 @@
 
         if(req.authenticationStatus == UMHTTP_AUTHENTICATION_STATUS_FAILED)
         {
-            [req setResponsePlainText:@"not-authorized"];
+            [req setResponsePlainText:@"not-authorised"];
             [req setRequireAuthentication];
             return;
         }

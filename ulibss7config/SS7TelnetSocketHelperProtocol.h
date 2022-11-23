@@ -11,6 +11,11 @@
 
 @protocol SS7TelnetSocketHelperProtocol<NSObject>
 
-- (BOOL) isAddressWhitelisted:(NSString *)ipAddress;
+- (BOOL) isAddressWhitelisted:(NSString *)remoteIpAddress
+                   remotePort:(NSNumber *)remotePort
+               localIpAddress:(NSString *)localIpAddress
+                    localPort:(NSNumber *)localPort
+                  serviceType:(NSString *)serviceType
+                         user:(NSString *)username;
 
 @end
