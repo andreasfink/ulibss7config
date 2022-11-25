@@ -5446,7 +5446,6 @@ static void signalHandler(int signum);
                                                   options:@{ @"decode-only" : @YES }
                                                       map:NULL
                                       incomingLinksetName:NULL];
-        
             @autoreleasepool
             {
                 [task main];
