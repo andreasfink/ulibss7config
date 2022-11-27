@@ -6638,12 +6638,12 @@ static void signalHandler(int signum);
         [packet.logFeed infoText:@"filtering is not active. Skipping"];
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
-    NSArray<NSString *> *ruleSets = _incomingLinksetFilters[packet.incomingLinkset];
+    NSArray<NSString *> *ruleSets = _incomingLinksetFilters[packet.incomingLinksetName];
     if(ruleSets==NULL)
     {
         if(_logLevel<= UMLOG_DEBUG)
         {
-            [packet.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+            [packet.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinksetName]];
         }
         ruleSets = _incomingLinksetFilters[@"all"];
         if(ruleSets==NULL)
@@ -6692,12 +6692,12 @@ static void signalHandler(int signum);
         [self.logFeed infoText:@"filtering is not active. Skipping"];
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
-    NSArray<NSString *> *ruleSets = _outgoingLinksetFilters[packet.incomingLinkset];
+    NSArray<NSString *> *ruleSets = _outgoingLinksetFilters[packet.incomingLinksetName];
     if(ruleSets==NULL)
     {
         if(_logLevel<= UMLOG_DEBUG)
         {
-            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinksetName]];
         }
         ruleSets = _outgoingLinksetFilters[@"all"];
         if(ruleSets==NULL)
@@ -6742,12 +6742,12 @@ static void signalHandler(int signum);
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
 
-    NSArray<NSString *> *ruleSets = _incomingLocalSubsystemFilters[packet.incomingLinkset];
+    NSArray<NSString *> *ruleSets = _incomingLocalSubsystemFilters[packet.incomingLinksetName];
     if(ruleSets==NULL)
     {
         if(_logLevel<= UMLOG_DEBUG)
         {
-            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinksetName]];
         }
         ruleSets = _incomingLocalSubsystemFilters[@"all"];
         if(ruleSets==NULL)
@@ -6792,12 +6792,12 @@ static void signalHandler(int signum);
         return UMSCCP_FILTER_RESULT_UNMODIFIED;
     }
 
-    NSArray<NSString *> *ruleSets = _outgoingLocalSubsystemFilters[packet.incomingLinkset];
+    NSArray<NSString *> *ruleSets = _outgoingLocalSubsystemFilters[packet.incomingLinksetName];
     if(ruleSets==NULL)
     {
         if(_logLevel<= UMLOG_DEBUG)
         {
-            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinkset]];
+            [self.logFeed debugText:[NSString stringWithFormat:@" no ruleset found for linkset '%@'. Trying 'all' now.",packet.incomingLinksetName]];
         }
         ruleSets = _outgoingLocalSubsystemFilters[@"all"];
         if(ruleSets==NULL)

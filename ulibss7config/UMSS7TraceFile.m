@@ -101,7 +101,7 @@
     {
         NSString *s = [packet.incomingMtp3Data hexString];
         NSDate *ts = [NSDate date];
-        NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,packet.incomingLinkset,s];
+        NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,packet.incomingLinksetName,s];
         NSData *d = [line dataUsingEncoding:NSUTF8StringEncoding];
         fwrite(d.bytes,d.length,1,_fptr);
         fflush(_fptr);
