@@ -57,6 +57,8 @@
     APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-name",_screeningSccpPluginName);
     APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-config-file",_screeningSccpPluginConfigFile);
     APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile);
+    APPEND_CONFIG_INTEGER(s,@"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel);
+
 
 }
 
@@ -85,6 +87,8 @@
     APPEND_DICT_STRING(dict,@"screening-sccp-plugin-name",_screeningSccpPluginName);
     APPEND_DICT_STRING(dict,@"screening-sccp-plugin-config-file",_screeningSccpPluginConfigFile);
     APPEND_DICT_STRING(dict,@"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile);
+    APPEND_DICT_INTEGER(dict,@"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel);
+
     return dict;
 }
 
@@ -112,6 +116,8 @@
     SET_DICT_STRING(dict,@"screening-sccp-plugin-name",_screeningSccpPluginName);
     SET_DICT_STRING(dict,@"screening-sccp-plugin-config-file",_screeningSccpPluginConfigFile);
     SET_DICT_STRING(dict,@"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile);
+    SET_DICT_INTEGER(dict,@"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel);
+
 }
 
 - (UMSS7ConfigSCCP *)copyWithZone:(NSZone *)zone

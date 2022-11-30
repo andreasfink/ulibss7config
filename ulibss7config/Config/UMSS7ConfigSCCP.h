@@ -33,6 +33,8 @@
     NSString *_screeningSccpPluginName;
     NSString *_screeningSccpPluginConfigFile;
     NSString *_screeningSccpPluginTraceFile;
+    NSNumber *_screeningSccpPluginTraceLevel;
+
 }
 
 + (NSString *)type;
@@ -61,5 +63,6 @@
 @property(readwrite,strong,atomic)  NSString *screeningSccpPluginName;
 @property(readwrite,strong,atomic)  NSString *screeningSccpPluginConfigFile;
 @property(readwrite,strong,atomic)  NSString *screeningSccpPluginTraceFile;
+@property(readwrite,strong,atomic)  NSNumber *screeningSccpPluginTraceLevel;
 
 @end
