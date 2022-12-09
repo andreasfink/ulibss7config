@@ -102,9 +102,9 @@
                     [self sendErrorNotFound:@"translation-table-entry"];
                     return;
                 }
-                NSLog(@"sccp_instance.mtp3RoutingTable=%@",sccp_instance.mtp3RoutingTable);
+                NSLog(@"sccp_instance.mtp3RoutingTable=%@",sccp_instance.sccpL3RoutingTable);
 
-                UMSynchronizedSortedDictionary *dict = [rte statusForL3RoutingTable:sccp_instance.mtp3RoutingTable];
+                UMSynchronizedSortedDictionary *dict = [rte statusForL3RoutingTable:sccp_instance.sccpL3RoutingTable];
 
                 @try
                 {
