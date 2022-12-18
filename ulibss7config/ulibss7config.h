@@ -55,6 +55,7 @@
 #import "UMSS7ConfigHLR.h"
 #import "UMSS7ConfigMSC.h"
 #import "UMSS7ConfigGGSN.h"
+#import "UMSS7ConfigSGSN.h"
 #import "UMSS7ConfigVLR.h"
 #import "UMSS7ConfigGSMSCF.h"
 #import "UMSS7ConfigGMLC.h"
@@ -67,10 +68,18 @@
 #import "UMSS7ConfigSCCPNumberTranslation.h"
 #import "UMSS7ConfigSCCPNumberTranslationEntry.h"
 #import "UMSS7ConfigServiceUser.h"
-#import "UMSS7ConfigServiceUserProfile.h"
+#import "UMSS7ConfigServiceProfile.h"
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ConfigDiameterConnection.h"
+#import "UMSS7ConfigSMPPServer.h"
+#import "UMSS7ConfigSMPPConnection.h"
+#import "UMSS7ConfigSMPPPlugin.h"
+#import "UMSS7ConfigAuthServer.h"
+#import "UMSS7ConfigStorageServer.h"
+#import "UMSS7ConfigCdrServer.h"
+
+#import "UMSS7ConfigCAMEL.h"
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
 #import "UMSS7ConfigIMSIPool.h"
@@ -92,5 +101,4 @@
 
 #import "SS7CDRWriter.h"
 #import "SS7CDRWriterTask.h"
-
 

@@ -12,9 +12,13 @@
 @interface UMSS7ConfigSCCPDestination : UMSS7ConfigObject
 {
     NSString *_sccp;
+    NSString *_postTranslation;
+    NSString *_distributionMethod;
 }
 
 @property(readwrite,strong,atomic)  NSString *sccp;
+@property(readwrite,strong,atomic)  NSString *postTranslation;
+@property(readwrite,strong,atomic)  NSString *distributionMethod;
 
 + (NSString *)type;
 - (NSString *)type;

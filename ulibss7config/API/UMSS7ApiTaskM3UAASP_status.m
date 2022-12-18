@@ -29,9 +29,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
 
@@ -40,32 +40,7 @@
         UMM3UAApplicationServerProcess *asp = [_appDelegate getM3UAASP:name];
         if(asp)
         {
-
-
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-
-            switch(asp.sctp_status)
-            {
-                case UMSOCKET_STATUS_FOOS:
-                    dict[@"sctp-status"]=@"forced-out-of-service";
-                    break;
-                case UMSOCKET_STATUS_OFF:
-                    dict[@"sctp-status"]=@"off";
-                    break;
-                case UMSOCKET_STATUS_OOS:
-                    dict[@"status"]=@"out-of-service";
-                    break;
-                case UMSOCKET_STATUS_IS:
-                    dict[@"sctp-status"]=@"in-service";
-                    break;
-                default:
-                    dict[@"sctp-status"]=@"invalid";
-                    break;
-            }
-            dict[@"sctp-connecting"]=@(asp.sctp_connecting);
-            dict[@"sctp-up"]=@(asp.sctp_up);
-            dict[@"m3ua-asp-up"]=@(asp.up);
-            dict[@"m3ua-asp-active"]=@(asp.active);
+            UMSynchronizedSortedDictionary *dict = [asp m3uaStatusDict];
             [self sendResultObject:dict];
         }
         else

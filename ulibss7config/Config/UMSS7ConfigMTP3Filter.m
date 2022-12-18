@@ -36,6 +36,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"default-result",_defaultResult);
+    APPEND_CONFIG_STRING(s,@"plug-in",_plugIn);
     for(UMSS7ConfigMTP3FilterEntry *e in _subEntries)
     {
         [s appendString:@"\n"];
@@ -48,6 +49,8 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"default-result",_defaultResult);
+    APPEND_DICT_STRING(dict,@"plug-in",_plugIn);
+
     return dict;
 }
 
@@ -55,6 +58,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"default-result",_defaultResult);
+    SET_DICT_STRING(dict,@"plug-in",_plugIn);
 }
 
 - (void)setSubConfig:(NSArray *)configs

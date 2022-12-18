@@ -33,6 +33,7 @@
         _webRequest = webRequest;
         _params = [_webRequest.params urldecodeStringValues];
         _appDelegate = ad;
+        _logFeed = _appDelegate.apiLogFeed;
         [_webRequest makeAsync];
     }
     return self;
@@ -43,9 +44,41 @@
     return @"";
 }
 
+- (void)startup
+{
+    if(_logFeed)
+    {
+        _history = [[UMHistoryLog alloc]init];
+
+        [_history addPrintableString:_webRequest.path];
+        NSArray *allKeys = [_params allKeys];
+        for(NSString *key in allKeys)
+        {
+            NSString *value = _params[key];
+            [_history addPrintableString:[NSString stringWithFormat:@"    %@=%@",key,value]];
+        }
+    }
+}
+
 - (void)main 
 {
     [self sendErrorNotImplemented];
+}
+
+- (void)shutdown
+{
+    if(_logFeed)
+    {
+        NSData *response = [_webRequest extractResponse];
+        
+        NSString *s = [[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
+        if(s)
+        {
+            [_history addPrintableString:s];
+        }
+        [_logFeed debugText:[_history stringLines]];
+        _history = NULL;
+    }
 }
 
 + (BOOL)doNotList
@@ -173,6 +206,13 @@
     [_webRequest resumePendingRequest];
 }
 
+
+-(void)sendResultHtml:(NSString *)html
+{
+    [_webRequest setResponseHtmlString:html];
+    [_webRequest resumePendingRequest];
+}
+
 - (void)sendErrorNotImplemented
 {
     [_webRequest setResponseJsonObject:@{ @"error" : @"not-implemented" }];
@@ -185,15 +225,15 @@
     [_webRequest resumePendingRequest];
 }
 
-- (void)sendErrorNotAuthorized
+- (void)sendErrorNotAuthorised
 {
-    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized" }];
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorised" }];
     [_webRequest resumePendingRequest];
 }
 
 - (void)sendErrorSessionExpired
 {
-    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorized", @"reason" : @"session-expired" }];
+    [_webRequest setResponseJsonObject:@{ @"error" : @"not-authorised", @"reason" : @"session-expired" }];
     [_webRequest resumePendingRequest];
 }
 
@@ -226,7 +266,7 @@
     return NO;
 }
 
-- (BOOL)isAuthorized
+- (BOOL)isAuthorised
 {
     /* this will be expanded in the future to more fine grained user authorisation method. For now a user can do all or nothing */
     return YES;
@@ -317,7 +357,7 @@
         [self sendErrorNotFound:@"digits"];
         return NULL;
     }
-    SccpGttRoutingTableEntry *rte = [rt findEntryByDigits:digits];
+    SccpGttRoutingTableEntry *rte = [rt findEntryByDigits:digits transactionNumber:NULL ssn:NULL operation:NULL appContext:NULL];
     return rte;
 }
 
@@ -339,6 +379,7 @@
     SccpGttRoutingTableEntry *rte = [rt findEntryByName:name];
     return rte;
 }
+
 
 @end
 

@@ -30,9 +30,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
 
@@ -42,7 +42,7 @@
         if(mtp3Link)
         {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-            dict[@"m2pa-status"] = [UMLayerM2PA m2paStatusString:mtp3Link.m2pa.m2pa_status];
+            dict[@"m2pa-status"] = mtp3Link.m2pa.stateString;
             switch(mtp3Link.sctp_status)
             {
                 case UMSOCKET_STATUS_FOOS:

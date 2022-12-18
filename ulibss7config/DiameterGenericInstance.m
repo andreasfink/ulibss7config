@@ -56,7 +56,7 @@
 
 - (DiameterGenericInstance *)init
 {
-    self = [super init];
+    self = [super initWithTaskQueueMulti:NULL name:@"diameter"];
     if(self)
     {
         [self genericInitialisation];
@@ -77,7 +77,7 @@
 
 - (DiameterGenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq
 {
-    self = [super initWithTaskQueueMulti:tq];
+    self = [super initWithTaskQueueMulti:tq name:@"diameter-i"];
     if(self)
     {
         [self genericInitialisation];
@@ -254,7 +254,7 @@
 
         if(req.authenticationStatus == UMHTTP_AUTHENTICATION_STATUS_FAILED)
         {
-            [req setResponsePlainText:@"not-authorized"];
+            [req setResponsePlainText:@"not-authorised"];
             [req setRequireAuthentication];
             return;
         }

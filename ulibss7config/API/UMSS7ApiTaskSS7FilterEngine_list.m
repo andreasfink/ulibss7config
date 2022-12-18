@@ -26,9 +26,9 @@
             return;
         }
 
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         NSArray *arr = [_appDelegate getSS7FilterEngineNames];

@@ -29,9 +29,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -42,7 +42,7 @@
         if(sccp)
         {
             UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
-            dict[@"routing-table"] = [sccp.mtp3RoutingTable status];
+            dict[@"routing-table"] = [sccp.sccpL3RoutingTable status];
             dict[@"statistics"] = [sccp statisticalInfo];
             [self sendResultObject:dict];
         }

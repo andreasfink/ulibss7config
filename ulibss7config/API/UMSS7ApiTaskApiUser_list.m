@@ -32,9 +32,9 @@
             return;
         }
 
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
 
@@ -57,7 +57,7 @@
                         UMSS7ConfigApiUser *obj = [cs getApiUser:name];
                         if(obj)
                         {
-                            UMSynchronizedSortedDictionary *dict;
+                            UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
                             SET_DICT_STRING_OR_EMPTY(dict,@"name",obj.name);
                             SET_DICT_STRING_OR_EMPTY(dict,@"profile",obj.profile);
                             [entries addObject:dict];
@@ -65,6 +65,7 @@
                     }
                     [self sendResultObject:entries];
                 }
+                break;
              case 2:
                  {
                      NSMutableArray *entries = [[NSMutableArray alloc]init];

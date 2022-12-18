@@ -32,9 +32,9 @@
             return;
         }
 
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -49,24 +49,10 @@
             @try
             {
                 // 2. Get Engine
-                NSString *engine_name = _params[@"engine"];
-                UMPluginHandler *engine = [_appDelegate getSS7FilterEngineHandler:engine_name];
-                
-                // 3. Get Rule-Set
-                NSString *ruleset_name = _params[@"filter-ruleset"];
+                NSString *ruleset_name  = _params[@"filter-ruleset"];
+                NSString *idx           = _params[@"entry-nr"];
                 UMSS7ConfigSS7FilterRuleSet* rSet = stagingArea.filter_rule_set_dict[ruleset_name];
-                
-                // 4. Get index of rule
-                NSString *idx = _params[@"entry-nr"];
-                
-                // 5. Verify if engine, rule-set, rule exist
-                if(engine == NULL)
-                {
-                    // 5a. Not found
-                    [self sendErrorNotFound:engine_name];
-                    
-                }
-                else if(rSet == NULL)
+                if(rSet == NULL)
                 {
                     // 5b. Not found
                     [self sendErrorNotFound:ruleset_name];
@@ -89,8 +75,8 @@
                     else
                     {
                         // 5d-2. OK
-                        UMSS7ConfigSS7FilterRule* newRule  = [[UMSS7ConfigSS7FilterRule alloc]initWithConfig:_params];
-                        [rSet setRule:newRule atIndex:i];
+                        [filterRule setConfig:_params];
+                        [rSet setRule:filterRule atIndex:i];
                         [stagingArea setDirty:YES];
                         [self sendResultOK];
                     }

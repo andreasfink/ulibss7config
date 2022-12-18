@@ -29,9 +29,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -40,7 +40,8 @@
         UMM3UAApplicationServer *m3ua_as = [_appDelegate getM3UAAS:name];
         if(m3ua_as)
         {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            //NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            UMSynchronizedSortedDictionary *dict = [m3ua_as m3uaStatusDict];
             switch(m3ua_as.m3ua_status)
             {
 
@@ -82,7 +83,6 @@
             {
                 dict[@"current-tx-speed-bytes"] = [m3ua_as.speedometerTxBytes  getSpeedTripleJson];
             }
-
             [self sendResultObject:dict];
         }
         else

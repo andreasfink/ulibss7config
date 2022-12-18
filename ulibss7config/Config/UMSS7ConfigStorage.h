@@ -42,7 +42,8 @@
 @class  UMSS7ConfigSyslogDestination;
 @class  UMSS7ConfigHLR;
 @class  UMSS7ConfigMSC;
-@class UMSS7ConfigGGSN;
+@class  UMSS7ConfigGGSN;
+@class  UMSS7ConfigSGSN;
 @class  UMSS7ConfigVLR;
 @class  UMSS7ConfigGSMSCF;
 @class  UMSS7ConfigGMLC;
@@ -54,9 +55,8 @@
 @class UMSS7ConfigEIR;
 @class UMSS7ConfigSCCPNumberTranslation;
 @class UMSS7ConfigServiceUser;
-@class UMSS7ConfigServiceUserProfile;
+@class UMSS7ConfigServiceProfile;
 @class UMSS7ConfigServiceBillingEntity;
-@class UMSS7ConfigSMSProxy;
 @class UMSS7ConfigESTP;
 @class UMSS7ConfigMAPI;
 @class UMSS7ConfigIMSIPool;
@@ -67,6 +67,15 @@
 @class UMSS7ConfigDiameterRouter;
 @class UMSS7ConfigDiameterRoute;
 @class UMSS7ConfigCAMEL;
+@class UMSS7ConfigMnpDatabase;
+@class UMSS7ConfigMirrorPort;
+@class UMSS7ConfigSMSDeliveryProvider;
+@class UMSS7ConfigSMPPServer;
+@class UMSS7ConfigSMPPConnection;
+@class UMSS7ConfigSMPPPlugin;
+@class UMSS7ConfigAuthServer;
+@class UMSS7ConfigStorageServer;
+@class UMSS7ConfigCdrServer;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -102,6 +111,7 @@
     UMSynchronizedSortedDictionary *_hlr_dict;
     UMSynchronizedSortedDictionary *_msc_dict;
     UMSynchronizedSortedDictionary *_ggsn_dict;
+    UMSynchronizedSortedDictionary *_sgsn_dict;
     UMSynchronizedSortedDictionary *_vlr_dict;
     UMSynchronizedSortedDictionary *_gsmscf_dict;
     UMSynchronizedSortedDictionary *_gmlc_dict;
@@ -123,6 +133,15 @@
     UMSynchronizedSortedDictionary *_diameter_router_dict;
     UMSynchronizedSortedDictionary *_diameter_route_dict;
     UMSynchronizedSortedDictionary *_camel_dict;
+    UMSynchronizedSortedDictionary *_mnpDatabases_dict;
+    UMSynchronizedSortedDictionary *_mirrorPorts_dict;
+    UMSynchronizedSortedDictionary *_smsDeliveryProviders_dict;
+    UMSynchronizedSortedDictionary *_smppServers_dict;
+    UMSynchronizedSortedDictionary *_smppConnections_dict;
+    UMSynchronizedSortedDictionary *_smppPlugins_dict;
+    UMSynchronizedSortedDictionary *_authServers_dict;
+    UMSynchronizedSortedDictionary *_storageServers_dict;
+    UMSynchronizedSortedDictionary *_cdrServers_dict;
 
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
@@ -162,6 +181,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *hlr_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *msc_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *ggsn_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *sgsn_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *vlr_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *gsmscf_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *gmlc_dict;
@@ -183,6 +203,15 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_router_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *diameter_route_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *camel_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mnpDatabases_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *mirrorPorts_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smsDeliveryProviders_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppServers_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppConnections_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smppPlugins_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *authServers_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *storageServers_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *cdrServers_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -334,6 +363,13 @@
 - (NSString *)replaceGGSN:(UMSS7ConfigGGSN *)msc;
 - (NSString *)deleteGGSN:(NSString *)name;
 
+- (NSArray *)getSGSNNames;
+- (UMSS7ConfigSGSN *)getSGSN:(NSString *)name;
+- (NSString *)addSGSN:(UMSS7ConfigSGSN *)msc;
+- (NSString *)replaceSGSN:(UMSS7ConfigSGSN *)msc;
+- (NSString *)deleteSGSN:(NSString *)name;
+
+
 - (NSArray *)getVLRNames;
 - (UMSS7ConfigVLR *)getVLR:(NSString *)name;
 - (NSString *)addVLR:(UMSS7ConfigVLR *)vlr;
@@ -417,6 +453,7 @@
 
 - (NSArray *)getAdminUserNames;
 - (UMSS7ConfigAdminUser *)getAdminUser:(NSString *)name;
+- (UMSS7ConfigAdminUser *)getAdminUserByIp:(NSString *)ip;
 - (NSString *)addAdminUser:(UMSS7ConfigAdminUser *)user;
 - (NSString *)replaceAdminUser:(UMSS7ConfigAdminUser *)user;
 - (NSString *)deleteAdminUser:(NSString *)name;
@@ -435,9 +472,9 @@
 - (NSString *)deleteServiceUser:(NSString *)name;
 
 - (NSArray *)getServiceUserProfileNames;
-- (UMSS7ConfigServiceUserProfile *)getServiceUserProfile:(NSString *)name;
-- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceUserProfile *)smsc;
-- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceUserProfile *)smsc;
+- (UMSS7ConfigServiceProfile *)getServiceUserProfile:(NSString *)name;
+- (NSString *)addServiceUserProfile:(UMSS7ConfigServiceProfile *)smsc;
+- (NSString *)replaceServiceUserProfile:(UMSS7ConfigServiceProfile *)smsc;
 - (NSString *)deleteServiceUserProfile:(NSString *)name;
 
 - (NSArray *)getServiceBillingEntityNames;
@@ -490,11 +527,66 @@
 - (NSString *)replacePointcodeTranslationTable:(UMSS7ConfigMTP3PointCodeTranslationTable *)dc;
 - (NSString *)deletePointcodeTranslationTable:(NSString *)name;
 
-
 - (NSArray *)getCAMELNames;
 - (UMSS7ConfigCAMEL *)getCAMEL:(NSString *)name;
 - (NSString *)addCAMEL:(UMSS7ConfigCAMEL *)camel;
 - (NSString *)replaceCAMEL:(UMSS7ConfigCAMEL *)camel;
 - (NSString *)deleteCAMEL:(NSString *)name;
+
+- (NSArray *)getMnpDatabaseNames;
+- (UMSS7ConfigMnpDatabase *)getMnpDatabase:(NSString *)name;
+- (NSString *)addMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
+- (NSString *)replaceMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
+- (NSString *)deleteMnpDatabase:(NSString *)name;
+
+- (NSArray *)getMirrorPortNames;
+- (UMSS7ConfigMirrorPort *)getMirrorPort:(NSString *)name;
+- (NSString *)addMirrorPort:(UMSS7ConfigMirrorPort *)mnpdb;
+- (NSString *)replaceMirrorPort:(UMSS7ConfigMirrorPort *)mnpdb;
+- (NSString *)deleteMirrorPort:(NSString *)name;
+
+- (NSArray *)getSMSDeliveryProviderNames;
+- (UMSS7ConfigSMSDeliveryProvider *)getSMSDeliveryProvider:(NSString *)name;
+- (NSString *)addSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)rpoxy;
+- (NSString *)replaceSMSDeliveryProvider:(UMSS7ConfigSMSDeliveryProvider *)proxy;
+- (NSString *)deleteSMSDeliveryProvider:(NSString *)name;
+
+
+- (NSArray *)getSMPPServers;
+- (UMSS7ConfigSMPPServer *)getSMPPServer:(NSString *)name;
+- (NSString *)addSMPPServer:(UMSS7ConfigSMPPServer *)provider;
+- (NSString *)replaceSMPPServer:(UMSS7ConfigSMPPServer *)provider;
+- (NSString *)deleteSMPPServer:(NSString *)name;
+
+- (NSArray *)getSMPPConnections;
+- (UMSS7ConfigSMPPConnection *)getSMPPConnections:(NSString *)name;
+- (NSString *)addSMPPConnection:(UMSS7ConfigSMPPConnection *)provider;
+- (NSString *)replaceSMPPConnection:(UMSS7ConfigSMPPConnection *)provider;
+- (NSString *)deleteSMPPConnection:(NSString *)name;
+
+- (NSArray *)getSMPPPlugins;
+- (UMSS7ConfigSMPPPlugin *)getSMPPPlugin:(NSString *)name;
+- (NSString *)addSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider;
+- (NSString *)replaceSMPPPlugin:(UMSS7ConfigSMPPPlugin *)provider;
+- (NSString *)deleteSMPPPlugin:(NSString *)name;
+
+- (NSArray *)getAuthServers;
+- (UMSS7ConfigAuthServer *)getAuthServer:(NSString *)name;
+- (NSString *)addAuthServer:(UMSS7ConfigAuthServer *)provider;
+- (NSString *)replaceAuthServer:(UMSS7ConfigAuthServer *)provider;
+- (NSString *)deleteAuthServer:(NSString *)name;
+
+- (NSArray *)getStorageServers;
+- (UMSS7ConfigStorageServer *)getStorageServer:(NSString *)name;
+- (NSString *)addStorageServer:(UMSS7ConfigStorageServer *)provider;
+- (NSString *)replaceStorageServer:(UMSS7ConfigStorageServer *)provider;
+- (NSString *)deleteStorageServer:(NSString *)name;
+
+- (NSArray *)getCdrServers;
+- (UMSS7ConfigCdrServer *)getCdrServer:(NSString *)name;
+- (NSString *)addCdrServer:(UMSS7ConfigCdrServer *)provider;
+- (NSString *)replaceCdrServer:(UMSS7ConfigCdrServer *)provider;
+- (NSString *)deleteCdrServer:(NSString *)name;
+
 
 @end

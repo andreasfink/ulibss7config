@@ -17,6 +17,7 @@
     NSString            *_documentRoot;
     NSString            *_ipVersion;
     NSString            *_transportProtocol;
+    NSNumber            *_disableAuthentication;
 }
 
 + (NSString *)type;
@@ -32,6 +33,7 @@
 @property(readwrite,strong,atomic)      NSString            *documentRoot;
 @property(readwrite,strong,atomic)      NSString            *ipVersion;
 @property(readwrite,strong,atomic)      NSString            *transportProtocol;
+@property(readwrite,strong,atomic)      NSNumber            *disableAuthentication;
 
 @end
 

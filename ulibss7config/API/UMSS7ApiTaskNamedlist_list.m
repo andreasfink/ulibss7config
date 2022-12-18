@@ -30,9 +30,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -40,17 +40,19 @@
         {
             // 1. Get external parameters
             NSString *listName = [_params[@"name"] urldecode];
+            listName = [UMSS7ConfigObject filterName:listName];
             if(listName.length==0)
             {
                 /* backwards compatibility to old api of SMSProx4 */
                 listName = [_params[@"list"] urldecode];
+                listName = [UMSS7ConfigObject filterName:listName];
             }
             if(listName.length==0)
             {
                 [self sendError:@"missing-parameter" reason:@"the 'list' or 'name' parameter is not passed"];
                 return;
             }
-            NSArray *items = [_appDelegate namedlistList:listName];
+            NSArray *items = [_appDelegate namedlistGetAllEntriesOfList:listName];
             [self sendResultObject:items];
         }
         @catch(NSException *e)

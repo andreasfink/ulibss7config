@@ -31,9 +31,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -48,18 +48,45 @@
             @try
             {
                 NSString *name = _params[@"name"];
-                //NSString *action = _params[@"action"];
-                UMSS7ConfigSS7FilterRuleSet *rs = stagingArea.filter_rule_set_dict[name];
-                if(rs == NULL)
+                NSString *action = _params[@"action"];
+                UMSS7ConfigSS7FilterRuleSet *filterRuleSet = stagingArea.filter_rule_set_dict[name];
+                if(filterRuleSet == NULL)
                 {
                     [self sendErrorNotFound:name];
                 }
                 else
                 {
-                    /* we shoudl now call the live API to do some action for this object. */
-                    /* FIXME Andreas */
-                    [stagingArea setDirty:YES];
-                    [self sendResultOK];
+                    if([action isEqualToString:@"action-list"])
+                    {
+                        if(filterRuleSet.enabled == NULL)
+                        {
+                            filterRuleSet.enabled = @(YES);
+                        }
+                        if(filterRuleSet.enabled.boolValue)
+                        {
+                            [self sendResultObject:@[@"enable"]];
+                        }
+                        else
+                        {
+                            [self sendResultObject:@[@"disable"]];
+                        }
+                    }
+                    else if([action isEqualToString:@"disable"])
+                    {
+                       filterRuleSet.enabled = @(NO);
+                       [self sendResultOK];
+                       [stagingArea setDirty:YES];
+                    }
+                    else if([action isEqualToString:@"enable"])
+                    {
+                        filterRuleSet.enabled = @(YES);
+                        [self sendResultOK];
+                        [stagingArea setDirty:YES];
+                    }
+                    else
+                    {
+                        [self sendErrorUnknownAction];
+                    }
                 }
             }
             @catch(NSException *e)

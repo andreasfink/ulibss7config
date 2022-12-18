@@ -35,6 +35,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"password",_password);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"no-auth-ip",_withoutAuthenticationIp);
 }
 
 
@@ -42,12 +43,14 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"password",_password);
+    APPEND_DICT_ARRAY(dict,@"no-auth-ip",_withoutAuthenticationIp);
     return dict;
 }
 
 - (void)setConfig:(NSDictionary *)dict
 {
     SET_DICT_STRING(dict,@"password",_password);
+    SET_DICT_ARRAY(dict,@"no-auth-ip",_withoutAuthenticationIp);
 }
 
 - (UMSS7ConfigAdminUser *)copyWithZone:(NSZone *)zone
@@ -56,6 +59,11 @@
     return [[UMSS7ConfigAdminUser allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
+- (BOOL)matchesIpAddress:(NSString *)ip
+{
+    /* FIXME */
+    return NO;
+}
 
 @end
 

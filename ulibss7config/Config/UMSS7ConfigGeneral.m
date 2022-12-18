@@ -41,12 +41,15 @@
     APPEND_CONFIG_INTEGER(s,@"concurrent-tasks",_concurrentTasks);
     APPEND_CONFIG_INTEGER(s,@"queue-hard-limit",_queueHardLimit);
     APPEND_CONFIG_INTEGER(s,@"transaction-id-range",_transactionIdRange);
+    APPEND_CONFIG_BOOLEAN(s,@"send-sctp-aborts",_sendSctpAborts);
+    APPEND_CONFIG_STRING(s,@"filter-engine-directory",_filterEngineDirectory);
+    APPEND_CONFIG_STRING(s,@"zmq-socket",_zmqSocket);
+    APPEND_CONFIG_STRING(s,@"gui",_gui);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
-    
     APPEND_DICT_STRING(dict,@"hostname",_hostname);
     APPEND_DICT_STRING(dict,@"log-directory",_logDirectory);
     APPEND_DICT_INTEGER(dict,@"log-rotations",_logRotations);
@@ -54,6 +57,10 @@
     APPEND_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
     APPEND_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
     APPEND_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
+    APPEND_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
+    APPEND_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
+    APPEND_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    APPEND_DICT_STRING(dict,@"gui",_gui);
 
     return dict;
 }
@@ -67,7 +74,10 @@
     SET_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
     SET_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
     SET_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
-
+    SET_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
+    SET_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
+    SET_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    SET_DICT_STRING(dict,@"gui",_gui);
 }
 
 - (UMSS7ConfigGeneral *)copyWithZone:(NSZone *)zone

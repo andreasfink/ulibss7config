@@ -31,18 +31,18 @@
     UMAtomicDate            *_lastActiveTime;
     NSTimeInterval          _timeoutInSeconds;
 
-    NSMutableDictionary         *_options;
-    NSMutableArray              *_packets_sent;
-    NSMutableArray              *_packets_received;
-    UMPCAPFile                  *_pcap;
-    BOOL                        _doEnd;
-    BOOL                        _nowait;
-    BOOL                        _undefinedSession;
-    NSDictionary                *_incomingOptions;
-    BOOL                        _outgoing;
-    BOOL                        _incoming;
-    OutputFormat                _outputFormat;
-    UMLogLevel                  _logLevel;
+    NSMutableDictionary     *_options;
+    NSMutableArray          *_packets_sent;
+    NSMutableArray          *_packets_received;
+    UMPCAPFile              *_pcap;
+    BOOL                    _doEnd;
+    BOOL                    _nowait;
+    BOOL                    _undefinedSession;
+    NSDictionary            *_incomingOptions;
+    BOOL                    _outgoing;
+    BOOL                    _incoming;
+    OutputFormat            _outputFormat;
+    UMLogLevel              _logLevel;
     UMHistoryLog            *_historyLog;
     UMMutex                 *_operationMutex;
     NSDictionary            *_params;
@@ -79,7 +79,7 @@
 @property(readwrite,assign,atomic)    OutputFormat                outputFormat;
 @property(readwrite,assign,atomic)    UMLogLevel                logLevel;
 
-@property(readwrite,strong,atomic)      UMHistoryLog            *historyLog;
+@property(readwrite,strong,atomic)    UMHistoryLog            *historyLog;
 @property(readwrite,strong,atomic)    NSDictionary                *params;
 
 //--------------------------------------------------------------------------------------------
@@ -89,6 +89,7 @@
 
 -(DiameterGenericSession *)initWithHttpReq:(UMHTTPRequest *)xreq
                                   instance:(DiameterGenericInstance *)inst;
+
 -(DiameterGenericSession *)setHttpRequest:(UMHTTPRequest *)xreq
                                  instance:(DiameterGenericInstance *)inst;
 

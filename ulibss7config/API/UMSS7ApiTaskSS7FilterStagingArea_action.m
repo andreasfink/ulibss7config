@@ -31,9 +31,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -45,6 +45,10 @@
             if(name.length==0)
             {
                 [self sendError:@"missing-parameter" reason:@"the 'name' parameter is not passed"];
+            }
+            else if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[@"copy",@"activate",@"select"]];
             }
             else if([action isEqualToString:@"copy"])
             {
@@ -60,7 +64,6 @@
                     [_appDelegate copySS7FilterStagingArea:name toNewName:new_name];
                     [self sendResultOK];
                 }
-
             }
             else if([action isEqualToString:@"activate"])
             {
@@ -86,7 +89,6 @@
             {
                 [self sendError:@"not-supported-value" reason:@"the 'action' must have known value (e.g. select)!"];
             }
-            
         }
         @catch(NSException *e)
         {

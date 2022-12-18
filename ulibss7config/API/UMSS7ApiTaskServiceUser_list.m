@@ -29,9 +29,9 @@
             return;
         }
 
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
 
@@ -54,15 +54,12 @@
                         UMSS7ConfigServiceUser *obj = [cs getServiceUser:name];
                         if(obj)
                         {
-                            UMSynchronizedSortedDictionary *dict;
-                            SET_DICT_STRING_OR_EMPTY(dict,@"name",obj.name);
-                            SET_DICT_STRING_OR_EMPTY(dict,@"profile",obj.userProfile);
-                            SET_DICT_STRING_OR_EMPTY(dict,@"billing-entity",obj.billingEntity);
-                            [entries addObject:dict];
+                            [entries addObject:obj.config];
                         }
                     }
                     [self sendResultObject:entries];
                 }
+                break;
              case 2:
                  {
                      NSMutableArray *entries = [[NSMutableArray alloc]init];

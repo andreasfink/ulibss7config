@@ -23,6 +23,11 @@
 @property(readwrite,strong,atomic)  NSString *ssn;
 @property(readwrite,strong,atomic)  NSNumber *timeout;
 
++ (NSString *)type;
+- (NSString *)type;
+- (UMSS7ConfigCAMEL *)initWithConfig:(NSDictionary *)dict;
+
+
 @end
 
 

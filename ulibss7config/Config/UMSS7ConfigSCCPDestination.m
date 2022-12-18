@@ -37,12 +37,18 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"sccp",_sccp);
+    APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
+    APPEND_CONFIG_STRING(s,@"distribution-method",_distributionMethod);
+
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"sccp",_sccp);
+    APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
+    APPEND_DICT_STRING(dict,@"distribution-method",_distributionMethod);
     return dict;
 }
 
@@ -50,6 +56,8 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_STRING(dict,@"sccp",_sccp);
+    SET_DICT_STRING(dict,@"post-translation",_postTranslation);
+    SET_DICT_STRING(dict,@"distribution-method",_distributionMethod);
 }
 
 - (UMSS7ConfigSCCPDestination *)copyWithZone:(NSZone *)zone

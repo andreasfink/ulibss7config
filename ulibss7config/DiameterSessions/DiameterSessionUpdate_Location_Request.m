@@ -16,7 +16,7 @@
 
 - (NSString *)webTitle
 {
-    return @"Update Location Request";
+    return @"ULR";
 }
 
 - (NSString *)webScript

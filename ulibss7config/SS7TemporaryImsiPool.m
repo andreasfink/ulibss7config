@@ -60,9 +60,9 @@
             [_unusedTemporaryImsis append:[NSString stringWithFormat:@"00101999%07d",i]];
         }
     }
-    else if((s.length < 7) || (s.length >10))
+    else if((s.length < 5) || (s.length >15))
     {
-        @throw(CONFIG_ERROR(@"imsi-prefix should be 7 to 10 digits"));
+        @throw(CONFIG_ERROR(@"imsi-prefix should be 5 to 15 digits"));
     }
     else
     {
@@ -215,9 +215,8 @@
 
 - (void)unregisterMscNumber:(NSString *)msc
 {
-    [_mscPool removeObjectIdenticalTo:msc];
+    [_mscPool removeObject:msc];
 }
-
 
 - (void)housekeeping
 {

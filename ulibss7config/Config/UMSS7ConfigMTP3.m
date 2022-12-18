@@ -40,12 +40,12 @@
     APPEND_CONFIG_STRING(s,@"ni",_networkIndicator);
     APPEND_CONFIG_STRING(s,@"mode",_mode);
     APPEND_CONFIG_STRING(s,@"problematic-packet-dumper",_problematicPacketDumper);
+    APPEND_CONFIG_STRING(s,@"routing-update-log",_routingUpdateLog);
     APPEND_CONFIG_STRING(s,@"statistic-db-pool",_statisticDbPool);
     APPEND_CONFIG_STRING(s,@"statistic-db-table",_statisticDbTable);
     APPEND_CONFIG_STRING(s,@"statistic-db-instance",_statisticDbInstance);
     APPEND_CONFIG_BOOLEAN(s,@"statistic-db-autocreate",_statisticDbAutocreate);
 }
-
 
 - (UMSynchronizedSortedDictionary *)config
 {
@@ -55,6 +55,7 @@
     APPEND_DICT_STRING(dict,@"ni",_networkIndicator);
     APPEND_DICT_STRING(dict,@"mode",_mode);
     APPEND_DICT_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
+    APPEND_DICT_STRING(dict,@"routing-update-log",_routingUpdateLog);
     APPEND_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
     APPEND_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
     APPEND_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
@@ -71,6 +72,7 @@
     SET_DICT_STRING(dict,@"ni",_networkIndicator);
     SET_DICT_STRING(dict,@"mode",_mode);
     SET_DICT_FILTERED_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
+    SET_DICT_STRING(dict,@"routing-update-log",_routingUpdateLog);
     SET_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
     SET_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
     SET_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);

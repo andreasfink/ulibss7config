@@ -15,6 +15,7 @@
     NSString *_opc;
     NSString *_networkIndicator;
     NSString *_problematicPacketDumper;
+    NSString *_routingUpdateLog;
     NSString *_mode; /* either "stp" or "ssp". defaults to "stp" */
     NSString *_statisticDbPool;
     NSString *_statisticDbTable;
@@ -30,6 +31,7 @@
 @property(readwrite,strong,atomic)  NSString *opc;
 @property(readwrite,strong,atomic)  NSString *networkIndicator;
 @property(readwrite,strong,atomic)  NSString *problematicPacketDumper;
+@property(readwrite,strong,atomic)  NSString *routingUpdateLog;
 @property(readwrite,strong,atomic)  NSString *mode;
 @property(readwrite,strong,atomic)  NSString *statisticDbPool;
 @property(readwrite,strong,atomic)  NSString *statisticDbTable;

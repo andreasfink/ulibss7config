@@ -31,9 +31,9 @@
             [self sendErrorNotAuthenticated];
             return;
         }
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -56,7 +56,6 @@
                 // 4. Get index of rule
                 NSString *idx = _params[@"entry-nr"];
                 
-                // 5. Verify if engine, rule-set, rule exist
                 if(rSet == NULL)
                 {
                     // 5b. Not found

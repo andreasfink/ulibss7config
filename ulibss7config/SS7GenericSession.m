@@ -100,7 +100,7 @@
 
 - (UMMTP3Variant)mtp3Variant
 {
-    return _gInstance.gsmMap.tcap.attachedLayer.variant;
+    return _gInstance.gsmMap.tcap.attachedLayer.mtp3variant;
 }
 
 - (SccpVariant)sccpVariant
@@ -731,7 +731,7 @@ else \
     _remoteAddress = dst;
 
     [self touch];
-    if(_hasReceivedInvokes==0)
+    if(_hasReceivedInvokes > 0)
     {
         [_components addObject:@{@"rx" : @"tcap-continue"} ];
         SccpAddress *remote = NULL;
@@ -739,13 +739,13 @@ else \
         {
             remote = _initialRemoteAddress;
         }
-
         [_gInstance.gsmMap queueMAP_Delimiter_Req:xdialogId
-                                  callingAddress:NULL
-                                   calledAddress:remote
-                                         options:@{}
-                                          result:NULL
-                                      diagnostic:NULL];
+                                   callingAddress:NULL
+                                    calledAddress:remote
+                                          options:@{}
+                                           result:NULL
+                                       diagnostic:NULL];
+        _hasReceivedInvokes =0;
     }
 }
 
@@ -1327,22 +1327,29 @@ else \
         self.remoteAddress.npi.npi = numberplan;
     }
     self.localAddress.ai.nationalReservedBit=NO;
-    self.localAddress.ai.subSystemIndicator = YES;
-    if((_calling_ssn == NULL) || (_calling_ssn.length <=0)  || ([_calling_ssn isEqualToString:@"default"]))
+    if(([_calling_ssn isEqualToString:@"missing"]) || (_calling_ssn.intValue == -1))
     {
-        if(defaultCallingSsn.length <=0)
-        {
-            self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_VLR];
-        }
-        else
-        {
-            self.localAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCallingSsn];
-        }
+        self.localAddress.ai.subSystemIndicator = NO;
+        self.localAddress.ssn = NULL;
     }
     else
     {
-        self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_calling_ssn];
-
+        self.localAddress.ai.subSystemIndicator = YES;
+        if((_calling_ssn == NULL) || (_calling_ssn.length <=0)  || ([_calling_ssn isEqualToString:@"default"]))
+        {
+            if(defaultCallingSsn.length <=0)
+            {
+                self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_VLR];
+            }
+            else
+            {
+                self.localAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCallingSsn];
+            }
+        }
+        else
+        {
+            self.localAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_calling_ssn];
+        }
     }
     self.localAddress.tt.tt = 0;
 
@@ -1351,20 +1358,29 @@ else \
     self.remoteAddress.ai.globalTitleIndicator = SCCP_GTI_ITU_NAI_TT_NPI_ENCODING;
     self.remoteAddress.ai.subSystemIndicator = YES;
     self.remoteAddress.ssn.ssn=SCCP_SSN_HLR;
-    if((_called_ssn == NULL) || (_called_ssn.length <=0)  || ([_called_ssn isEqualToString:@"default"]))
+    
+    if(([_called_ssn isEqualToString:@"missing"]) || (_called_ssn.intValue == -1))
     {
-        if(defaultCalledSsn.length <=0)
-        {
-            self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_HLR];
-        }
-        else
-        {
-            self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCalledSsn];
-        }
+        self.remoteAddress.ai.subSystemIndicator = NO;
+        self.remoteAddress.ssn = NULL;
     }
     else
     {
-        self.remoteAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_called_ssn];
+        if((_called_ssn == NULL) || (_called_ssn.length <=0)  || ([_called_ssn isEqualToString:@"default"]))
+        {
+            if(defaultCalledSsn.length <=0)
+            {
+                self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithInt:SCCP_SSN_HLR];
+            }
+            else
+            {
+                self.remoteAddress.ssn = [[SccpSubSystemNumber alloc]initWithName:defaultCalledSsn];
+            }
+        }
+        else
+        {
+            self.remoteAddress.ssn=[[SccpSubSystemNumber alloc]initWithName:_called_ssn];
+        }
     }
     if(_calling_tt.length > 0)
     {
@@ -1422,12 +1438,23 @@ else \
     NSString *mapopen_origination_msisdn;
     NSString *mapopen_destination_imsi;
     NSString *mapopen_destination_msisdn;
-
+    NSString *mapopen_code2;
+    NSString *mapopen_code3;
+    NSString *map_options;
+    
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_imsi,@"map-open-destination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_destination_msisdn,@"map-open-destination-msisdn");
 
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_imsi,@"map-open-origination-imsi");
     SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_origination_msisdn,@"map-open-origination-msisdn");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,map_options,@"map-options");
+
+    if(map_options.length > 0)
+    {
+        _mapOptions = [map_options componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
+    }
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code2,@"map-open-code2");
+    SET_OPTIONAL_CLEAN_PARAMETER(p,mapopen_code3,@"map-open-code3");
 
     /** MAP OPEN **/
     _userInfo = [[UMTCAP_asn1_userInformation alloc]init];
@@ -1439,7 +1466,6 @@ else \
        (mapopen_destination_msisdn.length == 0) &&
        (mapopen_origination_imsi.length == 0) &&
        (mapopen_origination_msisdn.length == 0))
-
     {
         _userInfo = NULL;
     }
@@ -1447,7 +1473,16 @@ else \
     UMGSMMAP_MAP_OpenInfo *map_open = [[UMGSMMAP_MAP_OpenInfo alloc]init];
     if(mapopen_destination_imsi.length>0)
     {
-        map_open.destinationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_destination_imsi];
+        if([mapopen_destination_imsi hasPrefix:@"*"])
+        {
+            NSString * s = [mapopen_destination_imsi substringFromIndex:1];
+            map_open.destinationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:s];
+            map_open.destinationReference.skipTypeByte = YES;
+        }
+        else
+        {
+            map_open.destinationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_destination_imsi];
+        }
     }
     else if(mapopen_destination_msisdn.length>0)
     {
@@ -1456,11 +1491,34 @@ else \
 
     if(mapopen_origination_imsi.length>0)
     {
-        map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_origination_imsi];
+        if([mapopen_origination_imsi hasPrefix:@"*"])
+        {
+            NSString * s = [mapopen_origination_imsi substringFromIndex:1];
+            map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:s];
+            map_open.destinationReference.skipTypeByte = YES;
+        }
+        else
+        {
+            map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_origination_imsi];
+        }
     }
     else if(mapopen_origination_msisdn.length>0)
     {
         map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithMsisdn:mapopen_origination_msisdn];
+    }
+    
+    if(mapopen_code2.length>0)
+    {
+        map_open.unknownMapOpen2 = [[UMGSMMAP_AddressString alloc]initWithMsisdn:mapopen_code2];
+    }
+    else if(mapopen_code3.length>0)
+    {
+        map_open.unknownMapOpen3 = [[UMGSMMAP_AddressString alloc]initWithMsisdn:mapopen_code3];
+    }
+
+    if(mapopen_origination_imsi.length>0)
+    {
+        map_open.originationReference = [[UMGSMMAP_AddressString alloc]initWithImsi:mapopen_origination_imsi];
     }
     e.externalObject = map_open;
     [_userInfo addIdentification:e];
@@ -1488,24 +1546,24 @@ else \
     if (p[@"tcap-operation-global"])
     {
         NSString *s = [p[@"tcap-operation-global"] stringValue];
-        if((s.length>0) && (![s isEqualToString:@"0"]))
+        if(s.length>0)
         {
             if([s isEqualToString:@"1"])
             {
                 uint8_t b = (uint8_t)_opcode.operation;
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
-                _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
+                _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_Global;
             }
             else if([s isEqualToString:@"2"])
             {
                 uint8_t b = (uint8_t)_opcode.operation;
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithValue:[NSData dataWithBytes:&b length:1]];
-                _opcode.family = UMTCAP_itu_operationCodeFamily_GlobalAndLocal;
+                _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_GlobalAndLocal;
             }
-            else
+            else if(![s isEqualToString:@"0"])
             {
                 _opcode.globalOperation = [[UMASN1ObjectIdentifier alloc]initWithString:s];
-                _opcode.family = UMTCAP_itu_operationCodeFamily_Global;
+                _opcode.familyOrEncoding = UMTCAP_itu_operationCodeEncoding_Global;
             }
         }
     }
@@ -1513,7 +1571,29 @@ else \
     if (p[@"tcap-options"])
     {
         NSString *s = [p[@"tcap-options"] stringValue];
+        s = [s urldecode];
         _tcapOptions = [s componentsSeparatedByCharactersInSet:[UMObject whitespaceAndNewlineAndCommaCharacterSet]];
+        for(NSString *option in _tcapOptions)
+        {
+            if([option isEqualToString:@"invoke5"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke5;
+            }
+            else if([option isEqualToString:@"invoke6"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke6;
+
+            }
+            else if([option isEqualToString:@"invoke7"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke7;
+
+            }
+            else if([option isEqualToString:@"invoke8"])
+            {
+                self.multi_invoke_variant = SS7MultiInvokeVariant_invoke8;
+            }
+        }
     }
 
     if (p[@"keep-sccp-calling-addr"])
@@ -1619,13 +1699,22 @@ else \
         int i = [p[@"invoke-count"] intValue];
         _options[@"invoke-count"] = @(i);
     }
+    
 
-    if(_opc)
+    if (p[@"opc"])
+    {
+        _options[@"opc"] = p[@"opc"];
+    }
+    else if(_opc)
     {
         _options[@"opc"] = _opc;
     }
 
-    if(_dpc)
+    if (p[@"dpc"])
+    {
+        _options[@"dpc"] = p[@"dpc"];
+    }
+    else if(_dpc)
     {
         _options[@"dpc"] = _dpc;
     }
@@ -1638,6 +1727,7 @@ else \
 
 - (void)submit
 {
+    int invokeCount = 0;
     if(_nowait)
     {
         [_req setResponsePlainText:@"Sent"];
@@ -1647,14 +1737,7 @@ else \
     {
         [_req makeAsyncWithTimeout:_timeoutInSeconds];
     }
-    if(_opc)
-    {
-        _options[@"opc"] = _opc;
-    }
-    if(_dpc)
-    {
-        _options[@"dpc"] = _dpc;
-    }
+    
     if(_sls>=0)
     {
         _options[@"mtp3-sls"] = [NSString stringWithFormat:@"%d",_sls];
@@ -1663,14 +1746,19 @@ else \
     {
         _options[@"tcap-options"] = _tcapOptions;
     }
+    if(_mapOptions.count > 0)
+    {
+        _options[@"map-options"] = _mapOptions;
+    }
+
     _dialogId =  [_gInstance.gsmMap executeMAP_Open_Req_forUser:_gInstance
-                                                      variant:TCAP_VARIANT_DEFAULT
-                                               callingAddress:_localAddress
-                                                calledAddress:_remoteAddress
-                                           applicationContext:_applicationContext
-                                                     userInfo:_userInfo
-                                               userIdentifier:_userIdentifier
-                                                      options:_options];
+                                                        variant:TCAP_VARIANT_DEFAULT
+                                                 callingAddress:_localAddress
+                                                  calledAddress:_remoteAddress
+                                             applicationContext:_applicationContext
+                                                       userInfo:_userInfo
+                                                 userIdentifier:_userIdentifier
+                                                        options:_options];
     [_gInstance addSession:self userId:_userIdentifier];
 
 
@@ -1684,11 +1772,11 @@ else \
             remote = _initialRemoteAddress;
         }
         [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                    callingAddress:NULL
-                                     calledAddress:remote
-                                           options:_options
-                                            result:NULL
-                                        diagnostic:NULL];
+                                     callingAddress:NULL
+                                      calledAddress:remote
+                                            options:_options
+                                             result:NULL
+                                         diagnostic:NULL];
     }
 
     switch(_multi_invoke_variant)
@@ -1714,11 +1802,11 @@ else \
                 }
 
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                            callingAddress:NULL
-                                             calledAddress:remote
-                                                   options:_options
-                                                    result:NULL
-                                                diagnostic:NULL];
+                                             callingAddress:NULL
+                                              calledAddress:remote
+                                                    options:_options
+                                                     result:NULL
+                                                 diagnostic:NULL];
             }
             break;
         }
@@ -1754,11 +1842,11 @@ else \
                 }
 
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                           callingAddress:NULL
-                                            calledAddress:remote
-                                                  options:_options
-                                                   result:NULL
-                                               diagnostic:NULL];
+                                             callingAddress:NULL
+                                              calledAddress:remote
+                                                    options:_options
+                                                     result:NULL
+                                                 diagnostic:NULL];
             }
             break;
         }
@@ -1782,11 +1870,11 @@ else \
 
 
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                        callingAddress:NULL
-                                         calledAddress:remote
-                                               options:_options
-                                                result:NULL
-                                            diagnostic:NULL];
+                                         callingAddress:NULL
+                                          calledAddress:remote
+                                                options:_options
+                                                 result:NULL
+                                             diagnostic:NULL];
             if((_opcode2) && (_query2))
             {
                 [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
@@ -1829,11 +1917,11 @@ else \
             }
 
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                        callingAddress:NULL
-                                         calledAddress:remote
-                                               options:_options
-                                                result:NULL
-                                            diagnostic:NULL];
+                                         callingAddress:NULL
+                                          calledAddress:remote
+                                                options:_options
+                                                 result:NULL
+                                             diagnostic:NULL];
             if((_opcode2) && (_query2))
             {
                 [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
@@ -1876,11 +1964,11 @@ else \
             }
 
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                        callingAddress:NULL
-                                         calledAddress:remote
-                                               options:_options
-                                                result:NULL
-                                            diagnostic:NULL];
+                                         callingAddress:NULL
+                                          calledAddress:remote
+                                                options:_options
+                                                 result:NULL
+                                             diagnostic:NULL];
             _invokeId = 1;
             if((_opcode2) && (_query2))
             {
@@ -1893,6 +1981,45 @@ else \
                                                  options:_options];
             }
             break;
+        }
+        case SS7MultiInvokeVariant_invoke8:
+            invokeCount = 8;
+            break;
+        case SS7MultiInvokeVariant_invoke7:
+            invokeCount = 7;
+            break;
+        case SS7MultiInvokeVariant_invoke6:
+            invokeCount = 6;
+            break;
+        case SS7MultiInvokeVariant_invoke5:
+            invokeCount = 5;
+            break;
+    }
+    if((invokeCount > 0) && (_opcode) && (_query))
+    {
+        while(invokeCount-- > 0)
+        {
+            [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                              dialog:_dialogId
+                                            invokeId:_invokeId
+                                            linkedId:TCAP_UNDEFINED_LINKED_ID
+                                              opCode:_opcode
+                                                last:YES
+                                             options:_options];
+        }
+        if(!useHandshake)
+        {
+            SccpAddress *remote = NULL;
+            if(_keepOriginalSccpAddressForTcapContinue)
+            {
+                remote = _initialRemoteAddress;
+            }
+            [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
+                                         callingAddress:NULL
+                                          calledAddress:remote
+                                                options:_options
+                                                 result:NULL
+                                             diagnostic:NULL];
         }
     }
 }
@@ -1929,11 +2056,11 @@ else \
     }
 
     [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
-                                callingAddress:NULL
-                                 calledAddress:remote
-                                       options:_options
-                                        result:NULL
-                                    diagnostic:NULL];
+                                 callingAddress:NULL
+                                  calledAddress:remote
+                                        options:_options
+                                         result:NULL
+                                     diagnostic:NULL];
 }
 
 - (void)webException:(NSException *)e
@@ -2033,7 +2160,7 @@ else \
     [s appendString:@"<a href=\"index.php\">menu</a>\n"];
     [s appendFormat:@"<h2>%@</h2>\n",t];
     [s appendString:@"<form method=\"get\">\n"];
-    [s appendString:@"<table>\n"];
+    [s appendString:@"<table><tbody>\n"];
 
 }
 
@@ -2043,7 +2170,7 @@ else \
     [s appendString:@"    <td>&nbsp</td>\n"];
     [s appendString:@"    <td><input type=submit></td>\n"];
     [s appendString:@"</tr>\n"];
-    [s appendString:@"</table>\n"];
+    [s appendString:@"</tbody></table>\n"];
     [s appendString:@"</form>\n"];
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
@@ -2078,6 +2205,12 @@ else \
     [s appendString:@"    <td class=optional>map-open-origination-imsi</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"map-open-origination-imsi\" type=text> imsi in map-open origination reference</td>\n"];
     [s appendString:@"</tr>\n"];
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-options</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-options\" type=text></td>\n"];
+    [s appendString:@"</tr>\n"];
+
 }
 
 + (void)webTcapTitle:(NSMutableString *)s

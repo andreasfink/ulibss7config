@@ -72,7 +72,17 @@
         {
             NSString *s = o;
             int k = [s intValue];
-            _map[i] =@(k);
+            if([s isEqualToString:@"*"])
+            {
+                for(i=0;i<256;i++)
+                {
+                    _map[i] =@(k);
+                }
+            }
+            else
+            {
+                _map[i] =@(k);
+            }
         }
         else if([o isKindOfClass:[NSNumber class]]) \
         {

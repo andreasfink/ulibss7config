@@ -30,9 +30,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -54,7 +54,7 @@
                 // 2. adding
                 UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_params];
                 [_appDelegate tracefile_add:traceFile];
-                if(traceFile.enabled)
+                if(traceFile.enabled!=NULL)
                 {
                     [_appDelegate tracefile_enable:traceFile.name enable:[traceFile.enabled boolValue]];
                 }

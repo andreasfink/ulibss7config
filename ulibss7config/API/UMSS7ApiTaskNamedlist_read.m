@@ -30,9 +30,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -40,10 +40,12 @@
         {
             // 1. Get external parameters
             NSString *listName = _params[@"name"];
+            listName = [UMSS7ConfigObject filterName:listName];
             if(listName.length==0)
             {
                 /* backwards compatibility to old api of SMSProx4 */
                 listName = _params[@"list"];
+                listName = [UMSS7ConfigObject filterName:listName];
             }
 
             if(listName.length==0)
@@ -53,7 +55,7 @@
             else
             {
                 // 2. Read
-                NSArray *ls = [_appDelegate namedlistList:listName];
+                NSArray *ls = [_appDelegate namedlistGetAllEntriesOfList:listName];
                 [self sendResultObject:ls];
             }
         }

@@ -1,5 +1,5 @@
 //
-//  UMSS7ApiTaskNamedlist_delete.h
+//  UMSS7ApiTaskNamedlist_remove.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 28.05.19.
@@ -9,7 +9,7 @@
 #import "UMSS7ApiTask.h"
 
 
-@interface UMSS7ApiTaskNamedlist_delete : UMSS7ApiTask
+@interface UMSS7ApiTaskNamedlist_remove : UMSS7ApiTask
 
 @end
 

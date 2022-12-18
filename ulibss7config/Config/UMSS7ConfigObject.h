@@ -37,6 +37,7 @@
 - (void) setDirty:(BOOL)d;
 
 - (UMSS7ConfigObject *)initWithConfig:(NSDictionary *)dict;
+- (UMSS7ConfigObject *)initWithString:(NSString *)s;
 
 - (NSString *)configString;
 - (NSString *)type;
@@ -56,5 +57,6 @@
 
 - (NSArray<NSDictionary *> *)subConfigs;
 - (id)proxyForJson;
+
 
 @end

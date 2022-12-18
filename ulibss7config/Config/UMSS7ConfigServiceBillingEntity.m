@@ -40,7 +40,6 @@
     APPEND_CONFIG_BOOLEAN(s,@"credit-enforced",_blockIfOutOfCredit);
     APPEND_CONFIG_DOUBLE(s,@"credit-limit",_creditLimit);
     APPEND_CONFIG_STRING(s,@"price-table",_priceTable);
-
 }
 
 

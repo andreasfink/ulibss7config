@@ -25,9 +25,9 @@
             return;
         }
 
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         [self sendErrorNotImplemented];

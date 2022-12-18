@@ -1,18 +1,20 @@
 //
-//  UMSS7ApiTaskNamedlist_delete.m
+//  UMSS7ApiTaskNamedlist_remove.m
 //  ulibss7config
 //
 //  Created by Andreas Fink on 28.05.19.
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTaskNamedlist_delete.h"
+#import "UMSS7ApiTaskNamedlist_remove.h"
 #import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigAppDelegateProtocol.h"
 #import "UMSS7ApiSession.h"
 
-@implementation UMSS7ApiTaskNamedlist_delete
+//#define DEBUG 1
+
+@implementation UMSS7ApiTaskNamedlist_remove
 
 
 + (NSString *)apiPath
@@ -30,9 +32,9 @@
             return;
         }
         
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
         
@@ -40,12 +42,14 @@
         {
             // 1. Get external parameters
             NSString *listName = [_params[@"name"] urldecode];
+            listName = [UMSS7ConfigObject filterName:listName];
             NSString *value = [_params[@"value"] urldecode];
 
             if(listName.length==0)
             {
                 /* backwards compatibility to old api of SMSProx4 */
                 listName = [_params[@"list"] urldecode];
+                listName = [UMSS7ConfigObject filterName:listName];
             }
             if(listName.length==0)
             {
@@ -65,6 +69,14 @@
             }
             
             // 2. Remove if value is contained in list
+            if(_appDelegate==NULL)
+            {
+                [self sendError:@"internal-error" reason:@"app-delegate is NULL"];
+                return;
+            }
+#ifdef  DEBUG
+            NSLog(@"calling [_appDelegate namedlistRemove:%@ value:%@]",listName,value);
+#endif
             [_appDelegate namedlistRemove:listName value:value];
             [self sendResultOK];
         }

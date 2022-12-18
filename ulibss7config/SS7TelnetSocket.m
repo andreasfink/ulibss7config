@@ -18,7 +18,7 @@
     self = [super init];
     if(self)
     {
-        _txSleeper = [[UMSleeper alloc]init];
+        _txSleeper = [[UMSleeper alloc]initFromFile:__FILE__ line:__LINE__ function:__func__];
     }
     return self;
 }
@@ -643,9 +643,14 @@
                     {
                         TRACK_FILE_ADD_COMMENT_FOR_FDES([_sock sock],@"accept");
                         BOOL doAccept = YES;
-                        if([_delegate respondsToSelector:@selector(isAddressWhitelisted:)])
+                        if([_delegate respondsToSelector:@selector(isAddressWhitelisted:remotePort:localIpAddress:localPort:serviceType:user:)])
                         {
-                            doAccept = [_delegate isAddressWhitelisted:newUc.connectedRemoteAddress];
+                            doAccept = [_delegate isAddressWhitelisted:newUc.connectedRemoteAddress
+                                                          remotePort:@(newUc.connectedRemotePort)
+                                                      localIpAddress:newUc.connectedLocalAddress
+                                                           localPort:@(newUc.connectedLocalPort)
+                                                         serviceType:@"telnet"
+                                                                user:NULL];
                         }
                         if(doAccept)
                         {
@@ -673,7 +678,11 @@
                     }
                     else
                     {
-                        [_txSleeper sleep:100000]; /* check again in 100ms */
+                        UMSleeper_Signal s = [_txSleeper sleep:100000]; /* check again in 100ms */
+                        if(s == UMSleeper_Error)
+                        {
+                            self.endThisConnection = YES;
+                        }
                     }
                 }
                 self.incomingStatus = CS_STATUS_INCOMING_LISTENING;
@@ -837,7 +846,11 @@
         UMSocketError err = [_sock receiveSingleChar:&c];
         if(err<0)
         {
-            [_txSleeper sleep:10000]; /* check again in 10 ms */
+            UMSleeper_Signal s = [_txSleeper sleep:10000]; /* check again in 10 ms */
+            if(s == UMSleeper_Error)
+            {
+                self.endThisConnection = YES;
+            }
             continue;
         }
         [self incomingCharacterProcessing:c];

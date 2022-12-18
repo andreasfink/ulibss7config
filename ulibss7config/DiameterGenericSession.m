@@ -517,24 +517,6 @@
 
 + (void)webDiameterOptions:(NSMutableString *)s
 {
-    /*
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>map-open-destination-msisdn</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"map-open-destination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open destination reference</td>\n"];
-    [s appendString:@"</tr>\n"];
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>map-open-destination-imsi</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"map-open-destination-imsi\" type=text> imsi in map-open destination reference</td>\n"];
-    [s appendString:@"</tr>\n"];
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>map-open-origination-msisdn</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"map-open-origination-msisdn\" type=text placeholder=\"+12345678\"> msisdn in map-open origination reference</td>\n"];
-    [s appendString:@"</tr>\n"];
-    [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>map-open-origination-imsi</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"map-open-origination-imsi\" type=text> imsi in map-open origination reference</td>\n"];
-    [s appendString:@"</tr>\n"];
-     */
 }
 
 - (void)setApplicationId:(UMDiameterPacket *)pkt  default:(UMDiameterApplicationId) def
@@ -616,6 +598,7 @@
         [packet appendAvp:avp];
     }
 }
+
 - (void)setSessionId:(UMDiameterPacket *)packet fromParams:(NSDictionary *)p
 {
     NSString *sessionId;

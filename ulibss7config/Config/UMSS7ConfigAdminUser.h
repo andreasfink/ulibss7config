@@ -11,13 +11,16 @@
 @interface UMSS7ConfigAdminUser : UMSS7ConfigObject
 {
     NSString *_password;
+    NSArray<NSString *> *_withoutAuthenticationIp;
 }
 
 @property(readwrite,strong,atomic)      NSString *password;
+@property(readwrite,strong,atomic)      NSArray<NSString *> *withoutAuthenticationIp;
 
 + (NSString *)type;
 - (NSString *)type;
 - (UMSS7ConfigAdminUser *)initWithConfig:(NSDictionary *)dict;
 
+- (BOOL)matchesIpAddress:(NSString *)ip;
 @end
 

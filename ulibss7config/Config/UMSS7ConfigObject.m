@@ -47,8 +47,8 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     return [self appendConfigToString:s withoutName:NO];
-
 }
+
 - (void)appendConfigToString:(NSMutableString *)s withoutName:(BOOL)withoutName
 {
     [s appendFormat:@"\n"];
@@ -155,8 +155,15 @@
     SET_DICT_BOOLEAN(dict,@"enable",_enabled);
     SET_DICT_INTEGER(dict,@"log-level",_logLevel);
     SET_DICT_STRING(dict,@"log-file",_logFile);
-    NSString *commentsAsString = [_comments componentsJoinedByString:@"\n"];
-    SET_DICT_STRING(dict,@"comment",commentsAsString);
+    id comments = dict[@"comment"];
+    if([comments isKindOfClass:[NSArray class]])
+    {
+        _comments = (NSArray *)comments;
+    }
+    else if([comments isKindOfClass:[NSString class]])
+    {
+        _comments = [((NSString *)comments) componentsSeparatedByString:@"\n"];
+    }
 }
 
 +(NSString *)filterName:(NSString *)str
@@ -248,6 +255,23 @@
 - (id)proxyForJson
 {
     return self.config;
+}
+
+- (UMSS7ConfigObject *)initWithString:(NSString *)s
+{
+    NSArray *lines = [s componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    for(NSString *line in lines)
+    {
+        NSArray *items  = [line componentsSeparatedByString:@"="];
+        if ([items count] == 2)
+        {
+            NSString *tag = [[items objectAtIndex:0] trim];
+            NSString *val = [[items objectAtIndex:1] trim];
+            dict[tag] = val;
+        }
+    }
+    return [self initWithConfig:dict];
 }
 
 @end

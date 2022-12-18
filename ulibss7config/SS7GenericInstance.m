@@ -22,7 +22,10 @@
 #import "SS7GenericInstance_MAP_U_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_P_Abort_Ind_Task.h"
 #import "SS7GenericInstance_MAP_Notice_Ind_Task.h"
+#import <ulibtransport/ulibtransport.h>
+
 #import <ulibsms/ulibsms.h>
+#import <ulibgsmmap/ulibgsmmap.h>
 
 #include <sys/stat.h>
 
@@ -172,6 +175,20 @@
     return @"G";
 }
 
+- (UMCamelUserIdentifier *)getNewCamelUserIdentifier
+{
+    NSString *uidstr;
+    int64_t uid;
+    static int64_t lastUserId = 1;
+
+    [_uidMutex lock];
+    lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
+    uid = lastUserId;
+    [_uidMutex unlock];
+    uidstr =  [NSString stringWithFormat:@"%@%08llX",self.instancePrefix,(long long)uid];
+    return  [[UMCamelUserIdentifier alloc]initWithString:uidstr];
+}
+
 - (UMGSMMAP_UserIdentifier *)getNewUserIdentifier
 {
     NSString *uidstr;
@@ -192,6 +209,13 @@
     UMAssert(_sessions!=NULL,@"Can not find session. _sessions is null");
     return _sessions[userId.userIdentifier];
 }
+
+- (SS7GenericSession *)sessionByCamelId:(UMCamelUserIdentifier *)userId;
+{
+    UMAssert(_sessions!=NULL,@"Can not find session. _sessions is null");
+    return _sessions[userId.userIdentifier];
+}
+
 
 - (void)addSession:(SS7GenericSession *)t userId:(UMGSMMAP_UserIdentifier *)uidstr
 {
@@ -1040,6 +1064,13 @@
         SS7GenericSession *t = _sessions[tid];
         [t dump:filehandler];
     }
+}
+
+- (void)handleUMTSMS:(NSData *)data
+              source:(NSString *)src
+         destination:(NSString *)dst
+{
+    [_umTransportService handleUMTSMS:data source:src destination:dst];
 }
 
 @end

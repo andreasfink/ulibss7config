@@ -28,9 +28,9 @@
             return;
         }
 
-        if(![self isAuthorized])
+        if(![self isAuthorised])
         {
-            [self sendErrorNotAuthorized];
+            [self sendErrorNotAuthorised];
             return;
         }
 
@@ -48,7 +48,10 @@
 
         NSString *gta = _params[@"gta"];
         gta = [UMSS7ConfigObject filterName:gta];
-        NSString *entryName = [SccpGttRoutingTableEntry entryNameForGta:gta tableName:table_name];
+        
+        SccpGttRoutingTableEntry *e = [[SccpGttRoutingTableEntry alloc]initWithConfig:_params];
+        NSString *entryName = e.name;
+        e = NULL;
         UMSS7ConfigStorage *cs = [_appDelegate runningConfig];
         UMSS7ConfigSCCPTranslationTableEntry *entry = [cs getSCCPTranslationTableEntry:entryName];
 
@@ -90,7 +93,7 @@
                 if(rte==NULL)
                 {
                     NSString *gta = oldConfig[@"gta"];
-                    rte = [rt findEntryByDigits:gta];
+                    rte = [rt findEntryByDigits:gta transactionNumber:NULL ssn:NULL operation:NULL appContext:NULL];
                 }
                 if(rte==NULL)
                 {

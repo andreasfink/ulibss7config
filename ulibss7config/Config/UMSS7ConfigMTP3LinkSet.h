@@ -25,6 +25,18 @@
     NSString *_pctransIn;
     NSString *_pctransOut;
     NSNumber *_disableRouteAdvertizement;
+    NSString *_screeningMtp3PluginName;
+    NSString *_screeningMtp3PluginConfigFile;
+    NSString *_screeningMtp3PluginTraceFile;
+    NSNumber *_screeningMtp3PluginTraceLevel;
+    NSString *_screeningSccpPluginName;
+    NSString *_screeningSccpPluginConfigFile;
+    NSString *_screeningSccpPluginTraceFile;
+    NSNumber *_screeningSccpPluginTraceLevel;
+    NSArray<NSString *> *_routingUpdateAllow;
+    NSArray<NSString *> *_routingUpdateDeny;
+    NSArray<NSString *> *_routingAdvertisementAllow;
+    NSArray<NSString *> *_routingAdvertisementDeny;
 }
 
 + (NSString *)type;
@@ -46,5 +58,17 @@
 @property(readwrite,strong,atomic)  NSString *pctransIn;
 @property(readwrite,strong,atomic)  NSString *pctransOut;
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
+@property(readwrite,strong,atomic)  NSString *screeningMtp3PluginName;
+@property(readwrite,strong,atomic)  NSString *screeningMtp3PluginConfigFile;
+@property(readwrite,strong,atomic)  NSString *screeningMtp3PluginConfigTrace;
+@property(readwrite,strong,atomic)  NSNumber *screeningMtp3PluginTraceLevel;
+@property(readwrite,strong,atomic)  NSString *screeningSccpPluginName;
+@property(readwrite,strong,atomic)  NSString *screeningSccpPluginConfigFile;
+@property(readwrite,strong,atomic)  NSString *screeningSccpPluginTraceFile;
+@property(readwrite,strong,atomic)  NSNumber *screeningSccpPluginTraceLevel;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingUpdateAllow;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingUpdateDeny;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementAllow;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementDeny;
 
 @end
