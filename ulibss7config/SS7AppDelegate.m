@@ -2649,11 +2649,19 @@ static void signalHandler(int signum);
         [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
     }
     [s appendString:@"</select>\n"];
-    [s appendString:@"MSISDN:             <input name=\"msisdn\">\n"];
-    [s appendString:@"TT:                 <input name=\"tt\" value=0>\n"];
-    [s appendString:@"Transaction Number: <input name=\"tid\" value=0>\n"];
-    [s appendString:@"Application Context:<input name=\"application-context\" value=''> (hex bytes)\n"];
-    [s appendString:@"MAP Operation Code: <input name=\"op\" value=''>\n"];
+    [s appendString:@"Source Address:      <input name=\"source\">\n"];
+    [s appendString:@"Destination Address: <input name=\"msisdn\">\n"];
+    [s appendString:@"Destination TT:      <input name=\"tt\" value=0>\n"];
+    [s appendString:@"Transaction Number:  <input name=\"tid\" value=0>\n"];
+    [s appendString:@"Application Context: <input name=\"application-context\" value=''> (hex bytes)\n"];
+    [s appendString:@"MAP Operation Code:  <input name=\"op\" value=''>\n"];
+    [s appendString:@"Inbound Linkset :   <select name=\"linkset\">"];
+    NSArray *linksetNames = [self getMTP3LinkSetNames];
+    for(NSString *name in linksetNames)
+    {
+        [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+    }
+    [s appendString:@"</select>\n"];
     [s appendString:@"                    <input type=submit>\n"];
 
     [s appendString:@"</form>\n"];
@@ -2734,6 +2742,8 @@ static void signalHandler(int signum);
     NSString *tidString = [[p[@"tid"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *ac = [[p[@"appication-context"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *opString = [[p[@"operation"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *incomingLinkset = [[p[@"incoming-linkset"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *source = [[p[@"source"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSNumber *op =NULL;
     if(opString.length > 0)
     {
@@ -2765,7 +2775,9 @@ static void signalHandler(int signum);
                                                                 fromLocal:NO
                                                         transactionNumber:tid
                                                                 operation:op
-                                                       applicationContext:ac];
+                                                       applicationContext:ac
+                                                          incomingLinkset:incomingLinkset
+                                                            sourceAddress:source];
     [req setResponseJsonObject:resultDict];
     return;
 }
