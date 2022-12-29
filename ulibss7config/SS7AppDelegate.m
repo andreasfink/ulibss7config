@@ -2638,7 +2638,7 @@ static void signalHandler(int signum);
 
     if(err)
     {
-        [s appendFormat:@"<p>%@</p>\n",err];
+        [s appendFormat:@"<p>%@</p>\n",[err htmlEscaped]];
     }
     [s appendString:@"<pre>\n"];
     [s appendString:@"<form>\n"];
@@ -2646,7 +2646,8 @@ static void signalHandler(int signum);
     NSArray *sccpNames = [self getSCCPNames];
     for(NSString *name in sccpNames)
     {
-        [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+        NSString *s1 = [name htmlEscaped];
+        [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
     }
     [s appendString:@"</select>\n"];
     [s appendString:@"Source Address:      <input name=\"source\">\n"];
@@ -2659,7 +2660,14 @@ static void signalHandler(int signum);
     NSArray *linksetNames = [self getMTP3LinkSetNames];
     for(NSString *name in linksetNames)
     {
-        [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+        NSString *s1 = [name htmlEscaped];
+        [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
+    }
+    NSArray *m3ua_as_names = [self getM3UAASNames];
+    for(NSString *name in m3ua_as_names)
+    {
+        NSString *s1 = [name htmlEscaped];
+        [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
     }
     [s appendString:@"</select>\n"];
     [s appendString:@"                    <input type=submit>\n"];
@@ -2711,7 +2719,8 @@ static void signalHandler(int signum);
         [s appendString:@"Diameter:   <select name=\"diameter\">"];
         for(NSString *name in drnames)
         {
-            [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+            NSString *s1 = [name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
         }
     }
     [s appendString:@"</select>\n"];
@@ -2720,7 +2729,8 @@ static void signalHandler(int signum);
     [s appendString:@"source-peer: <select name=\"source-peer\">"];
     for(NSString *name in peerNames)
     {
-        [s appendFormat:@"<option value=\"%@\">%@</option>",name,name];
+        NSString *s1 = [name htmlEscaped];
+        [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
     }
     [s appendString:@"</select>\n"];
     [s appendString:@"             <input type=submit>\n"];
@@ -2737,13 +2747,13 @@ static void signalHandler(int signum);
 - (void)handleRouteTest:(UMHTTPRequest *)req
 {
     NSDictionary *p = req.params;
-    NSString *msisdn    =    [[p[@"msisdn"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-    NSString *sccp_name = [[p[@"sccp"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-    NSString *tidString = [[p[@"tid"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-    NSString *ac = [[p[@"appication-context"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-    NSString *opString = [[p[@"operation"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-    NSString *incomingLinkset = [[p[@"incoming-linkset"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
-    NSString *source = [[p[@"source"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *msisdn            = [[p[@"msisdn"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *sccp_name         = [[p[@"sccp"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *tidString         = [[p[@"tid"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *ac                = [[p[@"appication-context"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *opString          = [[p[@"operation"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *incomingLinkset   = [[p[@"incoming-linkset"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *source            = [[p[@"source"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSNumber *op =NULL;
     if(opString.length > 0)
     {
@@ -2754,7 +2764,7 @@ static void signalHandler(int signum);
     {
         tid = @([tidString intergerValueSupportingHex]);
     }
-    int tt        = [p[@"tt"] intValue];
+    int tt = [p[@"tt"] intValue];
 
 
     if((msisdn.length == 0) || (sccp_name.length == 0))
@@ -5763,7 +5773,8 @@ static void signalHandler(int signum);
         NSArray *names = [_diameter_connections_dict allKeys];
         for(NSString *name in names)
         {
-            [s appendFormat:@"<option>%@</option>",name];
+            NSString *s1 = [name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
         }
         [s appendFormat:@"</select>\r"];
 
