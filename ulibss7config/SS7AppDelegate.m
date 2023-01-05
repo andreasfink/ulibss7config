@@ -3244,15 +3244,6 @@ static void signalHandler(int signum);
     return UMHTTP_AUTHENTICATION_STATUS_FAILED;
 
 }
-- (void)webHeader:(NSMutableString *)s title:(NSString *)t
-{
-    [s appendString:@"<html>\n"];
-    [s appendString:@"<head>\n"];
-    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
-    [s appendFormat:@"    <title>%@</title>\n",t];
-    [s appendString:@"</head>\n"];
-    [s appendString:@"<body>\n"];
-}
 
 /************************************************************/
 #pragma mark -
@@ -4946,6 +4937,17 @@ static void signalHandler(int signum);
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
     return s;
+}
+
+
+- (void)webHeader:(NSMutableString *)s title:(NSString *)t
+{
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<head>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>%@</title>\n",t];
+    [s appendString:@"</head>\n"];
+    [s appendString:@"<body>\n"];
 }
 
 - (void)webFormStart:(NSMutableString *)s title:(NSString *)t
