@@ -2159,7 +2159,7 @@ else \
     [s appendString:@"\n"];
     [s appendString:@"<a href=\"index.php\">menu</a>\n"];
     [s appendFormat:@"<h2>%@</h2>\n",t];
-    [s appendString:@"<form method=\"get\">\n"];
+    [s appendString:@"<form method=\"get\" accept-charset=\"UTF-8\">\n"];
     [s appendString:@"<table><tbody>\n"];
 
 }

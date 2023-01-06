@@ -2189,6 +2189,7 @@ static void signalHandler(int signum);
     [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>Debug: UMObject Statistic</title>\n"];
+    [s appendFormat:@"    <meta charset=\"UTF-8\">"];
     [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 
@@ -2200,7 +2201,7 @@ static void signalHandler(int signum);
 
     if(umobject_object_stat_is_enabled())
     {
-        [s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
+        [s appendFormat:@"<form method=get accept-charset=\"UTF-8\"><input type=submit name=\"disable\" value=\"disable\"></form>"];
         NSArray *arr = umobject_object_stat(NO);
         [s appendString:@"<table class=\"object_table\">\n"];
         [s appendString:@"    <tr>\r\n"];
@@ -2227,7 +2228,7 @@ static void signalHandler(int signum);
     }
     else
     {
-        [s appendFormat:@"<form method=get><input type=submit name=\"enable\" value=\"enable\"></form>"];
+        [s appendFormat:@"<form method=get accept-charset=\"UTF-8\"><input type=submit name=\"enable\" value=\"enable\"></form>"];
     }
     [s appendString:@"</body>\r\n"];
     [s appendString:@"</html>\r\n"];
@@ -2388,6 +2389,7 @@ static void signalHandler(int signum);
     [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>UMT via SMS</title>\n"];
+    [s appendFormat:@"    <meta charset=\"UTF-8\">"];
     [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 
@@ -2396,7 +2398,7 @@ static void signalHandler(int signum);
     [s appendString:@"<LI><a href=\"/\">main-menu</a></LI>\n"];
     [s appendString:@"</UL>\n"];
 
-    [s appendFormat:@"<form method=get>"];
+    [s appendFormat:@"<form method=get accept-charset=\"UTF-8\">"];
     [s appendString:@"<table class=\"object_table\">\n"];
 
     [s appendString:@"    <tr>\r\n"];
@@ -2519,7 +2521,7 @@ static void signalHandler(int signum);
 
     if(ummutex_stat_is_enabled())
     {
-        [s appendFormat:@"<form method=get><input type=submit name=\"disable\" value=\"disable\"></form>"];
+        [s appendFormat:@"<form method=get accept-charset=\"UTF-8\"><input type=submit name=\"disable\" value=\"disable\"></form>"];
         NSArray *arr = ummutex_stat(YES);
         [s appendString:@"<table class=\"object_table\">\n"];
         [s appendString:@"    <tr>\r\n"];
@@ -2551,7 +2553,7 @@ static void signalHandler(int signum);
     }
     else
     {
-        [s appendFormat:@"<form method=get><input type=submit name=\"enable\" value=\"enable\"></form>"];
+        [s appendFormat:@"<form method=get accept-charset=\"UTF-8\"><input type=submit name=\"enable\" value=\"enable\"></form>"];
     }
     [s appendString:@"</table>\r\n"];
     [s appendString:@"</body>\r\n"];
@@ -2572,6 +2574,7 @@ static void signalHandler(int signum);
     [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>Debug Menu</title>\n"];
+    [s appendFormat:@"    <meta charset=\"UTF-8\">"];
     [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 
@@ -2641,7 +2644,7 @@ static void signalHandler(int signum);
         [s appendFormat:@"<p>%@</p>\n",[err htmlEscaped]];
     }
     [s appendString:@"<pre>\n"];
-    [s appendString:@"<form>\n"];
+    [s appendString:@"<form accept-charset=\"UTF-8\">\n"];
     [s appendString:@"SCCP:   <select name=\"sccp\">"];
     NSArray *sccpNames = [self getSCCPNames];
     for(NSString *name in sccpNames)
@@ -2696,7 +2699,7 @@ static void signalHandler(int signum);
         [s appendFormat:@"<p>%@</p>\n",err];
     }
     [s appendString:@"<pre>\n"];
-    [s appendString:@"<form>\n"];
+    [s appendString:@"<form accept-charset=\"UTF-8\">\n"];
     NSArray *drnames = [self getDiameterRouterNames];
     NSMutableArray *peerNames = [[NSMutableArray alloc]init];
     for(NSString *drname in drnames)
@@ -4946,6 +4949,7 @@ static void signalHandler(int signum);
     [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>%@</title>\n",t];
+    [s appendFormat:@"    <meta charset=\"UTF-8\">"];
     [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 }
@@ -4956,7 +4960,7 @@ static void signalHandler(int signum);
     [s appendString:@"\n"];
     [s appendString:@"<a href=\"index.php\">menu</a>\n"];
     [s appendFormat:@"<h2>%@</h2>\n",t];
-    [s appendString:@"<form method=\"get\">\n"];
+    [s appendString:@"<form method=\"get\" accept-charset=\"UTF-8\">\n"];
     [s appendString:@"<table><tbody>\n"];
 
 }
@@ -5311,7 +5315,7 @@ static void signalHandler(int signum);
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
         [s appendString:@"</UL>\n"];
 
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"<select name=standard><option selected value=itu>itu</option><option value=ansi>ansi</option><option value=china>china</option><option value=japan>japan</option></select><br>\r"];
         [s appendFormat:@"MTP3 HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=submit>\r"];
@@ -5440,7 +5444,7 @@ static void signalHandler(int signum);
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
         [s appendString:@"</UL>\n"];
 
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"SCCP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];
@@ -5502,7 +5506,7 @@ static void signalHandler(int signum);
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
         [s appendString:@"</UL>\n"];
 
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
         [s appendFormat:@"<input type=submit>\r"];
@@ -5550,7 +5554,7 @@ static void signalHandler(int signum);
 
             NSMutableString *s = [[NSMutableString alloc]init];
             [SS7GenericInstance webHeader:s title:@"TCAP Decode"];
-            [s appendFormat:@"<form>\r"];
+            [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
             [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
             [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
             [s appendFormat:@"<input type=submit>\r"];
@@ -5578,7 +5582,7 @@ static void signalHandler(int signum);
     {
         NSMutableString *s = [[NSMutableString alloc]init];
         [SS7GenericInstance webHeader:s title:@"TCAP2 Decode"];
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
         [s appendFormat:@"<input type=submit>\r"];
@@ -5626,7 +5630,7 @@ static void signalHandler(int signum);
             UMASN1Object *asn1 = task.asn1;
             NSMutableString *s = [[NSMutableString alloc]init];
             [SS7GenericInstance webHeader:s title:@"TCAP2 Decode"];
-            [s appendFormat:@"<form>\r"];
+            [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
             [s appendFormat:@"TCAP HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
             [s appendFormat:@"SSN:<input type=text name=ssn value=\"default\"><br>\r"];
             [s appendFormat:@"<input type=submit>\r"];
@@ -5686,7 +5690,7 @@ static void signalHandler(int signum);
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
         [s appendString:@"</UL>\n"];
 
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];
@@ -5705,7 +5709,7 @@ static void signalHandler(int signum);
 
         NSMutableString *s = [[NSMutableString alloc]init];
         [SS7GenericInstance webHeader:s title:@"SMS Decode"];
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];
@@ -5732,7 +5736,7 @@ static void signalHandler(int signum);
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
         [s appendString:@"</UL>\n"];
 
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];
@@ -5766,7 +5770,7 @@ static void signalHandler(int signum);
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
         [s appendString:@"</UL>\n"];
 
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=\"checkbox\" name=\"initiator\"> Initiator\r"];
         
@@ -5832,7 +5836,7 @@ static void signalHandler(int signum);
     [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
     [s appendString:@"</UL>\n"];
 
-    [s appendFormat:@"<form><pre>\r"];
+    [s appendFormat:@"<form accept-charset=\"UTF-8\"><pre>\r"];
     [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
     [s appendFormat:@"<input type=submit>\r"];
     [s appendFormat:@"</pre></form><p>\r"];
@@ -5864,7 +5868,7 @@ static void signalHandler(int signum);
         [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
         [s appendString:@"</UL>\n"];
 
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"ASN1 HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];
@@ -5880,7 +5884,7 @@ static void signalHandler(int signum);
 
         NSMutableString *s = [[NSMutableString alloc]init];
         [SS7GenericInstance webHeader:s title:@"ASN1 Decode"];
-        [s appendFormat:@"<form>\r"];
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
         [s appendFormat:@"ASN1 HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];

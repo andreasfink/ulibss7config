@@ -1015,6 +1015,7 @@
     [s appendString:@"<head>\n"];
     [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
     [s appendFormat:@"    <title>%@</title>\n",t];
+    [s appendFormat:@"    <meta charset=\"UTF-8\">"];
     [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 }
