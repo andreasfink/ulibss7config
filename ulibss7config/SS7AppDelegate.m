@@ -2658,7 +2658,7 @@ static void signalHandler(int signum);
     [s appendString:@"Transaction Number:  <input name=\"tid\" value=0>\n"];
     [s appendString:@"Application Context: <input name=\"application-context\" value=''> (hex bytes)\n"];
     [s appendString:@"MAP Operation Code:  <input name=\"op\" value=''>\n"];
-    [s appendString:@"Inbound Linkset :   <select name=\"linkset\">"];
+    [s appendString:@"Incoming Linkset:    <select name=\"incoming-linkset\"><option value=\"\" selected></option>"];
     NSArray *linksetNames = [self getMTP3LinkSetNames];
     for(NSString *name in linksetNames)
     {
