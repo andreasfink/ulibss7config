@@ -1315,20 +1315,19 @@ static void signalHandler(int signum);
                     UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
                     if([a count] == 1)
                     {
-                        [mtp3_instance.routingTable addStaticRoute:pc
-                                                     mask:pc.maxmask
-                                              linksetName:linkset
-                                                 priority:prio];
-
+                        [mtp3_instance addStaticRoute:pc
+                                                 mask:pc.maxmask
+                                          linksetName:linkset
+                                             priority:prio];
                     }
                     else if([a count]==2)
                     {
                         UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
                         int mask = [a[1] intValue];
-                        [mtp3_instance.routingTable addStaticRoute:pc
-                                                     mask:mask
-                                              linksetName:linkset
-                                                 priority:prio];
+                        [mtp3_instance addStaticRoute:pc
+                                                 mask:mask
+                                        linksetName:linkset
+                                           priority:prio];
                     }
                 }
             }
