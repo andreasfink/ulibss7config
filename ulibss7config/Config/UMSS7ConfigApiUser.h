@@ -13,10 +13,13 @@
 {
     NSString *_password;
     NSString *_profile;
+    NSArray<NSString *>*_allowedAddresses;
+    
 }
 
 @property(readwrite,strong,atomic)      NSString *password;
 @property(readwrite,strong,atomic)      NSString *profile;
+@property(readwrite,strong,atomic)      NSArray<NSString *>*allowedAddresses;
 
 + (NSString *)type;
 - (NSString *)type;

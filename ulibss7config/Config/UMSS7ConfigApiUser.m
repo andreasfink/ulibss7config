@@ -36,6 +36,7 @@
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"password",_password);
     APPEND_CONFIG_STRING(s,@"profile",_profile);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"allowed-address",_allowedAddresses); /* this will write multipe permitted-address=.. lines */
 }
 
 
@@ -44,6 +45,8 @@
     UMSynchronizedSortedDictionary *dict = [super config];
     APPEND_DICT_STRING(dict,@"password",_password);
     APPEND_DICT_STRING(dict,@"profile",_profile);
+    APPEND_DICT_ARRAY(dict,@"allowed-address",_allowedAddresses);
+
     return dict;
 }
 
@@ -51,6 +54,7 @@
 {
     SET_DICT_STRING(dict,@"password",_password);
     SET_DICT_STRING(dict,@"profile",_profile);
+    SET_DICT_ARRAY(dict,@"allowed-address",_allowedAddresses);
 }
 
 - (UMSS7ConfigApiUser *)copyWithZone:(NSZone *)zone
