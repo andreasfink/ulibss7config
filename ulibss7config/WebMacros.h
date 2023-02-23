@@ -51,6 +51,12 @@
     } \
 }
 
+
+#define SET_OPTIONAL_DATA_PARAMETER(p,var,name)   \
+{\
+    var = [p[name]urldecodeData];\
+}
+
 #define SET_OPTIONAL_CLEAN_PARAMETER(p,var,name)   \
 {\
 	var = [p[name]urldecode];\
