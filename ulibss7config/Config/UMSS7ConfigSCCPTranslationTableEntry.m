@@ -22,6 +22,26 @@
     return [UMSS7ConfigSCCPTranslationTableEntry type];
 }
 
+- (NSArray<NSString *>*)gta
+{
+    return _gta;
+}
+
+- (void)setGta:(NSArray<NSString *>*)gta1
+{
+    if([gta1 isKindOfClass:[NSString class]])
+    {
+        _gta = @[(NSString *)gta1];
+    }
+    else if([gta1 isKindOfClass:[NSArray class]])
+    {
+        _gta = gta1;
+    }
+    else if(gta1==NULL)
+    {
+        _gta = @[];
+    }
+}
 
 - (UMSS7ConfigSCCPTranslationTableEntry *)initWithConfig:(NSDictionary *)dict
 {
@@ -38,7 +58,7 @@
 {
     [super appendConfigToString:s withoutName:YES];
     APPEND_CONFIG_STRING(s,@"table",_translationTableName);
-    APPEND_CONFIG_STRING(s,@"gta",_gta);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"gta",_gta);
     APPEND_CONFIG_STRING(s,@"destination",_sccpDestination);
     APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
     APPEND_CONFIG_STRING(s,@"gt-owner",_gtOwner);
@@ -55,7 +75,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [super configWithoutName:YES];
     APPEND_DICT_STRING(dict,@"table",_translationTableName);
-    APPEND_DICT_STRING(dict,@"gta",_gta);
+    APPEND_DICT_ARRAY(dict,@"gta",_gta);
     APPEND_DICT_STRING(dict,@"destination",_sccpDestination);
     APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
     APPEND_DICT_STRING(dict,@"gt-owner",_gtOwner);
@@ -73,7 +93,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_FILTERED_STRING(dict,@"table",_translationTableName);
-    SET_DICT_STRING(dict,@"gta",_gta);
+    SET_DICT_ARRAY(dict,@"gta",_gta);
     SET_DICT_FILTERED_STRING(dict,@"destination",_sccpDestination);
     SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
     SET_DICT_FILTERED_STRING(dict,@"gt-owner",_gtOwner);
@@ -166,7 +186,7 @@
                                            calledSSNs:ssns
                                         calledOpcodes:ops
                                           appContexts:acs];
-
+ 
 }
 
 - (UMSS7ConfigSCCPTranslationTableEntry *)copyWithZone:(NSZone *)zone

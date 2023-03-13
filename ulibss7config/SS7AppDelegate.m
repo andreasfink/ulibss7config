@@ -1479,7 +1479,7 @@ static void signalHandler(int signum);
         {
             UMSS7ConfigSCCPTranslationTableEntry *e = [[UMSS7ConfigSCCPTranslationTableEntry alloc]init];
             e.translationTableName = name;
-            e.gta=@"default";
+            e.gta=@[@"default"];
             e.sccpDestination = co.defaultDestination;
             SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
             [selector.routingTable addEntry:entry];
@@ -1487,8 +1487,8 @@ static void signalHandler(int signum);
         NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
         for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
         {
-            SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
             
+            SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
             if(entry.postTranslationName)
             {
                 entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
