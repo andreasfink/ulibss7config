@@ -560,10 +560,20 @@
             {
                 translation_table = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:@{ @"name" : sccp_translation_table_entry.translationTableName }];
             }
-            [translation_table addSubEntry:sccp_translation_table_entry];
-
+            if(sccp_translation_table_entry.gta.count > 1)
+            {
+                for(NSString *gta in sccp_translation_table_entry.gta)
+                {
+                    UMSS7ConfigSCCPTranslationTableEntry *single = [sccp_translation_table_entry copy];
+                    [single setGta:@[gta]];
+                    [translation_table addSubEntry:single];
+                }
+            }
+            else
+            {
+                [translation_table addSubEntry:sccp_translation_table_entry];
+            }
             _sccp_translation_table_entry_dict[sccp_translation_table_entry.name] = sccp_translation_table_entry;
-
         }
     }
 

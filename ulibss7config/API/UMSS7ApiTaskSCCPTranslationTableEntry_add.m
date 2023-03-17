@@ -86,8 +86,23 @@
                 return;
             }
             NSDictionary *config = [entry.config dictionaryCopy];
-            SccpGttRoutingTableEntry *rte = [[SccpGttRoutingTableEntry alloc]initWithConfig:config];
-            [rt addEntry:rte];
+            id gta_entry = config[@"gta"];
+            if([gta_entry isKindOfClass:[NSArray class]])
+            {
+                NSArray *gtas = (NSArray *)gta_entry;
+                for (NSString *gta in gtas)
+                {
+                    NSMutableDictionary *config2 = [config mutableCopy];
+                    config2[@"gta"] = gta;
+                    SccpGttRoutingTableEntry *rte = [[SccpGttRoutingTableEntry alloc]initWithConfig:config2];
+                    [rt addEntry:rte];
+                }
+            }
+            else if([gta_entry isKindOfClass:[NSArray class]])
+            {
+                SccpGttRoutingTableEntry *rte = [[SccpGttRoutingTableEntry alloc]initWithConfig:config];
+                [rt addEntry:rte];
+            }
         }
 
         @catch(NSException *e)
