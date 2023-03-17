@@ -1294,7 +1294,7 @@ static void signalHandler(int signum);
             }
             else
             {
-                prio = 2;
+                prio = 3;
             }
             if(linkset==NULL)
             {
