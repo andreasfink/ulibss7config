@@ -1282,17 +1282,12 @@ static void signalHandler(int signum);
         NSDictionary *cfg = co.config.dictionaryCopy;
         if( [cfg configEnabledWithYesDefault])
         {
-            NSString *instance = [[cfg configEntry:@"mtp3"] stringValue];
-            NSString *route = [[cfg configEntry:@"dpc"] stringValue];
-            NSString *linkset = [[cfg configEntry:@"ls"] stringValue];
-            NSString *as = [[cfg configEntry:@"as"] stringValue];
-            NSString *priority = [[cfg configEntry:@"priority"] stringValue];
-            int prio;
-            if(priority.length > 0)
-            {
-                prio = [priority intValue];
-            }
-            else
+            NSString *instance = co.mtp3;
+            NSString *route = co.dpc;
+            NSString *linkset = co.ls;
+            NSString *as = co.as;
+            int prio = [co.priority intValue];
+            if(co.priority == NULL)
             {
                 prio = 3;
             }
@@ -1318,7 +1313,9 @@ static void signalHandler(int signum);
                         [mtp3_instance addStaticRoute:pc
                                                  mask:pc.maxmask
                                           linksetName:linkset
-                                             priority:prio];
+                                             priority:prio
+                                               weight:co.weight
+                                      localPreference:co.localPreference];
                     }
                     else if([a count]==2)
                     {

@@ -15,7 +15,8 @@
     NSString *_as;
     NSString *_ls;
     NSNumber *_priority;
-
+    NSNumber *_weight;
+    NSNumber *_localPreference;
 }
 
 + (NSString *)type;
@@ -27,5 +28,7 @@
 @property(readwrite,strong,atomic)  NSString *as;
 @property(readwrite,strong,atomic)  NSString *ls;
 @property(readwrite,strong,atomic)  NSNumber *priority;
+@property(readwrite,strong,atomic)  NSNumber *weight;
+@property(readwrite,strong,atomic)  NSNumber *localPreference;
 
 @end

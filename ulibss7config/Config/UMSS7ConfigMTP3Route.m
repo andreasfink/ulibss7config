@@ -52,6 +52,8 @@
     APPEND_CONFIG_STRING(s,@"ls",_ls);
     APPEND_CONFIG_STRING(s,@"as",_as);
     APPEND_CONFIG_INTEGER(s,@"priority",_priority);
+    APPEND_CONFIG_DOUBLE(s,@"weight",_weight);
+    APPEND_CONFIG_DOUBLE(s,@"local-preference",_localPreference);
 }
 
 
@@ -64,6 +66,8 @@
     APPEND_DICT_STRING(dict,@"ls",_ls);
     APPEND_DICT_STRING(dict,@"as",_as);
     APPEND_DICT_INTEGER(dict,@"priority",_priority);
+    APPEND_DICT_DOUBLE(dict,@"weight",_weight);
+    APPEND_DICT_DOUBLE(dict,@"local-preference",_localPreference);
     return dict;
 }
 
@@ -75,6 +79,8 @@
     SET_DICT_FILTERED_STRING(dict,@"ls",_ls);
     SET_DICT_FILTERED_STRING(dict,@"as",_as);
     SET_DICT_INTEGER(dict,@"priority",_priority);
+    SET_DICT_DOUBLE(dict,@"weight",_weight);
+    SET_DICT_DOUBLE(dict,@"local-preference",_localPreference);
 }
 
 - (UMSS7ConfigMTP3Route *)copyWithZone:(NSZone *)zone
