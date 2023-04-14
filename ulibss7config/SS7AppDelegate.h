@@ -226,7 +226,7 @@ UMEnvironmentNamedListProviderProtocol>
 @property(readwrite,strong)     UMLogHandler    *logHandler;
 @property(readwrite,assign)     BOOL            startInStandby;
 
-@property(readonly,assign)     NSString        *hostname;
+@property(readonly,strong)      NSString            *hostname;
 
 @property(readwrite,strong)     NSDictionary		*enabledOptions;
 @property(readwrite,strong)     UMCommandLine		*commandLine;
