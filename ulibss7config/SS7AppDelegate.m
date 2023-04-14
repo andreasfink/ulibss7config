@@ -992,6 +992,8 @@ static void signalHandler(int signum);
         _queueHardLimit = [generalConfig.queueHardLimit unsignedIntegerValue];
     }
 
+    [self startDatabaseConnections];
+
     /*****************************************************************/
     /* Section USER */
     /*****************************************************************/
@@ -1718,7 +1720,6 @@ static void signalHandler(int signum);
             [self addWithConfigCAMEL:config];
         }
     }
-    [self startDatabaseConnections];
 
     /*****************************************************************/
     /* CDR Writers */
