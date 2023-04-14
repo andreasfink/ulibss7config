@@ -41,6 +41,10 @@
     APPEND_CONFIG_STRING(s,@"mode",_mode);
     APPEND_CONFIG_STRING(s,@"problematic-packet-dumper",_problematicPacketDumper);
     APPEND_CONFIG_STRING(s,@"routing-update-log",_routingUpdateLog);
+    APPEND_CONFIG_STRING(s,@"routing-update-db-pool",_routingUpdateDbPool);
+    APPEND_CONFIG_STRING(s,@"routing-update-db-table",_routingUpdateDbTable);
+    APPEND_CONFIG_STRING(s,@"routing-update-db-instance",_routingUpdateDbInstance);
+    APPEND_CONFIG_BOOLEAN(s,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
     APPEND_CONFIG_STRING(s,@"statistic-db-pool",_statisticDbPool);
     APPEND_CONFIG_STRING(s,@"statistic-db-table",_statisticDbTable);
     APPEND_CONFIG_STRING(s,@"statistic-db-instance",_statisticDbInstance);
@@ -60,7 +64,10 @@
     APPEND_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
     APPEND_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
     APPEND_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
-
+    APPEND_DICT_STRING(dict,@"routing-update-db-pool",_routingUpdateDbPool);
+    APPEND_DICT_STRING(dict,@"routing-update-db-table",_routingUpdateDbTable);
+    APPEND_DICT_STRING(dict,@"routing-update-db-instance",_routingUpdateDbInstance);
+    APPEND_DICT_BOOLEAN(dict,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
     return dict;
 }
 
@@ -77,6 +84,11 @@
     SET_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
     SET_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
     SET_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
+    SET_DICT_STRING(dict,@"routing-update-db-pool",_routingUpdateDbPool);
+    SET_DICT_STRING(dict,@"routing-update-db-table",_routingUpdateDbTable);
+    SET_DICT_STRING(dict,@"routing-update-db-instance",_routingUpdateDbInstance);
+    SET_DICT_BOOLEAN(dict,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
+
 }
 
 - (UMSS7ConfigMTP3 *)copyWithZone:(NSZone *)zone

@@ -21,6 +21,11 @@
     NSString *_statisticDbTable;
     NSString *_statisticDbInstance;
     NSNumber *_statisticDbAutocreate;
+
+    NSString *_routingUpdateDbPool;
+    NSString *_routingUpdateDbTable;
+    NSString *_routingUpdateDbInstance;
+    NSNumber *_routingUpdateDbAutocreate;
 }
 
 + (NSString *)type;
@@ -37,5 +42,10 @@
 @property(readwrite,strong,atomic)  NSString *statisticDbTable;
 @property(readwrite,strong,atomic)  NSString *statisticDbInstance;
 @property(readwrite,strong,atomic)  NSNumber *statisticDbAutocreate;
+@property(readwrite,strong,atomic)  NSString *routingUpdateDbPool;
+@property(readwrite,strong,atomic)  NSString *routingUpdateDbTable;
+@property(readwrite,strong,atomic)  NSString *routingUpdateDbInstance;
+@property(readwrite,strong,atomic)  NSNumber *routingUpdateDbAutocreate;
+
 
 @end
