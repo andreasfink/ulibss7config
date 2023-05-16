@@ -20,6 +20,8 @@ ulibss7config_config.h
 ulibss7config.xcodeproj/project.xcworkspace/xcshareddata
 BUILDNR
 make_buildnr.sh
+buildnumber.c
+buildnumber.h
 
 #########################
 # .gitignore file for Xcode4 and Xcode5 Source projects
