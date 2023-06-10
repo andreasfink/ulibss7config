@@ -35,6 +35,9 @@
     NSString *_screeningSccpPluginTraceFile;
     NSNumber *_screeningSccpPluginTraceLevel;
 
+    NSString *_translationTablesDbPool;
+    NSString *_translationTablesDbTable;
+    NSString *_translationTablesDbAutocreate;
 }
 
 + (NSString *)type;
