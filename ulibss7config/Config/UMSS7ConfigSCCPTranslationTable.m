@@ -45,6 +45,11 @@
     APPEND_CONFIG_STRING(s,@"pre-translation",_preTranslation);
     APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
     APPEND_CONFIG_STRING(s,@"default-destination",_defaultDestination);
+    APPEND_CONFIG_STRING(s,@"translation-table-db-pool",_translationTableDbPool);
+    APPEND_CONFIG_STRING(s,@"translation-table-db-table",_translationTableDbTable);
+    APPEND_CONFIG_BOOLEAN(s,@"translation-table-db-autocreate",_translationTableDbAutocreate);
+    APPEND_CONFIG_DOUBLE(s,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
+
     for(UMSS7ConfigSCCPTranslationTableEntry *e in _subEntries)
     {
         [s appendString:@"\n"];
@@ -64,6 +69,12 @@
     APPEND_DICT_STRING(dict,@"pre-translation",_preTranslation);
     APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
     APPEND_DICT_STRING(dict,@"default-destination",_defaultDestination);
+    
+    APPEND_DICT_STRING(dict,@"translation-table-db-pool",_translationTableDbPool);
+    APPEND_DICT_STRING(dict,@"translation-table-db-table",_translationTableDbTable);
+    APPEND_DICT_BOOLEAN(dict,@"translation-table-db-autocreate",_translationTableDbAutocreate);
+    APPEND_DICT_DOUBLE(dict,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
+
     return dict;
 }
 
@@ -78,8 +89,10 @@
     SET_DICT_FILTERED_STRING(dict,@"pre-translation",_preTranslation);
     SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
     SET_DICT_FILTERED_STRING(dict,@"default-destination",_defaultDestination);
-
-
+    SET_DICT_STRING(dict,@"translation-table-db-pool",_translationTableDbPool);
+    SET_DICT_STRING(dict,@"translation-table-db-table",_translationTableDbTable);
+    SET_DICT_BOOLEAN(dict,@"translation-table-db-autocreate",_translationTableDbAutocreate);
+    SET_DICT_DOUBLE(dict,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
 }
 
 

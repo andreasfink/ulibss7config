@@ -18,7 +18,7 @@
     NSString *_next_pc2;
     NSNumber *_overrideCallingTT;
     NSNumber *_overrideCalledTT;
-
+    
     NSArray<NSString *> *_gtFiles;
     NSString *_problematicPacketsTraceFile;
     NSString *_unrouteablePacketsTraceFile;
@@ -34,10 +34,6 @@
     NSString *_screeningSccpPluginConfigFile;
     NSString *_screeningSccpPluginTraceFile;
     NSNumber *_screeningSccpPluginTraceLevel;
-
-    NSString *_translationTablesDbPool;
-    NSString *_translationTablesDbTable;
-    NSString *_translationTablesDbAutocreate;
 }
 
 + (NSString *)type;
