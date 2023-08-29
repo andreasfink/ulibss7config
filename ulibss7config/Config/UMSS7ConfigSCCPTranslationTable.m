@@ -69,7 +69,6 @@
     APPEND_DICT_STRING(dict,@"pre-translation",_preTranslation);
     APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
     APPEND_DICT_STRING(dict,@"default-destination",_defaultDestination);
-    
     APPEND_DICT_STRING(dict,@"translation-table-db-pool",_translationTableDbPool);
     APPEND_DICT_STRING(dict,@"translation-table-db-table",_translationTableDbTable);
     APPEND_DICT_BOOLEAN(dict,@"translation-table-db-autocreate",_translationTableDbAutocreate);
