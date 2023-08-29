@@ -20,6 +20,7 @@
     NSString *_defaultDestination;
     NSString *_translationTableDbPool;
     NSString *_translationTableDbTable;
+    NSString *_translationTableDbBlacklistTable;
     NSNumber *_translationTableDbAutocreate;
     NSNumber *_translationTableDbCheckIntervall;
 }
@@ -38,6 +39,7 @@
 @property(readwrite,strong,atomic)   NSString *defaultDestination;
 @property(readwrite,strong,atomic)   NSString *translationTableDbPool;
 @property(readwrite,strong,atomic)   NSString *translationTableDbTable;
+@property(readwrite,strong,atomic)   NSString *translationTableDbBlacklistTable;
 @property(readwrite,strong,atomic)   NSNumber *translationTableDbAutocreate;
 @property(readwrite,strong,atomic)   NSNumber *translationTableDbCheckIntervall;
 

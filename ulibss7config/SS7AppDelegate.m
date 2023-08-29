@@ -1483,6 +1483,27 @@ static void signalHandler(int signum);
             SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
             [selector.routingTable addEntry:entry];
         }
+        if(co.translationTableDbPool)
+        {
+            UMDbPool *pool = [self getDbPool:co.translationTableDbPool];
+            UMDbTableDefinition *ttTableDef = UMDbTableDefinition alloc
+        }
+        if((co.translationTableDbPool) && (co.translationTableDbAutocreate))
+        {
+            /* AUTOCREATE TRANSLATION TABLE in DB */
+            if(co.translationTableDbTable)
+            {
+                /* autocreate translation table */
+            }
+            if(co.translationTableDbBlacklistTable)
+            {
+                /* autocreate blacklist table */
+            }
+        }
+        if(co.translationTableDbCheckIntervall.doubleValue > 0)
+        {
+            /* reload translation table in regular intervalls */
+        }
         NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
         for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
         {
@@ -7048,6 +7069,25 @@ static void signalHandler(int signum);
     
 }
 
++ (UMDbTableDefinition *)blacklistTableDefinition
+{
+    
+}
+
++ (UMDbTableDefinition *)blacklistTableDefinition
+{
+    UMDbTableDefinition *td = [[UMDbTableDefinition alloc]init];
+    
+    UMDbFieldDefinition *fd1 = [[UMDbFieldDefinition alloc]init];
+    fd1.fieldName = @"blacklist_gt";
+    fd1.canBeNull = NO;
+    fd1.isIndexed = YES;
+    fd1.isPrimaryIndex = YES;
+    fd1.fieldType = UMDB_FIELD_TYPE_VARCHAR;
+    fd1.fieldSize = 255;
+    fd1.tagId = 1;
+    [td addFieldDef:fd1];
+}
 @end
 
 static void signalHandler(int signum)
