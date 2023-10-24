@@ -1487,9 +1487,10 @@ static void signalHandler(int signum);
         {
             UMDbPool *pool = [self getDbPool:co.translationTableDbPool];
 
-
+/*
             f.fieldName = @"translation_table_name";
             [ttTableDef addFieldDef:f];
+ */
         }
         if((co.translationTableDbPool) && (co.translationTableDbAutocreate))
         {
