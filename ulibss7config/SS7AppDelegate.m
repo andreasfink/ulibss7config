@@ -7086,7 +7086,9 @@ static void signalHandler(int signum);
     fd1.fieldSize = 255;
     fd1.tagId = 1;
     [td addFieldDef:fd1];
+    return td;
 }
+
 @end
 
 static void signalHandler(int signum)
