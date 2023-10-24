@@ -1488,7 +1488,7 @@ static void signalHandler(int signum);
             UMDbPool *pool = [self getDbPool:co.translationTableDbPool];
 
 
-            f.fieldName = @"translation_table_name";"
+            f.fieldName = @"translation_table_name";
             [ttTableDef addFieldDef:f];
         }
         if((co.translationTableDbPool) && (co.translationTableDbAutocreate))
@@ -7068,11 +7068,6 @@ static void signalHandler(int signum);
 
 
 - (void)runTestCase
-{
-    
-}
-
-+ (UMDbTableDefinition *)blacklistTableDefinition
 {
     
 }

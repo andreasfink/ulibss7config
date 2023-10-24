@@ -1,8 +1,8 @@
-dnl /* ==================================================================== 
+dnl /* ====================================================================
 dnl  * Project "ulibss7config"
 dnl  * Copyright © 2018 Andreas Fink (andreas@fink.org). All rights reserved.
-dnl  * ==================================================================== 
-dnl  */ 
+dnl  * ====================================================================
+dnl  */
 dnl initialization
 
 AC_PREREQ([2.69])
@@ -16,7 +16,7 @@ VERSION=`head -n 1 VERSION`
 MAJORVER=`echo $VERSION | cut -f1 -d.`
 MINORVER=`echo $VERSION | cut -f2 -d.`
 REVISION=`echo $VERSION | cut -f3 -d.`
-CONFIG_HEADER=ulibss7config_config.h
+CONFIG_HEADER=${PROJECT_NAME}/ulibss7config_config.h
 DEPENDENT_PKGCONFIGS="ulib ulibgsmmap ulibpcap ulibdiameter ulibtransport schrittmacherclient ulibcamel uliblicense ulibdb ulibsms ulibasn1"
 FRAMEWORKS="-framework ulib -framework ulibsctp -framework ulibm2pa -framework ulibmtp3 -framework ulibsccp -framework ulibtcap -framework ulibgsmmap -framework ulibasn1"
 PKG_CONFIG_PATH="/usr/local/lib/pkgconfig"
@@ -67,16 +67,16 @@ then
 	CC=clang
 fi
 if [[ "$CXX" == "" ]]
-then 
+then
 	CXX=clang++
 fi
 case "$host" in
-  *apple-darwin*) 
+  *apple-darwin*)
 	ARCH="-arch x86_64"
 	OSX_DEVTOOL_DIR=`xcode-select -p`
 	CFLAGS="$CFLAGS -D_REENTRANT=1 -DDARWIN=1 ${ARCH} -DHAS_ULIBLICENSE=1"
 	LDFLAGS=-framework CoreFoundation -framework IOKit -framework Security -F/Library/Application\ Support/FinkTelecomServices/frameworks ${FRAMEWORKS}
-	LIBTOOL="libtool -static -o" 
+	LIBTOOL="libtool -static -o"
 	SHARED_LIBRARY_EXTENSION=dylib
     ;;
 
@@ -100,7 +100,7 @@ case "$host" in
 	CFLAGS="${CFLAGS} -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector"
 	CFLAGS="${CFLAGS} -Wno-deprecated-implementations -Wprotocol -Wdeprecated-declarations -Wno-sign-conversion "
 	CFLAGS="${CFLAGS} -fobjc-arc"
-	if [[ -x /usr/local/bin/gnustep-config ]] 
+	if [[ -x /usr/local/bin/gnustep-config ]]
 	then
 		GNUSTEP_CONFIG=/usr/local/bin/gnustep-config
 	else
@@ -127,9 +127,9 @@ case "$host" in
 	if [[ -x /usr/local/GNUstep/System/Tools/gnustep-config ]]
 	then
 		GNUSTEP_CONFIG=/usr/local/GNUstep/System/Tools/gnustep-config
-		
+
 	else
-		if [[ -x /usr/local/bin/gnustep-config ]] 
+		if [[ -x /usr/local/bin/gnustep-config ]]
 		then
 			GNUSTEP_CONFIG=/usr/local/bin/gnustep-config
 		else
@@ -202,7 +202,7 @@ AC_ARG_ENABLE(debug,
 
 dnl Outputing
 dnl -------------------------------------
-AC_CONFIG_SECTION([Generating output files]) 
+AC_CONFIG_SECTION([Generating output files])
 ./make_version
 
 dnl Final Output
@@ -213,7 +213,7 @@ AC_SUBST(MAJORVER)
 AC_SUBST(MINORVER)
 AC_SUBST(REVISION)
 AC_SUBST(SHARED_LIBRARY_EXTENSION)
-AC_CONFIG_SECTION([Generating output files]) 
+AC_CONFIG_SECTION([Generating output files])
 AC_CONFIG_FILES([Makefile.osx])
 AC_CONFIG_FILES([Makefile.linux])
 AC_CONFIG_FILES([Makefile.freebsd])
@@ -233,7 +233,7 @@ else
 fi
 
 case "$host" in
-  *apple-darwin*) 
+  *apple-darwin*)
     cp Makefile.osx Makefile
     ;;
   *-linux-*)
