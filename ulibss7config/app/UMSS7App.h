@@ -13,7 +13,7 @@
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibdiameter/ulibdiameter.h>
-@class SS7AppDelegate;
+#import <ulibss7config/SS7AppDelegate.h>
 
 typedef enum UMSS7AppType
 {
