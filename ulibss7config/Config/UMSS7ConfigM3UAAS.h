@@ -23,6 +23,11 @@
     NSNumber *_disableRouteAdvertizement;
     NSString *_ttmap_in;
     NSString *_ttmap_out;
+    NSString *_cga_number_translation_in;
+    NSString *_cga_number_translation_out;
+    NSString *_cda_number_translation_in;
+    NSString *_cda_number_translation_out;
+
     NSString *_screeningMtp3PluginName;
     NSString *_screeningMtp3PluginConfigFile;
     NSString *_screeningMtp3PluginTraceFile;
@@ -49,12 +54,18 @@
 @property(readwrite,strong,atomic)  NSString *overrideNetworkIndicator;
 @property(readwrite,strong,atomic)  NSArray *inbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSArray *outbound_filter_rulesets;
+
+@property(readwrite,strong,atomic)  NSString *ttmap_in;
+@property(readwrite,strong,atomic)  NSString *ttmap_out;
+@property(readwrite,strong,atomic)  NSString *cga_number_translation_in;
+@property(readwrite,strong,atomic)  NSString *cga_number_translation_out;
+@property(readwrite,strong,atomic)  NSString *cda_number_translation_in;
+@property(readwrite,strong,atomic)  NSString *cda_number_translation_out;
+
 @property(readwrite,strong,atomic)  NSString *pctrans;
 @property(readwrite,strong,atomic)  NSString *pctransIn;
 @property(readwrite,strong,atomic)  NSString *pctransOut;
 @property(readwrite,strong,atomic)  NSNumber *disableRouteAdvertizement;
-@property(readwrite,strong,atomic)  NSString *ttmap_in;
-@property(readwrite,strong,atomic)  NSString *ttmap_out;
 @property(readwrite,strong,atomic)  NSString *screeningMtp3PluginName;
 @property(readwrite,strong,atomic)  NSString *screeningMtp3PluginConfig;
 @property(readwrite,strong,atomic)  NSString *screeningMtp3PluginTraceFile;

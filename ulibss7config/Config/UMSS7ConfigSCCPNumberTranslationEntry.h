@@ -13,6 +13,7 @@
     NSString *_sccpNumberTranslation;
     NSString *_inAddress;
     NSString *_outAddress;
+    NSNumber *_replacementTT;
     NSNumber *_replacementNAI;
     NSNumber *_replacementNP;
     NSNumber *_removeDigits;
@@ -26,6 +27,7 @@
 @property(readwrite,strong,atomic)  NSString *sccpNumberTranslation;
 @property(readwrite,strong,atomic)  NSString *inAddress;
 @property(readwrite,strong,atomic)  NSString *outAddress;
+@property(readwrite,strong,atomic)  NSNumber *replacementTT;
 @property(readwrite,strong,atomic)  NSNumber *replacementNAI;
 @property(readwrite,strong,atomic)  NSNumber *replacementNP;
 @property(readwrite,strong,atomic)  NSNumber *removeDigits;

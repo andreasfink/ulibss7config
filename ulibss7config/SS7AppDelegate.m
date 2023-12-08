@@ -3725,6 +3725,11 @@ static void signalHandler(int signum);
     return map;
 }
 
+- (SccpNumberTranslation *)getSccpNumberTransationByName:(NSString *)name
+{
+    return _sccp_number_translations_dict[name];
+}
+
 /************************************************************/
 #pragma mark -
 #pragma mark M3UAAS Service Functions
