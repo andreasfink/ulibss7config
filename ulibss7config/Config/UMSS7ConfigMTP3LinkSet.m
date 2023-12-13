@@ -40,8 +40,14 @@
     APPEND_CONFIG_STRING(s,@"opc",_opc);
     APPEND_CONFIG_DOUBLE(s,@"speed",_speed);
     APPEND_CONFIG_STRING(s,@"override-network-indicator",_overrideNetworkIndicator);
+
     APPEND_CONFIG_STRING(s,@"tt-map-in",_ttmap_in);
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
+    APPEND_CONFIG_STRING(s,@"cga-number-translation-in",_cga_number_translation_in);
+    APPEND_CONFIG_STRING(s,@"cga-number-translation-out",_cga_number_translation_out);
+    APPEND_CONFIG_STRING(s,@"cda-number-translation-in",_cda_number_translation_in);
+    APPEND_CONFIG_STRING(s,@"cda-number-translation-out",_cda_number_translation_out);
+
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"map-tt-inbound",_map_tt_in);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"map-tt-outbound",_map_tt_out);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"inbound-filter",_inbound_filter_rulesets);
@@ -75,6 +81,14 @@
     APPEND_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
+
+    APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
+    APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
+    APPEND_DICT_STRING(dict,@"cga-number-translation-in",_cga_number_translation_in);
+    APPEND_DICT_STRING(dict,@"cga-number-translation-out",_cga_number_translation_out);
+    APPEND_DICT_STRING(dict,@"cda-number-translation-in",_cda_number_translation_in);
+    APPEND_DICT_STRING(dict,@"cda-number-translation-out",_cda_number_translation_out);
+
     APPEND_DICT_ARRAY(dict,@"map-tt-inbound",_map_tt_in);
     APPEND_DICT_ARRAY(dict,@"map-tt-outbound",_map_tt_out);
     APPEND_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);
@@ -109,6 +123,10 @@
     SET_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     SET_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
+    SET_DICT_STRING(dict,@"cga-number-translation-in",_cga_number_translation_in);
+    SET_DICT_STRING(dict,@"cga-number-translation-out",_cga_number_translation_out);
+    SET_DICT_STRING(dict,@"cda-number-translation-in",_cda_number_translation_in);
+    SET_DICT_STRING(dict,@"cda-number-translation-out",_cda_number_translation_out);
     SET_DICT_ARRAY(dict,@"map-tt-inbound",_map_tt_in);
     SET_DICT_ARRAY(dict,@"map-tt-outbound",_map_tt_out);
     SET_DICT_ARRAY(dict,@"inbound-filter",_inbound_filter_rulesets);

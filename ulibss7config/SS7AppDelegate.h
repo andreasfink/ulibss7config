@@ -603,5 +603,8 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)deleteCAMEL:(NSString *)name;
 - (void)renameCAMEL:(NSString *)oldName to:(NSString *)newName;
 
+
+- (SccpNumberTranslation *)getSccpNumberTransationByName:(NSString *)name;
+
 @end
 

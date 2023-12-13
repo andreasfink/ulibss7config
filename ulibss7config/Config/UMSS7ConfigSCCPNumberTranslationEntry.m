@@ -37,6 +37,9 @@
     APPEND_CONFIG_STRING(s,@"sccp-number-translation",_sccpNumberTranslation);
     APPEND_CONFIG_STRING(s,@"in-address",_inAddress);
     APPEND_CONFIG_STRING(s,@"out-address",_outAddress);
+    APPEND_CONFIG_INTEGER(s,@"new-tt",_replacementTT);
+    APPEND_CONFIG_INTEGER(s,@"new-calling-party-tt",_replacementCallingPartyTT);
+    APPEND_CONFIG_INTEGER(s,@"new-called-party-tt",_replacementCalledPartyTT);
     APPEND_CONFIG_INTEGER(s,@"new-nai",_replacementNAI);
     APPEND_CONFIG_INTEGER(s,@"new-np",_replacementNP);
     APPEND_CONFIG_INTEGER(s,@"remove-digits",_removeDigits);
@@ -51,6 +54,9 @@
     APPEND_DICT_STRING(dict,@"sccp-number-translation",_sccpNumberTranslation);
     APPEND_DICT_STRING(dict,@"in-address",_inAddress);
     APPEND_DICT_STRING(dict,@"out-address",_outAddress);
+    APPEND_DICT_INTEGER(dict,@"new-tt",_replacementTT);
+    APPEND_DICT_INTEGER(dict,@"new-calling-party-tt",_replacementCallingPartyTT);
+    APPEND_DICT_INTEGER(dict,@"new-called-party-tt",_replacementCalledPartyTT);
     APPEND_DICT_INTEGER(dict,@"new-nai",_replacementNAI);
     APPEND_DICT_INTEGER(dict,@"new-np",_replacementNP);
     APPEND_DICT_INTEGER(dict,@"remove-digits",_removeDigits);
@@ -64,6 +70,9 @@
     SET_DICT_FILTERED_STRING(dict,@"sccp-number-translation",_sccpNumberTranslation);
     SET_DICT_STRING(dict,@"in-address",_inAddress);
     SET_DICT_STRING(dict,@"out-address",_outAddress);
+    SET_DICT_INTEGER(dict,@"new-tt",_replacementTT);
+    SET_DICT_INTEGER(dict,@"new-calling-party-tt",_replacementCallingPartyTT);
+    SET_DICT_INTEGER(dict,@"new-called-party-tt",_replacementCalledPartyTT);
     SET_DICT_INTEGER(dict,@"new-nai",_replacementNAI);
     SET_DICT_INTEGER(dict,@"new-np",_replacementNP);
     SET_DICT_INTEGER(dict,@"remove-digits",_removeDigits);

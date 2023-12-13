@@ -48,6 +48,12 @@
     APPEND_CONFIG_BOOLEAN(s,@"disable-route-advertizement",_disableRouteAdvertizement);
     APPEND_CONFIG_STRING(s,@"tt-map-in",_ttmap_in);
     APPEND_CONFIG_STRING(s,@"tt-map-out",_ttmap_out);
+    APPEND_CONFIG_STRING(s,@"cga-number-translation-in",_cga_number_translation_in);
+    APPEND_CONFIG_STRING(s,@"cga-number-translation-out",_cga_number_translation_out);
+    APPEND_CONFIG_STRING(s,@"cda-number-translation-in",_cda_number_translation_in);
+    APPEND_CONFIG_STRING(s,@"cda-number-translation-out",_cda_number_translation_out);
+
+
     APPEND_CONFIG_STRING(s,@"screening-mtp3-plugin-name",_screeningMtp3PluginName);
     APPEND_CONFIG_STRING(s,@"screening-mtp3-plugin-config-file",_screeningSccpPluginConfigFile);
     APPEND_CONFIG_STRING(s,@"screening-mtp3-plugin-trace-file",_screeningSccpPluginTraceFile);
@@ -80,6 +86,10 @@
     APPEND_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
     APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
+    APPEND_DICT_STRING(dict,@"cga-number-translation-in",_cga_number_translation_in);
+    APPEND_DICT_STRING(dict,@"cga-number-translation-out",_cga_number_translation_out);
+    APPEND_DICT_STRING(dict,@"cda-number-translation-in",_cda_number_translation_in);
+    APPEND_DICT_STRING(dict,@"cda-number-translation-out",_cda_number_translation_out);
     APPEND_DICT_STRING(dict,@"screening-mtp3-plugin-name",_screeningMtp3PluginName);
     APPEND_DICT_STRING(dict,@"screening-mtp3-plugin-config-file",_screeningMtp3PluginConfigFile);
     APPEND_DICT_STRING(dict,@"screening-mtp3-plugin-trace-file",_screeningMtp3PluginTraceFile);
@@ -113,6 +123,10 @@
     SET_DICT_BOOLEAN(dict,@"disable-route-advertizement",_disableRouteAdvertizement);
     SET_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     SET_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
+    SET_DICT_STRING(dict,@"cga-number-translation-in",_cga_number_translation_in);
+    SET_DICT_STRING(dict,@"cga-number-translation-out",_cga_number_translation_out);
+    SET_DICT_STRING(dict,@"cda-number-translation-in",_cda_number_translation_in);
+    SET_DICT_STRING(dict,@"cda-number-translation-out",_cda_number_translation_out);
     SET_DICT_STRING(dict,@"screening-mtp3-plugin-name",_screeningMtp3PluginName);
     SET_DICT_STRING(dict,@"screening-mtp3-plugin-config-file",_screeningMtp3PluginConfigFile);
     SET_DICT_STRING(dict,@"screening-mtp3-plugin-trace-file",_screeningMtp3PluginTraceFile);
