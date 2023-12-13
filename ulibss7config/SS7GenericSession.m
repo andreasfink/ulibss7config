@@ -32,11 +32,11 @@
     _opcode3 = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:xoperation];
 }
 
-- (void)setFirstResponseOperation:(int64_t)xoperation
+- (void)setFirstResponseOperationInt:(int64_t)xoperation
 {
     _firstResponseOpcode = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:xoperation];
 }
-- (void)setFirstInvokeOperation:(int64_t)xoperation
+- (void)setFirstInvokeOperationInt:(int64_t)xoperation
 {
     _firstInvokeOpcode = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:xoperation];
 }
@@ -1778,7 +1778,17 @@ else \
                                              result:NULL
                                          diagnostic:NULL];
     }
+    if((self.firstInvokeOperation) && (self.firstInvoke))
+    {
+        [_gInstance.gsmMap executeMAP_Invoke_Req:self.firstInvoke
+                                          dialog:_dialogId
+                                        invokeId:_invokeId
+                                        linkedId:TCAP_UNDEFINED_LINKED_ID
+                                          opCode:self.firstInvokeOperation
+                                            last:YES
+                                         options:_options];
 
+    }
     switch(_multi_invoke_variant)
     {
         case SS7MultiInvokeVariant_off:
@@ -1800,7 +1810,7 @@ else \
                 {
                     remote = _initialRemoteAddress;
                 }
-
+                
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                              callingAddress:NULL
                                               calledAddress:remote
@@ -1822,7 +1832,7 @@ else \
                                                     last:YES
                                                  options:_options];
             }
-
+            
             if((_opcode2) && (_query2))
             {
                 [_gInstance.gsmMap executeMAP_Invoke_Req:_query2
@@ -1840,7 +1850,7 @@ else \
                 {
                     remote = _initialRemoteAddress;
                 }
-
+                
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                              callingAddress:NULL
                                               calledAddress:remote
@@ -1867,8 +1877,8 @@ else \
             {
                 remote = _initialRemoteAddress;
             }
-
-
+            
+            
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                          callingAddress:NULL
                                           calledAddress:remote
@@ -1915,7 +1925,7 @@ else \
             {
                 remote = _initialRemoteAddress;
             }
-
+            
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                          callingAddress:NULL
                                           calledAddress:remote
@@ -1962,7 +1972,7 @@ else \
             {
                 remote = _initialRemoteAddress;
             }
-
+            
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                          callingAddress:NULL
                                           calledAddress:remote

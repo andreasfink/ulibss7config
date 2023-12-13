@@ -84,6 +84,8 @@ typedef enum SS7MultiInvokeVariant
     BOOL                        _undefinedSession;
     NSString                    *_sessionName;
     int                         _firstInvokeId;
+    UMLayerGSMMAP_OpCode        *_firstInvokeOperation;
+    UMLayerGSMMAP_OpCode        *_firstResponseOperation;
     UMASN1Object                *_firstInvoke;
     UMASN1Object                *_firstResponse;
     int                         _secondInvokeId;
@@ -125,10 +127,10 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *opcode;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *opcode2;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *opcode3;
-@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstResponseOpcode;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstInvokeOpcode;
-@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *secondResponseOpcode;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *firstResponseOpcode;
 @property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *secondInvokeOpcode;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode    *secondResponseOpcode;
 @property(readwrite,strong,atomic)    SS7GenericInstance      *gInstance;
 @property(readwrite,strong,atomic)    SccpAddress             *initialLocalAddress;
 @property(readwrite,strong,atomic)    SccpAddress             *initialRemoteAddress;
@@ -162,7 +164,8 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    int                         nowait;
 @property(readwrite,assign,atomic)    BOOL                        undefinedSession;
 @property(readwrite,strong,atomic)    NSString                    *sessionName;
-@property(readwrite,assign,atomic)    int                         firstInvokeId;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode        *firstInvokeOperation;
+@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode        *firstResponseOperation;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstInvoke;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstResponse;
 @property(readwrite,assign,atomic)    int                         secondInvokeId;
@@ -195,8 +198,6 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    int64_t operation;
 @property(readwrite,assign,atomic)    int64_t operation2;
 @property(readwrite,assign,atomic)    int64_t operation3;
-@property(readwrite,assign,atomic)    int64_t firstResponseOperation;
-@property(readwrite,assign,atomic)    int64_t firstInvokeOperation;
 
 - (void)setIncomingDialogPortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion;
 - (UMTCAP_asn1_dialoguePortion *)incomingDialogPortion;
@@ -402,6 +403,10 @@ typedef enum SS7MultiInvokeVariant
 - (BOOL)isTimedOut;
 - (void)writeTraceToDirectory:(NSString *)dir;
 - (void)dump:(NSFileHandle *)filehandler;
+
+- (void)setFirstResponseOperationInt:(int64_t)xoperation;
+- (void)setFirstInvokeOperationInt:(int64_t)xoperation;
+
     @end
 
 
