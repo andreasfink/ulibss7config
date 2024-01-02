@@ -84,8 +84,8 @@ typedef enum SS7MultiInvokeVariant
     BOOL                        _undefinedSession;
     NSString                    *_sessionName;
     int                         _firstInvokeId;
-    UMLayerGSMMAP_OpCode        *_firstInvokeOperation;
-    UMLayerGSMMAP_OpCode        *_firstResponseOperation;
+    UMLayerGSMMAP_OpCode        *_firstResponseOpcode;
+    UMLayerGSMMAP_OpCode        *_firstInvokeOpcode;
     UMASN1Object                *_firstInvoke;
     UMASN1Object                *_firstResponse;
     int                         _secondInvokeId;
@@ -164,8 +164,8 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    int                         nowait;
 @property(readwrite,assign,atomic)    BOOL                        undefinedSession;
 @property(readwrite,strong,atomic)    NSString                    *sessionName;
-@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode        *firstInvokeOperation;
-@property(readwrite,strong,atomic)    UMLayerGSMMAP_OpCode        *firstResponseOperation;
+@property(readwrite,strong,atomic)    int64_t                     firstInvokeOperation;
+@property(readwrite,strong,atomic)    int64_t                     firstResponseOperation;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstInvoke;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstResponse;
 @property(readwrite,assign,atomic)    int                         secondInvokeId;

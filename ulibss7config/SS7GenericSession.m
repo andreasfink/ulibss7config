@@ -61,9 +61,19 @@
     return _firstResponseOpcode.operation;
 }
 
+- (void)setFirstResponseOperation:(int64_t)op
+{
+    _firstResponseOpcode = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:op];
+}
+
 - (int64_t)firstInvokeOperation
 {
     return _firstInvokeOpcode.operation;
+}
+
+- (void)setFirstInvokeOperation:(int64_t)op
+{
+    _firstInvokeOpcode = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:op];
 }
 
 - (void)setIncomingDialogPortion:(UMTCAP_asn1_dialoguePortion *)xdialoguePortion
@@ -574,11 +584,11 @@ else \
         info_sub[@"linkedId"] = @(xlinkedId);
     }
 
-    if(param.objectName)
+    UMGSMMAP_Reject *reject = [[UMGSMMAP_Reject alloc]initWithASN1Object:paramm context:NULL];
+    if(reject)
     {
-        info_sub[param.objectName] =  param.objectValue;
+        info_sub[reject.objectName] =  reject.objectValue;
     }
-
     info[@"Reject"] = info_sub;
     comp[@"rx"] = info;
     [_components addObject:comp];
