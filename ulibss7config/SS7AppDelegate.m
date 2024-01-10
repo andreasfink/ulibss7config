@@ -6675,8 +6675,6 @@ static void signalHandler(int signum);
     return r;
 }
 
-
-
 - (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet
 {
     [UMSS7Filter sccpDecodeTcapGsmmap:packet];
