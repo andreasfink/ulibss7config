@@ -9,7 +9,7 @@
 #import <ulibpcap/ulibpcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 
-#import "UMSS7ConfigSS7FilterTraceFile.h"
+#import <ulibss7config/UMSS7ConfigSS7FilterTraceFile.h>
 
 @interface UMSS7TraceFile : UMObject<UMSCCP_TracefileProtocol>
 {

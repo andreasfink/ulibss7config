@@ -14,22 +14,20 @@
 #import <schrittmacherclient/schrittmacherclient.h>
 #import <ulibdb/ulibdb.h>
 #import <umscript/umscript.h>
-#import "UMSS7ConfigObject.h"
-#import "SS7TelnetSocketHelperProtocol.h"
-#import "SS7UserAuthenticateProtocol.h"
-#import "UMSS7ConfigAppDelegateProtocol.h"
-#import "UMTTask.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
+#import <ulibss7config/SS7TelnetSocketHelperProtocol.h>
+#import <ulibss7config/SS7UserAuthenticateProtocol.h>
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
+#import <ulibss7config/UMTTask.h>
 
-#import "UMSS7ConfigSS7FilterRuleSet.h"
-#import "UMSS7ConfigSS7FilterRule.h"
-#import "UMSS7ConfigSS7FilterActionList.h"
-#import "UMSS7ConfigSS7FilterAction.h"
-#import "UMSS7TraceFile.h"
+#import <ulibss7config/UMSS7ConfigSS7FilterRuleSet.h>
+#import <ulibss7config/UMSS7ConfigSS7FilterRule.h>
+#import <ulibss7config/UMSS7ConfigSS7FilterActionList.h>
+#import <ulibss7config/UMSS7ConfigSS7FilterAction.h>
+#import <ulibss7config/UMSS7TraceFile.h>
 
-#import <uliblicense/uliblicense.h>
-
-#import "SS7TemporaryImsiPool.h"
-#import "SS7TelnetSocketHelperProtocol.h"
+#import <ulibss7config/SS7TemporaryImsiPool.h>
+#import <ulibss7config/SS7TelnetSocketHelperProtocol.h>
 
 @class ConfigurationSocket;
 @class SchrittmacherClient;
@@ -43,6 +41,8 @@
 @class DiameterGenericInstance;
 @class UMSS7ConfigSS7FilterTraceFile;
 @class SmscConnection;
+@class UMLicenseDirectory;
+@class UMLicenseProductFeature;
 
 typedef enum SchrittmacherMode
 {

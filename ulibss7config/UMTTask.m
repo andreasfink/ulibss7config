@@ -7,10 +7,8 @@
 //
 
 #import "UMTTask.h"
-#import "SS7AppDelegate.h"
 
 @implementation UMTTask
-
 
 -(UMTransportDialogState) dialogState
 {

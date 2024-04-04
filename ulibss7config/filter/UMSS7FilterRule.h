@@ -7,9 +7,10 @@
 //
 
 #import <ulibsccp/ulibsccp.h>
-#import "UMSS7ConfigSS7FilterRule.h"
-#import "UMSS7Filter.h"
-#import "UMSS7FilterStatus.h"
+
+#import <ulibss7config/UMSS7ConfigSS7FilterRule.h>
+#import <ulibss7config/UMSS7Filter.h>
+#import <ulibss7config/UMSS7FilterStatus.h>
 
 @class SS7AppDelegate;
 

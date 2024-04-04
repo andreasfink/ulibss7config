@@ -6,8 +6,7 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7FilterActionList.h"
-#import "UMSS7ConfigSS7FilterActionList.h"
+#import <ulibss7config/UMSS7FilterActionList.h>
 
 @implementation UMSS7FilterActionList
 

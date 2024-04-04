@@ -9,7 +9,7 @@
 #import <ulibsccp/ulibsccp.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 
 @interface UMSS7Filter : UMSCCP_Filter
 {

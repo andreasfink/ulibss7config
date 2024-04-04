@@ -6,25 +6,25 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "DiameterGenericSession.h"
-#import "DiameterSession_Send_Routing_Info_for_SM_Request.h"
-#import "DiameterSessionACR.h"
-#import "DiameterSessionASR.h"
-#import "DiameterSessionAuthentication_Information_Request.h"
-#import "DiameterSessionCancel_Location_Request.h"
-#import "DiameterSessionCER.h"
-#import "DiameterSessionDelete_Subscriber_Data_Request.h"
-#import "DiameterSessionDPR.h"
-#import "DiameterSessionDWR.h"
-#import "DiameterSessionInsert_Subscriber_Data_Request.h"
-#import "DiameterSessionNotify_Request.h"
-#import "DiameterSessionPurge_UE_Request.h"
-#import "DiameterSessionRAR.h"
-#import "DiameterSessionReset_Request.h"
-#import "DiameterSessionSTR.h"
-#import "DiameterSessionRIR.h"
-#import "DiameterSessionUpdate_Location_Request.h"
-#import "DiameterSessionLCS_Routing_Info_Request.h"
-#import "DiameterSessionUser_Data_Request.h"
-#import "DiameterSessionSimpleLocation.h"
+#import <ulibss7config/DiameterGenericSession.h>
+#import <ulibss7config/DiameterSession_Send_Routing_Info_for_SM_Request.h>
+#import <ulibss7config/DiameterSessionACR.h>
+#import <ulibss7config/DiameterSessionASR.h>
+#import <ulibss7config/DiameterSessionAuthentication_Information_Request.h>
+#import <ulibss7config/DiameterSessionCancel_Location_Request.h>
+#import <ulibss7config/DiameterSessionCER.h>
+#import <ulibss7config/DiameterSessionDelete_Subscriber_Data_Request.h>
+#import <ulibss7config/DiameterSessionDPR.h>
+#import <ulibss7config/DiameterSessionDWR.h>
+#import <ulibss7config/DiameterSessionInsert_Subscriber_Data_Request.h>
+#import <ulibss7config/DiameterSessionNotify_Request.h>
+#import <ulibss7config/DiameterSessionPurge_UE_Request.h>
+#import <ulibss7config/DiameterSessionRAR.h>
+#import <ulibss7config/DiameterSessionReset_Request.h>
+#import <ulibss7config/DiameterSessionSTR.h>
+#import <ulibss7config/DiameterSessionRIR.h>
+#import <ulibss7config/DiameterSessionUpdate_Location_Request.h>
+#import <ulibss7config/DiameterSessionLCS_Routing_Info_Request.h>
+#import <ulibss7config/DiameterSessionUser_Data_Request.h>
+#import <ulibss7config/DiameterSessionSimpleLocation.h>
 

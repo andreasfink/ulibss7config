@@ -8,7 +8,7 @@
 
 #import <ulib/ulib.h>
 
-#import "UMSS7ConfigSS7FilterActionList.h"
+#import <ulibss7config/UMSS7ConfigSS7FilterActionList.h>
 
 @class SS7AppDelegate;
 

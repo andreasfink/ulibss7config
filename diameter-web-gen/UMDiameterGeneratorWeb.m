@@ -23,7 +23,7 @@
     [s appendString:@"//  Copyright © 2019 Andreas Fink. All rights reserved.\n"];
     [s appendString:@"//\n"];
     [s appendString:@"\n"];
-    [s appendString:@"#import \"DiameterGenericSession.h\"\n"];
+    [s appendString:@"#import <ulibss7config/DiameterGenericSession.h>\n"];
     [s appendString:@"\n"];
     [s appendString:@"\n"];
     [s appendString:@"\n"];

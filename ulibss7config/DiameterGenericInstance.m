@@ -7,7 +7,7 @@
 //
 
 #import "DiameterGenericInstance.h"
-#import "DiameterGenericSession.h"
+#import <ulibss7config/DiameterGenericSession.h>
 #include <sys/stat.h>
 
 #import "DiameterSession_all.h"
