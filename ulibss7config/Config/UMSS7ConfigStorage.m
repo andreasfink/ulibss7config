@@ -70,6 +70,7 @@
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
 #import "UMSS7ConfigCAMEL.h"
 #import "UMSS7ConfigMnpDatabase.h"
+#import "UMSS7ConfigSMSLog.h"
 #import "UMSS7ConfigMirrorPort.h"
 #import "UMSS7ConfigSMSDeliveryProvider.h"
 #import "UMSS7ConfigSMPPServer.h"
@@ -147,7 +148,7 @@
     _authServers_dict       = [[UMSynchronizedSortedDictionary alloc]init];
     _storageServers_dict    = [[UMSynchronizedSortedDictionary alloc]init];
     _cdrServers_dict        = [[UMSynchronizedSortedDictionary alloc]init];
-
+    _smsLog_dict            = [[UMSynchronizedSortedDictionary alloc]init];
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -324,6 +325,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
     [cfg allowMultiGroup:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
     [cfg allowMultiGroup:[UMSS7ConfigMnpDatabase type]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSLog type]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -3634,6 +3636,8 @@
     return @"ok";
 }
 
+
+
 /*
  **************************************************
  ** MNP Databases
@@ -3679,6 +3683,55 @@
         return @"not found";
     }
     [_mnpDatabases_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SMSLog
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SMSLog
+
+- (NSArray *)getSMSLogs;
+{
+    return [[_smsLog_dict allKeys]sortedStringsArray];
+}
+
+- (UMSS7ConfigSMSLog *)getSMSLog:(NSString *)name
+{
+    return _smsLog_dict[name];
+}
+
+- (NSString *)addSMSLog:(UMSS7ConfigSMSLog *)smslog
+{
+    if(_smsLog_dict[smslog.name] == NULL)
+    {
+        _smsLog_dict[smslog.name] = smslog;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+
+}
+
+- (NSString *)replaceSMSLog:(UMSS7ConfigSMSLog *)smslog
+{
+    _smsLog_dict[smslog.name] = smslog;
+    _dirty=YES;
+    return @"ok";
+}
+
+
+- (NSString *)deleteSMSLog:(NSString *)name;
+{
+    if(_smsLog_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_smsLog_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
@@ -4122,6 +4175,7 @@
     n.authServers_dict = [_authServers_dict copy];
     n.storageServers_dict = [_storageServers_dict copy];
     n.cdrServers_dict = [_cdrServers_dict copy];
+    n.smsLog_dict = [_smsLog_dict copy];
 
     return n;
 }

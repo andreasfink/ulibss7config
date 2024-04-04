@@ -164,8 +164,8 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    int                         nowait;
 @property(readwrite,assign,atomic)    BOOL                        undefinedSession;
 @property(readwrite,strong,atomic)    NSString                    *sessionName;
-@property(readwrite,strong,atomic)    int64_t                     firstInvokeOperation;
-@property(readwrite,strong,atomic)    int64_t                     firstResponseOperation;
+@property(readwrite,assign,atomic)    int64_t                     firstInvokeOperation;
+@property(readwrite,assign,atomic)    int64_t                     firstResponseOperation;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstInvoke;
 @property(readwrite,strong,atomic)    UMASN1Object                *firstResponse;
 @property(readwrite,assign,atomic)    int                         secondInvokeId;

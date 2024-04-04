@@ -68,6 +68,7 @@
 @class UMSS7ConfigDiameterRoute;
 @class UMSS7ConfigCAMEL;
 @class UMSS7ConfigMnpDatabase;
+@class UMSS7ConfigSMSLog;
 @class UMSS7ConfigMirrorPort;
 @class UMSS7ConfigSMSDeliveryProvider;
 @class UMSS7ConfigSMPPServer;
@@ -134,6 +135,7 @@
     UMSynchronizedSortedDictionary *_diameter_route_dict;
     UMSynchronizedSortedDictionary *_camel_dict;
     UMSynchronizedSortedDictionary *_mnpDatabases_dict;
+    UMSynchronizedSortedDictionary *_smsLog_dict;
     UMSynchronizedSortedDictionary *_mirrorPorts_dict;
     UMSynchronizedSortedDictionary *_smsDeliveryProviders_dict;
     UMSynchronizedSortedDictionary *_smppServers_dict;
@@ -212,6 +214,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *authServers_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *storageServers_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *cdrServers_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smsLog_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -538,6 +541,13 @@
 - (NSString *)addMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
 - (NSString *)replaceMnpDatabase:(UMSS7ConfigMnpDatabase *)mnpdb;
 - (NSString *)deleteMnpDatabase:(NSString *)name;
+
+- (NSArray *)getSMSLogs;
+- (UMSS7ConfigSMSLog *)getSMSLog:(NSString *)name;
+- (NSString *)addSMSLog:(UMSS7ConfigSMSLog *)smslog;
+- (NSString *)replaceSMSLog:(UMSS7ConfigSMSLog *)smslog;
+- (NSString *)deleteSMSLog:(NSString *)name;
+
 
 - (NSArray *)getMirrorPortNames;
 - (UMSS7ConfigMirrorPort *)getMirrorPort:(NSString *)name;
