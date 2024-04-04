@@ -1790,14 +1790,15 @@ else \
     }
     if((self.firstInvokeOperation) && (self.firstInvoke))
     {
-        [[_gInstance.gsmMap executeMAP_Invoke_Req:self.firstInvoke
-                                                  dialog:_dialogId
-                                                invokeId:_invokeId
-                                                linkedId:TCAP_UNDEFINED_LINKED_ID
-                                                  opCode:[[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:]self.firstInvokeOperation]
-                                                    last:YES
-                                                 options:_options];
+        UMLayerGSMMAP_OpCode *xop = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:self.firstInvokeOperation];
 
+        [_gInstance.gsmMap executeMAP_Invoke_Req:self.firstInvoke
+                                          dialog:_dialogId
+                                        invokeId:_invokeId
+                                        linkedId:TCAP_UNDEFINED_LINKED_ID
+                                          opCode:xop
+                                            last:YES
+                                         options:_options];
     }
     switch(_multi_invoke_variant)
     {
