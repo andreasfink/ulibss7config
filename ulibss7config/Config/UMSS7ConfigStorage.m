@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigStorage.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibsctp/ulibsctp.h>
 #import "UMSS7ConfigGeneral.h"
 #import "UMSS7ConfigWebserver.h"

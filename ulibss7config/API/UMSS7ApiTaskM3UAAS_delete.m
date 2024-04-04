@@ -8,7 +8,7 @@
 
 #import "UMSS7ApiTaskM3UAAS_delete.h"
 #import "UMSS7ConfigStorage.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigM3UAAS.h"
 
 @implementation UMSS7ApiTaskM3UAAS_delete

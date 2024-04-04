@@ -7,7 +7,7 @@
 //
 
 
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 
 @interface UMSS7ConfigMTP3PointCodeTranslationTable : UMSS7ConfigObject
 {

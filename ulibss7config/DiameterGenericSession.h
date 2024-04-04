@@ -7,8 +7,7 @@
 //
 
 #import <ulibdiameter/ulibdiameter.h>
-#import "OutputFormat.h"
-#import "WebMacros.h"
+#import <ulibss7config/OutputFormat.h>
 
 @class UMPCAPFile;
 @class DiameterGenericInstance;

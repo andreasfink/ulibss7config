@@ -7,9 +7,9 @@
 //
 
 #import "UMSS7ApiTaskM2PA_delete.h"
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import "UMSS7ConfigStorage.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigM2PA.h"
 
 @implementation UMSS7ApiTaskM2PA_delete

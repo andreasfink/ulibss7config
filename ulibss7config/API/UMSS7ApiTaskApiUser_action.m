@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ApiTaskApiUser_action.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigServiceUser.h"
 #import "UMSS7ConfigStorage.h"
 

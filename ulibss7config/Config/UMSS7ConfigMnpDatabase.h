@@ -6,7 +6,7 @@
 //  Copyright © 2020 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 
 
 @interface UMSS7ConfigMnpDatabase : UMSS7ConfigObject

@@ -7,9 +7,9 @@
 //
 
 #import "UMSS7ApiTaskStatistics_status.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigStorage.h"
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import "UMSS7ApiSession.h"
 
 

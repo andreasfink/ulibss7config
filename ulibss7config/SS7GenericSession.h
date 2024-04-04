@@ -15,8 +15,7 @@
 
 @class UMPCAPFile;
 
-#import "OutputFormat.h"
-#import "WebMacros.h"
+#import <ulibss7config/OutputFormat.h>
 
 @class SS7GenericInstance;
 

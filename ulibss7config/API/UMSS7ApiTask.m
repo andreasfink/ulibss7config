@@ -6,8 +6,8 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTask.h"
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <ulibss7config/UMSS7ApiTask.h>
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import "UMSS7ApiTaskAll.h"
 #import "UMSS7ApiSession.h"
 #import "ulibgt/ulibgt.h"

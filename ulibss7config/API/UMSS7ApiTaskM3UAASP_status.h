@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTask.h"
+#import <ulibss7config/UMSS7ApiTask.h>
 
 @interface UMSS7ApiTaskM3UAASP_status : UMSS7ApiTask
 

@@ -14,6 +14,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#import "WebMacros.h"
+
 @implementation SS7GenericSession
 
 

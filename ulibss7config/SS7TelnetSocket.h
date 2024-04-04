@@ -8,7 +8,7 @@
 
 
 #import <ulib/ulib.h>
-#import "SS7TelnetSocketHelperProtocol.h"
+#import <ulibss7config/SS7TelnetSocketHelperProtocol.h>
 
 #define TELNET_CHAR_NUL    '\0'
 #define TELNET_CHAR_CR      '\r'

@@ -8,8 +8,8 @@
 
 #import "UMSS7ApiTaskMTP3Link_status.h"
 
-#import "UMSS7ConfigAppDelegateProtocol.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigStorage.h"
 #import <ulibmtp3/ulibmtp3.h>
 

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMTTask.h"
+#import <ulibss7config/UMTTask.h>
 
 @interface UMTTaskGetVersion : UMTTask
 

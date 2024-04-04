@@ -10,7 +10,8 @@
 #import <ulibgt/ulibgt.h>
 #import <ulibsccp/ulibsccp.h>
 
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
+
 @class UMSS7ApiSession;
 @interface UMSS7ApiTask : UMTaskQueueTask
 {

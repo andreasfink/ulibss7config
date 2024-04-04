@@ -7,7 +7,7 @@
 //
 
 #import "UMTTaskGetVersion.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 
 #import "SS7AppDelegate.h"
 

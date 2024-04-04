@@ -13,8 +13,8 @@
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
-#import "UMSS7ConfigObject.h"
-#import "SS7UserAuthenticateProtocol.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
+#import <ulibss7config/SS7UserAuthenticateProtocol.h>
 
 @class SS7GenericSession;
 @class UMCamelInitialDPArg;

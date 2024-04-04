@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigMTP3LinkSet.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 
 @interface UMSS7ConfigMTP3Link : UMSS7ConfigObject
 {

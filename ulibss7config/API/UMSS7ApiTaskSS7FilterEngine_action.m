@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ApiTaskSS7FilterEngine_action.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 
 @implementation UMSS7ApiTaskSS7FilterEngine_action
 

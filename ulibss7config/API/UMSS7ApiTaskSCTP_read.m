@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ApiTaskSCTP_read.h"
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import "UMSS7ConfigStorage.h"
 #import "UMSS7ConfigSCTP.h"
 

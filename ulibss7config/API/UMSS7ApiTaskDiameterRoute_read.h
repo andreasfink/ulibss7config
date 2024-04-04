@@ -6,7 +6,7 @@
 //  Copyright © 2020 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ApiTask.h"
+#import <ulibss7config/UMSS7ApiTask.h>
 
 @interface UMSS7ApiTaskDiameterRoute_read : UMSS7ApiTask
 

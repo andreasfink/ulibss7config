@@ -6,7 +6,7 @@
 //  Copyright © 2022 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 
 @interface UMSS7ConfigMirrorPort : UMSS7ConfigObject
 {

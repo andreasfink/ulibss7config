@@ -6,10 +6,10 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 #import "UMSS7ApiTaskSS7FilterStagingArea_status.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigStorage.h"
-#import "UMSS7ConfigAppDelegateProtocol.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import "UMSS7ApiSession.h"
 
 @implementation UMSS7ApiTaskSS7FilterStagingArea_status

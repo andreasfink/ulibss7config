@@ -7,8 +7,8 @@
 //
 
 #import <ulibdiameter/ulibdiameter.h>
-#import "UMSS7ConfigObject.h"
-#import "SS7UserAuthenticateProtocol.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
+#import <ulibss7config/SS7UserAuthenticateProtocol.h>
 
 @class DiameterGenericSession;
 

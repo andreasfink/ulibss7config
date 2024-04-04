@@ -7,7 +7,7 @@
 //
 
 #import <ulib/ulib.h>
-#import "UMSS7ConfigApiUser.h"
+#import <ulibss7config/UMSS7ConfigApiUser.h>
 
 @interface UMSS7ApiSession : UMObject
 {

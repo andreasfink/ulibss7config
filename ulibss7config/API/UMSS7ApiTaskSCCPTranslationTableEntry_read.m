@@ -8,7 +8,7 @@
 
 #import "UMSS7ApiTaskSCCPTranslationTableEntry_read.h"
 #import "UMSS7ConfigSCCPTranslationTableEntry.h"
-#import "UMSS7ConfigObject.h"
+#import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigStorage.h"
 
 @implementation UMSS7ApiTaskSCCPTranslationTableEntry_read
