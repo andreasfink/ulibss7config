@@ -98,11 +98,8 @@
 #import "UMSS7ConfigSCCPTranslationTableMap.h"
 #import <ulibtcap/ulibtcap.h>
 
-#ifdef __APPLE__
-#import "/Library/Application Support/FinkTelecomServices/include/uliblicense.h"
-#else
 #import <uliblicense/uliblicense.h>
-#endif
+
 #include <sys/resource.h>
 #define PREFABRICATED_TRANSACTION_ID_COUNT  100000
 

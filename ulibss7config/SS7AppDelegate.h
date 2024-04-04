@@ -26,11 +26,7 @@
 #import "UMSS7ConfigSS7FilterAction.h"
 #import "UMSS7TraceFile.h"
 
-#ifdef __APPLE__
-#import "/Library/Application Support/FinkTelecomServices/include/uliblicense.h"
-#else
 #import <uliblicense/uliblicense.h>
-#endif
 
 #import "SS7TemporaryImsiPool.h"
 #import "SS7TelnetSocketHelperProtocol.h"
