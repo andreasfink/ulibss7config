@@ -34,6 +34,8 @@
     NSString *_screeningSccpPluginConfigFile;
     NSString *_screeningSccpPluginTraceFile;
     NSNumber *_screeningSccpPluginTraceLevel;
+    NSString *_smsLogServerZmqIn;
+    NSString *_smsLogServerZmqOut;
 }
 
 + (NSString *)type;
@@ -63,5 +65,7 @@
 @property(readwrite,strong,atomic)  NSString *screeningSccpPluginConfigFile;
 @property(readwrite,strong,atomic)  NSString *screeningSccpPluginTraceFile;
 @property(readwrite,strong,atomic)  NSNumber *screeningSccpPluginTraceLevel;
+@property(readwrite,strong,atomic)  NSString *smsLogServerZmqIn;
+@property(readwrite,strong,atomic)  NSString *smsLogServerZmqOut;
 
 @end
