@@ -34,6 +34,7 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
+    APPEND_CONFIG_STRING(s,@"zmq-listener",_zmqListener);
     APPEND_CONFIG_STRING(s,@"database-pool",_dbPool);
     APPEND_CONFIG_STRING(s,@"database-table",_dbTable);
 }
@@ -42,6 +43,7 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
+    APPEND_DICT_STRING(dict,@"zmq-listener",_zmqListener);
     APPEND_DICT_STRING(dict,@"database-pool",_dbPool);
     APPEND_DICT_STRING(dict,@"database-table",_dbTable);
 
@@ -51,6 +53,7 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+    SET_DICT_STRING(dict,@"zmq-listener",_zmqListener);
     SET_DICT_STRING(dict,@"database-pool",_dbPool);
     SET_DICT_STRING(dict,@"database-table",_dbTable);
 }

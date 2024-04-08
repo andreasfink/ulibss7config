@@ -11,9 +11,11 @@
 
 @interface UMSS7ConfigSMSLog : UMSS7ConfigObject
 {
+    NSString *_zmqListener;
     NSString *_dbPool;
     NSString *_dbTable;
 }
+@property(readwrite,strong,atomic)     NSString *zmqListener;
 @property(readwrite,strong,atomic)     NSString *dbPool;
 @property(readwrite,strong,atomic)     NSString *dbTable;
 
