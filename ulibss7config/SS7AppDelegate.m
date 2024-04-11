@@ -3862,6 +3862,7 @@ static void signalHandler(int signum);
                                                                   enableLogging:NO
                                                                  numberOfQueues:UMLAYER_QUEUE_COUNT];
         UMLayerSCCP *sccp = [[UMLayerSCCP alloc]initWithTaskQueueMulti:tq name:@"sccp"];
+        sccp.appDelegate   = self;
         sccp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sccp"];
         sccp.logFeed.name = name;
         [sccp setConfig:config applicationContext:self];
