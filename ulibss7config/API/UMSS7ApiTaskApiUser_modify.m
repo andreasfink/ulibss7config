@@ -8,8 +8,10 @@
 
 #import "UMSS7ApiTaskApiUser_modify.h"
 #import <ulibss7config/UMSS7ConfigObject.h>
-#import "UMSS7ConfigApiUser.h"
-#import "UMSS7ConfigStorage.h"
+
+#import <ulibss7config/UMSS7ConfigApiUser.h>
+#import <ulibss7config/UMSS7ConfigStorage.h>
+#import <ulibss7config/UMSS7ApiSession.h>
 
 @implementation UMSS7ApiTaskApiUser_modify
 
