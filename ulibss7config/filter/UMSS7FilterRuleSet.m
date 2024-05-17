@@ -6,9 +6,8 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7FilterRuleSet.h"
-#import "UMSS7FilterRule.h"
-#import "UMSS7ConfigSS7FilterRuleSet.h"
+#import <ulibss7config/UMSS7FilterRuleSet.h>
+#import <ulibss7config/UMSS7FilterRule.h>
 
 @implementation UMSS7FilterRuleSet
 

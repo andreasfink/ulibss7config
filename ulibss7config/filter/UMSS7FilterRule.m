@@ -6,11 +6,10 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7FilterRule.h"
-#import "UMSS7ConfigSS7FilterRule.h"
-#import "UMSS7FilterActionList.h"
-#import "UMSS7FilterAction.h"
-#import "SS7AppDelegate.h"
+#import <ulibss7config/UMSS7FilterRule.h>
+#import <ulibss7config/UMSS7FilterActionList.h>
+#import <ulibss7config/UMSS7FilterAction.h>
+#import <ulibss7config/SS7AppDelegate.h>
 
 
 static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult r);

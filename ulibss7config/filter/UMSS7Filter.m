@@ -9,7 +9,7 @@
 #import <ulibcamel/ulibcamel.h>
 #import <ulibtcap/ulibtcap.h>
 
-#import "UMSS7Filter.h"
+#import <ulibss7config/UMSS7Filter.h>
 
 int         plugin_init(void);
 int         plugin_exit(void);

@@ -6,8 +6,8 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7FilterAction.h"
-#import "SS7AppDelegate.h"
+#import <ulibss7config/UMSS7FilterAction.h>
+#import <ulibss7config/SS7AppDelegate.h>
 
 @implementation UMSS7FilterAction
 
