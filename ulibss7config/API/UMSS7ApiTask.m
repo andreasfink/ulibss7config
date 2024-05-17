@@ -8,19 +8,19 @@
 
 #import <ulibss7config/UMSS7ApiTask.h>
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-#import "UMSS7ApiTaskAll.h"
-#import "UMSS7ApiSession.h"
-#import "ulibgt/ulibgt.h"
-#import "UMSS7ConfigApiUser.h"
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ApiTaskAll.h"
+#import "UMSS7ApiSession.h>
+#import "ulibgt/ulibgt.h>
+#import <ulibss7config/UMSS7ConfigApiUser.h>
+#import <ulibss7config/UMSS7ConfigStorage.h>
 
-#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_list.h"
-#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_read.h"
-#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_add.h"
-#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_modify.h"
-#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h"
-#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h"
-#import "UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h"
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_list.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_read.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_add.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_modify.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h>
 
 @implementation UMSS7ApiTask
 

@@ -10,7 +10,7 @@
 
 #import "UMSS7ApiTaskM3UAAS_list.h"
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import "UMSS7ConfigM3UAAS.h"
 
 @implementation UMSS7ApiTaskM3UAAS_list

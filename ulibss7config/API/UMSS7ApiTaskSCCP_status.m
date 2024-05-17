@@ -9,7 +9,7 @@
 #import "UMSS7ApiTaskSCCP_status.h"
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibsccp/ulibsccp.h>
 
 @implementation UMSS7ApiTaskSCCP_status

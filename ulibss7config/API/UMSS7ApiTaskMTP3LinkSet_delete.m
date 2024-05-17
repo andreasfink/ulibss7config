@@ -8,7 +8,7 @@
 
 #import "UMSS7ApiTaskMTP3LinkSet_delete.h"
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigMTP3LinkSet.h"
 

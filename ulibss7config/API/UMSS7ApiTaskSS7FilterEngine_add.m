@@ -9,7 +9,7 @@
 #import "UMSS7ApiTaskSS7FilterEngine_add.h"
 
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
 
 @implementation UMSS7ApiTaskSS7FilterEngine_add

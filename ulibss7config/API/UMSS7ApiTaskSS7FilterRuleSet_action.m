@@ -10,7 +10,7 @@
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ConfigSS7FilterStagingArea.h"
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import "UMSS7ApiSession.h"
 

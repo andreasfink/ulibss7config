@@ -8,7 +8,7 @@
 
 #import "UMSS7ApiTaskSCCPTranslationTable_delete.h"
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigSCCPTranslationTable.h"
 #import "UMSS7ConfigSCCP.h"

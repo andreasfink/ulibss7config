@@ -9,7 +9,7 @@
 #import "UMSS7ApiTaskSS7FilterActionList_list.h"
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import "UMSS7ConfigSS7FilterActionList.h"
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import "UMSS7ConfigSS7FilterStagingArea.h"
 #import "UMSS7ConfigSS7FilterAction.h"
 

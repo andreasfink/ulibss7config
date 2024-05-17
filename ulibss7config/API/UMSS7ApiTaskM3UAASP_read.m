@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ApiTaskM3UAASP_read.h"
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import "UMSS7ConfigM3UAASP.h"
 
 @implementation UMSS7ApiTaskM3UAASP_read

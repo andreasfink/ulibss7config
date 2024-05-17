@@ -10,7 +10,7 @@
 
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibmtp3/ulibmtp3.h>
 
 @implementation UMSS7ApiTaskMTP3LinkSet_action

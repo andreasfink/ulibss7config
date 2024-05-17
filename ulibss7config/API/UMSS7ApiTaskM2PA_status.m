@@ -9,7 +9,7 @@
 #import "UMSS7ApiTaskM2PA_status.h"
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibm2pa/ulibm2pa.h>
 
 @implementation UMSS7ApiTaskM2PA_status

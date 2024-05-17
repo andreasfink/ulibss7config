@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibsctp/ulibsctp.h>
 #import "UMSS7ConfigGeneral.h"
@@ -63,7 +63,7 @@
 #import "UMSS7ConfigServiceBillingEntity.h"
 #import "UMSS7ConfigIMSIPool.h"
 #import "UMSS7ConfigCdrWriter.h"
-#import "UMSS7ConfigApiUser.h"
+#import <ulibss7config/UMSS7ConfigApiUser.h>
 #import "UMSS7ConfigDiameterConnection.h"
 #import "UMSS7ConfigDiameterRouter.h"
 #import "UMSS7ConfigDiameterRoute.h"

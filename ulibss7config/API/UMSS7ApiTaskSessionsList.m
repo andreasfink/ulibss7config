@@ -7,12 +7,12 @@
 //
 
 #import "UMSS7ApiTaskSessionsList.h"
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 #import "UMSS7ConfigAdminUser.h"
 
 #import "UMSS7ApiSession.h"
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-#import "UMSS7ConfigApiUser.h"
+#import <ulibss7config/UMSS7ConfigApiUser.h>
 
 @implementation UMSS7ApiTaskSessionsList
 

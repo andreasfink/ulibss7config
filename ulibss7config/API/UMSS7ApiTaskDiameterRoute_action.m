@@ -10,7 +10,7 @@
 #import <ulibdiameter/ulibdiameter.h>
 #import "UMSS7ApiTaskMacros.h"
 #import "UMSS7ConfigDiameterRoute.h"
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
 
 @implementation UMSS7ApiTaskDiameterRoute_action
 
