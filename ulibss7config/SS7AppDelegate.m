@@ -7090,6 +7090,11 @@ static void signalHandler(int signum);
     return td;
 }
 
+-(NSString *)instanceName
+{
+    return @"default-ss7appdelegate";
+}
+
 @end
 
 static void signalHandler(int signum)
