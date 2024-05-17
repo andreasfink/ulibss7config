@@ -6,7 +6,7 @@
 //  Copyright © 2022 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigCdrServer.h"
+#import <ulibss7config/UMSS7ConfigCdrServer.h>
 
 @implementation UMSS7ConfigCdrServer
 

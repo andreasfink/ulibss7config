@@ -6,7 +6,7 @@
 //  Copyright © 2022 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigStorageServer.h"
+#import <ulibss7config/UMSS7ConfigStorageServer.h>
 
 @implementation UMSS7ConfigStorageServer
 

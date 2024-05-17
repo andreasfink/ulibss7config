@@ -10,11 +10,8 @@
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibss7config/UMSS7ConfigApiUser.h>
 #import <ulibss7config/UMSS7ConfigStorage.h>
-<<<<<<< HEAD
-=======
 #import <ulibss7config/UMSS7ApiSession.h>
 
->>>>>>> cd40918bf01d99b9776483c58410faed5b2479fc
 #import "UMSS7ApiTaskMacros.h"
 
 @implementation UMSS7ApiTaskApiUser_list

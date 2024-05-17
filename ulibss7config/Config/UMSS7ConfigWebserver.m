@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigWebserver.h"
+#import <ulibss7config/UMSS7ConfigWebserver.h>
 #import "UMSS7ConfigMacros.h"
 
 @implementation UMSS7ConfigWebserver
