@@ -10,7 +10,7 @@
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibss7config/UMSS7ConfigApiUser.h>
 #import <ulibss7config/UMSS7ConfigStorage.h>
-#import "UMSS7ApiSession.h"
+#import <ulibss7config/UMSS7ApiSession.h>
 
 @implementation UMSS7ApiTaskApiUser_delete
 
