@@ -10,7 +10,7 @@
 #import <ulibss7config/DiameterGenericSession.h>
 #include <sys/stat.h>
 
-#import "DiameterSession_all.h"
+#import <ulibss7config/DiameterSession_all.h>
 
 #if 0
 /* BASE */

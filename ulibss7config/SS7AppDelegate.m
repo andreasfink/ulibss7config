@@ -18,7 +18,8 @@
 #import <ulibmtp3/ulibmtp3.h>
 #import <ulibsmpp/ulibsmpp.h>
 #import <schrittmacherclient/schrittmacherclient.h>
-#import "UMSS7ConfigStorage.h"
+#import <ulibss7config/UMSS7ConfigStorage.h>
+
 #import "UMSS7ConfigGeneral.h"
 #import "UMSS7ConfigWebserver.h"
 #import "UMSS7ConfigAdminUser.h"
