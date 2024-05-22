@@ -4,6 +4,8 @@
 
 *.d
 *.o
+install
+libulibss7config.so
 Makefile
 Makefile.linux
 Makefile.osx
