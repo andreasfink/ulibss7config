@@ -266,17 +266,6 @@
     return NO;
 }
 
-- (BOOL)deauthenticate
-{
-    NSString *session_key = _params[@"session-key"];
-    if(session_key.length > 0)
-    {
-        [_appDelegate removeApiSession:session_key];
-        return YES;
-    }
-    return NO;
-}
-
 - (BOOL)isAuthorised
 {
     /* this will be expanded in the future to more fine grained user authorisation method. For now a user can do all or nothing */

@@ -45,7 +45,6 @@
 - (void)sendErrorMissingParameter:(NSString *)param;
 - (BOOL) isAuthenticated;
 - (BOOL) isAuthorised;
-- (BOOL) deauthenticate;
 - (void)sendException:(NSException *)e;
 - (SccpGttSelector *)getGttSelector;
 - (SccpGttRoutingTable *)getRoutingTable;
