@@ -45,7 +45,8 @@
             {
                 if(sctp.status==UMSOCKET_STATUS_IS)
                 {
-                    if([sctp.stopButtonPressed timeIntervalSinceNow] < 15)
+                    if((sctp.stopButtonPressed != NULL)
+                       && (fabs([sctp.stopButtonPressed timeIntervalSinceNow]) < 15.0))
                     {
                         [self sendResultObject:@[ @"!start", @"!stop in progress"]];
                     }
@@ -56,10 +57,9 @@
                 }
                 else
                 {
-                    if([sctp.startButtonPressed timeIntervalSinceNow] < 15)
+                    if((sctp.startButtonPressed!=NULL) && (fabs([sctp.startButtonPressed timeIntervalSinceNow]) < 15.0))
                     {
                         [self sendResultObject:@[ @"!start in progress", @"!stop"]];
-
                     }
                     else
                     {
