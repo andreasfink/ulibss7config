@@ -20,12 +20,13 @@
 {
     @autoreleasepool
     {
-        if(![self isAuthenticated])
+
+        if([self isAuthenticated])
         {
-            [self sendErrorNotAuthenticated];
-            return;
+            [self deauthenticate]
+            [self sendResultOK];
         }
-        return [self sendResultOK];
+        [self sendErrorNotAuthenticated];
     }
 }
 @end
