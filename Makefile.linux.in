@@ -32,6 +32,8 @@ all: build/include/ulibss7config lib@PROJECT_NAME@.so build/diameter-web-gen
 lib@PROJECT_NAME@.so: ${OFILES}
 	${CC} -shared -o ${LIB}  ${LDFLAGS} ${OFILES} ${LIBS} ${STATIC_LIBS}
 
+headers: build/include/ulibss7config
+
 build/include/ulibss7config:
 	-mkdir -p build/include/ulibss7config
 	cp $(HFILES) build/include/ulibss7config

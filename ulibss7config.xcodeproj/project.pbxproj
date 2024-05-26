@@ -2995,6 +2995,7 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					"\"/Library/Application Support/FinkTelecomServices/include\"",
+					"./**",
 				);
 				INSTALL_PATH = FinkTelecomServices/frameworks;
 				LIBRARY_SEARCH_PATHS = "\"/Library/Application Support/FinkTelecomServices/lib\"";
@@ -3002,6 +3003,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = .;
 				VERSIONING_SYSTEM = "";
 				VERSION_INFO_PREFIX = "";
 				WARNING_CFLAGS = "-Wimplicit-fallthrough";
@@ -3065,6 +3067,7 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					"\"/Library/Application Support/FinkTelecomServices/include\"",
+					"./**",
 				);
 				INSTALL_PATH = FinkTelecomServices/frameworks;
 				LIBRARY_SEARCH_PATHS = "\"/Library/Application Support/FinkTelecomServices/lib\"";
@@ -3072,6 +3075,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = .;
 				VERSIONING_SYSTEM = "";
 				VERSION_INFO_PREFIX = "";
 				WARNING_CFLAGS = "-Wimplicit-fallthrough";

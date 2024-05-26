@@ -12,10 +12,28 @@ PROJECT_ID=me.fink.@PROJECT_NAME@
 CONFIGURATION=@CONFIGURATION@
 CC=@CC@
 
+LIB=lib@PROJECT_NAME@.@SHARED_LIBRARY_EXTENSION@
+PKGCONFIGFILE=@PROJECT_NAME@.pc
+
+MFILES = $(wildcard @PROJECT_NAME@/*.m) $(wildcard @PROJECT_NAME@/*/*.m)
+HFILES =  $(wildcard @PROJECT_NAME@/*.h) $(wildcard @PROJECT_NAME@/*/*.h)
+MOFILES  = $(MFILES:.m=.m.o)
+OFILES = $(MOFILES)
+
+DIAMETER_WEB_GEN_M_FILES=$(wildcard diameter-web-gen/*.m) 
+DIAMETER_WEB_GEN_O_FILES=$(DIAMETER_WEB_GEN_M_FILES:.m=.m.o)
+
+
 all:
 	./codesign_environment.sh
 	xcodebuild $(CONFIGURATION) ${XCODESIGN}
 	
+headers: build/include/ulibss7config
+	
+build/include/ulibss7config:
+	-mkdir -p build/include/ulibss7config
+	cp $(HFILES) build/include/ulibss7config
+
 unlock:
 	security unlock-keychain ~/Library/Keychains/login.keychain
 

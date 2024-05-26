@@ -6,6 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
+#import <ulib/ulib.h>
 #import <ulibss7config/UMSS7ApiTask.h>
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import <ulibss7config/UMSS7ApiTaskAll.h>
