@@ -23,10 +23,16 @@
 
         if([self isAuthenticated])
         {
-            [self deauthenticate]
-            [self sendResultOK];
+			NSString *session_key = _params[@"session-key"];
+			if(session_key.length > 0)
+			{
+				[_appDelegate removeApiSession:session_key];
+				[self sendResultOK];
+				return;
+			}
         }
         [self sendErrorNotAuthenticated];
     }
 }
+
 @end
