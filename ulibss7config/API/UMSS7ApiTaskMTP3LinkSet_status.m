@@ -51,6 +51,15 @@
             dict[@"configured-speed"] = @(mtp3LinkSet.speed);
             dict[@"trw-received"] = @(mtp3LinkSet.trw_received);
             dict[@"tra-sent"] = @(mtp3LinkSet.tra_sent);
+            
+            if((mtp3LinkSet.activeLinks > 0) && (mtp3LinkSet.totalLinks > 0))
+            {
+                dict[@"status"] = @"active";
+            }
+            else
+            {
+                dict[@"status"] = @"inactive";
+            }
             if(mtp3LinkSet.speedometerRx)
             {
                 dict[@"current-rx-speed"] = [mtp3LinkSet.speedometerRx getSpeedTripleJson];
