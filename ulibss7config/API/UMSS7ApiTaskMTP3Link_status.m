@@ -42,8 +42,9 @@
         if(mtp3Link)
         {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+
             dict[@"m2pa-status"] = mtp3Link.m2pa.stateString;
-            switch(mtp3Link.sctp_status)
+            switch(mtp3Link.m2pa.sctpLink.status)
             {
                 case UMSOCKET_STATUS_FOOS:
                     dict[@"sctp-status"]=@"forced-out-of-service";
@@ -60,26 +61,6 @@
                 default:
                     dict[@"sctp-status"]=@"invalid";
                     break;
-            }
-            switch(mtp3Link.attachmentStatus)
-            {
-                case UMMTP3Link_attachmentStatus_detached:
-                    dict[@"attachment-status"]=@"detached";
-                    break;
-                case UMMTP3Link_attachmentStatus_attachmentPending:
-                    dict[@"attachment-status"]=@"attachment-pending";
-                    break;
-                case UMMTP3Link_attachmentStatus_attached:
-                    dict[@"attachment-status"]=@"attached";
-                    break;
-            }
-            if(mtp3Link.attachmentFailureStatus)
-            {
-                dict[@"attachment-failure-status"]=mtp3Link.attachmentFailureStatus;
-            }
-            else
-            {
-                dict[@"attachment-failure-status"]=@"";
             }
             dict[@"congested"]=@(mtp3Link.congested);
             dict[@"processor-outage"]=@(mtp3Link.processorOutage);
