@@ -2524,7 +2524,6 @@ static void signalHandler(int signum);
     [s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
     [s appendString:@"</UL>\n"];
 
-    NSMutableArray *a = [[NSMutableArray alloc]init];
     [s appendString:@"<table class=\"object_table\">\n"];
     [s appendString:@"    <tr>\r\n"];
     [s appendString:@"        <th class=\"object_title\">Name</th>\r\n"];
@@ -2532,6 +2531,8 @@ static void signalHandler(int signum);
     [s appendString:@"        <th class=\"object_title\">Line</th>\r\n"];
     [s appendString:@"        <th class=\"object_title\">Function</th>\r\n"];
     [s appendString:@"    </tr>\r\n"];
+
+    NSArray *a = ummutex_get_locked_mutexes();
     for(NSDictionary *d in a)
     {
         [s appendString:@"    <tr>\r\n"];
@@ -2610,7 +2611,6 @@ static void signalHandler(int signum);
         [s appendString:@"        <th class=\"object_title\">Unlock Count</th>\r\n"];
         [s appendString:@"        <th class=\"object_title\">Waiting Count</th>\r\n"];
         [s appendString:@"        <th class=\"object_title\">Currently Locked</th>\r\n"];
-        [s appendString:@"        <th class=\"object_title\">Location</th>\r\n"];
         [s appendString:@"    </tr>\r\n"];
         for(UMMutexStat *entry in arr)
         {
@@ -2623,12 +2623,10 @@ static void signalHandler(int signum);
             if(entry.currently_locked)
             {
                 [s appendFormat:@"        <td class=\"object_value\">YES</td>\r\n"];
-                [s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n"];
             }
             else
             {
                 [s appendFormat:@"        <td class=\"object_value\">no</td>\r\n"];
-                [s appendFormat:@"        <td class=\"object_value\">&nbsp;</td>\r\n"];
             }
             [s appendString:@"    </tr>\r\n"];
         }
