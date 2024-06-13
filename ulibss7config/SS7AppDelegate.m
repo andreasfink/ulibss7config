@@ -820,7 +820,18 @@ static void signalHandler(int signum);
         {
             umobject_enable_object_stat();
         }
-        if([params[@"ummutex-stat"] boolValue])
+        if(params[@"ummutex-stat"])
+        {
+            if([params[@"ummutex-stat"] boolValue])
+            {
+                ummutex_stat_enable();
+            }
+            else
+            {
+                ummutex_stat_disable();
+            }
+        }
+        else
         {
             ummutex_stat_enable();
         }
@@ -2550,6 +2561,7 @@ static void signalHandler(int signum);
         [s appendString:@"        <th class=\"object_title\">Unlock Count</th>\r\n"];
         [s appendString:@"        <th class=\"object_title\">Waiting Count</th>\r\n"];
         [s appendString:@"        <th class=\"object_title\">Currently Locked</th>\r\n"];
+        [s appendString:@"        <th class=\"object_title\">Location</th>\r\n"];
         [s appendString:@"    </tr>\r\n"];
         for(UMMutexStat *entry in arr)
         {
@@ -2562,10 +2574,12 @@ static void signalHandler(int signum);
             if(entry.currently_locked)
             {
                 [s appendFormat:@"        <td class=\"object_value\">YES</td>\r\n"];
+                [s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n"];
             }
             else
             {
                 [s appendFormat:@"        <td class=\"object_value\">no</td>\r\n"];
+                [s appendFormat:@"        <td class=\"object_value\">&nbsp;</td>\r\n"];
             }
             [s appendString:@"    </tr>\r\n"];
         }
