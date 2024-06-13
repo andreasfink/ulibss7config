@@ -820,21 +820,15 @@ static void signalHandler(int signum);
         {
             umobject_enable_object_stat();
         }
-        if(params[@"ummutex-stat"])
-        {
-            if([params[@"ummutex-stat"] boolValue])
-            {
-                ummutex_stat_enable();
-            }
-            else
-            {
-                ummutex_stat_disable();
-            }
-        }
-        else
+        if([params[@"ummutex-stat"] boolValue])
         {
             ummutex_stat_enable();
         }
+        ummutex_record_locks();
+        
+        extern  NSMutableArray *global_locked_mutexes;
+        global_locked_mutexes   = [[NSMutableArray alloc]init];
+
         if((!params[@"schrittmacher-id"]) && (params[@"schrittmacher-port"]))
         {
             NSLog(@"schrittmacher-port specified but no schrittmacher-id. Ignoring");
