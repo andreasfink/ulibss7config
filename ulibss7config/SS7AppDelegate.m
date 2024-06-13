@@ -1962,6 +1962,14 @@ static void signalHandler(int signum);
                 [self ummutexStat:req];
             }
         }
+        else if([path isEqualToString:@"/debug/locks"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self ummutexShowLocks:req];
+            }
+        }
+
         else if([path isEqualToString:@"/status/sccp/route"])
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
@@ -2498,6 +2506,47 @@ static void signalHandler(int signum);
     [req setResponseJsonString:[d jsonString]];
 }
 
+- (void)ummutexShowLocks:(UMHTTPRequest *)req
+{
+    NSDictionary *p = req.params;
+    NSMutableString *s = [[NSMutableString alloc]init];
+
+    [s appendString:@"<html>\n"];
+    [s appendString:@"<head>\n"];
+    [s appendString:@"    <link rel=\"stylesheet\" href=\"/css/style.css\" type=\"text/css\">\n"];
+    [s appendFormat:@"    <title>Debug: UMMutex Locks</title>\n"];
+    [s appendString:@"</header>\n"];
+    [s appendString:@"<body>\n"];
+
+    [s appendString:@"<h2>Debug: UMMutex Locks</h2>\n"];
+    [s appendString:@"<UL>\n"];
+    [s appendString:@"<LI><a href=\"/\">main</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/debug\">debug</a></LI>\n"];
+    [s appendString:@"</UL>\n"];
+
+    NSMutableArray *a = [[NSMutableArray alloc]init];
+    [s appendString:@"<table class=\"object_table\">\n"];
+    [s appendString:@"    <tr>\r\n"];
+    [s appendString:@"        <th class=\"object_title\">Name</th>\r\n"];
+    [s appendString:@"        <th class=\"object_title\">File</th>\r\n"];
+    [s appendString:@"        <th class=\"object_title\">Line</th>\r\n"];
+    [s appendString:@"        <th class=\"object_title\">Function</th>\r\n"];
+    [s appendString:@"    </tr>\r\n"];
+    for(NSDictionary *d in a)
+    {
+        [s appendString:@"    <tr>\r\n"];
+        [s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n", d[@"name"]];
+        [s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n", d[@"file"]];
+        [s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n", d[@"line"]];
+        [s appendFormat:@"        <td class=\"object_value\">%@</td>\r\n", d[@"func"]];
+        [s appendString:@"    </tr>\r\n"];
+    }
+    [s appendString:@"</table>\r\n"];
+    [s appendString:@"</body>\r\n"];
+    [s appendString:@"</html>\r\n"];
+    [req setResponseHtmlString:s];
+}
+
 
 - (void)ummutexStat:(UMHTTPRequest *)req
 {
@@ -2615,6 +2664,8 @@ static void signalHandler(int signum);
     [s appendString:@"<UL>\n"];
     [s appendString:@"<LI><a href=\"/\">&lt-- main-menu</a></LI>\n"];
     [s appendString:@"<LI><a href=\"/debug/umobject-stat\">umobject-stat</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/debug/ummutex-stat\">ummutex-stat</a></LI>\n"];
+    [s appendString:@"<LI><a href=\"/debug/locks\">locks</a></LI>\n"];
     [s appendString:@"</UL>\n"];
     [s appendString:@"</body>\n"];
     [s appendString:@"</html>\n"];
