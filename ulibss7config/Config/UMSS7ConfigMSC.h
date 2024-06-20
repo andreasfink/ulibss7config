@@ -16,6 +16,7 @@
     NSString *_smsForwardUrl;
     NSNumber *_answerTranslationType;
     NSString *_imsiPool;
+    NSNumber *_smsErrorCode;
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;

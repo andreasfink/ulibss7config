@@ -40,6 +40,7 @@
     APPEND_CONFIG_STRING(s,@"number",_number);
     APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
     APPEND_CONFIG_STRING(s,@"sms-forward-url",_smsForwardUrl);
+    APPEND_CONFIG_INTEGER(s,@"sms-error-code",_smsErrorCode);
     APPEND_CONFIG_INTEGER(s,@"answer-translation-type",_answerTranslationType);
     APPEND_CONFIG_STRING(s,@"imsi-pool",_imsiPool);
 }
@@ -53,6 +54,7 @@
     APPEND_DICT_STRING(dict,@"number",_number);
     APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
     APPEND_DICT_STRING(dict,@"sms-forward-url",_smsForwardUrl);
+    APPEND_DICT_INTEGER(dict,@"sms-error-code",_smsErrorCode);
     APPEND_DICT_INTEGER(dict,@"answer-translation-type",_answerTranslationType);
     APPEND_DICT_STRING(dict,@"imsi-pool",_imsiPool);
 
@@ -66,6 +68,7 @@
     SET_DICT_STRING(dict,@"number",_number);
     SET_DICT_DOUBLE(dict,@"timeout",_timeout);
     SET_DICT_STRING(dict,@"sms-forward-url",_smsForwardUrl);
+    SET_DICT_INTEGER(dict,@"sms-error-code",_smsErrorCode);
     SET_DICT_INTEGER(dict,@"answer-translation-type",_answerTranslationType);
     SET_DICT_STRING(dict,@"imsi-pool",_imsiPool);
 }
