@@ -81,9 +81,6 @@
     APPEND_DICT_STRING(dict,@"override-network-indicator",_overrideNetworkIndicator);
     APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
     APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
-
-    APPEND_DICT_STRING(dict,@"tt-map-in",_ttmap_in);
-    APPEND_DICT_STRING(dict,@"tt-map-out",_ttmap_out);
     APPEND_DICT_STRING(dict,@"cga-number-translation-in",_cga_number_translation_in);
     APPEND_DICT_STRING(dict,@"cga-number-translation-out",_cga_number_translation_out);
     APPEND_DICT_STRING(dict,@"cda-number-translation-in",_cda_number_translation_in);
