@@ -144,7 +144,6 @@
     SET_DICT_ARRAY(dict,@"routing-update-deny",_routingUpdateDeny);
     SET_DICT_ARRAY(dict,@"routing-advertisement-allow",_routingAdvertisementAllow);
     SET_DICT_ARRAY(dict,@"routing-advertisement-deny",_routingAdvertisementDeny);
-
 }
 
 - (UMSS7ConfigMTP3LinkSet *)copyWithZone:(NSZone *)zone
