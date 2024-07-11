@@ -77,10 +77,10 @@
     int64_t uid;
     static int64_t lastUserId = 1;
 
-    [_uidMutex lock];
+    UMMUTEX_LOCK(_uidMutex);
     lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
     uid = lastUserId;
-    [_uidMutex unlock];
+    UMMUTEX_UNLOCK(_uidMutex);
     uidstr =  [NSString stringWithFormat:@"AT%08llX",(long long)uid];
 
     SS7AppTransportSession *ats = [[SS7AppTransportSession alloc]init];

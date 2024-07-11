@@ -280,10 +280,10 @@
     [self touch];
     dict[@"query"] =  _query.objectValue;
     dict[@"response"] = pkt.objectValue;
-    [_operationMutex lock];
+    UMMUTEX_LOCK(_operationMutex);
     [self outputResult2:dict];
     [self markForTermination];
-    [_operationMutex unlock];
+    UMMUTEX_UNLOCK(_operationMutex);
 }
 
 - (void)responseError:(UMDiameterPacket *)pkt
@@ -292,10 +292,10 @@
     [self touch];
     dict[@"query"] =  _query.objectValue;
     dict[@"error"] = pkt.objectValue;
-    [_operationMutex lock];
+    UMMUTEX_LOCK(_operationMutex);
     [self outputResult2:dict];
     [self markForTermination];
-    [_operationMutex unlock];
+    UMMUTEX_UNLOCK(_operationMutex);
 }
 
 - (void)webException:(NSException *)e
@@ -423,10 +423,10 @@
     dict[@"query"] =  _query.objectValue;
     dict[@"timeout"] = @(YES);
     dict[@"user-identifier"] = _userIdentifier;
-    [_operationMutex lock];
+    UMMUTEX_LOCK(_operationMutex);
     [self outputResult2:dict];
     [self markForTermination];
-    [_operationMutex unlock];
+    UMMUTEX_UNLOCK(_operationMutex);
 }
 
 - (void)writeTraceToDirectory:(NSString *)dir

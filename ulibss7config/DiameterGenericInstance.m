@@ -410,7 +410,10 @@
 
 - (void)housekeeping
 {
-    if([_housekeeping_lock tryLock] == 0)
+    int result;
+    
+    UMMUTEX_TRYLOCK(_housekeeping_lock,1,1,result)
+    if(result==0)
     {
         NSArray *keys = [_sessions allKeys];
         for(NSString *key in keys)
@@ -426,7 +429,7 @@
             }
         }
         [_houseKeepingTimerRun touch];
-        [_housekeeping_lock unlock];
+        UMMUTEX_UNLOCK(_housekeeping_lock);
     }
 }
 

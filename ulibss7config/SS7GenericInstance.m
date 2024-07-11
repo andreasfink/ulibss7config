@@ -181,10 +181,10 @@
     int64_t uid;
     static int64_t lastUserId = 1;
 
-    [_uidMutex lock];
+    UMMUTEX_LOCK(_uidMutex);
     lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
     uid = lastUserId;
-    [_uidMutex unlock];
+    UMMUTEX_UNLOCK(_uidMutex);
     uidstr =  [NSString stringWithFormat:@"%@%08llX",self.instancePrefix,(long long)uid];
     return  [[UMCamelUserIdentifier alloc]initWithString:uidstr];
 }
@@ -195,10 +195,10 @@
     int64_t uid;
     static int64_t lastUserId = 1;
 
-    [_uidMutex lock];
+    UMMUTEX_LOCK(_uidMutex);
     lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
     uid = lastUserId;
-    [_uidMutex unlock];
+    UMMUTEX_UNLOCK(_uidMutex);
     uidstr =  [NSString stringWithFormat:@"%@%08llX",self.instancePrefix,(long long)uid];
 
     return  [[UMGSMMAP_UserIdentifier alloc]initWithString:uidstr];;
@@ -1022,7 +1022,9 @@
 
 - (void)housekeeping
 {
-    if([_housekeeping_lock tryLock] == 0)
+    int result;
+    UMMUTEX_TRYLOCK(_housekeeping_lock, 1, 1, result)
+    if(result == 0)
     {
         _delayedDestroy3 = NULL;
         _delayedDestroy3 = _delayedDestroy2;
@@ -1046,7 +1048,7 @@
             }
         }
         [_houseKeepingTimerRun touch];
-        [_housekeeping_lock unlock];
+        UMMUTEX_UNLOCK(_housekeeping_lock);
     }
 }
 

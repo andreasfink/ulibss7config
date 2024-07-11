@@ -130,8 +130,7 @@
                          callingAddress:(SccpAddress *)incomingCallingAddress
 {
     NSString *temporaryImsi = NULL;
-
-    [_temporaryImsiLock lock];
+    UMMUTEX_LOCK(_temporaryImsiLock);
     SS7TemporaryImsiEntry *ti = _usedTemporaryImsisByMSISDN[msisdn];
     if(ti)
     {
@@ -156,46 +155,46 @@
             _usedTemporaryImsis[temporaryImsi] = ti;
         }
     }
-    [_temporaryImsiLock unlock];
+    UMMUTEX_UNLOCK(_temporaryImsiLock);
     return temporaryImsi;
 }
 
 - (NSString *)getMsisdnForImsi:(NSString *)imsi
 {
-    [_temporaryImsiLock lock];
+    UMMUTEX_LOCK(_temporaryImsiLock);
     SS7TemporaryImsiEntry *ti = _usedTemporaryImsis[imsi];
-    [_temporaryImsiLock unlock];
+    UMMUTEX_UNLOCK(_temporaryImsiLock);
     return ti.msisdn;
 }
 
 -(NSInteger)unusedImsiCount
 {
-    [_temporaryImsiLock lock];
+    UMMUTEX_LOCK(_temporaryImsiLock);
     NSInteger count =  _unusedTemporaryImsis.count;
-    [_temporaryImsiLock unlock];
+    UMMUTEX_UNLOCK(_temporaryImsiLock);
     return count;
 
 }
 
 - (void)purgeUnusedTemporaryImsis
 {
-    [_temporaryImsiLock lock];
+    UMMUTEX_LOCK(_temporaryImsiLock);
     NSArray *allImsis = [_usedTemporaryImsis allKeys];
-    [_temporaryImsiLock unlock];
+    UMMUTEX_UNLOCK(_temporaryImsiLock);
     for(NSString *temporaryImsi in allImsis)
     {
-        [_temporaryImsiLock lock];
+        UMMUTEX_LOCK(_temporaryImsiLock);
         SS7TemporaryImsiEntry *ti = _usedTemporaryImsis[temporaryImsi];
-        [_temporaryImsiLock unlock];
+        UMMUTEX_UNLOCK(_temporaryImsiLock);
         if(ti)
         {
             if(-([ti.lastUsed timeIntervalSinceNow]) > _imsiCacheTimer)
             {
-                [_temporaryImsiLock lock];
+                UMMUTEX_LOCK(_temporaryImsiLock);
                 [_usedTemporaryImsis removeObjectForKey:ti.imsi];
                 [_usedTemporaryImsisByMSISDN removeObjectForKey:ti.msisdn];
                 _usedImsiCount = _usedImsiCount - 1;
-                [_temporaryImsiLock unlock];
+                UMMUTEX_UNLOCK(_temporaryImsiLock);
                 [_unusedTemporaryImsis append:ti.imsi];
             }
         }
