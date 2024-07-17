@@ -1023,7 +1023,7 @@
 - (void)housekeeping
 {
     int result;
-    UMMUTEX_TRYLOCK(_housekeeping_lock, 1, 1, result)
+    UMMUTEX_TRYLOCK1(_housekeeping_lock, result)
     if(result == 0)
     {
         _delayedDestroy3 = NULL;
