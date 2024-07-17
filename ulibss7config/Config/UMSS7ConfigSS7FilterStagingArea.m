@@ -127,7 +127,7 @@
 
 - (void)writeConfig
 {
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     // Save self properties
     UMSynchronizedSortedDictionary *dict = self.config;
     
@@ -168,12 +168,12 @@
         NSLog(@"Error while writing staging-area name %@ with error %@",_path,[err localizedDescription]);
     }
     _dirty = NO;
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 }
 
 - (void)deleteConfig:(NSString *)filePath
 {
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
 
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -186,7 +186,7 @@
     {
         NSLog(@"Could not delete file -:%@ when file-path -:%@",[error localizedDescription], filePath);
     }
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 }
 
 - (void)flushIfDirty

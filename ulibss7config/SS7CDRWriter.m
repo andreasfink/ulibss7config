@@ -257,9 +257,9 @@
 - (NSUInteger)pendingRecordsCount
 {
     NSUInteger cnt;
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     cnt = _pendingRecords.count;
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
     return cnt;
 }
 
@@ -283,12 +283,12 @@
     [_speedometerRecords increase];
     if(_useBatchInsert)
     {
-        UMMUTEX_LOCK(_lock);
+        ummutex_lock(_lock);
         if((_writerQueueLimit == 0) || (_pendingRecords.count < _writerQueueLimit))
         {
             [_pendingRecords addObject:fields];
         }
-        UMMUTEX_UNLOCK(_lock);
+        ummutex_unlock(_lock);
         [_timer startIfNotRunning];
     }
     else
@@ -347,10 +347,10 @@
 
 - (void)writeTimer
 {
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     NSMutableArray *writeRecords = _pendingRecords;
     _pendingRecords = [[NSMutableArray alloc]init];
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 
     if(_writerFile>=0)
     {

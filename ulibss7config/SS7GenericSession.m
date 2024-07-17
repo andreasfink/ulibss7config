@@ -818,7 +818,7 @@ else \
     }
 
 
-    UMMUTEX_LOCK(_operationMutex);
+    ummutex_lock(_operationMutex);
     UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
     @try
     {
@@ -877,7 +877,7 @@ else \
     @finally
     {
         [self markForTermination:@"map-close-ind"];
-        UMMUTEX_UNLOCK(_operationMutex);
+        ummutex_unlock(_operationMutex);
     }
     [self touch];
 }
@@ -958,7 +958,7 @@ else \
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_U_Abort_Ind"];
 
-    UMMUTEX_LOCK(_operationMutex);
+    ummutex_lock(_operationMutex);
     @try
     {
         VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -1033,7 +1033,7 @@ else \
     }
     @finally
     {
-        UMMUTEX_UNLOCK(_operationMutex);
+        ummutex_unlock(_operationMutex);
     }
 }
 
@@ -1054,7 +1054,7 @@ else \
     [self touch];
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_P_Abort_Ind"];
 
-    UMMUTEX_LOCK(_operationMutex);
+    ummutex_lock(_operationMutex);
     @try
     {
         VERIFY_UID(_userIdentifier,xuserIdentifier);
@@ -1116,7 +1116,7 @@ else \
     @finally
     {
         [self markForTermination:@"p-abort-ind"];
-        UMMUTEX_UNLOCK(_operationMutex);
+        ummutex_unlock(_operationMutex);
     }
 }
 
@@ -1146,7 +1146,7 @@ else \
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_Notice_Ind with reason"];
     [self.logFeed infoText:@"MAP_Notice_Ind"];
 
-    UMMUTEX_LOCK(_operationMutex);
+    ummutex_lock(_operationMutex);
     @try
     {
         [self.logFeed infoText:@"UDTS"];
@@ -1211,7 +1211,7 @@ else \
     @finally
     {
         [self markForTermination:@"notice-ind"];
-        UMMUTEX_UNLOCK(_operationMutex);
+        ummutex_unlock(_operationMutex);
     }
 }
 
@@ -2386,10 +2386,10 @@ else \
     dict[@"user-identifier"] = _userIdentifier;
     dict[@"map-dialog-id"] = _dialogId;
 
-    UMMUTEX_LOCK(_operationMutex);
+    ummutex_lock(_operationMutex);
     [self outputResult2:dict];
     [self markForTermination:@"timeout"];
-    UMMUTEX_UNLOCK(_operationMutex);
+    ummutex_unlock(_operationMutex);
 }
 
 

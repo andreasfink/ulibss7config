@@ -87,7 +87,7 @@
         return;
     }
 
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     
     if(_isOpen==NO)
     {
@@ -125,7 +125,7 @@
         }
     }
     _lastPacketTime = now;
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 }
 
 - (void)open
@@ -178,30 +178,30 @@
 
 - (void)rotate
 {
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     [self close];
     [self rotateFiles];
     [self open];
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 }
 
 
 - (void)enable
 {
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     _enabled=YES;
     _config.enabled = @(YES);
     [self open];
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 }
 
 - (void)disable
 {
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     _enabled=NO;
     _config.enabled = @(NO);
     [self close];
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 }
 
 - (void)action:(NSString *)action
@@ -214,7 +214,7 @@
 
 - (void)rotateFiles
 {
-    UMMUTEX_LOCK(_lock);
+    ummutex_lock(_lock);
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *s0 = [NSString stringWithFormat:@"%@-%06d.%@",_fullFilenameNoExtenion,_maxRotations,_fileExtension];
     for(int i=_maxRotations-1;i>=0;i--)
@@ -248,7 +248,7 @@
         }
         s0 = s1;
     }
-    UMMUTEX_UNLOCK(_lock);
+    ummutex_unlock(_lock);
 }
 
 

@@ -130,7 +130,7 @@
                          callingAddress:(SccpAddress *)incomingCallingAddress
 {
     NSString *temporaryImsi = NULL;
-    UMMUTEX_LOCK(_temporaryImsiLock);
+    ummutex_lock(_temporaryImsiLock);
     SS7TemporaryImsiEntry *ti = _usedTemporaryImsisByMSISDN[msisdn];
     if(ti)
     {
@@ -155,46 +155,46 @@
             _usedTemporaryImsis[temporaryImsi] = ti;
         }
     }
-    UMMUTEX_UNLOCK(_temporaryImsiLock);
+    ummutex_unlock(_temporaryImsiLock);
     return temporaryImsi;
 }
 
 - (NSString *)getMsisdnForImsi:(NSString *)imsi
 {
-    UMMUTEX_LOCK(_temporaryImsiLock);
+    ummutex_lock(_temporaryImsiLock);
     SS7TemporaryImsiEntry *ti = _usedTemporaryImsis[imsi];
-    UMMUTEX_UNLOCK(_temporaryImsiLock);
+    ummutex_unlock(_temporaryImsiLock);
     return ti.msisdn;
 }
 
 -(NSInteger)unusedImsiCount
 {
-    UMMUTEX_LOCK(_temporaryImsiLock);
+    ummutex_lock(_temporaryImsiLock);
     NSInteger count =  _unusedTemporaryImsis.count;
-    UMMUTEX_UNLOCK(_temporaryImsiLock);
+    ummutex_unlock(_temporaryImsiLock);
     return count;
 
 }
 
 - (void)purgeUnusedTemporaryImsis
 {
-    UMMUTEX_LOCK(_temporaryImsiLock);
+    ummutex_lock(_temporaryImsiLock);
     NSArray *allImsis = [_usedTemporaryImsis allKeys];
-    UMMUTEX_UNLOCK(_temporaryImsiLock);
+    ummutex_unlock(_temporaryImsiLock);
     for(NSString *temporaryImsi in allImsis)
     {
-        UMMUTEX_LOCK(_temporaryImsiLock);
+        ummutex_lock(_temporaryImsiLock);
         SS7TemporaryImsiEntry *ti = _usedTemporaryImsis[temporaryImsi];
-        UMMUTEX_UNLOCK(_temporaryImsiLock);
+        ummutex_unlock(_temporaryImsiLock);
         if(ti)
         {
             if(-([ti.lastUsed timeIntervalSinceNow]) > _imsiCacheTimer)
             {
-                UMMUTEX_LOCK(_temporaryImsiLock);
+                ummutex_lock(_temporaryImsiLock);
                 [_usedTemporaryImsis removeObjectForKey:ti.imsi];
                 [_usedTemporaryImsisByMSISDN removeObjectForKey:ti.msisdn];
                 _usedImsiCount = _usedImsiCount - 1;
-                UMMUTEX_UNLOCK(_temporaryImsiLock);
+                ummutex_unlock(_temporaryImsiLock);
                 [_unusedTemporaryImsis append:ti.imsi];
             }
         }

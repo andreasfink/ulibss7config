@@ -4681,10 +4681,10 @@ static void signalHandler(int signum);
 {
     static int64_t lastUmtransportDialogId =1;
     int64_t did;
-    UMMUTEX_LOCK(_umtransportLock);
+    ummutex_lock(_umtransportLock);
     lastUmtransportDialogId = (lastUmtransportDialogId + 1 ) % 0x7FFFFFFF;
     did = lastUmtransportDialogId;
-    UMMUTEX_UNLOCK(_umtransportLock);
+    ummutex_unlock(_umtransportLock);
     return [NSString stringWithFormat:@"%08llX",(long long)did];
 }
 
@@ -6317,17 +6317,17 @@ static void signalHandler(int signum);
 
 - (UMNamedList *)getNamedList:(NSString *)name
 {
-    UMMUTEX_LOCK(_namedListLock);
+    ummutex_lock(_namedListLock);
     UMNamedList *nl = _namedLists[name];
-    UMMUTEX_UNLOCK(_namedListLock);
+    ummutex_unlock(_namedListLock);
     return nl;
 }
 
 - (NSArray<NSString *>*)namedlistsListNames
 {
-    UMMUTEX_LOCK(_namedListLock);
+    ummutex_lock(_namedListLock);
     NSArray<NSString *> *list = [_namedLists allKeys];
-    UMMUTEX_UNLOCK(_namedListLock);
+    ummutex_unlock(_namedListLock);
     return list;
 }
 
@@ -6344,25 +6344,25 @@ static void signalHandler(int signum);
         NSLog(@"filename of namedlist is zero length or NULL. Skipping");
         return;
     }
-    UMMUTEX_LOCK(_namedListLock);
+    ummutex_lock(_namedListLock);
     UMAssert(_namedLists != NULL,@"_namedLists is NULL");
     UMNamedList *nl =  [[UMNamedList alloc]initWithPath:filename name:listName];
     [nl reload];
     _namedLists[listName] = nl;
-    UMMUTEX_UNLOCK(_namedListLock);
+    ummutex_unlock(_namedListLock);
 
 }
 
 - (void)namedlistsFlushAll
 {
-    UMMUTEX_LOCK(_namedListLock);
+    ummutex_lock(_namedListLock);
     NSArray<NSString *> *allListNames = [self namedlistsListNames];
     for(NSString *listName in allListNames)
     {
         UMNamedList *nl = _namedLists[listName];
         [nl flush];
     }
-    UMMUTEX_UNLOCK(_namedListLock);
+    ummutex_unlock(_namedListLock);
 }
 
 - (NSString *)namedlist_filename:(NSString *)name directory:(NSString *)directory
