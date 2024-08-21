@@ -33,22 +33,24 @@
 
 - (void) genericInitialisation
 {
-    _sessions = [[UMSynchronizedDictionary alloc]init];
-    _delayedDestroy1 = [[NSMutableArray alloc]init];
-    _delayedDestroy2 = [[NSMutableArray alloc]init];
-    _delayedDestroy3 = [[NSMutableArray alloc]init];
-    _timeoutInSeconds = 80;
-    _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_operationMutext"];
-    _uidMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_uidMutex"];
-    _housekeeping_lock = [[UMMutex alloc]initWithName:@"SS7GenericInstance_housekeepingLock"];
+    
+    _sessions           = [[UMSynchronizedDictionary alloc]init];
+    _delayedDestroy1    = [[NSMutableArray alloc]init];
+    _delayedDestroy2    = [[NSMutableArray alloc]init];
+    _delayedDestroy3    = [[NSMutableArray alloc]init];
+    _timeoutInSeconds   = 80;
+    _operationMutex     = [[UMMutex alloc]initWithName:@"SS7GenericInstance_operationMutext"];
+    _uidMutex           = [[UMMutex alloc]initWithName:@"SS7GenericInstance_uidMutex"];
+    _housekeeping_lock  = [[UMMutex alloc]initWithName:@"SS7GenericInstance_housekeepingLock"];
     _houseKeepingTimerRun = [[UMAtomicDate alloc]init];
     _houseKeepingTimer = [[UMTimer alloc]initWithTarget:self
                                                selector:@selector(housekeeping)
                                                  object:NULL
-                                                seconds:2.2
+                                                seconds:1.1
                                                    name:@"housekeeping"
                                                 repeats:YES
                                         runInForeground:NO];
+    _genericInitialisationWasRun = YES;
     [_houseKeepingTimer start];
 }
 
@@ -75,6 +77,7 @@
     if(self)
     {
         _sessions = [[UMSynchronizedDictionary alloc]init];
+        _timeoutInSeconds = 80;
         [self genericInitialisation];
     }
     return self;
@@ -91,18 +94,6 @@
     self = [super initWithTaskQueueMulti:tq name:name];
     if(self)
     {
-        _sessions = [[UMSynchronizedDictionary alloc]init];
-        _timeoutInSeconds = 80;
-        _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_operationMutex"];
-        _uidMutex = [[UMMutex alloc]initWithName:@"SS7GenericInstance_uidMutex"];
-        _houseKeepingTimerRun = [[UMAtomicDate alloc]init];
-        _houseKeepingTimer = [[UMTimer alloc]initWithTarget:self
-                                                   selector:@selector(housekeeping)
-                                                     object:NULL
-                                                    seconds:1.1 /* every sec */
-                                                       name:@"housekeeping"
-                                                    repeats:YES
-                                            runInForeground:NO];
         [self genericInitialisation];
         [_houseKeepingTimer start];
     }

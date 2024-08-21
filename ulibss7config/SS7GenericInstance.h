@@ -30,10 +30,10 @@
     NSTimeInterval              _timeoutInSeconds;
     UMMutex                     *_uidMutex;
     UMMutex                     *_operationMutex;
+    UMMutex                     *_housekeeping_lock;
     NSString                    *_timeoutTraceDirectory;
     NSString                    *_genericTraceDirectory;
     UMTimer                     *_houseKeepingTimer;
-    UMMutex                     *_housekeeping_lock;
     UMAtomicDate                *_houseKeepingTimerRun;
     UMHTTPClient                *_webClient;
     id<SS7UserAuthenticateProtocol> _authDelegate;
@@ -41,7 +41,7 @@
     NSMutableArray              *_delayedDestroy2;
     NSMutableArray              *_delayedDestroy3;
     UMTransportService          *_umTransportService;
-
+    BOOL                        _genericInitialisationWasRun;
 }
 
 @property(readwrite,strong) UMLayerGSMMAP *gsmMap;
@@ -56,6 +56,7 @@
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name;
+- (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq;
 
 - (NSString *)status;
 - (void) setConfig:(NSDictionary *)cfg applicationContext:(id)appContext;
