@@ -2500,7 +2500,6 @@ static void signalHandler(int signum);
 
 - (void)ummutexShowLocks:(UMHTTPRequest *)req
 {
-    NSDictionary *p = req.params;
     NSMutableString *s = [[NSMutableString alloc]init];
 
     [s appendString:@"<html>\n"];
