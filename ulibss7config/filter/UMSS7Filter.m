@@ -127,7 +127,8 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
                                                 calling:packet.incomingCallingPartyAddress
                                                  called:packet.incomingCalledPartyAddress
                                        qualityOfService:0
-                                                options:@{ @"decode-only" : @YES }];
+                                                options:@{ @"decode-only" : @YES }
+                                       verifyAcceptance:NO];
         @autoreleasepool
         {
             [task main];
@@ -237,7 +238,9 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
                                                 calling:packet.incomingCallingPartyAddress
                                                  called:packet.incomingCalledPartyAddress
                                        qualityOfService:0
-                                                options:@{ @"decode-only" : @YES }];
+                                                options:@{ @"decode-only" : @YES }
+                                       verifyAcceptance:NO];
+
         @autoreleasepool
         {
             [task main];

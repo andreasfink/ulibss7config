@@ -5622,7 +5622,9 @@ static void signalHandler(int signum);
                                                     calling:src
                                                      called:dst
                                            qualityOfService:0
-                                                    options:@{ @"decode-only" : @YES }];
+                                                    options:@{ @"decode-only" : @YES }
+                                           verifyAcceptance:NO];
+
             @autoreleasepool
             {
                 [task main];
@@ -5699,7 +5701,9 @@ static void signalHandler(int signum);
                                                     calling:src
                                                      called:dst
                                            qualityOfService:0
-                                                    options:@{ @"decode-only" : @YES }];
+                                                    options:@{ @"decode-only" : @YES }
+                                           verifyAcceptance:NO];
+
             @autoreleasepool
             {
                 [task main];
