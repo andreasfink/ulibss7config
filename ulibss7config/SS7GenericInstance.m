@@ -54,6 +54,7 @@
     [_houseKeepingTimer start];
 }
 
+
 - (SS7GenericInstance *)initWithNumber:(NSString *)xmscAddress
 {
     self = [super init];
@@ -85,7 +86,6 @@
 
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq
 {
-    
     return [self initWithTaskQueueMulti:tq name:@"genetic-ss7-instance"];
 }
 
@@ -185,7 +185,7 @@
     NSString *uidstr;
     int64_t uid;
     static int64_t lastUserId = 1;
-
+    if(_uidMutex==NULL)
     ummutex_lock(_uidMutex);
     lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
     uid = lastUserId;
