@@ -185,7 +185,6 @@
     NSString *uidstr;
     int64_t uid;
     static int64_t lastUserId = 1;
-    if(_uidMutex==NULL)
     ummutex_lock(_uidMutex);
     lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
     uid = lastUserId;
