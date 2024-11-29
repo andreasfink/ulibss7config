@@ -1138,20 +1138,13 @@ static void signalHandler(int signum);
     names = [_runningConfig getSCTPNames];
     if(names.count > 0)
     {
-        if(_sctpFeature.isAvailable==NO)
+        for(NSString *name in names)
         {
-            [self.logFeed majorErrorText:@"No license for SCTP available but SCTP objects configured"];
-        }
-        else
-        {
-            for(NSString *name in names)
+            UMSS7ConfigObject *co = [_runningConfig getSCTP:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getSCTP:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigSCTP:config];
-                }
+                [self addWithConfigSCTP:config];
             }
         }
     }
@@ -1163,20 +1156,13 @@ static void signalHandler(int signum);
     names = [_runningConfig getM2PANames];
     if(names.count > 0)
     {
-        if(_m2paFeature.isAvailable==NO)
+        for(NSString *name in names)
         {
-            [self.logFeed majorErrorText:@"No license for M2PA available but M2PA objects configured"];
-        }
-        else
-        {
-            for(NSString *name in names)
+            UMSS7ConfigObject *co = [_runningConfig getM2PA:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getM2PA:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigM2PA:config];
-                }
+                [self addWithConfigM2PA:config];
             }
         }
     }
@@ -1187,47 +1173,40 @@ static void signalHandler(int signum);
     names = [_runningConfig getMTP3Names];
     if(names.count > 0)
     {
-        if(_mtp3Feature.isAvailable==NO)
+        for(NSString *name in names)
         {
-            [self.logFeed majorErrorText:@"No license for MTP3 available but MTP3 objects configured"];
+            UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
+            {
+                [self addWithConfigMTP3:config];
+            }
         }
-        else
+        /*****************************************************************/
+        /* MTP3 LinkSet*/
+        /*****************************************************************/
+        names = [_runningConfig getMTP3LinkSetNames];
+        for(NSString *name in names)
         {
-            for(NSString *name in names)
+            UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getMTP3:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigMTP3:config];
-                }
+                [self addWithConfigMTP3LinkSet:config];
             }
-            /*****************************************************************/
-            /* MTP3 LinkSet*/
-            /*****************************************************************/
-            names = [_runningConfig getMTP3LinkSetNames];
-            for(NSString *name in names)
-            {
-                UMSS7ConfigObject *co = [_runningConfig getMTP3LinkSet:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigMTP3LinkSet:config];
-                }
-            }
+        }
 
-            /*****************************************************************/
-            /* MTP3 Link */
-            /*****************************************************************/
-            names = [_runningConfig getMTP3LinkNames];
-            for(NSString *name in names)
+        /*****************************************************************/
+        /* MTP3 Link */
+        /*****************************************************************/
+        names = [_runningConfig getMTP3LinkNames];
+        for(NSString *name in names)
+        {
+            UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getMTP3Link:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigMTP3Link:config];
-                }
+                [self addWithConfigMTP3Link:config];
             }
         }
     }
@@ -1240,33 +1219,26 @@ static void signalHandler(int signum);
     names = [_runningConfig getM3UAASNames];
     if(names.count > 0)
     {
-        if(_m3uaFeature.isAvailable==NO)
+        for(NSString *name in names)
         {
-            [self.logFeed majorErrorText:@"No license for M3UA available but M3UA objects configured"];
-        }
-        else
-        {
-            for(NSString *name in names)
+            UMSS7ConfigObject *co = [_runningConfig getM3UAAS:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getM3UAAS:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigM3UAAS:config];
-                }
+                [self addWithConfigM3UAAS:config];
             }
-            /*****************************************************************/
-            /* M3UAASP */
-            /*****************************************************************/
-            names = [_runningConfig getM3UAASPNames];
-            for(NSString *name in names)
+        }
+        /*****************************************************************/
+        /* M3UAASP */
+        /*****************************************************************/
+        names = [_runningConfig getM3UAASPNames];
+        for(NSString *name in names)
+        {
+            UMSS7ConfigObject *co = [_runningConfig getM3UAASP:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getM3UAASP:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigM3UAASP:config];
-                }
+                [self addWithConfigM3UAASP:config];
             }
         }
     }
@@ -1373,36 +1345,29 @@ static void signalHandler(int signum);
     names = [_runningConfig getSCCPNames];
     if(names.count > 0)
     {
-        if(_sccpFeature.isAvailable==NO)
+        for(NSString *name in names)
         {
-            [self.logFeed majorErrorText:@"No license for SCCP available but SCCP objects configured"];
-        }
-        else
-        {
-            for(NSString *name in names)
+            UMSS7ConfigObject *co = [_runningConfig getSCCP:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getSCCP:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigSCCP:config];
-                }
+                [self addWithConfigSCCP:config];
             }
+        }
 
-            /* SCCP Destinations */
-            names = [_runningConfig getSCCPDestinationNames];
-            for(NSString *name in names)
+        /* SCCP Destinations */
+        names = [_runningConfig getSCCPDestinationNames];
+        for(NSString *name in names)
+        {
+            UMSS7ConfigObject *co = [_runningConfig getSCCPDestination:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getSCCPDestination:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
-                    [self addWithConfigSCCPDestination:config subConfigs:co.subConfigs variant:sccp.mtp3.variant];
-                }
+                UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
+                [self addWithConfigSCCPDestination:config subConfigs:co.subConfigs variant:sccp.mtp3.variant];
             }
-            /* FIXME: check if there's more in ESTP which we should add here */
         }
+        /* FIXME: check if there's more in ESTP which we should add here */
     }
     /*****************************************************************/
     /* TCAP */
@@ -1410,20 +1375,13 @@ static void signalHandler(int signum);
     names = [_runningConfig getTCAPNames];
     if(names.count > 0)
     {
-        if(_tcapFeature.isAvailable==NO)
+        for(NSString *name in names)
         {
-            [self.logFeed majorErrorText:@"No license for TCAP available but TCAP objects configured"];
-        }
-        else
-        {
-            for(NSString *name in names)
+            UMSS7ConfigObject *co = [_runningConfig getTCAP:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getTCAP:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigTCAP:config];
-                }
+                [self addWithConfigTCAP:config];
             }
         }
     }
@@ -1433,20 +1391,13 @@ static void signalHandler(int signum);
     names = [_runningConfig getGSMMAPNames];
     if(names.count > 0)
     {
-        if(_gsmmapFeature.isAvailable==NO)
+        for(NSString *name in names)
         {
-            [self.logFeed majorErrorText:@"No license for GSMMAP available but GSMMAP objects configured"];
-        }
-        else
-        {
-            for(NSString *name in names)
+            UMSS7ConfigObject *co = [_runningConfig getGSMMAP:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
             {
-                UMSS7ConfigObject *co = [_runningConfig getGSMMAP:name];
-                NSDictionary *config = co.config.dictionaryCopy;
-                if( [config configEnabledWithYesDefault])
-                {
-                    [self addWithConfigGSMMAP:config];
-                }
+                [self addWithConfigGSMMAP:config];
             }
         }
     }
