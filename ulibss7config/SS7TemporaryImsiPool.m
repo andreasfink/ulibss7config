@@ -70,8 +70,8 @@
         int remaining_digits = 15 - (int)s.length; // 15-7 = 8
         NSString *format;
 
-        /* we dont generate more than one milliong entries  as it would be an overkill */
-        /* so we either generate 100k or 1 million imsis */
+        /* we dont generate more than 100k entries  as it would be an overkill */
+        /* so we either generate 100k or less imsis */
         switch(remaining_digits)
         {
             case 1:
@@ -95,27 +95,27 @@
                 format = @"%@%05d";
                 break;
             case 6:
-                max = 1000000;
+                max = 100000;
                 format = @"%@%06d";
                 break;
             case 7:
-                max = 1000000;
+                max = 100000;
                 format = [NSString stringWithFormat:@"%%@%01d%%06d", (int)[UMUtil random:9] ];
                 break;
             case 8:
-                max = 1000000;
+                max = 100000;
                 format = [NSString stringWithFormat:@"%%@%02d%%06d", (int)[UMUtil random:99] ];
                 break;
             case 9:
-                max = 1000000;
+                max = 100000;
                 format = [NSString stringWithFormat:@"%%@%03d%%06d", (int)[UMUtil random:999] ];
                 break;
             case 10:
-                max = 1000000;
+                max = 100000;
                 format = [NSString stringWithFormat:@"%%@%04d%%06d", (int)[UMUtil random:9999] ];
                 break;
             default:
-                max = 1000000;
+                max = 100000;
                 format = [NSString stringWithFormat:@"%%@%05d%%06d", (int)[UMUtil random:99999] ];
                 break;
         }
