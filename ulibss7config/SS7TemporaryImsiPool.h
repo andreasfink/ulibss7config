@@ -25,6 +25,7 @@
 
 - (SS7TemporaryImsiPool *)initWithConfig:(NSDictionary *)config;
 - (void)fillPoolWithPrefix:(NSString *)s;
+- (void)fillPoolWithPrefixInBackground:(NSString *)s;
 
 @property(readwrite,atomic,strong)  NSString *name;
 @property(readwrite,atomic,strong)  UMPool *unusedTemporaryImsis;

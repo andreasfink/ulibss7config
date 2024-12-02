@@ -51,6 +51,12 @@
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
+- (void)fillPoolWithPrefixInBackground:(NSString *)s
+{
+    [self runSelectorInBackground:@selector(fillPoolWithPrefix:) withObject:s];
+
+}
+
 - (void)fillPoolWithPrefix:(NSString *)s
 {
     if(s.length == 0)
