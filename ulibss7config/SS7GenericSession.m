@@ -421,7 +421,7 @@ else \
     [_components addObject:comp];
 }
 
--(void) sessionMAP_ReturnResult_Resp:(UMASN1Object *)param
+-(void) sessionMAP_ReturnResult_Resp:(UMASN1Object *)param1
                               userId:(UMGSMMAP_UserIdentifier *)xuserIdentifier
                               dialog:(UMGSMMAP_DialogIdentifier *)xdialogId
                          transaction:(NSString *)xtcapTransactionId
@@ -431,13 +431,12 @@ else \
                                 last:(BOOL)xlast
                              options:(NSDictionary *)xoptions
 {
+    UMASN1Object *param = [self decodeComponent:param1 forOperation:xopcode.operation];
     if(_logLevel <=UMLOG_DEBUG)
     {
         [self logDebug:@"SS7GenericSession sessionMAP_ReturnResult_Resp"];
     }
-
     [_historyLog addLogEntry:@"SS7GenericSession: sessionMAP_ReturnResult_Resp"];
-
     VERIFY_UID(_userIdentifier,xuserIdentifier);
     VERIFY_DIALOG(_dialogId,xdialogId);
     VERIFY_SESSION(_tcapLocalTransactionId,xtcapTransactionId);
@@ -1790,6 +1789,10 @@ else \
                                              result:NULL
                                          diagnostic:NULL];
     }
+    if(self.emptyComponentFirst)
+    {
+        [_gInstance.gsmMap executeMAP_AddEmptyComponentForDialog:_dialogId];
+    }
     if((self.firstInvokeOperation) && (self.firstInvoke))
     {
         UMLayerGSMMAP_OpCode *xop = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:self.firstInvokeOperation];
@@ -2545,6 +2548,137 @@ else \
     [filehandler writeData: [s dataUsingEncoding:NSUTF8StringEncoding]];
     [filehandler writeData: [[_historyLog getLogForwardOrder]dataUsingEncoding:NSUTF8StringEncoding]];
     [filehandler writeData: [@"\n-- end of history log --\n" dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
+
+-(id)decodeComponent:(UMASN1Object *)param forOperation:(int64_t) operation
+{
+    id param1 = param;
+    switch(operation)
+    {
+        case UMGSMMAP_Opcode_updateLocation:
+        case UMGSMMAP_Opcode_cancelLocation:
+        case UMGSMMAP_Opcode_provideRoamingNumber:
+        case UMGSMMAP_Opcode_noteSubscriberDataModified:
+        case UMGSMMAP_Opcode_resumeCallHandling:
+        case UMGSMMAP_Opcode_insertSubscriberData:
+        case UMGSMMAP_Opcode_deleteSubscriberData:
+        case UMGSMMAP_Opcode_sendParameters:
+        case UMGSMMAP_Opcode_registerSS:
+        case UMGSMMAP_Opcode_erase_SS:
+        case UMGSMMAP_Opcode_activateSS:
+        case UMGSMMAP_Opcode_deactivateSS:
+        case UMGSMMAP_Opcode_interrogateSS:
+        case UMGSMMAP_Opcode_authenticationFailureReport:
+        case UMGSMMAP_Opcode_notifySS:
+        case UMGSMMAP_Opcode_registerPassword:
+        case UMGSMMAP_Opcode_getPassword:
+        case UMGSMMAP_Opcode_processUnstructuredSS_Data:
+        case UMGSMMAP_Opcode_releaseResources:
+        case UMGSMMAP_Opcode_mt_ForwardSM_VGCS:
+        case UMGSMMAP_Opcode_sendRoutingInfo:
+            param1 = [[UMGSMMAP_SendRoutingInfoRes alloc]initWithASN1Object:param context:NULL];
+            break;
+        case UMGSMMAP_Opcode_updateGprsLocation:
+        case UMGSMMAP_Opcode_sendRoutingInfoForGprs:
+        case UMGSMMAP_Opcode_failureReport:
+        case UMGSMMAP_Opcode_noteMsPresentForGprs:
+        // 27 is unallocated
+        case UMGSMMAP_Opcode_performHandover:
+        case UMGSMMAP_Opcode_sendEndSignal:
+        case UMGSMMAP_Opcode_performSubsequentHandover:
+        case UMGSMMAP_Opcode_provideSIWFSNumber:
+        case UMGSMMAP_Opcode_sIWFSSignallingModify:
+        case UMGSMMAP_Opcode_processAccessSignalling:
+        case UMGSMMAP_Opcode_forwardAccessSignalling:
+        case UMGSMMAP_Opcode_noteInternalHandover:
+        case UMGSMMAP_Opcode_cancelVcsgLocation:
+        case UMGSMMAP_Opcode_reset:
+        case UMGSMMAP_Opcode_forwardCheckSS_Indication:
+        case UMGSMMAP_Opcode_prepareGroupCall:
+        case UMGSMMAP_Opcode_sendGroupCallEndSignal:
+        case UMGSMMAP_Opcode_processGroupCallSignalling:
+        case UMGSMMAP_Opcode_forwardGroupCallSignalling:
+        case UMGSMMAP_Opcode_checkIMEI:
+            break;
+        case UMGSMMAP_Opcode_mt_forwardSM:
+            param1 = [[UMGSMMAP_MT_ForwardSM_Res alloc]initWithASN1Object:param context:NULL];
+            break;
+        case UMGSMMAP_Opcode_sendRoutingInfoForSM:
+            param1 = [[UMGSMMAP_RoutingInfoForSM_Res alloc]initWithASN1Object:param context:NULL];
+            break;
+        case UMGSMMAP_Opcode_mo_forwardSM:
+            param1 = [[UMGSMMAP_MO_ForwardSM_Res alloc]initWithASN1Object:param context:NULL];
+            break;
+        case UMGSMMAP_Opcode_reportSM_DeliveryStatus:
+            param1 = [[UMGSMMAP_ReportSM_DeliveryStatusRes alloc]initWithASN1Object:param context:NULL];
+            break;
+        case UMGSMMAP_Opcode_noteSubscriberPresent:
+        case UMGSMMAP_Opcode_alertServiceCentreWithoutResult:
+        case UMGSMMAP_Opcode_activateTraceMode:
+        case UMGSMMAP_Opcode_deactivateTraceMode:
+        case UMGSMMAP_Opcode_traceSubscriberActivity:
+        case UMGSMMAP_Opcode_updateVcsgLocation:
+        case UMGSMMAP_Opcode_beginSubscriberActivity:
+        case UMGSMMAP_Opcode_sendIdentification:
+        case UMGSMMAP_Opcode_sendAuthenticationInfo:
+        case UMGSMMAP_Opcode_restoreData:
+        case UMGSMMAP_Opcode_sendIMSI:
+        case UMGSMMAP_Opcode_processUnstructuredSS_Request:
+        case UMGSMMAP_Opcode_unstructuredSS_Request:
+        case UMGSMMAP_Opcode_unstructuredSS_Notify:
+        case UMGSMMAP_Opcode_anyTimeSubscriptionInterrogation:
+        case UMGSMMAP_Opcode_informServiceCentre:
+        case UMGSMMAP_Opcode_alertServiceCentre:
+        case UMGSMMAP_Opcode_anyTimeModification:
+            break;
+        case UMGSMMAP_Opcode_readyForSM:
+            param1 = [[UMGSMMAP_ReadyForSM_Res alloc]initWithASN1Object:param context:NULL];
+            break;
+        case UMGSMMAP_Opcode_purge_MS:
+        case UMGSMMAP_Opcode_prepareHandOver:
+        case UMGSMMAP_Opcode_prepareSubsequentHandover:
+        case UMGSMMAP_Opcode_provideSubscriberInfo:
+        case UMGSMMAP_Opcode_anyTimeInterrogation:
+        case UMGSMMAP_Opcode_ss_InvocationNotification:
+        case UMGSMMAP_Opcode_setReportingState:
+        case UMGSMMAP_Opcode_statusReport:
+        case UMGSMMAP_Opcode_remoteUserFree:
+        case UMGSMMAP_Opcode_registerCC_Entry:
+        case UMGSMMAP_Opcode_eraseCC_Entry:
+        case UMGSMMAP_Opcode_secureTransportClass1:
+        case UMGSMMAP_Opcode_secureTransportClass2:
+        case UMGSMMAP_Opcode_secureTransportClass3:
+        case UMGSMMAP_Opcode_secureTransportClass4:
+        /* undefined 82 */
+        case UMGSMMAP_Opcode_provideSubscriberLocation:
+        case UMGSMMAP_Opcode_sendGroupCallInfo:
+        case UMGSMMAP_Opcode_sendRoutingInfoForLCS:
+        case UMGSMMAP_Opcode_subscriberLocationReport:
+        case UMGSMMAP_Opcode_ist_Alert:
+        case UMGSMMAP_Opcode_ist_Command:
+        case UMGSMMAP_Opcode_noteMM_Event:
+        case UMGSMMAP_Opcode_lcs_PeriodicLocationCancellation:
+        case UMGSMMAP_Opcode_lcs_LocationUpdate:
+        case UMGSMMAP_Opcode_lcs_PeriodicLocationRequest:
+        case UMGSMMAP_Opcode_lcs_AreaEventCancellation:
+        case UMGSMMAP_Opcode_lcs_AreaEventReport:
+        case UMGSMMAP_Opcode_lcs_AreaEventRequest:
+        case UMGSMMAP_Opcode_lcs_MOLR:
+        case UMGSMMAP_Opcode_lcs_LocationNotification:
+        case UMGSMMAP_Opcode_callDeflection:
+        case UMGSMMAP_Opcode_userUserService:
+        case UMGSMMAP_Opcode_accessRegisterCCEntry:
+        case UMGSMMAP_Opcode_forwardCUG_Info:
+        case UMGSMMAP_Opcode_splitMPTY:
+        case UMGSMMAP_Opcode_retrieveMPTY:
+        case UMGSMMAP_Opcode_holdMPTY:
+        case UMGSMMAP_Opcode_buildMPTY:
+        case UMGSMMAP_Opcode_forwardChargeAdvice:
+        case UMGSMMAP_Opcode_explicitCT:
+            break;
+    }
+    return(param1);
 }
 
 @end
