@@ -235,6 +235,7 @@ else \
 {
     [_historyLog addLogEntry:@"SS7GenericSession: initWithHttpReq"];
 
+
     self = [super init];
     if(self)
     {
@@ -243,6 +244,14 @@ else \
         [self setTimeouts];
         [self setOptions];
         [_req makeAsyncWithTimeout:_timeoutInSeconds delegate:_gInstance];
+        
+        NSDictionary *p = _req.params;
+        NSString *e;
+        SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"empty-component-first");
+        _emptyComponentFirst = [e boolValue];
+        SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"empty-component-last");
+        _emptyComponentLast = [e boolValue];
+
     }
     return self;
 }
