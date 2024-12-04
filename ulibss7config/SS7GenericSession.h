@@ -363,8 +363,6 @@ typedef enum SS7MultiInvokeVariant
             tcapTransactionId:(NSString *)localTransactionId
                        reason:(SCCP_ReturnCause)reason
                       options:(NSDictionary *)options;
-
-
     //--------------------------------------------------------------------------------------------
 
 - (void)logWebSession;
@@ -408,7 +406,7 @@ typedef enum SS7MultiInvokeVariant
 - (void)setFirstResponseOperationInt:(int64_t)xoperation;
 - (void)setFirstInvokeOperationInt:(int64_t)xoperation;
 
--(id)decodeComponent:(UMASN1Object *)param forOperation:(int64_t) operation
+-(id)decodeComponent:(UMASN1Object *)param forOperation:(int64_t) operation;
 
     @end
 
