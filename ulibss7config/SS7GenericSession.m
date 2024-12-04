@@ -1826,7 +1826,10 @@ else \
                 {
                     remote = _initialRemoteAddress;
                 }
-                
+                if(self.emptyComponentLast)
+                {
+                    [_gInstance.gsmMap executeMAP_AddEmptyComponentForDialog:_dialogId];
+                }
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                              callingAddress:NULL
                                               calledAddress:remote
@@ -1866,7 +1869,10 @@ else \
                 {
                     remote = _initialRemoteAddress;
                 }
-                
+                if(self.emptyComponentLast)
+                {
+                    [_gInstance.gsmMap executeMAP_AddEmptyComponentForDialog:_dialogId];
+                }
                 [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                              callingAddress:NULL
                                               calledAddress:remote
@@ -1894,7 +1900,10 @@ else \
                 remote = _initialRemoteAddress;
             }
             
-            
+            if(self.emptyComponentLast)
+            {
+                [_gInstance.gsmMap executeMAP_AddEmptyComponentForDialog:_dialogId];
+            }
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                          callingAddress:NULL
                                           calledAddress:remote
@@ -1941,7 +1950,10 @@ else \
             {
                 remote = _initialRemoteAddress;
             }
-            
+            if(self.emptyComponentLast)
+            {
+                [_gInstance.gsmMap executeMAP_AddEmptyComponentForDialog:_dialogId];
+            }
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                          callingAddress:NULL
                                           calledAddress:remote
@@ -1988,7 +2000,10 @@ else \
             {
                 remote = _initialRemoteAddress;
             }
-            
+            if(self.emptyComponentLast)
+            {
+                [_gInstance.gsmMap executeMAP_AddEmptyComponentForDialog:_dialogId];
+            }
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                          callingAddress:NULL
                                           calledAddress:remote
@@ -2039,6 +2054,10 @@ else \
             if(_keepOriginalSccpAddressForTcapContinue)
             {
                 remote = _initialRemoteAddress;
+            }
+            if(self.emptyComponentLast)
+            {
+                [_gInstance.gsmMap executeMAP_AddEmptyComponentForDialog:_dialogId];
             }
             [_gInstance.gsmMap executeMAP_Delimiter_Req:_dialogId
                                          callingAddress:NULL

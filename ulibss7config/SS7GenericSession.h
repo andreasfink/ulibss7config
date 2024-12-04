@@ -106,6 +106,7 @@ typedef enum SS7MultiInvokeVariant
     NSString                    *_tcap_operation_global;
     SS7MultiInvokeVariant       _multi_invoke_variant;
     BOOL                        _emptyComponentFirst;
+    BOOL                        _emptyComponentLast;
     NSString *_calling_ssn;
     NSString *_called_ssn;
     NSString *_calling_address;
@@ -186,6 +187,7 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    BOOL                        keepOriginalSccpAddressForTcapContinue;
 @property(readwrite,assign,atomic)    SS7MultiInvokeVariant       multi_invoke_variant;
 @property(readwrite,assign,atomic)    BOOL                        emptyComponentFirst;
+@property(readwrite,assign,atomic)    BOOL                        emptyComponentLast;
 @property(readwrite,strong,atomic)    NSString *tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;
