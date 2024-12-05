@@ -2267,12 +2267,12 @@ else \
 
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>empty-component-first</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"empty-component-first\" type=text></td>{0 | 1 }\n"];
+    [s appendString:@"    <td class=optional><input name=\"empty-component-first\" type=text>{0 | 1 }</td>\n"];
     [s appendString:@"</tr>\n"];
     
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>empty-component-last</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"empty-component-last\" type=text></td>{0 | 1 }\n"];
+    [s appendString:@"    <td class=optional><input name=\"empty-component-last\" type=text>{0 | 1 }</td>\n"];
     [s appendString:@"</tr>\n"];
 
 }
