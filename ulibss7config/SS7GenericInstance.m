@@ -33,7 +33,6 @@
 
 - (void) genericInitialisation
 {
-    
     _sessions           = [[UMSynchronizedDictionary alloc]init];
     _delayedDestroy1    = [[NSMutableArray alloc]init];
     _delayedDestroy2    = [[NSMutableArray alloc]init];
@@ -54,6 +53,10 @@
     [_houseKeepingTimer start];
 }
 
+- (SS7GenericInstance *)init
+{
+    return [self initWithNumber:@""];
+}
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)xmscAddress
 {
@@ -72,18 +75,6 @@
     return _sessions.count;
 }
 
-- (SS7GenericInstance *)init
-{
-    self = [super init];
-    if(self)
-    {
-        _sessions = [[UMSynchronizedDictionary alloc]init];
-        _timeoutInSeconds = 80;
-        [self genericInitialisation];
-    }
-    return self;
-}
-
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq
 {
     return [self initWithTaskQueueMulti:tq name:@"genetic-ss7-instance"];
@@ -95,7 +86,6 @@
     if(self)
     {
         [self genericInitialisation];
-        [_houseKeepingTimer start];
     }
     return self;
 }
@@ -185,6 +175,10 @@
     NSString *uidstr;
     int64_t uid;
     static int64_t lastUserId = 1;
+    if(_uidMutex==NULL)
+    {
+        _uidMutex =
+    }
     ummutex_lock(_uidMutex);
     lastUserId = (lastUserId + 1 ) % 0x7FFFFFFF;
     uid = lastUserId;
