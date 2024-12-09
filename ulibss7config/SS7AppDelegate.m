@@ -1255,55 +1255,68 @@ static void signalHandler(int signum);
         NSDictionary *cfg = co.config.dictionaryCopy;
         if( [cfg configEnabledWithYesDefault])
         {
-            NSString *instance = co.mtp3;
-            NSString *route = co.dpc;
-            NSString *linkset = co.ls;
-            NSString *as = co.as;
-            int prio = [co.priority intValue];
-            if(co.priority == NULL)
-            {
-                prio = 3;
-            }
-            if(linkset==NULL)
-            {
-                linkset = as;
-            }
+            id config_dpcs = co.dpc;
+            NSArray *dpcs;
 
-            UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
-            if(mtp3_instance)
+            if([config_dpcs isKindOfClass:[NSString class]])
             {
-                UMMTP3LinkSet *mtp3_linkset = [mtp3_instance getLinkSetByName:linkset];
-                if(mtp3_linkset)
+                dpcs = @[(NSString *)config_dpcs];
+            }
+            else if([config_dpcs isKindOfClass:[NSArray class]])
+            {
+                dpcs = (NSArray *)config_dpcs;
+            }
+            
+            for(NSString *dpc in dpcs)
+            {
+                NSString *instance = co.mtp3;
+                NSString *route = dpc;
+                NSString *linkset = co.ls;
+                NSString *as = co.as;
+                int prio = [co.priority intValue];
+                if(co.priority == NULL)
                 {
-                    if([route isEqualToString:@"default"])
+                    prio = 3;
+                }
+                if(linkset==NULL)
+                {
+                    linkset = as;
+                }
+                UMLayerMTP3 *mtp3_instance = [self getMTP3:instance];
+                if(mtp3_instance)
+                {
+                    UMMTP3LinkSet *mtp3_linkset = [mtp3_instance getLinkSetByName:linkset];
+                    if(mtp3_linkset)
                     {
-                        route = @"0/0";
-                    }
-                    NSArray *a = [route componentsSeparatedByString:@"/"];
-                    UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-                    if([a count] == 1)
-                    {
-                        [mtp3_instance addStaticRoute:pc
-                                                 mask:pc.maxmask
-                                          linksetName:linkset
-                                             priority:prio
-                                               weight:co.weight
-                                      localPreference:co.localPreference];
-                    }
-                    else if([a count]==2)
-                    {
+                        if([route isEqualToString:@"default"])
+                        {
+                            route = @"0/0";
+                        }
+                        NSArray *a = [route componentsSeparatedByString:@"/"];
                         UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
-                        int mask = [a[1] intValue];
-                        [mtp3_instance addStaticRoute:pc
-                                                 mask:mask
-                                        linksetName:linkset
-                                           priority:prio];
+                        if([a count] == 1)
+                        {
+                            [mtp3_instance addStaticRoute:pc
+                                                     mask:pc.maxmask
+                                              linksetName:linkset
+                                                 priority:prio
+                                                   weight:co.weight
+                                          localPreference:co.localPreference];
+                        }
+                        else if([a count]==2)
+                        {
+                            UMMTP3PointCode *pc = [[UMMTP3PointCode alloc]initWithString:a[0] variant:mtp3_instance.variant];
+                            int mask = [a[1] intValue];
+                            [mtp3_instance addStaticRoute:pc
+                                                     mask:mask
+                                              linksetName:linkset
+                                                 priority:prio];
+                        }
                     }
                 }
             }
         }
     }
-
     /* *************************************************************** */
     /* MTP3 Pointcode Translations                                     */
     /* *************************************************************** */

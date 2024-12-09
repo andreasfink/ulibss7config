@@ -48,7 +48,7 @@
 {
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"mtp3",_mtp3);
-    APPEND_CONFIG_STRING(s,@"dpc",_dpc);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"dpc",_dpc);
     APPEND_CONFIG_STRING(s,@"ls",_ls);
     APPEND_CONFIG_STRING(s,@"as",_as);
     APPEND_CONFIG_INTEGER(s,@"priority",_priority);
@@ -62,7 +62,7 @@
     UMSynchronizedSortedDictionary *dict = [super config];
 
     APPEND_DICT_STRING(dict,@"mtp3",_mtp3);
-    APPEND_DICT_STRING(dict,@"dpc",_dpc);
+    APPEND_DICT_ARRAY(dict,@"dpc",_dpc);
     APPEND_DICT_STRING(dict,@"ls",_ls);
     APPEND_DICT_STRING(dict,@"as",_as);
     APPEND_DICT_INTEGER(dict,@"priority",_priority);
@@ -75,7 +75,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_FILTERED_STRING(dict,@"mtp3",_mtp3);
-    SET_DICT_STRING(dict,@"dpc",_dpc);
+    SET_DICT_ARRAY(dict,@"dpc",_dpc);
     SET_DICT_FILTERED_STRING(dict,@"ls",_ls);
     SET_DICT_FILTERED_STRING(dict,@"as",_as);
     SET_DICT_INTEGER(dict,@"priority",_priority);

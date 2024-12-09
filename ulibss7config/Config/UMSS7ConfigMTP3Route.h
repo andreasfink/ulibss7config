@@ -11,7 +11,7 @@
 @interface UMSS7ConfigMTP3Route : UMSS7ConfigObject
 {
     NSString *_mtp3;
-    NSString *_dpc;
+    NSArray<NSString *> *_dpc;
     NSString *_as;
     NSString *_ls;
     NSNumber *_priority;
@@ -24,7 +24,7 @@
 - (UMSS7ConfigMTP3Route *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *mtp3;
-@property(readwrite,strong,atomic)  NSString *dpc;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *dpc;
 @property(readwrite,strong,atomic)  NSString *as;
 @property(readwrite,strong,atomic)  NSString *ls;
 @property(readwrite,strong,atomic)  NSNumber *priority;
