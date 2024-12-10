@@ -234,8 +234,6 @@ else \
                           instance:(SS7GenericInstance *)inst
 {
     [_historyLog addLogEntry:@"SS7GenericSession: initWithHttpReq"];
-
-
     self = [super init];
     if(self)
     {
@@ -248,9 +246,27 @@ else \
         NSDictionary *p = _req.params;
         NSString *e;
         SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"empty-component-first");
-        _emptyComponentFirst = [e boolValue];
+        if(e.length > 0)
+        {
+            _emptyComponentFirst = [e boolValue];
+        }
+        e=NULL;
+        SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"ecf");
+        if(e.length > 0)
+        {
+            _emptyComponentFirst = [e boolValue];
+        }
         SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"empty-component-last");
-        _emptyComponentLast = [e boolValue];
+        if(e.length > 0)
+        {
+            _emptyComponentLast = [e boolValue];
+        }
+        e=NULL;
+        SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"ecl");
+        if(e.length > 0)
+        {
+            _emptyComponentLast = [e boolValue];
+        }
 
     }
     return self;
@@ -2266,13 +2282,13 @@ else \
     [s appendString:@"</tr>\n"];
 
     [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>empty-component-first</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"empty-component-first\" type=text>{0 | 1 }</td>\n"];
+    [s appendString:@"    <td class=optional>ecf</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"ecf\" type=text>{0 | 1 }</td>\n"];
     [s appendString:@"</tr>\n"];
     
     [s appendString:@"<tr>\n"];
-    [s appendString:@"    <td class=optional>empty-component-last</td>\n"];
-    [s appendString:@"    <td class=optional><input name=\"empty-component-last\" type=text>{0 | 1 }</td>\n"];
+    [s appendString:@"    <td class=optional>ecl</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"ecl\" type=text>{0 | 1 }</td>\n"];
     [s appendString:@"</tr>\n"];
 
 }
