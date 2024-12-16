@@ -1655,6 +1655,13 @@ else \
             _options[@"sccp-xudt"] = @(YES);
         }
     }
+     if (p[@"sccp-ludt"])
+    {
+        if([p[@"sccp-ludt"] boolValue])
+        {
+            _options[@"sccp-ludt"] = @(YES);
+        }
+    }
     if (p[@"sccp-segment"])
     {
         if([p[@"sccp-segment"] boolValue])
