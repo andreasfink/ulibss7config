@@ -11,7 +11,7 @@
 @interface UMSS7ConfigSCCPTranslationTableEntry : UMSS7ConfigObject
 {
     NSString *_translationTableName;
-    NSArray<NSString *> *_gta;
+    NSArray<NSString *> *_gtas;
     NSString *_sccpDestination;
     NSString *_postTranslation;
     NSString *_gtOwner;
@@ -29,6 +29,7 @@
 - (UMSS7ConfigSCCPTranslationTableEntry *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *translationTableName;
+@property(readwrite,strong,atomic)  NSArray<NSString *> *gtas;
 @property(readwrite,strong,atomic)  NSString *sccpDestination;
 @property(readwrite,strong,atomic)  NSString *postTranslation;
 @property(readwrite,strong,atomic)  NSString *gtOwner;
@@ -40,8 +41,7 @@
 @property(readwrite,strong,atomic)  NSString *opcode;
 @property(readwrite,strong,atomic)  NSString *appcontext;
 
-//@property(readwrite,strong,atomic)  NSArray<NSString *>* gta;
-- (NSArray<NSString *>*)gta;
-- (void)setGta:(NSArray<NSString *>*)gta1;
+- (NSString *)singleGta;
+- (void)setSingleGta:(NSString *)gta;
 
 @end

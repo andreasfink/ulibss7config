@@ -57,6 +57,6 @@
 
 - (NSArray<NSDictionary *> *)subConfigs;
 - (id)proxyForJson;
-
+- (NSString *)description;
 
 @end

@@ -1441,7 +1441,7 @@ static void signalHandler(int signum);
         {
             UMSS7ConfigSCCPTranslationTableEntry *e = [[UMSS7ConfigSCCPTranslationTableEntry alloc]init];
             e.translationTableName = name;
-            e.gta=@[@"default"];
+            e.gtas=@[@"default"];
             e.sccpDestination = co.defaultDestination;
             SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
             [selector.routingTable addEntry:entry];
@@ -1471,27 +1471,40 @@ static void signalHandler(int signum);
             /* reload translation table in regular intervalls */
         }
         NSMutableArray<UMSS7ConfigObject *> *entries = [co subEntries];
-        for(UMSS7ConfigSCCPTranslationTableEntry *e in entries)
+        for(UMSS7ConfigSCCPTranslationTableEntry *e1 in entries)
         {
-            
-            SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e.config.dictionaryCopy];
-            if(entry.postTranslationName)
+            if(e1.subEntries.count > 0)
             {
-                entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
+                for(UMSS7ConfigSCCPTranslationTableEntry *e2 in e1.subEntries)
+                {
+                    SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e2.config.dictionaryCopy];
+                    if(entry.postTranslationName)
+                    {
+                        entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
+                    }
+                    if((sccp.logLevel<=UMLOG_DEBUG) || sccp.routingDebug)
+                    {
+                        NSString *s = [NSString stringWithFormat:@"SCCP-ROUTE: %@->%@",entry.name, entry.routeToName];
+                        [sccp.logFeed debugText:s];
+                    }
+                    [selector.routingTable addEntry:entry];
+                }
             }
-            /*
-             if(entry.routeToName)
-             {
-             entry.routeTo = [self getSCCPDestination: entry.routeToName];
-             }*/
-            if(entry.tcapTransactionRangeStart || entry.tcapTransactionRangeEnd)
+            else
             {
-                NSLog(@"ADDING ENTRY=%@",entry.description);
-            
+                SccpGttRoutingTableEntry *entry = [[SccpGttRoutingTableEntry alloc]initWithConfig:e1.config.dictionaryCopy];
+                if(entry.postTranslationName)
+                {
+                    entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
+                }
+                if((sccp.logLevel<=UMLOG_DEBUG) || sccp.routingDebug)
+                {
+                    NSString *s = [NSString stringWithFormat:@"SCCP-ROUTE: %@->%@",entry.name, entry.routeToName];
+                    [sccp.logFeed debugText:s];
+                }
+                [selector.routingTable addEntry:entry];
             }
-            [selector.routingTable addEntry:entry];
-            NSString *destination = entry.digits;
-
+            NSString *destination = e1.singleGta;
             if([destination isNotEqualTo:@"default"])
             {
                 if(selector.np == SCCP_NPI_ISDN_MOBILE_E214)

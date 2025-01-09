@@ -22,24 +22,29 @@
     return [UMSS7ConfigSCCPTranslationTableEntry type];
 }
 
-- (NSArray<NSString *>*)gta
+
+- (NSString *)singleGta
 {
-    return _gta;
+    if(_gtas.count > 1)
+    {
+        return _gtas[0];
+    }
+    return NULL;
 }
 
-- (void)setGta:(NSArray<NSString *>*)gta1
+- (void)setSingleGta:(NSString *)gta
 {
-    if([gta1 isKindOfClass:[NSString class]])
+    if([gta isKindOfClass:[NSString class]])
     {
-        _gta = @[(NSString *)gta1];
+        _gtas = @[(NSString *)gta];
     }
-    else if([gta1 isKindOfClass:[NSArray class]])
+    else if([gta isKindOfClass:[NSArray class]])
     {
-        _gta = gta1;
+        _gtas = (NSArray *)gta;
     }
-    else if(gta1==NULL)
+    else if(gta==NULL)
     {
-        _gta = @[];
+        _gtas = @[];
     }
 }
 
@@ -58,7 +63,7 @@
 {
     [super appendConfigToString:s withoutName:YES];
     APPEND_CONFIG_STRING(s,@"table",_translationTableName);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"gta",_gta);
+    APPEND_CONFIG_ARRAY_VERBOSE(s,@"gta",_gtas);
     APPEND_CONFIG_STRING(s,@"destination",_sccpDestination);
     APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
     APPEND_CONFIG_STRING(s,@"gt-owner",_gtOwner);
@@ -67,7 +72,7 @@
     APPEND_CONFIG_INTEGER(s,@"transaction-id-end",_tidEnd);
     APPEND_CONFIG_STRING(s,@"transaction-id-range",_tidRange);
     APPEND_CONFIG_STRING(s,@"ssn",_ssn);
-    APPEND_CONFIG_STRING(s,@"opcopde",_opcode);
+    APPEND_CONFIG_STRING(s,@"opcode",_opcode);
     APPEND_CONFIG_STRING(s,@"application-context",_appcontext);
 }
 
@@ -75,7 +80,7 @@
 {
     UMSynchronizedSortedDictionary *dict = [super configWithoutName:YES];
     APPEND_DICT_STRING(dict,@"table",_translationTableName);
-    APPEND_DICT_ARRAY(dict,@"gta",_gta);
+    APPEND_DICT_ARRAY(dict,@"gta",_gtas);
     APPEND_DICT_STRING(dict,@"destination",_sccpDestination);
     APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
     APPEND_DICT_STRING(dict,@"gt-owner",_gtOwner);
@@ -84,7 +89,7 @@
     APPEND_DICT_INTEGER(dict,@"transaction-id-end",_tidEnd);
     APPEND_DICT_STRING(dict,@"transaction-id-range",_tidRange);
     APPEND_DICT_STRING(dict,@"ssn",_ssn);
-    APPEND_DICT_STRING(dict,@"opcopde",_opcode);
+    APPEND_DICT_STRING(dict,@"opcode",_opcode);
     APPEND_DICT_STRING(dict,@"application-context",_appcontext);
     return dict;
 }
@@ -93,7 +98,7 @@
 {
     [self setSuperConfig:dict];
     SET_DICT_FILTERED_STRING(dict,@"table",_translationTableName);
-    SET_DICT_ARRAY(dict,@"gta",_gta);
+    SET_DICT_ARRAY(dict,@"gta",_gtas);
     SET_DICT_FILTERED_STRING(dict,@"destination",_sccpDestination);
     SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
     SET_DICT_FILTERED_STRING(dict,@"gt-owner",_gtOwner);
@@ -102,7 +107,7 @@
     SET_DICT_INTEGER(dict,@"transaction-id-end",_tidEnd);
     SET_DICT_STRING(dict,@"transaction-id-range",_tidRange);
     SET_DICT_STRING(dict,@"ssn",_ssn);
-    SET_DICT_STRING(dict,@"opcopde",_opcode);
+    SET_DICT_STRING(dict,@"opcode",_opcode);
     SET_DICT_STRING(dict,@"application-context",_appcontext);
     
     if(_tidRange)
@@ -154,6 +159,7 @@
     NSMutableArray *ops = NULL;
     if(_opcode.length > 0)
     {
+        ops = [[NSMutableArray alloc]init];
         NSArray *opsStrings  =[_opcode componentsSeparatedByString:@","];
         if(opsStrings.count == 0)
         {
@@ -173,13 +179,13 @@
     NSArray *acs = NULL;
     if(_appcontext.length > 0)
     {
-        acs =[_appcontext componentsSeparatedByString:@","];
+        acs = [_appcontext componentsSeparatedByString:@","];
         if(acs.count == 0)
         {
             acs = NULL;
         }
     }
-    _name = [SccpGttRoutingTableEntry entryNameForGta:_gta
+    _name = [SccpGttRoutingTableEntry entryNameForGta:_gtas
                                             tableName:_translationTableName
                             tcapTransactionRangeStart:_tidStart
                               tcapTransactionRangeEnd:_tidEnd

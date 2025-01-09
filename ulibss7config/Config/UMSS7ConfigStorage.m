@@ -550,33 +550,76 @@
         }
     }
 
-    NSArray *sccp_translation_table_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableEntry type]];
-    for(NSDictionary *sccp_translation_table_entry_config in sccp_translation_table_entry_configs)
+
+    /* SCCP Routing table normalisation */
+    /* we must normalize the entries by making all entries whith the same gt number be subentries of that number */
+    /* also we make multiple entries for entries which have more than one GTA in it */
+
+    NSMutableArray *entries = [[NSMutableArray alloc]init];
+    for(NSDictionary *e in [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableEntry type]])
     {
-        UMSS7ConfigSCCPTranslationTableEntry *sccp_translation_table_entry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]initWithConfig:sccp_translation_table_entry_config];
-        if(sccp_translation_table_entry.translationTableName.length  > 0)
+        UMSS7ConfigSCCPTranslationTableEntry *entry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]initWithConfig:e];
+        [entries addObject:entry];
+    }
+    
+    NSMutableDictionary *normalizedEntries = [[NSMutableDictionary alloc]init];
+
+    for(UMSS7ConfigSCCPTranslationTableEntry *entry in entries)
+    {
+        for(NSString *gta in entry.gtas)
         {
-            UMSS7ConfigSCCPTranslationTable *translation_table = _sccp_translation_table_dict[sccp_translation_table_entry.translationTableName];
-            if(translation_table==NULL)
+            UMSS7ConfigSCCPTranslationTableEntry *currentEntry = [entry copy];
+            if([gta isEqualToString:@"default"])
             {
-                translation_table = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:@{ @"name" : sccp_translation_table_entry.translationTableName }];
-            }
-            if(sccp_translation_table_entry.gta.count > 1)
-            {
-                for(NSString *gta in sccp_translation_table_entry.gta)
-                {
-                    UMSS7ConfigSCCPTranslationTableEntry *single = [sccp_translation_table_entry copy];
-                    [single setGta:@[gta]];
-                    [translation_table addSubEntry:single];
-                }
+                currentEntry.singleGta = @"";
             }
             else
             {
-                [translation_table addSubEntry:sccp_translation_table_entry];
+                currentEntry.singleGta = gta;
             }
-            _sccp_translation_table_entry_dict[sccp_translation_table_entry.name] = sccp_translation_table_entry;
+            NSString *key = [NSString stringWithFormat:@"%@:%@", entry.translationTableName,gta];
+            UMSS7ConfigSCCPTranslationTableEntry *existingEntry = normalizedEntries[key];
+            if(existingEntry==NULL)
+            {
+                existingEntry = currentEntry;
+                normalizedEntries[key] = currentEntry;
+            }
+            else
+            {
+                UMSS7ConfigSCCPTranslationTableEntry *newEntry;
+                if(existingEntry.subEntries.count == 0)
+                {
+                    newEntry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]init];
+                    newEntry.translationTableName = existingEntry.translationTableName;
+                    newEntry.singleGta = gta;
+                    [newEntry addSubEntry:existingEntry];
+                }
+                [newEntry addSubEntry:currentEntry];
+                normalizedEntries[key] = newEntry;
+            }
         }
     }
+
+    NSMutableArray *sccp_translation_table_entry_configs = [[NSMutableArray alloc]init];
+    NSArray *allKeys = [normalizedEntries allKeys];
+    for(NSString *key in allKeys)
+    {
+        UMSS7ConfigSCCPTranslationTableEntry *e = normalizedEntries[key];
+        [sccp_translation_table_entry_configs addObject:e];
+
+        UMSS7ConfigSCCPTranslationTable *sccpTable = [self getSCCPTranslationTable:e.translationTableName];
+        if(sccpTable == NULL)
+        {
+            NSLog(@"SCCP Translation Table %@ is not existing!",e.translationTableName);
+        }
+        else
+        {
+            [sccpTable addSubEntry:e];
+        }
+    }
+    /*  end of routing table normalisation */
+    /* at this point we have a tree of entries where multiple GTAs in a config are duplicated into their own config and subentries are created for entries with the same gt */
+
 
     NSArray *sccp_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPFilter type]];
     for(NSDictionary *sccp_filter_config in sccp_filter_configs)

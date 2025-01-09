@@ -274,4 +274,15 @@
     return [self initWithConfig:dict];
 }
 
+- (NSString *)description
+{
+    NSMutableString *s = [[NSMutableString alloc]init];
+    
+    [s appendString:[super description]];
+    [s appendString:@"\n{"];
+    [s appendString:[self configString]];
+    [s appendString:@"\n}"];
+    return s;
+}
+
 @end
