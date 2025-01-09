@@ -25,7 +25,7 @@ DIAMETER_WEB_GEN_M_FILES=$(wildcard diameter-web-gen/*.m)
 DIAMETER_WEB_GEN_O_FILES=$(DIAMETER_WEB_GEN_M_FILES:.m=.m.o)
 
 
-INCLUDEDIRS=-isystem build/include -I. -Iulibss7config -Iulibss7config/Config -Iulibss7config/API -Iulibss7config/filter
+INCLUDEDIRS=-Iulibss7config/Config -Iulibss7config/API -Iulibss7config/filter -Iulibss7config -isystem build/include -I. 
 
 all: build/include/ulibss7config lib@PROJECT_NAME@.so build/diameter-web-gen
 
