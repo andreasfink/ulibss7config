@@ -1482,7 +1482,7 @@ static void signalHandler(int signum);
                     {
                         entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
                     }
-                    if((sccp.logLevel<=UMLOG_DEBUG) || sccp.routingDebug)
+                    if((sccp.logLevel<=UMLOG_DEBUG) ||  ([sccp respondsToSelector:@selector(routingDebug)] && (sccp.routingDebug)))
                     {
                         NSString *s = [NSString stringWithFormat:@"SCCP-ROUTE: %@->%@",entry.name, entry.routeToName];
                         [sccp.logFeed debugText:s];
@@ -1497,7 +1497,7 @@ static void signalHandler(int signum);
                 {
                     entry.postTranslation = _sccp_number_translations_dict[entry.postTranslationName];
                 }
-                if((sccp.logLevel<=UMLOG_DEBUG) || sccp.routingDebug)
+                if((sccp.logLevel<=UMLOG_DEBUG) ||  ([sccp respondsToSelector:@selector(routingDebug)] && (sccp.routingDebug)))
                 {
                     NSString *s = [NSString stringWithFormat:@"SCCP-ROUTE: %@->%@",entry.name, entry.routeToName];
                     [sccp.logFeed debugText:s];
