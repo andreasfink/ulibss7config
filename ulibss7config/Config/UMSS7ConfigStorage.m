@@ -562,10 +562,18 @@
         [entries addObject:entry];
     }
     
-    NSMutableDictionary *normalizedEntries = [[NSMutableDictionary alloc]init];
-
+    /* we need to duplicate entries which have more than one GTA entry */
+    NSMutableArray *multiEntries = [[NSMutableArray alloc]init];
     for(UMSS7ConfigSCCPTranslationTableEntry *entry in entries)
     {
+        if(entry.gtas.count<1)
+        {
+            continue;
+        }
+        if(entry.gtas.count==1)
+        {
+            [multiEntries addObject:entry];
+        }
         for(NSString *gta in entry.gtas)
         {
             UMSS7ConfigSCCPTranslationTableEntry *currentEntry = [entry copy];
@@ -577,36 +585,15 @@
             {
                 currentEntry.singleGta = gta;
             }
-            NSString *key = [NSString stringWithFormat:@"%@:%@", entry.translationTableName,gta];
-            UMSS7ConfigSCCPTranslationTableEntry *existingEntry = normalizedEntries[key];
-            if(existingEntry==NULL)
-            {
-                existingEntry = currentEntry;
-                normalizedEntries[key] = currentEntry;
-            }
-            else
-            {
-                UMSS7ConfigSCCPTranslationTableEntry *newEntry;
-                if(existingEntry.subEntries.count == 0)
-                {
-                    newEntry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]init];
-                    newEntry.translationTableName = existingEntry.translationTableName;
-                    newEntry.singleGta = gta;
-                    [newEntry addSubEntry:existingEntry];
-                }
-                [newEntry addSubEntry:currentEntry];
-                normalizedEntries[key] = newEntry;
-            }
+            [multiEntries addObject:currentEntry];
         }
     }
-
+    
     NSMutableArray *sccp_translation_table_entry_configs = [[NSMutableArray alloc]init];
-    NSArray *allKeys = [normalizedEntries allKeys];
-    for(NSString *key in allKeys)
-    {
-        UMSS7ConfigSCCPTranslationTableEntry *e = normalizedEntries[key];
-        [sccp_translation_table_entry_configs addObject:e];
 
+    for(UMSS7ConfigSCCPTranslationTableEntry *e in multiEntries)
+    {
+        [sccp_translation_table_entry_configs addObject:e];
         UMSS7ConfigSCCPTranslationTable *sccpTable = [self getSCCPTranslationTable:e.translationTableName];
         if(sccpTable == NULL)
         {
@@ -617,6 +604,7 @@
             [sccpTable addSubEntry:e];
         }
     }
+    
     /*  end of routing table normalisation */
     /* at this point we have a tree of entries where multiple GTAs in a config are duplicated into their own config and subentries are created for entries with the same gt */
 

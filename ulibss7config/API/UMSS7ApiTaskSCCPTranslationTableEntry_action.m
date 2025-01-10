@@ -100,14 +100,6 @@
                     [self sendErrorNotFound:@"translation-table-entry"];
                     return;
                 }
-                if([action isEqualToString:@"enable"])
-                {
-                    rte.enabled=YES;
-                }
-                else if([action isEqualToString:@"disable"])
-                {
-                    rte.enabled=NO;
-                }
                 else
                 {
                     [self sendErrorUnknownAction];
