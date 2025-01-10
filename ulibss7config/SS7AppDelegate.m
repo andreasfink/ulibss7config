@@ -3897,6 +3897,7 @@ static void signalHandler(int signum);
         sccp.appDelegate   = self;
         sccp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sccp"];
         sccp.logFeed.name = name;
+        sccp.logLevel = UMLOG_DEBUG;
         [sccp setConfig:config applicationContext:self];
         _sccp_dict[name] = sccp;
         sccp.tcapDecoder = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-decode"];
