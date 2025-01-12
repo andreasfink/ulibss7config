@@ -1,0 +1,7 @@
+STRING(o,"mtp3",_mtp3)
+ARRAY_VERBOSE(o,"dpc",_dpc)
+STRING(o,"ls",_ls)
+STRING(o,"as",_as)
+INTEGER(o,"priority",_priority)
+DOUBLE(o,"weight",_weight)
+DOUBLE(o,"local-preference",_localPreference)

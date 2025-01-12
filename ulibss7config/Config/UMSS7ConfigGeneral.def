@@ -1,0 +1,20 @@
+//
+//  UMSS7ConfigGeneral.def
+//  estp
+//
+//  Created by Andreas Fink on 12.01.25
+//  Copyright © 2025 Andreas Fink. All rights reserved.
+//
+
+
+STRING(o,"hostname",_hostname)
+STRING(o,"log-directory",_logDirectory)
+INTEGER(o,"log-rotations",_logRotations)
+STRING(o,"config-store",_configStore)
+INTEGER(o,"concurrent-tasks",_concurrentTasks)
+INTEGER(o,"queue-hard-limit",_queueHardLimit)
+INTEGER(o,"transaction-id-range",_transactionIdRange)
+BOOLEAN(o,"send-sctp-aborts",_sendSctpAborts)
+STRING(o,"filter-engine-directory",_filterEngineDirectory)
+STRING(o,"zmq-socket",_zmqSocket)
+STRING(o,"gui",_gui)

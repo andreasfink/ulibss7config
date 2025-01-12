@@ -1,0 +1,8 @@
+STRING(o,"attach-to",_attachTo)
+STRING(o,"number",_number)
+DOUBLE(o,"timeout",_timeout)
+STRING(o,"timeout-trace-directory",_timeoutTraceDirectory)
+STRING(o,"full-trace-directory",_fullTraceDirectory)
+STRING(o,"status-update-url",_statusUpdateUrl)
+STRING(o,"roaming-number",_roamingNumber)
+STRING(o,"roaming-number-url",_roamingNumberUrl)

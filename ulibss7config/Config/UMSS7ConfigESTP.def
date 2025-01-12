@@ -1,0 +1,7 @@
+STRING(o,"number",_number)
+STRING(o,"sccp",_sccp)
+STRING(o,"license-directory",_licenseDirectory)
+STRING(o,"filter-engine-directory",_filterEngineDirectory)
+STRING(o,"gtt-accounting-db-pool",_gttAccountingDbPool)
+STRING(o,"gtt-accounting-table",_gttAccountingTable)
+STRING(o,"gtt-accounting-prefixes-table",_gttAccountingPrefixesTable)

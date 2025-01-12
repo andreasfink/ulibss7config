@@ -1,0 +1,5 @@
+STRING(o,"filename",_filename)
+STRING(o,"format",_format)
+INTEGER(o,"minutes",_minutes)
+INTEGER(o,"packets",_packets)
+INTEGER(o,"max-rotations",_maxRotations)

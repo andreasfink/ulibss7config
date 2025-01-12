@@ -1,0 +1,14 @@
+
+STRING(o,"host",_host)
+STRING(o,"database-name",_databaseName)
+STRING(o,"driver",_driver)
+STRING(o,"user",_user)
+STRING(o,"pass",_pass)
+INTEGER(o,"port",_port)
+INTEGER(o,"min-sessions",_minSessions)
+INTEGER(o,"max-sessions",_maxSessions)
+STRING(o,"socket",_socket)
+DOUBLE(o,"ping-intervall",_pingIntervall)
+STRING(o,"storage-type",_storageType)
+STRING(o,"version",_version)
+

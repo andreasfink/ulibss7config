@@ -1,0 +1,2 @@
+STRING(o,"imsi-prefix",_imsiPrefix)
+DOUBLE(o,"cache-timer",_cacheTimer)

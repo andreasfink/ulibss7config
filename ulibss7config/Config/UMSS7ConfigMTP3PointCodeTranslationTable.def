@@ -1,0 +1,5 @@
+STRING(o,"default-local-pc",_defaultLocalPc)
+STRING(o,"default-remote-pc",_defaultLocalPc)
+INTEGER(o,"local-ni",_localNi)
+INTEGER(o,"remote-ni",_remoteNi)
+ARRAY_VERBOSE(o,@"map",_pcmap)

@@ -1,0 +1,8 @@
+STRING(o,"attach-to",_attachTo)
+STRING(o,"number",_number)
+STRING(o,"full-trace-directory",_fullTraceDirectory)
+STRING(o,"timeout-trace-directory",_timeoutTraceDirectory)
+INTEGER(o,"smsc-translation-type",_smscTranslationType)
+INTEGER(o,"srism-translation-type",_srismTranslationType)
+INTEGER(o,"forwardsm-translation-type",_forwardsmTranslationType)
+DOUBLE(o,"timeout",_timeout)

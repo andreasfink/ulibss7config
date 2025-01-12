@@ -31,53 +31,74 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"hostname",_hostname);
-    APPEND_CONFIG_STRING(s,@"log-directory",_logDirectory);
-    APPEND_CONFIG_INTEGER(s,@"log-rotations",_logRotations);
-    APPEND_CONFIG_STRING(s,@"config-store",_configStore);
-    APPEND_CONFIG_INTEGER(s,@"concurrent-tasks",_concurrentTasks);
-    APPEND_CONFIG_INTEGER(s,@"queue-hard-limit",_queueHardLimit);
-    APPEND_CONFIG_INTEGER(s,@"transaction-id-range",_transactionIdRange);
-    APPEND_CONFIG_BOOLEAN(s,@"send-sctp-aborts",_sendSctpAborts);
-    APPEND_CONFIG_STRING(s,@"filter-engine-directory",_filterEngineDirectory);
-    APPEND_CONFIG_STRING(s,@"zmq-socket",_zmqSocket);
-    APPEND_CONFIG_STRING(s,@"gui",_gui);
+    [super appendConfigToString:o];
+    
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigGeneral.def"
+#include "UMSS7Config_macroClear.h"
+#else
+    APPEND_CONFIG_STRING(o,@"hostname",_hostname);
+    APPEND_CONFIG_STRING(o,@"log-directory",_logDirectory);
+    APPEND_CONFIG_INTEGER(o,@"log-rotations",_logRotations);
+    APPEND_CONFIG_STRING(o,@"config-store",_configStore);
+    APPEND_CONFIG_INTEGER(o,@"concurrent-tasks",_concurrentTasks);
+    APPEND_CONFIG_INTEGER(o,@"queue-hard-limit",_queueHardLimit);
+    APPEND_CONFIG_INTEGER(o,@"transaction-id-range",_transactionIdRange);
+    APPEND_CONFIG_BOOLEAN(o,@"send-sctp-aborts",_sendSctpAborts);
+    APPEND_CONFIG_STRING(o,@"filter-engine-directory",_filterEngineDirectory);
+    APPEND_CONFIG_STRING(o,@"zmq-socket",_zmqSocket);
+    APPEND_CONFIG_STRING(o,@"gui",_gui);
+#endif
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"hostname",_hostname);
-    APPEND_DICT_STRING(dict,@"log-directory",_logDirectory);
-    APPEND_DICT_INTEGER(dict,@"log-rotations",_logRotations);
-    APPEND_DICT_STRING(dict,@"config-store",_configStore);
-    APPEND_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
-    APPEND_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
-    APPEND_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
-    APPEND_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
-    APPEND_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
-    APPEND_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
-    APPEND_DICT_STRING(dict,@"gui",_gui);
+    UMSynchronizedSortedDictionary *o = [super config];
+    
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigGeneral.def"
+#include "UMSS7Config_macroClear.h"
+#else
 
-    return dict;
+    APPEND_DICT_STRING(o,@"hostname",_hostname);
+    APPEND_DICT_STRING(o,@"log-directory",_logDirectory);
+    APPEND_DICT_INTEGER(o,@"log-rotations",_logRotations);
+    APPEND_DICT_STRING(o,@"config-store",_configStore);
+    APPEND_DICT_INTEGER(o,@"concurrent-tasks",_concurrentTasks);
+    APPEND_DICT_INTEGER(o,@"queue-hard-limit",_queueHardLimit);
+    APPEND_DICT_STRING(o,@"transaction-id-range",_transactionIdRange);
+    APPEND_DICT_BOOLEAN(o,@"send-sctp-aborts",_sendSctpAborts);
+    APPEND_DICT_STRING(o,@"filter-engine-directory",_filterEngineDirectory);
+    APPEND_DICT_STRING(o,@"zmq-socket",_zmqSocket);
+    APPEND_DICT_STRING(o,@"gui",_gui);
+#endif
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(dict,@"hostname",_hostname);
-    SET_DICT_STRING(dict,@"log-directory",_logDirectory);
-    SET_DICT_INTEGER(dict,@"log-rotations",_logRotations);
-    SET_DICT_STRING(dict,@"config-store",_configStore);
-    SET_DICT_INTEGER(dict,@"concurrent-tasks",_concurrentTasks);
-    SET_DICT_INTEGER(dict,@"queue-hard-limit",_queueHardLimit);
-    SET_DICT_STRING(dict,@"transaction-id-range",_transactionIdRange);
-    SET_DICT_BOOLEAN(dict,@"send-sctp-aborts",_sendSctpAborts);
-    SET_DICT_STRING(dict,@"filter-engine-directory",_filterEngineDirectory);
-    SET_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
-    SET_DICT_STRING(dict,@"gui",_gui);
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7ConfigGeneral.def"
+#include "UMSS7Config_macroClear.h"
+#else
+    SET_DICT_STRING(o,@"hostname",_hostname);
+    SET_DICT_STRING(o,@"log-directory",_logDirectory);
+    SET_DICT_INTEGER(o,@"log-rotations",_logRotations);
+    SET_DICT_STRING(o,@"config-store",_configStore);
+    SET_DICT_INTEGER(o,@"concurrent-tasks",_concurrentTasks);
+    SET_DICT_INTEGER(o,@"queue-hard-limit",_queueHardLimit);
+    SET_DICT_STRING(o,@"transaction-id-range",_transactionIdRange);
+    SET_DICT_BOOLEAN(o,@"send-sctp-aborts",_sendSctpAborts);
+    SET_DICT_STRING(o,@"filter-engine-directory",_filterEngineDirectory);
+    SET_DICT_STRING(o,@"zmq-socket",_zmqSocket);
+    SET_DICT_STRING(o,@"gui",_gui);
+#endif
 }
 
 - (UMSS7ConfigGeneral *)copyWithZone:(NSZone *)zone

@@ -1,0 +1,6 @@
+
+STRING(o,"attach-to",_attachTo)
+STRING(o,"address",_address)
+STRING(o,"ssn",_ssn)
+DOUBLE(o,"timeout",_timeout)
+

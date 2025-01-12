@@ -1,0 +1,3 @@
+STRING(o,"interface-name",_interfaceName)
+STRING(o,"local-mac-address",_localMacAddress)
+STRING(o,"remote-mac-address",_remoteMacAddress)

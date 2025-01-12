@@ -1,0 +1,7 @@
+STRING(o,"attach-to",_attachTo)
+STRING(o,"variant",_variant)
+STRING(o,"subsystem",_subsystem)
+STRING(o,"number",_number)
+STRING(o,"transaction-id-range",_range)
+DOUBLE(o,"timeout",_timeout)
+STRING(o,"transaction-id-pool-type",_poolType)

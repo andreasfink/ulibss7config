@@ -1,0 +1,5 @@
+STRING(s,"attach-to",_attachTo)
+STRING(s,"number",_number)
+STRING(s,"imsi-pool",_imsiPool)
+DOUBLE(s,"timeout",_timeout)
+INTEGER(s,"answer-translation-type",_answerTranslationType)

@@ -14,7 +14,6 @@
     NSString *_logDirectory;
     NSNumber *_logRotations;
     NSString *_configStore;
-//    NSNumber *_concurrentTasks; // defined in superclass
     NSNumber *_queueHardLimit;
     NSString *_transactionIdRange;
     NSNumber *_sendSctpAborts;
@@ -31,7 +30,6 @@
 @property(readwrite,strong,atomic)  NSString *logDirectory;
 @property(readwrite,strong,atomic)  NSNumber *logRotations;
 @property(readwrite,strong,atomic)  NSString *configStore;
-//@property(readwrite,strong,atomic)  NSNumber *concurrentTasks; // defined in superclass
 @property(readwrite,strong,atomic)  NSNumber *queueHardLimit;
 @property(readwrite,strong,atomic)  NSString *transactionIdRange;
 @property(readwrite,strong,atomic)  NSNumber *sendSctpAborts;

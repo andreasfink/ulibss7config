@@ -1,0 +1,8 @@
+
+STRING(o,"name",_name)
+STRING(o,"description",_objectDescription)
+BOOLEAN(o,"enable",_enabled)
+INTEGER(o,"log-level",_logLevel)
+STRING(o,"log-file",_logFile)
+ARRAY_VERBOSE(o,"comment",_comments)
+

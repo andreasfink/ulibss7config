@@ -1,0 +1,6 @@
+STRING(o,"password",_password)
+STRING(o,"groupname",_groupname)
+STRING(o,"useroptions",_useroptions)
+STRING(o,"short-id",_shortId)
+DOUBLE(o,"speed-limit",_speedLimit)
+STRING(o,"billing-entity",_billingEntity)

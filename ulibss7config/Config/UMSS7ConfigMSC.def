@@ -1,0 +1,7 @@
+STRING(o,"attach-to",_attachTo)
+STRING(o,"number",_number)
+DOUBLE(o,"timeout",_timeout)
+STRING(o,"sms-forward-url",_smsForwardUrl)
+INTEGER(o,"sms-error-code",_smsErrorCode)
+INTEGER(o,"answer-translation-type",_answerTranslationType)
+STRING(o,"imsi-pool",_imsiPool)

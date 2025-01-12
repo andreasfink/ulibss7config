@@ -1,0 +1,6 @@
+STRING(o,"local-hostname",_localHostName)
+STRING(o,"local-realm",_localRealm)
+STRING(o,"statistic-db-pool",_statisticDbPool)
+STRING(o,"statistic-db-table",_statisticDbTable)
+STRING(o,"statistic-db-instance",_statisticDbInstance)
+BOOLEAN(o,"statistic-db-autocreate",_statisticDbAutocreate)

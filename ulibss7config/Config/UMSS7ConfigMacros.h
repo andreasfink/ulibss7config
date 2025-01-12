@@ -160,51 +160,51 @@ if(dict[name]!=NULL) \
 #define SET_DICT_INTEGER(dict,name,value) \
 if(dict[name]!=NULL) \
 { \
-    id o = dict[name]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = dict[name]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-    NSString *str = (NSString *)o; \
+        NSString *str = (NSString *)obj; \
         value = @([str intergerValueSupportingHex]); \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-        value = [NSNumber numberWithInt:[o[0] intValue]]; \
+        value = [NSNumber numberWithInt:[obj[0] intValue]]; \
     } \
-    else if([o isKindOfClass:[NSNumber class]]) \
+    else if([obj isKindOfClass:[NSNumber class]]) \
     { \
-        value = [NSNumber numberWithInt:[o intValue]]; \
+        value = [NSNumber numberWithInt:[obj intValue]]; \
     } \
 }
 
 #define SET_DICT_STRING(dict,name,value) \
 if(dict[name]!=NULL) \
 { \
-    id o = dict[name]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = dict[name]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = o; \
+        value = obj; \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-         value = [((NSArray *)o) componentsJoinedByString:@";"]; \
+         value = [((NSArray *)obj) componentsJoinedByString:@";"]; \
     } \
 }
 
 #define SET_DICT_DATE(dict,name,value) \
 if(dict[name]!=NULL) \
 { \
-    id o = dict[name]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = dict[name]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = [o dateValue]; \
+        value = [obj dateValue]; \
     } \
-    else if([o isKindOfClass:[NSDate class]]) \
+    else if([obj isKindOfClass:[NSDate class]]) \
     { \
-        value = o; \
+        value = obj; \
     } \
-    else if([o isKindOfClass:[NSNumber class]]) \
+    else if([obj isKindOfClass:[NSNumber class]]) \
     { \
-        value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[o doubleValue]]; \
+        value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[obj doubleValue]]; \
     } \
 }
 
@@ -214,14 +214,14 @@ if(dict[name]!=NULL) \
 #define SET_DICT_FILTERED_STRING(dict,name,value) \
 if(dict[name]!=NULL) \
 { \
-    id o = dict[name]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = dict[name]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = [UMSS7ConfigObject filterName:o]; \
+        value = [UMSS7ConfigObject filterName:obj]; \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-        NSMutableArray *o2 = [(NSArray *)o mutableCopy]; \
+        NSMutableArray *o2 = [(NSArray *)obj mutableCopy]; \
         NSUInteger n = o2.count; \
         for(NSUInteger i=0;i<n;i++) \
         { \
@@ -235,14 +235,14 @@ if(dict[name]!=NULL) \
 #define SET_DICT_ARRAY(dict,name,value) \
 if(dict[name]!=NULL) \
 { \
-    id o = dict[name]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = dict[name]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = [((NSString *)o) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \t;"]]; \
+        value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \t;"]]; \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-        value = o; \
+        value = obj; \
     } \
 }
 

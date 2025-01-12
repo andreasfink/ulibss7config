@@ -1,0 +1,2 @@
+STRING(o,"config-file",_configFile)
+STRING(o,"config-string",_configString);

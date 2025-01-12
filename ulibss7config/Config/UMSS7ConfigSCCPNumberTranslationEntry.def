@@ -1,0 +1,11 @@
+STRING(o,"sccp-number-translation",_sccpNumberTranslation)
+STRING(o,"in-address",_inAddress)
+STRING(o,"out-address",_outAddress)
+INTEGER(o,"new-tt",_replacementTT)
+INTEGER(o,"new-calling-party-tt",_replacementCallingPartyTT)
+INTEGER(o,"new-called-party-tt",_replacementCalledPartyTT)
+INTEGER(o,"new-nai",_replacementNAI)
+INTEGER(o,"new-np",_replacementNP)
+INTEGER(o,"remove-digits",_removeDigits)
+STRING(o,"append-digits",_appendDigits)
+

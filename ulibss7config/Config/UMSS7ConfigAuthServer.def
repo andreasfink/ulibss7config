@@ -1,0 +1,2 @@
+STRING(o,"zmq-listener",_zmqListener)
+STRING(o,"db-pool",_dbPool)

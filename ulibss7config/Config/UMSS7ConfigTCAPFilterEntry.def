@@ -1,0 +1,5 @@
+STRING(o,"filter",_filter)
+STRING(o,"command",_command)
+STRING(o,"operation",_operation)
+ARRAY_VERBOSE(o,"application-context",_applicationContexts)
+STRING(o,"result",_result)

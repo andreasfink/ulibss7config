@@ -1,0 +1,6 @@
+STRING(s,"attach-to",_attachTo)
+STRING(s,"number",_number)
+DOUBLE(s,"timeout",_timeout)
+STRING(s,"timeout-trace-directory",_timeoutTraceDirectory)
+STRING(s,"full-trace-directory",_fullTraceDirectory)
+STRING(s,"eir-request-url",_eirRequestUrl)
