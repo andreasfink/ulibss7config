@@ -7,7 +7,7 @@
 //
 
 
-#define BOOLEAN(dict,name,value) \
+#define BOOLEAN(dict,name,value,dbname,tag,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
     id o = dict[@(name)]; \
@@ -25,7 +25,7 @@ if(dict[@(name)]!=NULL) \
     } \
 }
 
-#define DOUBLE(dict,name,value) \
+#define DOUBLE(dict,name,value,dbname,tag,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
     id o = dict[@(name)]; \
@@ -44,7 +44,7 @@ if(dict[@(name)]!=NULL) \
 }
 
 
-#define INTEGER(dict,name,value) \
+#define INTEGER(dict,name,value,dbname,tag,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
     id o = dict[@(name)]; \
@@ -63,7 +63,7 @@ if(dict[@(name)]!=NULL) \
     } \
 }
 
-#define STRING(dict,name,value) \
+#define STRING(dict,name,value,dbname,tag,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
     id o = dict[@(name)]; \
@@ -78,7 +78,7 @@ if(dict[@(name)]!=NULL) \
 }
 
 
-#define FILTERED_STRING(dict,name,value) \
+#define FILTERED_STRING(dict,name,value,dbname,tag,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
     id o0 = dict[@(name)]; \
@@ -108,7 +108,7 @@ if(dict[@(name)]!=NULL) \
     } \
 }
 
-#define DATE(dict,name,value) \
+#define DATE(dict,name,value,dbname,tag,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
     id o = dict[@(name)]; \
@@ -127,7 +127,7 @@ if(dict[@(name)]!=NULL) \
 }
 
 
-#define ARRAY_COMPACT(dict,name,value) \
+#define ARRAY_COMPACT(dict,name,value,dbname,tag,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
     id o = dict[@(name)]; \
@@ -141,7 +141,7 @@ if(dict[@(name)]!=NULL) \
     } \
 }
 
-#define ARRAY_VERBOSE(dict,name,value) ARRAY_COMPACT(dict,name,value)
+#define ARRAY_VERBOSE(dict,name,value,dbname,tag,options) ARRAY_COMPACT(dict,name,value,dbname,tag,options)
 
 
 

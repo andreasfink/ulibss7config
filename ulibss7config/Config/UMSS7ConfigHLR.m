@@ -35,12 +35,18 @@
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigHLR.def"
+#include "UMSS7Config_macroClear.h"
+#else
     [super appendConfigToString:s];
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
     APPEND_CONFIG_STRING(s,@"number",_number);
     APPEND_CONFIG_STRING(s,@"imsi-pool",_imsiPool);
     APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
     APPEND_CONFIG_INTEGER(s,@"answer-translation-type",_answerTranslationType);
+#endif
 }
 
 
@@ -48,11 +54,19 @@
 {
     UMSynchronizedSortedDictionary *dict = [super config];
 
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigHLR.def"
+#include "UMSS7Config_macroClear.h"
+#else
+
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
     APPEND_DICT_STRING(dict,@"number",_number);
     APPEND_DICT_STRING(dict,@"imsi-pool",_imsiPool);
     APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
     APPEND_DICT_INTEGER(dict,@"answer-translation-type",_answerTranslationType);
+    
+#endif
 
 
     return dict;
@@ -61,11 +75,18 @@
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+    
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7ConfigHLR.def"
+#include "UMSS7Config_macroClear.h"
+#else
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_STRING(dict,@"number",_number);
     SET_DICT_STRING(dict,@"imsi-pool",_imsiPool);
     SET_DICT_DOUBLE(dict,@"timeout",_timeout);
     SET_DICT_INTEGER(dict,@"answer-translation-type",_answerTranslationType);
+#endif
 }
 
 

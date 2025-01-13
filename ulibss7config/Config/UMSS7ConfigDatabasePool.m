@@ -36,6 +36,12 @@
 - (void)appendConfigToString:(NSMutableString *)s
 {
     [super appendConfigToString:s];
+    
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigDatabasePool.def"
+#include "UMSS7Config_macroClear.h"
+#else
     APPEND_CONFIG_STRING(s,@"host",_host);
     APPEND_CONFIG_STRING(s,@"database-name",_databaseName);
     APPEND_CONFIG_STRING(s,@"driver",_driver);
@@ -46,9 +52,9 @@
     APPEND_CONFIG_INTEGER(s,@"max-sessions",_maxSessions);
     APPEND_CONFIG_STRING(s,@"socket",_socket);
     APPEND_CONFIG_DOUBLE(s,@"ping-intervall",_pingIntervall);
-
     APPEND_CONFIG_STRING(s,@"storage-type",_storageType);
     APPEND_CONFIG_STRING(s,@"version",_version);
+#endif
 
 }
 
@@ -56,6 +62,12 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
+
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigDatabasePool.def"
+#include "UMSS7Config_macroClear.h"
+#else
 
     APPEND_DICT_STRING(dict,@"host",_host);
     APPEND_DICT_STRING(dict,@"database-name",_databaseName);
@@ -69,13 +81,20 @@
     APPEND_DICT_DOUBLE(dict,@"ping-intervall",_pingIntervall);
     APPEND_DICT_STRING(dict,@"storage-type",_storageType);
     APPEND_DICT_STRING(dict,@"version",_version);
-
+#endif
     return dict;
 }
 
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+    
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7ConfigDatabasePool.def"
+#include "UMSS7Config_macroClear.h"
+#else
+
     SET_DICT_STRING(dict,@"host",_host);
     SET_DICT_STRING(dict,@"database-name",_databaseName);
     SET_DICT_STRING(dict,@"driver",_driver);
@@ -88,7 +107,7 @@
     SET_DICT_DOUBLE(dict,@"ping-intervall",_pingIntervall);
     SET_DICT_STRING(dict,@"storage-type",_storageType);
     SET_DICT_STRING(dict,@"version",_version);
-
+#endif
 }
 
 

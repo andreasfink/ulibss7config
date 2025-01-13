@@ -6,46 +6,46 @@
 //  Copyright © 2025 Andreas Fink. All rights reserved.
 //
 
-#define BOOLEAN(dict,name,value) \
+#define BOOLEAN(dict,name,value,dbname,tag,options) \
 if(value!=NULL) \
 { \
     dict[@(name)] = @(value.boolValue); \
 }
 
-#define DOUBLE(dict,name,value) \
+#define DOUBLE(dict,name,value,dbname,tag,options) \
 if(value!=NULL) \
 { \
     dict[@(name)] = @(value.doubleValue); \
 }
 
-#define INTEGER(dict,name,value) \
+#define INTEGER(dict,name,value,dbname,tag,options) \
 if(value!=NULL) \
 { \
     dict[@(name)] = @(value.intValue); \
 }
 
-#define STRING(dict,name,value) \
+#define STRING(dict,name,value,dbname,tag,options) \
 if(value!=NULL) \
 { \
     dict[@(name)] = value.stringValue; \
 }
 
-#define FILTERED_STRING(dict,name,value) \
+#define FILTERED_STRING(dict,name,value,dbname,tag,options) \
 if(value!=NULL) \
 { \
     dict[@(name)] = [UMSS7ConfigObject filterName:value.stringValue]]; \
 }
 
-#define DATE(dict,name,value) \
+#define DATE(dict,name,value,dbname,tag,options) \
 if(value!=NULL) \
 { \
     dict[@(name)] = value.stringValue; \
 }
 
-#define ARRAY_COMPACT(dict,name,array) \
+#define ARRAY_COMPACT(dict,name,array,dbname,tag,options) \
 if(array!=NULL) \
 { \
     dict[@(name)] = array; \
 }
 
-#define ARRAY_VERBOSE(dict,name,value) ARRAY_COMPACT(dict,name,value)
+#define ARRAY_VERBOSE(dict,name,value,dbname,tag,options) ARRAY_COMPACT(dict,name,value,dbname,tag,options)

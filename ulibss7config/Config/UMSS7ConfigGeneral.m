@@ -65,6 +65,8 @@
 #include "UMSS7Config_macroClear.h"
 #else
 
+    
+
     APPEND_DICT_STRING(o,@"hostname",_hostname);
     APPEND_DICT_STRING(o,@"log-directory",_logDirectory);
     APPEND_DICT_INTEGER(o,@"log-rotations",_logRotations);
