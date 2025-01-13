@@ -10,7 +10,6 @@
 		A6006C312BBF667700C34D40 /* ulib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1422BB70A70019806C /* ulib.framework */; };
 		A6006C332BBF66F500C34D40 /* ulib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6006C322BBF66F500C34D40 /* ulib.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		A6006C342BBF671700C34D40 /* ulib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6006C322BBF66F500C34D40 /* ulib.framework */; };
-		A6006C352BBF672F00C34D40 /* ulib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6006C322BBF66F500C34D40 /* ulib.framework */; };
 		A6006C372BBF674200C34D40 /* ulibdb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6006C362BBF674200C34D40 /* ulibdb.framework */; };
 		A6062264237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A6062262237AA53A00CB0AD1 /* UMSS7ApiTaskMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6062268237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.h in Headers */ = {isa = PBXBuildFile; fileRef = A6062266237AAC1400CB0AD1 /* UMSS7ApiTaskIdle.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -166,7 +165,6 @@
 		A6798A2022BB70A80019806C /* ulibpcap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1122BB70A70019806C /* ulibpcap.framework */; };
 		A6798A2122BB70A80019806C /* ulibtcap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1222BB70A70019806C /* ulibtcap.framework */; };
 		A6798A2222BB70A80019806C /* ulibasn1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1322BB70A70019806C /* ulibasn1.framework */; };
-		A6798A2322BB70A80019806C /* ulib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1422BB70A70019806C /* ulib.framework */; };
 		A6798A2422BB70A80019806C /* ulibsctp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1522BB70A70019806C /* ulibsctp.framework */; };
 		A6798A2522BB70A80019806C /* umscript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1622BB70A70019806C /* umscript.framework */; };
 		A6798A2622BB70A80019806C /* ulibsms.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1722BB70A70019806C /* ulibsms.framework */; };
@@ -1504,7 +1502,6 @@
 				A6006C332BBF66F500C34D40 /* ulib.framework in Frameworks */,
 				A6798A2122BB70A80019806C /* ulibtcap.framework in Frameworks */,
 				A6798A3422BB71750019806C /* ulibtransport.framework in Frameworks */,
-				A6798A2322BB70A80019806C /* ulib.framework in Frameworks */,
 				A6798A2A22BB70A80019806C /* ulibdiameter.framework in Frameworks */,
 				A6798A2522BB70A80019806C /* umscript.framework in Frameworks */,
 				A6798A2622BB70A80019806C /* ulibsms.framework in Frameworks */,
@@ -1524,7 +1521,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6006C312BBF667700C34D40 /* ulib.framework in Frameworks */,
-				A6006C352BBF672F00C34D40 /* ulib.framework in Frameworks */,
 				A684E3A120774ADB000F3F70 /* ulibss7config.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2755,7 +2751,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Andreas Fink";
 				TargetAttributes = {
 					A684E39620774ADA000F3F70 = {
