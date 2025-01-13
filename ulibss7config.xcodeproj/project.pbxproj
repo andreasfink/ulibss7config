@@ -183,8 +183,6 @@
 		A67B70BB2D33C0C500699B17 /* UMSS7Config_macroAppendDict.h in Resources */ = {isa = PBXBuildFile; fileRef = A67B70BA2D33C0C500699B17 /* UMSS7Config_macroAppendDict.h */; };
 		A67B70BF2D33C19B00699B17 /* UMSS7Config_macroClear.h in Headers */ = {isa = PBXBuildFile; fileRef = A67B70BE2D33C18E00699B17 /* UMSS7Config_macroClear.h */; };
 		A67B70C12D33D85D00699B17 /* UMSS7COnfigGSMMAP.def in Resources */ = {isa = PBXBuildFile; fileRef = A67B70C02D33D85000699B17 /* UMSS7COnfigGSMMAP.def */; };
-		A67B70C32D33D8D100699B17 /* UMSS7ConfigGSMMAPFilter.def in Resources */ = {isa = PBXBuildFile; fileRef = A67B70C22D33D8D100699B17 /* UMSS7ConfigGSMMAPFilter.def */; };
-		A67B70C52D33D95200699B17 /* UMSS7ConfigGSMMAPFilterEntry.def in Resources */ = {isa = PBXBuildFile; fileRef = A67B70C42D33D95200699B17 /* UMSS7ConfigGSMMAPFilterEntry.def */; };
 		A67B70C72D33DEF700699B17 /* UMSS7ConfigCAMEL.def in Resources */ = {isa = PBXBuildFile; fileRef = A67B70C62D33DEF700699B17 /* UMSS7ConfigCAMEL.def */; };
 		A67B70C92D33DF0800699B17 /* UMSS7ConfigHLR.def in Resources */ = {isa = PBXBuildFile; fileRef = A67B70C82D33DF0800699B17 /* UMSS7ConfigHLR.def */; };
 		A67B70CB2D33DF1700699B17 /* UMSS7ConfigIMSIPool.def in Resources */ = {isa = PBXBuildFile; fileRef = A67B70CA2D33DF1700699B17 /* UMSS7ConfigIMSIPool.def */; };
@@ -535,6 +533,8 @@
 		A6BC4547207753EE008C3CEB /* UMSS7ApiTaskSCTP_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC44C7207753ED008C3CEB /* UMSS7ApiTaskSCTP_list.m */; };
 		A6BC4548207753EE008C3CEB /* UMSS7ApiTaskMTP3Link_status.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC44C8207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_status.m */; };
 		A6BC4549207753EE008C3CEB /* UMSS7ApiTaskMTP3_action.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BC44C9207753ED008C3CEB /* UMSS7ApiTaskMTP3_action.m */; };
+		A6BD06182D353C280053A641 /* UMSS7ConfigGSMMAPFilter.def in Resources */ = {isa = PBXBuildFile; fileRef = A6BD06172D353C280053A641 /* UMSS7ConfigGSMMAPFilter.def */; };
+		A6BD061A2D353C6A0053A641 /* UMSS7ConfigGSMMAPFilterEntry.def in Resources */ = {isa = PBXBuildFile; fileRef = A6BD06192D353C6A0053A641 /* UMSS7ConfigGSMMAPFilterEntry.def */; };
 		A6BF3078229430350000578B /* UMSS7ApiTaskServiceUser_action.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BF306A229430320000578B /* UMSS7ApiTaskServiceUser_action.m */; };
 		A6BF3079229430350000578B /* UMSS7ApiTaskServiceUser_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF306B229430330000578B /* UMSS7ApiTaskServiceUser_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BF307A229430350000578B /* UMSS7ApiTaskServiceUser_status.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BF306C229430330000578B /* UMSS7ApiTaskServiceUser_status.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -933,8 +933,6 @@
 		A67B70BA2D33C0C500699B17 /* UMSS7Config_macroAppendDict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7Config_macroAppendDict.h; sourceTree = "<group>"; };
 		A67B70BE2D33C18E00699B17 /* UMSS7Config_macroClear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7Config_macroClear.h; sourceTree = "<group>"; };
 		A67B70C02D33D85000699B17 /* UMSS7COnfigGSMMAP.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7COnfigGSMMAP.def; sourceTree = "<group>"; };
-		A67B70C22D33D8D100699B17 /* UMSS7ConfigGSMMAPFilter.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7ConfigGSMMAPFilter.def; sourceTree = "<group>"; };
-		A67B70C42D33D95200699B17 /* UMSS7ConfigGSMMAPFilterEntry.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7ConfigGSMMAPFilterEntry.def; sourceTree = "<group>"; };
 		A67B70C62D33DEF700699B17 /* UMSS7ConfigCAMEL.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7ConfigCAMEL.def; sourceTree = "<group>"; };
 		A67B70C82D33DF0800699B17 /* UMSS7ConfigHLR.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7ConfigHLR.def; sourceTree = "<group>"; };
 		A67B70CA2D33DF1700699B17 /* UMSS7ConfigIMSIPool.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7ConfigIMSIPool.def; sourceTree = "<group>"; };
@@ -1290,6 +1288,8 @@
 		A6BC44C7207753ED008C3CEB /* UMSS7ApiTaskSCTP_list.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSCTP_list.m; sourceTree = "<group>"; };
 		A6BC44C8207753ED008C3CEB /* UMSS7ApiTaskMTP3Link_status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskMTP3Link_status.m; sourceTree = "<group>"; };
 		A6BC44C9207753ED008C3CEB /* UMSS7ApiTaskMTP3_action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskMTP3_action.m; sourceTree = "<group>"; };
+		A6BD06172D353C280053A641 /* UMSS7ConfigGSMMAPFilter.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7ConfigGSMMAPFilter.def; sourceTree = "<group>"; };
+		A6BD06192D353C6A0053A641 /* UMSS7ConfigGSMMAPFilterEntry.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = UMSS7ConfigGSMMAPFilterEntry.def; sourceTree = "<group>"; };
 		A6BF306A229430320000578B /* UMSS7ApiTaskServiceUser_action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskServiceUser_action.m; sourceTree = "<group>"; };
 		A6BF306B229430330000578B /* UMSS7ApiTaskServiceUser_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskServiceUser_list.h; sourceTree = "<group>"; };
 		A6BF306C229430330000578B /* UMSS7ApiTaskServiceUser_status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskServiceUser_status.h; sourceTree = "<group>"; };
@@ -2039,6 +2039,10 @@
 		A6BC410820774E21008C3CEB /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				A67B70BE2D33C18E00699B17 /* UMSS7Config_macroClear.h */,
+				A67B70B42D33BFCC00699B17 /* UMSS7Config_macroAppendConfig.h */,
+				A67B70BA2D33C0C500699B17 /* UMSS7Config_macroAppendDict.h */,
+				A67B70B62D33C09000699B17 /* UMSS7Config_macroSetDict.h */,
 				A67B71522D33E3F300699B17 /* UMSS7ConfigObject.def */,
 				A6BC42D520774F8F008C3CEB /* UMSS7ConfigObject.h */,
 				A6BC42CF20774F8E008C3CEB /* UMSS7ConfigObject.m */,
@@ -2050,20 +2054,16 @@
 				A67B714E2D33E3B800699B17 /* UMSS7ConfigDatabasePool.def */,
 				A6BC42DF20774F90008C3CEB /* UMSS7ConfigDatabasePool.h */,
 				A6BC42C420774F8D008C3CEB /* UMSS7ConfigDatabasePool.m */,
-				A67B70BE2D33C18E00699B17 /* UMSS7Config_macroClear.h */,
-				A67B70B42D33BFCC00699B17 /* UMSS7Config_macroAppendConfig.h */,
-				A67B70BA2D33C0C500699B17 /* UMSS7Config_macroAppendDict.h */,
-				A67B70B62D33C09000699B17 /* UMSS7Config_macroSetDict.h */,
 				A67B70B82D33C0A300699B17 /* UMSS7ConfigGeneral.def */,
 				A6BC42A820774F89008C3CEB /* UMSS7ConfigGeneral.h */,
 				A6BC42EA20774F91008C3CEB /* UMSS7ConfigGeneral.m */,
 				A67B70C02D33D85000699B17 /* UMSS7COnfigGSMMAP.def */,
 				A6BC42B920774F8B008C3CEB /* UMSS7ConfigGSMMAP.h */,
 				A6BC42CC20774F8E008C3CEB /* UMSS7ConfigGSMMAP.m */,
-				A67B70C22D33D8D100699B17 /* UMSS7ConfigGSMMAPFilter.def */,
+				A6BD06172D353C280053A641 /* UMSS7ConfigGSMMAPFilter.def */,
 				A6BC42F220774F92008C3CEB /* UMSS7ConfigGSMMAPFilter.h */,
 				A6BC42D720774F8F008C3CEB /* UMSS7ConfigGSMMAPFilter.m */,
-				A67B70C42D33D95200699B17 /* UMSS7ConfigGSMMAPFilterEntry.def */,
+				A6BD06192D353C6A0053A641 /* UMSS7ConfigGSMMAPFilterEntry.def */,
 				A6BC42C220774F8C008C3CEB /* UMSS7ConfigGSMMAPFilterEntry.h */,
 				A6BC42B220774F8A008C3CEB /* UMSS7ConfigGSMMAPFilterEntry.m */,
 				A67B70C62D33DEF700699B17 /* UMSS7ConfigCAMEL.def */,
@@ -2796,8 +2796,10 @@
 				A67B70D72D33DF8100699B17 /* UMSS7ConfigSGSN.def in Resources */,
 				A67B70E12D33DFC700699B17 /* UMSS7ConfigGSMSCF.def in Resources */,
 				A67B71092D33E0AA00699B17 /* UMSS7ConfigSMSC.def in Resources */,
+				A6BD06182D353C280053A641 /* UMSS7ConfigGSMMAPFilter.def in Resources */,
 				A67B70C72D33DEF700699B17 /* UMSS7ConfigCAMEL.def in Resources */,
 				A67B711B2D33E11000699B17 /* UMSS7ConfigTelnet.def in Resources */,
+				A6BD061A2D353C6A0053A641 /* UMSS7ConfigGSMMAPFilterEntry.def in Resources */,
 				A67B71412D33E1E300699B17 /* UMSS7ConfigSMPPPlugin.def in Resources */,
 				A67B712B2D33E16700699B17 /* UMSS7ConfigDiameterRouter.def in Resources */,
 				A67B711F2D33E12500699B17 /* UMSS7ConfigWebserver.def in Resources */,
@@ -2811,7 +2813,6 @@
 				A67B71032D33E08600699B17 /* UMSS7ConfigSCCPTranslationTableMap.def in Resources */,
 				A67B71112D33E0D500699B17 /* UMSS7ConfigSMSDeliveryProvider.def in Resources */,
 				A67B70CF2D33DF3400699B17 /* UMSS7ConfigM3UAAS.def in Resources */,
-				A67B70C32D33D8D100699B17 /* UMSS7ConfigGSMMAPFilter.def in Resources */,
 				A67B71052D33E09000699B17 /* UMSS7ConfigSCTP.def in Resources */,
 				A6C2C26C28510FA700A09BA7 /* RELEASE-NOTES.txt in Resources */,
 				A67B710F2D33E0CA00699B17 /* UMSS7ConfigSMSProxy.def in Resources */,
@@ -2841,7 +2842,6 @@
 				A67B71172D33E0F700699B17 /* UMSS7ConfigTCAPFilter.def in Resources */,
 				A67B713D2D33E1CF00699B17 /* UMSS7ConfigSMPPServer.def in Resources */,
 				A67B71492D33E21000699B17 /* UMSS7ConfigMnpDatabase.def in Resources */,
-				A67B70C52D33D95200699B17 /* UMSS7ConfigGSMMAPFilterEntry.def in Resources */,
 				A67B70C92D33DF0800699B17 /* UMSS7ConfigHLR.def in Resources */,
 				A67B71212D33E12F00699B17 /* UMSS7ConfigApiUser.def in Resources */,
 				A67B713F2D33E1D900699B17 /* UMSS7ConfigSMPPConnection.def in Resources */,
@@ -3428,6 +3428,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.16.3;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				OTHER_CFLAGS = "-DUSE_NEW_SS7CONFIG_MACROS=1";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fink-telecom.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3465,6 +3466,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.16.3;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				OTHER_CFLAGS = "-DUSE_NEW_SS7CONFIG_MACROS=1";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fink-telecom.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

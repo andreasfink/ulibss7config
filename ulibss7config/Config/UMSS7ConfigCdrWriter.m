@@ -35,7 +35,15 @@
 
 - (void)appendConfigToString:(NSMutableString *)s
 {
+    
+    UMSynchronizedSortedDictionary *o = [super config];
     [super appendConfigToString:s];
+
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigCdrWriter.def"
+#include "UMSS7Config_macroClear.h"
+#else
     APPEND_CONFIG_STRING(s,@"cdr-type",_cdrType);
     APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
     APPEND_CONFIG_INTEGER(s,@"cdr-queue-limit",_cdrQueueLimit);
@@ -47,13 +55,19 @@
     APPEND_CONFIG_STRING(s,@"table-name",_tableName);
     APPEND_CONFIG_BOOLEAN(s,@"auto-create",_autoCreate);
     APPEND_CONFIG_STRING(s,@"pool-name",_poolName);
-
+#endif
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *dict = [super config];
+
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigCdrWriter.def"
+#include "UMSS7Config_macroClear.h"
+#else
 
     APPEND_DICT_STRING(dict,@"cdr-type",_cdrType);
     APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
@@ -67,13 +81,19 @@
     APPEND_DICT_STRING(dict,@"table-name",_tableName);
     APPEND_DICT_BOOLEAN(dict,@"auto-create",_autoCreate);
     APPEND_DICT_STRING(dict,@"pool-name",_poolName);
-
+#endif
     return dict;
 }
 
 - (void)setConfig:(NSDictionary *)dict
 {
     [self setSuperConfig:dict];
+
+#if(USE_NEW_SS7CONFIG_MACROS)
+#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7ConfigCdrWriter.def"
+#include "UMSS7Config_macroClear.h"
+#else
     SET_DICT_STRING(dict,@"cdr-type",_cdrType);
     SET_DICT_STRING(dict,@"attach-to",_attachTo);
     SET_DICT_INTEGER(dict,@"cdr-queue-limit",_cdrQueueLimit);
@@ -85,7 +105,7 @@
     SET_DICT_STRING(dict,@"table-name",_tableName);
     SET_DICT_BOOLEAN(dict,@"auto-create",_autoCreate);
     SET_DICT_STRING(dict,@"pool-name",_poolName);
-
+#endif
 }
 
 
