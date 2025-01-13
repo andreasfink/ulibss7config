@@ -8,7 +8,7 @@
 
 #import "UMSS7ConfigGSMMAPFilter.h"
 #import "UMSS7ConfigGSMMAPFilterEntry.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigGSMMAPFilter
 

@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigSS7FilterStagingArea.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 #import "ulib/UMMutex.h"
 #import "UMSS7ConfigSS7FilterRuleSet.h"
 #import "UMSS7ConfigSS7FilterRule.h"

@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigSS7FilterTraceFile.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigSS7FilterTraceFile
 

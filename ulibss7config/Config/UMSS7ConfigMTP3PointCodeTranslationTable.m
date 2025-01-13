@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigMTP3PointCodeTranslationTable.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigMTP3PointCodeTranslationTable
 

@@ -8,7 +8,7 @@
 
 #import "UMSS7ConfigSCCPTranslationTable.h"
 #import "UMSS7ConfigSCCPTranslationTableEntry.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigSCCPTranslationTable
 

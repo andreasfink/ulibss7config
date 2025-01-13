@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigM2PA.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 @implementation UMSS7ConfigM2PA
 
 + (NSString *)type

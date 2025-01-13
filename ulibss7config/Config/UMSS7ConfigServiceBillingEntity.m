@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigServiceBillingEntity.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigServiceBillingEntity
 

@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigSS7FilterActionList.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 #import "UMSS7ConfigSS7FilterAction.h"
 
 @implementation UMSS7ConfigSS7FilterActionList

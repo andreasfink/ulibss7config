@@ -8,7 +8,7 @@
 
 #import "UMSS7ConfigSMSFilter.h"
 #import "UMSS7ConfigSMSFilterEntry.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigSMSFilter
 

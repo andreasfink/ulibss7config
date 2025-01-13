@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigSCCPDestination.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 #import "UMSS7ConfigSCCPDestinationEntry.h"
 
 @implementation UMSS7ConfigSCCPDestination

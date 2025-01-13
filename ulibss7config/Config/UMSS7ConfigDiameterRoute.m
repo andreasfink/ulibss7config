@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigDiameterRoute.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigDiameterRoute
 
