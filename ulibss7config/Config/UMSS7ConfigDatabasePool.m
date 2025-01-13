@@ -39,7 +39,7 @@
     
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
-#include "UMSS7ConfigDatabasePool.def"
+#include "UMSS7ConfigDatabasePool.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
     APPEND_CONFIG_STRING(o,@"host",_host);
@@ -65,7 +65,7 @@
 
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
-#include "UMSS7ConfigDatabasePool.def"
+#include "UMSS7ConfigDatabasePool.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
 
@@ -91,7 +91,7 @@
     
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetDict.h"
-#include "UMSS7ConfigDatabasePool.def"
+#include "UMSS7ConfigDatabasePool.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
 

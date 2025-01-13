@@ -1,3 +1,0 @@
-STRING(o,"zmq-listener",_zmqListener)
-STRING(o,"database-pool",_dbPool)
-STRING(o,"database-table",_dbTable)

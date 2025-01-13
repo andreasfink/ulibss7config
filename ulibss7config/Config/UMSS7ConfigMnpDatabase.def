@@ -1,2 +1,0 @@
-STRING(o,"database-pool",_dbPool)
-STRING(o,"database-table",_dbTable)

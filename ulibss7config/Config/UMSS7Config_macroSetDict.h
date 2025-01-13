@@ -6,142 +6,28 @@
 //  Copyright © 2025 Andreas Fink. All rights reserved.
 //
 
+#import "UMSS7ConfigObject.h"
 
-#define BOOLEAN(o,name,value,dbname,tag,options) \
-if(o[@(name)]!=NULL) \
-{ \
-    id obj = o[@(name)]; \
-    if([obj isKindOfClass:[NSString class]]) \
-    { \
-        value = [NSNumber numberWithBool:[oobj boolValue]]; \
-    } \
-    else if([obj isKindOfClass:[NSArray class]]) \
-    { \
-        value = [NSNumber numberWithBool:[obj[0] boolValue]]; \
-    } \
-    else if([obj isKindOfClass:[NSNumber class]]) \
-    { \
-        value = [NSNumber numberWithBool:[obj boolValue]]; \
-    } \
-}
+void setConfig_BOOLEAN(NSDictionary *o,char *name,NSNumber **value,const char *dbname,int tag,const char *options);
+void setConfig_DOUBLE(NSDictionary *o,char *name,NSNumber **value,const char *dbname,int tag,const char *options);
+void setConfig_INTEGER(NSDictionary *o,char *name,NSNumber **value,const char *dbname,int tag,const char *options);
+void setConfig_STRING(NSDictionary *o,char *name,NSString **value,const char *dbname,int tag,const char *options);
+void setConfig_FILTERED_STRING(NSDictionary *o,char *name,NSString **value,const char *dbname,int tag,const char *options);
+void setConfig_DATE(NSDictionary *o,char *name,NSDate **value,const char *dbname,int tag,const char *options);
+void setConfig_ARRAY_COMPACT(NSDictionary *o,char *name,NSArray **value,const char *dbname,int tag,const char *options);
+void setConfig_ARRAY_VERBOSE(NSDictionary *o,char *name,NSArray **value,const char *dbname,int tag,const char *options);
+void setConfig_HEXDATA(NSDictionary *o,char *name,NSArray **value,const char *dbname,int tag,const char *options);
 
-#define DOUBLE(o,name,value,dbname,tag,options) \
-if(o[@(name)]!=NULL) \
-{ \
-    id obj = o[@(name)]; \
-    if([obj isKindOfClass:[NSString class]]) \
-    { \
-        value = [NSNumber numberWithDouble:[obj doubleValue]]; \
-    } \
-    else if([obj isKindOfClass:[NSArray class]]) \
-    { \
-        value = [NSNumber numberWithDouble:[obj[0] doubleValue]]; \
-    } \
-    else if([obj isKindOfClass:[NSNumber class]]) \
-    { \
-        value = [NSNumber numberWithDouble:[obj doubleValue]]; \
-    } \
-}
+#define BOOLEAN(o,name,value,dbname,tag,options)            setConfig_BOOLEAN(o,name,&value,dbname,tag,options);
+#define DOUBLE(o,name,value,dbname,tag,options)             setConfig_DOUBLE(o,name,&value,dbname,tag,options);
+#define INTEGER(o,name,value,dbname,tag,options)            setConfig_INTEGER(o,name,&value,dbname,tag,options);
+#define STRING(o,name,value,dbname,tag,options)             setConfig_STRING(o,name,&value,dbname,tag,options);
+#define FILTERED_STRING(o,name,value,dbname,tag,options)    setConfig_FILTERED_STRING(o,name,&value,dbname,tag,options);
+#define DATE(o,name,value,dbname,tag,options)               setConfig_DATE(o,name,&value,dbname,tag,options);
+#define ARRAY_COMPACT(o,name,value,dbname,tag,options)      setConfig_ARRAY_COMPACT(o,name,&value,dbname,tag,options);
+#define ARRAY_VERBOSE(o,name,value,dbname,tag,options)      setConfig_ARRAY_VERBOSE(o,name,&value,dbname,tag,options);
+#define HEXDATA(o,name,value,dbname,tag,options)            setConfig_HEXDATA(o,name,&value,dbname,tag,options);
 
-
-#define INTEGER(o,name,value,dbname,tag,options) \
-if(o[@(name)]!=NULL) \
-{ \
-    id obj = o[@(name)]; \
-    if([obj isKindOfClass:[NSString class]]) \
-    { \
-        NSString *str = (NSString *)obj; \
-        value = @([str intergerValueSupportingHex]); \
-    } \
-    else if([obj isKindOfClass:[NSArray class]]) \
-    { \
-        value = [NSNumber numberWithInt:[obj[0] intValue]]; \
-    } \
-    else if([obj isKindOfClass:[NSNumber class]]) \
-    { \
-        value = [NSNumber numberWithInt:[obj intValue]]; \
-    } \
-}
-
-#define STRING(o,name,value,dbname,tag,options) \
-if(o[@(name)]!=NULL) \
-{ \
-    id obj = o[@(name)]; \
-    if([obj isKindOfClass:[NSString class]]) \
-    { \
-        value = obj; \
-    } \
-    else if([obj isKindOfClass:[NSArray class]]) \
-    { \
-         value = [((NSArray *)obj) componentsJoinedByString:@";"]; \
-    } \
-}
-
-
-#define FILTERED_STRING(o,name,value,dbname,tag,options) \
-if(o[@(name)]!=NULL) \
-{ \
-    id o0 = o[@(name)]; \
-    if([o0 isKindOfClass:[NSString class]]) \
-    { \
-        value = [UMSS7ConfigObject filterName:o0]; \
-    } \
-    else if([o0 isKindOfClass:[NSArray class]]) \
-    { \
-        NSMutableArray *a2 = [[NSMutableArray alloc]init];\
-        id o1; \
-        NSArray *arr = (NSArray *)o0;\
-        for(o1 in o0) \
-        { \
-            if([o1 isKindOfClass:[NSString class]]) \
-            { \
-                NSString *s = (NSString *)o1; \
-                [a2 appendObject: [UMSS7ConfigObject filterName:s]];\
-            } \
-            else if([o1 isKindOfClass:[NSNumber class]]) \
-            { \
-                NSNumber *n = (NSNumber *)o1; \
-                [a2 appendObject: n.stringValue]];\
-            } \
-        } \
-        value = [((NSArray *)a2) componentsJoinedByString:@";"]; \
-    } \
-}
-
-#define DATE(o,name,value,dbname,tag,options) \
-if(dict[@(name)]!=NULL) \
-{ \
-    id obj = o[@(name)]; \
-    if([obj isKindOfClass:[NSString class]]) \
-    { \
-        value = [obj dateValue]; \
-    } \
-    else if([obj isKindOfClass:[NSDate class]]) \
-    { \
-        value = o; \
-    } \
-    else if([obj isKindOfClass:[NSNumber class]]) \
-    { \
-        value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[obj doubleValue]]; \
-    } \
-}
-
-
-#define ARRAY_COMPACT(o,name,value,dbname,tag,options) \
-if(o[@(name)]!=NULL) \
-{ \
-    id obj = dict[@(name)]; \
-    if([obj isKindOfClass:[NSString class]]) \
-    { \
-        value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \t;"]]; \
-    } \
-    else if([obj isKindOfClass:[NSArray class]]) \
-    { \
-        value = obj; \
-    } \
-}
-
-#define ARRAY_VERBOSE(o,name,value,dbname,tag,options) ARRAY_COMPACT(o,name,value,dbname,tag,options)
 
 
 

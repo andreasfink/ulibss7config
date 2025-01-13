@@ -15,7 +15,8 @@
     NSString *              _host;
     NSNumber *              _port;
     NSNumber *              _useSSL;
-    NSString *              _sslClientCertkeyFile;
+    NSString *              _sslClientCertKeyFile;
+    NSData *                _sslClientCertKey;
     NSNumber *              _transceiverMode;
     NSString *              _receiveHost;
     NSNumber *              _receivePort;
@@ -55,7 +56,8 @@
 @property(readwrite,strong,atomic) NSString * host;
 @property(readwrite,strong,atomic) NSNumber * port;
 @property(readwrite,strong,atomic) NSNumber * useSSL;
-@property(readwrite,strong,atomic) NSString * sslClientCertkeyFile;
+@property(readwrite,strong,atomic) NSString * sslClientCertKeyFile;
+@property(readwrite,strong,atomic) NSData * sslClientCertKey;
 @property(readwrite,strong,atomic) NSNumber * transceiverMode;
 @property(readwrite,strong,atomic) NSNumber * receivePort;
 @property(readwrite,strong,atomic) NSString * smscUsername;

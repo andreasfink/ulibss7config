@@ -36,7 +36,7 @@
     [super appendConfigToString:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
-#include "UMSS7ConfigGSMMAPFilterEntry.def"
+#include "UMSS7ConfigGSMMAPFilterEntry.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
 
@@ -51,7 +51,7 @@
     UMSynchronizedSortedDictionary *o = [super config];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
-#include "UMSS7ConfigGSMMAPFilterEntry.def"
+#include "UMSS7ConfigGSMMAPFilterEntry.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
 
@@ -66,7 +66,7 @@
     [self setSuperConfig:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetDict.h"
-#include "UMSS7ConfigGSMMAPFilterEntry.def"
+#include "UMSS7ConfigGSMMAPFilterEntry.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
     SET_DICT_STRING(o,@"filter",_filter);

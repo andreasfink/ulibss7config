@@ -37,7 +37,7 @@
 {
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
-#include "UMSS7ConfigCAMEL.def"
+#include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
 
@@ -55,7 +55,7 @@
 
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
-#include "UMSS7ConfigCAMEL.def"
+#include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
 
@@ -72,7 +72,7 @@
     [self setSuperConfig:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetDict.h"
-#include "UMSS7ConfigCAMEL.def"
+#include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
 #else
     SET_DICT_STRING(o,@"attach-to",_attachTo);
