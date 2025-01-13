@@ -1,0 +1,3 @@
+
+STRING(s,"filter",_filter)
+STRING(s,"result",_result)
