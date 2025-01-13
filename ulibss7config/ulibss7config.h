@@ -18,7 +18,7 @@
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 
 #import <ulibss7config/UMSS7ConfigObject.h>
-#import <ulibss7config/UMSS7ConfigMacros.h>
+#import <ulibss7config/UMSS7ConfigMacroHelper.h>
 #import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibss7config/UMSS7ConfigGeneral.h>
 #import <ulibss7config/UMSS7ConfigSyslogDestination.h>

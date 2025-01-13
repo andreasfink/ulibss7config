@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigCdrWriter.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigCdrWriter
 
@@ -85,24 +85,9 @@
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetDict.h"
 #include "UMSS7ConfigCdrWriter.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    SET_DICT_STRING(o,@"cdr-type",_cdrType);
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
-    SET_DICT_INTEGER(o,@"cdr-queue-limit",_cdrQueueLimit);
-    SET_DICT_STRING(o,@"cdr-file-prefix",_cdrFilePrefix);
-    SET_DICT_DOUBLE(o,@"reopen-time",_reopenTime);
-    SET_DICT_STRING(o,@"date-format",_dateFormat);
-    SET_DICT_STRING(o,@"time-zone",_timeZone);
-    SET_DICT_STRING(o,@"locale",_locale);
-    SET_DICT_STRING(o,@"table-name",_tableName);
-    SET_DICT_BOOLEAN(o,@"auto-create",_autoCreate);
-    SET_DICT_STRING(o,@"pool-name",_poolName);
-#endif
 }
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "UMSS7ConfigTCAPFilter.h"
-#import "UMSS7ConfigMacros.h"
+#import "UMSS7ConfigMacroHelper.h"
 #import "UMSS7ConfigTCAPFilterEntry.h"
 
 @implementation UMSS7ConfigTCAPFilter
@@ -35,8 +35,11 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_INTEGER(o,@"bypass-translation-type",_bypassTranslationType);
-    APPEND_CONFIG_STRING(o,@"default-result",_defaultResult);
+
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigTCAPFilter.def.h"
+#include "UMSS7Config_macroClear.h"
+
     for(UMSS7ConfigTCAPFilterEntry *e in _subEntries)
     {
         [s appendString:@"\n"];
@@ -48,16 +51,20 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_INTEGER(o,@"bypass-translation-type",_bypassTranslationType);
-    APPEND_DICT_STRING(o,@"default-result",_defaultResult);
+    
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigTCAPFilter.def.h"
+#include "UMSS7Config_macroClear.h"
+
     return dict;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_INTEGER(o,@"bypass-translation-type",_bypassTranslationType);
-    SET_DICT_STRING(o,@"default-result",_defaultResult);
+#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7ConfigTCAPFilter.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (void)setSubConfig:(NSArray *)configs
