@@ -34,20 +34,20 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
+    [super appendConfigToString:o];
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
 }
 
 - (UMSS7ConfigSCCPNumberTranslation *)copyWithZone:(NSZone *)zone

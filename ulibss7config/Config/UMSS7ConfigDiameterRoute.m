@@ -32,58 +32,58 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"router",_router);
-    APPEND_CONFIG_STRING(s,@"destination",_destination);
-    APPEND_CONFIG_STRING(s,@"hostname",_hostname);
-    APPEND_CONFIG_STRING(s,@"realm",_realm);
-    APPEND_CONFIG_INTEGER(s,@"application-id",_applicationId);
-    APPEND_CONFIG_DOUBLE(s,@"weight",_weight);
-    APPEND_CONFIG_DOUBLE(s,@"priority",_priority);
-    APPEND_CONFIG_BOOLEAN(s,@"local",_local);
-    APPEND_CONFIG_BOOLEAN(s,@"default-route",_defaultRoute);
-    APPEND_CONFIG_BOOLEAN(s,@"exact-hostname",_exactHost);
-    APPEND_CONFIG_BOOLEAN(s,@"exact-realm",_exactRealm);
-    APPEND_CONFIG_INTEGER(s,@"route-selector",_routeSelector);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"router",_router);
+    APPEND_CONFIG_STRING(o,@"destination",_destination);
+    APPEND_CONFIG_STRING(o,@"hostname",_hostname);
+    APPEND_CONFIG_STRING(o,@"realm",_realm);
+    APPEND_CONFIG_INTEGER(o,@"application-id",_applicationId);
+    APPEND_CONFIG_DOUBLE(o,@"weight",_weight);
+    APPEND_CONFIG_DOUBLE(o,@"priority",_priority);
+    APPEND_CONFIG_BOOLEAN(o,@"local",_local);
+    APPEND_CONFIG_BOOLEAN(o,@"default-route",_defaultRoute);
+    APPEND_CONFIG_BOOLEAN(o,@"exact-hostname",_exactHost);
+    APPEND_CONFIG_BOOLEAN(o,@"exact-realm",_exactRealm);
+    APPEND_CONFIG_INTEGER(o,@"route-selector",_routeSelector);
 
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"router",_router);
-    APPEND_DICT_STRING(dict,@"destination",_destination);
-    APPEND_DICT_STRING(dict,@"hostname",_hostname);
-    APPEND_DICT_STRING(dict,@"realm",_realm);
-    APPEND_DICT_INTEGER(dict,@"application-id",_applicationId);
-    APPEND_DICT_DOUBLE(dict,@"weight",_weight);
-    APPEND_DICT_DOUBLE(dict,@"priority",_priority);
-    APPEND_DICT_BOOLEAN(dict,@"local",_local);
-    APPEND_DICT_BOOLEAN(dict,@"default-route",_defaultRoute);
-    APPEND_DICT_BOOLEAN(dict,@"exact-hostname",_exactHost);
-    APPEND_DICT_BOOLEAN(dict,@"exact-realm",_exactRealm);
-    APPEND_DICT_INTEGER(dict,@"route-selector",_routeSelector);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"router",_router);
+    APPEND_DICT_STRING(o,@"destination",_destination);
+    APPEND_DICT_STRING(o,@"hostname",_hostname);
+    APPEND_DICT_STRING(o,@"realm",_realm);
+    APPEND_DICT_INTEGER(o,@"application-id",_applicationId);
+    APPEND_DICT_DOUBLE(o,@"weight",_weight);
+    APPEND_DICT_DOUBLE(o,@"priority",_priority);
+    APPEND_DICT_BOOLEAN(o,@"local",_local);
+    APPEND_DICT_BOOLEAN(o,@"default-route",_defaultRoute);
+    APPEND_DICT_BOOLEAN(o,@"exact-hostname",_exactHost);
+    APPEND_DICT_BOOLEAN(o,@"exact-realm",_exactRealm);
+    APPEND_DICT_INTEGER(o,@"route-selector",_routeSelector);
 
-    return dict;
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"router",_router);
-    SET_DICT_STRING(dict,@"destination",_destination);
-    SET_DICT_STRING(dict,@"hostname",_hostname);
-    SET_DICT_STRING(dict,@"realm",_realm);
-    SET_DICT_INTEGER(dict,@"application-id",_applicationId);
-    SET_DICT_DOUBLE(dict,@"weight",_weight);
-    SET_DICT_DOUBLE(dict,@"priority",_priority);
-    SET_DICT_BOOLEAN(dict,@"local",_local);
-    SET_DICT_BOOLEAN(dict,@"default-route",_defaultRoute);
-    SET_DICT_BOOLEAN(dict,@"exact-hostname",_exactHost);
-    SET_DICT_BOOLEAN(dict,@"exact-realm",_exactRealm);
-    SET_DICT_INTEGER(dict,@"route-selector",_routeSelector);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"router",_router);
+    SET_DICT_STRING(o,@"destination",_destination);
+    SET_DICT_STRING(o,@"hostname",_hostname);
+    SET_DICT_STRING(o,@"realm",_realm);
+    SET_DICT_INTEGER(o,@"application-id",_applicationId);
+    SET_DICT_DOUBLE(o,@"weight",_weight);
+    SET_DICT_DOUBLE(o,@"priority",_priority);
+    SET_DICT_BOOLEAN(o,@"local",_local);
+    SET_DICT_BOOLEAN(o,@"default-route",_defaultRoute);
+    SET_DICT_BOOLEAN(o,@"exact-hostname",_exactHost);
+    SET_DICT_BOOLEAN(o,@"exact-realm",_exactRealm);
+    SET_DICT_INTEGER(o,@"route-selector",_routeSelector);
 
 }
 

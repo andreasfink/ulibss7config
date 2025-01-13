@@ -32,55 +32,55 @@
 	return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-	[super appendConfigToString:s];
+	[super appendConfigToString:o];
 
-	APPEND_CONFIG_STRING(s,@"filter-set",_filterSet);
+	APPEND_CONFIG_STRING(o,@"filter-set",_filterSet);
     APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
     APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_CONFIG_STRING(s,@"status",_status);
-	APPEND_CONFIG_STRING(s,@"engine",_engine);
-	APPEND_CONFIG_STRING(s,@"action-list",_actionList);
-    APPEND_CONFIG_STRING(s,@"engine-config",_engineConfig);
-    APPEND_CONFIG_STRING(s,@"tags",_tags);
-    APPEND_CONFIG_BOOLEAN(s,@"not-tags",_notTags);
-    APPEND_CONFIG_STRING(s,@"variables",_variables);
-    APPEND_CONFIG_BOOLEAN(s,@"not-vars",_notVars);
+    APPEND_CONFIG_STRING(o,@"status",_status);
+	APPEND_CONFIG_STRING(o,@"engine",_engine);
+	APPEND_CONFIG_STRING(o,@"action-list",_actionList);
+    APPEND_CONFIG_STRING(o,@"engine-config",_engineConfig);
+    APPEND_CONFIG_STRING(o,@"tags",_tags);
+    APPEND_CONFIG_BOOLEAN(o,@"not-tags",_notTags);
+    APPEND_CONFIG_STRING(o,@"variables",_variables);
+    APPEND_CONFIG_BOOLEAN(o,@"not-vars",_notVars);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-	UMSynchronizedSortedDictionary *dict = [super config];
-	APPEND_DICT_STRING(dict,@"filter-set",_filterSet);
+	UMSynchronizedSortedDictionary *o = [super config];
+	APPEND_DICT_STRING(o,@"filter-set",_filterSet);
     APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_DICT_STRING(dict,@"status",_status);
-	APPEND_DICT_STRING(dict,@"engine",_engine);
-	APPEND_DICT_STRING(dict,@"action-list",_actionList);
-	APPEND_DICT_STRING(dict,@"engine-config",_engineConfig);
-    APPEND_DICT_STRING(dict,@"tags",_tags);
-    APPEND_DICT_BOOLEAN(dict,@"not-tags",_notTags);
-    APPEND_DICT_STRING(dict,@"variables",_variables);
-    APPEND_DICT_BOOLEAN(dict,@"not-vars",_notVars);
+    APPEND_DICT_STRING(o,@"status",_status);
+	APPEND_DICT_STRING(o,@"engine",_engine);
+	APPEND_DICT_STRING(o,@"action-list",_actionList);
+	APPEND_DICT_STRING(o,@"engine-config",_engineConfig);
+    APPEND_DICT_STRING(o,@"tags",_tags);
+    APPEND_DICT_BOOLEAN(o,@"not-tags",_notTags);
+    APPEND_DICT_STRING(o,@"variables",_variables);
+    APPEND_DICT_BOOLEAN(o,@"not-vars",_notVars);
 
 	return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-	[self setSuperConfig:dict];
-	SET_DICT_STRING(dict,@"filter-set",_filterSet);
+	[self setSuperConfig:o];
+	SET_DICT_STRING(o,@"filter-set",_filterSet);
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    SET_DICT_STRING(dict,@"status",_status);
-	SET_DICT_STRING(dict,@"engine",_engine);
-	SET_DICT_STRING(dict,@"action-list",_actionList);
-	SET_DICT_STRING(dict,@"engine-config",_engineConfig);
-    SET_DICT_STRING(dict,@"tags",_tags);
-    SET_DICT_BOOLEAN(dict,@"not-tags",_notTags);
-    SET_DICT_STRING(dict,@"variables",_variables);
-    SET_DICT_BOOLEAN(dict,@"not-vars",_notVars);
+    SET_DICT_STRING(o,@"status",_status);
+	SET_DICT_STRING(o,@"engine",_engine);
+	SET_DICT_STRING(o,@"action-list",_actionList);
+	SET_DICT_STRING(o,@"engine-config",_engineConfig);
+    SET_DICT_STRING(o,@"tags",_tags);
+    SET_DICT_BOOLEAN(o,@"not-tags",_notTags);
+    SET_DICT_STRING(o,@"variables",_variables);
+    SET_DICT_BOOLEAN(o,@"not-vars",_notVars);
 
 }
 

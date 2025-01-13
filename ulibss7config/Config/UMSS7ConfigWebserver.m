@@ -31,45 +31,45 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_INTEGER(s,@"port",_port);
-    APPEND_CONFIG_BOOLEAN(s,@"https",_https);
-    APPEND_CONFIG_STRING(s,@"https-key-file",_httpsKeyFile);
-    APPEND_CONFIG_STRING(s,@"https-cert-file",_httpsCertFile);
-    APPEND_CONFIG_STRING(s,@"document-root",_documentRoot);
-    APPEND_CONFIG_STRING(s,@"ip-version",_ipVersion);
-    APPEND_CONFIG_STRING(s,@"transport-protocol",_transportProtocol);
-    APPEND_CONFIG_BOOLEAN(s,@"disable-authentication",_disableAuthentication);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_INTEGER(o,@"port",_port);
+    APPEND_CONFIG_BOOLEAN(o,@"https",_https);
+    APPEND_CONFIG_STRING(o,@"https-key-file",_httpsKeyFile);
+    APPEND_CONFIG_STRING(o,@"https-cert-file",_httpsCertFile);
+    APPEND_CONFIG_STRING(o,@"document-root",_documentRoot);
+    APPEND_CONFIG_STRING(o,@"ip-version",_ipVersion);
+    APPEND_CONFIG_STRING(o,@"transport-protocol",_transportProtocol);
+    APPEND_CONFIG_BOOLEAN(o,@"disable-authentication",_disableAuthentication);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_INTEGER(dict,@"port",_port);
-    APPEND_DICT_BOOLEAN(dict,@"https",_https);
-    APPEND_DICT_STRING(dict,@"https-key-file",_httpsKeyFile);
-    APPEND_DICT_STRING(dict,@"https-cert-file",_httpsCertFile);
-    APPEND_DICT_STRING(dict,@"document-root",_documentRoot);
-    APPEND_DICT_STRING(dict,@"ip-version",_ipVersion);
-    APPEND_DICT_STRING(dict,@"transport-protocol",_transportProtocol);
-    APPEND_DICT_BOOLEAN(dict,@"disable-authentication",_disableAuthentication);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_INTEGER(o,@"port",_port);
+    APPEND_DICT_BOOLEAN(o,@"https",_https);
+    APPEND_DICT_STRING(o,@"https-key-file",_httpsKeyFile);
+    APPEND_DICT_STRING(o,@"https-cert-file",_httpsCertFile);
+    APPEND_DICT_STRING(o,@"document-root",_documentRoot);
+    APPEND_DICT_STRING(o,@"ip-version",_ipVersion);
+    APPEND_DICT_STRING(o,@"transport-protocol",_transportProtocol);
+    APPEND_DICT_BOOLEAN(o,@"disable-authentication",_disableAuthentication);
 
-    return dict;
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_INTEGER(dict,@"port",_port);
-    SET_DICT_BOOLEAN(dict,@"https",_https);
-    SET_DICT_STRING(dict,@"https-key-file",_httpsKeyFile);
-    SET_DICT_STRING(dict,@"https-cert-file",_httpsCertFile);
-    SET_DICT_STRING(dict,@"document-root",_documentRoot);
-    SET_DICT_STRING(dict,@"ip-version",_ipVersion);
-    SET_DICT_STRING(dict,@"transport-protocol",_transportProtocol);
-    SET_DICT_BOOLEAN(dict,@"disable-authentication",_disableAuthentication);
+    SET_DICT_INTEGER(o,@"port",_port);
+    SET_DICT_BOOLEAN(o,@"https",_https);
+    SET_DICT_STRING(o,@"https-key-file",_httpsKeyFile);
+    SET_DICT_STRING(o,@"https-cert-file",_httpsCertFile);
+    SET_DICT_STRING(o,@"document-root",_documentRoot);
+    SET_DICT_STRING(o,@"ip-version",_ipVersion);
+    SET_DICT_STRING(o,@"transport-protocol",_transportProtocol);
+    SET_DICT_BOOLEAN(o,@"disable-authentication",_disableAuthentication);
 }
 
 - (UMSS7ConfigWebserver *)copyWithZone:(NSZone *)zone

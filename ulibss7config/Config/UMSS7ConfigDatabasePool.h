@@ -22,6 +22,7 @@
     NSNumber *_pingIntervall;
     NSString *_storageType;
     NSString *_version;
+    NSString *_encryptionKey;
 }
 
 @property(readwrite,strong,atomic)  NSString *host;
@@ -36,6 +37,7 @@
 @property(readwrite,strong,atomic)  NSNumber *pingIntervall;
 @property(readwrite,strong,atomic)  NSString *storageType;
 @property(readwrite,strong,atomic)  NSString *version;
+@property(readwrite,strong,atomic)  NSString *encryptionKey;
 
 + (NSString *)type;
 - (NSString *)type;

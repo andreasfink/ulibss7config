@@ -32,47 +32,47 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(s,@"variant",_variant);
-    APPEND_CONFIG_STRING(s,@"subsystem",_subsystem);
-    APPEND_CONFIG_STRING(s,@"number",_number);
-    APPEND_CONFIG_STRING(s,@"transaction-id-range",_range);
-    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
-    APPEND_CONFIG_STRING(s,@"transaction-id-pool-type",_poolType);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(o,@"variant",_variant);
+    APPEND_CONFIG_STRING(o,@"subsystem",_subsystem);
+    APPEND_CONFIG_STRING(o,@"number",_number);
+    APPEND_CONFIG_STRING(o,@"transaction-id-range",_range);
+    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
+    APPEND_CONFIG_STRING(o,@"transaction-id-pool-type",_poolType);
 
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(dict,@"variant",_variant);
-    APPEND_DICT_STRING(dict,@"subsystem",_subsystem);
-    APPEND_DICT_STRING(dict,@"number",_number);
-    APPEND_DICT_STRING(dict,@"transaction-id-range",_range);
-    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
-    APPEND_DICT_STRING(dict,@"transaction-id-pool-type",_poolType);
+    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(o,@"variant",_variant);
+    APPEND_DICT_STRING(o,@"subsystem",_subsystem);
+    APPEND_DICT_STRING(o,@"number",_number);
+    APPEND_DICT_STRING(o,@"transaction-id-range",_range);
+    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
+    APPEND_DICT_STRING(o,@"transaction-id-pool-type",_poolType);
 
-    return dict;
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
-    SET_DICT_STRING(dict,@"variant",_variant);
-    SET_DICT_STRING(dict,@"attach-ssn",_subsystem);/* backwards compatibility */
-    SET_DICT_STRING(dict,@"subsystem",_subsystem);
-    SET_DICT_STRING(dict,@"attach-number",_number);/* backwards compatibility */
-    SET_DICT_STRING(dict,@"number",_number);
-    SET_DICT_STRING(dict,@"transaction-id-range",_range);
-    SET_DICT_STRING(dict,@"transaction-id-pool-type",_poolType);
-    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"attach-to",_attachTo);
+    SET_DICT_STRING(o,@"variant",_variant);
+    SET_DICT_STRING(o,@"attach-ssn",_subsystem);/* backwards compatibility */
+    SET_DICT_STRING(o,@"subsystem",_subsystem);
+    SET_DICT_STRING(o,@"attach-number",_number);/* backwards compatibility */
+    SET_DICT_STRING(o,@"number",_number);
+    SET_DICT_STRING(o,@"transaction-id-range",_range);
+    SET_DICT_STRING(o,@"transaction-id-pool-type",_poolType);
+    SET_DICT_DOUBLE(o,@"timeout",_timeout);
 }
 
 - (UMSS7ConfigTCAP *)copyWithZone:(NSZone *)zone

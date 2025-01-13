@@ -7,37 +7,37 @@
 //
 
 
-#define APPEND_CONFIG_BOOLEAN(str,name,value) \
+#define APPEND_CONFIG_BOOLEAN(o,name,value) \
 if(value!=NULL) \
 { \
-    [str appendFormat:@"%@=%@\n",name,value.boolValue ? @"YES": @"NO"]; \
+    [o appendFormat:@"%@=%@\n",name,value.boolValue ? @"YES": @"NO"]; \
 }
 
-#define APPEND_CONFIG_DOUBLE(str,name,value) \
+#define APPEND_CONFIG_DOUBLE(o,name,value) \
 if(value!=NULL) \
 { \
-    [str appendFormat:@"%@=%lf\n",name,value.doubleValue]; \
+    [o appendFormat:@"%@=%lf\n",name,value.doubleValue]; \
 }
 
-#define APPEND_CONFIG_INTEGER(str,name,value) \
+#define APPEND_CONFIG_INTEGER(o,name,value) \
 if(value!=NULL) \
 { \
-    [str appendFormat:@"%@=%d\n",name,value.intValue]; \
+    [o appendFormat:@"%@=%d\n",name,value.intValue]; \
 }
 
-#define APPEND_CONFIG_STRING(str,name,value) \
+#define APPEND_CONFIG_STRING(o,name,value) \
 if(value!=NULL) \
 { \
-    [str appendFormat:@"%@=%@\n",name,value.stringValue]; \
+    [o appendFormat:@"%@=%@\n",name,value.stringValue]; \
 }
 
-#define APPEND_CONFIG_DATE(str,name,value) \
+#define APPEND_CONFIG_DATE(o,name,value) \
 if(value!=NULL) \
 { \
-    [str appendFormat:@"%@=%@\n",name,value.stringValue]; \
+    [o appendFormat:@"%@=%@\n",name,value.stringValue]; \
 }
 
-#define APPEND_CONFIG_ARRAY_COMPACT(str,name,array) \
+#define APPEND_CONFIG_ARRAY_COMPACT(o,name,array) \
 if(array!=NULL) \
 { \
     NSUInteger n= [array count]; \
@@ -45,126 +45,126 @@ if(array!=NULL) \
     { \
         if(i==0) \
         { \
-            [str appendFormat:@"%@=%@",name,array[i]]; \
+            [o appendFormat:@"%@=%@",name,array[i]]; \
         } \
         else \
         { \
-            [str appendFormat:@";%@",array[i]]; \
+            [o appendFormat:@";%@",array[i]]; \
         } \
     } \
-    [str appendString:@"\n"]; \
+    [o appendString:@"\n"]; \
 }
 
-#define APPEND_CONFIG_ARRAY_VERBOSE(str,name,array) \
+#define APPEND_CONFIG_ARRAY_VERBOSE(o,name,array) \
 if(array!=NULL) \
 { \
     NSUInteger n= [array count]; \
     for(NSUInteger i=0;i<n;i++) \
     { \
-        [str appendFormat:@"%@=%@\n",name,array[i]]; \
+        [o appendFormat:@"%@=%@\n",name,array[i]]; \
     } \
 }
 
-#define APPEND_CONFIG_ARRAY_OF_CONFIG_OBJECTS(str,name,array) \
+#define APPEND_CONFIG_ARRAY_OF_CONFIG_OBJECTS(o,name,array) \
 if(array!=NULL) \
 { \
-    NSUInteger n= [array count]; \
+    NSUInteger n = [array count]; \
     for(NSUInteger i=0;i<n;i++) \
     { \
-        UMSS7ConfigObject *o = array[i]; \
+        UMSS7ConfigObject *obj = array[i]; \
         if(i==0) \
         { \
-            [str appendFormat:@"%@=%@",name,o.name]; \
+            [o appendFormat:@"%@=%@",name,obj.name]; \
         } \
         else \
         { \
-            [str appendFormat:@" %@",o.name]; \
+            [o appendFormat:@" %@",obj.name]; \
         } \
     } \
-    [str appendString:@"\n"]; \
+    [o appendString:@"\n"]; \
 }
 /**************************************/
-#define APPEND_DICT_BOOLEAN(dict,name,value) \
+#define APPEND_DICT_BOOLEAN(o,name,value) \
 if(value!=NULL) \
 { \
-    dict[name] = @(value.boolValue); \
+    o[name] = @(value.boolValue); \
 }
 
-#define APPEND_DICT_DOUBLE(dict,name,value) \
+#define APPEND_DICT_DOUBLE(o,name,value) \
 if(value!=NULL) \
 { \
-    dict[name] = @(value.doubleValue); \
+    o[name] = @(value.doubleValue); \
 }
 
-#define APPEND_DICT_INTEGER(dict,name,value) \
+#define APPEND_DICT_INTEGER(o,name,value) \
 if(value!=NULL) \
 { \
-    dict[name] = @(value.intValue); \
+    o[name] = @(value.intValue); \
 }
 
-#define APPEND_DICT_STRING(dict,name,value) \
+#define APPEND_DICT_STRING(o,name,value) \
 if(value!=NULL) \
 { \
-    dict[name] = value.stringValue; \
+    o[name] = value.stringValue; \
 }
 
-#define APPEND_DICT_DATE(dict,name,value) \
+#define APPEND_DICT_DATE(o,name,value) \
 if(value!=NULL) \
 { \
-    dict[name] = value.stringValue; \
+    o[name] = value.stringValue; \
 }
 
-#define APPEND_DICT_ARRAY(dict,name,array) \
+#define APPEND_DICT_ARRAY(o,name,array) \
 if(array!=NULL) \
 { \
-    dict[name] = array; \
+    o[name] = array; \
 }
 
-#define SET_DICT_BOOLEAN(dict,name,value) \
-if(dict[name]!=NULL) \
+#define SET_DICT_BOOLEAN(o,name,value) \
+if(o[name]!=NULL) \
 { \
-    id o = dict[name]; \
-    if([o isKindOfClass:[NSString class]]) \
-    { \
-        value = [NSNumber numberWithBool:[o boolValue]]; \
-    } \
-    else if([o isKindOfClass:[NSArray class]]) \
-    { \
-        value = [NSNumber numberWithBool:[o[0] boolValue]]; \
-    } \
-    else if([o isKindOfClass:[NSNumber class]]) \
-    { \
-        value = [NSNumber numberWithBool:[o boolValue]]; \
-    } \
-}
-
-#define SET_DICT_DOUBLE(dict,name,value) \
-if(dict[name]!=NULL) \
-{ \
-    id o = dict[name]; \
-    if([o isKindOfClass:[NSString class]]) \
-    { \
-        value = [NSNumber numberWithDouble:[o doubleValue]]; \
-    } \
-    else if([o isKindOfClass:[NSArray class]]) \
-    { \
-        value = [NSNumber numberWithDouble:[o[0] doubleValue]]; \
-    } \
-    else if([o isKindOfClass:[NSNumber class]]) \
-    { \
-        value = [NSNumber numberWithDouble:[o doubleValue]]; \
-    } \
-}
-
-
-#define SET_DICT_INTEGER(dict,name,value) \
-if(dict[name]!=NULL) \
-{ \
-    id obj = dict[name]; \
+    id obj = o[name]; \
     if([obj isKindOfClass:[NSString class]]) \
     { \
-        NSString *str = (NSString *)obj; \
-        value = @([str intergerValueSupportingHex]); \
+        value = [NSNumber numberWithBool:[obj boolValue]]; \
+    } \
+    else if([obj isKindOfClass:[NSArray class]]) \
+    { \
+        value = [NSNumber numberWithBool:[obj[0] boolValue]]; \
+    } \
+    else if([obj isKindOfClass:[NSNumber class]]) \
+    { \
+        value = [NSNumber numberWithBool:[obj boolValue]]; \
+    } \
+}
+
+#define SET_DICT_DOUBLE(o,name,value) \
+if(o[name]!=NULL) \
+{ \
+    id obj = o[name]; \
+    if([obj isKindOfClass:[NSString class]]) \
+    { \
+        value = [NSNumber numberWithDouble:[obj doubleValue]]; \
+    } \
+    else if([obj isKindOfClass:[NSArray class]]) \
+    { \
+        value = [NSNumber numberWithDouble:[obj[0] doubleValue]]; \
+    } \
+    else if([obj isKindOfClass:[NSNumber class]]) \
+    { \
+        value = [NSNumber numberWithDouble:[obj doubleValue]]; \
+    } \
+}
+
+
+#define SET_DICT_INTEGER(o,name,value) \
+if(o[name]!=NULL) \
+{ \
+    id obj = o[name]; \
+    if([obj isKindOfClass:[NSString class]]) \
+    { \
+        NSString *s = (NSString *)obj; \
+        value = @([s intergerValueSupportingHex]); \
     } \
     else if([obj isKindOfClass:[NSArray class]]) \
     { \
@@ -176,10 +176,10 @@ if(dict[name]!=NULL) \
     } \
 }
 
-#define SET_DICT_STRING(dict,name,value) \
-if(dict[name]!=NULL) \
+#define SET_DICT_STRING(o,name,value) \
+if(o[name]!=NULL) \
 { \
-    id obj = dict[name]; \
+    id obj = o[name]; \
     if([obj isKindOfClass:[NSString class]]) \
     { \
         value = obj; \
@@ -190,10 +190,10 @@ if(dict[name]!=NULL) \
     } \
 }
 
-#define SET_DICT_DATE(dict,name,value) \
-if(dict[name]!=NULL) \
+#define SET_DICT_DATE(o,name,value) \
+if(o[name]!=NULL) \
 { \
-    id obj = dict[name]; \
+    id obj = o[name]; \
     if([obj isKindOfClass:[NSString class]]) \
     { \
         value = [obj dateValue]; \
@@ -211,10 +211,10 @@ if(dict[name]!=NULL) \
 /* same as SET_DICT_STRING but passes string objects through filterName: */
 /* use this if the passed string is a name of another object so its also filtered the same way */
 
-#define SET_DICT_FILTERED_STRING(dict,name,value) \
-if(dict[name]!=NULL) \
+#define SET_DICT_FILTERED_STRING(o,name,value) \
+if(o[name]!=NULL) \
 { \
-    id obj = dict[name]; \
+    id obj = o[name]; \
     if([obj isKindOfClass:[NSString class]]) \
     { \
         value = [UMSS7ConfigObject filterName:obj]; \
@@ -225,17 +225,17 @@ if(dict[name]!=NULL) \
         NSUInteger n = o2.count; \
         for(NSUInteger i=0;i<n;i++) \
         { \
-            o2[i] = [UMSS7ConfigObject filterName:o2[i] ];\
+            o2[i] = [UMSS7ConfigObject filterName:o2[i]];\
         } \
         value = [o2 componentsJoinedByString:@";"]; \
     } \
 }
 
 
-#define SET_DICT_ARRAY(dict,name,value) \
-if(dict[name]!=NULL) \
+#define SET_DICT_ARRAY(o,name,value) \
+if(o[name]!=NULL) \
 { \
-    id obj = dict[name]; \
+    id obj = o[name]; \
     if([obj isKindOfClass:[NSString class]]) \
     { \
         value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \t;"]]; \

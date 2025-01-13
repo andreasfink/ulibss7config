@@ -32,73 +32,73 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_INTEGER(s,@"port",_port);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_INTEGER(o,@"port",_port);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"ip-authorisation-plugin",_ipAuthorisationPlugins);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"user-authorisation-plugin",_userAuthorisationPlugins);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"submission-authorisation-plugin",_submissionAuthorisationPlugins);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"characterisation-plugin",_characterisationPlugins);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"modification-plugin",_modificationPlugins);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"prerouting-plugin",_preroutingPlugins);
-    APPEND_CONFIG_STRING(s,@"routing-plugin",_routingPlugin);
+    APPEND_CONFIG_STRING(o,@"routing-plugin",_routingPlugin);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"billing-plugin",_billingPlugins);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"dlr-plugin",_dlrPlugins);
-    APPEND_CONFIG_STRING(s,@"storage-plugin",_storagePlugin);
+    APPEND_CONFIG_STRING(o,@"storage-plugin",_storagePlugin);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"cdr-plugin",_cdrPlugins);
-    APPEND_CONFIG_STRING(s,@"auth-server",_authServer);
-    APPEND_CONFIG_STRING(s,@"router",_router);
-    APPEND_CONFIG_STRING(s,@"storage-server",_storageServer);
-    APPEND_CONFIG_STRING(s,@"cdr-server",_cdrServer);
-    APPEND_CONFIG_STRING(s,@"zmq-socket",_zmqSocket);
+    APPEND_CONFIG_STRING(o,@"auth-server",_authServer);
+    APPEND_CONFIG_STRING(o,@"router",_router);
+    APPEND_CONFIG_STRING(o,@"storage-server",_storageServer);
+    APPEND_CONFIG_STRING(o,@"cdr-server",_cdrServer);
+    APPEND_CONFIG_STRING(o,@"zmq-socket",_zmqSocket);
 
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
     
-    APPEND_DICT_INTEGER(dict,@"port",_port);
+    APPEND_DICT_INTEGER(o,@"port",_port);
     APPEND_DICT_ARRAY(dict,@"ip-authorisation-plugin",_ipAuthorisationPlugins);
     APPEND_DICT_ARRAY(dict,@"user-authorisation-plugin",_userAuthorisationPlugins);
     APPEND_DICT_ARRAY(dict,@"submission-authorisation-plugin",_submissionAuthorisationPlugins);
     APPEND_DICT_ARRAY(dict,@"characterisation-plugin",_characterisationPlugins);
     APPEND_DICT_ARRAY(dict,@"modification-plugin",_modificationPlugins);
     APPEND_DICT_ARRAY(dict,@"prerouting-plugin",_preroutingPlugins);
-    APPEND_DICT_STRING(dict,@"routing-plugin",_routingPlugin);
+    APPEND_DICT_STRING(o,@"routing-plugin",_routingPlugin);
     APPEND_DICT_ARRAY(dict,@"billing-plugin",_billingPlugins);
     APPEND_DICT_ARRAY(dict,@"dlr-plugin",_dlrPlugins);
-    APPEND_DICT_STRING(dict,@"storage-plugin",_storagePlugin);
+    APPEND_DICT_STRING(o,@"storage-plugin",_storagePlugin);
     APPEND_DICT_ARRAY(dict,@"cdr-plugin",_cdrPlugins);
-    APPEND_DICT_STRING(dict,@"auth-server",_authServer);
-    APPEND_DICT_STRING(dict,@"router",_router);
-    APPEND_DICT_STRING(dict,@"storage-server",_storageServer);
-    APPEND_DICT_STRING(dict,@"cdr-server",_cdrServer);
-    APPEND_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    APPEND_DICT_STRING(o,@"auth-server",_authServer);
+    APPEND_DICT_STRING(o,@"router",_router);
+    APPEND_DICT_STRING(o,@"storage-server",_storageServer);
+    APPEND_DICT_STRING(o,@"cdr-server",_cdrServer);
+    APPEND_DICT_STRING(o,@"zmq-socket",_zmqSocket);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_INTEGER(dict,@"port",_port);
+    SET_DICT_INTEGER(o,@"port",_port);
     SET_DICT_ARRAY(dict,@"ip-authorisation-plugin",_ipAuthorisationPlugins)
     SET_DICT_ARRAY(dict,@"user-authorisation-plugin",_userAuthorisationPlugins);
     SET_DICT_ARRAY(dict,@"submission-authorisation-plugin",_submissionAuthorisationPlugins);
     SET_DICT_ARRAY(dict,@"characterisation-plugin",_characterisationPlugins);
     SET_DICT_ARRAY(dict,@"modification-plugin",_modificationPlugins);
     SET_DICT_ARRAY(dict,@"prerouting-plugin",_preroutingPlugins);
-    SET_DICT_STRING(dict,@"routing-plugin",_routingPlugin);
+    SET_DICT_STRING(o,@"routing-plugin",_routingPlugin);
     SET_DICT_ARRAY(dict,@"billing-plugin",_billingPlugins);
     SET_DICT_ARRAY(dict,@"dlr-plugin",_dlrPlugins);
-    SET_DICT_STRING(dict,@"storage-plugin",_storagePlugin);
+    SET_DICT_STRING(o,@"storage-plugin",_storagePlugin);
     SET_DICT_ARRAY(dict,@"cdr-plugin",_cdrPlugins);
-    SET_DICT_STRING(dict,@"auth-server",_authServer);
-    SET_DICT_STRING(dict,@"router",_router);
-    SET_DICT_STRING(dict,@"storage-server",_storageServer);
-    SET_DICT_STRING(dict,@"cdr-server",_cdrServer);
-    SET_DICT_STRING(dict,@"zmq-socket",_zmqSocket);
+    SET_DICT_STRING(o,@"auth-server",_authServer);
+    SET_DICT_STRING(o,@"router",_router);
+    SET_DICT_STRING(o,@"storage-server",_storageServer);
+    SET_DICT_STRING(o,@"cdr-server",_cdrServer);
+    SET_DICT_STRING(o,@"zmq-socket",_zmqSocket);
 }
 
 - (UMSS7ConfigSMPPServer *)copyWithZone:(NSZone *)zone

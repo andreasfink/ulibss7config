@@ -33,45 +33,45 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
+    [super appendConfigToString:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigIMSIPool.def"
 #include "UMSS7Config_macroClear.h"
 #else
-    APPEND_CONFIG_STRING(s,@"imsi-prefix",_imsiPrefix);
-    APPEND_CONFIG_DOUBLE(s,@"cache-timer",_cacheTimer);
+    APPEND_CONFIG_STRING(o,@"imsi-prefix",_imsiPrefix);
+    APPEND_CONFIG_DOUBLE(o,@"cache-timer",_cacheTimer);
 #endif
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
     
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigIMSIPool.def"
 #include "UMSS7Config_macroClear.h"
 #else
-    APPEND_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
-    APPEND_DICT_DOUBLE(dict,@"cache-timer",_cacheTimer);
+    APPEND_DICT_STRING(o,@"imsi-prefix",_imsiPrefix);
+    APPEND_DICT_DOUBLE(o,@"cache-timer",_cacheTimer);
 #endif
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetDict.h"
 #include "UMSS7ConfigIMSIPool.def"
 #include "UMSS7Config_macroClear.h"
 #else
-    SET_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
-    SET_DICT_DOUBLE(dict,@"cache-cache",_cacheTimer);
+    SET_DICT_STRING(o,@"imsi-prefix",_imsiPrefix);
+    SET_DICT_DOUBLE(o,@"cache-cache",_cacheTimer);
 #endif
 }
 

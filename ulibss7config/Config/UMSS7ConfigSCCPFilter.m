@@ -32,30 +32,30 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"file",_filterFileName);
-    APPEND_CONFIG_STRING(s,@"config",_configFileName);
-    APPEND_CONFIG_STRING(s,@"application-point",_applicationPoint);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"file",_filterFileName);
+    APPEND_CONFIG_STRING(o,@"config",_configFileName);
+    APPEND_CONFIG_STRING(o,@"application-point",_applicationPoint);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"file",_filterFileName);
-    APPEND_DICT_STRING(dict,@"config",_configFileName);
-    APPEND_DICT_STRING(dict,@"application-point",_applicationPoint);
-    return dict;
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"file",_filterFileName);
+    APPEND_DICT_STRING(o,@"config",_configFileName);
+    APPEND_DICT_STRING(o,@"application-point",_applicationPoint);
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"file",_filterFileName);
-    SET_DICT_STRING(dict,@"config",_configFileName);
-    SET_DICT_STRING(dict,@"application-point",_applicationPoint);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"file",_filterFileName);
+    SET_DICT_STRING(o,@"config",_configFileName);
+    SET_DICT_STRING(o,@"application-point",_applicationPoint);
 }
 
 - (UMSS7ConfigSCCPFilter *)copyWithZone:(NSZone *)zone

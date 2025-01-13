@@ -46,30 +46,30 @@
 
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
+    [super appendConfigToString:o];
 
     APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
     APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_CONFIG_STRING(s,@"status",_status);
+    APPEND_CONFIG_STRING(o,@"status",_status);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
     APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_DICT_STRING(dict,@"status",_status);
+    APPEND_DICT_STRING(o,@"status",_status);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    SET_DICT_STRING(dict,@"status",_status);
+    SET_DICT_STRING(o,@"status",_status);
 
     if(dict[@"rules"])
     {

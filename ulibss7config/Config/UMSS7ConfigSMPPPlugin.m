@@ -40,36 +40,36 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    if(![_pluginFileName isEqualTo:_defaultFileNameilename])
+    [super appendConfigToString:o];
+    if(![_pluginFileName isEqualToString:_defaultFileNameilename])
     {
-        APPEND_CONFIG_STRING(s,@"path",_pluginFileName);
+        APPEND_CONFIG_STRING(o,@"path",_pluginFileName);
     }
-    APPEND_CONFIG_STRING(s,@"config-file",_configFile);
-    APPEND_CONFIG_STRING(s,@"config-string",_configString);
+    APPEND_CONFIG_STRING(o,@"config-file",_configFile);
+    APPEND_CONFIG_STRING(o,@"config-string",_configString);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    if(![_pluginFileName isEqualTo:_defaultFileNameilename])
+    UMSynchronizedSortedDictionary *o = [super config];
+    if(![_pluginFileName isEqualToString:_defaultFileNameilename])
     {
-        APPEND_DICT_STRING(dict,@"path",_pluginFileName);
+        APPEND_DICT_STRING(o,@"path",_pluginFileName);
     }
-    APPEND_DICT_STRING(dict,@"config-file",_configFile);
-    APPEND_DICT_STRING(dict,@"config-string",_configString);
-    return dict;
+    APPEND_DICT_STRING(o,@"config-file",_configFile);
+    APPEND_DICT_STRING(o,@"config-string",_configString);
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"path",_pluginFileName);
-    SET_DICT_STRING(dict,@"config-file",_configFile);
-    SET_DICT_STRING(dict,@"config-string",_configString);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"path",_pluginFileName);
+    SET_DICT_STRING(o,@"config-file",_configFile);
+    SET_DICT_STRING(o,@"config-string",_configString);
 }
 
 @end

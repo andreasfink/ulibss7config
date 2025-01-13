@@ -31,25 +31,25 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"password",_password);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"password",_password);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"no-auth-ip",_withoutAuthenticationIp);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"password",_password);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"password",_password);
     APPEND_DICT_ARRAY(dict,@"no-auth-ip",_withoutAuthenticationIp);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(dict,@"password",_password);
+    SET_DICT_STRING(o,@"password",_password);
     SET_DICT_ARRAY(dict,@"no-auth-ip",_withoutAuthenticationIp);
 }
 

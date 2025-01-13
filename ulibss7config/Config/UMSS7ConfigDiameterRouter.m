@@ -32,20 +32,20 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"local-hostname",_localHostName);
-    APPEND_CONFIG_STRING(s,@"local-realm",_localRealm);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"local-hostname",_localHostName);
+    APPEND_CONFIG_STRING(o,@"local-realm",_localRealm);
     
-    APPEND_CONFIG_STRING(s,@"statistic-db-pool",_statisticDbPool);
-    APPEND_CONFIG_STRING(s,@"statistic-db-table",_statisticDbTable);
-    APPEND_CONFIG_STRING(s,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_CONFIG_BOOLEAN(s,@"statistic-db-autocreate",_statisticDbAutocreate);
+    APPEND_CONFIG_STRING(o,@"statistic-db-pool",_statisticDbPool);
+    APPEND_CONFIG_STRING(o,@"statistic-db-table",_statisticDbTable);
+    APPEND_CONFIG_STRING(o,@"statistic-db-instance",_statisticDbInstance);
+    APPEND_CONFIG_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
     
-    APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-name",_screeningDiameterPluginName);
-    APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-config-file",_screeningDiameterPluginConfigFile);
-    APPEND_CONFIG_STRING(s,@"screening-sccp-plugin-trace-file",_screeningDiameterPluginTraceFile);
+    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-name",_screeningDiameterPluginName);
+    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-config-file",_screeningDiameterPluginConfigFile);
+    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-trace-file",_screeningDiameterPluginTraceFile);
 
 
 }
@@ -53,33 +53,33 @@
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"local-hostname",_localHostName);
-    APPEND_DICT_STRING(dict,@"local-realm",_localRealm);
-    APPEND_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
-    APPEND_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
-    APPEND_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
-    APPEND_DICT_STRING(dict,@"screening-diameter-plugin-name",_screeningDiameterPluginName);
-    APPEND_DICT_STRING(dict,@"screening-diameter-plugin-config-file",_screeningDiameterPluginConfigFile);
-    APPEND_DICT_STRING(dict,@"screening-diameter-plugin-trace-file",_screeningDiameterPluginTraceFile);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"local-hostname",_localHostName);
+    APPEND_DICT_STRING(o,@"local-realm",_localRealm);
+    APPEND_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
+    APPEND_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
+    APPEND_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
+    APPEND_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
+    APPEND_DICT_STRING(o,@"screening-diameter-plugin-name",_screeningDiameterPluginName);
+    APPEND_DICT_STRING(o,@"screening-diameter-plugin-config-file",_screeningDiameterPluginConfigFile);
+    APPEND_DICT_STRING(o,@"screening-diameter-plugin-trace-file",_screeningDiameterPluginTraceFile);
 
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"local-hostname",_localHostName);
-    SET_DICT_STRING(dict,@"local-realm",_localRealm);
-    SET_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
-    SET_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
-    SET_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
-    SET_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"local-hostname",_localHostName);
+    SET_DICT_STRING(o,@"local-realm",_localRealm);
+    SET_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
+    SET_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
+    SET_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
+    SET_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
 
-    SET_DICT_STRING(dict,@"screening-diameter-plugin-name",_screeningDiameterPluginName);
-    SET_DICT_STRING(dict,@"screening-diameter-plugin-config-file",_screeningDiameterPluginConfigFile);
-    SET_DICT_STRING(dict,@"screening-diameter-plugin-trace-file",_screeningDiameterPluginTraceFile);
+    SET_DICT_STRING(o,@"screening-diameter-plugin-name",_screeningDiameterPluginName);
+    SET_DICT_STRING(o,@"screening-diameter-plugin-config-file",_screeningDiameterPluginConfigFile);
+    SET_DICT_STRING(o,@"screening-diameter-plugin-trace-file",_screeningDiameterPluginTraceFile);
 
 }
 

@@ -33,7 +33,7 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
@@ -41,17 +41,17 @@
 #include "UMSS7Config_macroClear.h"
 #else
 
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(s,@"address",_address);
-    APPEND_CONFIG_STRING(s,@"ssn",_ssn);
-    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(o,@"address",_address);
+    APPEND_CONFIG_STRING(o,@"ssn",_ssn);
+    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
 #endif
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
@@ -59,26 +59,26 @@
 #include "UMSS7Config_macroClear.h"
 #else
 
-    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(dict,@"address",_address);
-    APPEND_DICT_STRING(dict,@"ssn",_ssn);
-    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
+    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(o,@"address",_address);
+    APPEND_DICT_STRING(o,@"ssn",_ssn);
+    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
 #endif
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetDict.h"
 #include "UMSS7ConfigCAMEL.def"
 #include "UMSS7Config_macroClear.h"
 #else
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
-    SET_DICT_STRING(dict,@"address",_address);
-    SET_DICT_STRING(dict,@"ssn",_ssn);
-    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
+    SET_DICT_STRING(o,@"attach-to",_attachTo);
+    SET_DICT_STRING(o,@"address",_address);
+    SET_DICT_STRING(o,@"ssn",_ssn);
+    SET_DICT_DOUBLE(o,@"timeout",_timeout);
 #endif
 }
 

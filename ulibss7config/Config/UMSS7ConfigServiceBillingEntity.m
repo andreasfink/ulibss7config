@@ -32,36 +32,36 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
+    [super appendConfigToString:o];
 
-    APPEND_CONFIG_BOOLEAN(s,@"do-bill",_doBill);
-    APPEND_CONFIG_BOOLEAN(s,@"credit-enforced",_blockIfOutOfCredit);
-    APPEND_CONFIG_DOUBLE(s,@"credit-limit",_creditLimit);
-    APPEND_CONFIG_STRING(s,@"price-table",_priceTable);
+    APPEND_CONFIG_BOOLEAN(o,@"do-bill",_doBill);
+    APPEND_CONFIG_BOOLEAN(o,@"credit-enforced",_blockIfOutOfCredit);
+    APPEND_CONFIG_DOUBLE(o,@"credit-limit",_creditLimit);
+    APPEND_CONFIG_STRING(o,@"price-table",_priceTable);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
 
-    APPEND_DICT_BOOLEAN(dict,@"do-bill",_doBill);
-    APPEND_DICT_BOOLEAN(dict,@"credit-enforced",_blockIfOutOfCredit);
-    APPEND_DICT_DOUBLE(dict,@"credit-limit",_creditLimit);
-    APPEND_DICT_STRING(dict,@"price-table",_priceTable);
+    APPEND_DICT_BOOLEAN(o,@"do-bill",_doBill);
+    APPEND_DICT_BOOLEAN(o,@"credit-enforced",_blockIfOutOfCredit);
+    APPEND_DICT_DOUBLE(o,@"credit-limit",_creditLimit);
+    APPEND_DICT_STRING(o,@"price-table",_priceTable);
 
-    return dict;
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_BOOLEAN(dict,@"do-bill",_doBill);
-    SET_DICT_BOOLEAN(dict,@"credit-enforced",_blockIfOutOfCredit);
-    SET_DICT_DOUBLE(dict,@"credit-limit",_creditLimit);
-    SET_DICT_STRING(dict,@"price-table",_priceTable);
+    SET_DICT_BOOLEAN(o,@"do-bill",_doBill);
+    SET_DICT_BOOLEAN(o,@"credit-enforced",_blockIfOutOfCredit);
+    SET_DICT_DOUBLE(o,@"credit-limit",_creditLimit);
+    SET_DICT_STRING(o,@"price-table",_priceTable);
 }
 
 - (UMSS7ConfigServiceBillingEntity *)copyWithZone:(NSZone *)zone

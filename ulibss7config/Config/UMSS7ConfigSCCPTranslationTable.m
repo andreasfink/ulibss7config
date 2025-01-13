@@ -34,22 +34,22 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"sccp",_sccp);
-    APPEND_CONFIG_INTEGER(s,@"tt",_tt);
-    APPEND_CONFIG_INTEGER(s,@"gti",_gti);
-    APPEND_CONFIG_INTEGER(s,@"np",_np);
-    APPEND_CONFIG_INTEGER(s,@"nai",_nai);
-    APPEND_CONFIG_STRING(s,@"pre-translation",_preTranslation);
-    APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
-    APPEND_CONFIG_STRING(s,@"default-destination",_defaultDestination);
-    APPEND_CONFIG_STRING(s,@"translation-table-db-pool",_translationTableDbPool);
-    APPEND_CONFIG_STRING(s,@"translation-table-db-table",_translationTableDbTable);
-    APPEND_CONFIG_STRING(s,@"translation-table-db-blacklist-table",_translationTableDbBlacklistTable);
-    APPEND_CONFIG_BOOLEAN(s,@"translation-table-db-autocreate",_translationTableDbAutocreate);
-    APPEND_CONFIG_DOUBLE(s,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"sccp",_sccp);
+    APPEND_CONFIG_INTEGER(o,@"tt",_tt);
+    APPEND_CONFIG_INTEGER(o,@"gti",_gti);
+    APPEND_CONFIG_INTEGER(o,@"np",_np);
+    APPEND_CONFIG_INTEGER(o,@"nai",_nai);
+    APPEND_CONFIG_STRING(o,@"pre-translation",_preTranslation);
+    APPEND_CONFIG_STRING(o,@"post-translation",_postTranslation);
+    APPEND_CONFIG_STRING(o,@"default-destination",_defaultDestination);
+    APPEND_CONFIG_STRING(o,@"translation-table-db-pool",_translationTableDbPool);
+    APPEND_CONFIG_STRING(o,@"translation-table-db-table",_translationTableDbTable);
+    APPEND_CONFIG_STRING(o,@"translation-table-db-blacklist-table",_translationTableDbBlacklistTable);
+    APPEND_CONFIG_BOOLEAN(o,@"translation-table-db-autocreate",_translationTableDbAutocreate);
+    APPEND_CONFIG_DOUBLE(o,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
 
     for(UMSS7ConfigSCCPTranslationTableEntry *e in _subEntries)
     {
@@ -60,41 +60,41 @@
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"sccp",_sccp);
-    APPEND_DICT_INTEGER(dict,@"tt",_tt);
-    APPEND_DICT_INTEGER(dict,@"gti",_gti);
-    APPEND_DICT_INTEGER(dict,@"np",_np);
-    APPEND_DICT_INTEGER(dict,@"nai",_nai);
-    APPEND_DICT_STRING(dict,@"pre-translation",_preTranslation);
-    APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
-    APPEND_DICT_STRING(dict,@"default-destination",_defaultDestination);
-    APPEND_DICT_STRING(dict,@"translation-table-db-pool",_translationTableDbPool);
-    APPEND_DICT_STRING(dict,@"translation-table-db-table",_translationTableDbTable);
-    APPEND_DICT_STRING(dict,@"translation-table-db-blacklist-table",_translationTableDbBlacklistTable);
-    APPEND_DICT_BOOLEAN(dict,@"translation-table-db-autocreate",_translationTableDbAutocreate);
-    APPEND_DICT_DOUBLE(dict,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
+    APPEND_DICT_STRING(o,@"sccp",_sccp);
+    APPEND_DICT_INTEGER(o,@"tt",_tt);
+    APPEND_DICT_INTEGER(o,@"gti",_gti);
+    APPEND_DICT_INTEGER(o,@"np",_np);
+    APPEND_DICT_INTEGER(o,@"nai",_nai);
+    APPEND_DICT_STRING(o,@"pre-translation",_preTranslation);
+    APPEND_DICT_STRING(o,@"post-translation",_postTranslation);
+    APPEND_DICT_STRING(o,@"default-destination",_defaultDestination);
+    APPEND_DICT_STRING(o,@"translation-table-db-pool",_translationTableDbPool);
+    APPEND_DICT_STRING(o,@"translation-table-db-table",_translationTableDbTable);
+    APPEND_DICT_STRING(o,@"translation-table-db-blacklist-table",_translationTableDbBlacklistTable);
+    APPEND_DICT_BOOLEAN(o,@"translation-table-db-autocreate",_translationTableDbAutocreate);
+    APPEND_DICT_DOUBLE(o,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
 
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
     SET_DICT_FILTERED_STRING(dict,@"sccp",_sccp);
-    SET_DICT_INTEGER(dict,@"tt",_tt);
-    SET_DICT_INTEGER(dict,@"gti",_gti);
-    SET_DICT_INTEGER(dict,@"np",_np);
-    SET_DICT_INTEGER(dict,@"nai",_nai);
+    SET_DICT_INTEGER(o,@"tt",_tt);
+    SET_DICT_INTEGER(o,@"gti",_gti);
+    SET_DICT_INTEGER(o,@"np",_np);
+    SET_DICT_INTEGER(o,@"nai",_nai);
     SET_DICT_FILTERED_STRING(dict,@"pre-translation",_preTranslation);
     SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
     SET_DICT_FILTERED_STRING(dict,@"default-destination",_defaultDestination);
-    SET_DICT_STRING(dict,@"translation-table-db-pool",_translationTableDbPool);
-    SET_DICT_STRING(dict,@"translation-table-db-table",_translationTableDbTable);
-    SET_DICT_STRING(dict,@"translation-table-db-blacklist-table",_translationTableDbBlacklistTable);
-    SET_DICT_BOOLEAN(dict,@"translation-table-db-autocreate",_translationTableDbAutocreate);
-    SET_DICT_DOUBLE(dict,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
+    SET_DICT_STRING(o,@"translation-table-db-pool",_translationTableDbPool);
+    SET_DICT_STRING(o,@"translation-table-db-table",_translationTableDbTable);
+    SET_DICT_STRING(o,@"translation-table-db-blacklist-table",_translationTableDbBlacklistTable);
+    SET_DICT_BOOLEAN(o,@"translation-table-db-autocreate",_translationTableDbAutocreate);
+    SET_DICT_DOUBLE(o,@"translation-table-db-check-intervall",_translationTableDbCheckIntervall);
 }
 
 

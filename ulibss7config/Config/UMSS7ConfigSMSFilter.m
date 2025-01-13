@@ -32,10 +32,10 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"default-result",_defaultResult);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"default-result",_defaultResult);
     for(UMSS7ConfigSMSFilterEntry *e in _subEntries)
     {
         [s appendString:@"\n"];
@@ -46,15 +46,15 @@
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"default-result",_defaultResult);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"default-result",_defaultResult);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"default-result",_defaultResult);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"default-result",_defaultResult);
 }
 
 - (void)setSubConfig:(NSArray *)configs

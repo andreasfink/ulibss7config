@@ -31,31 +31,31 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"interface-name",_interfaceName);
-    APPEND_CONFIG_STRING(s,@"local-mac-address",_localMacAddress);
-    APPEND_CONFIG_STRING(s,@"remote-mac-address",_remoteMacAddress);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"interface-name",_interfaceName);
+    APPEND_CONFIG_STRING(o,@"local-mac-address",_localMacAddress);
+    APPEND_CONFIG_STRING(o,@"remote-mac-address",_remoteMacAddress);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"interface-name",_interfaceName);
-    APPEND_DICT_STRING(dict,@"local-mac-address",_localMacAddress);
-    APPEND_DICT_STRING(dict,@"remote-mac-address",_remoteMacAddress);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"interface-name",_interfaceName);
+    APPEND_DICT_STRING(o,@"local-mac-address",_localMacAddress);
+    APPEND_DICT_STRING(o,@"remote-mac-address",_remoteMacAddress);
 
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"interface-name",_interfaceName);
-    SET_DICT_STRING(dict,@"local-mac-address",_localMacAddress);
-    SET_DICT_STRING(dict,@"remote-mac-address",_remoteMacAddress);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"interface-name",_interfaceName);
+    SET_DICT_STRING(o,@"local-mac-address",_localMacAddress);
+    SET_DICT_STRING(o,@"remote-mac-address",_remoteMacAddress);
 }
 
 - (UMSS7ConfigMirrorPort *)copyWithZone:(NSZone *)zone

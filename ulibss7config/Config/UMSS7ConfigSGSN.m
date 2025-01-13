@@ -34,34 +34,34 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(s,@"number",_number);
-    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
-    APPEND_CONFIG_INTEGER(s,@"answer-translation-type",_answerTranslationType);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(o,@"number",_number);
+    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
+    APPEND_CONFIG_INTEGER(o,@"answer-translation-type",_answerTranslationType);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(dict,@"number",_number);
-    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
-    APPEND_DICT_INTEGER(dict,@"answer-translation-type",_answerTranslationType);
-    return dict;
+    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(o,@"number",_number);
+    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
+    APPEND_DICT_INTEGER(o,@"answer-translation-type",_answerTranslationType);
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
-    SET_DICT_STRING(dict,@"number",_number);
-    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
-    SET_DICT_INTEGER(dict,@"answer-translation-type",_answerTranslationType);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"attach-to",_attachTo);
+    SET_DICT_STRING(o,@"number",_number);
+    SET_DICT_DOUBLE(o,@"timeout",_timeout);
+    SET_DICT_INTEGER(o,@"answer-translation-type",_answerTranslationType);
 }
 
 - (UMSS7ConfigSGSN *)copyWithZone:(NSZone *)zone

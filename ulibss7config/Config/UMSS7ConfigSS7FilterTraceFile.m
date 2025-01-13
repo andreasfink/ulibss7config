@@ -34,39 +34,39 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"filename",_filename);
-    APPEND_CONFIG_STRING(s,@"format",_format);
-    APPEND_CONFIG_INTEGER(s,@"minutes",_minutes);
-    APPEND_CONFIG_INTEGER(s,@"packets",_packets);
-    APPEND_CONFIG_INTEGER(s,@"max-rotations",_maxRotations);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"filename",_filename);
+    APPEND_CONFIG_STRING(o,@"format",_format);
+    APPEND_CONFIG_INTEGER(o,@"minutes",_minutes);
+    APPEND_CONFIG_INTEGER(o,@"packets",_packets);
+    APPEND_CONFIG_INTEGER(o,@"max-rotations",_maxRotations);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"filename",_filename);
-    APPEND_DICT_STRING(dict,@"format",_format);
+    APPEND_DICT_STRING(o,@"filename",_filename);
+    APPEND_DICT_STRING(o,@"format",_format);
     
-    APPEND_DICT_INTEGER(dict,@"minutes",_minutes);
-    APPEND_DICT_INTEGER(dict,@"packets",_packets);
-    APPEND_DICT_INTEGER(dict,@"max-rotations",_maxRotations);
+    APPEND_DICT_INTEGER(o,@"minutes",_minutes);
+    APPEND_DICT_INTEGER(o,@"packets",_packets);
+    APPEND_DICT_INTEGER(o,@"max-rotations",_maxRotations);
 
-    return dict;
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"filename",_filename);
-    SET_DICT_STRING(dict,@"format",_format);
-    SET_DICT_INTEGER(dict,@"minutes",_minutes);
-    SET_DICT_INTEGER(dict,@"packets",_packets);
-    SET_DICT_INTEGER(dict,@"max-rotations",_maxRotations);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"filename",_filename);
+    SET_DICT_STRING(o,@"format",_format);
+    SET_DICT_INTEGER(o,@"minutes",_minutes);
+    SET_DICT_INTEGER(o,@"packets",_packets);
+    SET_DICT_INTEGER(o,@"max-rotations",_maxRotations);
 
 }
 

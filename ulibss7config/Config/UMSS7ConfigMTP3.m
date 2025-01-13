@@ -32,62 +32,62 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"variant",_variant);
-    APPEND_CONFIG_STRING(s,@"opc",_opc);
-    APPEND_CONFIG_STRING(s,@"ni",_networkIndicator);
-    APPEND_CONFIG_STRING(s,@"mode",_mode);
-    APPEND_CONFIG_STRING(s,@"problematic-packet-dumper",_problematicPacketDumper);
-    APPEND_CONFIG_STRING(s,@"routing-update-log",_routingUpdateLog);
-    APPEND_CONFIG_STRING(s,@"routing-update-db-pool",_routingUpdateDbPool);
-    APPEND_CONFIG_STRING(s,@"routing-update-db-table",_routingUpdateDbTable);
-    APPEND_CONFIG_STRING(s,@"routing-update-db-instance",_routingUpdateDbInstance);
-    APPEND_CONFIG_BOOLEAN(s,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
-    APPEND_CONFIG_STRING(s,@"statistic-db-pool",_statisticDbPool);
-    APPEND_CONFIG_STRING(s,@"statistic-db-table",_statisticDbTable);
-    APPEND_CONFIG_STRING(s,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_CONFIG_BOOLEAN(s,@"statistic-db-autocreate",_statisticDbAutocreate);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"variant",_variant);
+    APPEND_CONFIG_STRING(o,@"opc",_opc);
+    APPEND_CONFIG_STRING(o,@"ni",_networkIndicator);
+    APPEND_CONFIG_STRING(o,@"mode",_mode);
+    APPEND_CONFIG_STRING(o,@"problematic-packet-dumper",_problematicPacketDumper);
+    APPEND_CONFIG_STRING(o,@"routing-update-log",_routingUpdateLog);
+    APPEND_CONFIG_STRING(o,@"routing-update-db-pool",_routingUpdateDbPool);
+    APPEND_CONFIG_STRING(o,@"routing-update-db-table",_routingUpdateDbTable);
+    APPEND_CONFIG_STRING(o,@"routing-update-db-instance",_routingUpdateDbInstance);
+    APPEND_CONFIG_BOOLEAN(o,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
+    APPEND_CONFIG_STRING(o,@"statistic-db-pool",_statisticDbPool);
+    APPEND_CONFIG_STRING(o,@"statistic-db-table",_statisticDbTable);
+    APPEND_CONFIG_STRING(o,@"statistic-db-instance",_statisticDbInstance);
+    APPEND_CONFIG_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"variant",_variant);
-    APPEND_DICT_STRING(dict,@"opc",_opc);
-    APPEND_DICT_STRING(dict,@"ni",_networkIndicator);
-    APPEND_DICT_STRING(dict,@"mode",_mode);
-    APPEND_DICT_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
-    APPEND_DICT_STRING(dict,@"routing-update-log",_routingUpdateLog);
-    APPEND_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
-    APPEND_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
-    APPEND_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
-    APPEND_DICT_STRING(dict,@"routing-update-db-pool",_routingUpdateDbPool);
-    APPEND_DICT_STRING(dict,@"routing-update-db-table",_routingUpdateDbTable);
-    APPEND_DICT_STRING(dict,@"routing-update-db-instance",_routingUpdateDbInstance);
-    APPEND_DICT_BOOLEAN(dict,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"variant",_variant);
+    APPEND_DICT_STRING(o,@"opc",_opc);
+    APPEND_DICT_STRING(o,@"ni",_networkIndicator);
+    APPEND_DICT_STRING(o,@"mode",_mode);
+    APPEND_DICT_STRING(o,@"problematic-packet-dumper",_problematicPacketDumper);
+    APPEND_DICT_STRING(o,@"routing-update-log",_routingUpdateLog);
+    APPEND_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
+    APPEND_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
+    APPEND_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
+    APPEND_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
+    APPEND_DICT_STRING(o,@"routing-update-db-pool",_routingUpdateDbPool);
+    APPEND_DICT_STRING(o,@"routing-update-db-table",_routingUpdateDbTable);
+    APPEND_DICT_STRING(o,@"routing-update-db-instance",_routingUpdateDbInstance);
+    APPEND_DICT_BOOLEAN(o,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"variant",_variant);
-    SET_DICT_STRING(dict,@"opc",_opc);
-    SET_DICT_STRING(dict,@"ni",_networkIndicator);
-    SET_DICT_STRING(dict,@"mode",_mode);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"variant",_variant);
+    SET_DICT_STRING(o,@"opc",_opc);
+    SET_DICT_STRING(o,@"ni",_networkIndicator);
+    SET_DICT_STRING(o,@"mode",_mode);
     SET_DICT_FILTERED_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
-    SET_DICT_STRING(dict,@"routing-update-log",_routingUpdateLog);
-    SET_DICT_STRING(dict,@"statistic-db-pool",_statisticDbPool);
-    SET_DICT_STRING(dict,@"statistic-db-table",_statisticDbTable);
-    SET_DICT_STRING(dict,@"statistic-db-instance",_statisticDbInstance);
-    SET_DICT_BOOLEAN(dict,@"statistic-db-autocreate",_statisticDbAutocreate);
-    SET_DICT_STRING(dict,@"routing-update-db-pool",_routingUpdateDbPool);
-    SET_DICT_STRING(dict,@"routing-update-db-table",_routingUpdateDbTable);
-    SET_DICT_STRING(dict,@"routing-update-db-instance",_routingUpdateDbInstance);
-    SET_DICT_BOOLEAN(dict,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
+    SET_DICT_STRING(o,@"routing-update-log",_routingUpdateLog);
+    SET_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
+    SET_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
+    SET_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
+    SET_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
+    SET_DICT_STRING(o,@"routing-update-db-pool",_routingUpdateDbPool);
+    SET_DICT_STRING(o,@"routing-update-db-table",_routingUpdateDbTable);
+    SET_DICT_STRING(o,@"routing-update-db-instance",_routingUpdateDbInstance);
+    SET_DICT_BOOLEAN(o,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
 
 }
 

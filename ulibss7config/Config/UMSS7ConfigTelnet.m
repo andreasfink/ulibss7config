@@ -31,29 +31,29 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_INTEGER(s,@"port",_port);
-    APPEND_CONFIG_STRING(s,@"telnet-user",_telnetUsername);
-    APPEND_CONFIG_STRING(s,@"telnet-password",_telnetPassword);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_INTEGER(o,@"port",_port);
+    APPEND_CONFIG_STRING(o,@"telnet-user",_telnetUsername);
+    APPEND_CONFIG_STRING(o,@"telnet-password",_telnetPassword);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_INTEGER(dict,@"port",_port);
-    APPEND_DICT_STRING(dict,@"telnet-user",_telnetUsername);
-    APPEND_DICT_STRING(dict,@"telnet-password",_telnetPassword);
-    return dict;
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_INTEGER(o,@"port",_port);
+    APPEND_DICT_STRING(o,@"telnet-user",_telnetUsername);
+    APPEND_DICT_STRING(o,@"telnet-password",_telnetPassword);
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_INTEGER(dict,@"port",_port);
-    SET_DICT_STRING(dict,@"telnet-user",_telnetUsername);
-    SET_DICT_STRING(dict,@"telnet-password",_telnetPassword);
+    SET_DICT_INTEGER(o,@"port",_port);
+    SET_DICT_STRING(o,@"telnet-user",_telnetUsername);
+    SET_DICT_STRING(o,@"telnet-password",_telnetPassword);
 }
 
 - (UMSS7ConfigTelnet *)copyWithZone:(NSZone *)zone

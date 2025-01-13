@@ -31,27 +31,27 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"filter",_filter);
-    APPEND_CONFIG_STRING(s,@"result",_result);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"filter",_filter);
+    APPEND_CONFIG_STRING(o,@"result",_result);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"filter",_filter);
-    APPEND_DICT_STRING(dict,@"result",_result);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"filter",_filter);
+    APPEND_DICT_STRING(o,@"result",_result);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"filter",_filter);
-    SET_DICT_STRING(dict,@"result",_result);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"filter",_filter);
+    SET_DICT_STRING(o,@"result",_result);
 }
 
 

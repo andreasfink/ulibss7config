@@ -32,34 +32,34 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"default-local-pc",_defaultLocalPc);
-    APPEND_CONFIG_STRING(s,@"default-remote-pc",_defaultLocalPc);
-    APPEND_CONFIG_INTEGER(s,@"local-ni",_localNi);
-    APPEND_CONFIG_INTEGER(s,@"remote-ni",_remoteNi);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"default-local-pc",_defaultLocalPc);
+    APPEND_CONFIG_STRING(o,@"default-remote-pc",_defaultLocalPc);
+    APPEND_CONFIG_INTEGER(o,@"local-ni",_localNi);
+    APPEND_CONFIG_INTEGER(o,@"remote-ni",_remoteNi);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"map",_pcmap)
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"default-local-pc",_defaultLocalPc);
-    APPEND_DICT_STRING(dict,@"default-remote-pc",_defaultLocalPc);
-    APPEND_DICT_INTEGER(dict,@"local-ni",_localNi);
-    APPEND_DICT_INTEGER(dict,@"remote-ni",_remoteNi);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"default-local-pc",_defaultLocalPc);
+    APPEND_DICT_STRING(o,@"default-remote-pc",_defaultLocalPc);
+    APPEND_DICT_INTEGER(o,@"local-ni",_localNi);
+    APPEND_DICT_INTEGER(o,@"remote-ni",_remoteNi);
     APPEND_DICT_ARRAY(dict,@"map",_pcmap);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"default-local-pc",_defaultLocalPc);
-    SET_DICT_STRING(dict,@"default-remote-pc",_defaultLocalPc);
-    SET_DICT_INTEGER(dict,@"local-ni",_localNi);
-    SET_DICT_INTEGER(dict,@"remote-ni",_remoteNi);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"default-local-pc",_defaultLocalPc);
+    SET_DICT_STRING(o,@"default-remote-pc",_defaultLocalPc);
+    SET_DICT_INTEGER(o,@"local-ni",_localNi);
+    SET_DICT_INTEGER(o,@"remote-ni",_remoteNi);
     SET_DICT_ARRAY(dict,@"map",_pcmap);
 }
 

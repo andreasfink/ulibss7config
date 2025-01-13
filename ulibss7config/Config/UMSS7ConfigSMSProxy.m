@@ -34,91 +34,91 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"number",_number);
-    APPEND_CONFIG_STRING(s,@"sccp",_sccp);
-    APPEND_CONFIG_STRING(s,@"license-directory",_licenseDirectory);
-    APPEND_CONFIG_STRING(s,@"attach-as-hlr",_attachAsHlr);
-    APPEND_CONFIG_STRING(s,@"attach-as-msc",_attachAsMsc);
-    APPEND_CONFIG_STRING(s,@"attach-as-smsc",_attachAsSmsc);
-    APPEND_CONFIG_STRING(s,@"named-lists-directory",_namedListsDirectory);
-    APPEND_CONFIG_STRING(s,@"filter-directory",_filterDirectory);
-    APPEND_CONFIG_STRING(s,@"filter-srism",_filterSriSm);
-    APPEND_CONFIG_STRING(s,@"filter-srism-resp",_filterSirSmResp);
-    APPEND_CONFIG_STRING(s,@"filter-forwardsm",_filterForwardSm);
-    APPEND_CONFIG_STRING(s,@"filter-forwardsm-resp",_filterForwardSmResp);
-	APPEND_CONFIG_STRING(s,@"filter-mo-submit",_filterMoForwardSmSubmit);
-	APPEND_CONFIG_STRING(s,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
-    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
-    APPEND_CONFIG_DOUBLE(s,@"imsi-timer",_imsiTimer);
-    APPEND_CONFIG_STRING(s,@"imsi-prefix",_imsiPrefix);
-    APPEND_CONFIG_STRING(s,@"cdr-writer",_cdrWriter);
-    APPEND_CONFIG_INTEGER(s,@"smsc-translation-type",_smscTranslationType);
-    APPEND_CONFIG_INTEGER(s,@"srism-translation-type",_srismTranslationType);
-	APPEND_CONFIG_INTEGER(s,@"forwardsm-translation-type",_forwardsmTranslationType);
-	APPEND_CONFIG_INTEGER(s,@"moforwardsm-submit-translation-type",_moForwardsmSubmitTranslationType);
-	APPEND_CONFIG_INTEGER(s,@"moforwardsm-submit-hlr-check",_moForwardSmSubmitHlrCheck);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"number",_number);
+    APPEND_CONFIG_STRING(o,@"sccp",_sccp);
+    APPEND_CONFIG_STRING(o,@"license-directory",_licenseDirectory);
+    APPEND_CONFIG_STRING(o,@"attach-as-hlr",_attachAsHlr);
+    APPEND_CONFIG_STRING(o,@"attach-as-msc",_attachAsMsc);
+    APPEND_CONFIG_STRING(o,@"attach-as-smsc",_attachAsSmsc);
+    APPEND_CONFIG_STRING(o,@"named-lists-directory",_namedListsDirectory);
+    APPEND_CONFIG_STRING(o,@"filter-directory",_filterDirectory);
+    APPEND_CONFIG_STRING(o,@"filter-srism",_filterSriSm);
+    APPEND_CONFIG_STRING(o,@"filter-srism-resp",_filterSirSmResp);
+    APPEND_CONFIG_STRING(o,@"filter-forwardsm",_filterForwardSm);
+    APPEND_CONFIG_STRING(o,@"filter-forwardsm-resp",_filterForwardSmResp);
+	APPEND_CONFIG_STRING(o,@"filter-mo-submit",_filterMoForwardSmSubmit);
+	APPEND_CONFIG_STRING(o,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
+    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
+    APPEND_CONFIG_DOUBLE(o,@"imsi-timer",_imsiTimer);
+    APPEND_CONFIG_STRING(o,@"imsi-prefix",_imsiPrefix);
+    APPEND_CONFIG_STRING(o,@"cdr-writer",_cdrWriter);
+    APPEND_CONFIG_INTEGER(o,@"smsc-translation-type",_smscTranslationType);
+    APPEND_CONFIG_INTEGER(o,@"srism-translation-type",_srismTranslationType);
+	APPEND_CONFIG_INTEGER(o,@"forwardsm-translation-type",_forwardsmTranslationType);
+	APPEND_CONFIG_INTEGER(o,@"moforwardsm-submit-translation-type",_moForwardsmSubmitTranslationType);
+	APPEND_CONFIG_INTEGER(o,@"moforwardsm-submit-hlr-check",_moForwardSmSubmitHlrCheck);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"number",_number);
-    APPEND_DICT_STRING(dict,@"sccp",_sccp);
-    APPEND_DICT_STRING(dict,@"license-directory",_licenseDirectory);
-    APPEND_DICT_STRING(dict,@"attach-as-hlr",_attachAsHlr);
-    APPEND_DICT_STRING(dict,@"attach-as-msc",_attachAsMsc);
-    APPEND_DICT_STRING(dict,@"attach-as-smsc",_attachAsSmsc);
-    APPEND_DICT_STRING(dict,@"named-lists-directory",_namedListsDirectory);
-    APPEND_DICT_STRING(dict,@"filter-directory",_filterDirectory);
-    APPEND_DICT_STRING(dict,@"filter-srism",_filterSriSm);
-    APPEND_DICT_STRING(dict,@"filter-srism-resp",_filterSirSmResp);
-    APPEND_DICT_STRING(dict,@"filter-forwardsm",_filterForwardSm);
-    APPEND_DICT_STRING(dict,@"filter-forwardsm-resp",_filterForwardSmResp);
-	APPEND_DICT_STRING(dict,@"filter-mo-submit",_filterMoForwardSmSubmit);
-	APPEND_DICT_STRING(dict,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
-    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
-    APPEND_DICT_DOUBLE(dict,@"imsi-timer",_imsiTimer);
-    APPEND_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
-    APPEND_DICT_STRING(dict,@"cdr-writer",_cdrWriter);
-    APPEND_DICT_INTEGER(dict,@"smsc-translation-type",_smscTranslationType);
-    APPEND_DICT_INTEGER(dict,@"srism-translation-type",_srismTranslationType);
-    APPEND_DICT_INTEGER(dict,@"forwardsm-translation-type",_forwardsmTranslationType);
-	APPEND_DICT_INTEGER(dict,@"moforwardsm-submit-translation-type",_moForwardsmSubmitTranslationType);
-	APPEND_DICT_INTEGER(dict,@"moforwardsm-submit-hlr-check",_moForwardSmSubmitHlrCheck);
-    return dict;
+    APPEND_DICT_STRING(o,@"number",_number);
+    APPEND_DICT_STRING(o,@"sccp",_sccp);
+    APPEND_DICT_STRING(o,@"license-directory",_licenseDirectory);
+    APPEND_DICT_STRING(o,@"attach-as-hlr",_attachAsHlr);
+    APPEND_DICT_STRING(o,@"attach-as-msc",_attachAsMsc);
+    APPEND_DICT_STRING(o,@"attach-as-smsc",_attachAsSmsc);
+    APPEND_DICT_STRING(o,@"named-lists-directory",_namedListsDirectory);
+    APPEND_DICT_STRING(o,@"filter-directory",_filterDirectory);
+    APPEND_DICT_STRING(o,@"filter-srism",_filterSriSm);
+    APPEND_DICT_STRING(o,@"filter-srism-resp",_filterSirSmResp);
+    APPEND_DICT_STRING(o,@"filter-forwardsm",_filterForwardSm);
+    APPEND_DICT_STRING(o,@"filter-forwardsm-resp",_filterForwardSmResp);
+	APPEND_DICT_STRING(o,@"filter-mo-submit",_filterMoForwardSmSubmit);
+	APPEND_DICT_STRING(o,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
+    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
+    APPEND_DICT_DOUBLE(o,@"imsi-timer",_imsiTimer);
+    APPEND_DICT_STRING(o,@"imsi-prefix",_imsiPrefix);
+    APPEND_DICT_STRING(o,@"cdr-writer",_cdrWriter);
+    APPEND_DICT_INTEGER(o,@"smsc-translation-type",_smscTranslationType);
+    APPEND_DICT_INTEGER(o,@"srism-translation-type",_srismTranslationType);
+    APPEND_DICT_INTEGER(o,@"forwardsm-translation-type",_forwardsmTranslationType);
+	APPEND_DICT_INTEGER(o,@"moforwardsm-submit-translation-type",_moForwardsmSubmitTranslationType);
+	APPEND_DICT_INTEGER(o,@"moforwardsm-submit-hlr-check",_moForwardSmSubmitHlrCheck);
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"number",_number);
-    SET_DICT_STRING(dict,@"sccp",_sccp);
-    SET_DICT_STRING(dict,@"license-directory",_licenseDirectory);
-    SET_DICT_STRING(dict,@"attach-as-hlr",_attachAsHlr);
-    SET_DICT_STRING(dict,@"attach-as-msc",_attachAsMsc);
-    SET_DICT_STRING(dict,@"attach-as-smsc",_attachAsSmsc);
-    SET_DICT_STRING(dict,@"named-lists-directory",_namedListsDirectory);
-    SET_DICT_STRING(dict,@"filter-directory",_filterDirectory);
-    SET_DICT_STRING(dict,@"filter-srism",_filterSriSm);
-    SET_DICT_STRING(dict,@"filter-srism-resp",_filterSirSmResp);
-    SET_DICT_STRING(dict,@"filter-forwardsm",_filterForwardSm);
-    SET_DICT_STRING(dict,@"filter-forwardsm-resp",_filterForwardSmResp);
-	SET_DICT_STRING(dict,@"filter-mo-submit",_filterMoForwardSmSubmit);
-	SET_DICT_STRING(dict,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
-    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
-    SET_DICT_DOUBLE(dict,@"imsi-timer",_imsiTimer);
-    SET_DICT_STRING(dict,@"imsi-prefix",_imsiPrefix);
-    SET_DICT_STRING(dict,@"cdr-writer",_cdrWriter);
-    SET_DICT_INTEGER(dict,@"smsc-translation-type",_smscTranslationType);
-    SET_DICT_INTEGER(dict,@"srism-translation-type",_srismTranslationType);
-    SET_DICT_INTEGER(dict,@"forwardsm-translation-type",_forwardsmTranslationType);
-	SET_DICT_INTEGER(dict,@"moforwardsm-submit-translation-type",_moForwardsmSubmitTranslationType);
-	SET_DICT_INTEGER(dict,@"moforwardsm-submit-hlr-check",_moForwardSmSubmitHlrCheck);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"number",_number);
+    SET_DICT_STRING(o,@"sccp",_sccp);
+    SET_DICT_STRING(o,@"license-directory",_licenseDirectory);
+    SET_DICT_STRING(o,@"attach-as-hlr",_attachAsHlr);
+    SET_DICT_STRING(o,@"attach-as-msc",_attachAsMsc);
+    SET_DICT_STRING(o,@"attach-as-smsc",_attachAsSmsc);
+    SET_DICT_STRING(o,@"named-lists-directory",_namedListsDirectory);
+    SET_DICT_STRING(o,@"filter-directory",_filterDirectory);
+    SET_DICT_STRING(o,@"filter-srism",_filterSriSm);
+    SET_DICT_STRING(o,@"filter-srism-resp",_filterSirSmResp);
+    SET_DICT_STRING(o,@"filter-forwardsm",_filterForwardSm);
+    SET_DICT_STRING(o,@"filter-forwardsm-resp",_filterForwardSmResp);
+	SET_DICT_STRING(o,@"filter-mo-submit",_filterMoForwardSmSubmit);
+	SET_DICT_STRING(o,@"filter-mo-submit-resp",_filterMoForwardSmSubmitResp);
+    SET_DICT_DOUBLE(o,@"timeout",_timeout);
+    SET_DICT_DOUBLE(o,@"imsi-timer",_imsiTimer);
+    SET_DICT_STRING(o,@"imsi-prefix",_imsiPrefix);
+    SET_DICT_STRING(o,@"cdr-writer",_cdrWriter);
+    SET_DICT_INTEGER(o,@"smsc-translation-type",_smscTranslationType);
+    SET_DICT_INTEGER(o,@"srism-translation-type",_srismTranslationType);
+    SET_DICT_INTEGER(o,@"forwardsm-translation-type",_forwardsmTranslationType);
+	SET_DICT_INTEGER(o,@"moforwardsm-submit-translation-type",_moForwardsmSubmitTranslationType);
+	SET_DICT_INTEGER(o,@"moforwardsm-submit-hlr-check",_moForwardSmSubmitHlrCheck);
 }
 
 

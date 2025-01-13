@@ -33,31 +33,31 @@
     return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"sccp",_sccp);
-    APPEND_CONFIG_STRING(s,@"post-translation",_postTranslation);
-    APPEND_CONFIG_STRING(s,@"distribution-method",_distributionMethod);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"sccp",_sccp);
+    APPEND_CONFIG_STRING(o,@"post-translation",_postTranslation);
+    APPEND_CONFIG_STRING(o,@"distribution-method",_distributionMethod);
 
 
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"sccp",_sccp);
-    APPEND_DICT_STRING(dict,@"post-translation",_postTranslation);
-    APPEND_DICT_STRING(dict,@"distribution-method",_distributionMethod);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"sccp",_sccp);
+    APPEND_DICT_STRING(o,@"post-translation",_postTranslation);
+    APPEND_DICT_STRING(o,@"distribution-method",_distributionMethod);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"sccp",_sccp);
-    SET_DICT_STRING(dict,@"post-translation",_postTranslation);
-    SET_DICT_STRING(dict,@"distribution-method",_distributionMethod);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"sccp",_sccp);
+    SET_DICT_STRING(o,@"post-translation",_postTranslation);
+    SET_DICT_STRING(o,@"distribution-method",_distributionMethod);
 }
 
 - (UMSS7ConfigSCCPDestination *)copyWithZone:(NSZone *)zone

@@ -32,25 +32,25 @@
 	return self;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-	[super appendConfigToString:s];
-	APPEND_CONFIG_STRING(s,@"filename",_filename);
+	[super appendConfigToString:o];
+	APPEND_CONFIG_STRING(o,@"filename",_filename);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-	UMSynchronizedSortedDictionary *dict = [super config];
+	UMSynchronizedSortedDictionary *o = [super config];
 
-	APPEND_DICT_STRING(dict,@"filename",_filename);
-	return dict;
+	APPEND_DICT_STRING(o,@"filename",_filename);
+	return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-	[self setSuperConfig:dict];
-	SET_DICT_STRING(dict,@"filename",_filename);
+	[self setSuperConfig:o];
+	SET_DICT_STRING(o,@"filename",_filename);
 }
 
 - (UMSS7ConfigSS7FilterEngine *)copyWithZone:(NSZone *)zone

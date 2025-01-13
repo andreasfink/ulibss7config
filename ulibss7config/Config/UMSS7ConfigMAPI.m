@@ -34,32 +34,32 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"number",_number);
-    APPEND_CONFIG_STRING(s,@"sccp",_sccp);
-    APPEND_CONFIG_STRING(s,@"license-directory",_licenseDirectory);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"number",_number);
+    APPEND_CONFIG_STRING(o,@"sccp",_sccp);
+    APPEND_CONFIG_STRING(o,@"license-directory",_licenseDirectory);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"number",_number);
-    APPEND_DICT_STRING(dict,@"sccp",_sccp);
-    APPEND_DICT_STRING(dict,@"license-directory",_licenseDirectory);
+    APPEND_DICT_STRING(o,@"number",_number);
+    APPEND_DICT_STRING(o,@"sccp",_sccp);
+    APPEND_DICT_STRING(o,@"license-directory",_licenseDirectory);
 
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"number",_number);
-    SET_DICT_STRING(dict,@"sccp",_sccp);
-    SET_DICT_STRING(dict,@"license-directory",_licenseDirectory);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"number",_number);
+    SET_DICT_STRING(o,@"sccp",_sccp);
+    SET_DICT_STRING(o,@"license-directory",_licenseDirectory);
 }
 
 

@@ -34,49 +34,49 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(s,@"number",_number);
-    APPEND_CONFIG_DOUBLE(s,@"timeout",_timeout);
-    APPEND_CONFIG_STRING(s,@"timeout-trace-directory",_timeoutTraceDirectory);
-    APPEND_CONFIG_STRING(s,@"full-trace-directory",_fullTraceDirectory);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
+    APPEND_CONFIG_STRING(o,@"number",_number);
+    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
+    APPEND_CONFIG_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
+    APPEND_CONFIG_STRING(o,@"full-trace-directory",_fullTraceDirectory);
 
-    APPEND_CONFIG_STRING(s,@"status-update-url",_statusUpdateUrl);
-    APPEND_CONFIG_STRING(s,@"roaming-number",_roamingNumber);
-    APPEND_CONFIG_STRING(s,@"roaming-number-url",_roamingNumberUrl);
+    APPEND_CONFIG_STRING(o,@"status-update-url",_statusUpdateUrl);
+    APPEND_CONFIG_STRING(o,@"roaming-number",_roamingNumber);
+    APPEND_CONFIG_STRING(o,@"roaming-number-url",_roamingNumberUrl);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(dict,@"number",_number);
-    APPEND_DICT_DOUBLE(dict,@"timeout",_timeout);
-    APPEND_DICT_STRING(dict,@"timeout-trace-directory",_timeoutTraceDirectory);
-    APPEND_DICT_STRING(dict,@"full-trace-directory",_fullTraceDirectory);
+    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(o,@"number",_number);
+    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
+    APPEND_DICT_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
+    APPEND_DICT_STRING(o,@"full-trace-directory",_fullTraceDirectory);
 
-    APPEND_DICT_STRING(dict,@"status-update-url",_statusUpdateUrl);
-    APPEND_DICT_STRING(dict,@"roaming-number",_roamingNumber);
-    APPEND_DICT_STRING(dict,@"roaming-number-url",_roamingNumberUrl);
-    return dict;
+    APPEND_DICT_STRING(o,@"status-update-url",_statusUpdateUrl);
+    APPEND_DICT_STRING(o,@"roaming-number",_roamingNumber);
+    APPEND_DICT_STRING(o,@"roaming-number-url",_roamingNumberUrl);
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
-    SET_DICT_STRING(dict,@"number",_number);
-    SET_DICT_DOUBLE(dict,@"timeout",_timeout);
-    SET_DICT_STRING(dict,@"timeout-trace-directory",_timeoutTraceDirectory);
-    SET_DICT_STRING(dict,@"full-trace-directory",_fullTraceDirectory);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"attach-to",_attachTo);
+    SET_DICT_STRING(o,@"number",_number);
+    SET_DICT_DOUBLE(o,@"timeout",_timeout);
+    SET_DICT_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
+    SET_DICT_STRING(o,@"full-trace-directory",_fullTraceDirectory);
 
-    SET_DICT_STRING(dict,@"status-update-url",_statusUpdateUrl);
-    SET_DICT_STRING(dict,@"roaming-number",_roamingNumber);
-    SET_DICT_STRING(dict,@"roaming-number-url",_roamingNumberUrl);
+    SET_DICT_STRING(o,@"status-update-url",_statusUpdateUrl);
+    SET_DICT_STRING(o,@"roaming-number",_roamingNumber);
+    SET_DICT_STRING(o,@"roaming-number-url",_roamingNumberUrl);
 
 }
 

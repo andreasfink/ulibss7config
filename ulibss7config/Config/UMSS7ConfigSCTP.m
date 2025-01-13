@@ -32,68 +32,68 @@
     return [UMSS7ConfigSCTP type];
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
+    [super appendConfigToString:o];
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"local-ip",_localAddresses);
     APPEND_CONFIG_ARRAY_VERBOSE(s,@"remote-ip",_remoteAddresses);
-    APPEND_CONFIG_INTEGER(s,@"local-port",_localPort);
-    APPEND_CONFIG_INTEGER(s,@"remote-port",_remotePort);
-    APPEND_CONFIG_BOOLEAN(s,@"sctp-over-tcp",_sctpOverTcp);
-    APPEND_CONFIG_STRING(s,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
-    APPEND_CONFIG_BOOLEAN(s,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
-    APPEND_CONFIG_BOOLEAN(s,@"passive",_passive);
-    APPEND_CONFIG_DOUBLE(s,@"heartbeat",_heartbeat);
-    APPEND_CONFIG_INTEGER(s,@"mtu",_mtu);
-    APPEND_CONFIG_INTEGER(s,@"max-init-timeout",_maxInitTimeout);
-    APPEND_CONFIG_INTEGER(s,@"max-init-attempts",_maxInitAttempts);
-    APPEND_CONFIG_INTEGER(s,@"min-receive-buffer-size",_minReceiveBufferSize);
-    APPEND_CONFIG_INTEGER(s,@"min-send-buffer-size",_minSendBufferSize);
-    APPEND_CONFIG_STRING(s,@"dscp",_dscp);
-    APPEND_CONFIG_BOOLEAN(s,@"use-peeloff",_usePeelOff);
+    APPEND_CONFIG_INTEGER(o,@"local-port",_localPort);
+    APPEND_CONFIG_INTEGER(o,@"remote-port",_remotePort);
+    APPEND_CONFIG_BOOLEAN(o,@"sctp-over-tcp",_sctpOverTcp);
+    APPEND_CONFIG_STRING(o,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
+    APPEND_CONFIG_BOOLEAN(o,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
+    APPEND_CONFIG_BOOLEAN(o,@"passive",_passive);
+    APPEND_CONFIG_DOUBLE(o,@"heartbeat",_heartbeat);
+    APPEND_CONFIG_INTEGER(o,@"mtu",_mtu);
+    APPEND_CONFIG_INTEGER(o,@"max-init-timeout",_maxInitTimeout);
+    APPEND_CONFIG_INTEGER(o,@"max-init-attempts",_maxInitAttempts);
+    APPEND_CONFIG_INTEGER(o,@"min-receive-buffer-size",_minReceiveBufferSize);
+    APPEND_CONFIG_INTEGER(o,@"min-send-buffer-size",_minSendBufferSize);
+    APPEND_CONFIG_STRING(o,@"dscp",_dscp);
+    APPEND_CONFIG_BOOLEAN(o,@"use-peeloff",_usePeelOff);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
     APPEND_DICT_ARRAY(dict,@"local-ip",_localAddresses);
     APPEND_DICT_ARRAY(dict,@"remote-ip",_remoteAddresses);
-    APPEND_DICT_INTEGER(dict,@"local-port",_localPort);
-    APPEND_DICT_INTEGER(dict,@"remote-port",_remotePort);
-    APPEND_DICT_BOOLEAN(dict,@"sctp-over-tcp",_sctpOverTcp);
-    APPEND_DICT_STRING(dict,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
-    APPEND_DICT_BOOLEAN(dict,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
-    APPEND_DICT_BOOLEAN(dict,@"passive",_passive);
-    APPEND_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
-    APPEND_DICT_INTEGER(dict,@"mtu",_mtu);
-    APPEND_DICT_INTEGER(dict,@"max-init-timeout",_maxInitTimeout);
-    APPEND_DICT_INTEGER(dict,@"max-init-attempts",_maxInitAttempts);
-    APPEND_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
-    APPEND_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
-    APPEND_DICT_STRING(dict,@"dscp",_dscp);
-    APPEND_DICT_BOOLEAN(dict,@"use-peeloff",_usePeelOff);
+    APPEND_DICT_INTEGER(o,@"local-port",_localPort);
+    APPEND_DICT_INTEGER(o,@"remote-port",_remotePort);
+    APPEND_DICT_BOOLEAN(o,@"sctp-over-tcp",_sctpOverTcp);
+    APPEND_DICT_STRING(o,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
+    APPEND_DICT_BOOLEAN(o,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
+    APPEND_DICT_BOOLEAN(o,@"passive",_passive);
+    APPEND_DICT_DOUBLE(o,@"heartbeat",_heartbeat);
+    APPEND_DICT_INTEGER(o,@"mtu",_mtu);
+    APPEND_DICT_INTEGER(o,@"max-init-timeout",_maxInitTimeout);
+    APPEND_DICT_INTEGER(o,@"max-init-attempts",_maxInitAttempts);
+    APPEND_DICT_INTEGER(o,@"min-receive-buffer-size",_minReceiveBufferSize);
+    APPEND_DICT_INTEGER(o,@"min-send-buffer-size",_minSendBufferSize);
+    APPEND_DICT_STRING(o,@"dscp",_dscp);
+    APPEND_DICT_BOOLEAN(o,@"use-peeloff",_usePeelOff);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
     SET_DICT_ARRAY(dict,@"local-ip",_localAddresses);
     SET_DICT_ARRAY(dict,@"remote-ip",_remoteAddresses);
-    SET_DICT_INTEGER(dict,@"local-port",_localPort);
-    SET_DICT_INTEGER(dict,@"remote-port",_remotePort);
-    SET_DICT_BOOLEAN(dict,@"sctp-over-tcp",_sctpOverTcp);
-    SET_DICT_STRING(dict,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
-    SET_DICT_BOOLEAN(dict,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
-    SET_DICT_BOOLEAN(dict,@"passive",_passive);
-    SET_DICT_DOUBLE(dict,@"heartbeat",_heartbeat);
-    SET_DICT_INTEGER(dict,@"mtu",_mtu);
-    SET_DICT_INTEGER(dict,@"max-init-timeout",_maxInitTimeout);
-    SET_DICT_INTEGER(dict,@"max-init-attempts",_maxInitAttempts);
-    SET_DICT_INTEGER(dict,@"min-receive-buffer-size",_minReceiveBufferSize);
-    SET_DICT_INTEGER(dict,@"min-send-buffer-size",_minSendBufferSize);
-    SET_DICT_STRING(dict,@"dscp",_dscp);
-    SET_DICT_BOOLEAN(dict,@"use-peeloff",_usePeelOff);
+    SET_DICT_INTEGER(o,@"local-port",_localPort);
+    SET_DICT_INTEGER(o,@"remote-port",_remotePort);
+    SET_DICT_BOOLEAN(o,@"sctp-over-tcp",_sctpOverTcp);
+    SET_DICT_STRING(o,@"sctp-over-tcp-session-key",_sctpOverTcpSessionKey);
+    SET_DICT_BOOLEAN(o,@"allow-any-remote-port-inbound",_allowAnyRemotePortIncoming);
+    SET_DICT_BOOLEAN(o,@"passive",_passive);
+    SET_DICT_DOUBLE(o,@"heartbeat",_heartbeat);
+    SET_DICT_INTEGER(o,@"mtu",_mtu);
+    SET_DICT_INTEGER(o,@"max-init-timeout",_maxInitTimeout);
+    SET_DICT_INTEGER(o,@"max-init-attempts",_maxInitAttempts);
+    SET_DICT_INTEGER(o,@"min-receive-buffer-size",_minReceiveBufferSize);
+    SET_DICT_INTEGER(o,@"min-send-buffer-size",_minSendBufferSize);
+    SET_DICT_STRING(o,@"dscp",_dscp);
+    SET_DICT_BOOLEAN(o,@"use-peeloff",_usePeelOff);
 }
 
 - (UMSS7ConfigSCTP *)copyWithZone:(NSZone *)zone

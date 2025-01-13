@@ -31,26 +31,26 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"zmq-listener",_zmqListener);
-    APPEND_CONFIG_STRING(s,@"db-pool",_dbPool);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"zmq-listener",_zmqListener);
+    APPEND_CONFIG_STRING(o,@"db-pool",_dbPool);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
     
-    APPEND_DICT_STRING(dict,@"zmq-listener",_zmqListener);
-    APPEND_DICT_STRING(dict,@"db-pool",_dbPool);
+    APPEND_DICT_STRING(o,@"zmq-listener",_zmqListener);
+    APPEND_DICT_STRING(o,@"db-pool",_dbPool);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(dict,@"zmq-listener",_zmqListener);
-    SET_DICT_STRING(dict,@"db-pool",_dbPool);
+    SET_DICT_STRING(o,@"zmq-listener",_zmqListener);
+    SET_DICT_STRING(o,@"db-pool",_dbPool);
 }
 
 - (UMSS7ConfigAuthServer *)copyWithZone:(NSZone *)zone

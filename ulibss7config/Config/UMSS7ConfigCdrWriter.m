@@ -33,35 +33,32 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    
-    UMSynchronizedSortedDictionary *o = [super config];
-    [super appendConfigToString:s];
-
+    [super appendConfigToString:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigCdrWriter.def"
 #include "UMSS7Config_macroClear.h"
 #else
-    APPEND_CONFIG_STRING(s,@"cdr-type",_cdrType);
-    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
-    APPEND_CONFIG_INTEGER(s,@"cdr-queue-limit",_cdrQueueLimit);
-    APPEND_CONFIG_STRING(s,@"cdr-file-prefix",_cdrFilePrefix);
-    APPEND_CONFIG_DOUBLE(s,@"reopen-time",_reopenTime);
-    APPEND_CONFIG_STRING(s,@"date-format",_dateFormat);
-    APPEND_CONFIG_STRING(s,@"time-zone",_timeZone);
-    APPEND_CONFIG_STRING(s,@"locale",_locale);
-    APPEND_CONFIG_STRING(s,@"table-name",_tableName);
-    APPEND_CONFIG_BOOLEAN(s,@"auto-create",_autoCreate);
-    APPEND_CONFIG_STRING(s,@"pool-name",_poolName);
+    APPEND_CONFIG_STRING(o,@"cdr-type",_cdrType);
+    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
+    APPEND_CONFIG_INTEGER(o,@"cdr-queue-limit",_cdrQueueLimit);
+    APPEND_CONFIG_STRING(o,@"cdr-file-prefix",_cdrFilePrefix);
+    APPEND_CONFIG_DOUBLE(o,@"reopen-time",_reopenTime);
+    APPEND_CONFIG_STRING(o,@"date-format",_dateFormat);
+    APPEND_CONFIG_STRING(o,@"time-zone",_timeZone);
+    APPEND_CONFIG_STRING(o,@"locale",_locale);
+    APPEND_CONFIG_STRING(o,@"table-name",_tableName);
+    APPEND_CONFIG_BOOLEAN(o,@"auto-create",_autoCreate);
+    APPEND_CONFIG_STRING(o,@"pool-name",_poolName);
 #endif
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
@@ -69,42 +66,42 @@
 #include "UMSS7Config_macroClear.h"
 #else
 
-    APPEND_DICT_STRING(dict,@"cdr-type",_cdrType);
-    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
-    APPEND_DICT_INTEGER(dict,@"cdr-queue-limit",_cdrQueueLimit);
-    APPEND_DICT_STRING(dict,@"cdr-file-prefix",_cdrFilePrefix);
-    APPEND_DICT_DOUBLE(dict,@"reopen-time",_reopenTime);
+    APPEND_DICT_STRING(o,@"cdr-type",_cdrType);
+    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
+    APPEND_DICT_INTEGER(o,@"cdr-queue-limit",_cdrQueueLimit);
+    APPEND_DICT_STRING(o,@"cdr-file-prefix",_cdrFilePrefix);
+    APPEND_DICT_DOUBLE(o,@"reopen-time",_reopenTime);
 
-    APPEND_DICT_STRING(dict,@"date-format",_dateFormat);
-    APPEND_DICT_STRING(dict,@"time-zone",_timeZone);
-    APPEND_DICT_STRING(dict,@"locale",_locale);
-    APPEND_DICT_STRING(dict,@"table-name",_tableName);
-    APPEND_DICT_BOOLEAN(dict,@"auto-create",_autoCreate);
-    APPEND_DICT_STRING(dict,@"pool-name",_poolName);
+    APPEND_DICT_STRING(o,@"date-format",_dateFormat);
+    APPEND_DICT_STRING(o,@"time-zone",_timeZone);
+    APPEND_DICT_STRING(o,@"locale",_locale);
+    APPEND_DICT_STRING(o,@"table-name",_tableName);
+    APPEND_DICT_BOOLEAN(o,@"auto-create",_autoCreate);
+    APPEND_DICT_STRING(o,@"pool-name",_poolName);
 #endif
-    return dict;
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
 
 #if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetDict.h"
 #include "UMSS7ConfigCdrWriter.def"
 #include "UMSS7Config_macroClear.h"
 #else
-    SET_DICT_STRING(dict,@"cdr-type",_cdrType);
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
-    SET_DICT_INTEGER(dict,@"cdr-queue-limit",_cdrQueueLimit);
-    SET_DICT_STRING(dict,@"cdr-file-prefix",_cdrFilePrefix);
-    SET_DICT_DOUBLE(dict,@"reopen-time",_reopenTime);
-    SET_DICT_STRING(dict,@"date-format",_dateFormat);
-    SET_DICT_STRING(dict,@"time-zone",_timeZone);
-    SET_DICT_STRING(dict,@"locale",_locale);
-    SET_DICT_STRING(dict,@"table-name",_tableName);
-    SET_DICT_BOOLEAN(dict,@"auto-create",_autoCreate);
-    SET_DICT_STRING(dict,@"pool-name",_poolName);
+    SET_DICT_STRING(o,@"cdr-type",_cdrType);
+    SET_DICT_STRING(o,@"attach-to",_attachTo);
+    SET_DICT_INTEGER(o,@"cdr-queue-limit",_cdrQueueLimit);
+    SET_DICT_STRING(o,@"cdr-file-prefix",_cdrFilePrefix);
+    SET_DICT_DOUBLE(o,@"reopen-time",_reopenTime);
+    SET_DICT_STRING(o,@"date-format",_dateFormat);
+    SET_DICT_STRING(o,@"time-zone",_timeZone);
+    SET_DICT_STRING(o,@"locale",_locale);
+    SET_DICT_STRING(o,@"table-name",_tableName);
+    SET_DICT_BOOLEAN(o,@"auto-create",_autoCreate);
+    SET_DICT_STRING(o,@"pool-name",_poolName);
 #endif
 }
 

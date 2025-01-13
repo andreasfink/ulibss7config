@@ -31,36 +31,36 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"filter",_filter);
-    APPEND_CONFIG_STRING(s,@"result",_result);
-    APPEND_CONFIG_STRING(s,@"opc",_result);
-    APPEND_CONFIG_STRING(s,@"dpc",_result);
-    APPEND_CONFIG_INTEGER(s,@"si",_result);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"filter",_filter);
+    APPEND_CONFIG_STRING(o,@"result",_result);
+    APPEND_CONFIG_STRING(o,@"opc",_result);
+    APPEND_CONFIG_STRING(o,@"dpc",_result);
+    APPEND_CONFIG_INTEGER(o,@"si",_result);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"filter",_filter);
-    APPEND_DICT_STRING(dict,@"result",_result);
-    APPEND_DICT_STRING(dict,@"opc",_result);
-    APPEND_DICT_STRING(dict,@"dpc",_result);
-    APPEND_DICT_INTEGER(dict,@"si",_result);
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"filter",_filter);
+    APPEND_DICT_STRING(o,@"result",_result);
+    APPEND_DICT_STRING(o,@"opc",_result);
+    APPEND_DICT_STRING(o,@"dpc",_result);
+    APPEND_DICT_INTEGER(o,@"si",_result);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
     SET_DICT_FILTERED_STRING(dict,@"filter",_filter);
-    SET_DICT_STRING(dict,@"result",_result);
-    SET_DICT_STRING(dict,@"opc",_opc);
-    SET_DICT_STRING(dict,@"dpc",_dpc);
-    SET_DICT_INTEGER(dict,@"si",_si);
+    SET_DICT_STRING(o,@"result",_result);
+    SET_DICT_STRING(o,@"opc",_opc);
+    SET_DICT_STRING(o,@"dpc",_dpc);
+    SET_DICT_INTEGER(o,@"si",_si);
 }
 
 - (UMSS7ConfigMTP3FilterEntry *)copyWithZone:(NSZone *)zone

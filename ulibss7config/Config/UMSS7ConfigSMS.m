@@ -34,25 +34,25 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"attach-to",_attachTo);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(dict,@"attach-to",_attachTo);
+    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
-    SET_DICT_STRING(dict,@"attach-to",_attachTo);
+    [self setSuperConfig:o];
+    SET_DICT_STRING(o,@"attach-to",_attachTo);
 }
 
 - (UMSS7ConfigSMS *)copyWithZone:(NSZone *)zone

@@ -33,9 +33,9 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
+    [super appendConfigToString:o];
     for(int i=0;i<256;i++)
     {
         NSNumber *value = _map[i];
@@ -48,7 +48,7 @@
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
+    UMSynchronizedSortedDictionary *o = [super config];
     for(int i=0;i<256;i++)
     {
         if(_map[i]!=NULL)
@@ -60,9 +60,9 @@
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
 
     for(int i=0;i<256;i++)
     {

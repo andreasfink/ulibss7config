@@ -7,81 +7,81 @@
 //
 
 
-#define BOOLEAN(dict,name,value,dbname,tag,dbname,tag,options) \
-if(dict[@(name)]!=NULL) \
+#define BOOLEAN(o,name,value,dbname,tag,options) \
+if(o[@(name)]!=NULL) \
 { \
-    id o = dict[@(name)]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = o[@(name)]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = [NSNumber numberWithBool:[o boolValue]]; \
+        value = [NSNumber numberWithBool:[oobj boolValue]]; \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-        value = [NSNumber numberWithBool:[o[0] boolValue]]; \
+        value = [NSNumber numberWithBool:[obj[0] boolValue]]; \
     } \
-    else if([o isKindOfClass:[NSNumber class]]) \
+    else if([obj isKindOfClass:[NSNumber class]]) \
     { \
-        value = [NSNumber numberWithBool:[o boolValue]]; \
+        value = [NSNumber numberWithBool:[obj boolValue]]; \
     } \
 }
 
-#define DOUBLE(dict,name,value,dbname,tag,dbname,tag,options) \
-if(dict[@(name)]!=NULL) \
+#define DOUBLE(o,name,value,dbname,tag,options) \
+if(o[@(name)]!=NULL) \
 { \
-    id o = dict[@(name)]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = o[@(name)]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = [NSNumber numberWithDouble:[o doubleValue]]; \
+        value = [NSNumber numberWithDouble:[obj doubleValue]]; \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-        value = [NSNumber numberWithDouble:[o[0] doubleValue]]; \
+        value = [NSNumber numberWithDouble:[obj[0] doubleValue]]; \
     } \
-    else if([o isKindOfClass:[NSNumber class]]) \
+    else if([obj isKindOfClass:[NSNumber class]]) \
     { \
-        value = [NSNumber numberWithDouble:[o doubleValue]]; \
+        value = [NSNumber numberWithDouble:[obj doubleValue]]; \
     } \
 }
 
 
-#define INTEGER(dict,name,value,dbname,tag,dbname,tag,options) \
-if(dict[@(name)]!=NULL) \
+#define INTEGER(o,name,value,dbname,tag,options) \
+if(o[@(name)]!=NULL) \
 { \
-    id o = dict[@(name)]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = o[@(name)]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-    NSString *str = (NSString *)o; \
+        NSString *str = (NSString *)obj; \
         value = @([str intergerValueSupportingHex]); \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-        value = [NSNumber numberWithInt:[o[0] intValue]]; \
+        value = [NSNumber numberWithInt:[obj[0] intValue]]; \
     } \
-    else if([o isKindOfClass:[NSNumber class]]) \
+    else if([obj isKindOfClass:[NSNumber class]]) \
     { \
-        value = [NSNumber numberWithInt:[o intValue]]; \
-    } \
-}
-
-#define STRING(dict,name,value,dbname,tag,dbname,tag,options) \
-if(dict[@(name)]!=NULL) \
-{ \
-    id o = dict[@(name)]; \
-    if([o isKindOfClass:[NSString class]]) \
-    { \
-        value = o; \
-    } \
-    else if([o isKindOfClass:[NSArray class]]) \
-    { \
-         value = [((NSArray *)o) componentsJoinedByString:@";"]; \
+        value = [NSNumber numberWithInt:[obj intValue]]; \
     } \
 }
 
-
-#define FILTERED_STRING(dict,name,value,dbname,tag,dbname,tag,options) \
-if(dict[@(name)]!=NULL) \
+#define STRING(o,name,value,dbname,tag,options) \
+if(o[@(name)]!=NULL) \
 { \
-    id o0 = dict[@(name)]; \
+    id obj = o[@(name)]; \
+    if([obj isKindOfClass:[NSString class]]) \
+    { \
+        value = obj; \
+    } \
+    else if([obj isKindOfClass:[NSArray class]]) \
+    { \
+         value = [((NSArray *)obj) componentsJoinedByString:@";"]; \
+    } \
+}
+
+
+#define FILTERED_STRING(o,name,value,dbname,tag,options) \
+if(o[@(name)]!=NULL) \
+{ \
+    id o0 = o[@(name)]; \
     if([o0 isKindOfClass:[NSString class]]) \
     { \
         value = [UMSS7ConfigObject filterName:o0]; \
@@ -108,40 +108,40 @@ if(dict[@(name)]!=NULL) \
     } \
 }
 
-#define DATE(dict,name,value,dbname,tag,dbname,tag,options) \
+#define DATE(o,name,value,dbname,tag,options) \
 if(dict[@(name)]!=NULL) \
 { \
-    id o = dict[@(name)]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = o[@(name)]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = [o dateValue]; \
+        value = [obj dateValue]; \
     } \
-    else if([o isKindOfClass:[NSDate class]]) \
+    else if([obj isKindOfClass:[NSDate class]]) \
     { \
         value = o; \
     } \
-    else if([o isKindOfClass:[NSNumber class]]) \
+    else if([obj isKindOfClass:[NSNumber class]]) \
     { \
-        value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[o doubleValue]]; \
+        value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[obj doubleValue]]; \
     } \
 }
 
 
-#define ARRAY_COMPACT(dict,name,value,dbname,tag,dbname,tag,options) \
-if(dict[@(name)]!=NULL) \
+#define ARRAY_COMPACT(o,name,value,dbname,tag,options) \
+if(o[@(name)]!=NULL) \
 { \
-    id o = dict[@(name)]; \
-    if([o isKindOfClass:[NSString class]]) \
+    id obj = dict[@(name)]; \
+    if([obj isKindOfClass:[NSString class]]) \
     { \
-        value = [((NSString *)o) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \t;"]]; \
+        value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \t;"]]; \
     } \
-    else if([o isKindOfClass:[NSArray class]]) \
+    else if([obj isKindOfClass:[NSArray class]]) \
     { \
-        value = o; \
+        value = obj; \
     } \
 }
 
-#define ARRAY_VERBOSE(dict,name,value,dbname,tag,options) ARRAY_COMPACT(dict,name,value,dbname,tag,options)
+#define ARRAY_VERBOSE(o,name,value,dbname,tag,options) ARRAY_COMPACT(o,name,value,dbname,tag,options)
 
 
 

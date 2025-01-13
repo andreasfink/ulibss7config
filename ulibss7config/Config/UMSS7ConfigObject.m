@@ -26,13 +26,13 @@
     return @"undefined";
 }
 
-- (UMSS7ConfigObject *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigObject *)initWithConfig:(NSDictionary *)o
 {
     self = [super init];
     if(self)
     {
         _subEntries =     [[NSMutableArray<UMSS7ConfigObject *> alloc] init];
-        [self setSuperConfig:dict];
+        [self setSuperConfig:o];
     }
     return self;
 }
@@ -44,24 +44,24 @@
     return s;
 }
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    return [self appendConfigToString:s withoutName:NO];
+    return [self appendConfigToString:o withoutName:NO];
 }
 
-- (void)appendConfigToString:(NSMutableString *)s withoutName:(BOOL)withoutName
+- (void)appendConfigToString:(NSMutableString *)o withoutName:(BOOL)withoutName
 {
-    [s appendFormat:@"\n"];
-    APPEND_CONFIG_STRING(s,@"group",self.type);
+    [o appendFormat:@"\n"];
+    APPEND_CONFIG_STRING(o,@"group",self.type);
     if(withoutName==NO)
     {
-        APPEND_CONFIG_STRING(s,@"name",_name);
+        APPEND_CONFIG_STRING(o,@"name",_name);
     }
-    APPEND_CONFIG_STRING(s,@"description",_objectDescription);
-    APPEND_CONFIG_BOOLEAN(s,@"enable",_enabled);
-    APPEND_CONFIG_INTEGER(s,@"log-level",_logLevel);
-    APPEND_CONFIG_STRING(s,@"log-file",_logFile);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"comment",_comments); /* this will write multipe comment=.. lines */
+    APPEND_CONFIG_STRING(o,@"description",_objectDescription);
+    APPEND_CONFIG_BOOLEAN(o,@"enable",_enabled);
+    APPEND_CONFIG_INTEGER(o,@"log-level",_logLevel);
+    APPEND_CONFIG_STRING(o,@"log-file",_logFile);
+    APPEND_CONFIG_ARRAY_VERBOSE(o,@"comment",_comments); /* this will write multipe comment=.. lines */
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -71,19 +71,19 @@
 
 - (UMSynchronizedSortedDictionary *)configWithoutName:(BOOL)withoutName
 {
-    UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
-    APPEND_DICT_STRING(dict,@"group",self.type);
+    UMSynchronizedSortedDictionary *o = [[UMSynchronizedSortedDictionary alloc]init];
+    APPEND_DICT_STRING(o,@"group",self.type);
     if((withoutName==NO) && (_name.length >0))
     {
-        APPEND_DICT_STRING(dict,@"name",_name);
+        APPEND_DICT_STRING(o,@"name",_name);
     }
-    APPEND_DICT_STRING(dict,@"description",_objectDescription);
-    APPEND_DICT_BOOLEAN(dict,@"enable",_enabled);
-    APPEND_DICT_INTEGER(dict,@"log-level",_logLevel);
-    APPEND_DICT_STRING(dict,@"log-file",_logFile);
+    APPEND_DICT_STRING(o,@"description",_objectDescription);
+    APPEND_DICT_BOOLEAN(o,@"enable",_enabled);
+    APPEND_DICT_INTEGER(o,@"log-level",_logLevel);
+    APPEND_DICT_STRING(o,@"log-file",_logFile);
     NSString *commentsAsString = [_comments componentsJoinedByString:@"\n"];
-    APPEND_DICT_STRING(dict,@"comment",commentsAsString);
-    return dict;
+    APPEND_DICT_STRING(o,@"comment",commentsAsString);
+    return o;
 }
 
 - (NSArray *)subConfig
@@ -96,7 +96,7 @@
     return array;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
     /* to be defined in subclass */
 }
@@ -151,10 +151,10 @@
         _name = newName;
         _nameChanged = YES;
     }
-    SET_DICT_STRING(dict,@"description",_objectDescription);
-    SET_DICT_BOOLEAN(dict,@"enable",_enabled);
-    SET_DICT_INTEGER(dict,@"log-level",_logLevel);
-    SET_DICT_STRING(dict,@"log-file",_logFile);
+    SET_DICT_STRING(o,@"description",_objectDescription);
+    SET_DICT_BOOLEAN(o,@"enable",_enabled);
+    SET_DICT_INTEGER(o,@"log-level",_logLevel);
+    SET_DICT_STRING(o,@"log-file",_logFile);
     id comments = dict[@"comment"];
     if([comments isKindOfClass:[NSArray class]])
     {

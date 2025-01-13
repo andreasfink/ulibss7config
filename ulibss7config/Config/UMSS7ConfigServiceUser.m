@@ -31,38 +31,38 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s];
-    APPEND_CONFIG_STRING(s,@"password",_password);
-    APPEND_CONFIG_STRING(s,@"groupname",_groupname);
-    APPEND_CONFIG_STRING(s,@"useroptions",_useroptions);
-    APPEND_CONFIG_STRING(s,@"short-id",_shortId);
-    APPEND_CONFIG_DOUBLE(s,@"speed-limit",_speedLimit);
-    APPEND_CONFIG_STRING(s,@"billing-entity",_billingEntity);
+    [super appendConfigToString:o];
+    APPEND_CONFIG_STRING(o,@"password",_password);
+    APPEND_CONFIG_STRING(o,@"groupname",_groupname);
+    APPEND_CONFIG_STRING(o,@"useroptions",_useroptions);
+    APPEND_CONFIG_STRING(o,@"short-id",_shortId);
+    APPEND_CONFIG_DOUBLE(o,@"speed-limit",_speedLimit);
+    APPEND_CONFIG_STRING(o,@"billing-entity",_billingEntity);
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super config];
-    APPEND_DICT_STRING(dict,@"password",_password);
-    APPEND_DICT_STRING(dict,@"groupname",_groupname);
-    APPEND_DICT_STRING(dict,@"useroptions",_useroptions);
-    APPEND_DICT_STRING(dict,@"short-id",_shortId);
-    APPEND_DICT_DOUBLE(dict,@"speed-limit",_speedLimit);
-    APPEND_DICT_STRING(dict,@"billing-entity",_billingEntity);
-    return dict;
+    UMSynchronizedSortedDictionary *o = [super config];
+    APPEND_DICT_STRING(o,@"password",_password);
+    APPEND_DICT_STRING(o,@"groupname",_groupname);
+    APPEND_DICT_STRING(o,@"useroptions",_useroptions);
+    APPEND_DICT_STRING(o,@"short-id",_shortId);
+    APPEND_DICT_DOUBLE(o,@"speed-limit",_speedLimit);
+    APPEND_DICT_STRING(o,@"billing-entity",_billingEntity);
+    return o;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(dict,@"password",_password);
-    SET_DICT_STRING(dict,@"groupname",_groupname);
-    SET_DICT_STRING(dict,@"useroptions",_useroptions);
-    SET_DICT_STRING(dict,@"short-id",_shortId);
-    SET_DICT_DOUBLE(dict,@"speed-limit",_speedLimit);
-    SET_DICT_STRING(dict,@"billing-entity",_billingEntity);
+    SET_DICT_STRING(o,@"password",_password);
+    SET_DICT_STRING(o,@"groupname",_groupname);
+    SET_DICT_STRING(o,@"useroptions",_useroptions);
+    SET_DICT_STRING(o,@"short-id",_shortId);
+    SET_DICT_DOUBLE(o,@"speed-limit",_speedLimit);
+    SET_DICT_STRING(o,@"billing-entity",_billingEntity);
 }
 
 - (UMSS7ConfigServiceUser *)copyWithZone:(NSZone *)zone

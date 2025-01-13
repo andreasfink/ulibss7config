@@ -44,24 +44,24 @@
 }
 
 
-- (void)appendConfigToString:(NSMutableString *)s
+- (void)appendConfigToString:(NSMutableString *)o
 {
-	[super appendConfigToString:s];
+	[super appendConfigToString:o];
     APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
     APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-	UMSynchronizedSortedDictionary *dict = [super config];
+	UMSynchronizedSortedDictionary *o = [super config];
     APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     return dict;
 }
 
-- (void)setConfig:(NSDictionary *)dict
+- (void)setConfig:(NSDictionary *)o
 {
-    [self setSuperConfig:dict];
+    [self setSuperConfig:o];
     SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
     SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
     if(dict[@"actions"])

@@ -42,8 +42,8 @@
 - (NSString *)configString;
 - (NSString *)type;
 
-- (void)appendConfigToString:(NSMutableString *)s;
-- (void)appendConfigToString:(NSMutableString *)s withoutName:(BOOL)withoutName;
+- (void)appendConfigToString:(NSMutableString *)o;
+- (void)appendConfigToString:(NSMutableString *)o withoutName:(BOOL)withoutName;
 
 - (UMSynchronizedSortedDictionary *)config;
 - (UMSynchronizedSortedDictionary *)configWithoutName:(BOOL)withoutName;
