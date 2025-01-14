@@ -37,13 +37,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_STRING(o,@"sccp",_sccp);
-    APPEND_CONFIG_STRING(o,@"license-directory",_licenseDirectory);
-    APPEND_CONFIG_STRING(o,@"filter-engine-directory",_filterEngineDirectory);
-    APPEND_CONFIG_STRING(o,@"gtt-accounting-db-pool",_gttAccountingDbPool);
-    APPEND_CONFIG_STRING(o,@"gtt-accounting-table",_gttAccountingTable);
-    APPEND_CONFIG_STRING(o,@"gtt-accounting-prefixes-table",_gttAccountingPrefixesTable);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigESTP.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

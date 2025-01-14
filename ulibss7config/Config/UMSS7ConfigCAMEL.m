@@ -35,18 +35,10 @@
 
 - (void)appendConfigToString:(NSMutableString *)o
 {
-#if(USE_NEW_SS7CONFIG_MACROS)
+
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-
-    [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"address",_address);
-    APPEND_CONFIG_STRING(o,@"ssn",_ssn);
-    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
-#endif
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -71,7 +63,7 @@
 {
     [self setSuperConfig:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
 #else

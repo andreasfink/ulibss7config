@@ -34,15 +34,10 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#if(USE_NEW_SS7CONFIG_MACROS)
+    
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigGSMMAPFilterEntry.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-
-    APPEND_CONFIG_STRING(o,@"filter",_filter);
-    APPEND_CONFIG_STRING(o,@"result",_result);
-#endif
 }
 
 
@@ -58,20 +53,15 @@
     APPEND_DICT_STRING(o,@"filter",_filter);
     APPEND_DICT_STRING(o,@"result",_result);
 #endif
-    return dict;
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-#if(USE_NEW_SS7CONFIG_MACROS)
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigGSMMAPFilterEntry.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    SET_DICT_STRING(o,@"filter",_filter);
-    SET_DICT_STRING(o,@"result",_result);
-#endif
 }
 
 - (UMSS7ConfigGSMMAPFilterEntry *)copyWithZone:(NSZone *)zone

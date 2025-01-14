@@ -34,11 +34,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"filter",_filter);
-    APPEND_CONFIG_STRING(o,@"result",_result);
-    APPEND_CONFIG_STRING(o,@"opc",_result);
-    APPEND_CONFIG_STRING(o,@"dpc",_result);
-    APPEND_CONFIG_INTEGER(o,@"si",_result);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3FilterEntry.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

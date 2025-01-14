@@ -36,36 +36,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"mtp3-linkset",_mtp3LinkSet);
-    APPEND_CONFIG_STRING(o,@"m2pa",_m2pa);
-    APPEND_CONFIG_INTEGER(o,@"slc",_slc);
-    APPEND_CONFIG_DOUBLE(o,@"link-test-time",_linkTestTime);
-    APPEND_CONFIG_DOUBLE(o,@"link-test-ack-time",_linkTestAckTime);
-    APPEND_CONFIG_DOUBLE(o,@"reopen-timer1",_reopenTimer1);
-    APPEND_CONFIG_DOUBLE(o,@"reopen-timer2",_reopenTimer2);
-
-    APPEND_CONFIG_INTEGER(o,@"m2pa-window-size",_m2pa_windowSize);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t1",_m2pa_t1);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t2",_m2pa_t2);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t3",_m2pa_t3);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t4e",_m2pa_t4e);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t4n",_m2pa_t4n);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t5",_m2pa_t5);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t6",_m2pa_t6);
-    APPEND_CONFIG_DOUBLE(o,@"m2pa-t7",_m2pa_t7);
-    APPEND_CONFIG_STRING(o,@"m2pa-state-machine-log",_m2pa_stateMachineLog);
-
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"sctp-local-ip",_sctp_localAddresses);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"sctp-remote-ip",_sctp_remoteAddresses);
-    APPEND_CONFIG_INTEGER(o,@"sctp-local-port",_sctp_localPort);
-    APPEND_CONFIG_INTEGER(o,@"sctp-remote-port",_sctp_remotePort);
-    APPEND_CONFIG_BOOLEAN(o,@"sctp-allow-any-remote-port-inbound",_sctp_allowAnyRemotePortIncoming);
-    APPEND_CONFIG_BOOLEAN(o,@"sctp-passive",_sctp_passive);
-    APPEND_CONFIG_DOUBLE(o,@"sctp-heartbeat",_sctp_heartbeat);
-    APPEND_CONFIG_INTEGER(o,@"sctp-mtu",_sctp_mtu);
-    APPEND_CONFIG_INTEGER(o,@"sctp-max-init-timeout",_sctp_maxInitTimeout);
-    APPEND_CONFIG_INTEGER(o,@"sctp-max-init-attempts",_sctp_maxInitAttempts);
-
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3Link.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

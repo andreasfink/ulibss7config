@@ -36,23 +36,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigCdrWriter.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    APPEND_CONFIG_STRING(o,@"cdr-type",_cdrType);
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_INTEGER(o,@"cdr-queue-limit",_cdrQueueLimit);
-    APPEND_CONFIG_STRING(o,@"cdr-file-prefix",_cdrFilePrefix);
-    APPEND_CONFIG_DOUBLE(o,@"reopen-time",_reopenTime);
-    APPEND_CONFIG_STRING(o,@"date-format",_dateFormat);
-    APPEND_CONFIG_STRING(o,@"time-zone",_timeZone);
-    APPEND_CONFIG_STRING(o,@"locale",_locale);
-    APPEND_CONFIG_STRING(o,@"table-name",_tableName);
-    APPEND_CONFIG_BOOLEAN(o,@"auto-create",_autoCreate);
-    APPEND_CONFIG_STRING(o,@"pool-name",_poolName);
-#endif
 }
 
 
@@ -85,7 +71,7 @@
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigCdrWriter.def.h"
 #include "UMSS7Config_macroClear.h"
 }

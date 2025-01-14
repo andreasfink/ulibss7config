@@ -35,18 +35,10 @@
 
 - (void)appendConfigToString:(NSMutableString *)o
 {
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigHLR.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_STRING(o,@"imsi-pool",_imsiPool);
-    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
-    APPEND_CONFIG_INTEGER(o,@"answer-translation-type",_answerTranslationType);
-#endif
+
 }
 
 
@@ -77,7 +69,7 @@
     [self setSuperConfig:o];
     
 #if(USE_NEW_SS7CONFIG_MACROS)
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigHLR.def.h"
 #include "UMSS7Config_macroClear.h"
 #else

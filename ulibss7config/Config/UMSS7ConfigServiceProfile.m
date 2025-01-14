@@ -53,7 +53,7 @@
 
 - (void)setConfig:(NSDictionary *)o
 {
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigServiceProfile.def.h"
 #include "UMSS7Config_macroClear.h"
 }

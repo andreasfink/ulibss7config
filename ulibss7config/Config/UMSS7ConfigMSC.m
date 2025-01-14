@@ -36,13 +36,10 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
-    APPEND_CONFIG_STRING(o,@"sms-forward-url",_smsForwardUrl);
-    APPEND_CONFIG_INTEGER(o,@"sms-error-code",_smsErrorCode);
-    APPEND_CONFIG_INTEGER(o,@"answer-translation-type",_answerTranslationType);
-    APPEND_CONFIG_STRING(o,@"imsi-pool",_imsiPool);
+
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigMSC.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
@@ -50,28 +47,20 @@
 {
     UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(o,@"number",_number);
-    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
-    APPEND_DICT_STRING(o,@"sms-forward-url",_smsForwardUrl);
-    APPEND_DICT_INTEGER(o,@"sms-error-code",_smsErrorCode);
-    APPEND_DICT_INTEGER(o,@"answer-translation-type",_answerTranslationType);
-    APPEND_DICT_STRING(o,@"imsi-pool",_imsiPool);
-
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMSC.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
-    SET_DICT_STRING(o,@"number",_number);
-    SET_DICT_DOUBLE(o,@"timeout",_timeout);
-    SET_DICT_STRING(o,@"sms-forward-url",_smsForwardUrl);
-    SET_DICT_INTEGER(o,@"sms-error-code",_smsErrorCode);
-    SET_DICT_INTEGER(o,@"answer-translation-type",_answerTranslationType);
-    SET_DICT_STRING(o,@"imsi-pool",_imsiPool);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigMSC.def.h"
+#include "UMSS7Config_macroClear.h"
 }
+
 
 - (UMSS7ConfigMSC *)copyWithZone:(NSZone *)zone
 {

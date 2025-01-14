@@ -36,31 +36,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"variant",_variant);
-    APPEND_CONFIG_STRING(o,@"mode",_mode);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"next-pc",_next_pc);
-    //APPEND_CONFIG_INTEGER(o,@"ntt",_overrideCalledTT);
-    APPEND_CONFIG_INTEGER(o,@"set-called-tt",_overrideCalledTT);
-    APPEND_CONFIG_INTEGER(o,@"set-calling-tt",_overrideCallingTT);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"gt-file",_gtFiles);
-    APPEND_CONFIG_STRING(o,@"problematic-packets-trace-file",_problematicPacketsTraceFile);
-    APPEND_CONFIG_STRING(o,@"unrouteable-packets-trace-file",_unrouteablePacketsTraceFile);
-    APPEND_CONFIG_BOOLEAN(o,@"route-errors-back-to-originating-pointcode",_routeErrorsBackToOriginatingPointCode);
-    APPEND_CONFIG_STRING(o,@"statistic-db-pool",_statisticDbPool);
-    APPEND_CONFIG_STRING(o,@"statistic-db-table",_statisticDbTable);
-    APPEND_CONFIG_STRING(o,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_CONFIG_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
-    APPEND_CONFIG_BOOLEAN(o,@"automatic-ansi-itu-conversion",_automaticAnsiItuConversion);
-    APPEND_CONFIG_INTEGER(o,@"ansi-tt-e164",_ansi_tt_e164);
-    APPEND_CONFIG_INTEGER(o,@"ansi-tt-e212",_ansi_tt_e212);
-    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-name",_screeningSccpPluginName);
-    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-config-file",_screeningSccpPluginConfigFile);
-    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile);
-    APPEND_CONFIG_INTEGER(o,@"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel);
-    APPEND_CONFIG_STRING(o,@"sms-log-server-in-zmq",_smsLogServerZmqIn);
-    APPEND_CONFIG_STRING(o,@"sms-log-server-out-zmq",_smsLogServerZmqOut);
-
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSCCP.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSynchronizedSortedDictionary *)config

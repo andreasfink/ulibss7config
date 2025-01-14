@@ -34,24 +34,10 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    
-#if(USE_NEW_SS7CONFIG_MACROS)
+
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigGeneral.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    APPEND_CONFIG_STRING(o,@"hostname",_hostname);
-    APPEND_CONFIG_STRING(o,@"log-directory",_logDirectory);
-    APPEND_CONFIG_INTEGER(o,@"log-rotations",_logRotations);
-    APPEND_CONFIG_STRING(o,@"config-store",_configStore);
-    APPEND_CONFIG_INTEGER(o,@"concurrent-tasks",_concurrentTasks);
-    APPEND_CONFIG_INTEGER(o,@"queue-hard-limit",_queueHardLimit);
-    APPEND_CONFIG_INTEGER(o,@"transaction-id-range",_transactionIdRange);
-    APPEND_CONFIG_BOOLEAN(o,@"send-sctp-aborts",_sendSctpAborts);
-    APPEND_CONFIG_STRING(o,@"filter-engine-directory",_filterEngineDirectory);
-    APPEND_CONFIG_STRING(o,@"zmq-socket",_zmqSocket);
-    APPEND_CONFIG_STRING(o,@"gui",_gui);
-#endif
 
 }
 
@@ -85,7 +71,7 @@
 - (void)setConfig:(NSDictionary *)o
 {
 #if(USE_NEW_SS7CONFIG_MACROS)
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigGeneral.def.h"
 #include "UMSS7Config_macroClear.h"
 #else

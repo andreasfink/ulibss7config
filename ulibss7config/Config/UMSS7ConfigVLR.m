@@ -37,15 +37,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
-    APPEND_CONFIG_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
-    APPEND_CONFIG_STRING(o,@"full-trace-directory",_fullTraceDirectory);
-
-    APPEND_CONFIG_STRING(o,@"status-update-url",_statusUpdateUrl);
-    APPEND_CONFIG_STRING(o,@"roaming-number",_roamingNumber);
-    APPEND_CONFIG_STRING(o,@"roaming-number-url",_roamingNumberUrl);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigVLR.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

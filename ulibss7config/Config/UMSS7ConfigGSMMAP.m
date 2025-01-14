@@ -57,7 +57,7 @@
 {
     [self setSuperConfig:o];
     
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigGSMMAP.def.h"
 #include "UMSS7Config_macroClear.h"
     

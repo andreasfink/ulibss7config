@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/UMSS7ConfigObject.h>
+#import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigMacroHelper.h"
 
 @implementation UMSS7ConfigObject
@@ -52,16 +52,17 @@
 - (void)appendConfigToString:(NSMutableString *)o withoutName:(BOOL)withoutName
 {
     [o appendFormat:@"\n"];
-    APPEND_CONFIG_STRING(o,@"group",self.type);
+
+    appendConfig_STRING(o,"group", self.type,"group",1,"index");
     if(withoutName==NO)
     {
-        APPEND_CONFIG_STRING(o,@"name",_name);
+        appendConfig_STRING(o,"name",_name,"name",2,"index,unique");
     }
-    APPEND_CONFIG_STRING(o,@"description",_objectDescription);
-    APPEND_CONFIG_BOOLEAN(o,@"enable",_enabled);
-    APPEND_CONFIG_INTEGER(o,@"log-level",_logLevel);
-    APPEND_CONFIG_STRING(o,@"log-file",_logFile);
-    APPEND_CONFIG_ARRAY_VERBOSE(o,@"comment",_comments); /* this will write multipe comment=.. lines */
+    appendConfig_STRING(o,"description",_objectDescription,"description",3,"");
+    appendConfig_BOOLEAN(o,"enable",_enabled,"enable",4,"");
+    appendConfig_INTEGER(o,"log-level",_logLevel,"log_level",5,"");
+    appendConfig_STRING(o,"log-file",_logFile,"log_file",6,"");
+    appendConfig_ARRAY_VERBOSE(o,"comment",_comments,"comment",7,"");
 }
 
 - (UMSynchronizedSortedDictionary *)config
@@ -72,17 +73,22 @@
 - (UMSynchronizedSortedDictionary *)configWithoutName:(BOOL)withoutName
 {
     UMSynchronizedSortedDictionary *o = [[UMSynchronizedSortedDictionary alloc]init];
-    APPEND_DICT_STRING(o,@"group",self.type);
+    
+    
+#include "UMSS7Config_macroAppendDict.h"
+
+    appendDict_STRING(o,"group", self.type,"group",1,"index");
     if((withoutName==NO) && (_name.length >0))
     {
-        APPEND_DICT_STRING(o,@"name",_name);
+        appendDict_STRING(o,"name",_name,"name",2,"index,unique");
     }
-    APPEND_DICT_STRING(o,@"description",_objectDescription);
-    APPEND_DICT_BOOLEAN(o,@"enable",_enabled);
-    APPEND_DICT_INTEGER(o,@"log-level",_logLevel);
-    APPEND_DICT_STRING(o,@"log-file",_logFile);
-    NSString *commentsAsString = [_comments componentsJoinedByString:@"\n"];
-    APPEND_DICT_STRING(o,@"comment",commentsAsString);
+    STRING(o,"description",_objectDescription,"description",3,"");
+    BOOLEAN(o,"enable",_enabled,"enable",4,"");
+    INTEGER(o,"log-level",_logLevel,"log_level",5,"");
+    STRING(o,"log-file",_logFile,"log_file",6,"");
+    ARRAY_VERBOSE(o,"comment",_comments,"comment",7,"");
+#include "UMSS7Config_macroClear.h"
+
     return o;
 }
 
@@ -106,14 +112,14 @@
     /* to be defined in subclass */
 }
 
-- (void)setSuperConfig:(NSDictionary *)dict
+- (void)setSuperConfig:(NSDictionary *)o
 {
     /* group can not be set as the subclass defines it statically.
      So we already have to be the right object */
 
     /* names can only be filtered names */
-    NSString *group =  dict[@"group"];
-    id n = dict[@"name"];
+    NSString *group =  o[@"group"];
+    id n = o[@"name"];
     if(n==NULL)
     {
         if(   (![group isEqualToString:@"general"])
@@ -144,18 +150,22 @@
         NSLog(@"Warning: Not a string for an object name. Probably misconfiguration: %@ in group %@",n,group);
     }
 
-    NSString *newName = [UMSS7ConfigObject filterName:dict[@"newname"]];
+    NSString *newName = [UMSS7ConfigObject filterName:o[@"newname"]];
     if((newName.length > 0) && (![newName isEqualToString:_name]))
     {
         _oldName = _name;
         _name = newName;
         _nameChanged = YES;
     }
-    SET_DICT_STRING(o,@"description",_objectDescription);
-    SET_DICT_BOOLEAN(o,@"enable",_enabled);
-    SET_DICT_INTEGER(o,@"log-level",_logLevel);
-    SET_DICT_STRING(o,@"log-file",_logFile);
-    id comments = dict[@"comment"];
+    
+#include "UMSS7Config_macroSetConfigFromDict.h"
+     STRING(o,"description",_objectDescription,"description",3,"");
+     BOOLEAN(o,"enable",_enabled,"enable",4,"");
+     INTEGER(o,"log-level",_logLevel,"log_level",5,"");
+     STRING(o,"log-file",_logFile,"log_file",6,"");
+#include "UMSS7Config_macroClear.h"
+
+    id comments = o[@"comment"];
     if([comments isKindOfClass:[NSArray class]])
     {
         _comments = (NSArray *)comments;

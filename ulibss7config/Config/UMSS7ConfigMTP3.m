@@ -35,20 +35,10 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"variant",_variant);
-    APPEND_CONFIG_STRING(o,@"opc",_opc);
-    APPEND_CONFIG_STRING(o,@"ni",_networkIndicator);
-    APPEND_CONFIG_STRING(o,@"mode",_mode);
-    APPEND_CONFIG_STRING(o,@"problematic-packet-dumper",_problematicPacketDumper);
-    APPEND_CONFIG_STRING(o,@"routing-update-log",_routingUpdateLog);
-    APPEND_CONFIG_STRING(o,@"routing-update-db-pool",_routingUpdateDbPool);
-    APPEND_CONFIG_STRING(o,@"routing-update-db-table",_routingUpdateDbTable);
-    APPEND_CONFIG_STRING(o,@"routing-update-db-instance",_routingUpdateDbInstance);
-    APPEND_CONFIG_BOOLEAN(o,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
-    APPEND_CONFIG_STRING(o,@"statistic-db-pool",_statisticDbPool);
-    APPEND_CONFIG_STRING(o,@"statistic-db-table",_statisticDbTable);
-    APPEND_CONFIG_STRING(o,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_CONFIG_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 - (UMSynchronizedSortedDictionary *)config

@@ -35,13 +35,16 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"default-result",_defaultResult);
-    APPEND_CONFIG_STRING(o,@"plug-in",_plugIn);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3Filter.def.h"
+#include "UMSS7Config_macroClear.h"
+
     for(UMSS7ConfigMTP3FilterEntry *e in _subEntries)
     {
         [s appendString:@"\n"];
         [e appendConfigToString:s];
     }
+
 }
 
 

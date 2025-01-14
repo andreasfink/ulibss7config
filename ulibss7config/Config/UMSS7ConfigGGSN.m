@@ -36,10 +36,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
-    APPEND_CONFIG_INTEGER(o,@"answer-translation-type",_answerTranslationType);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigGGSN.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

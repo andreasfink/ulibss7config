@@ -36,14 +36,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigIMSIPool.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    APPEND_CONFIG_STRING(o,@"imsi-prefix",_imsiPrefix);
-    APPEND_CONFIG_DOUBLE(o,@"cache-timer",_cacheTimer);
-#endif
 }
 
 
@@ -66,7 +61,7 @@
 {
     [self setSuperConfig:o];
 #if(USE_NEW_SS7CONFIG_MACROS)
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigIMSIPool.def.h"
 #include "UMSS7Config_macroClear.h"
 #else

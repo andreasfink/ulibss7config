@@ -12,7 +12,7 @@
 /*  appendConfig functions  */
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 
-void appendConfig_BOOLEAN(NSMutableString *str,char *name,NSNumber *value,const char *dbname,int tag,const char *options)
+void appendConfig_BOOLEAN(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
 {
     if(value!=NULL)
     {
@@ -104,7 +104,7 @@ void appendConfig_ARRAY_COMPACT(NSMutableString *str,const char *name,NSArray *a
 /*  appendDict functions  */
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 
-void appendDict_BOOLEAN(UMSynchronizedSortedDictionary *dict,char *name,NSNumber *value,const char *dbname,int tag,const char *options)
+void appendDict_BOOLEAN(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
 {
     if(value!=NULL)
     {
@@ -112,7 +112,7 @@ void appendDict_BOOLEAN(UMSynchronizedSortedDictionary *dict,char *name,NSNumber
     }
 }
 
-void appendDict_DOUBLE(UMSynchronizedSortedDictionary *dict,char *name,NSNumber *value,const char *dbname,int tag,const char *options)
+void appendDict_DOUBLE(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
 {
     if(value!=NULL)
     {
@@ -120,7 +120,7 @@ void appendDict_DOUBLE(UMSynchronizedSortedDictionary *dict,char *name,NSNumber 
     }
 }
 
-void appendDict_INTEGER(UMSynchronizedSortedDictionary *dict,char *name,NSNumber *value,const char *dbname,int tag,const char *options)
+void appendDict_INTEGER(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
 
 {
     if(value!=NULL)
@@ -185,100 +185,108 @@ void appendDict_ARRAY_VERBOSE(UMSynchronizedSortedDictionary *dict,const char *n
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 
 
-void setConfig_BOOLEAN(NSDictionary *o,char *name,NSNumber **value,const char *dbname,int tag,const char *options)
+NSNumber *setConfigFromDict_BOOLEAN(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSNumber *value;
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
-            *value = [NSNumber numberWithBool:[obj boolValue]];
+            value = [NSNumber numberWithBool:[obj boolValue]];
         }
         else if([obj isKindOfClass:[NSArray class]])
         {
-            *value = [NSNumber numberWithBool:[obj[0] boolValue]];
+            value = [NSNumber numberWithBool:[obj[0] boolValue]];
         }
         else if([obj isKindOfClass:[NSNumber class]])
         {
-            *value = [NSNumber numberWithBool:[obj boolValue]];
+            value = [NSNumber numberWithBool:[obj boolValue]];
         }
     }
+    return value;
 }
 
-void setConfig_DOUBLE(NSDictionary *o,char *name,NSNumber **value,const char *dbname,int tag,const char *options)
+NSNumber *setConfigFromDict_DOUBLE(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSNumber *value;
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
-            *value = [NSNumber numberWithDouble:[obj doubleValue]];
+            value = [NSNumber numberWithDouble:[obj doubleValue]];
         }
         else if([obj isKindOfClass:[NSArray class]])
         {
-            *value = [NSNumber numberWithDouble:[obj[0] doubleValue]];
+            value = [NSNumber numberWithDouble:[obj[0] doubleValue]];
         }
         else if([obj isKindOfClass:[NSNumber class]])
         {
-            *value = [NSNumber numberWithDouble:[obj doubleValue]];
+            value = [NSNumber numberWithDouble:[obj doubleValue]];
         }
     }
+    return value;
 }
 
 
-void setConfig_INTEGER(NSDictionary *o,char *name,NSNumber **value,const char *dbname,int tag,const char *options)
+NSNumber * setConfigFromDict_INTEGER(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSNumber *value;
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
             NSString *str = (NSString *)obj;
-            *value = @([str intergerValueSupportingHex]);
+            value = @([str intergerValueSupportingHex]);
         }
         else if([obj isKindOfClass:[NSArray class]])
         {
-            *value = [NSNumber numberWithInt:[obj[0] intValue]];
+            value = [NSNumber numberWithInt:[obj[0] intValue]];
         }
         else if([obj isKindOfClass:[NSNumber class]])
         {
-            *value = [NSNumber numberWithInt:[obj intValue]];
+            value = [NSNumber numberWithInt:[obj intValue]];
         }
     }
+    return value;
 }
 
-void setConfig_STRING(NSDictionary *o,char *name,NSString **value,const char *dbname,int tag,const char *options)
+NSString *setConfigFromDict_STRING(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSString *value;
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
-            *value = obj;
+            value = obj;
         }
         else if([obj isKindOfClass:[NSArray class]])
         {
-            *value = [((NSArray *)obj) componentsJoinedByString:@";"];
+            value = [((NSArray *)obj) componentsJoinedByString:@";"];
         }
     }
+    return value;
 }
 
-void setConfig_FILTERED_STRING(NSDictionary *o,char *name,NSString **value,const char *dbname,int tag,const char *options)
+NSString * setConfigFromDict_FILTERED_STRING(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
-
+    NSString *value;
     if(o[@(name)]!=NULL)
     {
         id o0 = o[@(name)];
         if([o0 isKindOfClass:[NSString class]])
         {
-            *value = [UMSS7ConfigObject filterName:o0];
+            value = [UMSS7ConfigObject filterName:o0];
         }
         else if([o0 isKindOfClass:[NSArray class]])
         {
             NSMutableArray *a2 = [[NSMutableArray alloc]init];
             id o1;
             NSArray *arr = (NSArray *)o0;
-            for(o1 in o0)
+            for(o1 in arr)
             {
                 if([o1 isKindOfClass:[NSString class]])
                 {
@@ -291,75 +299,85 @@ void setConfig_FILTERED_STRING(NSDictionary *o,char *name,NSString **value,const
                     [a2 addObject: n.stringValue];
                 }
             }
-            *value = [((NSArray *)a2) componentsJoinedByString:@";"];
+            value = [((NSArray *)a2) componentsJoinedByString:@";"];
         }
     }
+    return value;
 }
 
-void setConfig_DATE(NSDictionary *o,char *name,NSDate **value,const char *dbname,int tag,const char *options)
+NSDate * setConfigFromDict_DATE(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSDate *value;
+    
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
-            *value = [obj dateValue];
+            value = [obj dateValue];
         }
         else if([obj isKindOfClass:[NSDate class]])
         {
-            *value = obj;
+            value = obj;
         }
         else if([obj isKindOfClass:[NSNumber class]])
         {
-            *value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[obj doubleValue]]; \
+            value = [[NSDate alloc]initWithTimeIntervalSinceReferenceDate:[obj doubleValue]]; \
         }
     }
+    return value;
 }
 
 
-void setConfig_ARRAY_COMPACT(NSDictionary *o,char *name,NSArray **value,const char *dbname,int tag,const char *options)
+NSArray * setConfigFromDict_ARRAY_COMPACT(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSArray *value;
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
-            *value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \r\n\t;"]];
+            value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \r\n\t;"]];
         }
         else if([obj isKindOfClass:[NSArray class]])
         {
-            *value = obj;
+            value = obj;
         }
     }
+    return value;
 }
-void setConfig_ARRAY_VERBOSE(NSDictionary *o,char *name,NSArray **value,const char *dbname,int tag,const char *options)
 
+NSArray * setConfigFromDict_ARRAY_VERBOSE(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSArray *value;
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
-            *value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \r\n\t;"]];
+            value = [((NSString *)obj) componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \r\n\t;"]];
         }
         else if([obj isKindOfClass:[NSArray class]])
         {
-            *value = obj;
+            value = obj;
         }
     }
+    return value;
 }
 
-void setConfig_HEXDATA(NSDictionary *o,char *name,NSData **value,const char *dbname,int tag,const char *options)
+NSData *setConfigFromDict_HEXDATA(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
+    NSData *value;
     if(o[@(name)]!=NULL)
     {
         id obj = o[@(name)];
         if([obj isKindOfClass:[NSString class]])
         {
             NSString *s = (NSString *)obj;
-            *value = [s unhexedData];
+            value = [s unhexedData];
         }
     }
+    return value;
 }
 
 

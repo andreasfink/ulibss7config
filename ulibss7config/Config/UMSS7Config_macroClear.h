@@ -7,7 +7,6 @@
 //
 
 
-
 #undef BOOLEAN
 #undef DOUBLE
 #undef INTEGER
@@ -16,3 +15,5 @@
 #undef DATE
 #undef ARRAY_VERBOSE
 #undef ARRAY_COMPACT
+#undef HEXDATA
+

@@ -69,7 +69,7 @@
     [self setSuperConfig:o];
     
 #if(USE_NEW_SS7CONFIG_MACROS)
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigGSMMAPFilter.def.h"
 #include "UMSS7Config_macroClear.h"
 #else

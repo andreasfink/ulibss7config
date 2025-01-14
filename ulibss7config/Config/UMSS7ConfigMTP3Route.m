@@ -47,13 +47,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"mtp3",_mtp3);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"dpc",_dpc);
-    APPEND_CONFIG_STRING(o,@"ls",_ls);
-    APPEND_CONFIG_STRING(o,@"as",_as);
-    APPEND_CONFIG_INTEGER(o,@"priority",_priority);
-    APPEND_CONFIG_DOUBLE(o,@"weight",_weight);
-    APPEND_CONFIG_DOUBLE(o,@"local-preference",_localPreference);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3Route.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

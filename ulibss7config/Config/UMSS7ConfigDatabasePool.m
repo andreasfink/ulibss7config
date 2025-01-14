@@ -54,7 +54,7 @@
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-#include "UMSS7Config_macroSetDict.h"
+#include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigDatabasePool.def.h"
 #include "UMSS7Config_macroClear.h"
 }

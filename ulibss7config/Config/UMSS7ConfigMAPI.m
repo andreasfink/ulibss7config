@@ -37,9 +37,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_STRING(o,@"sccp",_sccp);
-    APPEND_CONFIG_STRING(o,@"license-directory",_licenseDirectory);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMAPI.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
