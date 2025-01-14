@@ -34,49 +34,26 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"sccp-number-translation",_sccpNumberTranslation);
-    APPEND_CONFIG_STRING(o,@"in-address",_inAddress);
-    APPEND_CONFIG_STRING(o,@"out-address",_outAddress);
-    APPEND_CONFIG_INTEGER(o,@"new-tt",_replacementTT);
-    APPEND_CONFIG_INTEGER(o,@"new-calling-party-tt",_replacementCallingPartyTT);
-    APPEND_CONFIG_INTEGER(o,@"new-called-party-tt",_replacementCalledPartyTT);
-    APPEND_CONFIG_INTEGER(o,@"new-nai",_replacementNAI);
-    APPEND_CONFIG_INTEGER(o,@"new-np",_replacementNP);
-    APPEND_CONFIG_INTEGER(o,@"remove-digits",_removeDigits);
-    APPEND_CONFIG_STRING(o,@"append-digits",_appendDigits);
-
-
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSCCPNumberTranslationEntry.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"sccp-number-translation",_sccpNumberTranslation);
-    APPEND_DICT_STRING(o,@"in-address",_inAddress);
-    APPEND_DICT_STRING(o,@"out-address",_outAddress);
-    APPEND_DICT_INTEGER(o,@"new-tt",_replacementTT);
-    APPEND_DICT_INTEGER(o,@"new-calling-party-tt",_replacementCallingPartyTT);
-    APPEND_DICT_INTEGER(o,@"new-called-party-tt",_replacementCalledPartyTT);
-    APPEND_DICT_INTEGER(o,@"new-nai",_replacementNAI);
-    APPEND_DICT_INTEGER(o,@"new-np",_replacementNP);
-    APPEND_DICT_INTEGER(o,@"remove-digits",_removeDigits);
-    APPEND_DICT_STRING(o,@"append-digits",_appendDigits);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSCCPNumberTranslationEntry.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_FILTERED_STRING(dict,@"sccp-number-translation",_sccpNumberTranslation);
-    SET_DICT_STRING(o,@"in-address",_inAddress);
-    SET_DICT_STRING(o,@"out-address",_outAddress);
-    SET_DICT_INTEGER(o,@"new-tt",_replacementTT);
-    SET_DICT_INTEGER(o,@"new-calling-party-tt",_replacementCallingPartyTT);
-    SET_DICT_INTEGER(o,@"new-called-party-tt",_replacementCalledPartyTT);
-    SET_DICT_INTEGER(o,@"new-nai",_replacementNAI);
-    SET_DICT_INTEGER(o,@"new-np",_replacementNP);
-    SET_DICT_INTEGER(o,@"remove-digits",_removeDigits);
-    SET_DICT_STRING(o,@"append-digits",_appendDigits);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSCCPNumberTranslationEntry.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSCCPNumberTranslationEntry *)copyWithZone:(NSZone *)zone

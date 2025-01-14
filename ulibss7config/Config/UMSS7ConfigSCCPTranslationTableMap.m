@@ -41,7 +41,7 @@
         NSNumber *value = _map[i];
         if(value!=NULL)
         {
-            [s appendFormat:@"%d=%@\n",i,value];
+            [o appendFormat:@"%d=%@\n",i,value];
         }
     }
 }
@@ -54,10 +54,10 @@
         if(_map[i]!=NULL)
         {
             NSString *n = [NSString stringWithFormat:@"%d",i];
-            dict[n] = [_map[i] copy];
+            o[n] = [_map[i] copy];
         }
     }
-    return dict;
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
@@ -67,10 +67,10 @@
     for(int i=0;i<256;i++)
     {
         NSString *n = [NSString stringWithFormat:@"%d",i];
-        id o = dict[n];
-        if([o isKindOfClass:[NSString class]]) \
+        id o1 = o[n];
+        if([o1 isKindOfClass:[NSString class]]) \
         {
-            NSString *s = o;
+            NSString *s = o1;
             int k = [s intValue];
             if([s isEqualToString:@"*"])
             {
@@ -84,9 +84,9 @@
                 _map[i] =@(k);
             }
         }
-        else if([o isKindOfClass:[NSNumber class]]) \
+        else if([o1 isKindOfClass:[NSNumber class]]) \
         {
-            _map[i]= [o copy];
+            _map[i]= [o1 copy];
         }
         else
         {

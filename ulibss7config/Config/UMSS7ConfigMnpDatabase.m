@@ -34,27 +34,27 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"database-pool",_dbPool);
-    APPEND_CONFIG_STRING(o,@"database-table",_dbTable);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigMnpDatabase.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"database-pool",_dbPool);
-    APPEND_DICT_STRING(o,@"database-table",_dbTable);
-
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMnpDatabase.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"database-pool",_dbPool);
-    SET_DICT_STRING(o,@"database-table",_dbTable);
-
-
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigMnpDatabase.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigMnpDatabase *)copyWithZone:(NSZone *)zone

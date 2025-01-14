@@ -47,7 +47,7 @@
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigMTP3PointCodeTranslationTable.def.h"
 #include "UMSS7Config_macroClear.h"
-    return dict;
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o

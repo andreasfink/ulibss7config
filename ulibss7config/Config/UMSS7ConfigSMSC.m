@@ -36,44 +36,27 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_STRING(o,@"full-trace-directory",_fullTraceDirectory);
-    APPEND_CONFIG_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
-    APPEND_CONFIG_INTEGER(o,@"smsc-translation-type",_smscTranslationType);
-    APPEND_CONFIG_INTEGER(o,@"srism-translation-type",_srismTranslationType);
-    APPEND_CONFIG_INTEGER(o,@"forwardsm-translation-type",_forwardsmTranslationType);
-    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
-
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSMSC.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(o,@"number",_number);
-    APPEND_DICT_STRING(o,@"full-trace-directory",_fullTraceDirectory);
-    APPEND_DICT_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
-    APPEND_DICT_INTEGER(o,@"smsc-translation-type",_smscTranslationType);
-    APPEND_DICT_INTEGER(o,@"srism-translation-type",_srismTranslationType);
-    APPEND_DICT_INTEGER(o,@"forwardsm-translation-type",_forwardsmTranslationType);
-    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSMSC.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
-    SET_DICT_STRING(o,@"number",_number);
-    SET_DICT_STRING(o,@"full-trace-directory",_fullTraceDirectory);
-    SET_DICT_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
-    SET_DICT_INTEGER(o,@"smsc-translation-type",_smscTranslationType);
-    SET_DICT_INTEGER(o,@"srism-translation-type",_srismTranslationType);
-    SET_DICT_INTEGER(o,@"forwardsm-translation-type",_forwardsmTranslationType);
-    SET_DICT_DOUBLE(o,@"timeout",_timeout);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSMSC.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

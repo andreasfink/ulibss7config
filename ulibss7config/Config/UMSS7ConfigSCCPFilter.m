@@ -35,27 +35,27 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"file",_filterFileName);
-    APPEND_CONFIG_STRING(o,@"config",_configFileName);
-    APPEND_CONFIG_STRING(o,@"application-point",_applicationPoint);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSCCPFilter.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"file",_filterFileName);
-    APPEND_DICT_STRING(o,@"config",_configFileName);
-    APPEND_DICT_STRING(o,@"application-point",_applicationPoint);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSCCPFilter.def.h"
+#include "UMSS7Config_macroClear.h"
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"file",_filterFileName);
-    SET_DICT_STRING(o,@"config",_configFileName);
-    SET_DICT_STRING(o,@"application-point",_applicationPoint);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSCCPFilter.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSCCPFilter *)copyWithZone:(NSZone *)zone

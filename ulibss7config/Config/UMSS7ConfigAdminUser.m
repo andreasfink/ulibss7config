@@ -34,23 +34,26 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"password",_password);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"no-auth-ip",_withoutAuthenticationIp);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigAdminUser.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"password",_password);
-    APPEND_DICT_ARRAY(dict,@"no-auth-ip",_withoutAuthenticationIp);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigAdminUser.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(o,@"password",_password);
-    SET_DICT_ARRAY(dict,@"no-auth-ip",_withoutAuthenticationIp);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigAdminUser.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigAdminUser *)copyWithZone:(NSZone *)zone

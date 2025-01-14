@@ -37,24 +37,18 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"filename",_filename);
-    APPEND_CONFIG_STRING(o,@"format",_format);
-    APPEND_CONFIG_INTEGER(o,@"minutes",_minutes);
-    APPEND_CONFIG_INTEGER(o,@"packets",_packets);
-    APPEND_CONFIG_INTEGER(o,@"max-rotations",_maxRotations);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSS7FilterTraceFile.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-
-    APPEND_DICT_STRING(o,@"filename",_filename);
-    APPEND_DICT_STRING(o,@"format",_format);
-    
-    APPEND_DICT_INTEGER(o,@"minutes",_minutes);
-    APPEND_DICT_INTEGER(o,@"packets",_packets);
-    APPEND_DICT_INTEGER(o,@"max-rotations",_maxRotations);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSS7FilterTraceFile.def.h"
+#include "UMSS7Config_macroClear.h"
 
     return o;
 }
@@ -62,12 +56,9 @@
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"filename",_filename);
-    SET_DICT_STRING(o,@"format",_format);
-    SET_DICT_INTEGER(o,@"minutes",_minutes);
-    SET_DICT_INTEGER(o,@"packets",_packets);
-    SET_DICT_INTEGER(o,@"max-rotations",_maxRotations);
-
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSS7FilterTraceFile.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSS7FilterTraceFile *)copyWithZone:(NSZone *)zone

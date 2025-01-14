@@ -49,31 +49,30 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-
-    APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
-    APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_CONFIG_STRING(o,@"status",_status);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSS7FilterRuleSet.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
-    APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_DICT_STRING(o,@"status",_status);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSS7FilterRuleSet.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
-    SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    SET_DICT_STRING(o,@"status",_status);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSS7FilterRuleSet.def.h"
+#include "UMSS7Config_macroClear.h"
 
-    if(dict[@"rules"])
+    if(o[@"rules"])
     {
-        id b = dict[@"rules"];
+        id b = o[@"rules"];
         if([b isKindOfClass:[NSArray class]])
         {
             NSArray *a = (NSArray *)b;

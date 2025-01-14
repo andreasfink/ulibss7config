@@ -35,6 +35,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
+           
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigM3UAAS.def.h"
 #include "UMSS7Config_macroClear.h"
@@ -44,11 +45,10 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigM3UAAS.def.h"
 #include "UMSS7Config_macroClear.h"
-    return dict;
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o

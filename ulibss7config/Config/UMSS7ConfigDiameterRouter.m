@@ -35,18 +35,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"local-hostname",_localHostName);
-    APPEND_CONFIG_STRING(o,@"local-realm",_localRealm);
-    
-    APPEND_CONFIG_STRING(o,@"statistic-db-pool",_statisticDbPool);
-    APPEND_CONFIG_STRING(o,@"statistic-db-table",_statisticDbTable);
-    APPEND_CONFIG_STRING(o,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_CONFIG_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
-    
-    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-name",_screeningDiameterPluginName);
-    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-config-file",_screeningDiameterPluginConfigFile);
-    APPEND_CONFIG_STRING(o,@"screening-sccp-plugin-trace-file",_screeningDiameterPluginTraceFile);
-
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigDiameterRouter.def.h"
+#include "UMSS7Config_macroClear.h"
 
 }
 
@@ -54,33 +45,18 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"local-hostname",_localHostName);
-    APPEND_DICT_STRING(o,@"local-realm",_localRealm);
-    APPEND_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
-    APPEND_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
-    APPEND_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
-    APPEND_DICT_STRING(o,@"screening-diameter-plugin-name",_screeningDiameterPluginName);
-    APPEND_DICT_STRING(o,@"screening-diameter-plugin-config-file",_screeningDiameterPluginConfigFile);
-    APPEND_DICT_STRING(o,@"screening-diameter-plugin-trace-file",_screeningDiameterPluginTraceFile);
-
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigDiameterRouter.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"local-hostname",_localHostName);
-    SET_DICT_STRING(o,@"local-realm",_localRealm);
-    SET_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
-    SET_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
-    SET_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
-    SET_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
-
-    SET_DICT_STRING(o,@"screening-diameter-plugin-name",_screeningDiameterPluginName);
-    SET_DICT_STRING(o,@"screening-diameter-plugin-config-file",_screeningDiameterPluginConfigFile);
-    SET_DICT_STRING(o,@"screening-diameter-plugin-trace-file",_screeningDiameterPluginTraceFile);
-
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigDiameterRouter.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigDiameterRouter *)copyWithZone:(NSZone *)zone

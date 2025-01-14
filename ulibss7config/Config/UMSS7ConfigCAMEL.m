@@ -35,7 +35,6 @@
 
 - (void)appendConfigToString:(NSMutableString *)o
 {
-
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
@@ -44,34 +43,18 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(o,@"address",_address);
-    APPEND_DICT_STRING(o,@"ssn",_ssn);
-    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
-#endif
-    return dict;
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigCAMEL.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
-    SET_DICT_STRING(o,@"address",_address);
-    SET_DICT_STRING(o,@"ssn",_ssn);
-    SET_DICT_DOUBLE(o,@"timeout",_timeout);
-#endif
 }
 
 - (UMSS7ConfigCAMEL *)copyWithZone:(NSZone *)zone

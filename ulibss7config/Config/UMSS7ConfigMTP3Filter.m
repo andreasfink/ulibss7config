@@ -35,14 +35,14 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigMTP3Filter.def.h"
 #include "UMSS7Config_macroClear.h"
 
     for(UMSS7ConfigMTP3FilterEntry *e in _subEntries)
     {
-        [s appendString:@"\n"];
-        [e appendConfigToString:s];
+        [o appendString:@"\n"];
+        [e appendConfigToString:o];
     }
 
 }
@@ -51,17 +51,18 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"default-result",_defaultResult);
-    APPEND_DICT_STRING(o,@"plug-in",_plugIn);
-
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3Filter.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"default-result",_defaultResult);
-    SET_DICT_STRING(o,@"plug-in",_plugIn);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigMTP3Filter.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (void)setSubConfig:(NSArray *)configs

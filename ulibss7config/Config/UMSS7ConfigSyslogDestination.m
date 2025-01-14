@@ -34,23 +34,29 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"host",_host);
-    APPEND_CONFIG_INTEGER(o,@"port",_port);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSyslogDestination.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"host",_host);
-    APPEND_DICT_INTEGER(o,@"port",_port);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSyslogDestination.def.h"
+#include "UMSS7Config_macroClear.h"
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(o,@"host",_host);
-    SET_DICT_INTEGER(o,@"port",_port);
+    [self setSuperConfig:o];
+
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSyslogDestination.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSyslogDestination*)copyWithZone:(NSZone *)zone

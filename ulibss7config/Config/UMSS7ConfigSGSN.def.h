@@ -1,4 +1,4 @@
-STRING(o,@"attach-to",_attachTo)
-STRING(o,@"number",_number)
-DOUBLE(o,@"timeout",_timeout)
-INTEGER(o,@"answer-translation-type",_answerTranslationType)
+STRING(o,"attach-to",_attachTo,"attach_to",10,"")
+STRING(o,"number",_number,"number",11,"")
+DOUBLE(o,"timeout",_timeout,"timeout",12,"")
+INTEGER(o,"answer-translation-type",_answerTranslationType,"answer_translation_type",13,"")

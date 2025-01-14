@@ -47,36 +47,28 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigMTP3Route.def.h"
 #include "UMSS7Config_macroClear.h"
+
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-
-    APPEND_DICT_STRING(o,@"mtp3",_mtp3);
-    APPEND_DICT_ARRAY(dict,@"dpc",_dpc);
-    APPEND_DICT_STRING(o,@"ls",_ls);
-    APPEND_DICT_STRING(o,@"as",_as);
-    APPEND_DICT_INTEGER(o,@"priority",_priority);
-    APPEND_DICT_DOUBLE(o,@"weight",_weight);
-    APPEND_DICT_DOUBLE(o,@"local-preference",_localPreference);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3Route.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_FILTERED_STRING(dict,@"mtp3",_mtp3);
-    SET_DICT_ARRAY(dict,@"dpc",_dpc);
-    SET_DICT_FILTERED_STRING(dict,@"ls",_ls);
-    SET_DICT_FILTERED_STRING(dict,@"as",_as);
-    SET_DICT_INTEGER(o,@"priority",_priority);
-    SET_DICT_DOUBLE(o,@"weight",_weight);
-    SET_DICT_DOUBLE(o,@"local-preference",_localPreference);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigMTP3Route.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigMTP3Route *)copyWithZone:(NSZone *)zone

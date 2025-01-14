@@ -36,52 +36,27 @@
 {
 	[super appendConfigToString:o];
 
-	APPEND_CONFIG_STRING(o,@"filter-set",_filterSet);
-    APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp);
-    APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_CONFIG_STRING(o,@"status",_status);
-	APPEND_CONFIG_STRING(o,@"engine",_engine);
-	APPEND_CONFIG_STRING(o,@"action-list",_actionList);
-    APPEND_CONFIG_STRING(o,@"engine-config",_engineConfig);
-    APPEND_CONFIG_STRING(o,@"tags",_tags);
-    APPEND_CONFIG_BOOLEAN(o,@"not-tags",_notTags);
-    APPEND_CONFIG_STRING(o,@"variables",_variables);
-    APPEND_CONFIG_BOOLEAN(o,@"not-vars",_notVars);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSS7FilterRule.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
 	UMSynchronizedSortedDictionary *o = [super config];
-	APPEND_DICT_STRING(o,@"filter-set",_filterSet);
-    APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
-    APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_DICT_STRING(o,@"status",_status);
-	APPEND_DICT_STRING(o,@"engine",_engine);
-	APPEND_DICT_STRING(o,@"action-list",_actionList);
-	APPEND_DICT_STRING(o,@"engine-config",_engineConfig);
-    APPEND_DICT_STRING(o,@"tags",_tags);
-    APPEND_DICT_BOOLEAN(o,@"not-tags",_notTags);
-    APPEND_DICT_STRING(o,@"variables",_variables);
-    APPEND_DICT_BOOLEAN(o,@"not-vars",_notVars);
-
-	return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSS7FilterRule.def.h"
+#include "UMSS7Config_macroClear.h"
+	return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
 	[self setSuperConfig:o];
-	SET_DICT_STRING(o,@"filter-set",_filterSet);
-    SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
-    SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    SET_DICT_STRING(o,@"status",_status);
-	SET_DICT_STRING(o,@"engine",_engine);
-	SET_DICT_STRING(o,@"action-list",_actionList);
-	SET_DICT_STRING(o,@"engine-config",_engineConfig);
-    SET_DICT_STRING(o,@"tags",_tags);
-    SET_DICT_BOOLEAN(o,@"not-tags",_notTags);
-    SET_DICT_STRING(o,@"variables",_variables);
-    SET_DICT_BOOLEAN(o,@"not-vars",_notVars);
-
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSS7FilterRule.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSS7FilterRule *)copyWithZone:(NSZone *)zone

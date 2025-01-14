@@ -35,60 +35,30 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"router",_router);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"local-ip",_localAddresses);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"remote-ip",_remoteAddresses);
-    APPEND_CONFIG_INTEGER(o,@"local-port",_localPort);
-    APPEND_CONFIG_INTEGER(o,@"remote-port",_remotePort);
-    APPEND_CONFIG_STRING(o,@"protocol",_protocol);
-    APPEND_CONFIG_DOUBLE(o,@"heartbeat",_heartbeat);
-    APPEND_CONFIG_INTEGER(o,@"mtu",_mtu);
-    APPEND_CONFIG_STRING(o,@"local-hostname",_localHostName);
-    APPEND_CONFIG_STRING(o,@"local-realm",_localRealm);
-    APPEND_CONFIG_STRING(o,@"peer-hostname",_peerHostName);
-    APPEND_CONFIG_STRING(o,@"peer-realm",_peerRealm);
-    APPEND_CONFIG_BOOLEAN(o,@"reverse-cer",_sendReverseCER);
-    APPEND_CONFIG_BOOLEAN(o,@"send-cur",_sendCUR);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigDiameterConnection.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"router",_router);
-    APPEND_DICT_ARRAY(dict,@"local-ip",_localAddresses);
-    APPEND_DICT_ARRAY(dict,@"remote-ip",_remoteAddresses);
-    APPEND_DICT_INTEGER(o,@"local-port",_localPort);
-    APPEND_DICT_INTEGER(o,@"remote-port",_remotePort);
-    APPEND_DICT_STRING(o,@"protocol",_protocol);
-    APPEND_DICT_DOUBLE(o,@"heartbeat",_heartbeat);
-    APPEND_DICT_INTEGER(o,@"mtu",_mtu);
-    APPEND_DICT_STRING(o,@"local-hostname",_localHostName);
-    APPEND_DICT_STRING(o,@"local-realm",_localRealm);
-    APPEND_DICT_STRING(o,@"peer-hostname",_peerHostName);
-    APPEND_DICT_STRING(o,@"peer-realm",_peerRealm);
-    APPEND_DICT_BOOLEAN(o,@"reverse-cer",_sendReverseCER);
-    APPEND_DICT_BOOLEAN(o,@"send-cur",_sendCUR);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigDiameterConnection.def.h"
+#include "UMSS7Config_macroClear.h"
+
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"router",_router);
-    SET_DICT_ARRAY(dict,@"local-ip",_localAddresses);
-    SET_DICT_ARRAY(dict,@"remote-ip",_remoteAddresses);
-    SET_DICT_INTEGER(o,@"local-port",_localPort);
-    SET_DICT_INTEGER(o,@"remote-port",_remotePort);
-    SET_DICT_STRING(o,@"protocol",_protocol);
-    SET_DICT_DOUBLE(o,@"heartbeat",_heartbeat);
-    SET_DICT_INTEGER(o,@"mtu",_mtu);
-    SET_DICT_STRING(o,@"local-hostname",_localHostName);
-    SET_DICT_STRING(o,@"local-realm",_localRealm);
-    SET_DICT_STRING(o,@"peer-hostname",_peerHostName);
-    SET_DICT_STRING(o,@"peer-realm",_peerRealm);
-    SET_DICT_BOOLEAN(o,@"reverse-cer",_sendReverseCER);
-    SET_DICT_BOOLEAN(o,@"send-cur",_sendCUR);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigDiameterConnection.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 - (UMSS7ConfigDiameterConnection *)copyWithZone:(NSZone *)zone

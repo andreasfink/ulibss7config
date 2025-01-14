@@ -34,27 +34,27 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"password",_password);
-    APPEND_CONFIG_STRING(o,@"profile",_profile);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"allowed-address",_allowedAddresses); /* this will write multipe permitted-address=.. lines */
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigApiUser.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"password",_password);
-    APPEND_DICT_STRING(o,@"profile",_profile);
-    APPEND_DICT_ARRAY(dict,@"allowed-address",_allowedAddresses);
-
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigApiUser.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(o,@"password",_password);
-    SET_DICT_STRING(o,@"profile",_profile);
-    SET_DICT_ARRAY(dict,@"allowed-address",_allowedAddresses);
+    [self setSuperConfig:o];
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigApiUser.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigApiUser *)copyWithZone:(NSZone *)zone

@@ -34,33 +34,27 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"filter",_filter);
-    APPEND_CONFIG_STRING(o,@"command",_command);
-    APPEND_CONFIG_STRING(o,@"operation",_operation);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"application-context",_applicationContexts);
-    APPEND_CONFIG_STRING(o,@"result",_result);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigTCAPFilterEntry.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"filter",_filter);
-    APPEND_DICT_STRING(o,@"command",_command);
-    APPEND_DICT_STRING(o,@"operation",_operation);
-    APPEND_DICT_ARRAY(dict,@"application-context",_applicationContexts);
-    APPEND_DICT_STRING(o,@"result",_result);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigTCAPFilterEntry.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"filter",_filter);
-    SET_DICT_STRING(o,@"command",_command);
-    SET_DICT_STRING(o,@"operation",_operation);
-    SET_DICT_ARRAY(dict,@"application-context",_applicationContexts);
-    SET_DICT_STRING(o,@"result",_result);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigTCAPFilterEntry.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigTCAPFilterEntry *)copyWithZone:(NSZone *)zone

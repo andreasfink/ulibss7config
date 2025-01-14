@@ -35,22 +35,27 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
 	[super appendConfigToString:o];
-	APPEND_CONFIG_STRING(o,@"filename",_filename);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSS7FilterEngine.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
 	UMSynchronizedSortedDictionary *o = [super config];
-
-	APPEND_DICT_STRING(o,@"filename",_filename);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSS7FilterEngine.def.h"
+#include "UMSS7Config_macroClear.h"
 	return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
 	[self setSuperConfig:o];
-	SET_DICT_STRING(o,@"filename",_filename);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSS7FilterEngine.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSS7FilterEngine *)copyWithZone:(NSZone *)zone

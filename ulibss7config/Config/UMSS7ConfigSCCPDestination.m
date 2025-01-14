@@ -36,29 +36,28 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"sccp",_sccp);
-    APPEND_CONFIG_STRING(o,@"post-translation",_postTranslation);
-    APPEND_CONFIG_STRING(o,@"distribution-method",_distributionMethod);
-
-
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSCCPDestination.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"sccp",_sccp);
-    APPEND_DICT_STRING(o,@"post-translation",_postTranslation);
-    APPEND_DICT_STRING(o,@"distribution-method",_distributionMethod);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSCCPDestination.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"sccp",_sccp);
-    SET_DICT_STRING(o,@"post-translation",_postTranslation);
-    SET_DICT_STRING(o,@"distribution-method",_distributionMethod);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSCCPDestination.h"
+#include "UMSS7Config_macroClear.h"
 }
+
 
 - (UMSS7ConfigSCCPDestination *)copyWithZone:(NSZone *)zone
 {

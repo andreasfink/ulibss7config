@@ -34,23 +34,26 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"zmq-listener",_zmqListener);
-    APPEND_CONFIG_STRING(o,@"db-pool",_dbPool);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigAuthServer.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *o = [super config];
-    
-    APPEND_DICT_STRING(o,@"zmq-listener",_zmqListener);
-    APPEND_DICT_STRING(o,@"db-pool",_dbPool);
-    return dict;
+    UMSynchronizedSortedDictionary *o = [super config];    
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigAuthServer.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(o,@"zmq-listener",_zmqListener);
-    SET_DICT_STRING(o,@"db-pool",_dbPool);
+    [self setSuperConfig:o];
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigAuthServer.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigAuthServer *)copyWithZone:(NSZone *)zone

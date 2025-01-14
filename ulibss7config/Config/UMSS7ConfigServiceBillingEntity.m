@@ -35,11 +35,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-
-    APPEND_CONFIG_BOOLEAN(o,@"do-bill",_doBill);
-    APPEND_CONFIG_BOOLEAN(o,@"credit-enforced",_blockIfOutOfCredit);
-    APPEND_CONFIG_DOUBLE(o,@"credit-limit",_creditLimit);
-    APPEND_CONFIG_STRING(o,@"price-table",_priceTable);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigServiceBillingEntity.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
@@ -47,21 +45,18 @@
 {
     UMSynchronizedSortedDictionary *o = [super config];
 
-
-    APPEND_DICT_BOOLEAN(o,@"do-bill",_doBill);
-    APPEND_DICT_BOOLEAN(o,@"credit-enforced",_blockIfOutOfCredit);
-    APPEND_DICT_DOUBLE(o,@"credit-limit",_creditLimit);
-    APPEND_DICT_STRING(o,@"price-table",_priceTable);
-
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigServiceBillingEntity.def.h"
+#include "UMSS7Config_macroClear.h"
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_BOOLEAN(o,@"do-bill",_doBill);
-    SET_DICT_BOOLEAN(o,@"credit-enforced",_blockIfOutOfCredit);
-    SET_DICT_DOUBLE(o,@"credit-limit",_creditLimit);
-    SET_DICT_STRING(o,@"price-table",_priceTable);
+    [self setSuperConfig:o];
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigServiceBillingEntity.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigServiceBillingEntity *)copyWithZone:(NSZone *)zone

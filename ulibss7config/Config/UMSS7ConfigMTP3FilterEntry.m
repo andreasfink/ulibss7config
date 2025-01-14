@@ -34,7 +34,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigMTP3FilterEntry.def.h"
 #include "UMSS7Config_macroClear.h"
 }
@@ -43,22 +43,18 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"filter",_filter);
-    APPEND_DICT_STRING(o,@"result",_result);
-    APPEND_DICT_STRING(o,@"opc",_result);
-    APPEND_DICT_STRING(o,@"dpc",_result);
-    APPEND_DICT_INTEGER(o,@"si",_result);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3FilterEntry.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_FILTERED_STRING(dict,@"filter",_filter);
-    SET_DICT_STRING(o,@"result",_result);
-    SET_DICT_STRING(o,@"opc",_opc);
-    SET_DICT_STRING(o,@"dpc",_dpc);
-    SET_DICT_INTEGER(o,@"si",_si);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigMTP3FilterEntry.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigMTP3FilterEntry *)copyWithZone:(NSZone *)zone

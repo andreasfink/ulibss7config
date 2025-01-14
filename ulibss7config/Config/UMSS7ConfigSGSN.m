@@ -37,7 +37,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigSGSN.def.h"
 #include "UMSS7Config_macroClear.h"
 }
@@ -46,21 +46,18 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(o,@"number",_number);
-    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
-    APPEND_DICT_INTEGER(o,@"answer-translation-type",_answerTranslationType);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSGSN.def.h"
+#include "UMSS7Config_macroClear.h"
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
-    SET_DICT_STRING(o,@"number",_number);
-    SET_DICT_DOUBLE(o,@"timeout",_timeout);
-    SET_DICT_INTEGER(o,@"answer-translation-type",_answerTranslationType);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSGSN.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSGSN *)copyWithZone:(NSZone *)zone

@@ -1,1 +1,1 @@
-STRING(o,"default-result",_defaultResult)
+STRING(o,"default-result",_defaultResult,"default_result",10,"")

@@ -35,14 +35,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
-    APPEND_CONFIG_STRING(o,@"variant",_variant);
-    APPEND_CONFIG_STRING(o,@"subsystem",_subsystem);
-    APPEND_CONFIG_STRING(o,@"number",_number);
-    APPEND_CONFIG_STRING(o,@"transaction-id-range",_range);
-    APPEND_CONFIG_DOUBLE(o,@"timeout",_timeout);
-    APPEND_CONFIG_STRING(o,@"transaction-id-pool-type",_poolType);
-
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigTCAP.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
@@ -50,13 +45,9 @@
 {
     UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(o,@"variant",_variant);
-    APPEND_DICT_STRING(o,@"subsystem",_subsystem);
-    APPEND_DICT_STRING(o,@"number",_number);
-    APPEND_DICT_STRING(o,@"transaction-id-range",_range);
-    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
-    APPEND_DICT_STRING(o,@"transaction-id-pool-type",_poolType);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigTCAP.def.h"
+#include "UMSS7Config_macroClear.h"
 
     return o;
 }
@@ -64,15 +55,10 @@
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
-    SET_DICT_STRING(o,@"variant",_variant);
-    SET_DICT_STRING(o,@"attach-ssn",_subsystem);/* backwards compatibility */
-    SET_DICT_STRING(o,@"subsystem",_subsystem);
-    SET_DICT_STRING(o,@"attach-number",_number);/* backwards compatibility */
-    SET_DICT_STRING(o,@"number",_number);
-    SET_DICT_STRING(o,@"transaction-id-range",_range);
-    SET_DICT_STRING(o,@"transaction-id-pool-type",_poolType);
-    SET_DICT_DOUBLE(o,@"timeout",_timeout);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigTCAP.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 - (UMSS7ConfigTCAP *)copyWithZone:(NSZone *)zone

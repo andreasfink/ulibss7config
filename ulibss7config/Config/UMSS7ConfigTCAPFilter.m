@@ -42,8 +42,8 @@
 
     for(UMSS7ConfigTCAPFilterEntry *e in _subEntries)
     {
-        [s appendString:@"\n"];
-        [e appendConfigToString:s];
+        [o appendString:@"\n"];
+        [e appendConfigToString:o];
     }
 }
 
@@ -56,7 +56,7 @@
 #include "UMSS7ConfigTCAPFilter.def.h"
 #include "UMSS7Config_macroClear.h"
 
-    return dict;
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o

@@ -35,56 +35,26 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"router",_router);
-    APPEND_CONFIG_STRING(o,@"destination",_destination);
-    APPEND_CONFIG_STRING(o,@"hostname",_hostname);
-    APPEND_CONFIG_STRING(o,@"realm",_realm);
-    APPEND_CONFIG_INTEGER(o,@"application-id",_applicationId);
-    APPEND_CONFIG_DOUBLE(o,@"weight",_weight);
-    APPEND_CONFIG_DOUBLE(o,@"priority",_priority);
-    APPEND_CONFIG_BOOLEAN(o,@"local",_local);
-    APPEND_CONFIG_BOOLEAN(o,@"default-route",_defaultRoute);
-    APPEND_CONFIG_BOOLEAN(o,@"exact-hostname",_exactHost);
-    APPEND_CONFIG_BOOLEAN(o,@"exact-realm",_exactRealm);
-    APPEND_CONFIG_INTEGER(o,@"route-selector",_routeSelector);
-
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigDiameterRoute.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"router",_router);
-    APPEND_DICT_STRING(o,@"destination",_destination);
-    APPEND_DICT_STRING(o,@"hostname",_hostname);
-    APPEND_DICT_STRING(o,@"realm",_realm);
-    APPEND_DICT_INTEGER(o,@"application-id",_applicationId);
-    APPEND_DICT_DOUBLE(o,@"weight",_weight);
-    APPEND_DICT_DOUBLE(o,@"priority",_priority);
-    APPEND_DICT_BOOLEAN(o,@"local",_local);
-    APPEND_DICT_BOOLEAN(o,@"default-route",_defaultRoute);
-    APPEND_DICT_BOOLEAN(o,@"exact-hostname",_exactHost);
-    APPEND_DICT_BOOLEAN(o,@"exact-realm",_exactRealm);
-    APPEND_DICT_INTEGER(o,@"route-selector",_routeSelector);
-
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigDiameterRoute.def.h"
+#include "UMSS7Config_macroClear.h"
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"router",_router);
-    SET_DICT_STRING(o,@"destination",_destination);
-    SET_DICT_STRING(o,@"hostname",_hostname);
-    SET_DICT_STRING(o,@"realm",_realm);
-    SET_DICT_INTEGER(o,@"application-id",_applicationId);
-    SET_DICT_DOUBLE(o,@"weight",_weight);
-    SET_DICT_DOUBLE(o,@"priority",_priority);
-    SET_DICT_BOOLEAN(o,@"local",_local);
-    SET_DICT_BOOLEAN(o,@"default-route",_defaultRoute);
-    SET_DICT_BOOLEAN(o,@"exact-hostname",_exactHost);
-    SET_DICT_BOOLEAN(o,@"exact-realm",_exactRealm);
-    SET_DICT_INTEGER(o,@"route-selector",_routeSelector);
-
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigDiameterRoute.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigDiameterRoute *)copyWithZone:(NSZone *)zone

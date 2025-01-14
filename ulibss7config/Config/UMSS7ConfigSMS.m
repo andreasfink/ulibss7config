@@ -37,22 +37,27 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"attach-to",_attachTo);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSMS.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSMS.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSMS.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigSMS *)copyWithZone:(NSZone *)zone

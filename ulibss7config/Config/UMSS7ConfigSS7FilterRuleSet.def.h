@@ -1,3 +1,3 @@
-DATE(o,"created-timestamp",_createdTimestamp)
-DATE(o,"modified-timestamp",_modifiedTimestamp)
-STRING(o,"status",_status)
+DATE(o,"created-timestamp",_createdTimestamp,"created_timestamp",10,"")
+DATE(o,"modified-timestamp",_modifiedTimestamp,"modified_timestamp",11,"")
+STRING(o,"status",_status,"status",12,"")

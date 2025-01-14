@@ -61,54 +61,28 @@
 
 - (void)appendConfigToString:(NSMutableString *)o
 {
-    [super appendConfigToString:s withoutName:YES];
-    APPEND_CONFIG_STRING(o,@"table",_translationTableName);
-    APPEND_CONFIG_ARRAY_VERBOSE(s,@"gta",_gtas);
-    APPEND_CONFIG_STRING(o,@"destination",_sccpDestination);
-    APPEND_CONFIG_STRING(o,@"post-translation",_postTranslation);
-    APPEND_CONFIG_STRING(o,@"gt-owner",_gtOwner);
-    APPEND_CONFIG_STRING(o,@"gt-user",_gtUser);
-    APPEND_CONFIG_INTEGER(o,@"transaction-id-start",_tidStart);
-    APPEND_CONFIG_INTEGER(o,@"transaction-id-end",_tidEnd);
-    APPEND_CONFIG_STRING(o,@"transaction-id-range",_tidRange);
-    APPEND_CONFIG_STRING(o,@"ssn",_ssn);
-    APPEND_CONFIG_STRING(o,@"opcode",_opcode);
-    APPEND_CONFIG_STRING(o,@"application-context",_appcontext);
+    [super appendConfigToString:o withoutName:YES];
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSCCPTranslationTableEntry.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 - (UMSynchronizedSortedDictionary *)config
 {
-    UMSynchronizedSortedDictionary *dict = [super configWithoutName:YES];
-    APPEND_DICT_STRING(o,@"table",_translationTableName);
-    APPEND_DICT_ARRAY(dict,@"gta",_gtas);
-    APPEND_DICT_STRING(o,@"destination",_sccpDestination);
-    APPEND_DICT_STRING(o,@"post-translation",_postTranslation);
-    APPEND_DICT_STRING(o,@"gt-owner",_gtOwner);
-    APPEND_DICT_STRING(o,@"gt-user",_gtUser);
-    APPEND_DICT_INTEGER(o,@"transaction-id-start",_tidStart);
-    APPEND_DICT_INTEGER(o,@"transaction-id-end",_tidEnd);
-    APPEND_DICT_STRING(o,@"transaction-id-range",_tidRange);
-    APPEND_DICT_STRING(o,@"ssn",_ssn);
-    APPEND_DICT_STRING(o,@"opcode",_opcode);
-    APPEND_DICT_STRING(o,@"application-context",_appcontext);
-    return dict;
+    UMSynchronizedSortedDictionary *o = [super configWithoutName:YES];
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSCCPTranslationTableEntry.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_FILTERED_STRING(dict,@"table",_translationTableName);
-    SET_DICT_ARRAY(dict,@"gta",_gtas);
-    SET_DICT_FILTERED_STRING(dict,@"destination",_sccpDestination);
-    SET_DICT_FILTERED_STRING(dict,@"post-translation",_postTranslation);
-    SET_DICT_FILTERED_STRING(dict,@"gt-owner",_gtOwner);
-    SET_DICT_FILTERED_STRING(dict,@"gt-user",_gtUser);
-    SET_DICT_INTEGER(o,@"transaction-id-start",_tidStart);
-    SET_DICT_INTEGER(o,@"transaction-id-end",_tidEnd);
-    SET_DICT_STRING(o,@"transaction-id-range",_tidRange);
-    SET_DICT_STRING(o,@"ssn",_ssn);
-    SET_DICT_STRING(o,@"opcode",_opcode);
-    SET_DICT_STRING(o,@"application-context",_appcontext);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSCCPTranslationTableEntry.def.h"
+#include "UMSS7Config_macroClear.h"
     
     if(_tidRange)
     {

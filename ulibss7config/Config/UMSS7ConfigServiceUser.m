@@ -34,35 +34,28 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_STRING(o,@"password",_password);
-    APPEND_CONFIG_STRING(o,@"groupname",_groupname);
-    APPEND_CONFIG_STRING(o,@"useroptions",_useroptions);
-    APPEND_CONFIG_STRING(o,@"short-id",_shortId);
-    APPEND_CONFIG_DOUBLE(o,@"speed-limit",_speedLimit);
-    APPEND_CONFIG_STRING(o,@"billing-entity",_billingEntity);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigServiceUser.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"password",_password);
-    APPEND_DICT_STRING(o,@"groupname",_groupname);
-    APPEND_DICT_STRING(o,@"useroptions",_useroptions);
-    APPEND_DICT_STRING(o,@"short-id",_shortId);
-    APPEND_DICT_DOUBLE(o,@"speed-limit",_speedLimit);
-    APPEND_DICT_STRING(o,@"billing-entity",_billingEntity);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigServiceUser.def.h"
+#include "UMSS7Config_macroClear.h"
+
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_STRING(o,@"password",_password);
-    SET_DICT_STRING(o,@"groupname",_groupname);
-    SET_DICT_STRING(o,@"useroptions",_useroptions);
-    SET_DICT_STRING(o,@"short-id",_shortId);
-    SET_DICT_DOUBLE(o,@"speed-limit",_speedLimit);
-    SET_DICT_STRING(o,@"billing-entity",_billingEntity);
+    [self setSuperConfig:o];
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigServiceUser.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 - (UMSS7ConfigServiceUser *)copyWithZone:(NSZone *)zone

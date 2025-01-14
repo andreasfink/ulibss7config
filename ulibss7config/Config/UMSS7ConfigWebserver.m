@@ -34,42 +34,29 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_INTEGER(o,@"port",_port);
-    APPEND_CONFIG_BOOLEAN(o,@"https",_https);
-    APPEND_CONFIG_STRING(o,@"https-key-file",_httpsKeyFile);
-    APPEND_CONFIG_STRING(o,@"https-cert-file",_httpsCertFile);
-    APPEND_CONFIG_STRING(o,@"document-root",_documentRoot);
-    APPEND_CONFIG_STRING(o,@"ip-version",_ipVersion);
-    APPEND_CONFIG_STRING(o,@"transport-protocol",_transportProtocol);
-    APPEND_CONFIG_BOOLEAN(o,@"disable-authentication",_disableAuthentication);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigWebserver.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_INTEGER(o,@"port",_port);
-    APPEND_DICT_BOOLEAN(o,@"https",_https);
-    APPEND_DICT_STRING(o,@"https-key-file",_httpsKeyFile);
-    APPEND_DICT_STRING(o,@"https-cert-file",_httpsCertFile);
-    APPEND_DICT_STRING(o,@"document-root",_documentRoot);
-    APPEND_DICT_STRING(o,@"ip-version",_ipVersion);
-    APPEND_DICT_STRING(o,@"transport-protocol",_transportProtocol);
-    APPEND_DICT_BOOLEAN(o,@"disable-authentication",_disableAuthentication);
-
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigWebserver.def.h"
+#include "UMSS7Config_macroClear.h"
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
-    SET_DICT_INTEGER(o,@"port",_port);
-    SET_DICT_BOOLEAN(o,@"https",_https);
-    SET_DICT_STRING(o,@"https-key-file",_httpsKeyFile);
-    SET_DICT_STRING(o,@"https-cert-file",_httpsCertFile);
-    SET_DICT_STRING(o,@"document-root",_documentRoot);
-    SET_DICT_STRING(o,@"ip-version",_ipVersion);
-    SET_DICT_STRING(o,@"transport-protocol",_transportProtocol);
-    SET_DICT_BOOLEAN(o,@"disable-authentication",_disableAuthentication);
+    
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigWebserver.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 - (UMSS7ConfigWebserver *)copyWithZone:(NSZone *)zone

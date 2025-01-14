@@ -45,29 +45,18 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigIMSIPool.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    APPEND_DICT_STRING(o,@"imsi-prefix",_imsiPrefix);
-    APPEND_DICT_DOUBLE(o,@"cache-timer",_cacheTimer);
-#endif
-    return dict;
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigIMSIPool.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    SET_DICT_STRING(o,@"imsi-prefix",_imsiPrefix);
-    SET_DICT_DOUBLE(o,@"cache-cache",_cacheTimer);
-#endif
 }
 
 

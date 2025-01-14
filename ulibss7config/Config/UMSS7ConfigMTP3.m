@@ -35,7 +35,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigMTP3.def.h"
 #include "UMSS7Config_macroClear.h"
 
@@ -44,40 +44,19 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_STRING(o,@"variant",_variant);
-    APPEND_DICT_STRING(o,@"opc",_opc);
-    APPEND_DICT_STRING(o,@"ni",_networkIndicator);
-    APPEND_DICT_STRING(o,@"mode",_mode);
-    APPEND_DICT_STRING(o,@"problematic-packet-dumper",_problematicPacketDumper);
-    APPEND_DICT_STRING(o,@"routing-update-log",_routingUpdateLog);
-    APPEND_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
-    APPEND_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
-    APPEND_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
-    APPEND_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
-    APPEND_DICT_STRING(o,@"routing-update-db-pool",_routingUpdateDbPool);
-    APPEND_DICT_STRING(o,@"routing-update-db-table",_routingUpdateDbTable);
-    APPEND_DICT_STRING(o,@"routing-update-db-instance",_routingUpdateDbInstance);
-    APPEND_DICT_BOOLEAN(o,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMTP3.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"variant",_variant);
-    SET_DICT_STRING(o,@"opc",_opc);
-    SET_DICT_STRING(o,@"ni",_networkIndicator);
-    SET_DICT_STRING(o,@"mode",_mode);
-    SET_DICT_FILTERED_STRING(dict,@"problematic-packet-dumper",_problematicPacketDumper);
-    SET_DICT_STRING(o,@"routing-update-log",_routingUpdateLog);
-    SET_DICT_STRING(o,@"statistic-db-pool",_statisticDbPool);
-    SET_DICT_STRING(o,@"statistic-db-table",_statisticDbTable);
-    SET_DICT_STRING(o,@"statistic-db-instance",_statisticDbInstance);
-    SET_DICT_BOOLEAN(o,@"statistic-db-autocreate",_statisticDbAutocreate);
-    SET_DICT_STRING(o,@"routing-update-db-pool",_routingUpdateDbPool);
-    SET_DICT_STRING(o,@"routing-update-db-table",_routingUpdateDbTable);
-    SET_DICT_STRING(o,@"routing-update-db-instance",_routingUpdateDbInstance);
-    SET_DICT_BOOLEAN(o,@"routing-update-db-autocreate",_routingUpdateDbAutocreate);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigMTP3.def.h"
+#include "UMSS7Config_macroClear.h"
+
 
 }
 

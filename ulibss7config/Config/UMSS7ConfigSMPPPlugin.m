@@ -27,14 +27,14 @@
     {
         [self setConfig:dict];
         UMAssert(_name.length > 0,@"Name must exist for plugin");
-        _defaultFileNameilename = [NSString stringWithFormat:@"%@/%@",dir,_name.urlencode];
+        _defaultFileName = [NSString stringWithFormat:@"%@/%@",dir,_name.urlencode];
         if(dict[@"path"])
         {
             _pluginFileName = dict[@"path"];
         }
         else
         {
-            _pluginFileName = _defaultFileNameilename;
+            _pluginFileName = _defaultFileName;
         }
     }
     return self;
@@ -43,33 +43,36 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    if(![_pluginFileName isEqualToString:_defaultFileNameilename])
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSMPPPlugin.def.h"
+#include "UMSS7Config_macroClear.h"
+
+/*
+    if(![_pluginFileName isEqualToString:_defaultFileName])
     {
         APPEND_CONFIG_STRING(o,@"path",_pluginFileName);
     }
     APPEND_CONFIG_STRING(o,@"config-file",_configFile);
     APPEND_CONFIG_STRING(o,@"config-string",_configString);
+*/
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    if(![_pluginFileName isEqualToString:_defaultFileNameilename])
-    {
-        APPEND_DICT_STRING(o,@"path",_pluginFileName);
-    }
-    APPEND_DICT_STRING(o,@"config-file",_configFile);
-    APPEND_DICT_STRING(o,@"config-string",_configString);
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSMPPPlugin.def.h"
+#include "UMSS7Config_macroClear.h"
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"path",_pluginFileName);
-    SET_DICT_STRING(o,@"config-file",_configFile);
-    SET_DICT_STRING(o,@"config-string",_configString);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSMPPPlugin.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 @end

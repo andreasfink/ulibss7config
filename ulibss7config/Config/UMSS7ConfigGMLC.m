@@ -35,7 +35,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigGMLC.def.h"
 #include "UMSS7Config_macroClear.h"
 }
@@ -44,23 +44,19 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigGMLC.def.h"
+#include "UMSS7Config_macroClear.h"
 
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    APPEND_DICT_STRING(o,@"number",_number);
-    APPEND_DICT_DOUBLE(o,@"timeout",_timeout);
-    APPEND_DICT_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
-    APPEND_DICT_STRING(o,@"full-trace-directory",_fullTraceDirectory);
     return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"attach-to",_attachTo);
-    SET_DICT_STRING(o,@"number",_number);
-    SET_DICT_DOUBLE(o,@"timeout",_timeout);
-    SET_DICT_STRING(o,@"timeout-trace-directory",_timeoutTraceDirectory);
-    SET_DICT_STRING(o,@"full-trace-directory",_fullTraceDirectory);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigGMLC.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 

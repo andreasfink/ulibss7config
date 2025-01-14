@@ -37,7 +37,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigMAPI.def.h"
 #include "UMSS7Config_macroClear.h"
 }
@@ -47,19 +47,19 @@
 {
     UMSynchronizedSortedDictionary *o = [super config];
 
-    APPEND_DICT_STRING(o,@"number",_number);
-    APPEND_DICT_STRING(o,@"sccp",_sccp);
-    APPEND_DICT_STRING(o,@"license-directory",_licenseDirectory);
-
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigMAPI.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_STRING(o,@"number",_number);
-    SET_DICT_STRING(o,@"sccp",_sccp);
-    SET_DICT_STRING(o,@"license-directory",_licenseDirectory);
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigMAPI.def.h"
+#include "UMSS7Config_macroClear.h"
+
 }
 
 

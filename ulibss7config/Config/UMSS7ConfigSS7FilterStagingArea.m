@@ -58,32 +58,30 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-    APPEND_CONFIG_DATE(s,@"created-timestamp",_createdTimestamp );
-    APPEND_CONFIG_DATE(s,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_CONFIG_STRING(o,@"path",_path);
+#include "UMSS7Config_macroAppendConfig.h"
+#include "UMSS7ConfigSS7FilterStagingArea.def.h"
+#include "UMSS7Config_macroClear.h"
 }
 
 
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    APPEND_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
-    APPEND_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    APPEND_DICT_STRING(o,@"path",_path);
-
-    return dict;
+#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7ConfigSS7FilterStagingArea.def.h"
+#include "UMSS7Config_macroClear.h"
+    return o;
 }
 
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
-    SET_DICT_DATE(dict,@"created-timestamp",_createdTimestamp);
-    SET_DICT_DATE(dict,@"modified-timestamp",_modifiedTimestamp);
-    SET_DICT_STRING(o,@"path",_path);
-    
-    if(dict[@"rulesets"])
+#include "UMSS7Config_macroSetConfigFromDict.h"
+#include "UMSS7ConfigSS7FilterStagingArea.def.h"
+#include "UMSS7Config_macroClear.h"
+    if(o[@"rulesets"])
     {
-        id b = dict[@"rulesets"];
+        id b = o[@"rulesets"];
         if([b isKindOfClass:[NSArray class]])
         {
             NSArray *a = (NSArray *)b;
@@ -99,9 +97,9 @@
             }
         }
     }
-    if(dict[@"actionlists"])
+    if(o[@"actionlists"])
     {
-        id b = dict[@"actionlists"];
+        id b = o[@"actionlists"];
         if([b isKindOfClass:[NSArray class]])
         {
             NSArray *a = (NSArray *)b;
