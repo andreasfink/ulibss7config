@@ -29,5 +29,5 @@ ulib is the base class of a family of libraries and applications .It gets used a
 * **ulibcnam** a library to deal with CNAM lookups (Number to name translation)
 * **messagemover** a application implementing a SS7 GSM-SMSC (commercial)
 * **smsproxy** a application implementing a HLR and MSC for receiving SMS on SS7 (commercial)
-* **cnam-server** a application implementing a SS7 API Server for all kinds of lookups. (commercial)
+* **gsmapi-server** a application implementing a SS7 API Server for all kinds of lookups. (commercial)
 

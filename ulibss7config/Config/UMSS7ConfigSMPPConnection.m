@@ -36,7 +36,7 @@
 {
     [super appendConfigToString:o];
 #include "UMSS7Config_macroAppendConfig.h"
-#include "UMSS7ConfigSMPPConnection.h"
+#include "UMSS7ConfigSMPPConnection.def.h"
 #include "UMSS7Config_macroClear.h"
 }
 
@@ -46,7 +46,7 @@
     UMSynchronizedSortedDictionary *o = [super config];
     
 #include "UMSS7Config_macroAppendDict.h"
-#include "UMSS7ConfigSMPPConnection.h"
+#include "UMSS7ConfigSMPPConnection.def.h"
 #include "UMSS7Config_macroClear.h"
     return o;
 }
@@ -55,7 +55,7 @@
 {
     [self setSuperConfig:o];
 #include "UMSS7Config_macroSetConfigFromDict.h"
-#include "UMSS7ConfigSMPPConnection.h"
+#include "UMSS7ConfigSMPPConnection.def.h"
 #include "UMSS7Config_macroClear.h"
 }
 
@@ -64,5 +64,7 @@
     UMSynchronizedSortedDictionary *currentConfig = [self config];
     return [[UMSS7ConfigSMPPConnection allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
+
+
 
 @end

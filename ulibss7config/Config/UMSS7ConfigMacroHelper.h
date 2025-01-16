@@ -5,8 +5,7 @@
 //  Created by Andreas Fink on 08.03.18.
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
-
-#import "UMSS7ConfigObject.h"
+#import <ulib/ulib.h>
 
 void appendConfig_BOOLEAN(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
 void appendConfig_DOUBLE(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);

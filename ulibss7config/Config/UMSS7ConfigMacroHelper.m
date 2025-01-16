@@ -6,6 +6,7 @@
 //  Copyright © 2025 Andreas Fink. All rights reserved.
 //
 
+#import "UMSS7ConfigObject.h"
 #import "UMSS7ConfigMacroHelper.h"
 
 /* -------------------------------------------------------------------------------------------------------------------------------- */
