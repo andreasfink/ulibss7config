@@ -24,9 +24,9 @@
 }
 
 - (SS7GenericInstance_MAP_ReturnError_Resp_Task *)initWithInstance:(SS7GenericInstance *)inst
-                                                          param:(UMASN1Object *)param
-                                                         userId:(UMGSMMAP_UserIdentifier *)userIdentifier
-                                                         dialog:(UMGSMMAP_DialogIdentifier *)dialogId
+                                                             param:(UMASN1Object *)param
+                                                            userId:(UMGSMMAP_UserIdentifier *)userIdentifier
+                                                            dialog:(UMGSMMAP_DialogIdentifier *)dialogId
                                                     transaction:(NSString *)transactionId
                                                          opCode:(UMLayerGSMMAP_OpCode *)opcode
                                                        invokeId:(int64_t)invokeId
