@@ -51,17 +51,10 @@ typedef enum SchrittmacherMode
     SchrittmacherMode_standby    = 2,
 } SchrittmacherMode;
 
-#ifdef __APPLE__
-/* this is for unit tests to work in Xcode */
-#import <Cocoa/Cocoa.h>
-#endif
 
 @interface SS7AppDelegate : UMObject<UMHTTPServerHttpGetPostDelegate,
 UMHTTPServerAuthenticateRequestDelegate,
 UMLayerUserProtocol,
-#ifdef __APPLE__
-NSApplicationDelegate,
-#endif
 UMHTTPServerHttpOptionsDelegate,
 UMLayerSctpApplicationContextProtocol,
 UMLayerM2PAApplicationContextProtocol,
