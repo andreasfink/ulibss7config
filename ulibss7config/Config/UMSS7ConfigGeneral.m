@@ -8,6 +8,7 @@
 
 #import "UMSS7ConfigGeneral.h"
 #import "UMSS7ConfigMacroHelper.h"
+#define USE_NEW_SS7CONFIG_MACROS    1
 
 @implementation UMSS7ConfigGeneral
 
