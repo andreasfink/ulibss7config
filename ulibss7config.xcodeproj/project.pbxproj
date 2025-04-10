@@ -162,6 +162,7 @@
 		A6679E54229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m in Sources */ = {isa = PBXBuildFile; fileRef = A6679E52229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m */; };
 		A66958512804045300B913EB /* UMSS7ConfigSMPPPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = A669584F2804045300B913EB /* UMSS7ConfigSMPPPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A66958522804045300B913EB /* UMSS7ConfigSMPPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A66958502804045300B913EB /* UMSS7ConfigSMPPPlugin.m */; };
+		A672E3612DA573110003207A /* ulibsmpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A672E3602DA573110003207A /* ulibsmpp.framework */; };
 		A6798A2022BB70A80019806C /* ulibpcap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1122BB70A70019806C /* ulibpcap.framework */; };
 		A6798A2122BB70A80019806C /* ulibtcap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1222BB70A70019806C /* ulibtcap.framework */; };
 		A6798A2222BB70A80019806C /* ulibasn1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6798A1322BB70A70019806C /* ulibasn1.framework */; };
@@ -934,6 +935,7 @@
 		A6679E52229172E1001819AC /* UMSS7ConfigSS7FilterStagingArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSS7FilterStagingArea.m; sourceTree = "<group>"; };
 		A669584F2804045300B913EB /* UMSS7ConfigSMPPPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigSMPPPlugin.h; sourceTree = "<group>"; };
 		A66958502804045300B913EB /* UMSS7ConfigSMPPPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigSMPPPlugin.m; sourceTree = "<group>"; };
+		A672E3602DA573110003207A /* ulibsmpp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibsmpp.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/ulibsmpp.framework"; sourceTree = "<absolute>"; };
 		A6798A1122BB70A70019806C /* ulibpcap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibpcap.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/ulibpcap.framework"; sourceTree = "<absolute>"; };
 		A6798A1222BB70A70019806C /* ulibtcap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibtcap.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/ulibtcap.framework"; sourceTree = "<absolute>"; };
 		A6798A1322BB70A70019806C /* ulibasn1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ulibasn1.framework; path = "/Library/Application Support/FinkTelecomServices/frameworks/ulibasn1.framework"; sourceTree = "<absolute>"; };
@@ -1552,6 +1554,7 @@
 				A6798A2C22BB70A80019806C /* ulibm2pa.framework in Frameworks */,
 				A6798A2722BB70A80019806C /* ulibcamel.framework in Frameworks */,
 				A6006C332BBF66F500C34D40 /* ulib.framework in Frameworks */,
+				A672E3612DA573110003207A /* ulibsmpp.framework in Frameworks */,
 				A6798A2122BB70A80019806C /* ulibtcap.framework in Frameworks */,
 				A6798A3422BB71750019806C /* ulibtransport.framework in Frameworks */,
 				A6798A2A22BB70A80019806C /* ulibdiameter.framework in Frameworks */,
@@ -2345,6 +2348,7 @@
 		A6BC434520774FB6008C3CEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A672E3602DA573110003207A /* ulibsmpp.framework */,
 				A6006C322BBF66F500C34D40 /* ulib.framework */,
 				A6006C362BBF674200C34D40 /* ulibdb.framework */,
 				A60FBB862BBF561500C34D40 /* libuliblicense.a */,
@@ -3546,6 +3550,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "$(DSTROOT)/$(INSTALL_PATH)";
 				ENABLE_MODULE_VERIFIER = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application\\\\ Support/FinkTelecomServices/frameworks\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3594,6 +3602,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "$(DSTROOT)/$(INSTALL_PATH)";
 				ENABLE_MODULE_VERIFIER = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(LOCAL_LIBRARY_DIR)/Application\\\\ Support/FinkTelecomServices/frameworks\"",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PREPROCESSOR_DEFINITIONS = "HAS_ULIBLICENSE=1";
 				INFOPLIST_FILE = ulibss7config/Info.plist;
