@@ -361,6 +361,7 @@ else \
         _called_tt = ot->_called_tt;
         _tcapOptions = ot->_tcapOptions;
         _undefinedSession = NO; /* we get called for overrided object here */
+        _logFeed = ot.logFeed;
     }
     return self;
 }

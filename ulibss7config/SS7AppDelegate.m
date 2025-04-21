@@ -16,9 +16,9 @@
 #import <ulibgt/ulibgt.h>
 #import <ulibsccp/ulibsccp.h>
 #import <ulibmtp3/ulibmtp3.h>
-#import <ulibsmpp/ulibsmpp.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import <objc/runtime.h>
+#import <ulibsmpp/ulibsmpp.h>
 
 #import <ulibss7config/UMSS7ConfigGeneral.h>
 #import <ulibss7config/UMSS7ConfigWebserver.h>
@@ -4100,6 +4100,8 @@ static void signalHandler(int signum);
 
         tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         tcap.logFeed.name = name;
+        NSLog(@"tcap config %@",config);
+        
         [tcap setConfig:config applicationContext:self];
         _tcap_dict[name] = tcap;
         UMLayerSCCP *sccp  = [self getSCCP:co.attachTo];
