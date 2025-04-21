@@ -44,15 +44,9 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigGSMMAPFilterEntry.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-
-    APPEND_DICT_STRING(o,@"filter",_filter);
-    APPEND_DICT_STRING(o,@"result",_result);
-#endif
     return o;
 }
 

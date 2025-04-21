@@ -35,13 +35,9 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigGSMMAPFilter.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    APPEND_CONFIG_STRING(o,@"default-result",_defaultResult);
-#endif
     for(UMSS7ConfigGSMMAPFilterEntry *e in _subEntries)
     {
         [o appendString:@"\n"];
@@ -54,13 +50,9 @@
 {
     UMSynchronizedSortedDictionary *o = [super config];
     
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigGSMMAPFilter.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    APPEND_DICT_STRING(o,@"default-result",_defaultResult);
-#endif
     return 0;
 }
 
@@ -68,13 +60,9 @@
 {
     [self setSuperConfig:o];
     
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroSetConfigFromDict.h"
 #include "UMSS7ConfigGSMMAPFilter.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-    SET_DICT_STRING(o,@"default-result",_defaultResult);
-#endif
 }
 
 - (void)setSubConfig:(NSArray *)configs

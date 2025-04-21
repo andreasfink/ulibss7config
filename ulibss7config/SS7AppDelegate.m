@@ -4100,6 +4100,8 @@ static void signalHandler(int signum);
 
         tcap.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap"];
         tcap.logFeed.name = name;
+        NSLog(@"tcap config %@",config);
+        
         [tcap setConfig:config applicationContext:self];
         _tcap_dict[name] = tcap;
         UMLayerSCCP *sccp  = [self getSCCP:co.attachTo];

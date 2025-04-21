@@ -46,25 +46,9 @@
 {
     UMSynchronizedSortedDictionary *o = [super config];
 
-#if(USE_NEW_SS7CONFIG_MACROS)
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigCdrWriter.def.h"
 #include "UMSS7Config_macroClear.h"
-#else
-
-    APPEND_DICT_STRING(o,@"cdr-type",_cdrType);
-    APPEND_DICT_STRING(o,@"attach-to",_attachTo);
-    APPEND_DICT_INTEGER(o,@"cdr-queue-limit",_cdrQueueLimit);
-    APPEND_DICT_STRING(o,@"cdr-file-prefix",_cdrFilePrefix);
-    APPEND_DICT_DOUBLE(o,@"reopen-time",_reopenTime);
-
-    APPEND_DICT_STRING(o,@"date-format",_dateFormat);
-    APPEND_DICT_STRING(o,@"time-zone",_timeZone);
-    APPEND_DICT_STRING(o,@"locale",_locale);
-    APPEND_DICT_STRING(o,@"table-name",_tableName);
-    APPEND_DICT_BOOLEAN(o,@"auto-create",_autoCreate);
-    APPEND_DICT_STRING(o,@"pool-name",_poolName);
-#endif
     return o;
 }
 
