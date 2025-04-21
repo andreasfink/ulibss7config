@@ -55,9 +55,16 @@
 - (void)setConfig:(NSDictionary *)o
 {
     [self setSuperConfig:o];
+        
+
 #include "UMSS7Config_macroSetConfigFromDict.h"
+    /* for backwards compatibility */
+    STRING(o,"attach-ssn",_subsystem,"attach-ssn",12,"")
+    STRING(o,"attach-number",_number,"attach-number",13,"")
+
 #include "UMSS7ConfigTCAP.def.h"
 #include "UMSS7Config_macroClear.h"
+    
 
 }
 
