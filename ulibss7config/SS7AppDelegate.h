@@ -473,7 +473,8 @@ UMEnvironmentNamedListProviderProtocol>
 - (UMLayerSctp *)getSCTP:(NSString *)name;
 
 - (NSArray *)getSCCPNames;
-- (void)hanldeSCCPRouteStatus:(UMHTTPRequest *)req;
+- (void)handleSCCPRouteStatus:(UMHTTPRequest *)req;
+- (void)handleSCCPRoutingTable:(UMHTTPRequest *)req;
 - (void)handleMTP3RouteStatus:(UMHTTPRequest *)req;
 - (void)handleM2PAStatus:(UMHTTPRequest *)req;
 - (void)handleM3UAStatus:(UMHTTPRequest *)req;
