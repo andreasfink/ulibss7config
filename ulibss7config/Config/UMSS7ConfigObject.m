@@ -201,7 +201,7 @@
         }
         else if((c>='A') && (c<='Z')) 
         {
-            out[j++]=c-'A'+'a'; /* makes it lower case */
+            out[j++]=c;
         }
         else if((c>='0') && (c<='9'))
         {
@@ -232,6 +232,10 @@
     }
     out[LIMIT-1]='\0';
     NSString *result = @(out);
+    if(![str isEqualToString:result])
+    {
+        NSLog(@"** WARNING *** Name has been filtered from '%@' to '%@'",str,result);
+    }
     return result;
 }
 
