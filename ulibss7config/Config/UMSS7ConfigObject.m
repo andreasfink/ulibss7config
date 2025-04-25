@@ -201,7 +201,7 @@
         }
         else if((c>='A') && (c<='Z')) 
         {
-            out[j++]=c-'A'+'a';
+            out[j++]=c-'A'+'a'; /* makes it lower case */
         }
         else if((c>='0') && (c<='9'))
         {
