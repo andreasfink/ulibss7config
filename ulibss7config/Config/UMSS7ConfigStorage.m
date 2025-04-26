@@ -102,7 +102,7 @@
     _sccp_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_destination_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_translation_table_dict= [[UMSynchronizedSortedDictionary alloc]init];
-    _sccp_translation_table_entry_dict= [[UMSynchronizedSortedDictionary alloc]init]; /* do we need this or should this be above */
+    _sccp_translation_table_entry_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_translation_table_map_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_number_translation_dict= [[UMSynchronizedSortedDictionary alloc]init];
@@ -604,7 +604,6 @@
             [sccpTable addSubEntry:e];
         }
     }
-    
     /*  end of routing table normalisation */
     /* at this point we have a tree of entries where multiple GTAs in a config are duplicated into their own config and subentries are created for entries with the same gt */
 

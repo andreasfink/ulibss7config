@@ -1941,7 +1941,14 @@ static void signalHandler(int signum);
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
             {
-                [self hanldeSCCPRouteStatus:req];
+                [self handleSCCPRouteStatus:req];
+            }
+        }
+        else if([path isEqualToString:@"/status/sccp/routing-table"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleSCCPStatusRoutingTable:req];
             }
         }
         else if([path isEqualToString:@"/status/mtp3/route"])
@@ -2242,12 +2249,30 @@ static void signalHandler(int signum);
 
 - (void)hanldeSCCPRouteStatus:(UMHTTPRequest *)req
 {
+    /* typo backwards compatibility */
+    [self handleSCCPRouteStatus:req];
+}
+
+- (void)handleSCCPRouteStatus:(UMHTTPRequest *)req
+{
     UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
     NSArray *names = [_sccp_dict allKeys];
     for(NSString *name in names)
     {
         UMLayerSCCP *sccp = _sccp_dict[name];
         d[name] = [sccp routeStatus];
+    }
+    [req setResponseJsonString:[d jsonString]];
+}
+
+- (void)handleSCCPStatusRoutingTable:(UMHTTPRequest *)req;
+{
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_sccp_dict allKeys];
+    for(NSString *name in names)
+    {
+        UMLayerSCCP *sccp = _sccp_dict[name];
+        d[name] = [sccp routingTableStatus];
     }
     [req setResponseJsonString:[d jsonString]];
 }
