@@ -10,7 +10,7 @@
 o = [[NSMutableDictionary alloc]init];
 
 #define BOOLEAN(o,name,value,dbname,tag,options)            check(o,name,tag,"boolean",s);
-#define DOUBLE(o,name,value,dbname,tag,options)             check(o,name,tag,"double",s);
+#define REAL(o,name,value,dbname,tag,options)             check(o,name,tag,"double",s);
 #define INTEGER(o,name,value,dbname,tag,options)            check(o,name,tag,"integer",s);
 #define STRING(o,name,value,dbname,tag,options)             check(o,name,tag,"string",s);
 #define FILTERED_STRING(o,name,value,dbname,tag,options)    check(o,name,tag,"filtered_string",s);

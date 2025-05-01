@@ -1,6 +1,6 @@
 STRING(o,"attach-to",_attachTo,"attach_to",10,"")
 STRING(o,"number",_number,"number",11,"")
-DOUBLE(o,"timeout",_timeout,"timeout",12,"")
+REAL(o,"timeout",_timeout,"timeout",12,"")
 STRING(o,"timeout-trace-directory",_timeoutTraceDirectory,"timeout_trace_directory",13,"")
 STRING(o,"full-trace-directory",_fullTraceDirectory,"full_trace_directory",14,"")
 STRING(o,"eir-request-url",_eirRequestUrl,"eir_request_url",15,"")
