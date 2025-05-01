@@ -8,7 +8,7 @@
 
 
 #define BOOLEAN(o,name,value,dbname,tag,options)            { NSNumber *v = setConfigFromDict_BOOLEAN(o,name,dbname,tag,options);         if(v) { value=v;}}
-#define DOUBLE(o,name,value,dbname,tag,options)             { NSNumber *v = setConfigFromDict_DOUBLE(o,name,dbname,tag,options);          if(v) { value=v;}}
+#define REAL(o,name,value,dbname,tag,options)             { NSNumber *v = setConfigFromDict_DOUBLE(o,name,dbname,tag,options);          if(v) { value=v;}}
 #define INTEGER(o,name,value,dbname,tag,options)            { NSNumber *v = setConfigFromDict_INTEGER(o,name,dbname,tag,options);         if(v) { value=v;}}
 #define STRING(o,name,value,dbname,tag,options)             { NSString *v = setConfigFromDict_STRING(o,name,dbname,tag,options);          if(v) { value=v;}}
 #define FILTERED_STRING(o,name,value,dbname,tag,options)    { NSString *v = setConfigFromDict_FILTERED_STRING(o,name,dbname,tag,options); if(v) { value=v;}}

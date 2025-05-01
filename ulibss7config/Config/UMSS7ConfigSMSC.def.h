@@ -5,5 +5,5 @@ STRING(o,"timeout-trace-directory",_timeoutTraceDirectory,"timeout_trace_directo
 INTEGER(o,"smsc-translation-type",_smscTranslationType,"smsc_translation_type",14,"")
 INTEGER(o,"srism-translation-type",_srismTranslationType,"srism_translation_type",15,"")
 INTEGER(o,"forwardsm-translation-type",_forwardsmTranslationType,"forwardsms_translation_type",16,"")
-DOUBLE(o,"timeout",_timeout,"timeout",17,"")
+REAL(o,"timeout",_timeout,"timeout",17,"")
 

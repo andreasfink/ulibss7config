@@ -1,7 +1,7 @@
 STRING(o,"mtp3",_mtp3,"mtp3",10,"")
 STRING(o,"apc",_apc,"apc",11,"")
 STRING(o,"opc",_opc,"opc",12,"")
-DOUBLE(o,"speed",_speed,"speed",13,"")
+REAL(o,"speed",_speed,"speed",13,"")
 STRING(o,"override-network-indicator",_overrideNetworkIndicator,"override_network_inidicator",14,"")
 STRING(o,"tt-map-in",_ttmap_in,"tt_map_in",15,"")
 STRING(o,"tt-map-out",_ttmap_out,"tt_map_out",16,"")

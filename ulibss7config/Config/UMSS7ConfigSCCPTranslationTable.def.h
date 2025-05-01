@@ -10,5 +10,5 @@ STRING(o,"translation-table-db-pool",_translationTableDbPool,"translation_table_
 STRING(o,"translation-table-db-table",_translationTableDbTable,"translation_table_db_table",19,"")
 STRING(o,"translation-table-db-blacklist-table",_translationTableDbBlacklistTable,"translation_table_db_blacklist_table",20,"")
 BOOLEAN(o,"translation-table-db-autocreate",_translationTableDbAutocreate,"translation_table_db_autocreate",21,"")
-DOUBLE(o,"translation-table-db-check-intervall",_translationTableDbCheckIntervall,"translation_table_db_check_intervall",22,"")
+REAL(o,"translation-table-db-check-intervall",_translationTableDbCheckIntervall,"translation_table_db_check_intervall",22,"")
 
