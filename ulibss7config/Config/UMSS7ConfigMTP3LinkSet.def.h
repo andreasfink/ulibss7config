@@ -29,3 +29,5 @@ ARRAY_VERBOSE(o,"routing-update-allow",_routingUpdateAllow,"routing_update_allow
 ARRAY_VERBOSE(o,"routing-update-deny",_routingUpdateDeny,"routing_update_deny",38,"")
 ARRAY_VERBOSE(o,"routing-advertisement-allow",_routingAdvertisementAllow,"routing_advertizement_allow",39,"")
 ARRAY_VERBOSE(o,"routing-advertisement-deny",_routingAdvertisementDeny,"routing_advertizement_deny",40,"")
+STRING(o,"calling-tt-map-in",_calling_ttmap_in,"calling_ttmap_in",51,"")
+STRING(o,"calling-tt-map-out",_calling_ttmap_out,"calling_ttmap_out",52,"")

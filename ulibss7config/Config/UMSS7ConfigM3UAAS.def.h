@@ -28,3 +28,5 @@ ARRAY_VERBOSE(o,"routing-advertisement-deny",_routingAdvertisementDeny,"routing_
 BOOLEAN(o,"send-aspup",_send_aspup,"send_aspup",37,"")
 BOOLEAN(o,"send-aspac",_send_aspac,"send_aspac",38,"")
 STRING(o,"mode",_mode,"mode",39,"")
+STRING(o,"calling-tt-map-in",_calling_ttmap_in,"calling_ttmap_in",51,"")
+STRING(o,"calling-tt-map-out",_calling_ttmap_out,"calling_ttmap_out",52,"")
