@@ -1944,6 +1944,14 @@ static void signalHandler(int signum);
                 [self handleSCCPRouteStatus:req];
             }
         }
+        else if([path isEqualToString:@"/status/sccp/route-refresh"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleSCCPRouteRefresh:req];
+            }
+        }
+
         else if([path isEqualToString:@"/status/sccp/routing-table"])
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
@@ -2264,6 +2272,20 @@ static void signalHandler(int signum);
     }
     [req setResponseJsonString:[d jsonString]];
 }
+
+- (void)handleSCCPRouteRefresh:(UMHTTPRequest *)req
+{
+    UMSynchronizedSortedDictionary *d = [[UMSynchronizedSortedDictionary alloc]init];
+    NSArray *names = [_sccp_dict allKeys];
+    for(NSString *name in names)
+    {
+        UMLayerSCCP *sccp = _sccp_dict[name];
+        [sccp routeRefresh];
+        d[name]=@"refreshed";
+    }
+    [req setResponseJsonString:[d jsonString]];
+}
+
 
 - (void)handleSCCPStatusRoutingTable:(UMHTTPRequest *)req;
 {
