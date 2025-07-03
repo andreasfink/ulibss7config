@@ -11,13 +11,13 @@
 
 @interface UMSS7ApiSession : UMObject
 {
-    NSString *_sessionKey;
-    UMSS7ConfigApiUser *_currentUser;
-    NSString *_connectedFromIp;
-    UMAtomicDate *_firstUsed;
-    UMAtomicDate *_lastUsed;
-    NSTimeInterval _timeout;
-	NSString *_currentStorageAreaName;
+    NSString            *_sessionKey;
+    UMSS7ConfigApiUser  *_currentUser;
+    NSString            *_connectedFromIp;
+    UMAtomicDate        *_firstUsed;
+    UMAtomicDate        *_lastUsed;
+    NSTimeInterval      _timeout;
+	NSString            *_currentStorageAreaName;
 }
 
 @property(readwrite,strong,atomic) NSString *sessionKey;
