@@ -77,6 +77,7 @@
 @class UMSS7ConfigAuthServer;
 @class UMSS7ConfigStorageServer;
 @class UMSS7ConfigCdrServer;
+@class UMSS7ConfigTcapSharing;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -144,6 +145,7 @@
     UMSynchronizedSortedDictionary *_authServers_dict;
     UMSynchronizedSortedDictionary *_storageServers_dict;
     UMSynchronizedSortedDictionary *_cdrServers_dict;
+    UMSynchronizedSortedDictionary *_tcapSharing_dict;
 
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
@@ -215,6 +217,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *storageServers_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *cdrServers_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smsLog_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *tcapSharing_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -597,6 +600,13 @@
 - (NSString *)addCdrServer:(UMSS7ConfigCdrServer *)provider;
 - (NSString *)replaceCdrServer:(UMSS7ConfigCdrServer *)provider;
 - (NSString *)deleteCdrServer:(NSString *)name;
+
+
+- (NSArray *)getTcapSharings;
+- (UMSS7ConfigTcapSharing *)getTcapSharing:(NSString *)name;
+- (NSString *)addTcapSharing:(UMSS7ConfigTcapSharing *)provider;
+- (NSString *)replacTcapSharing:(UMSS7ConfigTcapSharing *)provider;
+- (NSString *)deleteTcapSharing:(UMSS7ConfigTcapSharing *)name;
 
 
 @end

@@ -28,3 +28,6 @@ ARRAY_VERBOSE(o,"routing-advertisement-deny",_routingAdvertisementDeny,"routing_
 BOOLEAN(o,"send-aspup",_send_aspup,"send_aspup",37,"")
 BOOLEAN(o,"send-aspac",_send_aspac,"send_aspac",38,"")
 STRING(o,"mode",_mode,"mode",39,"")
+STRING(o,"tcap-sharing-inside",_tcapSharingInside,"tcap_sharing_inside",41,"")
+STRING(o,"tcap-sharing-outside",_tcapSharingOutside,"tcap_sharing_outside",42,"")
+INTEGER(o,"tcap-sharing-priority",_tcapSharingPriority,"tcap_sharing_priority",43,"")

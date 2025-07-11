@@ -29,3 +29,6 @@ ARRAY_VERBOSE(o,"routing-update-allow",_routingUpdateAllow,"routing_update_allow
 ARRAY_VERBOSE(o,"routing-update-deny",_routingUpdateDeny,"routing_update_deny",38,"")
 ARRAY_VERBOSE(o,"routing-advertisement-allow",_routingAdvertisementAllow,"routing_advertizement_allow",39,"")
 ARRAY_VERBOSE(o,"routing-advertisement-deny",_routingAdvertisementDeny,"routing_advertizement_deny",40,"")
+STRING(o,"tcap-sharing-inside",_tcapSharingInside,"tcap_sharing_inside",41,"")
+STRING(o,"tcap-sharing-outside",_tcapSharingOutside,"tcap_sharing_outside",42,"")
+INTEGER(o,"tcap-sharing-priority",_tcapSharingPriority,"tcap_sharing_priority",43,"")

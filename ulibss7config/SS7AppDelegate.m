@@ -96,6 +96,7 @@
 #import <ulibss7config/SS7CDRWriter.h>
 #import <ulibss7config/UMSS7ConfigMTP3PointCodeTranslationTable.h>
 #import <ulibss7config/UMSS7ConfigSCCPTranslationTableMap.h>
+#import <ulibss7conifg/UMSS7ConfigTcapSharing.h>
 
 #import <ulibtcap/ulibtcap.h>
 
@@ -1365,6 +1366,38 @@ static void signalHandler(int signum);
             if( [config configEnabledWithYesDefault])
             {
                 [self addWithConfigSCCP:config];
+            }
+        }
+
+        /* SCCP Destinations */
+        names = [_runningConfig getSCCPDestinationNames];
+        for(NSString *name in names)
+        {
+            UMSS7ConfigObject *co = [_runningConfig getSCCPDestination:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
+            {
+                UMLayerSCCP *sccp = [self getSCCP:config[@"sccp"]];
+                [self addWithConfigSCCPDestination:config subConfigs:co.subConfigs variant:sccp.mtp3.variant];
+            }
+        }
+        /* FIXME: check if there's more in ESTP which we should add here */
+    }
+    
+    /* *************************************************************** */
+    /* TcapSharing                                                            */
+    /* *************************************************************** */
+
+    names = [_runningConfig getTcapSharings];
+    if(names.count > 0)
+    {
+        for(NSString *name in names)
+        {
+            UMSS7ConfigObject *co = [_runningConfig getTcapSharings:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
+            {
+                [self addTcapSharingWithCondig:config];
             }
         }
 
@@ -7179,6 +7212,38 @@ static void signalHandler(int signum);
     return @"default-ss7appdelegate";
 }
 
+- (void)addWithConfigTcapSharing:(NSDictionary *)config
+{
+    NSString *name = config[@"name"];
+    if(name)
+    {
+        UMSS7ConfigTcapSharing *co = [[UMSS7ConfigTcapSharing alloc]initWithConfig:config];
+        [_runningConfig addTcapSharing:co];
+
+        UMTcapSharingInstance *tsi = [[UMTcapSharingInstance alloc]intWithConfig:co.config]; name:@"sccp"];
+        sccp.appDelegate   = self;
+        sccp.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"sccp"];
+        sccp.logFeed.name = name;
+        [sccp setConfig:config applicationContext:self];
+        _sccp_dict[name] = sccp;
+        sccp.tcapDecoder = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-decode"];
+        [sccp.gttSelectorRegistry setSccp_number_translations_dict:_sccp_number_translations_dict];
+
+        if(co.problematicPacketsTraceFile)
+        {
+            sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
+        }
+        if(co.unrouteablePacketsTraceFile)
+        {
+            sccp.unrouteablePacketsTraceDestination = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
+        }
+        if(_mainSccpInstance==NULL)
+        {
+            _mainSccpInstance = sccp;
+        }
+        [sccp startStatisticsDb];
+    }
+}
 @end
 
 static void signalHandler(int signum)

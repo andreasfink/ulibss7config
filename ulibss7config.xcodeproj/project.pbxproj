@@ -295,6 +295,9 @@
 		A69A2D2B2329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A69A2D292329A61700F12046 /* DiameterSessionLCS_Routing_Info_Request.m */; };
 		A6A66903240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.h in Headers */ = {isa = PBXBuildFile; fileRef = A6A66901240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6A66904240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A66902240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.m */; };
+		A6A8C8862E2117040031048E /* UMSS7ConfigTcapSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A8C8852E2117040031048E /* UMSS7ConfigTcapSharing.m */; };
+		A6A8C8872E2117040031048E /* UMSS7ConfigTcapSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = A6A8C8842E2117040031048E /* UMSS7ConfigTcapSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6A8C88B2E2117200031048E /* UMSS7ConfigTcapSharing.def.h in Headers */ = {isa = PBXBuildFile; fileRef = A6A8C8882E2117200031048E /* UMSS7ConfigTcapSharing.def.h */; };
 		A6AA23D424855035008D5A57 /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = A6AA23D324855035008D5A57 /* VERSION */; };
 		A6B011AD21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B011AE21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */; };
@@ -1058,6 +1061,9 @@
 		A6A5206A2D3881AA00B1896D /* umss7config-db */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "umss7config-db"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6A66901240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskConfig_action.h; sourceTree = "<group>"; };
 		A6A66902240CEE1D007C4E20 /* UMSS7ApiTaskConfig_action.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskConfig_action.m; sourceTree = "<group>"; };
+		A6A8C8842E2117040031048E /* UMSS7ConfigTcapSharing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigTcapSharing.h; sourceTree = "<group>"; };
+		A6A8C8852E2117040031048E /* UMSS7ConfigTcapSharing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ConfigTcapSharing.m; sourceTree = "<group>"; };
+		A6A8C8882E2117200031048E /* UMSS7ConfigTcapSharing.def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ConfigTcapSharing.def.h; sourceTree = "<group>"; };
 		A6AA23D324855035008D5A57 /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		A6B011AB21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMSS7ApiTaskSCCPTranslationTable_list.h; sourceTree = "<group>"; };
 		A6B011AC21DA053C00B1B4B5 /* UMSS7ApiTaskSCCPTranslationTable_list.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMSS7ApiTaskSCCPTranslationTable_list.m; sourceTree = "<group>"; };
@@ -2272,6 +2278,9 @@
 				A6BF3168229443DC0000578B /* UMSS7ConfigSS7FilterRule.h */,
 				A6BF3169229443DD0000578B /* UMSS7ConfigSS7FilterRule.m */,
 				A67B71382D33E1B900699B17 /* UMSS7ConfigSS7FilterRuleSet.def.h */,
+				A6A8C8882E2117200031048E /* UMSS7ConfigTcapSharing.def.h */,
+				A6A8C8842E2117040031048E /* UMSS7ConfigTcapSharing.h */,
+				A6A8C8852E2117040031048E /* UMSS7ConfigTcapSharing.m */,
 				A6BF3167229443DC0000578B /* UMSS7ConfigSS7FilterRuleSet.h */,
 				A6BF316C229443DD0000578B /* UMSS7ConfigSS7FilterRuleSet.m */,
 				A67B713A2D33E1C600699B17 /* UMSS7ConfigSS7FilterStagingArea.def.h */,
@@ -2543,6 +2552,7 @@
 				A6BC42FE20774F93008C3CEB /* UMSS7ConfigMTP3.h in Headers */,
 				A61ACBD6287714E10052C8DB /* UMSS7ConfigSMPPServer.h in Headers */,
 				A634BC3321A40E7400852462 /* SS7GenericInstance_MAP_U_Abort_Ind_Task.h in Headers */,
+				A6A8C88B2E2117200031048E /* UMSS7ConfigTcapSharing.def.h in Headers */,
 				A6BF30E42294372F0000578B /* UMSS7ApiTaskSS7FilterRule_list.h in Headers */,
 				A6BF307A229430350000578B /* UMSS7ApiTaskServiceUser_status.h in Headers */,
 				A638466922CFF46C00D62749 /* UMSS7ApiTaskStatistics_add.h in Headers */,
@@ -2635,6 +2645,7 @@
 				A6BC4518207753EE008C3CEB /* UMSS7ApiTaskVersion.h in Headers */,
 				A6BF307B229430350000578B /* UMSS7ApiTaskServiceUser_action.h in Headers */,
 				A634BC0921A396C100852462 /* WebMacros.h in Headers */,
+				A6A8C8872E2117040031048E /* UMSS7ConfigTcapSharing.h in Headers */,
 				A634BC2821A40E7400852462 /* SS7GenericInstance_MAP_U_Abort_Req_Task.h in Headers */,
 				A67B71612D36D7C300699B17 /* UMSS7ConfigObject.def.h in Headers */,
 				A69429EF22DC964200A90936 /* UMSS7FilterAction.h in Headers */,
@@ -3242,6 +3253,7 @@
 				A6BC4528207753EE008C3CEB /* UMSS7ApiTaskSCCP_add.m in Sources */,
 				A6BC433C20774F93008C3CEB /* UMSS7ConfigM3UAAS.m in Sources */,
 				A6EC8E5C21B12F3E00B69FDD /* UMTTaskGetVersion.m in Sources */,
+				A6A8C8862E2117040031048E /* UMSS7ConfigTcapSharing.m in Sources */,
 				A6BF30C9229436ED0000578B /* UMSS7ApiTaskSS7FilterRuleSet_delete.m in Sources */,
 				A6BC44E8207753ED008C3CEB /* UMSS7ApiTaskM2PA_add.m in Sources */,
 				A6BC430A20774F93008C3CEB /* UMSS7ConfigTCAPFilter.m in Sources */,

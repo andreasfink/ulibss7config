@@ -23,8 +23,6 @@
     NSNumber *_notTags;
     NSString *_variables;
     NSNumber *_notVars;
-
-
 }
 
 @property(readwrite,strong,atomic)	NSString *filterSet;

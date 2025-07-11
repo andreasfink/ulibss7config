@@ -41,6 +41,9 @@
     NSArray<NSString *> *_routingUpdateDeny;
     NSArray<NSString *> *_routingAdvertisementAllow;
     NSArray<NSString *> *_routingAdvertisementDeny;
+    NSString *_tcapSharingInside;
+    NSString *_tcapSharingOutside;
+    NSNumber *_tcapSharingPriority;
 }
 
 + (NSString *)type;
@@ -80,5 +83,8 @@
 @property(readwrite,strong,atomic)  NSArray<NSString *> *routingUpdateDeny;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementAllow;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *routingAdvertisementDeny;
+@property(readwrite,strong,atomic)  NSString *tcapSharingInside;
+@property(readwrite,strong,atomic)  NSString *tcapSharingOutside;
+@property(readwrite,strong,atomic)  NSNumber *tcapSharingPriority;
 
 @end

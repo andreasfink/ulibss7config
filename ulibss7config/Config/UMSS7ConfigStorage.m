@@ -79,6 +79,7 @@
 #import <ulibss7config/UMSS7ConfigAuthServer.h>
 #import <ulibss7config/UMSS7ConfigStorageServer.h>
 #import <ulibss7config/UMSS7ConfigCdrServer.h>
+#import <ulibss7config/UMSS7ConfigTcapSharing.h>
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -143,11 +144,12 @@
     _smppServers_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _smppConnections_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _smppPlugins_dict = [[UMSynchronizedSortedDictionary alloc]init];
-    
+
     _authServers_dict       = [[UMSynchronizedSortedDictionary alloc]init];
     _storageServers_dict    = [[UMSynchronizedSortedDictionary alloc]init];
     _cdrServers_dict        = [[UMSynchronizedSortedDictionary alloc]init];
     _smsLog_dict            = [[UMSynchronizedSortedDictionary alloc]init];
+    _tcapSharing_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -2992,7 +2994,7 @@
 */
 
 #pragma mark -
-#pragma mark IMSIPool
+#pragma mark CDRWriter
 
 - (NSArray *)getCdrWriterNames
 {
@@ -4204,9 +4206,53 @@
     n.authServers_dict = [_authServers_dict copy];
     n.storageServers_dict = [_storageServers_dict copy];
     n.cdrServers_dict = [_cdrServers_dict copy];
+    n.tcapSharing_dict = [_tcapSharing_dict copy];
     n.smsLog_dict = [_smsLog_dict copy];
-
     return n;
+}
+
+
+
+#pragma mark -
+#pragma mark TcapSharing
+
+- (NSArray *)getTcapSharings
+{
+    return [[_tcapSharing_dict allKeys]sortedStringsArray];
+}
+
+- (UMSS7ConfigTcapSharing *)getTcapSharing:(NSString *)name;
+{
+    return _tcapSharing_dict[name];
+}
+
+- (NSString *)addTcapSharing:(UMSS7ConfigTcapSharing *)ts
+{
+    if(_tcapSharing_dict[ts.name] == NULL)
+    {
+        _tcapSharing_dict[ts.name] = cdrw;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replacTcapSharing:(UMSS7ConfigTcapSharing *)ts
+{
+    _tcapSharing_dict[ts.name] = ts;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteTcapSharing:(UMSS7ConfigTcapSharing *)name
+{
+    if(_tcapSharing_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_tcapSharing_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
 }
 
 @end
