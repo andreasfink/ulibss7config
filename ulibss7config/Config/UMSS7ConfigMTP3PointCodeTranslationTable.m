@@ -35,7 +35,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigMTP3PointCodeTranslationTable.def.h"
 #include "UMSS7Config_macroClear.h"
 

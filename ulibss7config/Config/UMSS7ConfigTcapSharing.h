@@ -8,13 +8,14 @@
 
 #import <ulibss7config/ulibss7config.h>
 
-
-
 @interface UMSS7ConfigTcapSharing : UMSS7ConfigObject
 {
-    NSNumber *_timeout;
+    NSNumber    *_timeout;
+    NSString    *_sccpName;
 }
-@property(readwrite,strong,atomic)  NSNumber *timeout;
+
+@property(readwrite,strong,atomic)  NSNumber    *timeout;
+@property(readwrite,strong,atomic)  NSString    *sccpName;
 
 @end
 

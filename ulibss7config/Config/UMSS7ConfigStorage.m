@@ -4230,7 +4230,7 @@
 {
     if(_tcapSharing_dict[ts.name] == NULL)
     {
-        _tcapSharing_dict[ts.name] = cdrw;
+        _tcapSharing_dict[ts.name] = ts;
         _dirty=YES;
         return @"ok";
     }
