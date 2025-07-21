@@ -6366,7 +6366,7 @@ static void signalHandler(int signum);
 #pragma mark -
 #pragma mark namedlists
 
-- (UMNamedList *)getNamedList:(NSString *)name
+- (id)getNamedList:(NSString *)name
 {
     ummutex_lock(_namedListLock);
     UMNamedList *nl = _namedLists[name];
