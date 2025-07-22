@@ -189,8 +189,8 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
             packet.incomingTcapUnidirectional = (UMTCAP_itu_asn1_unidirectional *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_UNIDIRECTIONAL;
         }
-        packet.incomingLocalTransactionId   = task.currentLocalTransactionId;
-        packet.incomingRemoteTransactionId  = task.currentRemoteTransactionId;
+        packet.incoming_tcap_otid   = task.currentLocalTransactionId;
+        packet.incoming_tcap_dtid  = task.currentRemoteTransactionId;
     }
     @catch(NSException *e)
     {
@@ -240,7 +240,7 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
                                        qualityOfService:0
                                                 options:@{ @"decode-only" : @YES }
                                        verifyAcceptance:NO];
-
+        
         @autoreleasepool
         {
             [task main];
@@ -274,17 +274,19 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
             packet.incomingTcapAbort = (UMTCAP_itu_asn1_abort *)asn1;
             packet.incoming_tcap_dtid = packet.incomingTcapAbort.dtid.asn1_data.hexString;
             packet.incomingTcapCommand = TCAP_TAG_ITU_ABORT;
-
+            
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_unidirectional class]])
         {
             packet.incomingTcapUnidirectional = (UMTCAP_itu_asn1_unidirectional *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_UNIDIRECTIONAL;
-
+            
         }
-
-        packet.incomingLocalTransactionId   = task.currentLocalTransactionId;
-        packet.incomingRemoteTransactionId  = task.currentRemoteTransactionId;
+        else
+        {
+            packet.incoming_tcap_otid   = task.currentLocalTransactionId;
+            packet.incoming_tcap_dtid  = task.currentRemoteTransactionId;
+        }
     }
     @catch(NSException *e)
     {
