@@ -1964,7 +1964,7 @@ static void signalHandler(int signum);
                 [self handleSCCPRouteStatus:req];
             }
         }
-        else if([path isEqualToString:@"/status/sccp/route-refresh"])
+        else if([path isEqualToString:@"/sccp/route-refresh"])
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
             {
@@ -7211,8 +7211,10 @@ static void signalHandler(int signum);
         tsi.logFeed.name = name;
         _tcapSharingInstances_dict[name] = tsi;
         tsi.sccpName = sccpName;
+        [tsi startBackgroundTask];
     }
 }
+
 @end
 
 static void signalHandler(int signum)
