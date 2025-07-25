@@ -540,6 +540,13 @@ UMEnvironmentNamedListProviderProtocol>
 
 /************************************************************/
 #pragma mark -
+#pragma mark TcapSHaring Functions
+/************************************************************/
+
+- (UMSCCP_TcapSharingInstance *)getTcapSharingInstance:(NSString *)name;
+
+/************************************************************/
+#pragma mark -
 #pragma mark Statistics
 /************************************************************/
 
