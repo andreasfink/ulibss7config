@@ -149,7 +149,7 @@
     _storageServers_dict    = [[UMSynchronizedSortedDictionary alloc]init];
     _cdrServers_dict        = [[UMSynchronizedSortedDictionary alloc]init];
     _smsLog_dict            = [[UMSynchronizedSortedDictionary alloc]init];
-    _tcapSharing_dict = [[UMSynchronizedSortedDictionary alloc]init];
+    _tcapSharing_dict       = [[UMSynchronizedSortedDictionary alloc]init];
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL

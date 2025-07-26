@@ -1,5 +1,5 @@
 //
-//  UMSS7Filter.M
+//  UMSS7Filter.m
 //  estp
 //
 //  Created by Andreas Fink on 20.05.19.
