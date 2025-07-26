@@ -44,10 +44,6 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-<<<<<<< HEAD
-
-=======
->>>>>>> 28fdf316cee9ed3ca2b6a2de2724c2a3c85e2f0a
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigSCCP.def.h"
 #include "UMSS7Config_macroClear.h"

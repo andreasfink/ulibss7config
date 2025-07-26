@@ -327,7 +327,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
     [cfg allowMultiGroup:[UMSS7ConfigMnpDatabase type]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSLog type]];
-    [cfg allowMultiGroup:[UMSS7ConfigTcapSharing type]];
+    [cfg allowMultiGroup:@"tcap-sharing"]; //[UMSS7ConfigTcapSharing type]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -552,7 +552,7 @@
             _sccp_translation_table_map_dict[sccp_translation_table_map.name] = sccp_translation_table_map;
         }
     }
-    NSArray *tcap_sharing_configs = [cfg getMultiGroups:[UMSS7ConfigTcapSharing type]];
+    NSArray *tcap_sharing_configs = [cfg getMultiGroups:@"tcap-sharing" /*[UMSS7ConfigTcapSharing type]*/];
     for(NSDictionary *tcap_sharing_config in tcap_sharing_configs)
     {
         UMSS7ConfigTcapSharing *ts = [[UMSS7ConfigTcapSharing alloc]initWithConfig:tcap_sharing_config];
