@@ -1964,7 +1964,7 @@ static void signalHandler(int signum);
                 [self handleSCCPRouteStatus:req];
             }
         }
-        else if([path isEqualToString:@"/status/sccp/route-refresh"])
+        else if([path isEqualToString:@"/sccp/route-refresh"])
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
             {
@@ -3968,7 +3968,6 @@ static void signalHandler(int signum);
         _sccp_dict[name] = sccp;
         sccp.tcapDecoder = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-decode"];
         [sccp.gttSelectorRegistry setSccp_number_translations_dict:_sccp_number_translations_dict];
-
         if(co.problematicPacketsTraceFile)
         {
             sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
@@ -6369,7 +6368,7 @@ static void signalHandler(int signum);
 - (id)getNamedList:(NSString *)name
 {
     ummutex_lock(_namedListLock);
-    UMNamedList *nl = _namedLists[name];
+    id nl = _namedLists[name];
     ummutex_unlock(_namedListLock);
     return nl;
 }
@@ -6401,7 +6400,6 @@ static void signalHandler(int signum);
     [nl reload];
     _namedLists[listName] = nl;
     ummutex_unlock(_namedListLock);
-
 }
 
 - (void)namedlistsFlushAll
@@ -7199,6 +7197,12 @@ static void signalHandler(int signum);
     return @"default-ss7appdelegate";
 }
 
+
+- (UMSCCP_TcapSharingInstance *)getTcapSharingInstance:(NSString *)name
+{
+    return _tcapSharingInstances_dict[name];
+}
+
 - (void)addTcapSharingWithConfig:(NSDictionary *)config
 {
     NSString *name      = config[@"name"];
@@ -7211,8 +7215,10 @@ static void signalHandler(int signum);
         tsi.logFeed.name = name;
         _tcapSharingInstances_dict[name] = tsi;
         tsi.sccpName = sccpName;
+        [tsi startBackgroundTask];
     }
 }
+
 @end
 
 static void signalHandler(int signum)
