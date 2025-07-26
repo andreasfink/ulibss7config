@@ -30,8 +30,8 @@
 
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigSCTP *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)      NSArray<NSString *> *localAddresses;

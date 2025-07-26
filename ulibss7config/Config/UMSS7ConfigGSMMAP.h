@@ -23,8 +23,8 @@
 @property(readwrite,strong,atomic)  NSNumber *timeout;
 @property(readwrite,strong,atomic)  NSString *operations;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigGSMMAP *)initWithConfig:(NSDictionary *)dict;
 

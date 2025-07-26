@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigSS7FilterEngine
 
-+ (NSString *)type
++ (NSString *)groupName
 {
 	return @"ss7-filter-engine";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-	return [UMSS7ConfigSS7FilterEngine type];
+	return [UMSS7ConfigSS7FilterEngine groupName];
 }
 
 

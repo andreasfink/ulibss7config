@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigHLR
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"hlr";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigHLR type];
+    return [UMSS7ConfigHLR groupName];
 }
 
 

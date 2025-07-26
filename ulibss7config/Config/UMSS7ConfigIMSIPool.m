@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigIMSIPool
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"imsi-pool";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigIMSIPool type];
+    return [UMSS7ConfigIMSIPool groupName];
 }
 
 

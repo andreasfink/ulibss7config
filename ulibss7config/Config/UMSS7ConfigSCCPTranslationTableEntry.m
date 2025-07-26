@@ -12,14 +12,14 @@
 
 @implementation UMSS7ConfigSCCPTranslationTableEntry
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sccp-translation-table-entry";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCCPTranslationTableEntry type];
+    return [UMSS7ConfigSCCPTranslationTableEntry groupName];
 }
 
 

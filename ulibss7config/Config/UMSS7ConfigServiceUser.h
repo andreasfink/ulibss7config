@@ -24,8 +24,8 @@
 @property(readwrite,strong,atomic)      NSNumber *speedLimit;
 @property(readwrite,strong,atomic)      NSString *billingEntity;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigServiceUser *)initWithConfig:(NSDictionary *)dict;
 
 @end

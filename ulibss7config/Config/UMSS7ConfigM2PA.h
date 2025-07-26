@@ -30,8 +30,8 @@
     NSString        *_stateMachineLog;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigM2PA *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)      NSString        *attachTo;

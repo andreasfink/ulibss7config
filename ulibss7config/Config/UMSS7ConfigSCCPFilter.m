@@ -12,13 +12,13 @@
 
 @implementation UMSS7ConfigSCCPFilter
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sccp-filter";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCCPFilter type];
+    return [UMSS7ConfigSCCPFilter groupName];
 }
 
 - (UMSS7ConfigSCCPFilter *)initWithConfig:(NSDictionary *)dict

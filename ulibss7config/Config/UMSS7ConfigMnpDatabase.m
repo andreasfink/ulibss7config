@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigMnpDatabase
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mnp-database";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMnpDatabase type];
+    return [UMSS7ConfigMnpDatabase groupName];
 }
 
 - (UMSS7ConfigMnpDatabase *)initWithConfig:(NSDictionary *)dict

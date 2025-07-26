@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigSS7FilterAction
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"ss7-filter-action";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSS7FilterAction type];
+    return [UMSS7ConfigSS7FilterAction groupName];
 }
 
 - (UMSS7ConfigSS7FilterAction *)initWithConfig:(NSDictionary *)dict

@@ -13,8 +13,8 @@
     NSNumber *_map[256];
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigSCCPTranslationTableMap *)initWithConfig:(NSDictionary *)dict;
 - (UMSynchronizedSortedDictionary *)config;

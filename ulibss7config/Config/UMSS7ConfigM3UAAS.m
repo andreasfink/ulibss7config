@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigM3UAAS
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"m3ua-as";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigM3UAAS type];
+    return [UMSS7ConfigM3UAAS groupName];
 }
 
 

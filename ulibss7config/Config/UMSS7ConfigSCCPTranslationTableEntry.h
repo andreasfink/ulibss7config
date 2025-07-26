@@ -24,8 +24,8 @@
     NSString *_appcontext;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigSCCPTranslationTableEntry *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *translationTableName;

@@ -26,8 +26,8 @@
 @property(readwrite,strong,atomic)   NSString *eirRequestUrl;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigEIR *)initWithConfig:(NSDictionary *)dict;
 @end

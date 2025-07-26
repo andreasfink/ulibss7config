@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigGMLC
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"gmlc";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigGMLC type];
+    return [UMSS7ConfigGMLC groupName];
 }
 
 

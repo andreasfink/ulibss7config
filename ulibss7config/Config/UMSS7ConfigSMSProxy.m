@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigSMSProxy
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"smsproxy";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSMSProxy type];
+    return [UMSS7ConfigSMSProxy groupName];
 }
 
 

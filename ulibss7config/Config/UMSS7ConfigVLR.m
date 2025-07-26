@@ -12,14 +12,15 @@
 @implementation UMSS7ConfigVLR
 
 
-+ (NSString *)type
++ (NSString *)groupName
+
 {
     return @"vlr";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigVLR type];
+    return [UMSS7ConfigVLR groupName];
 }
 
 

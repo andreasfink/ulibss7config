@@ -11,13 +11,14 @@
 
 @implementation UMSS7ConfigSMSFilterEntry
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sms-filter-entry";
 }
-- (NSString *)type
+
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSMSFilterEntry type];
+    return [UMSS7ConfigSMSFilterEntry groupName];
 }
 
 - (UMSS7ConfigSMSFilterEntry *)initWithConfig:(NSDictionary *)dict

@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigTcapSharing
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"tcap-sharing";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigTcapSharing type];
+    return [UMSS7ConfigTcapSharing groupName];
 }
 
 - (UMSS7ConfigTcapSharing *)initWithConfig:(NSDictionary *)dict

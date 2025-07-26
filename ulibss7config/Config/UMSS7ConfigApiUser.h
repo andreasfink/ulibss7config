@@ -21,8 +21,8 @@
 @property(readwrite,strong,atomic)      NSString            *profile;
 @property(readwrite,strong,atomic)      NSArray<NSString *> *allowedAddresses;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigApiUser *)initWithConfig:(NSDictionary *)dict;
 
 @end

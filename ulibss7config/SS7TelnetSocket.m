@@ -574,8 +574,6 @@
     ulib_set_thread_name(@"CS Listener");
 
     UMSocketError    err;
-    NSDate *retryTime = nil;
-    //NSTimeInterval bindDelay = 30;
     NSTimeInterval retryDelay = 10;
 
     _receivePollTimeoutMs = 100;
@@ -695,7 +693,6 @@
     [self.logFeed info:0 withText:[NSString stringWithFormat:@"ConfigurationSocket on port %d shutting down\r\n",_localPort]];
     [_sock close];
     _sock = nil;
-    retryTime = nil;
 }
 
 

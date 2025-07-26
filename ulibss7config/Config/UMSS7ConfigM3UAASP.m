@@ -10,14 +10,14 @@
 #import "UMSS7ConfigMacroHelper.h"
 @implementation UMSS7ConfigM3UAASP
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"m3ua-asp";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigM3UAASP type];
+    return [UMSS7ConfigM3UAASP groupName];
 }
 
 

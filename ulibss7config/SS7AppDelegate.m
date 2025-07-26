@@ -6344,9 +6344,9 @@ static void signalHandler(int signum);
         {
             NSString *fullFilename = [NSString stringWithFormat:@"%@/%@",path,filename];
             UMConfig* cfg = [[UMConfig alloc]initWithFileName:fullFilename];
-            [cfg allowSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
+            [cfg allowSingleGroup:[UMSS7ConfigSS7FilterTraceFile groupName]];
             [cfg read];
-            NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
+            NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7FilterTraceFile groupName]];
             NSMutableDictionary *config2 = [config mutableCopy];
             config2[@"name"] = [filename stringByDeletingPathExtension];
             UMSS7ConfigSS7FilterTraceFile *c = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:config2];

@@ -20,8 +20,8 @@
 @property(readwrite,strong,atomic)          NSString *applicationPoint;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigSCCPFilter *)initWithConfig:(NSDictionary *)dict;
 
 @end

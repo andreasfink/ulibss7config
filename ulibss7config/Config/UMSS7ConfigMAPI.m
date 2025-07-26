@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigMAPI
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mapi";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMAPI type];
+    return [UMSS7ConfigMAPI groupName];
 }
 
 

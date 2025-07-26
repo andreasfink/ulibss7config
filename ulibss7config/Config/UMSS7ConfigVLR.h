@@ -34,8 +34,8 @@
 
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigVLR *)initWithConfig:(NSDictionary *)dict;
 @end

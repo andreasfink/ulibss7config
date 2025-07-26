@@ -19,8 +19,8 @@
     NSNumber *_localPreference;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigMTP3Route *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *mtp3;

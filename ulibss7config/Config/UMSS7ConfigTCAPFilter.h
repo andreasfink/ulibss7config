@@ -18,8 +18,8 @@
 @property(readwrite,strong,atomic)  NSNumber *bypassTranslationType;
 @property(readwrite,strong,atomic)  NSString *defaultResult;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigTCAPFilter *)initWithConfig:(NSDictionary *)dict;
 

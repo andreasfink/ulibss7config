@@ -270,64 +270,64 @@
 {
     UMConfig* cfg = [[UMConfig alloc]initWithFileName:filename];
     [cfg allowSingleGroup:@"general"];
-    [cfg allowMultiGroup:[UMSS7ConfigWebserver type]];
-    [cfg allowMultiGroup:[UMSS7ConfigTelnet type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSyslogDestination type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCTP type]];
-    [cfg allowMultiGroup:[UMSS7ConfigM2PA type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3 type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3Link type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3LinkSet type]];
-    [cfg allowMultiGroup:[UMSS7ConfigM3UAAS type]];
-    [cfg allowMultiGroup:[UMSS7ConfigM3UAASP type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3Filter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3FilterEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3Route type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCP type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPDestination type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPDestinationEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTable type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableMap type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPFilter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigTCAP type]];
-    [cfg allowMultiGroup:[UMSS7ConfigTCAPFilter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigTCAPFilterEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigGSMMAP type]];
-    [cfg allowMultiGroup:[UMSS7ConfigGSMMAPFilter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigGSMMAPFilterEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMS type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSFilter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSFilterEntry type]];
-    [cfg allowMultiGroup:[UMSS7ConfigHLR type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMSC type]];
-    [cfg allowMultiGroup:[UMSS7ConfigGGSN type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSGSN type]];
-    [cfg allowMultiGroup:[UMSS7ConfigVLR type]];
-    [cfg allowMultiGroup:[UMSS7ConfigEIR type]];
-    [cfg allowMultiGroup:[UMSS7ConfigGSMSCF type]];
-    [cfg allowMultiGroup:[UMSS7ConfigGMLC type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSC type]];
-    [cfg allowMultiGroup:[UMSS7ConfigCAMEL type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSProxy type]];
-    [cfg allowMultiGroup:[UMSS7ConfigESTP type]];
-    [cfg allowMultiGroup:[UMSS7ConfigAdminUser type]];
-    [cfg allowMultiGroup:[UMSS7ConfigApiUser type]];
-    [cfg allowMultiGroup:[UMSS7ConfigDatabasePool type]];
-    [cfg allowMultiGroup:[UMSS7ConfigServiceUser type]];
-    [cfg allowMultiGroup:[UMSS7ConfigServiceProfile type]];
-    [cfg allowMultiGroup:[UMSS7ConfigServiceBillingEntity type]];
-    [cfg allowMultiGroup:[UMSS7ConfigIMSIPool type]];
-    [cfg allowMultiGroup:[UMSS7ConfigCdrWriter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigDiameterRouter type]];
-    [cfg allowMultiGroup:[UMSS7ConfigDiameterRoute type]];
-    [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
-    [cfg allowMultiGroup:[UMSS7ConfigMnpDatabase type]];
-    [cfg allowMultiGroup:[UMSS7ConfigSMSLog type]];
-    [cfg allowMultiGroup:@"tcap-sharing"]; //[UMSS7ConfigTcapSharing type]];
+    [cfg allowMultiGroup:[UMSS7ConfigWebserver groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigTelnet groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSyslogDestination groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCTP groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigM2PA groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3 groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Link groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3LinkSet groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigM3UAAS groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigM3UAASP groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Filter groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3FilterEntry groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3Route groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCP groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPDestination groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPDestinationEntry groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTable groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableEntry groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPTranslationTableMap groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPFilter groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslation groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSCCPNumberTranslationEntry groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigTCAP groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigTCAPFilter groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigTCAPFilterEntry groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMMAP groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMMAPFilter groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMMAPFilterEntry groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMS groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSFilter groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSFilterEntry groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigHLR groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMSC groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigGGSN groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSGSN groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigVLR groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigEIR groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigGSMSCF groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigGMLC groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSC groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigCAMEL groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSProxy groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigESTP groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigAdminUser groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigApiUser groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigDatabasePool groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigServiceUser groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigServiceProfile groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigServiceBillingEntity groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigIMSIPool groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigCdrWriter groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigDiameterRouter groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigDiameterRoute groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigDiameterConnection groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMTP3PointCodeTranslationTable groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigMnpDatabase groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSMSLog groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigTcapSharing groupName]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -338,7 +338,7 @@
 {
     /* as we can read multiple config files, the general options could be further
      enhanced in a second file */
-    NSDictionary *general_config = [cfg getSingleGroup:[UMSS7ConfigGeneral type]];
+    NSDictionary *general_config = [cfg getSingleGroup:[UMSS7ConfigGeneral groupName]];
     if(general_config==NULL)
     {
         general_config = @{@"group" : @"general",
@@ -360,7 +360,7 @@
         [_generalConfig setConfig:general_config];
     }
 
-    NSArray *webserver_configs = [cfg getMultiGroups:[UMSS7ConfigWebserver type]];
+    NSArray *webserver_configs = [cfg getMultiGroups:[UMSS7ConfigWebserver groupName]];
     for(NSDictionary *webserver_config in webserver_configs)
     {
         UMSS7ConfigWebserver *webserver = [[UMSS7ConfigWebserver alloc]initWithConfig:webserver_config];
@@ -369,7 +369,7 @@
             _webserver_dict[webserver.name] = webserver;
         }
     }
-    NSArray *telnet_configs = [cfg getMultiGroups:[UMSS7ConfigTelnet type]];
+    NSArray *telnet_configs = [cfg getMultiGroups:[UMSS7ConfigTelnet groupName]];
     for(NSDictionary *telnet_config in telnet_configs)
     {
         UMSS7ConfigTelnet *telnet = [[UMSS7ConfigTelnet alloc]initWithConfig:telnet_config];
@@ -379,7 +379,7 @@
         }
     }
 
-    NSArray *syslog_configs = [cfg getMultiGroups:[UMSS7ConfigSyslogDestination type]];
+    NSArray *syslog_configs = [cfg getMultiGroups:[UMSS7ConfigSyslogDestination groupName]];
     for(NSDictionary *syslog_config in syslog_configs)
     {
         UMSS7ConfigSyslogDestination *syslog = [[UMSS7ConfigSyslogDestination alloc]initWithConfig:syslog_config];
@@ -389,7 +389,7 @@
         }
     }
 
-    NSArray *sctp_configs = [cfg getMultiGroups:[UMSS7ConfigSCTP type]];
+    NSArray *sctp_configs = [cfg getMultiGroups:[UMSS7ConfigSCTP groupName]];
     for(NSDictionary *sctp_config in sctp_configs)
     {
         UMSS7ConfigSCTP *sctp = [[UMSS7ConfigSCTP alloc]initWithConfig:sctp_config];
@@ -398,7 +398,7 @@
             _sctp_dict[sctp.name] = sctp;
         }
     }
-    NSArray *m2pa_configs = [cfg getMultiGroups:[UMSS7ConfigM2PA type]];
+    NSArray *m2pa_configs = [cfg getMultiGroups:[UMSS7ConfigM2PA groupName]];
     for(NSDictionary *m2pa_config in m2pa_configs)
     {
         UMSS7ConfigM2PA *m2pa = [[UMSS7ConfigM2PA alloc]initWithConfig:m2pa_config];
@@ -407,7 +407,7 @@
             _m2pa_dict[m2pa.name] = m2pa;
         }
     }
-    NSArray *mtp3_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3 type]];
+    NSArray *mtp3_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3 groupName]];
     for(NSDictionary *mtp3_config in mtp3_configs)
     {
         UMSS7ConfigMTP3 *mtp3 = [[UMSS7ConfigMTP3 alloc]initWithConfig:mtp3_config];
@@ -416,7 +416,7 @@
             _mtp3_dict[mtp3.name] = mtp3;
         }
     }
-    NSArray *mtp3_link_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Link type]];
+    NSArray *mtp3_link_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Link groupName]];
     for(NSDictionary *mtp3_link_config in mtp3_link_configs)
     {
         UMSS7ConfigMTP3Link *mtp3_link = [[UMSS7ConfigMTP3Link alloc]initWithConfig:mtp3_link_config];
@@ -425,7 +425,7 @@
             _mtp3_link_dict[mtp3_link.name] = mtp3_link;
         }
     }
-    NSArray *mtp3_linkset_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3LinkSet type]];
+    NSArray *mtp3_linkset_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3LinkSet groupName]];
     for(NSDictionary *mtp3_linkset_config in mtp3_linkset_configs)
     {
         UMSS7ConfigMTP3LinkSet *mtp3_linkset = [[UMSS7ConfigMTP3LinkSet alloc]initWithConfig:mtp3_linkset_config];
@@ -434,7 +434,7 @@
             _mtp3_linkset_dict[mtp3_linkset.name] = mtp3_linkset;
         }
     }
-    NSArray *m3ua_as_configs = [cfg getMultiGroups:[UMSS7ConfigM3UAAS type]];
+    NSArray *m3ua_as_configs = [cfg getMultiGroups:[UMSS7ConfigM3UAAS groupName]];
     for(NSDictionary *m3ua_as_config in m3ua_as_configs)
     {
         UMSS7ConfigM3UAAS *m3ua_as = [[UMSS7ConfigM3UAAS alloc]initWithConfig:m3ua_as_config];
@@ -443,7 +443,7 @@
             _m3ua_as_dict[m3ua_as.name] = m3ua_as;
         }
     }
-    NSArray *m3ua_asp_configs = [cfg getMultiGroups:[UMSS7ConfigM3UAASP type]];
+    NSArray *m3ua_asp_configs = [cfg getMultiGroups:[UMSS7ConfigM3UAASP groupName]];
     for(NSDictionary *m3ua_asp_config in m3ua_asp_configs)
     {
         UMSS7ConfigM3UAASP *m3ua_asp = [[UMSS7ConfigM3UAASP alloc]initWithConfig:m3ua_asp_config];
@@ -453,7 +453,7 @@
         }
     }
 
-    NSArray *mtp3_filter_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Filter type]];
+    NSArray *mtp3_filter_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Filter groupName]];
     for(NSDictionary *mtp3_filter_config in mtp3_filter_configs)
     {
         UMSS7ConfigMTP3Filter *mtp3_filter = [[UMSS7ConfigMTP3Filter alloc]initWithConfig:mtp3_filter_config];
@@ -463,7 +463,7 @@
         }
     }
 
-    NSArray *mtp3_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3FilterEntry type]];
+    NSArray *mtp3_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3FilterEntry groupName]];
     for(NSDictionary *mtp3_filter_entry_config in mtp3_filter_entry_configs)
     {
         UMSS7ConfigMTP3FilterEntry *mtp3_filter_entry = [[UMSS7ConfigMTP3FilterEntry alloc]initWithConfig:mtp3_filter_entry_config];
@@ -477,7 +477,7 @@
         }
     }
 
-    NSArray *mtp3_route_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Route type]];
+    NSArray *mtp3_route_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3Route groupName]];
     for(NSDictionary *mtp3_route_config in mtp3_route_configs)
     {
         UMSS7ConfigMTP3Route *mtp3_route = [[UMSS7ConfigMTP3Route alloc]initWithConfig:mtp3_route_config];
@@ -487,7 +487,7 @@
         }
     }
 
-    NSArray *mtp3_pctrans_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3PointCodeTranslationTable type]];
+    NSArray *mtp3_pctrans_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3PointCodeTranslationTable groupName]];
     for(NSDictionary *mtp3_pctrans_config in mtp3_pctrans_configs)
     {
         UMSS7ConfigMTP3PointCodeTranslationTable *mtp3_pctt = [[UMSS7ConfigMTP3PointCodeTranslationTable alloc]initWithConfig:mtp3_pctrans_config];
@@ -497,7 +497,7 @@
         }
     }
 
-    NSArray *sccp_configs = [cfg getMultiGroups:[UMSS7ConfigSCCP type]];
+    NSArray *sccp_configs = [cfg getMultiGroups:[UMSS7ConfigSCCP groupName]];
     for(NSDictionary *sccp_config in sccp_configs)
     {
         UMSS7ConfigSCCP *sccp = [[UMSS7ConfigSCCP alloc]initWithConfig:sccp_config];
@@ -508,7 +508,7 @@
     }
 
 
-    NSArray *sccp_destination_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPDestination type]];
+    NSArray *sccp_destination_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPDestination groupName]];
     for(NSDictionary *sccp_destination_config in sccp_destination_configs)
     {
         UMSS7ConfigSCCPDestination *sccp_destination = [[UMSS7ConfigSCCPDestination alloc]initWithConfig:sccp_destination_config];
@@ -518,7 +518,7 @@
         }
     }
 
-    NSArray *sccp_destination_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPDestinationEntry type]];
+    NSArray *sccp_destination_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPDestinationEntry groupName]];
     for(NSDictionary *sccp_destination_entry_config in sccp_destination_entry_configs)
     {
         UMSS7ConfigSCCPDestinationEntry *sccp_destination_entry = [[UMSS7ConfigSCCPDestinationEntry alloc]initWithConfig:sccp_destination_entry_config];
@@ -533,7 +533,7 @@
     }
 
 
-    NSArray *sccp_translation_table_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTable type]];
+    NSArray *sccp_translation_table_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTable groupName]];
     for(NSDictionary *sccp_translation_table_config in sccp_translation_table_configs)
     {
         UMSS7ConfigSCCPTranslationTable *sccp_translation_table = [[UMSS7ConfigSCCPTranslationTable alloc]initWithConfig:sccp_translation_table_config];
@@ -543,7 +543,7 @@
         }
     }
 
-    NSArray *sccp_translation_table_map_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableMap type]];
+    NSArray *sccp_translation_table_map_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableMap groupName]];
     for(NSDictionary *sccp_translation_table_map_config in sccp_translation_table_map_configs)
     {
         UMSS7ConfigSCCPTranslationTableMap *sccp_translation_table_map = [[UMSS7ConfigSCCPTranslationTableMap alloc]initWithConfig:sccp_translation_table_map_config];
@@ -568,7 +568,7 @@
     /* also we make multiple entries for entries which have more than one GTA in it */
 
     NSMutableArray *entries = [[NSMutableArray alloc]init];
-    for(NSDictionary *e in [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableEntry type]])
+    for(NSDictionary *e in [cfg getMultiGroups:[UMSS7ConfigSCCPTranslationTableEntry groupName]])
     {
         UMSS7ConfigSCCPTranslationTableEntry *entry = [[UMSS7ConfigSCCPTranslationTableEntry alloc]initWithConfig:e];
         [entries addObject:entry];
@@ -620,7 +620,7 @@
     /* at this point we have a tree of entries where multiple GTAs in a config are duplicated into their own config and subentries are created for entries with the same gt */
 
 
-    NSArray *sccp_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPFilter type]];
+    NSArray *sccp_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPFilter groupName]];
     for(NSDictionary *sccp_filter_config in sccp_filter_configs)
     {
         UMSS7ConfigSCCPFilter *sccp_filter = [[UMSS7ConfigSCCPFilter alloc]initWithConfig:sccp_filter_config];
@@ -630,7 +630,7 @@
         }
     }
 
-    NSArray *tcap_configs = [cfg getMultiGroups:[UMSS7ConfigTCAP type]];
+    NSArray *tcap_configs = [cfg getMultiGroups:[UMSS7ConfigTCAP groupName]];
     for(NSDictionary *tcap_config in tcap_configs)
     {
         UMSS7ConfigTCAP *tcap = [[UMSS7ConfigTCAP alloc]initWithConfig:tcap_config];
@@ -640,7 +640,7 @@
         }
     }
 
-    NSArray *tcap_filter_configs = [cfg getMultiGroups:[UMSS7ConfigTCAPFilter type]];
+    NSArray *tcap_filter_configs = [cfg getMultiGroups:[UMSS7ConfigTCAPFilter groupName]];
     for(NSDictionary *tcap_filter_config in tcap_filter_configs)
     {
         UMSS7ConfigTCAPFilter *tcap_filter = [[UMSS7ConfigTCAPFilter alloc]initWithConfig:tcap_filter_config];
@@ -650,7 +650,7 @@
         }
     }
 
-    NSArray *tcap_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigTCAPFilterEntry type]];
+    NSArray *tcap_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigTCAPFilterEntry groupName]];
     for(NSDictionary *tcap_filter_entry_config in tcap_filter_entry_configs)
     {
         UMSS7ConfigTCAPFilterEntry *tcap_filter_entry = [[UMSS7ConfigTCAPFilterEntry alloc]initWithConfig:tcap_filter_entry_config];
@@ -664,7 +664,7 @@
         }
     }
 
-    NSArray *gsmmap_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAP type]];
+    NSArray *gsmmap_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAP groupName]];
     for(NSDictionary *gsmmap_config in gsmmap_configs)
     {
         UMSS7ConfigGSMMAP *gsmmap = [[UMSS7ConfigGSMMAP alloc]initWithConfig:gsmmap_config];
@@ -674,7 +674,7 @@
         }
     }
 
-    NSArray *gsmmap_filter_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAPFilter type]];
+    NSArray *gsmmap_filter_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAPFilter groupName]];
     for(NSDictionary *gsmmap_filter_config in gsmmap_filter_configs)
     {
         UMSS7ConfigGSMMAPFilter *gsmmap_filter = [[UMSS7ConfigGSMMAPFilter alloc]initWithConfig:gsmmap_filter_config];
@@ -684,7 +684,7 @@
         }
     }
 
-    NSArray *gsmmap_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAPFilterEntry type]];
+    NSArray *gsmmap_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigGSMMAPFilterEntry groupName]];
     for(NSDictionary *gsmmap_filter_entry_config in gsmmap_filter_entry_configs)
     {
         UMSS7ConfigGSMMAPFilterEntry *gsmmap_filter_entry = [[UMSS7ConfigGSMMAPFilterEntry alloc]initWithConfig:gsmmap_filter_entry_config];
@@ -698,7 +698,7 @@
         }
     }
 
-    NSArray *sms_configs = [cfg getMultiGroups:[UMSS7ConfigSMS type]];
+    NSArray *sms_configs = [cfg getMultiGroups:[UMSS7ConfigSMS groupName]];
     for(NSDictionary *sms_config in sms_configs)
     {
         UMSS7ConfigSMS *sms = [[UMSS7ConfigSMS alloc]initWithConfig:sms_config];
@@ -708,7 +708,7 @@
         }
     }
 
-    NSArray *sms_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSMSFilter type]];
+    NSArray *sms_filter_configs = [cfg getMultiGroups:[UMSS7ConfigSMSFilter groupName]];
     for(NSDictionary *sms_filter_config in sms_filter_configs)
     {
         UMSS7ConfigSMSFilter *sms_filter = [[UMSS7ConfigSMSFilter alloc]initWithConfig:sms_filter_config];
@@ -718,7 +718,7 @@
         }
     }
 
-    NSArray *sms_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSMSFilterEntry type]];
+    NSArray *sms_filter_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSMSFilterEntry groupName]];
     for(NSDictionary *sms_filter_entry_config in sms_filter_entry_configs)
     {
         UMSS7ConfigSMSFilterEntry *sms_filter_entry = [[UMSS7ConfigSMSFilterEntry alloc]initWithConfig:sms_filter_entry_config];
@@ -732,7 +732,7 @@
         }
     }
 
-    NSArray *hlr_configs = [cfg getMultiGroups:[UMSS7ConfigHLR type]];
+    NSArray *hlr_configs = [cfg getMultiGroups:[UMSS7ConfigHLR groupName]];
     for(NSDictionary *hlr_config in hlr_configs)
     {
         UMSS7ConfigHLR *hlr = [[UMSS7ConfigHLR alloc]initWithConfig:hlr_config];
@@ -741,7 +741,7 @@
             _hlr_dict[hlr.name] = hlr;
         }
     }
-    NSArray *msc_configs = [cfg getMultiGroups:[UMSS7ConfigMSC type]];
+    NSArray *msc_configs = [cfg getMultiGroups:[UMSS7ConfigMSC groupName]];
     for(NSDictionary *msc_config in msc_configs)
     {
         UMSS7ConfigMSC *msc = [[UMSS7ConfigMSC alloc]initWithConfig:msc_config];
@@ -751,7 +751,7 @@
         }
     }
 
-    NSArray *ggsn_configs = [cfg getMultiGroups:[UMSS7ConfigGGSN type]];
+    NSArray *ggsn_configs = [cfg getMultiGroups:[UMSS7ConfigGGSN groupName]];
     for(NSDictionary *ggsn_config in ggsn_configs)
     {
         UMSS7ConfigGGSN *ggsn = [[UMSS7ConfigGGSN alloc]initWithConfig:ggsn_config];
@@ -761,7 +761,7 @@
         }
     }
 
-    NSArray *sgsn_configs = [cfg getMultiGroups:[UMSS7ConfigSGSN type]];
+    NSArray *sgsn_configs = [cfg getMultiGroups:[UMSS7ConfigSGSN groupName]];
     for(NSDictionary *sgsn_config in sgsn_configs)
     {
         UMSS7ConfigSGSN *sgsn = [[UMSS7ConfigSGSN alloc]initWithConfig:sgsn_config];
@@ -771,7 +771,7 @@
         }
     }
 
-    NSArray *vlr_configs = [cfg getMultiGroups:[UMSS7ConfigVLR type]];
+    NSArray *vlr_configs = [cfg getMultiGroups:[UMSS7ConfigVLR groupName]];
     for(NSDictionary *vlr_config in vlr_configs)
     {
         UMSS7ConfigVLR *vlr = [[UMSS7ConfigVLR alloc]initWithConfig:vlr_config];
@@ -781,7 +781,7 @@
         }
     }
 
-    NSArray *eir_configs = [cfg getMultiGroups:[UMSS7ConfigEIR type]];
+    NSArray *eir_configs = [cfg getMultiGroups:[UMSS7ConfigEIR groupName]];
     for(NSDictionary *eir_config in eir_configs)
     {
         UMSS7ConfigEIR *eir = [[UMSS7ConfigEIR alloc]initWithConfig:eir_config];
@@ -791,7 +791,7 @@
         }
     }
 
-    NSArray *gsmscf_configs = [cfg getMultiGroups:[UMSS7ConfigGSMSCF type]];
+    NSArray *gsmscf_configs = [cfg getMultiGroups:[UMSS7ConfigGSMSCF groupName]];
     for(NSDictionary *gsmscf_config in gsmscf_configs)
     {
         UMSS7ConfigGSMSCF *gsmscf = [[UMSS7ConfigGSMSCF alloc]initWithConfig:gsmscf_config];
@@ -801,7 +801,7 @@
         }
     }
 
-    NSArray *gmlc_configs = [cfg getMultiGroups:[UMSS7ConfigGMLC type]];
+    NSArray *gmlc_configs = [cfg getMultiGroups:[UMSS7ConfigGMLC groupName]];
     for(NSDictionary *gmlc_config in gmlc_configs)
     {
         UMSS7ConfigGMLC *gmlc = [[UMSS7ConfigGMLC alloc]initWithConfig:gmlc_config];
@@ -811,7 +811,7 @@
         }
     }
     
-    NSArray *camel_configs = [cfg getMultiGroups:[UMSS7ConfigCAMEL type]];
+    NSArray *camel_configs = [cfg getMultiGroups:[UMSS7ConfigCAMEL groupName]];
     for(NSDictionary *camel_config in camel_configs)
     {
         UMSS7ConfigCAMEL *camel = [[UMSS7ConfigCAMEL alloc]initWithConfig:camel_config];
@@ -821,7 +821,7 @@
         }
     }
 
-    NSArray *smsc_configs = [cfg getMultiGroups:[UMSS7ConfigSMSC type]];
+    NSArray *smsc_configs = [cfg getMultiGroups:[UMSS7ConfigSMSC groupName]];
     for(NSDictionary *smsc_config in smsc_configs)
     {
         UMSS7ConfigSMSC *smsc = [[UMSS7ConfigSMSC alloc]initWithConfig:smsc_config];
@@ -831,7 +831,7 @@
         }
     }
     
-    NSArray *smsproxy_configs = [cfg getMultiGroups:[UMSS7ConfigSMSProxy type]];
+    NSArray *smsproxy_configs = [cfg getMultiGroups:[UMSS7ConfigSMSProxy groupName]];
     for(NSDictionary *smsproxy_config in smsproxy_configs)
     {
         UMSS7ConfigSMSProxy *proxy = [[UMSS7ConfigSMSProxy alloc]initWithConfig:smsproxy_config];
@@ -841,7 +841,7 @@
         }
     }
 
-    NSArray *estp_configs = [cfg getMultiGroups:[UMSS7ConfigESTP type]];
+    NSArray *estp_configs = [cfg getMultiGroups:[UMSS7ConfigESTP groupName]];
     for(NSDictionary *estp_config in estp_configs)
     {
         UMSS7ConfigESTP *estp = [[UMSS7ConfigESTP alloc]initWithConfig:estp_config];
@@ -851,7 +851,7 @@
         }
     }
 
-    NSArray *admin_user_configs = [cfg getMultiGroups:[UMSS7ConfigAdminUser type]];
+    NSArray *admin_user_configs = [cfg getMultiGroups:[UMSS7ConfigAdminUser groupName]];
     for(NSDictionary *admin_user_config in admin_user_configs)
     {
         UMSS7ConfigAdminUser *admin_user = [[UMSS7ConfigAdminUser alloc]initWithConfig:admin_user_config];
@@ -861,7 +861,7 @@
         }
     }
 
-    NSArray *api_user_configs = [cfg getMultiGroups:[UMSS7ConfigApiUser type]];
+    NSArray *api_user_configs = [cfg getMultiGroups:[UMSS7ConfigApiUser groupName]];
     for(NSDictionary *api_user_config in api_user_configs)
     {
         UMSS7ConfigApiUser *api_user = [[UMSS7ConfigApiUser alloc]initWithConfig:api_user_config];
@@ -871,7 +871,7 @@
         }
     }
 
-    NSArray *database_pool_configs = [cfg getMultiGroups:[UMSS7ConfigDatabasePool type]];
+    NSArray *database_pool_configs = [cfg getMultiGroups:[UMSS7ConfigDatabasePool groupName]];
     for(NSDictionary *database_pool_config in database_pool_configs)
     {
         UMSS7ConfigDatabasePool *e = [[UMSS7ConfigDatabasePool alloc]initWithConfig:database_pool_config];
@@ -881,7 +881,7 @@
         }
     }
 
-    NSArray *sccp_number_translation_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslation type]];
+    NSArray *sccp_number_translation_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslation groupName]];
     for(NSDictionary *sccp_number_translation_config in sccp_number_translation_configs)
     {
         UMSS7ConfigSCCPNumberTranslation *e = [[UMSS7ConfigSCCPNumberTranslation alloc]initWithConfig:sccp_number_translation_config];
@@ -890,7 +890,7 @@
             _sccp_number_translation_dict[e.name] = e;
         }
     }
-    NSArray *sccp_number_translation_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslationEntry type]];
+    NSArray *sccp_number_translation_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslationEntry groupName]];
     for(NSDictionary *sccp_number_translation_entry_config in sccp_number_translation_entry_configs)
     {
         UMSS7ConfigSCCPNumberTranslationEntry *e = [[UMSS7ConfigSCCPNumberTranslationEntry alloc]initWithConfig:sccp_number_translation_entry_config];
@@ -905,7 +905,7 @@
         _sccp_number_translation_dict[p.name] = p;
     }
 
-    NSArray *service_user_configs = [cfg getMultiGroups:[UMSS7ConfigServiceUser type]];
+    NSArray *service_user_configs = [cfg getMultiGroups:[UMSS7ConfigServiceUser groupName]];
     for(NSDictionary *service_user_config in service_user_configs)
     {
         UMSS7ConfigServiceUser *u = [[UMSS7ConfigServiceUser alloc]initWithConfig:service_user_config];
@@ -915,7 +915,7 @@
         }
     }
 
-    NSArray *service_user_profile_configs = [cfg getMultiGroups:[UMSS7ConfigServiceProfile type]];
+    NSArray *service_user_profile_configs = [cfg getMultiGroups:[UMSS7ConfigServiceProfile groupName]];
     for(NSDictionary *service_user_profile_config in service_user_profile_configs)
     {
         UMSS7ConfigServiceProfile *up = [[UMSS7ConfigServiceProfile alloc]initWithConfig:service_user_profile_config];
@@ -925,7 +925,7 @@
         }
     }
 
-    NSArray *service_billing_entity_configs = [cfg getMultiGroups:[UMSS7ConfigServiceBillingEntity type]];
+    NSArray *service_billing_entity_configs = [cfg getMultiGroups:[UMSS7ConfigServiceBillingEntity groupName]];
     for(NSDictionary *service_billing_entity_config in service_billing_entity_configs)
     {
         UMSS7ConfigServiceBillingEntity *be = [[UMSS7ConfigServiceBillingEntity alloc]initWithConfig:service_billing_entity_config];
@@ -934,7 +934,7 @@
             _service_billing_entity_dict[be.name] = be;
         }
     }
-    NSArray *imsi_pool_configs = [cfg getMultiGroups:[UMSS7ConfigIMSIPool type]];
+    NSArray *imsi_pool_configs = [cfg getMultiGroups:[UMSS7ConfigIMSIPool groupName]];
     for(NSDictionary *imsi_pool_config in imsi_pool_configs)
     {
         UMSS7ConfigIMSIPool *pool = [[UMSS7ConfigIMSIPool alloc]initWithConfig:imsi_pool_config];
@@ -944,7 +944,7 @@
         }
     }
 
-    NSArray *cdr_writer_configs = [cfg getMultiGroups:[UMSS7ConfigCdrWriter type]];
+    NSArray *cdr_writer_configs = [cfg getMultiGroups:[UMSS7ConfigCdrWriter groupName]];
     for(NSDictionary *cdr_writer_config in cdr_writer_configs)
     {
         UMSS7ConfigCdrWriter *co = [[UMSS7ConfigCdrWriter alloc]initWithConfig:cdr_writer_config];
@@ -955,7 +955,7 @@
         _cdr_writer_dict[co.name] = co;
     }
 
-    NSArray *diameter_connection_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterConnection type]];
+    NSArray *diameter_connection_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterConnection groupName]];
     for(NSDictionary *diameter_connection_config in diameter_connection_configs)
     {
         UMSS7ConfigDiameterConnection *dc = [[UMSS7ConfigDiameterConnection alloc]initWithConfig:diameter_connection_config];
@@ -965,7 +965,7 @@
         }
     }
 
-    NSArray *diameter_router_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterRouter type]];
+    NSArray *diameter_router_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterRouter groupName]];
     for(NSDictionary *diameter_router_config in diameter_router_configs)
     {
         UMSS7ConfigDiameterRouter *dr = [[UMSS7ConfigDiameterRouter alloc]initWithConfig:diameter_router_config];
@@ -975,7 +975,7 @@
         }
     }
 
-    NSArray *diameter_route_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterRoute type]];
+    NSArray *diameter_route_configs = [cfg getMultiGroups:[UMSS7ConfigDiameterRoute groupName]];
     for(NSDictionary *diameter_route_config in diameter_route_configs)
     {
         UMSS7ConfigDiameterRoute *dr = [[UMSS7ConfigDiameterRoute alloc]initWithConfig:diameter_route_config];
@@ -1071,57 +1071,57 @@
 
 - (void)configStringAppendSubsections:(NSMutableString *)s
 {
-    [self appendSection:s dict:_webserver_dict sectionName:[UMSS7ConfigWebserver type]];
-    [self appendSection:s dict:_telnet_dict sectionName:[UMSS7ConfigTelnet type]];
-    [self appendSection:s dict:_syslog_destination_dict sectionName:[UMSS7ConfigSyslogDestination type]];
-     [self appendSection:s dict:_sctp_dict sectionName:[UMSS7ConfigSCTP type]];
-     [self appendSection:s dict:_m2pa_dict sectionName:[UMSS7ConfigM2PA type]];
-     [self appendSection:s dict:_mtp3_dict sectionName:[UMSS7ConfigMTP3 type]];
-     [self appendSection:s dict:_mtp3_link_dict sectionName:[UMSS7ConfigMTP3Link type]];
-     [self appendSection:s dict:_mtp3_linkset_dict sectionName:[UMSS7ConfigMTP3LinkSet type]];
-     [self appendSection:s dict:_m3ua_as_dict sectionName:[UMSS7ConfigM3UAAS type]];
-     [self appendSection:s dict:_m3ua_asp_dict sectionName:[UMSS7ConfigM3UAASP type]];
-     [self appendSection:s dict:_mtp3_filter_dict sectionName:[UMSS7ConfigMTP3Filter type]];
+    [self appendSection:s dict:_webserver_dict sectionName:[UMSS7ConfigWebserver groupName]];
+    [self appendSection:s dict:_telnet_dict sectionName:[UMSS7ConfigTelnet groupName]];
+    [self appendSection:s dict:_syslog_destination_dict sectionName:[UMSS7ConfigSyslogDestination groupName]];
+     [self appendSection:s dict:_sctp_dict sectionName:[UMSS7ConfigSCTP groupName]];
+     [self appendSection:s dict:_m2pa_dict sectionName:[UMSS7ConfigM2PA groupName]];
+     [self appendSection:s dict:_mtp3_dict sectionName:[UMSS7ConfigMTP3 groupName]];
+     [self appendSection:s dict:_mtp3_link_dict sectionName:[UMSS7ConfigMTP3Link groupName]];
+     [self appendSection:s dict:_mtp3_linkset_dict sectionName:[UMSS7ConfigMTP3LinkSet groupName]];
+     [self appendSection:s dict:_m3ua_as_dict sectionName:[UMSS7ConfigM3UAAS groupName]];
+     [self appendSection:s dict:_m3ua_asp_dict sectionName:[UMSS7ConfigM3UAASP groupName]];
+     [self appendSection:s dict:_mtp3_filter_dict sectionName:[UMSS7ConfigMTP3Filter groupName]];
      /* UMSS7ConfigMTP3FilterEntry */
-     [self appendSection:s dict:_mtp3_route_dict sectionName:[UMSS7ConfigMTP3Route type]];
-     [self appendSection:s dict:_sccp_dict sectionName:[UMSS7ConfigSCCP type]];
-     [self appendSectionWithEntries:s dict:_sccp_destination_dict sectionName:[UMSS7ConfigSCCPDestination type]];
+     [self appendSection:s dict:_mtp3_route_dict sectionName:[UMSS7ConfigMTP3Route groupName]];
+     [self appendSection:s dict:_sccp_dict sectionName:[UMSS7ConfigSCCP groupName]];
+     [self appendSectionWithEntries:s dict:_sccp_destination_dict sectionName:[UMSS7ConfigSCCPDestination groupName]];
       /* UMSS7ConfigSCCPDestinationEntry */
-      [self appendSectionWithEntries:s dict:_sccp_translation_table_dict sectionName:[UMSS7ConfigSCCPTranslationTable type]];
+      [self appendSectionWithEntries:s dict:_sccp_translation_table_dict sectionName:[UMSS7ConfigSCCPTranslationTable groupName]];
       /* UMSS7ConfigSCCPTranslationTableEntry */
-      [self appendSectionWithEntries:s dict:_sccp_translation_table_map_dict sectionName:[UMSS7ConfigSCCPTranslationTableMap type]];
-      [self appendSection:s dict:_sccp_filter_dict sectionName:[UMSS7ConfigSCCPFilter type]];
-      [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:[UMSS7ConfigSCCPNumberTranslation type]];
+      [self appendSectionWithEntries:s dict:_sccp_translation_table_map_dict sectionName:[UMSS7ConfigSCCPTranslationTableMap groupName]];
+      [self appendSection:s dict:_sccp_filter_dict sectionName:[UMSS7ConfigSCCPFilter groupName]];
+      [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:[UMSS7ConfigSCCPNumberTranslation groupName]];
       /* UMSS7ConfigSCCPNumberTranslationEntry */
-      [self appendSection:s dict:_tcap_dict sectionName:[UMSS7ConfigTCAP type]];
-      [self appendSectionWithEntries:s dict:_tcap_filter_dict sectionName:[UMSS7ConfigTCAPFilter type]];
+      [self appendSection:s dict:_tcap_dict sectionName:[UMSS7ConfigTCAP groupName]];
+      [self appendSectionWithEntries:s dict:_tcap_filter_dict sectionName:[UMSS7ConfigTCAPFilter groupName]];
       /* [UMSS7ConfigTCAPFilterEntry */
-      [self appendSection:s dict:_gsmmap_dict sectionName:[UMSS7ConfigGSMMAP type]];
-      [self appendSectionWithEntries:s dict:_gsmmap_filter_dict sectionName:[UMSS7ConfigGSMMAPFilter type]];
+      [self appendSection:s dict:_gsmmap_dict sectionName:[UMSS7ConfigGSMMAP groupName]];
+      [self appendSectionWithEntries:s dict:_gsmmap_filter_dict sectionName:[UMSS7ConfigGSMMAPFilter groupName]];
       /* UMSS7ConfigGSMMAPFilterEntry */
-      [self appendSection:s dict:_sms_dict sectionName:[UMSS7ConfigSMS type]];
-      [self appendSectionWithEntries:s dict:_sms_filter_dict sectionName:[UMSS7ConfigSMSFilter type]];
+      [self appendSection:s dict:_sms_dict sectionName:[UMSS7ConfigSMS groupName]];
+      [self appendSectionWithEntries:s dict:_sms_filter_dict sectionName:[UMSS7ConfigSMSFilter groupName]];
       /* UMSS7ConfigSMSFilterEntry */
-      [self appendSection:s dict:_hlr_dict sectionName:[UMSS7ConfigHLR type]];
-      [self appendSection:s dict:_msc_dict sectionName:[UMSS7ConfigMSC type]];
-      [self appendSection:s dict:_ggsn_dict sectionName:[UMSS7ConfigGGSN type]];
-      [self appendSection:s dict:_sgsn_dict sectionName:[UMSS7ConfigSGSN type]];
-      [self appendSection:s dict:_vlr_dict sectionName:[UMSS7ConfigVLR type]];
-      [self appendSection:s dict:_eir_dict sectionName:[UMSS7ConfigEIR type]];
-      [self appendSection:s dict:_gsmscf_dict sectionName:[UMSS7ConfigGSMSCF type]];
-      [self appendSection:s dict:_gmlc_dict sectionName:[UMSS7ConfigGMLC type]];
-      [self appendSection:s dict:_smsc_dict sectionName:[UMSS7ConfigSMSC type]];
-      [self appendSection:s dict:_smsproxy_dict sectionName:[UMSS7ConfigSMSProxy type]];
-      [self appendSection:s dict:_estp_dict sectionName:[UMSS7ConfigESTP type]];
-      [self appendSection:s dict:_admin_user_dict sectionName:[UMSS7ConfigAdminUser type]];
-      [self appendSection:s dict:_api_user_dict sectionName:[UMSS7ConfigApiUser type]];
-      [self appendSection:s dict:_database_pool_dict sectionName:[UMSS7ConfigDatabasePool type]];
-      [self appendSection:s dict:_service_user_dict sectionName:[UMSS7ConfigServiceUser type]];
-      [self appendSection:s dict:_service_user_profile_dict sectionName:[UMSS7ConfigServiceProfile type]];
-      [self appendSection:s dict:_service_billing_entity_dict sectionName:[UMSS7ConfigServiceBillingEntity type]];
-      [self appendSection:s dict:_imsi_pool_dict sectionName:[UMSS7ConfigIMSIPool type]];
-      [self appendSection:s dict:_cdr_writer_dict sectionName:[UMSS7ConfigCdrWriter type]];
-      [self appendSection:s dict:_diameter_connection_dict sectionName:[UMSS7ConfigDiameterConnection type]];
+      [self appendSection:s dict:_hlr_dict sectionName:[UMSS7ConfigHLR groupName]];
+      [self appendSection:s dict:_msc_dict sectionName:[UMSS7ConfigMSC groupName]];
+      [self appendSection:s dict:_ggsn_dict sectionName:[UMSS7ConfigGGSN groupName]];
+      [self appendSection:s dict:_sgsn_dict sectionName:[UMSS7ConfigSGSN groupName]];
+      [self appendSection:s dict:_vlr_dict sectionName:[UMSS7ConfigVLR groupName]];
+      [self appendSection:s dict:_eir_dict sectionName:[UMSS7ConfigEIR groupName]];
+      [self appendSection:s dict:_gsmscf_dict sectionName:[UMSS7ConfigGSMSCF groupName]];
+      [self appendSection:s dict:_gmlc_dict sectionName:[UMSS7ConfigGMLC groupName]];
+      [self appendSection:s dict:_smsc_dict sectionName:[UMSS7ConfigSMSC groupName]];
+      [self appendSection:s dict:_smsproxy_dict sectionName:[UMSS7ConfigSMSProxy groupName]];
+      [self appendSection:s dict:_estp_dict sectionName:[UMSS7ConfigESTP groupName]];
+      [self appendSection:s dict:_admin_user_dict sectionName:[UMSS7ConfigAdminUser groupName]];
+      [self appendSection:s dict:_api_user_dict sectionName:[UMSS7ConfigApiUser groupName]];
+      [self appendSection:s dict:_database_pool_dict sectionName:[UMSS7ConfigDatabasePool groupName]];
+      [self appendSection:s dict:_service_user_dict sectionName:[UMSS7ConfigServiceUser groupName]];
+      [self appendSection:s dict:_service_user_profile_dict sectionName:[UMSS7ConfigServiceProfile groupName]];
+      [self appendSection:s dict:_service_billing_entity_dict sectionName:[UMSS7ConfigServiceBillingEntity groupName]];
+      [self appendSection:s dict:_imsi_pool_dict sectionName:[UMSS7ConfigIMSIPool groupName]];
+      [self appendSection:s dict:_cdr_writer_dict sectionName:[UMSS7ConfigCdrWriter groupName]];
+      [self appendSection:s dict:_diameter_connection_dict sectionName:[UMSS7ConfigDiameterConnection groupName]];
 
 }
 
@@ -1195,7 +1195,7 @@
                 UMSS7ConfigObject *co = dict[key];\
                 d2[key] = co.config;\
             } \
-            d[ [obj type] ] = d2; \
+            d[ [obj groupName] ] = d2; \
         } \
     }
 
@@ -1210,7 +1210,7 @@
                 UMSS7ConfigObject *co = dict[key];\
                 d2[key] = co.config;\
             } \
-            d[ [obj type] ] = d2; \
+            d[ [obj groupName] ] = d2; \
             UMSynchronizedSortedDictionary *subentries = [[UMSynchronizedSortedDictionary alloc]init]; \
             for(NSString *key in keys) \
             { \
@@ -1221,7 +1221,7 @@
                     subentries[co2.name] = co2.config; \
                 } \
             } \
-            d[ [obj2 type]] = subentries; \
+            d[ [obj2 groupName]] = subentries; \
         } \
     }
 

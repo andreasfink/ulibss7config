@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigSCCPTranslationTableMap
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sccp-translation-table-map";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCCPTranslationTableMap type];
+    return [UMSS7ConfigSCCPTranslationTableMap groupName];
 }
 
 

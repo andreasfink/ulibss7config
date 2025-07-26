@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigGSMMAP
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"gsmmap";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigGSMMAP type];
+    return [UMSS7ConfigGSMMAP groupName];
 }
 
 

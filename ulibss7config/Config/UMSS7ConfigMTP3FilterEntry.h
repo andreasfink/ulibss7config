@@ -25,8 +25,8 @@
 @property(readwrite,strong,atomic)      NSNumber *si;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigMTP3FilterEntry *)initWithConfig:(NSDictionary *)dict;
 
 @end

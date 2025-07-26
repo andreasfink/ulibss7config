@@ -25,8 +25,8 @@
 
 - (UMSS7ConfigSS7FilterTraceFile *)initWithConfig:(NSDictionary *)dict;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 @end
 

@@ -29,8 +29,8 @@
 @property(readwrite,strong,atomic)  NSString *gttAccountingTable;
 @property(readwrite,strong,atomic)  NSString *gttAccountingPrefixesTable;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigESTP *)initWithConfig:(NSDictionary *)dict;
 @end

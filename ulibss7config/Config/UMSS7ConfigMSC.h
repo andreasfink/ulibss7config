@@ -27,8 +27,8 @@
 @property(readwrite,strong,atomic)   NSString *imsiPool;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigMSC *)initWithConfig:(NSDictionary *)dict;
 @end
 

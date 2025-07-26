@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigDatabasePool
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"database-pool";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigDatabasePool type];
+    return [UMSS7ConfigDatabasePool groupName];
 }
 
 
