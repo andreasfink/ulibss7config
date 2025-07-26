@@ -36,6 +36,7 @@
     NSNumber *_screeningSccpPluginTraceLevel;
     NSString *_smsLogServerZmqIn;
     NSString *_smsLogServerZmqOut;
+    NSNumber *_tcapSharingTraceLevel;
 }
 
 + (NSString *)type;

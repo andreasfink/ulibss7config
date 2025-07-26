@@ -184,7 +184,7 @@ UMEnvironmentNamedListProviderProtocol>
     SS7GenericInstance			*_mainCamelInstance;
 	SS7GenericInstance			*_mainMapInstance;
     UMLayerSCCP                 *_mainSccpInstance;
-    NSMutableDictionary<NSString *,id>   *_namedLists; /* key = name, object type = UMNamedList */
+    NSMutableDictionary<NSString *,id>   *_namedLists; /* key = name, object type = UMNamedListOld */
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
 
