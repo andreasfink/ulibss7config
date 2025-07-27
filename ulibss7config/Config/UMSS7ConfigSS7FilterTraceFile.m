@@ -22,7 +22,6 @@
     return [UMSS7ConfigSS7FilterTraceFile groupName];
 }
 
-
 - (UMSS7ConfigSS7FilterTraceFile *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];

@@ -10,6 +10,7 @@
 
 #import "SS7AppDelegate.h"
 
+#import <ulibasn1/ulibasn1.h>
 #import <ulibtransport/ulibtransport.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibdiameter/ulibdiameter.h>
