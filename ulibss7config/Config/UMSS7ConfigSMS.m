@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigSMS
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sms";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSMS type];
+    return [UMSS7ConfigSMS groupName];
 }
 
 

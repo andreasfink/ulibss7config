@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigCdrWriter
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"cdr-writer";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigCdrWriter type];
+    return [UMSS7ConfigCdrWriter groupName];
 }
 
 

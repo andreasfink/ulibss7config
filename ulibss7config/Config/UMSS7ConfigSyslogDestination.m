@@ -11,13 +11,14 @@
 
 @implementation UMSS7ConfigSyslogDestination
 
-+ (NSString *)type
++ (NSString *)groupName
+
 {
     return @"syslog-destination";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSyslogDestination type];
+    return [UMSS7ConfigSyslogDestination groupName];
 }
 
 - (UMSS7ConfigSyslogDestination *)initWithConfig:(NSDictionary *)dict

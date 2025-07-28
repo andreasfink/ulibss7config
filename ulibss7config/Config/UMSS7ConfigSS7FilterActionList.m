@@ -33,14 +33,14 @@
     return self;
 }
 
-+ (NSString *)type
++ (NSString *)groupName
 {
 	return @"ss7-filter-action-list";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-	return [UMSS7ConfigSS7FilterActionList type];
+	return [UMSS7ConfigSS7FilterActionList groupName];
 }
 
 

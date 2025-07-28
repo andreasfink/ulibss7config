@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigSS7FilterTraceFile
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"ss7-filter-tracefile";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSS7FilterTraceFile type];
+    return [UMSS7ConfigSS7FilterTraceFile groupName];
 }
 
 

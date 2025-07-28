@@ -56,8 +56,8 @@
 
 @property(readwrite,strong,atomic)      NSString *groupProfile;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigServiceProfile *)initWithConfig:(NSDictionary *)dict;
 
 @end

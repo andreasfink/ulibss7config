@@ -45,8 +45,8 @@
     NSNumber            *_sctp_maxInitAttempts;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigMTP3Link *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *mtp3LinkSet;

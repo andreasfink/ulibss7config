@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigDiameterConnection
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"diameter-connection";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigDiameterConnection type];
+    return [UMSS7ConfigDiameterConnection groupName];
 }
 
 

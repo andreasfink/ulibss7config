@@ -20,8 +20,8 @@
 @property(readwrite,strong,atomic)   NSString *licenseDirectory;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigMAPI *)initWithConfig:(NSDictionary *)dict;
 @end

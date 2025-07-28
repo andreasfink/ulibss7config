@@ -11,14 +11,14 @@
 @implementation UMSS7ConfigSCCPDestinationEntry
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sccp-destination-entry";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCCPDestinationEntry type];
+    return [UMSS7ConfigSCCPDestinationEntry groupName];
 }
 
 

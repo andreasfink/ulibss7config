@@ -11,13 +11,14 @@
 
 @implementation UMSS7ConfigSMPPPlugin
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"smpp-plugin";
 }
-- (NSString *)type
+
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSMPPPlugin type];
+    return [UMSS7ConfigSMPPPlugin groupName];
 }
 
 - (UMSS7ConfigSMPPPlugin *)initWithConfig:(NSDictionary *)dict directory:(NSString *)dir

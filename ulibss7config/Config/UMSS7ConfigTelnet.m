@@ -11,13 +11,14 @@
 
 @implementation UMSS7ConfigTelnet
 
-+ (NSString *)type
++ (NSString *)groupName
+
 {
     return @"telnet";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigTelnet type];
+    return [UMSS7ConfigTelnet groupName];
 }
 
 - (UMSS7ConfigTelnet *)initWithConfig:(NSDictionary *)dict

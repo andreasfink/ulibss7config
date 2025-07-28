@@ -11,13 +11,13 @@
 
 @implementation UMSS7ConfigApiUser
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"api-user";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigApiUser type];
+    return [UMSS7ConfigApiUser groupName];
 }
 
 - (UMSS7ConfigApiUser *)initWithConfig:(NSDictionary *)dict

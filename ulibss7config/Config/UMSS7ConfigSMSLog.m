@@ -11,13 +11,14 @@
 
 @implementation UMSS7ConfigSMSLog
 
-+ (NSString *)type
++ (NSString *)groupName
 {
    return @"sms-log";
 }
-- (NSString *)type
+
+- (NSString *)groupName
 {
-   return [UMSS7ConfigSMSLog type];
+   return [UMSS7ConfigSMSLog groupName];
 }
 
 - (UMSS7ConfigSMSLog *)initWithConfig:(NSDictionary *)dict

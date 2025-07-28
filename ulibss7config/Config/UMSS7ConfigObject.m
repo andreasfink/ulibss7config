@@ -21,7 +21,7 @@
     _dirty = d;
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
     return @"undefined";
 }
@@ -53,7 +53,7 @@
 {
     [o appendFormat:@"\n"];
 
-    appendConfig_STRING(o,"group", self.type,"group",1,"index");
+    appendConfig_STRING(o,"group", self.groupName,"group",1,"index");
     if(withoutName==NO)
     {
         appendConfig_STRING(o,"name",_name,"name",2,"index,unique");
@@ -77,7 +77,7 @@
     
 #include "UMSS7Config_macroAppendDict.h"
 
-    appendDict_STRING(o,"group", self.type,"group",1,"index");
+    appendDict_STRING(o,"group", self.groupName,"group",1,"index");
     if((withoutName==NO) && (_name.length >0))
     {
         appendDict_STRING(o,"name",_name,"name",2,"index,unique");

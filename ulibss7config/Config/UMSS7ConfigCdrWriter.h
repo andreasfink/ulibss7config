@@ -36,8 +36,8 @@
 @property(readwrite,strong,atomic)  NSString *cdrFilePrefix;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigCdrWriter *)initWithConfig:(NSDictionary *)dict;
 

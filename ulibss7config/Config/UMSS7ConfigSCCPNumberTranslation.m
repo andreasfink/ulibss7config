@@ -13,14 +13,14 @@
 @implementation UMSS7ConfigSCCPNumberTranslation
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sccp-number-translation";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCCPNumberTranslation type];
+    return [UMSS7ConfigSCCPNumberTranslation groupName];
 }
 
 

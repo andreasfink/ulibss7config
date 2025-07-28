@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigSCCP
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sccp";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCCP type];
+    return [UMSS7ConfigSCCP groupName];
 }
 
 

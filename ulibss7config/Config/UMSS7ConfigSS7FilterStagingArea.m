@@ -33,13 +33,13 @@
 
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"ss7-filter-staging-area";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSS7FilterStagingArea type];
+    return [UMSS7ConfigSS7FilterStagingArea groupName];
 }
 
 - (UMSS7ConfigSS7FilterStagingArea *)initWithConfig:(NSDictionary *)dict directory:(NSString *)dir

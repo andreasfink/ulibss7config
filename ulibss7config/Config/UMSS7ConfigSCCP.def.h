@@ -21,4 +21,4 @@ STRING(o,"screening-sccp-plugin-trace-file",_screeningSccpPluginTraceFile,"scree
 INTEGER(o,"screening-sccp-plugin-trace-level",_screeningSccpPluginTraceLevel,"screening_sccp_plugin_trace_level",30,"")
 STRING(o,"sms-log-server-in-zmq",_smsLogServerZmqIn,"sms_log_server_in_zmq",31,"")
 STRING(o,"sms-log-server-out-zmq",_smsLogServerZmqOut,"sms_log_server_out_zmq",32,"")
-STRING(o,"tcap-sharing-trace-level",_tcapSharingTraceLevel,"tcap_sharing_trace_level",33,"")
+INTEGER(o,"tcap-sharing-trace-level",_tcapSharingTraceLevel,"tcap_sharing_trace_level",33,"")

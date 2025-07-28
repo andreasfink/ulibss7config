@@ -23,8 +23,8 @@
 @property(readwrite,strong,atomic)  NSString *ssn;
 @property(readwrite,strong,atomic)  NSNumber *timeout;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigCAMEL *)initWithConfig:(NSDictionary *)dict;
 
 

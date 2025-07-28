@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigMirrorPort
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mirror-port";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMirrorPort type];
+    return [UMSS7ConfigMirrorPort groupName];
 }
 
 - (UMSS7ConfigMirrorPort *)initWithConfig:(NSDictionary *)dict

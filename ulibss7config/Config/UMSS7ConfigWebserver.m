@@ -11,13 +11,13 @@
 
 @implementation UMSS7ConfigWebserver
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"webserver";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigWebserver type];
+    return [UMSS7ConfigWebserver groupName];
 }
 
 - (UMSS7ConfigWebserver *)initWithConfig:(NSDictionary *)dict

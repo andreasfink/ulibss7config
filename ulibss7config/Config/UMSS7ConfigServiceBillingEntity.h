@@ -21,8 +21,8 @@
 @property(readwrite,strong,atomic)      NSNumber *creditLimit;;
 @property(readwrite,strong,atomic)      NSString *priceTable;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigServiceBillingEntity *)initWithConfig:(NSDictionary *)dict;
 
 @end

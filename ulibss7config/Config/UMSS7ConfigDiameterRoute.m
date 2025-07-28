@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigDiameterRoute
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"diameter-route";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigDiameterRoute type];
+    return [UMSS7ConfigDiameterRoute groupName];
 }
 
 

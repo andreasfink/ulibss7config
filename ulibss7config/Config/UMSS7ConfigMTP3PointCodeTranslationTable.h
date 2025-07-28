@@ -25,8 +25,8 @@
 @property(readwrite,strong,atomic)  NSString    *defaultRemotePc;
 @property(readwrite,strong,atomic)  NSArray<NSString *>*pcmap;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 @end
 

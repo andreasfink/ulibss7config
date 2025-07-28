@@ -62,8 +62,8 @@
 @property(readwrite,strong,atomic)   NSNumber *moForwardsmSubmitTranslationType;
 @property(readwrite,strong,atomic)   NSNumber *moForwardSmSubmitHlrCheck;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigSMSProxy *)initWithConfig:(NSDictionary *)dict;
 @end

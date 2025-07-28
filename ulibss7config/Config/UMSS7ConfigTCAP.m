@@ -12,14 +12,15 @@
 @implementation UMSS7ConfigTCAP
 
 
-+ (NSString *)type
++ (NSString *)groupName
+
 {
     return @"tcap";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigTCAP type];
+    return [UMSS7ConfigTCAP groupName];
 }
 
 - (UMSS7ConfigTCAP *)initWithConfig:(NSDictionary *)dict

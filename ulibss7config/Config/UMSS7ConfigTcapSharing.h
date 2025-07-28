@@ -13,7 +13,9 @@
     NSNumber    *_timeout;
     NSString    *_sccpName;
 }
-+ (NSString *)type;
+
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 @property(readwrite,strong,atomic)  NSNumber    *timeout;
 @property(readwrite,strong,atomic)  NSString    *sccpName;

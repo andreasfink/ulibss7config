@@ -12,14 +12,15 @@
 @implementation UMSS7ConfigCAMEL
 
 
-+ (NSString *)type
++ (NSString *)groupName
+
 {
     return @"camel";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigCAMEL type];
+    return [UMSS7ConfigCAMEL groupName];
 }
 
 

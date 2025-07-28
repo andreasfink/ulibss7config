@@ -24,8 +24,8 @@
 @property(readwrite,strong,atomic)      NSArray *applicationContexts;
 @property(readwrite,strong,atomic)      NSString *result;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigTCAPFilterEntry *)initWithConfig:(NSDictionary *)dict;
 
 @end

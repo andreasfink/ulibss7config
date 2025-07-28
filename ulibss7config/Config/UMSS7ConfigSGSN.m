@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigSGSN
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sgsn";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSGSN type];
+    return [UMSS7ConfigSGSN groupName];
 }
 
 

@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigESTP
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"estp";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigESTP type];
+    return [UMSS7ConfigESTP groupName];
 }
 
 

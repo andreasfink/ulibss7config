@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigSMSDeliveryProvider
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sms-delivery-provider";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSMSDeliveryProvider type];
+    return [UMSS7ConfigSMSDeliveryProvider groupName];
 }
 
 

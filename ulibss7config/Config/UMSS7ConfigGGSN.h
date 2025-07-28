@@ -21,8 +21,8 @@
 @property(readwrite,strong,atomic)   NSString *number;
 @property(readwrite,strong,atomic)   NSNumber *answerTranslationType;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigGGSN *)initWithConfig:(NSDictionary *)dict;
 @end
 

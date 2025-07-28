@@ -10,14 +10,14 @@
 #import "UMSS7ConfigMacroHelper.h"
 @implementation UMSS7ConfigM2PA
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"m2pa";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigM2PA type];
+    return [UMSS7ConfigM2PA groupName];
 }
 
 
