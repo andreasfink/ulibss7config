@@ -79,10 +79,10 @@ NSDictionary *plugin_info(void);
     return UMSCCP_FilterMatchResult_untested;
 }
 
-static UMLayerTCAP *tcapCamelDecodeInstance;
-static UMLayerTCAP *tcapGsmmapDecodeInstance;
-static UMLayerCamel *camelDecodeInstance;
-static UMLayerGSMMAP *gsmmapDecodeInstance;
+static UMLayerTCAP      *tcapCamelDecodeInstance;
+static UMLayerTCAP      *tcapGsmmapDecodeInstance;
+static UMLayerCamel     *camelDecodeInstance;
+static UMLayerGSMMAP    *gsmmapDecodeInstance;
 
 + (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet;
 {
@@ -139,7 +139,6 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
         {
             packet.incomingTcapBegin = (UMTCAP_itu_asn1_begin *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_BEGIN;
-            packet.incoming_tcap_otid = packet.incomingTcapBegin.otid.asn1_data.hexString;
             if(!isCamel)
             {
                 packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
@@ -153,8 +152,6 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
         {
             packet.incomingTcapContinue = (UMTCAP_itu_asn1_continue *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_CONTINUE;
-            packet.incoming_tcap_otid = packet.incomingTcapContinue.otid.asn1_data.hexString;
-            packet.incoming_tcap_dtid = packet.incomingTcapContinue.dtid.asn1_data.hexString;
             if(!isCamel)
             {
                 packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
@@ -168,7 +165,6 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
         {
             packet.incomingTcapEnd = (UMTCAP_itu_asn1_end *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_END;
-            packet.incoming_tcap_dtid = packet.incomingTcapEnd.dtid.asn1_data.hexString;
             if(!isCamel)
             {
                 packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
@@ -181,7 +177,6 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_abort class]])
         {
             packet.incomingTcapAbort = (UMTCAP_itu_asn1_abort *)asn1;
-            packet.incoming_tcap_dtid = packet.incomingTcapAbort.dtid.asn1_data.hexString;
             packet.incomingTcapCommand = TCAP_TAG_ITU_ABORT;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_unidirectional class]])
@@ -189,8 +184,6 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
             packet.incomingTcapUnidirectional = (UMTCAP_itu_asn1_unidirectional *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_UNIDIRECTIONAL;
         }
-        packet.incoming_tcap_otid   = task.currentLocalTransactionId;
-        packet.incoming_tcap_dtid  = task.currentRemoteTransactionId;
     }
     @catch(NSException *e)
     {
@@ -251,28 +244,23 @@ static UMLayerGSMMAP *gsmmapDecodeInstance;
         {
             packet.incomingTcapBegin = (UMTCAP_itu_asn1_begin *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_BEGIN;
-            packet.incoming_tcap_otid = packet.incomingTcapBegin.otid.asn1_data.hexString;
             packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_continue class]])
         {
             packet.incomingTcapContinue = (UMTCAP_itu_asn1_continue *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_CONTINUE;
-            packet.incoming_tcap_otid = packet.incomingTcapContinue.otid.asn1_data.hexString;
-            packet.incoming_tcap_dtid = packet.incomingTcapContinue.dtid.asn1_data.hexString;
             packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_end class]])
         {
             packet.incomingTcapEnd = (UMTCAP_itu_asn1_end *)asn1;
             packet.incomingTcapCommand = TCAP_TAG_ITU_END;
-            packet.incoming_tcap_dtid = packet.incomingTcapEnd.dtid.asn1_data.hexString;
             packet.incomingGsmMapOperations = packet.incomingTcapBegin.componentPortion.arrayOfOperationCodes;
         }
         else if([asn1 isKindOfClass:[UMTCAP_itu_asn1_abort class]])
         {
             packet.incomingTcapAbort = (UMTCAP_itu_asn1_abort *)asn1;
-            packet.incoming_tcap_dtid = packet.incomingTcapAbort.dtid.asn1_data.hexString;
             packet.incomingTcapCommand = TCAP_TAG_ITU_ABORT;
             
         }
