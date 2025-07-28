@@ -6396,7 +6396,7 @@ static void signalHandler(int signum);
     }
     ummutex_lock(_namedListLock);
     UMAssert(_namedLists != NULL,@"_namedLists is NULL");
-    UMNamedListOld *nl =  [[UMNamedListOld alloc]initWithPath:filename name:listName];
+    UMNamedList *nl =  [[UMNamedList alloc]initWithPath:filename name:listName];
     [nl reload];
     _namedLists[listName] = nl;
     ummutex_unlock(_namedListLock);
@@ -6408,7 +6408,7 @@ static void signalHandler(int signum);
     NSArray<NSString *> *allListNames = [self namedlistsListNames];
     for(NSString *listName in allListNames)
     {
-        UMNamedListOld *nl = _namedLists[listName];
+        UMNamedList *nl = _namedLists[listName];
         [nl flush];
     }
     ummutex_unlock(_namedListLock);
@@ -6423,7 +6423,7 @@ static void signalHandler(int signum);
 
 - (void)namedlist_flush:(NSString *)listName
 {
-    UMNamedListOld *nl = [self getNamedList:listName];
+    UMNamedList *nl = [self getNamedList:listName];
     [nl flush];
 }
 
@@ -6434,7 +6434,7 @@ static void signalHandler(int signum);
     NSLog(@"[SS7AppDelegate namedlistAdd] Adding '%@' to list '%@'",value,list);
 #endif
 
-    UMNamedListOld *nl = [self getNamedList:listName];
+    UMNamedList *nl = [self getNamedList:listName];
     if(nl==NULL)
     {
 #if defined(CONFIG_DEBUG)
@@ -6443,7 +6443,7 @@ static void signalHandler(int signum);
 
         NSString *filePath = [listName urlencode];
         NSString *absolutePath = [NSString stringWithFormat:@"%@/%@",_namedListsDirectory,filePath];
-        nl = [[UMNamedListOld alloc]initWithPath:absolutePath name:listName];
+        nl = [[UMNamedList alloc]initWithPath:absolutePath name:listName];
         nl.name = listName;
         _namedLists[listName] = nl;
     }
@@ -6456,7 +6456,7 @@ static void signalHandler(int signum);
    NSLog(@"[SS7AppDelegate namedlistRemove:%@ value:%@]",listName,value);
 #endif
 
-    UMNamedListOld *nl = [self getNamedList:listName];
+    UMNamedList *nl = [self getNamedList:listName];
 #ifdef  DEBUG
     NSLog(@"content before removal:");
     [nl dump];
@@ -6475,7 +6475,7 @@ static void signalHandler(int signum);
 
 - (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value
 {
-    UMNamedListOld *nl = [self getNamedList:listName];
+    UMNamedList *nl = [self getNamedList:listName];
     if(nl == NULL)
     {
         return NO;
@@ -6485,7 +6485,7 @@ static void signalHandler(int signum);
 
 - (NSArray *)namedlistGetAllEntriesOfList:(NSString *)listName
 {
-    UMNamedListOld *nl = [self getNamedList:listName];
+    UMNamedList *nl = [self getNamedList:listName];
     return [nl allEntries];
 }
 
@@ -6646,7 +6646,7 @@ static void signalHandler(int signum);
     keys = [_namedLists allKeys];
     for(NSString *k in keys)
     {
-        UMNamedListOld *nl = _namedLists[k];
+        UMNamedList *nl = _namedLists[k];
         [nl flush];
     }
 }
