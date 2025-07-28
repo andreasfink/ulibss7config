@@ -79,10 +79,10 @@ NSDictionary *plugin_info(void);
     return UMSCCP_FilterMatchResult_untested;
 }
 
-static UMLayerTCAP *tcapCamelDecodeInstance;
-static UMLayerTCAP *tcapGsmmapDecodeInstance;
-static UMLayerCamel *camelDecodeInstance;
-static UMLayerGSMMAP *gsmmapDecodeInstance;
+static UMLayerTCAP      *tcapCamelDecodeInstance;
+static UMLayerTCAP      *tcapGsmmapDecodeInstance;
+static UMLayerCamel     *camelDecodeInstance;
+static UMLayerGSMMAP    *gsmmapDecodeInstance;
 
 + (void) sccpDecodeTcapGsmmap:(UMSCCP_Packet *)packet;
 {
