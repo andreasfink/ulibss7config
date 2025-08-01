@@ -14,7 +14,7 @@
 @interface UMSS7TraceFile : UMObject<UMSCCP_TracefileProtocol>
 {
 	UMSS7ConfigSS7TraceFile *_config;
-	UMPCAPFile *_pcap;
+	UMPCAPFile              *_pcap;
 
     NSString        *_containingDirectory;
     NSString        *_relativeFilename;

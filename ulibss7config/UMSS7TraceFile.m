@@ -86,9 +86,7 @@
     {
         return;
     }
-
     ummutex_lock(_lock);
-    
     if(_isOpen==NO)
     {
         [self open];
@@ -96,12 +94,19 @@
     NSDate *now = [NSDate date];
     if(_isPcap)
     {
-        [_pcap writePdu:packet.incomingMtp3Data];
+        NSTimeInterval ti = [packet.created timeIntervalSince1970];
+        struct timeval ts;
+        long a     = (int)ti;
+        double b   = ti - (double)a;
+        int c      = b * 1000000;
+        ts.tv_sec  = a;
+        ts.tv_usec = c;
+        [_pcap writePdu:packet.incomingMtp3Data timestamp:&ts];
     }
     else if(_isHex)
     {
         NSString *s = [packet.incomingMtp3Data hexString];
-        NSDate *ts = [NSDate date];
+        NSDate *ts = packet.created;
         NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,packet.incomingLinksetName,s];
         NSData *d = [line dataUsingEncoding:NSUTF8StringEncoding];
         fwrite(d.bytes,d.length,1,_fptr);
