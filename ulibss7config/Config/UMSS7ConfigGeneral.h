@@ -20,6 +20,8 @@
     NSString *_filterEngineDirectory;
     NSString *_zmqSocket;
     NSString *_gui;
+    NSString *_ss7TraceFileDirectory;
+
 }
 
 + (NSString *)groupName;
@@ -36,5 +38,6 @@
 @property(readwrite,strong,atomic)  NSString *filterEngineDirectory;
 @property(readwrite,strong,atomic)  NSString *zmqSocket;
 @property(readwrite,strong,atomic)  NSString *gui;
+@property(readwrite,strong,atomic)  NSString *ss7TraceFileDirectory;
 
 @end

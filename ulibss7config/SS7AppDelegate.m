@@ -317,7 +317,6 @@ static void signalHandler(int signum);
         _diameterFeature    = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
         _speedLimitFeature  = [_globalLicenseDirectory getProduct:[self productName] feature:@"speed-limit"];
         _speedLimit         = _speedLimitFeature.doubleValue;
-    
         _dbpool_dict        = [[UMSynchronizedDictionary alloc]init];
         _filteringActive    = YES;
         _sessionTimeout     = 30.0*60.0;
@@ -605,6 +604,8 @@ static void signalHandler(int signum);
     {
         NSDictionary    *appDefinition = [self appDefinition];
         NSArray         *commandLineDefinition = [self commandLineSyntax];
+        NSDictionary    *params = _commandLine.params;
+        BOOL            actionDone=NO;
 
         _commandLine = [[UMCommandLine alloc]initWithCommandLineDefintion:commandLineDefinition
                                                             appDefinition:appDefinition
@@ -640,6 +641,34 @@ static void signalHandler(int signum);
         }
 
         _umtransportService.delegate = self;
+        if(_ss7TraceFilesDirectory == NULL) /* if its not overwritten by command line option */
+        {
+            if (_runningConfig.generalConfig.ss7TraceFileDirectory.length > 0)
+            {
+                _ss7TraceFilesDirectory = _runningConfig.generalConfig.ss7TraceFileDirectory;
+            }
+            else
+            {
+                _ss7TraceFilesDirectory = [self defaultTracefilesPath];
+            }
+        }
+        if(params[@"tracefiles-directory"])
+        {
+            NSArray *a = params[@"tracefiles-directory"];
+            NSString *path = a[a.count-1];
+            _ss7TraceFilesDirectory = path;
+        }
+
+        if(_ss7TraceFilesDirectory.length > 0)
+        {
+            NSFileManager * fm = [NSFileManager defaultManager];
+            NSError *e = NULL;
+            [fm createDirectoryAtPath:_ss7TraceFilesDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
+            if(e)
+            {
+                NSLog(@"Error while creating directory %@\n%@",_ss7TraceFilesDirectory,e);
+            }
+        }
 
         if (_runningConfig.generalConfig.transactionIdRange.length > 0)
         {
@@ -674,8 +703,6 @@ static void signalHandler(int signum);
             }
         }
 
-        BOOL actionDone=NO;
-        NSDictionary *params = _commandLine.params;
         if(params[@"pid-file"])
         {
             for(NSString *filename in  params[@"pid-file"])
@@ -764,24 +791,7 @@ static void signalHandler(int signum);
             _apiLogFeed = [[UMLogFeed alloc]init];
             _apiLogFeed.handler = apiLogHandler;
         }
-        if(params[@"tracefiles-directory"])
-        {
-            NSArray *a = params[@"tracefiles-directory"];
-            NSString *path = a[a.count-1];
-            _ss7TraceFilesDirectory = path;
-        }
-        if(_ss7TraceFilesDirectory.length > 0)
-        {
-            e = NULL;
-            [fm createDirectoryAtPath:_ss7TraceFilesDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
-            if(e)
-            {
-                NSLog(@"Error while creating directory %@\n%@",_ss7TraceFilesDirectory,e);
-            }
-
-            [self loadTracefilesFromPath:_ss7TraceFilesDirectory];
-        }
-
+        
         if(params[@"print-config"])
         {
             NSError *e = NULL;
