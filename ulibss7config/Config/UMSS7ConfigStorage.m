@@ -80,6 +80,7 @@
 #import <ulibss7config/UMSS7ConfigStorageServer.h>
 #import <ulibss7config/UMSS7ConfigCdrServer.h>
 #import <ulibss7config/UMSS7ConfigTcapSharing.h>
+#import <ulibss7config/UMSS7ConfigSS7TraceFile.h>
 
 #define CONFIG_ERROR(s)     [NSException exceptionWithName:[NSString stringWithFormat:@"CONFIG_ERROR FILE %s line:%ld",__FILE__,(long)__LINE__] reason:s userInfo:@{@"backtrace": UMBacktrace(NULL,0) }]
 
@@ -144,12 +145,13 @@
     _smppServers_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _smppConnections_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _smppPlugins_dict = [[UMSynchronizedSortedDictionary alloc]init];
-
     _authServers_dict       = [[UMSynchronizedSortedDictionary alloc]init];
     _storageServers_dict    = [[UMSynchronizedSortedDictionary alloc]init];
     _cdrServers_dict        = [[UMSynchronizedSortedDictionary alloc]init];
     _smsLog_dict            = [[UMSynchronizedSortedDictionary alloc]init];
     _tcapSharing_dict       = [[UMSynchronizedSortedDictionary alloc]init];
+    _ss7TraceFile_dict      = [[UMSynchronizedSortedDictionary alloc]init];
+
     _dirtyTimer = [[UMTimer alloc]initWithTarget:self
                                         selector:@selector(dirtyCheck)
                                           object:NULL
@@ -328,6 +330,7 @@
     [cfg allowMultiGroup:[UMSS7ConfigMnpDatabase groupName]];
     [cfg allowMultiGroup:[UMSS7ConfigSMSLog groupName]];
     [cfg allowMultiGroup:[UMSS7ConfigTcapSharing groupName]];
+    [cfg allowMultiGroup:[UMSS7ConfigSS7TraceFile groupName]];
     [cfg read];
     [self processConfig:cfg];
 }
@@ -407,6 +410,17 @@
             _m2pa_dict[m2pa.name] = m2pa;
         }
     }
+    
+    NSArray *ss7tracfile_configs = [cfg getMultiGroups:[UMSS7ConfigSS7TraceFile groupName]];
+    for(NSDictionary *ss7tracfile_config in ss7tracfile_configs)
+    {
+        UMSS7ConfigSS7TraceFile *tf = [[UMSS7ConfigSS7TraceFile alloc]initWithConfig:ss7tracfile_config];
+        if(tf.name.length  > 0)
+        {
+            _ss7TraceFile_dict[tf.name] = tf;
+        }
+    }
+
     NSArray *mtp3_configs = [cfg getMultiGroups:[UMSS7ConfigMTP3 groupName]];
     for(NSDictionary *mtp3_config in mtp3_configs)
     {
@@ -1430,6 +1444,53 @@
         return @"not found";
     }
     [_m2pa_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+/*
+ **************************************************
+ ** SS7TraceFile
+ **************************************************
+ */
+#pragma mark -
+#pragma mark SS7TraceFile
+
+- (NSArray *)getSS7TraceFileNames
+{
+    return [[_ss7TraceFile_dict allKeys]sortedStringsArray];
+}
+
+- (UMSS7ConfigSS7TraceFile *)getSS7TraceFile:(NSString *)name
+{
+    return _ss7TraceFile_dict[name];
+}
+
+- (NSString *)addSS7TraceFile:(UMSS7ConfigSS7TraceFile*)st
+{
+    if(_ss7TraceFile_dict[st.name] == NULL)
+    {
+        _ss7TraceFile_dict[st.name] = st;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceSS7TraceFile:(UMSS7ConfigSS7TraceFile *)st
+{
+    _ss7TraceFile_dict[st.name] = st;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteSS7TraceFile:(NSString *)name
+{
+    if(_ss7TraceFile_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_ss7TraceFile_dict removeObjectForKey:name];
     _dirty=YES;
     return @"ok";
 }
@@ -4218,6 +4279,7 @@
     n.cdrServers_dict = [_cdrServers_dict copy];
     n.tcapSharing_dict = [_tcapSharing_dict copy];
     n.smsLog_dict = [_smsLog_dict copy];
+    n.ss7TraceFile_dict = [_ss7TraceFile_dict copy];
     return n;
 }
 

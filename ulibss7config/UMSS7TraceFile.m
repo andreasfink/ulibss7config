@@ -11,7 +11,7 @@
 
 @implementation UMSS7TraceFile
 
-- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7FilterTraceFile *)config defaultPath:(NSString *)path
+- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7TraceFile *)config defaultPath:(NSString *)path
 {
 	self = [super init];
 	if(self)

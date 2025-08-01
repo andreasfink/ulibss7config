@@ -384,7 +384,7 @@ int main(int argc, const char * argv[])
 
             s=@"SS7FilterTraceFile";
             #include "start.m"
-            #include "UMSS7ConfigSS7FilterTraceFile.def.h"
+            #include "UMSS7ConfigSS7TraceFile.def.h"
             #include "end.m"
 
             s=@"ServiceBillingEntity";

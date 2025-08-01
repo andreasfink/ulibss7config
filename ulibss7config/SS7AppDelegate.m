@@ -91,7 +91,7 @@
 #import <ulibss7config/UMSS7ApiSession.h>
 #import <ulibss7config/DiameterGenericInstance.h>
 #import <ulibss7config/UMSS7ConfigSS7FilterStagingArea.h>
-#import <ulibss7config/UMSS7ConfigSS7FilterTraceFile.h>
+#import <ulibss7config/UMSS7ConfigSS7TraceFile.h>
 #import <ulibss7config/UMSS7FilterRuleSet.h>
 #import <ulibss7config/UMSS7FilterActionList.h>
 #import <ulibss7config/SS7CDRWriter.h>
@@ -1169,7 +1169,24 @@ static void signalHandler(int signum);
             }
         }
     }
-
+    
+    
+    /*****************************************************************/
+    /* SS7Tracefiles */
+    /*****************************************************************/
+    names = [_runningConfig getSS7TraceFileNames];
+    if(names.count > 0)
+    {
+        for(NSString *name in names)
+        {
+            UMSS7ConfigSS7TraceFile *co = [_runningConfig getSS7TraceFile:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
+            {
+                [self tracefile_add:co];
+            }
+        }
+    }
     /*****************************************************************/
     /* MTP3 */
     /*****************************************************************/
@@ -3972,10 +3989,12 @@ static void signalHandler(int signum);
         if(co.problematicPacketsTraceFile)
         {
             sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
+            [sccp.problematicTraceDestination open];
         }
         if(co.unrouteablePacketsTraceFile)
         {
             sccp.unrouteablePacketsTraceDestination = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
+            [sccp.unrouteablePacketsTraceDestination open];
         }
         if(_mainSccpInstance==NULL)
         {
@@ -6345,12 +6364,12 @@ static void signalHandler(int signum);
         {
             NSString *fullFilename = [NSString stringWithFormat:@"%@/%@",path,filename];
             UMConfig* cfg = [[UMConfig alloc]initWithFileName:fullFilename];
-            [cfg allowSingleGroup:[UMSS7ConfigSS7FilterTraceFile groupName]];
+            [cfg allowSingleGroup:[UMSS7ConfigSS7TraceFile groupName]];
             [cfg read];
-            NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7FilterTraceFile groupName]];
+            NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7TraceFile groupName]];
             NSMutableDictionary *config2 = [config mutableCopy];
             config2[@"name"] = [filename stringByDeletingPathExtension];
-            UMSS7ConfigSS7FilterTraceFile *c = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:config2];
+            UMSS7ConfigSS7TraceFile *c = [[UMSS7ConfigSS7TraceFile alloc]initWithConfig:config2];
             [self tracefile_add:c];
         }
     }
@@ -6541,7 +6560,7 @@ static void signalHandler(int signum);
     }
 }
 
-- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)name
+- (UMSS7ConfigSS7TraceFile *)tracefile_get:(NSString *)name
 {
     UMSS7TraceFile *tf = _ss7TraceFiles[name];
     return tf.config;
@@ -6556,7 +6575,7 @@ static void signalHandler(int signum);
     }
 }
 
-- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf
+- (void)tracefile_add:(UMSS7ConfigSS7TraceFile *)conf
 {
     UMSS7TraceFile *tf = [[UMSS7TraceFile alloc]initWithSS7Config:conf defaultPath:_ss7TraceFilesDirectory];
     if(tf)

@@ -9,11 +9,11 @@
 #import <ulibpcap/ulibpcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 
-#import <ulibss7config/UMSS7ConfigSS7FilterTraceFile.h>
+#import <ulibss7config/UMSS7ConfigSS7TraceFile.h>
 
 @interface UMSS7TraceFile : UMObject<UMSCCP_TracefileProtocol>
 {
-	UMSS7ConfigSS7FilterTraceFile *_config;
+	UMSS7ConfigSS7TraceFile *_config;
 	UMPCAPFile *_pcap;
 
     NSString        *_containingDirectory;
@@ -37,10 +37,10 @@
     FILE            *_fptr;
 }
 
-@property(readwrite,strong,atomic)	UMSS7ConfigSS7FilterTraceFile *config;
+@property(readwrite,strong,atomic)	UMSS7ConfigSS7TraceFile *config;
 
 - (void)logPacket:(UMSCCP_Packet *)packet;
-- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7FilterTraceFile *)config defaultPath:(NSString *)path;
+- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7TraceFile *)config defaultPath:(NSString *)path;
 
 - (void)open;
 - (void)close;

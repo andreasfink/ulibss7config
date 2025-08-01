@@ -78,6 +78,7 @@
 @class UMSS7ConfigStorageServer;
 @class UMSS7ConfigCdrServer;
 @class UMSS7ConfigTcapSharing;
+@class UMSS7ConfigSS7TraceFile;
 
 @interface UMSS7ConfigStorage : UMObject
 {
@@ -146,6 +147,7 @@
     UMSynchronizedSortedDictionary *_storageServers_dict;
     UMSynchronizedSortedDictionary *_cdrServers_dict;
     UMSynchronizedSortedDictionary *_tcapSharing_dict;
+    UMSynchronizedSortedDictionary *_ss7TraceFile_dict;
 
     NSString                 *_rwconfigFile;
     UMTimer                  *_dirtyTimer;
@@ -218,6 +220,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *cdrServers_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *smsLog_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *tcapSharing_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *ss7TraceFile_dict;
 
 @property(readwrite,strong,atomic)  NSString *rwconfigFile;
 @property(readwrite,strong,atomic)  NSString *productName;
@@ -249,6 +252,12 @@
 - (NSString *)addM2PA:(UMSS7ConfigM2PA*)m2pa;
 - (NSString *)replaceM2PA:(UMSS7ConfigM2PA *)m2pa;
 - (NSString *)deleteM2PA:(NSString *)name;
+
+- (NSArray *)getSS7TraceFileNames;
+- (UMSS7ConfigSS7TraceFile *)getSS7TraceFile:(NSString *)name;
+- (NSString *)addSS7TraceFile:(UMSS7ConfigSS7TraceFile*)st;
+- (NSString *)replaceSS7TraceFile:(UMSS7ConfigSS7TraceFile *)st;
+- (NSString *)deleteSS7TraceFile:(NSString *)name;
 
 - (NSArray *)getMTP3Names;
 - (UMSS7ConfigMTP3 *)getMTP3:(NSString *)name;

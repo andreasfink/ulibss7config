@@ -39,7 +39,7 @@
 @class SS7TemporaryImsiPool;
 @class SS7GenericInstance;
 @class DiameterGenericInstance;
-@class UMSS7ConfigSS7FilterTraceFile;
+@class UMSS7ConfigSS7TraceFile;
 @class SmscConnection;
 @class UMLicenseDirectory;
 @class UMLicenseProductFeature;
@@ -533,9 +533,9 @@ UMEnvironmentNamedListProviderProtocol>
 - (UMSynchronizedArray *)tracefile_list;
 - (void)tracefile_remove:(NSString *)name;
 - (void)tracefile_enable:(NSString *)name enable:(BOOL)enable;
-- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)listName;
+- (UMSS7ConfigSS7TraceFile *)tracefile_get:(NSString *)listName;
 - (void)tracefile_action:(NSString *)name action:(NSString *)enable;
-- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf;
+- (void)tracefile_add:(UMSS7ConfigSS7TraceFile *)conf;
 
 
 /************************************************************/
