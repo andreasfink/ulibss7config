@@ -2124,6 +2124,22 @@ static void signalHandler(int signum);
                 [self handleInjectDiameter:req];
             }
         }
+
+        else if([path isEqualToString:@"/debug/mtp3-inject"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleInjectMtp3:req];
+            }
+        }
+        else if([path isEqualToString:@"/debug/sccp-inject"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleInjectSccp:req];
+            }
+        }
+
         else if([path isEqualToString:@"/umt"])
         {
             [self handleUmt:req];
@@ -5929,7 +5945,7 @@ static void signalHandler(int signum);
         [s appendString:@"</UL>\n"];
 
         [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
-        [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"Diameter HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=\"checkbox\" name=\"initiator\"> Initiator\r"];
         
         [s appendFormat:@"<select name=peer>"];
@@ -5978,6 +5994,172 @@ static void signalHandler(int signum);
     return;
 }
 
+- (void)  handleInjectMtp3:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"Inject Diameter PDU"];
+
+        [s appendString:@"<h2>Inject MTP3 PDU</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
+        
+        [s appendFormat:@"<select name=mtp3>\r"];
+        NSArray *mtp3_names = [_mtp3_dict allKeys];
+        for(NSString *mtp3_name in mtp3_names)
+        {
+            NSString *s1 = [mtp3_name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>\r",s1,s1];
+        }
+        [s appendFormat:@"</select><br>\r"];
+
+        
+        [s appendFormat:@"<select name=linkset>\r"];
+        NSArray *linkset_names = [_mtp3_linkset_dict allKeys];
+        for(NSString *linkset_name in linkset_names)
+        {
+            NSString *s1 = [linkset_name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
+        }
+        [s appendFormat:@"</select><br>\r"];
+
+        [s appendFormat:@"MTP3 HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"</select>\r"];
+        [s appendFormat:@"SLC:<input type=text name=slc><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data1 = [pdu unhexedData];
+        int len = (int)data1.length;
+        if(len>63)
+        {
+            len = 63;
+        }
+        NSMutableData *data = [[NSMutableData alloc]init];
+        [data appendByte:len];
+        [data appendData:data1];
+        NSString *mtp3name = req.params[@"mtp3"];
+        int  slc = [req.params[@"slc"] intValue];
+        UMLayerMTP3 *mtp3 =  _mtp3_dict[mtp3name];
+        if(mtp3==NULL)
+        {
+            [req setResponsePlainText:@"MTP3 Layer not found"];
+            return;
+        }
+        NSString *linksetname = req.params[@"linkset"];
+        UMMTP3LinkSet *ls = _mtp3_linkset_dict[linksetname];
+        UMMTP3Link *link = ls.linksBySlc[@(slc)];
+        if(ls==NULL)
+        {
+            [req setResponsePlainText:@"MTP3 Linkset not found"];
+            return;
+        }
+
+        [mtp3 m2paDataIndication:link.m2pa
+                             slc:slc
+                    mtp3linkName:link.name
+                            data:data];
+        [req setResponsePlainText:@"ok"];
+    }
+    return;
+}
+
+- (void)  handleInjectSccp:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"Inject SCCP PDU"];
+
+        [s appendString:@"<h2>Inject SCCP PDU</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
+        [s appendFormat:@"<select name=instance>"];
+        NSArray *names = [_sccp_dict allKeys];
+        for(NSString *name in names)
+        {
+            NSString *s1 = [name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
+        }
+        [s appendFormat:@"</select>\r"];
+        [s appendFormat:@"<select name=linkset>"];
+        NSArray *lsnames = [_mtp3_linkset_dict allKeys];
+        for(NSString *lsname in lsnames)
+        {
+            NSString *s1 = [lsname htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
+        }
+        [s appendFormat:@"</select>\r"];
+
+        [s appendFormat:@"SCCP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"OPC:<input type=text name=opc><br>\r"];
+        [s appendFormat:@"DPC:<input type=text name=dpc><br>\r"];
+        [s appendFormat:@"<select name=variant>\r"];
+        [s appendFormat:@"<option value=ITU selected>ITU</option>\r"];
+        [s appendFormat:@"<option value=ANSI selected>ANSI</option>\r"];
+        [s appendFormat:@"</select><br>\r"];
+        [s appendFormat:@"<select name=ni>\r"];
+        [s appendFormat:@"<option value=0>0: International</option>\r"];
+        [s appendFormat:@"<option value=1>1:</option>\r"];
+        [s appendFormat:@"<option value=2>2: National</option>\r"];
+        [s appendFormat:@"<option value=3>3:</option>\r"];
+        [s appendFormat:@"</select><br>\r"];
+        [s appendFormat:@"SLS:<input type=text name=sls><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data = [pdu unhexedData];
+        
+        NSString *instance      = req.params[@"instance"];
+        UMMTP3PointCode *opc    = [[UMMTP3PointCode alloc]initWithString:req.params[@"opc"] variant:UMMTP3Variant_ITU];
+        UMMTP3PointCode *dpc    = [[UMMTP3PointCode alloc]initWithString:req.params[@"dpc"] variant:UMMTP3Variant_ITU];
+        int ni                  = [req.params[@"ni"] intValue];
+        int sls                 = [req.params[@"sls"] intValue];
+        NSString *linksetName   = req.params[@"linkset"];
+
+        UMLayerSCCP *sccpLayer = _sccp_dict[instance];
+        if(sccpLayer==NULL)
+        {
+            [req setResponsePlainText:@"SCCP Layer not found"];
+            return;
+        }
+        [sccpLayer mtpTransfer:data
+                  callingLayer:NULL
+                           opc:opc
+                           dpc:dpc
+                            si:MTP3_SERVICE_INDICATOR_SCCP
+                            ni:ni
+                           sls:sls
+                   linksetName:linksetName
+                       options:@{}
+                         ttmap:NULL];
+        [req setResponsePlainText:@"ok"];
+    }
+    return;
+}
 
 - (void)  handleSmsDecode:(UMHTTPRequest *)req
 {
