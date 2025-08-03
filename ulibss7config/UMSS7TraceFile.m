@@ -80,7 +80,7 @@
 	return self;
 }
 
-- (void)logPacket:(UMSCCP_Packet *)packet
+- (void)logMtp3Pdu:(NSData *)pdu timestamp:(NSDate *)date linkset:(NSString *)linkset
 {
     if(_enabled==NO)
     {
@@ -94,20 +94,20 @@
     NSDate *now = [NSDate date];
     if(_isPcap)
     {
-        NSTimeInterval ti = [packet.created timeIntervalSince1970];
+        NSTimeInterval ti = [date timeIntervalSince1970];
         struct timeval ts;
         long a     = (int)ti;
         double b   = ti - (double)a;
         int c      = b * 1000000;
         ts.tv_sec  = a;
         ts.tv_usec = c;
-        [_pcap writePdu:packet.incomingMtp3Data timestamp:&ts];
+        [_pcap writePdu:pdu timestamp:&ts];
     }
     else if(_isHex)
     {
-        NSString *s = [packet.incomingMtp3Data hexString];
-        NSDate *ts = packet.created;
-        NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,packet.incomingLinksetName,s];
+        NSString *s = [pdu hexString];
+        NSDate *ts = date;
+        NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,linkset,s];
         NSData *d = [line dataUsingEncoding:NSUTF8StringEncoding];
         fwrite(d.bytes,d.length,1,_fptr);
         fflush(_fptr);
@@ -131,6 +131,10 @@
     }
     _lastPacketTime = now;
     ummutex_unlock(_lock);
+}
+- (void)logPacket:(UMSCCP_Packet *)packet
+{
+    [self logMtp3Pdu:packet.incomingMtp3Data timestamp:packet.created  linkset:packet.incomingLinksetName];
 }
 
 - (void)open

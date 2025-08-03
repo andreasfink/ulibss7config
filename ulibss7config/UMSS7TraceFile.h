@@ -40,6 +40,8 @@
 @property(readwrite,strong,atomic)	UMSS7ConfigSS7TraceFile *config;
 
 - (void)logPacket:(UMSCCP_Packet *)packet;
+- (void)logMtp3Pdu:(NSData *)pdu timestamp:(NSDate *)date linkset:(NSString *)linkset;
+
 - (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7TraceFile *)config defaultPath:(NSString *)path;
 
 - (void)open;
