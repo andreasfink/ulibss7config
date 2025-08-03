@@ -164,7 +164,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
     {
-        date = [NSDate now];
+        date = [NSDate date];
     }
     
     NSString *linkset = dict[@"linkset"];
@@ -184,7 +184,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
     {
-        date = [NSDate now];
+        date = [NSDate date];
     }
     
     NSString *linkset = dict[@"linkset"];
@@ -203,7 +203,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
     {
-        date = [NSDate now];
+        date = [NSDate date];
     }
     
     NSString *linkset = dict[@"linkset"];
@@ -226,7 +226,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
     {
-        date = [NSDate now];
+        date = [NSDate date];
     }
     
     NSString *linkset = dict[@"linkset"];
@@ -250,7 +250,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
     {
-        date = [NSDate now];
+        date = [NSDate date];
     }
     
     NSString *linkset = dict[@"linkset"];
