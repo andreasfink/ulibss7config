@@ -8,6 +8,7 @@
 
 #import "UMSS7TraceFile.h"
 
+#include <unistd.h>
 
 static UMSynchronizedDictionary *_linksetToLinkNumber;
 
@@ -97,7 +98,8 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
 
     if(comment.length > 0)
     {
-        [self traceComment:comment];
+        NSString *s = [NSString stringWithFormat:@"%@: %@",linkset,comment];
+        [self traceComment:s];
     }
     if(_enabled==NO)
     {
@@ -123,7 +125,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
         
         NSData *m2pa            = [_pcon mtp2PacketWithPseudoHeader:pdu inbound:inbound];
         NSData *sctp            = [_pcon sctpPacket:m2pa inbound:inbound];
-        NSData *ipv4            = [_pcon ipv4Packet:sctp inbound:inbound];
+        NSData *ipv4            = [_pcon ipv4Packet:sctp protocol:UMPCAPPseudoConnection_ip_protocol_sctp inbound:inbound];
         NSData *ethernetPacket  = [_pcon ethernetPacket:ipv4 inbound:inbound];
         [_pcap writePdu:ethernetPacket timestamp:&ts];
     }
@@ -291,6 +293,9 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
         }
     }
     _isOpen=YES;
+    int pid = getpid();
+    NSString *syslogMessage = [NSString stringWithFormat:@"SS7[%d]: tracefile-created",pid];
+    [self traceComment:syslogMessage];
 }
 
 - (void)close
