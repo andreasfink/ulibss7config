@@ -81,8 +81,6 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
             [self rotateFiles];
         }
         _pcon = [[UMPCAPPseudoConnection alloc]init];
-        _pcon.payloadProtocolIdentifier =
-
 	}
 	return self;
 }
