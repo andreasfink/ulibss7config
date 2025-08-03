@@ -423,7 +423,9 @@ static UMSCCP_FilterMatchResult InvertFilterMatchResult(UMSCCP_FilterMatchResult
                         UMSS7TraceFile *tf = _appDelegate.traceFiles[fa.traceDestination];
                         if(tf)
                         {
-                            [tf logPacket:packet];
+                            [tf traceDroppedPdu:packet.incomingMtp3Data options:@{@"error" : @"filter-rule log-requested",
+                                                                                  @"linkset" : packet.incomingLinksetName,
+                                                                                  @"timestamp" : [NSDate date] }];
                         }
                     }
                     if((fa.doReroute)  && (_filterStatus==UMSS7FilterStatus_on))
