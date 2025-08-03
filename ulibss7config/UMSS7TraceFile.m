@@ -9,6 +9,8 @@
 #import "UMSS7TraceFile.h"
 
 
+static UMSynchronizedDictionary *_linksetToLinkNumber;
+
 @implementation UMSS7TraceFile
 
 - (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7TraceFile *)config defaultPath:(NSString *)path
@@ -27,6 +29,10 @@
         _enabled=YES;
         _isOpen = NO;
         _isDirty = YES;
+        if(_linksetToLinkNumber==NULL)
+        {
+            _linksetToLinkNumber = [[UMSynchronizedDictionary alloc]init];
+        }
         if(config.maxRotations!=NULL)
         {
             _maxRotations = [config.maxRotations intValue];
@@ -39,9 +45,7 @@
         {
             _maxPackets = [config.packets intValue];
         }
-
         NSString *fullPath = [NSString stringWithFormat:@"%@/%@",path, config.filename];
-
         if([config.format isEqualToString:@"pcap"])
         {
             _fullFilename = [NSString stringWithFormat:@"%@.pcap",[fullPath stringByDeletingPathExtension]];
@@ -80,7 +84,7 @@
 	return self;
 }
 
-- (void)logMtp3Pdu:(NSData *)pdu timestamp:(NSDate *)date linkset:(NSString *)linkset
+- (void)logMtp3Pdu:(NSData *)pdu timestamp:(NSDate *)date linkset:(NSString *)linkset comment:(NSString *)s
 {
     if(_enabled==NO)
     {
@@ -132,9 +136,109 @@
     _lastPacketTime = now;
     ummutex_unlock(_lock);
 }
-- (void)logPacket:(UMSCCP_Packet *)packet
+
+- (void)traceSentPdu:(NSData *)mtp3pdu          options:(NSDictionary *)dict
 {
-    [self logMtp3Pdu:packet.incomingMtp3Data timestamp:packet.created  linkset:packet.incomingLinksetName];
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate now];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"sent"];
+}
+
+- (void)traceReceivedPdu:(NSData *)mtp3pdu      options:(NSDictionary *)dict
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate now];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"received"];
+}
+- (void)traceDroppedPdu:(NSData *)mtp3pdu       options:(NSDictionary *)dict
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate now];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *error = dict[@"error"];
+    if(error==NULL)
+    {
+        error = @"dropped";
+    }
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"dropped"];
+}
+- (void)traceUnroutablePdu:(NSData *)mtp3pdu    options:(NSDictionary *)dict
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate now];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *error = dict[@"error"];
+    if(error==NULL)
+    {
+        error = @"unrouteable";
+    }
+
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"unrouteable"];
+}
+
+- (void)traceProblematicPdu:(NSData *)mtp3pdu   options:(NSDictionary *)dict;
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate now];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *error = dict[@"error"];
+    if(error==NULL)
+    {
+        error = @"problematic";
+    }
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:error];
 }
 
 - (void)open
@@ -145,7 +249,7 @@
     }
     if(_isPcap)
     {
-        [_pcap openForMtp3];
+        [_pcap openForPseudoConnection];
     }
     else if(_isHex)
     {

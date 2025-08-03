@@ -4014,13 +4014,18 @@ static void signalHandler(int signum);
         [sccp.gttSelectorRegistry setSccp_number_translations_dict:_sccp_number_translations_dict];
         if(co.problematicPacketsTraceFile)
         {
-            sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
-            [sccp.problematicTraceDestination open];
+            UMSS7TraceFile *ts = _ss7TraceFiles[co.problematicPacketsTraceFile];
+            [ts open];
+            [sccp.traceProblematicDestinations addObject:ts];
         }
         if(co.unrouteablePacketsTraceFile)
         {
-            sccp.unrouteablePacketsTraceDestination = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
-            [sccp.unrouteablePacketsTraceDestination open];
+            UMSS7TraceFile *ts = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
+            if(ts)
+            {
+                [ts open];
+                [sccp.traceUnroutableDestinations addObject:ts];
+            }
         }
         if(_mainSccpInstance==NULL)
         {
