@@ -80,12 +80,27 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
         {
             [self rotateFiles];
         }
+        _pcon = [[UMPCAPPseudoConnection alloc]init];
+        _pcon.payloadProtocolIdentifier =
+
 	}
 	return self;
 }
 
-- (void)logMtp3Pdu:(NSData *)pdu timestamp:(NSDate *)date linkset:(NSString *)linkset comment:(NSString *)s
+- (void)traceComment:(NSString *)comment
 {
+    [_pcap writeSyslogComment:comment withPseudoHeader:_pcon];
+}
+
+
+
+- (void)logMtp3Pdu:(NSData *)pdu timestamp:(NSDate *)date linkset:(NSString *)linkset comment:(NSString *)comment inbound:(BOOL)inbound
+{
+
+    if(comment.length > 0)
+    {
+        [self traceComment:comment];
+    }
     if(_enabled==NO)
     {
         return;
@@ -95,6 +110,8 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     {
         [self open];
     }
+    
+
     NSDate *now = [NSDate date];
     if(_isPcap)
     {
@@ -105,7 +122,12 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
         int c      = b * 1000000;
         ts.tv_sec  = a;
         ts.tv_usec = c;
-        [_pcap writePdu:pdu timestamp:&ts];
+        
+        NSData *m2pa            = [_pcon mtp2PacketWithPseudoHeader:pdu inbound:inbound];
+        NSData *sctp            = [_pcon sctpPacket:m2pa inbound:inbound];
+        NSData *ipv4            = [_pcon ipv4Packet:sctp inbound:inbound];
+        NSData *ethernetPacket  = [_pcon ethernetPacket:ipv4 inbound:inbound];
+        [_pcap writePdu:ethernetPacket timestamp:&ts];
     }
     else if(_isHex)
     {
@@ -137,7 +159,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     ummutex_unlock(_lock);
 }
 
-- (void)traceSentPdu:(NSData *)mtp3pdu          options:(NSDictionary *)dict
+- (void)traceSentPdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
 {
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
@@ -152,10 +174,12 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
             linkset=@"unknown";
         }
     }
-    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"sent"];
+    NSString *err = dict[@"error"];
+
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:err inbound:NO];
 }
 
-- (void)traceReceivedPdu:(NSData *)mtp3pdu      options:(NSDictionary *)dict
+- (void)traceReceivedPdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
 {
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
@@ -170,9 +194,11 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
             linkset=@"unknown";
         }
     }
-    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"received"];
+    NSString *err = dict[@"error"];
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:err inbound:YES];
 }
-- (void)traceDroppedPdu:(NSData *)mtp3pdu       options:(NSDictionary *)dict
+
+- (void)traceDroppedPdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
 {
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
@@ -192,9 +218,10 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     {
         error = @"dropped";
     }
-    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"dropped"];
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:error inbound:YES];
 }
-- (void)traceUnroutablePdu:(NSData *)mtp3pdu    options:(NSDictionary *)dict
+
+- (void)traceUnroutablePdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
 {
     NSDate *date = dict[@"timestamp"];
     if(date == NULL)
@@ -215,7 +242,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
         error = @"unrouteable";
     }
 
-    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"unrouteable"];
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"unrouteable" inbound:YES];
 }
 
 - (void)traceProblematicPdu:(NSData *)mtp3pdu   options:(NSDictionary *)dict;
@@ -238,7 +265,7 @@ static UMSynchronizedDictionary *_linksetToLinkNumber;
     {
         error = @"problematic";
     }
-    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:error];
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:error inbound:YES];
 }
 
 - (void)open
