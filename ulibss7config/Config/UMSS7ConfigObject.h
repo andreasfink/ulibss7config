@@ -40,7 +40,7 @@
 - (UMSS7ConfigObject *)initWithString:(NSString *)s;
 
 - (NSString *)configString;
-- (NSString *)type;
+- (NSString *)groupName;
 
 - (void)appendConfigToString:(NSMutableString *)o;
 - (void)appendConfigToString:(NSMutableString *)o withoutName:(BOOL)withoutName;

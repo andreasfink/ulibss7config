@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigSMSC
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"smsc";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSMSC type];
+    return [UMSS7ConfigSMSC groupName];
 }
 
 

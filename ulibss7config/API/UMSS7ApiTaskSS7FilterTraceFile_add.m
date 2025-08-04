@@ -11,7 +11,7 @@
 #import <ulibss7config/UMSS7ConfigStorage.h>
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 #import "UMSS7ApiSession.h"
-#import "UMSS7ConfigSS7FilterTraceFile.h"
+#import "UMSS7ConfigSS7TraceFile.h"
 
 @implementation UMSS7ApiTaskSS7FilterTraceFile_add
 
@@ -52,7 +52,7 @@
             else
             {
                 // 2. adding
-                UMSS7ConfigSS7FilterTraceFile *traceFile = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:_params];
+                UMSS7ConfigSS7TraceFile *traceFile = [[UMSS7ConfigSS7TraceFile alloc]initWithConfig:_params];
                 [_appDelegate tracefile_add:traceFile];
                 if(traceFile.enabled!=NULL)
                 {

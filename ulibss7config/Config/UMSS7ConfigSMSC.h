@@ -32,8 +32,8 @@
 @property(readwrite,strong,atomic)   NSNumber *forwardsmTranslationType;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigSMSC *)initWithConfig:(NSDictionary *)dict;
 
 @end

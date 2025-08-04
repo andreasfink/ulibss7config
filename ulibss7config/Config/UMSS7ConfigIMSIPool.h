@@ -19,8 +19,8 @@
 @property(readwrite,strong,atomic)   NSNumber *cacheTimer;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigIMSIPool *)initWithConfig:(NSDictionary *)dict;
 
 @end

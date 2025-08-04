@@ -33,8 +33,8 @@
 @property(readwrite,strong,atomic)  NSString *screeningDiameterPluginTraceFile;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigDiameterRouter *)initWithConfig:(NSDictionary *)dict;
 

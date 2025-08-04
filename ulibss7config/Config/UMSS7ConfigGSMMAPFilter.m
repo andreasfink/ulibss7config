@@ -12,13 +12,13 @@
 
 @implementation UMSS7ConfigGSMMAPFilter
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"gsmmap-filter";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigGSMMAPFilter type];
+    return [UMSS7ConfigGSMMAPFilter groupName];
 }
 
 - (UMSS7ConfigGSMMAPFilter *)initWithConfig:(NSDictionary *)dict

@@ -11,13 +11,13 @@
 
 @implementation UMSS7ConfigServiceProfile
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"service-profile";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigServiceProfile type];
+    return [UMSS7ConfigServiceProfile groupName];
 }
 
 - (UMSS7ConfigServiceProfile *)initWithConfig:(NSDictionary *)dict

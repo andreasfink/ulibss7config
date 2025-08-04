@@ -12,13 +12,14 @@
 
 @implementation UMSS7ConfigTCAPFilter
 
-+ (NSString *)type
++ (NSString *)groupName
+
 {
     return @"tcap-filter";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigTCAPFilter type];
+    return [UMSS7ConfigTCAPFilter groupName];
 }
 
 - (UMSS7ConfigTCAPFilter *)initWithConfig:(NSDictionary *)dict

@@ -36,10 +36,11 @@
     NSNumber *_screeningSccpPluginTraceLevel;
     NSString *_smsLogServerZmqIn;
     NSString *_smsLogServerZmqOut;
+    NSNumber *_tcapSharingTraceLevel;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigSCCP *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *attachTo;

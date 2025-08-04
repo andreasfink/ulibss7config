@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigMTP3Link
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mtp3-link";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMTP3Link type];
+    return [UMSS7ConfigMTP3Link groupName];
 }
 
 

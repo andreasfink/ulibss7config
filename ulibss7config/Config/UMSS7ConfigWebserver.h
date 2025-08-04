@@ -20,8 +20,8 @@
     NSNumber            *_disableAuthentication;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigWebserver *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)      NSNumber            *port;

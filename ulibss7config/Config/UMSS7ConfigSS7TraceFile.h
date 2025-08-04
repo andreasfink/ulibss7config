@@ -1,5 +1,5 @@
 //
-//  UMSS7ConfigSS7FilterTraceFile.h
+//  UMSS7ConfigSS7TraceFile.h
 //  ulibss7config
 //
 //  Created by Andreas Fink on 21.05.19.
@@ -8,7 +8,7 @@
 
 #import <ulibss7config/UMSS7ConfigObject.h>
 
-@interface UMSS7ConfigSS7FilterTraceFile : UMSS7ConfigObject
+@interface UMSS7ConfigSS7TraceFile : UMSS7ConfigObject
 {
     NSString *_filename;
     NSString *_format;
@@ -23,10 +23,10 @@
 @property(readwrite,strong,atomic)  NSNumber *packets;
 @property(readwrite,strong,atomic)  NSNumber *maxRotations;
 
-- (UMSS7ConfigSS7FilterTraceFile *)initWithConfig:(NSDictionary *)dict;
+- (UMSS7ConfigSS7TraceFile *)initWithConfig:(NSDictionary *)dict;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 @end
 

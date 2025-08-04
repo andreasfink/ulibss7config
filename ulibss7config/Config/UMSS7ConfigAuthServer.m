@@ -11,13 +11,13 @@
 
 @implementation UMSS7ConfigAuthServer
 
-+ (NSString *)type
++ (NSString *)groupName
 {
    return @"auth-server";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-   return [UMSS7ConfigAuthServer type];
+   return [UMSS7ConfigAuthServer groupName];
 }
 
 - (UMSS7ConfigAuthServer *)initWithConfig:(NSDictionary *)dict

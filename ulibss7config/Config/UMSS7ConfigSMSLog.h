@@ -19,8 +19,8 @@
 @property(readwrite,strong,atomic)     NSString *dbPool;
 @property(readwrite,strong,atomic)     NSString *dbTable;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 @end
 

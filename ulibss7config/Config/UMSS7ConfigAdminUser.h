@@ -17,8 +17,8 @@
 @property(readwrite,strong,atomic)      NSString *password;
 @property(readwrite,strong,atomic)      NSArray<NSString *> *withoutAuthenticationIp;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigAdminUser *)initWithConfig:(NSDictionary *)dict;
 
 - (BOOL)matchesIpAddress:(NSString *)ip;

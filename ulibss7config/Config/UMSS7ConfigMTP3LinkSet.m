@@ -11,14 +11,14 @@
 
 @implementation UMSS7ConfigMTP3LinkSet
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mtp3-linkset";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMTP3LinkSet type];
+    return [UMSS7ConfigMTP3LinkSet groupName];
 }
 
 

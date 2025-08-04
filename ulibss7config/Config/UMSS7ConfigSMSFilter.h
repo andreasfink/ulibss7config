@@ -15,8 +15,8 @@
 
 @property(readwrite,strong,atomic)      NSString *defaultResult;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigSMSFilter *)initWithConfig:(NSDictionary *)dict;
 
 @end

@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigMTP3
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mtp3";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMTP3 type];
+    return [UMSS7ConfigMTP3 groupName];
 }
 
 - (UMSS7ConfigMTP3 *)initWithConfig:(NSDictionary *)dict

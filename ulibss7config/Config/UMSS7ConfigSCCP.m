@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigSCCP
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sccp";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCCP type];
+    return [UMSS7ConfigSCCP groupName];
 }
 
 
@@ -44,7 +44,6 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-    
 #include "UMSS7Config_macroAppendDict.h"
 #include "UMSS7ConfigSCCP.def.h"
 #include "UMSS7Config_macroClear.h"

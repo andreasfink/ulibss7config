@@ -42,10 +42,13 @@
     NSNumber *_send_aspup;
     NSNumber *_send_aspac;
     NSString *_mode;
+    NSString *_tcapSharingInside;
+    NSString *_tcapSharingOutside;
+    NSNumber *_tcapSharingPriority;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigM3UAAS *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *mtp3;
@@ -83,5 +86,8 @@
 @property(readwrite,strong,atomic)  NSNumber *send_aspup;
 @property(readwrite,strong,atomic)  NSNumber *send_aspac;
 @property(readwrite,strong,atomic)  NSString *mode;
+@property(readwrite,strong,atomic)  NSString *tcapSharingInside;
+@property(readwrite,strong,atomic)  NSString *tcapSharingOutside;
+@property(readwrite,strong,atomic)  NSNumber *tcapSharingPriority;
 
 @end

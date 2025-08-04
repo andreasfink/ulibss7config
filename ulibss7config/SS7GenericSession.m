@@ -1209,7 +1209,7 @@ else \
             sccp_info[@"sccp-local-address"] = _localAddress.objectValue;
         }
         sccp_info[@"sccp-reason"] = @(reason);
-        sccp_info[@"sccp-reason-text"] =[UMLayerSCCP reasonString:reason];
+        sccp_info[@"sccp-reason-text"] =[UMLayerSCCP causeValueToString:reason];
 
         dict[@"sccp-info"] = sccp_info;
 

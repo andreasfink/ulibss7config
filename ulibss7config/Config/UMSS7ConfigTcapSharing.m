@@ -1,30 +1,27 @@
 //
-//  UMSS7ConfigVLR.m
+//  UMSS7ConfigTcapSharing.m
 //  ulibss7config
 //
-//  Created by Andreas Fink on 19.04.18.
-//  Copyright © 2018 Andreas Fink. All rights reserved.
+//  Created by Andreas Fink on 11.07.2025.
+//  Copyright © 2025 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigVLR.h"
+#import <ulibss7config/UMSS7ConfigTcapSharing.h>
 #import "UMSS7ConfigMacroHelper.h"
 
-@implementation UMSS7ConfigVLR
-
+@implementation UMSS7ConfigTcapSharing
 
 + (NSString *)groupName
-
 {
-    return @"vlr";
+    return @"tcap-sharing";
 }
 
 - (NSString *)groupName
 {
-    return [UMSS7ConfigVLR groupName];
+    return [UMSS7ConfigTcapSharing groupName];
 }
 
-
-- (UMSS7ConfigVLR *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigTcapSharing *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -39,7 +36,7 @@
 {
     [super appendConfigToString:o];
 #include "UMSS7Config_macroAppendConfig.h"
-#include "UMSS7ConfigVLR.def.h"
+#include "UMSS7ConfigTcapSharing.def.h"
 #include "UMSS7Config_macroClear.h"
 }
 
@@ -47,9 +44,8 @@
 - (UMSynchronizedSortedDictionary *)config
 {
     UMSynchronizedSortedDictionary *o = [super config];
-
 #include "UMSS7Config_macroAppendDict.h"
-#include "UMSS7ConfigVLR.def.h"
+#include "UMSS7ConfigTcapSharing.def.h"
 #include "UMSS7Config_macroClear.h"
     return o;
 }
@@ -58,17 +54,14 @@
 {
     [self setSuperConfig:o];
 #include "UMSS7Config_macroSetConfigFromDict.h"
-#include "UMSS7ConfigVLR.def.h"
+#include "UMSS7ConfigTcapSharing.def.h"
 #include "UMSS7Config_macroClear.h"
 }
 
-
-- (UMSS7ConfigVLR *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigTcapSharing *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigVLR allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigTcapSharing allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end
-
-

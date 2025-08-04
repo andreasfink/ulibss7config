@@ -12,14 +12,15 @@
 @implementation UMSS7ConfigMTP3Route
 
 
-+ (NSString *)type
++ (NSString *)groupName
+
 {
     return @"mtp3-route";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMTP3Route type];
+    return [UMSS7ConfigMTP3Route groupName];
 }
 
 - (NSString *)name

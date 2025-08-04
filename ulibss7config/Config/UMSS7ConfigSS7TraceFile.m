@@ -6,24 +6,23 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import "UMSS7ConfigSS7FilterTraceFile.h"
+#import "UMSS7ConfigSS7TraceFile.h"
 #import "UMSS7ConfigMacroHelper.h"
 
-@implementation UMSS7ConfigSS7FilterTraceFile
+@implementation UMSS7ConfigSS7TraceFile
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
-    return @"ss7-filter-tracefile";
+    return @"ss7-tracefile";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSS7FilterTraceFile type];
+    return [UMSS7ConfigSS7TraceFile groupName];
 }
 
-
-- (UMSS7ConfigSS7FilterTraceFile *)initWithConfig:(NSDictionary *)dict
+- (UMSS7ConfigSS7TraceFile *)initWithConfig:(NSDictionary *)dict
 {
     self = [super initWithConfig:dict];
     if(self)
@@ -38,7 +37,7 @@
 {
     [super appendConfigToString:o];
 #include "UMSS7Config_macroAppendConfig.h"
-#include "UMSS7ConfigSS7FilterTraceFile.def.h"
+#include "UMSS7ConfigSS7TraceFile.def.h"
 #include "UMSS7Config_macroClear.h"
 }
 
@@ -47,7 +46,7 @@
 {
     UMSynchronizedSortedDictionary *o = [super config];
 #include "UMSS7Config_macroAppendDict.h"
-#include "UMSS7ConfigSS7FilterTraceFile.def.h"
+#include "UMSS7ConfigSS7TraceFile.def.h"
 #include "UMSS7Config_macroClear.h"
 
     return o;
@@ -57,14 +56,14 @@
 {
     [self setSuperConfig:o];
 #include "UMSS7Config_macroSetConfigFromDict.h"
-#include "UMSS7ConfigSS7FilterTraceFile.def.h"
+#include "UMSS7ConfigSS7TraceFile.def.h"
 #include "UMSS7Config_macroClear.h"
 }
 
-- (UMSS7ConfigSS7FilterTraceFile *)copyWithZone:(NSZone *)zone
+- (UMSS7ConfigSS7TraceFile *)copyWithZone:(NSZone *)zone
 {
     UMSynchronizedSortedDictionary *currentConfig = [self config];
-    return [[UMSS7ConfigSS7FilterTraceFile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
+    return [[UMSS7ConfigSS7TraceFile allocWithZone:zone]initWithConfig:[currentConfig dictionaryCopy]];
 }
 
 @end

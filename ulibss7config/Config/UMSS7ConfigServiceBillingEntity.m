@@ -12,13 +12,13 @@
 @implementation UMSS7ConfigServiceBillingEntity
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"service-billing-entity";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigServiceBillingEntity type];
+    return [UMSS7ConfigServiceBillingEntity groupName];
 }
 
 - (UMSS7ConfigServiceBillingEntity *)initWithConfig:(NSDictionary *)dict

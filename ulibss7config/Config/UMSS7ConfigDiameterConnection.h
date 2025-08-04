@@ -41,8 +41,8 @@
 @property(readwrite,strong,atomic)  NSNumber *sendReverseCER;
 @property(readwrite,strong,atomic)  NSNumber *sendCUR;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigDiameterConnection *)initWithConfig:(NSDictionary *)dict;
 

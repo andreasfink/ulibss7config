@@ -20,8 +20,8 @@
 @property(readwrite,strong,atomic)  NSString *postTranslation;
 @property(readwrite,strong,atomic)  NSString *distributionMethod;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigSCCPDestination *)initWithConfig:(NSDictionary *)dict;
 

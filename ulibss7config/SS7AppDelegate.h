@@ -39,7 +39,7 @@
 @class SS7TemporaryImsiPool;
 @class SS7GenericInstance;
 @class DiameterGenericInstance;
-@class UMSS7ConfigSS7FilterTraceFile;
+@class UMSS7ConfigSS7TraceFile;
 @class SmscConnection;
 @class UMLicenseDirectory;
 @class UMLicenseProductFeature;
@@ -121,17 +121,18 @@ UMEnvironmentNamedListProviderProtocol>
     UMSynchronizedDictionary    *_smppProviderConnections;
 	UMSynchronizedDictionary	*_pendingUMT;/* FIXME: is this really needed anymore ?*/
     
-    UMSynchronizedDictionary     *_smsDeliveryProfiles;
-    UMSynchronizedDictionary     *_smsCategorizerPluings;
-    UMSynchronizedDictionary     *_smsPreRoutingFilterPlugins;
-    UMSynchronizedDictionary     *_smsPreBillingFilterPlugins;
-    UMSynchronizedDictionary     *_smsRoutingEnginePlugins;
-    UMSynchronizedDictionary     *_smsPostRoutingFilterPlugins;
-    UMSynchronizedDictionary     *_smsPostBillingPlugins;
-    UMSynchronizedDictionary     *_smsDeliveryReportFilterPlugins;
-    UMSynchronizedDictionary     *_smsCdrWriterPlugins;
-    UMSynchronizedDictionary     *_smsStoragePlugins;
-
+    UMSynchronizedDictionary    *_smsDeliveryProfiles;
+    UMSynchronizedDictionary    *_smsCategorizerPluings;
+    UMSynchronizedDictionary    *_smsPreRoutingFilterPlugins;
+    UMSynchronizedDictionary    *_smsPreBillingFilterPlugins;
+    UMSynchronizedDictionary    *_smsRoutingEnginePlugins;
+    UMSynchronizedDictionary    *_smsPostRoutingFilterPlugins;
+    UMSynchronizedDictionary    *_smsPostBillingPlugins;
+    UMSynchronizedDictionary    *_smsDeliveryReportFilterPlugins;
+    UMSynchronizedDictionary    *_smsCdrWriterPlugins;
+    UMSynchronizedDictionary    *_smsStoragePlugins;
+    UMSynchronizedDictionary    *_tcapSharingInstances_dict;
+    
     SS7AppTransportHandler      *_appTransport;
 	UMLicenseDirectory       	*_globalLicenseDirectory;
     UMLicenseProductFeature     *_coreFeature;
@@ -176,7 +177,7 @@ UMEnvironmentNamedListProviderProtocol>
     SS7GenericInstance			*_mainCamelInstance;
 	SS7GenericInstance			*_mainMapInstance;
     UMLayerSCCP                 *_mainSccpInstance;
-    NSMutableDictionary<NSString *,UMNamedList *>   *_namedLists; /* key = name, object type = UMNamedList */
+    NSMutableDictionary<NSString *,id>   *_namedLists; /* key = name, object type = UMNamedList */
     UMMutex                     *_namedListLock;
     NSString                    *_namedListsDirectory;
 
@@ -252,16 +253,17 @@ UMEnvironmentNamedListProviderProtocol>
 @property(readwrite,strong)     UMLicenseProductFeature     *diameterFeature;
 
 
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsDeliveryProfiles;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsCategorizerPluings;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsPreRoutingFilterPlugins;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsPreBillingFilterPlugins;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsRoutingEnginePlugins;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsPostRoutingFilterPlugins;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsPostBillingPlugins;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsDeliveryReportFilterPlugins;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsCdrWriterPlugins;
-@property(readwrite,strong)     UMSynchronizedDictionary     *smsStoragePlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsDeliveryProfiles;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsCategorizerPluings;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsPreRoutingFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsPreBillingFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsRoutingEnginePlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsPostRoutingFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsPostBillingPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsDeliveryReportFilterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsCdrWriterPlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *smsStoragePlugins;
+@property(readwrite,strong)     UMSynchronizedDictionary    *tcapSharingInstances_dict;
 
 @property(readwrite,strong)     UMSynchronizedDictionary    *traceFiles; /* contains UMSS7TraceFile objects */
 @property(readwrite,strong)     UMSynchronizedDictionary    *cdrWriters_dict;
@@ -513,7 +515,7 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)namedlistRemove:(NSString *)listName value:(NSString *)value;
 - (BOOL)namedlistContains:(NSString *)listName value:(NSString *)value;
 - (NSArray *)namedlistGetAllEntriesOfList:(NSString *)listName;
-- (UMNamedList *)getNamedList:(NSString *)name;
+- (id)getNamedList:(NSString *)name;
 
 
 /************************************************************/
@@ -524,10 +526,17 @@ UMEnvironmentNamedListProviderProtocol>
 - (UMSynchronizedArray *)tracefile_list;
 - (void)tracefile_remove:(NSString *)name;
 - (void)tracefile_enable:(NSString *)name enable:(BOOL)enable;
-- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)listName;
+- (UMSS7ConfigSS7TraceFile *)tracefile_get:(NSString *)listName;
 - (void)tracefile_action:(NSString *)name action:(NSString *)enable;
-- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf;
+- (void)tracefile_add:(UMSS7ConfigSS7TraceFile *)conf;
 
+
+/************************************************************/
+#pragma mark -
+#pragma mark TcapSHaring Functions
+/************************************************************/
+
+- (UMSCCP_TcapSharingInstance *)getTcapSharingInstance:(NSString *)name;
 
 /************************************************************/
 #pragma mark -

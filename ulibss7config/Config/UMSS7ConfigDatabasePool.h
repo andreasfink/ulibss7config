@@ -39,8 +39,8 @@
 @property(readwrite,strong,atomic)  NSString *version;
 @property(readwrite,strong,atomic)  NSString *encryptionKey;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 - (UMSS7ConfigDatabasePool *)initWithConfig:(NSDictionary *)dict;
 

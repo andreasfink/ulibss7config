@@ -384,7 +384,7 @@ int main(int argc, const char * argv[])
 
             s=@"SS7FilterTraceFile";
             #include "start.m"
-            #include "UMSS7ConfigSS7FilterTraceFile.def.h"
+            #include "UMSS7ConfigSS7TraceFile.def.h"
             #include "end.m"
 
             s=@"ServiceBillingEntity";
@@ -454,9 +454,9 @@ void check(NSMutableDictionary *o,
            NSString *objectName)
 {
     NSDictionary *d = o[@(tag)];
-    NSLog(@"Checking %@: %c(%d)",objectName,name,tag);
+    NSLog(@"Checking %@: %s(%d)",objectName,name,tag);
     if(d!=NULL)
     {
-        NSLog(@"**double allocation of name=%@ tag=%d vs name=%c tag=%d", d[@"name"],d[@"tag"],name,tag);
+        NSLog(@"**double allocation of name=%@ tag=%@ vs name=%s tag=%d", d[@"name"],d[@"tag"],name,tag);
     }
 }

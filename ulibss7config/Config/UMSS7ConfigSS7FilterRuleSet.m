@@ -13,14 +13,14 @@
 @implementation UMSS7ConfigSS7FilterRuleSet
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"ss7-filter-ruleset";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSS7FilterRuleSet type];
+    return [UMSS7ConfigSS7FilterRuleSet groupName];
 }
 
 - (UMSS7ConfigSS7FilterRuleSet *)init

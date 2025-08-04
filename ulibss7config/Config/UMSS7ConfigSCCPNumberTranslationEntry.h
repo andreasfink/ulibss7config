@@ -22,8 +22,8 @@
     NSString *_appendDigits;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigSCCPNumberTranslationEntry *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *sccpNumberTranslation;

@@ -16,7 +16,7 @@
 }
 @property(readwrite,strong,atomic)     NSString *interfaceName;
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 @end

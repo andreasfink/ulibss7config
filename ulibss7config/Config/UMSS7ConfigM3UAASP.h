@@ -32,8 +32,8 @@
     NSNumber            *_sctp_maxInitAttempts;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigM3UAASP *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *m3ua_as;

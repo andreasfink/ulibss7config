@@ -11,13 +11,14 @@
 
 @implementation UMSS7ConfigMTP3FilterEntry
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mtp3-filter-entry";
 }
-- (NSString *)type
+
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMTP3FilterEntry type];
+    return [UMSS7ConfigMTP3FilterEntry groupName];
 }
 
 - (UMSS7ConfigMTP3FilterEntry *)initWithConfig:(NSDictionary *)dict

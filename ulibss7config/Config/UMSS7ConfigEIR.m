@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigEIR
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"eir";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigEIR type];
+    return [UMSS7ConfigEIR groupName];
 }
 
 

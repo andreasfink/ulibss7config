@@ -24,8 +24,8 @@
 @property(readwrite,strong,atomic)   NSString *fullTraceDirectory;
 
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigGSMSCF *)initWithConfig:(NSDictionary *)dict;
 
 @end

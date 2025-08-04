@@ -12,13 +12,13 @@
 @implementation UMSS7ConfigSMPPConnection
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
    return @"smpp-connection";
 }
-- (NSString *)type
+- (NSString *)groupName
 {
-   return [UMSS7ConfigSMPPConnection type];
+   return [UMSS7ConfigSMPPConnection groupName];
 }
 
 - (UMSS7ConfigSMPPConnection *)initWithConfig:(NSDictionary *)dict

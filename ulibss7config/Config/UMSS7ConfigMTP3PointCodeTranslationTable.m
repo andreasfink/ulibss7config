@@ -12,14 +12,14 @@
 @implementation UMSS7ConfigMTP3PointCodeTranslationTable
 
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"mtp3-pointcode-translation";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigMTP3PointCodeTranslationTable type];
+    return [UMSS7ConfigMTP3PointCodeTranslationTable groupName];
 }
 
 - (UMSS7ConfigMTP3PointCodeTranslationTable *)initWithConfig:(NSDictionary *)dict
@@ -35,7 +35,7 @@
 - (void)appendConfigToString:(NSMutableString *)o
 {
     [super appendConfigToString:o];
-#include "UMSS7Config_macroAppendDict.h"
+#include "UMSS7Config_macroAppendConfig.h"
 #include "UMSS7ConfigMTP3PointCodeTranslationTable.def.h"
 #include "UMSS7Config_macroClear.h"
 

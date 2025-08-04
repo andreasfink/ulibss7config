@@ -24,8 +24,8 @@
     NSNumber *_routeSelector;
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 
 @property(readwrite,strong,atomic)  NSString *router;
 @property(readwrite,strong,atomic)  NSString *destination;

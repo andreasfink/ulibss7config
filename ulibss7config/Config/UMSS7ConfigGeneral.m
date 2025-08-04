@@ -12,14 +12,14 @@
 
 @implementation UMSS7ConfigGeneral
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"general";
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigGeneral type];
+    return [UMSS7ConfigGeneral groupName];
 }
 
 - (UMSS7ConfigGeneral *)initWithConfig:(NSDictionary *)dict

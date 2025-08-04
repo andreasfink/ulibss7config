@@ -10,6 +10,7 @@
 
 #import "SS7AppDelegate.h"
 
+#import <ulibasn1/ulibasn1.h>
 #import <ulibtransport/ulibtransport.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibdiameter/ulibdiameter.h>
@@ -90,12 +91,13 @@
 #import <ulibss7config/UMSS7ApiSession.h>
 #import <ulibss7config/DiameterGenericInstance.h>
 #import <ulibss7config/UMSS7ConfigSS7FilterStagingArea.h>
-#import <ulibss7config/UMSS7ConfigSS7FilterTraceFile.h>
+#import <ulibss7config/UMSS7ConfigSS7TraceFile.h>
 #import <ulibss7config/UMSS7FilterRuleSet.h>
 #import <ulibss7config/UMSS7FilterActionList.h>
 #import <ulibss7config/SS7CDRWriter.h>
 #import <ulibss7config/UMSS7ConfigMTP3PointCodeTranslationTable.h>
 #import <ulibss7config/UMSS7ConfigSCCPTranslationTableMap.h>
+#import <ulibss7config/UMSS7ConfigTcapSharing.h>
 
 #import <ulibtcap/ulibtcap.h>
 
@@ -177,7 +179,8 @@ static void signalHandler(int signum);
         _ss7FilterStagingAreas_dict     = [[UMSynchronizedDictionary alloc]init];
         _statistics_dict                = [[UMSynchronizedDictionary alloc]init];
         _apiSessions                    = [[UMSynchronizedDictionary alloc]init];
-
+        _tcapSharingInstances_dict      = [[UMSynchronizedDictionary alloc]init];
+        
         if(_enabledOptions[@"smpp-listener"])
         {
             _smppListeners              = [[UMSynchronizedDictionary alloc]init];
@@ -314,7 +317,6 @@ static void signalHandler(int signum);
         _diameterFeature    = [_globalLicenseDirectory getProduct:[self productName] feature:@"diameter"];
         _speedLimitFeature  = [_globalLicenseDirectory getProduct:[self productName] feature:@"speed-limit"];
         _speedLimit         = _speedLimitFeature.doubleValue;
-    
         _dbpool_dict        = [[UMSynchronizedDictionary alloc]init];
         _filteringActive    = YES;
         _sessionTimeout     = 30.0*60.0;
@@ -602,6 +604,8 @@ static void signalHandler(int signum);
     {
         NSDictionary    *appDefinition = [self appDefinition];
         NSArray         *commandLineDefinition = [self commandLineSyntax];
+        NSDictionary    *params = _commandLine.params;
+        BOOL            actionDone=NO;
 
         _commandLine = [[UMCommandLine alloc]initWithCommandLineDefintion:commandLineDefinition
                                                             appDefinition:appDefinition
@@ -637,6 +641,34 @@ static void signalHandler(int signum);
         }
 
         _umtransportService.delegate = self;
+        if(_ss7TraceFilesDirectory == NULL) /* if its not overwritten by command line option */
+        {
+            if (_runningConfig.generalConfig.ss7TraceFileDirectory.length > 0)
+            {
+                _ss7TraceFilesDirectory = _runningConfig.generalConfig.ss7TraceFileDirectory;
+            }
+            else
+            {
+                _ss7TraceFilesDirectory = [self defaultTracefilesPath];
+            }
+        }
+        if(params[@"tracefiles-directory"])
+        {
+            NSArray *a = params[@"tracefiles-directory"];
+            NSString *path = a[a.count-1];
+            _ss7TraceFilesDirectory = path;
+        }
+
+        if(_ss7TraceFilesDirectory.length > 0)
+        {
+            NSFileManager * fm = [NSFileManager defaultManager];
+            NSError *e = NULL;
+            [fm createDirectoryAtPath:_ss7TraceFilesDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
+            if(e)
+            {
+                NSLog(@"Error while creating directory %@\n%@",_ss7TraceFilesDirectory,e);
+            }
+        }
 
         if (_runningConfig.generalConfig.transactionIdRange.length > 0)
         {
@@ -671,8 +703,6 @@ static void signalHandler(int signum);
             }
         }
 
-        BOOL actionDone=NO;
-        NSDictionary *params = _commandLine.params;
         if(params[@"pid-file"])
         {
             for(NSString *filename in  params[@"pid-file"])
@@ -761,24 +791,7 @@ static void signalHandler(int signum);
             _apiLogFeed = [[UMLogFeed alloc]init];
             _apiLogFeed.handler = apiLogHandler;
         }
-        if(params[@"tracefiles-directory"])
-        {
-            NSArray *a = params[@"tracefiles-directory"];
-            NSString *path = a[a.count-1];
-            _ss7TraceFilesDirectory = path;
-        }
-        if(_ss7TraceFilesDirectory.length > 0)
-        {
-            e = NULL;
-            [fm createDirectoryAtPath:_ss7TraceFilesDirectory withIntermediateDirectories:YES attributes:NULL error:&e];
-            if(e)
-            {
-                NSLog(@"Error while creating directory %@\n%@",_ss7TraceFilesDirectory,e);
-            }
-
-            [self loadTracefilesFromPath:_ss7TraceFilesDirectory];
-        }
-
+        
         if(params[@"print-config"])
         {
             NSError *e = NULL;
@@ -1166,7 +1179,24 @@ static void signalHandler(int signum);
             }
         }
     }
-
+    
+    
+    /*****************************************************************/
+    /* SS7Tracefiles */
+    /*****************************************************************/
+    names = [_runningConfig getSS7TraceFileNames];
+    if(names.count > 0)
+    {
+        for(NSString *name in names)
+        {
+            UMSS7ConfigSS7TraceFile *co = [_runningConfig getSS7TraceFile:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
+            {
+                [self tracefile_add:co];
+            }
+        }
+    }
     /*****************************************************************/
     /* MTP3 */
     /*****************************************************************/
@@ -1381,6 +1411,24 @@ static void signalHandler(int signum);
             }
         }
         /* FIXME: check if there's more in ESTP which we should add here */
+    }
+    
+    /* *************************************************************** */
+    /* TcapSharing                                                            */
+    /* *************************************************************** */
+
+    names = [_runningConfig getTcapSharings];
+    if(names.count > 0)
+    {
+        for(NSString *name in names)
+        {
+            UMSS7ConfigObject *co = [_runningConfig getTcapSharing:name];
+            NSDictionary *config = co.config.dictionaryCopy;
+            if( [config configEnabledWithYesDefault])
+            {
+                [self addTcapSharingWithConfig:config];
+            }
+        }
     }
     /*****************************************************************/
     /* TCAP */
@@ -1944,7 +1992,7 @@ static void signalHandler(int signum);
                 [self handleSCCPRouteStatus:req];
             }
         }
-        else if([path isEqualToString:@"/status/sccp/route-refresh"])
+        else if([path isEqualToString:@"/sccp/route-refresh"])
         {
             if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
             {
@@ -2076,6 +2124,22 @@ static void signalHandler(int signum);
                 [self handleInjectDiameter:req];
             }
         }
+
+        else if([path isEqualToString:@"/debug/mtp3-inject"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleInjectMtp3:req];
+            }
+        }
+        else if([path isEqualToString:@"/debug/sccp-inject"])
+        {
+            if([self httpRequireAdminAuthorisation:req realm:@"admin"] == UMHTTP_AUTHENTICATION_STATUS_PASSED)
+            {
+                [self handleInjectSccp:req];
+            }
+        }
+
         else if([path isEqualToString:@"/umt"])
         {
             [self handleUmt:req];
@@ -3948,14 +4012,20 @@ static void signalHandler(int signum);
         _sccp_dict[name] = sccp;
         sccp.tcapDecoder = [[UMLayerTCAP alloc]initWithoutExecutionQueue:@"tcap-decode"];
         [sccp.gttSelectorRegistry setSccp_number_translations_dict:_sccp_number_translations_dict];
-
         if(co.problematicPacketsTraceFile)
         {
-            sccp.problematicTraceDestination = _ss7TraceFiles[co.problematicPacketsTraceFile];
+            UMSS7TraceFile *ts = _ss7TraceFiles[co.problematicPacketsTraceFile];
+            [ts open];
+            [sccp.traceProblematicDestinations addObject:ts];
         }
         if(co.unrouteablePacketsTraceFile)
         {
-            sccp.unrouteablePacketsTraceDestination = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
+            UMSS7TraceFile *ts = _ss7TraceFiles[co.unrouteablePacketsTraceFile];
+            if(ts)
+            {
+                [ts open];
+                [sccp.traceUnroutableDestinations addObject:ts];
+            }
         }
         if(_mainSccpInstance==NULL)
         {
@@ -5887,7 +5957,7 @@ static void signalHandler(int signum);
         [s appendString:@"</UL>\n"];
 
         [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
-        [s appendFormat:@"SMS HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"Diameter HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
         [s appendFormat:@"<input type=\"checkbox\" name=\"initiator\"> Initiator\r"];
         
         [s appendFormat:@"<select name=peer>"];
@@ -5936,6 +6006,172 @@ static void signalHandler(int signum);
     return;
 }
 
+- (void)  handleInjectMtp3:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"Inject Diameter PDU"];
+
+        [s appendString:@"<h2>Inject MTP3 PDU</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
+        
+        [s appendFormat:@"<select name=mtp3>\r"];
+        NSArray *mtp3_names = [_mtp3_dict allKeys];
+        for(NSString *mtp3_name in mtp3_names)
+        {
+            NSString *s1 = [mtp3_name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>\r",s1,s1];
+        }
+        [s appendFormat:@"</select><br>\r"];
+
+        
+        [s appendFormat:@"<select name=linkset>\r"];
+        NSArray *linkset_names = [_mtp3_linkset_dict allKeys];
+        for(NSString *linkset_name in linkset_names)
+        {
+            NSString *s1 = [linkset_name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
+        }
+        [s appendFormat:@"</select><br>\r"];
+
+        [s appendFormat:@"MTP3 HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"</select>\r"];
+        [s appendFormat:@"SLC:<input type=text name=slc><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data1 = [pdu unhexedData];
+        int len = (int)data1.length;
+        if(len>63)
+        {
+            len = 63;
+        }
+        NSMutableData *data = [[NSMutableData alloc]init];
+        [data appendByte:len];
+        [data appendData:data1];
+        NSString *mtp3name = req.params[@"mtp3"];
+        int  slc = [req.params[@"slc"] intValue];
+        UMLayerMTP3 *mtp3 =  _mtp3_dict[mtp3name];
+        if(mtp3==NULL)
+        {
+            [req setResponsePlainText:@"MTP3 Layer not found"];
+            return;
+        }
+        NSString *linksetname = req.params[@"linkset"];
+        UMMTP3LinkSet *ls = _mtp3_linkset_dict[linksetname];
+        UMMTP3Link *link = ls.linksBySlc[@(slc)];
+        if(ls==NULL)
+        {
+            [req setResponsePlainText:@"MTP3 Linkset not found"];
+            return;
+        }
+
+        [mtp3 m2paDataIndication:link.m2pa
+                             slc:slc
+                    mtp3linkName:link.name
+                            data:data];
+        [req setResponsePlainText:@"ok"];
+    }
+    return;
+}
+
+- (void)  handleInjectSccp:(UMHTTPRequest *)req
+{
+    NSString *pdu = req.params[@"hexpdu"];
+    if(pdu==NULL)
+    {
+        NSMutableString *s = [[NSMutableString alloc]init];
+        [SS7GenericInstance webHeader:s title:@"Inject SCCP PDU"];
+
+        [s appendString:@"<h2>Inject SCCP PDU</h2>\n"];
+
+        [s appendString:@"<UL>\n"];
+        [s appendString:@"<LI><a href=\"/\">&lt&lt-- main-menu</a></LI>\n"];
+        [s appendString:@"<LI><a href=\"/decode/\">&lt-- Decode Menu</a></LI>\n"];
+        [s appendString:@"</UL>\n"];
+
+        [s appendFormat:@"<form accept-charset=\"UTF-8\">\r"];
+        [s appendFormat:@"<select name=instance>"];
+        NSArray *names = [_sccp_dict allKeys];
+        for(NSString *name in names)
+        {
+            NSString *s1 = [name htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
+        }
+        [s appendFormat:@"</select>\r"];
+        [s appendFormat:@"<select name=linkset>"];
+        NSArray *lsnames = [_mtp3_linkset_dict allKeys];
+        for(NSString *lsname in lsnames)
+        {
+            NSString *s1 = [lsname htmlEscaped];
+            [s appendFormat:@"<option value=\"%@\">%@</option>",s1,s1];
+        }
+        [s appendFormat:@"</select>\r"];
+
+        [s appendFormat:@"SCCP HEX PDU:<input type=text name=hexpdu size=80><br>\r"];
+        [s appendFormat:@"OPC:<input type=text name=opc><br>\r"];
+        [s appendFormat:@"DPC:<input type=text name=dpc><br>\r"];
+        [s appendFormat:@"<select name=variant>\r"];
+        [s appendFormat:@"<option value=ITU selected>ITU</option>\r"];
+        [s appendFormat:@"<option value=ANSI selected>ANSI</option>\r"];
+        [s appendFormat:@"</select><br>\r"];
+        [s appendFormat:@"<select name=ni>\r"];
+        [s appendFormat:@"<option value=0>0: International</option>\r"];
+        [s appendFormat:@"<option value=1>1:</option>\r"];
+        [s appendFormat:@"<option value=2>2: National</option>\r"];
+        [s appendFormat:@"<option value=3>3:</option>\r"];
+        [s appendFormat:@"</select><br>\r"];
+        [s appendFormat:@"SLS:<input type=text name=sls><br>\r"];
+        [s appendFormat:@"<input type=submit>\r"];
+        [s appendFormat:@"</form>\r"];
+        [s appendFormat:@"</body>\r"];
+        [s appendFormat:@"</html>\r"];
+        [req setResponseHtmlString:s];
+    }
+    else
+    {
+        NSData *data = [pdu unhexedData];
+        
+        NSString *instance      = req.params[@"instance"];
+        UMMTP3PointCode *opc    = [[UMMTP3PointCode alloc]initWithString:req.params[@"opc"] variant:UMMTP3Variant_ITU];
+        UMMTP3PointCode *dpc    = [[UMMTP3PointCode alloc]initWithString:req.params[@"dpc"] variant:UMMTP3Variant_ITU];
+        int ni                  = [req.params[@"ni"] intValue];
+        int sls                 = [req.params[@"sls"] intValue];
+        NSString *linksetName   = req.params[@"linkset"];
+
+        UMLayerSCCP *sccpLayer = _sccp_dict[instance];
+        if(sccpLayer==NULL)
+        {
+            [req setResponsePlainText:@"SCCP Layer not found"];
+            return;
+        }
+        [sccpLayer mtpTransfer:data
+                  callingLayer:NULL
+                           opc:opc
+                           dpc:dpc
+                            si:MTP3_SERVICE_INDICATOR_SCCP
+                            ni:ni
+                           sls:sls
+                   linksetName:linksetName
+                       options:@{}
+                         ttmap:NULL];
+        [req setResponsePlainText:@"ok"];
+    }
+    return;
+}
 
 - (void)  handleSmsDecode:(UMHTTPRequest *)req
 {
@@ -6332,12 +6568,12 @@ static void signalHandler(int signum);
         {
             NSString *fullFilename = [NSString stringWithFormat:@"%@/%@",path,filename];
             UMConfig* cfg = [[UMConfig alloc]initWithFileName:fullFilename];
-            [cfg allowSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
+            [cfg allowSingleGroup:[UMSS7ConfigSS7TraceFile groupName]];
             [cfg read];
-            NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7FilterTraceFile type]];
+            NSDictionary *config = [cfg getSingleGroup:[UMSS7ConfigSS7TraceFile groupName]];
             NSMutableDictionary *config2 = [config mutableCopy];
             config2[@"name"] = [filename stringByDeletingPathExtension];
-            UMSS7ConfigSS7FilterTraceFile *c = [[UMSS7ConfigSS7FilterTraceFile alloc]initWithConfig:config2];
+            UMSS7ConfigSS7TraceFile *c = [[UMSS7ConfigSS7TraceFile alloc]initWithConfig:config2];
             [self tracefile_add:c];
         }
     }
@@ -6353,10 +6589,10 @@ static void signalHandler(int signum);
 #pragma mark -
 #pragma mark namedlists
 
-- (UMNamedList *)getNamedList:(NSString *)name
+- (id)getNamedList:(NSString *)name
 {
     ummutex_lock(_namedListLock);
-    UMNamedList *nl = _namedLists[name];
+    id nl = _namedLists[name];
     ummutex_unlock(_namedListLock);
     return nl;
 }
@@ -6388,7 +6624,6 @@ static void signalHandler(int signum);
     [nl reload];
     _namedLists[listName] = nl;
     ummutex_unlock(_namedListLock);
-
 }
 
 - (void)namedlistsFlushAll
@@ -6529,7 +6764,7 @@ static void signalHandler(int signum);
     }
 }
 
-- (UMSS7ConfigSS7FilterTraceFile *)tracefile_get:(NSString *)name
+- (UMSS7ConfigSS7TraceFile *)tracefile_get:(NSString *)name
 {
     UMSS7TraceFile *tf = _ss7TraceFiles[name];
     return tf.config;
@@ -6544,14 +6779,14 @@ static void signalHandler(int signum);
     }
 }
 
-- (void)tracefile_add:(UMSS7ConfigSS7FilterTraceFile *)conf
+- (void)tracefile_add:(UMSS7ConfigSS7TraceFile *)conf
 {
     UMSS7TraceFile *tf = [[UMSS7TraceFile alloc]initWithSS7Config:conf defaultPath:_ss7TraceFilesDirectory];
     if(tf)
     {
         _ss7TraceFiles[conf.name] = tf;
-        [tf writeConfigToDisk];
-        [tf open];
+        //[tf writeConfigToDisk];
+        //[tf open];
     }
 }
 
@@ -7184,6 +7419,28 @@ static void signalHandler(int signum);
 -(NSString *)instanceName
 {
     return @"default-ss7appdelegate";
+}
+
+
+- (UMSCCP_TcapSharingInstance *)getTcapSharingInstance:(NSString *)name
+{
+    return _tcapSharingInstances_dict[name];
+}
+
+- (void)addTcapSharingWithConfig:(NSDictionary *)config
+{
+    NSString *name      = config[@"name"];
+    NSString *sccpName  = config[@"sccp"];
+    if(name)
+    {
+        UMSCCP_TcapSharingInstance *tsi = [[UMSCCP_TcapSharingInstance alloc]initWithConfig:config];
+        tsi.appDelegate   = self;
+        tsi.logFeed = [[UMLogFeed alloc]initWithHandler:_logHandler section:@"tcap-sharing"];
+        tsi.logFeed.name = name;
+        _tcapSharingInstances_dict[name] = tsi;
+        tsi.sccpName = sccpName;
+        [tsi startBackgroundTask];
+    }
 }
 
 @end

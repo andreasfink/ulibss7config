@@ -8,10 +8,13 @@
 
 #import "UMSS7TraceFile.h"
 
+#include <unistd.h>
+
+static UMSynchronizedDictionary *_linksetToLinkNumber;
 
 @implementation UMSS7TraceFile
 
-- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7FilterTraceFile *)config defaultPath:(NSString *)path
+- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7TraceFile *)config defaultPath:(NSString *)path
 {
 	self = [super init];
 	if(self)
@@ -27,6 +30,10 @@
         _enabled=YES;
         _isOpen = NO;
         _isDirty = YES;
+        if(_linksetToLinkNumber==NULL)
+        {
+            _linksetToLinkNumber = [[UMSynchronizedDictionary alloc]init];
+        }
         if(config.maxRotations!=NULL)
         {
             _maxRotations = [config.maxRotations intValue];
@@ -39,9 +46,7 @@
         {
             _maxPackets = [config.packets intValue];
         }
-
         NSString *fullPath = [NSString stringWithFormat:@"%@/%@",path, config.filename];
-
         if([config.format isEqualToString:@"pcap"])
         {
             _fullFilename = [NSString stringWithFormat:@"%@.pcap",[fullPath stringByDeletingPathExtension]];
@@ -76,33 +81,59 @@
         {
             [self rotateFiles];
         }
+        _pcon = [[UMPCAPPseudoConnection alloc]init];
 	}
 	return self;
 }
 
-- (void)logPacket:(UMSCCP_Packet *)packet
+- (void)traceComment:(NSString *)comment
 {
+    [_pcap writeSyslogComment:comment withPseudoHeader:_pcon];
+}
+
+
+
+- (void)logMtp3Pdu:(NSData *)pdu timestamp:(NSDate *)date linkset:(NSString *)linkset comment:(NSString *)comment inbound:(BOOL)inbound
+{
+
+    if(comment.length > 0)
+    {
+        NSString *s = [NSString stringWithFormat:@"%@: %@",linkset,comment];
+        [self traceComment:s];
+    }
     if(_enabled==NO)
     {
         return;
     }
-
     ummutex_lock(_lock);
-    
     if(_isOpen==NO)
     {
         [self open];
     }
+    
+
     NSDate *now = [NSDate date];
     if(_isPcap)
     {
-        [_pcap writePdu:packet.incomingMtp3Data];
+        NSTimeInterval ti = [date timeIntervalSince1970];
+        struct timeval ts;
+        long a     = (int)ti;
+        double b   = ti - (double)a;
+        int c      = b * 1000000;
+        ts.tv_sec  = a;
+        ts.tv_usec = c;
+        
+        NSData *m2pa            = [_pcon mtp2PacketWithPseudoHeader:pdu inbound:inbound];
+        NSData *sctp            = [_pcon sctpPacket:m2pa inbound:inbound];
+        NSData *ipv4            = [_pcon ipv4Packet:sctp protocol:UMPCAPPseudoConnection_ip_protocol_sctp inbound:inbound];
+        NSData *ethernetPacket  = [_pcon ethernetPacket:ipv4 inbound:inbound];
+        [_pcap writePdu:ethernetPacket timestamp:&ts];
     }
     else if(_isHex)
     {
-        NSString *s = [packet.incomingMtp3Data hexString];
-        NSDate *ts = [NSDate date];
-        NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,packet.incomingLinksetName,s];
+        NSString *s = [pdu hexString];
+        NSDate *ts = date;
+        NSString *line = [NSString stringWithFormat:@"%@\t%@\t%@\n",ts,linkset,s];
         NSData *d = [line dataUsingEncoding:NSUTF8StringEncoding];
         fwrite(d.bytes,d.length,1,_fptr);
         fflush(_fptr);
@@ -128,6 +159,115 @@
     ummutex_unlock(_lock);
 }
 
+- (void)traceSentPdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate date];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *err = dict[@"error"];
+
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:err inbound:NO];
+}
+
+- (void)traceReceivedPdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate date];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *err = dict[@"error"];
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:err inbound:YES];
+}
+
+- (void)traceDroppedPdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate date];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *error = dict[@"error"];
+    if(error==NULL)
+    {
+        error = @"dropped";
+    }
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:error inbound:YES];
+}
+
+- (void)traceUnroutablePdu:(NSData *)mtp3pdu options:(NSDictionary *)dict
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate date];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *error = dict[@"error"];
+    if(error==NULL)
+    {
+        error = @"unrouteable";
+    }
+
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:@"unrouteable" inbound:YES];
+}
+
+- (void)traceProblematicPdu:(NSData *)mtp3pdu   options:(NSDictionary *)dict;
+{
+    NSDate *date = dict[@"timestamp"];
+    if(date == NULL)
+    {
+        date = [NSDate date];
+    }
+    
+    NSString *linkset = dict[@"linkset"];
+    {
+        if(linkset==NULL)
+        {
+            linkset=@"unknown";
+        }
+    }
+    NSString *error = dict[@"error"];
+    if(error==NULL)
+    {
+        error = @"problematic";
+    }
+    [self logMtp3Pdu:mtp3pdu timestamp:date linkset:linkset comment:error inbound:YES];
+}
+
 - (void)open
 {
     if(_isOpen)
@@ -136,7 +276,7 @@
     }
     if(_isPcap)
     {
-        [_pcap openForMtp3];
+        [_pcap openForPseudoConnection];
     }
     else if(_isHex)
     {
@@ -153,6 +293,9 @@
         }
     }
     _isOpen=YES;
+    int pid = getpid();
+    NSString *syslogMessage = [NSString stringWithFormat:@"SS7[%d]: tracefile-created",pid];
+    [self traceComment:syslogMessage];
 }
 
 - (void)close

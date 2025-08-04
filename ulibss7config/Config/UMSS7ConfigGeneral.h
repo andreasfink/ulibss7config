@@ -20,10 +20,12 @@
     NSString *_filterEngineDirectory;
     NSString *_zmqSocket;
     NSString *_gui;
+    NSString *_ss7TraceFileDirectory;
+
 }
 
-+ (NSString *)type;
-- (NSString *)type;
++ (NSString *)groupName;
+- (NSString *)groupName;
 - (UMSS7ConfigGeneral *)initWithConfig:(NSDictionary *)dict;
 
 @property(readwrite,strong,atomic)  NSString *hostname;
@@ -36,5 +38,6 @@
 @property(readwrite,strong,atomic)  NSString *filterEngineDirectory;
 @property(readwrite,strong,atomic)  NSString *zmqSocket;
 @property(readwrite,strong,atomic)  NSString *gui;
+@property(readwrite,strong,atomic)  NSString *ss7TraceFileDirectory;
 
 @end

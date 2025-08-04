@@ -9,13 +9,13 @@
 #import <ulibpcap/ulibpcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 
-#import <ulibss7config/UMSS7ConfigSS7FilterTraceFile.h>
+#import <ulibss7config/UMSS7ConfigSS7TraceFile.h>
 
 @interface UMSS7TraceFile : UMObject<UMSCCP_TracefileProtocol>
 {
-	UMSS7ConfigSS7FilterTraceFile *_config;
-	UMPCAPFile *_pcap;
-
+	UMSS7ConfigSS7TraceFile *_config;
+	UMPCAPFile              *_pcap;
+    UMPCAPPseudoConnection  *_pcon;
     NSString        *_containingDirectory;
     NSString        *_relativeFilename;
     NSString        *_fullFilename;
@@ -37,15 +37,19 @@
     FILE            *_fptr;
 }
 
-@property(readwrite,strong,atomic)	UMSS7ConfigSS7FilterTraceFile *config;
+@property(readwrite,strong,atomic)	UMSS7ConfigSS7TraceFile *config;
 
-- (void)logPacket:(UMSCCP_Packet *)packet;
-- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7FilterTraceFile *)config defaultPath:(NSString *)path;
+- (void)traceSentPdu:(NSData *)mtp3pdu          options:(NSDictionary *)dict;
+- (void)traceReceivedPdu:(NSData *)mtp3pdu      options:(NSDictionary *)dict;
+- (void)traceDroppedPdu:(NSData *)mtp3pdu       options:(NSDictionary *)dict;
+- (void)traceUnroutablePdu:(NSData *)mtp3pdu    options:(NSDictionary *)dict;
+- (void)traceProblematicPdu:(NSData *)mtp3pdu   options:(NSDictionary *)dict;
+- (void)traceComment:(NSString *)s;
 
+- (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7TraceFile *)config defaultPath:(NSString *)path;
 - (void)open;
 - (void)close;
 - (void)rotate;
-
 - (void)enable;
 - (void)disable;
 - (void)action:(NSString *)action;

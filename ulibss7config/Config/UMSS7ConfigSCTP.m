@@ -11,11 +11,10 @@
 
 @implementation UMSS7ConfigSCTP
 
-+ (NSString *)type
++ (NSString *)groupName
 {
     return @"sctp";
 }
-
 
 - (UMSS7ConfigSCTP *)initWithConfig:(NSDictionary *)dict
 {
@@ -27,9 +26,9 @@
     return self;
 }
 
-- (NSString *)type
+- (NSString *)groupName
 {
-    return [UMSS7ConfigSCTP type];
+    return [UMSS7ConfigSCTP groupName];
 }
 
 - (void)appendConfigToString:(NSMutableString *)o

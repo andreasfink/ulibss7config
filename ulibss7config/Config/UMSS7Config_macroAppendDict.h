@@ -14,4 +14,4 @@
 #define DATE(str,name,value,dbname,tag,options)             appendDict_DATE(str,name,value,dbname,tag,options);
 #define ARRAY_VERBOSE(str,name,value,dbname,tag,options)    appendDict_ARRAY_VERBOSE(str,name,value,dbname,tag,options);
 #define ARRAY_COMPACT(o,name,value,dbname,tag,options)      appendDict_ARRAY_COMPACT(str,name,value,dbname,tag,options);
-#define HEXDATA(str,name,value,dbname,tag,options)          appendConfig_HEXDATA(str,name,value,dbname,tag,options);
+#define HEXDATA(str,name,value,dbname,tag,options)          appendDict_HEXDATA(str,name,value,dbname,tag,options);
