@@ -6778,8 +6778,8 @@ static void signalHandler(int signum);
     if(tf)
     {
         _ss7TraceFiles[conf.name] = tf;
-        [tf writeConfigToDisk];
-        [tf open];
+        //[tf writeConfigToDisk];
+        //[tf open];
     }
 }
 

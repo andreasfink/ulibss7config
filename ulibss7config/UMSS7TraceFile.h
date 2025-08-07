@@ -15,7 +15,7 @@
 {
 	UMSS7ConfigSS7TraceFile *_config;
 	UMPCAPFile              *_pcap;
-
+    UMPCAPPseudoConnection  *_pcon;
     NSString        *_containingDirectory;
     NSString        *_relativeFilename;
     NSString        *_fullFilename;
@@ -44,6 +44,7 @@
 - (void)traceDroppedPdu:(NSData *)mtp3pdu       options:(NSDictionary *)dict;
 - (void)traceUnroutablePdu:(NSData *)mtp3pdu    options:(NSDictionary *)dict;
 - (void)traceProblematicPdu:(NSData *)mtp3pdu   options:(NSDictionary *)dict;
+- (void)traceComment:(NSString *)s;
 
 - (UMSS7TraceFile *)initWithSS7Config:(UMSS7ConfigSS7TraceFile *)config defaultPath:(NSString *)path;
 - (void)open;
