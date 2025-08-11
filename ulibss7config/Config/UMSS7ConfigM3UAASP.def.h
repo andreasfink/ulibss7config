@@ -15,3 +15,8 @@ DOUBLE(o,"sctp-heartbeat",_sctp_heartbeat,"sctp_heartbeat",23,"")
 INTEGER(o,"sctp-mtu",_sctp_mtu,"sctp_mtu",24,"")
 INTEGER(o,"sctp-max-init-timeout",_sctp_maxInitTimeout,"sctp_max_init_timeout",25,"")
 INTEGER(o,"sctp-max-init-attempts",_sctp_maxInitAttempts,"sctp_max_init_attempts",26,"")
+
+STRING(o,"tcp-remote-address",_tcpRemoteAddress,"tcp_remote_address",27,"")
+STRING(o,"tcp-local-address",_tcpLocalAddress,"tcp_local_address",28,"")
+INTEGER(o,"tcp-remote-port",_tcpRemotePort,"tcp_remote_port",29,"")
+INTEGER(o,"tcp-local-port",_tcpLocalPort,"tcp_local_port",30,"")
