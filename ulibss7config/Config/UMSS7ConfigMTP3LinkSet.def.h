@@ -32,3 +32,5 @@ ARRAY_VERBOSE(o,"routing-advertisement-deny",_routingAdvertisementDeny,"routing_
 STRING(o,"tcap-sharing-inside",_tcapSharingInside,"tcap_sharing_inside",41,"")
 STRING(o,"tcap-sharing-outside",_tcapSharingOutside,"tcap_sharing_outside",42,"")
 INTEGER(o,"tcap-sharing-priority",_tcapSharingPriority,"tcap_sharing_priority",43,"")
+STRING(o,"calling-tt-map-in",_calling_ttmap_in,"calling_ttmap_in",51,"")
+STRING(o,"calling-tt-map-out",_calling_ttmap_out,"calling_ttmap_out",52,"")

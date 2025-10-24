@@ -5588,7 +5588,10 @@ static void signalHandler(int signum);
                                                                               sls:label.sls
                                                                              data:mtp3payload
                                                                           options:@{ @"decode-only" : @YES }
-                                                                              map:NULL
+                                                                     called_ttmap:NULL
+                                                                    calling_ttmap:NULL
+                                                               called_translation:NULL
+                                                              calling_translation:NULL
                                                               incomingLinksetName:NULL];
                 @autoreleasepool
                 {
@@ -5647,8 +5650,12 @@ static void signalHandler(int signum);
                                                       sls:-1
                                                      data:[pdu unhexedData]
                                                   options:@{ @"decode-only" : @YES }
-                                                      map:NULL
+                                             called_ttmap:NULL
+                                            calling_ttmap:NULL
+                                       called_translation:NULL
+                                      calling_translation:NULL
                                       incomingLinksetName:NULL];
+
             @autoreleasepool
             {
                 [task main];

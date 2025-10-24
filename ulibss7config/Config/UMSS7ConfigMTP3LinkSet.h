@@ -17,6 +17,8 @@
     NSString *_overrideNetworkIndicator;
     NSString *_ttmap_in;
     NSString *_ttmap_out;
+    NSString *_calling_ttmap_in;
+    NSString *_calling_ttmap_out;
     NSString *_cga_number_translation_in;
     NSString *_cga_number_translation_out;
     NSString *_cda_number_translation_in;
@@ -58,6 +60,9 @@
 
 @property(readwrite,strong,atomic)  NSString *ttmap_in;
 @property(readwrite,strong,atomic)  NSString *ttmap_out;
+@property(readwrite,strong,atomic)  NSString *calling_ttmap_in;
+@property(readwrite,strong,atomic)  NSString *calling_ttmap_out;
+
 @property(readwrite,strong,atomic)  NSString *cga_number_translation_in;
 @property(readwrite,strong,atomic)  NSString *cga_number_translation_out;
 @property(readwrite,strong,atomic)  NSString *cda_number_translation_in;
@@ -65,6 +70,7 @@
 
 @property(readwrite,strong,atomic)  NSArray<NSString *> *map_tt_in;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *map_tt_out;
+
 @property(readwrite,strong,atomic)  NSArray<NSString *> *inbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSArray<NSString *> *outbound_filter_rulesets;
 @property(readwrite,strong,atomic)  NSString *pctrans;
