@@ -6240,7 +6240,7 @@ static void signalHandler(int signum);
         [s appendFormat:@"ASN1 HEX PDU:<input type=text name=hexpdu value=\"%@\" size=80><br>\r",pdu];
         [s appendFormat:@"<input type=submit>\r"];
         [s appendFormat:@"</form>\r"];
-        [s appendFormat:@"<pre>%@ = %@</pre>\r",asn1.objectName,[asn1.objectValue jsonString]];
+        [s appendFormat:@"<pre>%@ = %@</pre>\r",asn1.objectName,asn1.description];
         [s appendFormat:@"</body>\r"];
         [s appendFormat:@"</html>\r"];
         [req setResponseHtmlString:s];
