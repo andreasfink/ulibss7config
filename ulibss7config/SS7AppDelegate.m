@@ -6167,7 +6167,10 @@ static void signalHandler(int signum);
                            sls:sls
                    linksetName:linksetName
                        options:@{}
-                         ttmap:NULL];
+                  called_ttmap:NULL
+                 calling_ttmap:NULL
+            called_translation:NULL
+           calling_translation:NULL];
         [req setResponsePlainText:@"ok"];
     }
     return;
