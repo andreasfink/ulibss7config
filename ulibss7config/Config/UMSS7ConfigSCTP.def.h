@@ -10,8 +10,12 @@ REAL(o,"heartbeat",_heartbeat,"heartbeat",18,"")
 INTEGER(o,"mtu",_mtu,"mtu",19,"")
 INTEGER(o,"max-init-timeout",_maxInitTimeout,"max_init_timeout",20,"")
 INTEGER(o,"max-init-attempts",_maxInitAttempts,"max_init_attempts",21,"")
+
+
 INTEGER(o,"min-receive-buffer-size",_minReceiveBufferSize,"min_receive_buffer_size",22,"")
 INTEGER(o,"min-send-buffer-size",_minSendBufferSize,"min_send_buffer_size",23,"")
 STRING(o,"dscp",_dscp,"dscp",24,"")
 BOOLEAN(o,"use-peeloff",_usePeelOff,"use_peeloff",25,"")
 
+INTEGER(o,"max-in-streams",_maxInStreams,"max_in_streams",26,"")
+INTEGER(o,"num-of-streams",_numOfStreams,"num_of_streams",27,"")

@@ -20,6 +20,8 @@
     NSNumber            *_heartbeat; /* in seconds */
     NSNumber            *_mtu;
     NSNumber            *_maxInitTimeout;
+    NSNumber            *_maxInStreams;
+    NSNumber            *_numOfStreams;
     NSNumber            *_maxInitAttempts;
     NSNumber            *_sctpOverTcp;
     NSString            *_sctpOverTcpSessionKey;
@@ -44,6 +46,8 @@
 @property(readwrite,strong,atomic)      NSNumber            *mtu;
 @property(readwrite,strong,atomic)      NSNumber            *maxInitTimeout;
 @property(readwrite,strong,atomic)      NSNumber            *maxInitAttempts;
+@property(readwrite,strong,atomic)      NSNumber            *maxInStreams;
+@property(readwrite,strong,atomic)      NSNumber            *numOfStreams;
 @property(readwrite,strong,atomic)      NSNumber            *sctpOverTcp;
 @property(readwrite,strong,atomic)      NSString            *sctpOverTcpSessionKey;
 @property(readwrite,strong,atomic)      NSNumber            *minReceiveBufferSize;
