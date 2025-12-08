@@ -56,7 +56,7 @@ install: ${LIB} build/diameter-web-gen
 
 build/diameter-web-gen: $(DIAMETER_WEB_GEN_O_FILES) lib@PROJECT_NAME@.so
 	mkdir -p build
-	${CC} -o build/decode-sms  -L. -l@PROJECT_NAME@ ${LDFLAGS} $(DIAMETER_WEB_GEN_O_FILES)
+	${CC} -o build/diameter-web-gen  -L. -l@PROJECT_NAME@ ${LDFLAGS} $(DIAMETER_WEB_GEN_O_FILES)
 	
 	
 clean:
