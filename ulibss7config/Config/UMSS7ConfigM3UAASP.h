@@ -30,6 +30,13 @@
     NSNumber            *_sctp_mtu;
     NSNumber            *_sctp_maxInitTimeout;
     NSNumber            *_sctp_maxInitAttempts;
+    NSNumber            *_sctp_maxInStreams;
+    NSNumber            *_sctp_mumOfStreams;
+
+    NSString    *_tcpRemoteAddress;
+    NSString    *_tcpLocalAddress;
+    NSNumber    *_tcpRemotePort;
+    NSNumber    *_tcpLocalPort;
 }
 
 + (NSString *)groupName;
@@ -54,7 +61,13 @@
 @property(readwrite,strong,atomic)  NSNumber            *sctp_mtu;
 @property(readwrite,strong,atomic)  NSNumber            *sctp_maxInitTimeout;
 @property(readwrite,strong,atomic)  NSNumber            *sctp_maxInitAttempts;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_maxInStreams;
+@property(readwrite,strong,atomic)  NSNumber            *sctp_mumOfStreams;
 
+@property(readwrite,strong,atomic)  NSString    *tcpRemoteAddress;
+@property(readwrite,strong,atomic)  NSString    *tcpLocalAddress;
+@property(readwrite,strong,atomic)  NSNumber    *tcpRemotePort;
+@property(readwrite,strong,atomic)  NSNumber    *tcpLocalPort;
 
 
 @end

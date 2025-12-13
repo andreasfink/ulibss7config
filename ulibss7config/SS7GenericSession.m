@@ -2681,7 +2681,11 @@ else \
         case UMGSMMAP_Opcode_deactivateTraceMode:
         case UMGSMMAP_Opcode_traceSubscriberActivity:
         case UMGSMMAP_Opcode_updateVcsgLocation:
+            break;
         case UMGSMMAP_Opcode_beginSubscriberActivity:
+            // beginSubscriberActivity doesnt seem to have any response
+            //param1 = [[UMGSMMAP_BeginSubscriberActivity_Res alloc]initWithASN1Object:param context:NULL];
+            break;
         case UMGSMMAP_Opcode_sendIdentification:
         case UMGSMMAP_Opcode_sendAuthenticationInfo:
         case UMGSMMAP_Opcode_restoreData:
