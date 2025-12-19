@@ -8,7 +8,6 @@
 
 
 #undef BOOLEAN
-#undef DOUBLE
 #undef REAL
 #undef INTEGER
 #undef STRING

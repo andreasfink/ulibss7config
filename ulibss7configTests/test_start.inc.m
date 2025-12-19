@@ -2,7 +2,7 @@
 o = [[NSMutableDictionary alloc]init];
 
 #define BOOLEAN(o,name,value,dbname,tag,options)            check(o,name,value,dbname,tag,options,"boolean",s);
-#define REAL(o,name,value,dbname,tag,options)             check(o,name,value,dbname,tag,options,"double",s);
+#define REAL(o,name,value,dbname,tag,options)               check(o,name,value,dbname,tag,options,"double",s);
 #define INTEGER(o,name,value,dbname,tag,options)            check(o,name,value,dbname,tag,options,"integer",s);
 #define STRING(o,name,value,dbname,tag,options)             check(o,name,value,dbname,tag,options,"string",s);
 #define FILTERED_STRING(o,name,value,dbname,tag,options)    check(o,name,value,dbname,tag,options,"filtered_string",s);

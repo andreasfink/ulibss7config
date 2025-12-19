@@ -8,7 +8,7 @@
 #import <ulib/ulib.h>
 
 void appendConfig_BOOLEAN(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
-void appendConfig_DOUBLE(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
+void appendConfig_REAL(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
 void appendConfig_INTEGER(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
 void appendConfig_STRING(NSMutableString *str,const char *name,NSString *value,const char *dbname,int tag,const char *options);
 void appendConfig_HEXDATA(NSMutableString *str,const char *name,NSData *value,const char *dbname,int tag,const char *options);
@@ -18,7 +18,7 @@ void appendConfig_ARRAY_VERBOSE(NSMutableString *str,const char *name,NSArray *a
 void appendConfig_ARRAY_COMPACT(NSMutableString *str,const char *name,NSArray *array,const char *dbname,int tag,const char *options);
 
 void appendDict_BOOLEAN(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
-void appendDict_DOUBLE(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
+void appendDict_REAL(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
 void appendDict_INTEGER(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options);
 void appendDict_STRING(UMSynchronizedSortedDictionary *dict,const char *name,NSString *value,const char *dbname,int tag,const char *options);
 void appendDict_HEXDATA(UMSynchronizedSortedDictionary *dict,const char *name,NSData *value,const char *dbname,int tag,const char *options);
@@ -30,7 +30,7 @@ void appendDict_ARRAY_COMPACT(UMSynchronizedSortedDictionary *dict,const char *n
 
 
 NSNumber * setConfigFromDict_BOOLEAN(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options);
-NSNumber * setConfigFromDict_DOUBLE(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options);
+NSNumber * setConfigFromDict_REAL(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options);
 NSNumber * setConfigFromDict_INTEGER(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options);
 NSString * setConfigFromDict_STRING(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options);
 NSData   * setConfigFromDict_HEXDATA(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options);

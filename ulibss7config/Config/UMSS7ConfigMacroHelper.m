@@ -21,7 +21,7 @@ void appendConfig_BOOLEAN(NSMutableString *str,const char *name,NSNumber *value,
     }
 }
 
-void appendConfig_DOUBLE(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
+void appendConfig_REAL(NSMutableString *str,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
 {
     if(value!=NULL)
     {
@@ -113,7 +113,7 @@ void appendDict_BOOLEAN(UMSynchronizedSortedDictionary *dict,const char *name,NS
     }
 }
 
-void appendDict_DOUBLE(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
+void appendDict_REAL(UMSynchronizedSortedDictionary *dict,const char *name,NSNumber *value,const char *dbname,int tag,const char *options)
 {
     if(value!=NULL)
     {
@@ -208,7 +208,7 @@ NSNumber *setConfigFromDict_BOOLEAN(NSDictionary *o,const char *name,const char 
     return value;
 }
 
-NSNumber *setConfigFromDict_DOUBLE(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
+NSNumber *setConfigFromDict_REAL(NSDictionary *o,const char *name,const char *dbname,int tag,const char *options)
 {
     NSNumber *value;
     if(o[@(name)]!=NULL)

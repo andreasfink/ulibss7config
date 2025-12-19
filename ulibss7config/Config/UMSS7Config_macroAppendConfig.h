@@ -7,7 +7,7 @@
 //
 
 #define BOOLEAN(str,name,value,dbname,tag,options)          appendConfig_BOOLEAN(str,name,value,dbname,tag,options);
-#define REAL(str,name,value,dbname,tag,options)           appendConfig_DOUBLE(str,name,value,dbname,tag,options);
+#define REAL(str,name,value,dbname,tag,options)             appendConfig_REAL(str,name,value,dbname,tag,options);
 #define INTEGER(str,name,value,dbname,tag,options)          appendConfig_INTEGER(str,name,value,dbname,tag,options);
 #define STRING(str,name,value,dbname,tag,options)           appendConfig_STRING(str,name,value,dbname,tag,options);
 #define FILTERED_STRING(str,name,value,dbname,tag,options)  appendConfig_FILTERED_STRING(str,name,value,dbname,tag,options);

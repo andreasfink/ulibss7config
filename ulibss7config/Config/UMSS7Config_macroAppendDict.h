@@ -7,7 +7,7 @@
 //
 
 #define BOOLEAN(str,name,value,dbname,tag,options)          appendDict_BOOLEAN(str,name,value,dbname,tag,options);
-#define REAL(str,name,value,dbname,tag,options)           appendDict_DOUBLE(str,name,value,dbname,tag,options);
+#define REAL(str,name,value,dbname,tag,options)             appendDict_REAL(str,name,value,dbname,tag,options);
 #define INTEGER(str,name,value,dbname,tag,options)          appendDict_INTEGER(str,name,value,dbname,tag,options);
 #define STRING(str,name,value,dbname,tag,options)           appendDict_STRING(str,name,value,dbname,tag,options);
 #define FILTERED_STRING(str,name,value,dbname,tag,options)  appendDict_FILTERED_STRING(str,name,value,dbname,tag,options);
