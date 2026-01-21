@@ -18,6 +18,7 @@
 @implementation SS7CDRWriter
 
 
+
 - (SS7CDRWriter *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq usingBatchInsert:(BOOL)bi
 {
     self = [super initWithTaskQueueMulti:tq name:@"writer"];
