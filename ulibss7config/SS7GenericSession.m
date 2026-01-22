@@ -256,6 +256,11 @@ else \
         {
             _emptyComponentFirst = [e boolValue];
         }
+        SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"map-irep");
+        if(e.length > 0)
+        {
+            _mapIrep = @([e integerValue]);
+        }
         SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"empty-component-last");
         if(e.length > 0)
         {
@@ -1830,13 +1835,21 @@ else \
     {
         UMLayerGSMMAP_OpCode *xop = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:self.firstInvokeOperation];
 
-        [_gInstance.gsmMap executeMAP_Invoke_Req:self.firstInvoke
-                                          dialog:_dialogId
-                                        invokeId:_invokeId
-                                        linkedId:TCAP_UNDEFINED_LINKED_ID
-                                          opCode:xop
-                                            last:YES
-                                         options:_options];
+        int n =1;
+        if(_mapIrep)
+        {
+            n = [_mapIrep intValue];
+        }
+        for(int i=0;i<n;i++)
+        {
+            [_gInstance.gsmMap executeMAP_Invoke_Req:self.firstInvoke
+                                              dialog:_dialogId
+                                            invokeId:_invokeId
+                                            linkedId:TCAP_UNDEFINED_LINKED_ID
+                                              opCode:xop
+                                                last:YES
+                                             options:_options];
+        }
     }
     switch(_multi_invoke_variant)
     {
@@ -1844,13 +1857,21 @@ else \
         {
             if((_opcode) && (_query))
             {
-                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
-                                                  dialog:_dialogId
-                                                invokeId:_invokeId
-                                                linkedId:TCAP_UNDEFINED_LINKED_ID
-                                                  opCode:_opcode
-                                                    last:YES
-                                                 options:_options];
+                int n =1;
+                if(_mapIrep)
+                {
+                    n = [_mapIrep intValue];
+                }
+                for(int i=0;i<n;i++)
+                {
+                    [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                      dialog:_dialogId
+                                                    invokeId:_invokeId
+                                                    linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                      opCode:_opcode
+                                                        last:YES
+                                                     options:_options];
+                }
             }
             if(!useHandshake)
             {
@@ -2298,7 +2319,11 @@ else \
     [s appendString:@"    <td class=optional>ecl</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"ecl\" type=text>{0 | 1 }</td>\n"];
     [s appendString:@"</tr>\n"];
-
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-irep</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-irep\" type=\"text\" value=\"\"></td>\n"];
+    [s appendString:@"</tr>\n"];
 }
 
 + (void)webTcapTitle:(NSMutableString *)s
