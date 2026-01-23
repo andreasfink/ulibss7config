@@ -189,7 +189,7 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    SS7MultiInvokeVariant       multi_invoke_variant;
 @property(readwrite,assign,atomic)    BOOL                        emptyComponentFirst;
 @property(readwrite,assign,atomic)    BOOL                        emptyComponentLast;
-@property(readwrite,assign,atomic)    NSNumber                    *mapIrep;
+@property(readwrite,strong,atomic)    NSNumber                    *mapIrep;
 @property(readwrite,strong,atomic)    NSString *tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;
