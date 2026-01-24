@@ -53,6 +53,8 @@
 @class  UMSS7ConfigDatabasePool;
 @class UMSS7ConfigGSMSCF;
 @class UMSS7ConfigEIR;
+@class UMSS7ConfigGTMap;
+@class UMSS7ConfigGTMapEntry;
 @class UMSS7ConfigSCCPNumberTranslation;
 @class UMSS7ConfigServiceUser;
 @class UMSS7ConfigServiceProfile;
@@ -123,6 +125,7 @@
     UMSynchronizedSortedDictionary *_admin_user_dict;
     UMSynchronizedSortedDictionary *_api_user_dict;
     UMSynchronizedSortedDictionary *_database_pool_dict;
+    UMSynchronizedSortedDictionary *_gtmaps_dict;
     UMSynchronizedSortedDictionary *_sccp_number_translation_dict;
     UMSynchronizedSortedDictionary *_service_user_dict;
     UMSynchronizedSortedDictionary *_service_billing_entity_dict;
@@ -196,6 +199,7 @@
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *admin_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *api_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *database_pool_dict;
+@property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *gtmaps_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *sccp_number_translation_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *service_user_dict;
 @property(readwrite,strong,atomic)  UMSynchronizedSortedDictionary *service_billing_entity_dict;
@@ -472,6 +476,12 @@
 - (NSString *)addAdminUser:(UMSS7ConfigAdminUser *)user;
 - (NSString *)replaceAdminUser:(UMSS7ConfigAdminUser *)user;
 - (NSString *)deleteAdminUser:(NSString *)name;
+
+- (NSArray *)getGTMapNames;
+- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name;
+- (NSString *)addGTMap:(UMSS7ConfigGTMap *)number_translation;
+- (NSString *)replaceGTMap:(UMSS7ConfigGTMapEntry *)map;
+- (NSString *)deleteGTMaps:(NSString *)name;
 
 - (NSArray *)getSCCPNumberTranslationNames;
 - (UMSS7ConfigSCCPNumberTranslation *)getSCCPNumberTranslation:(NSString *)name;

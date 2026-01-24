@@ -6,7 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import <ulibss7config/UMSS7ConfigStorage.h>
+#import "UMSS7ConfigStorage.h"
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibsctp/ulibsctp.h>
 #import <ulibss7config/UMSS7ConfigGeneral.h>
@@ -25,6 +25,8 @@
 #import <ulibss7config/UMSS7ConfigM3UAASP.h>
 #import <ulibss7config/UMSS7ConfigSCCP.h>
 #import <ulibss7config/UMSS7ConfigSCCPFilter.h>
+#import "UMSS7ConfigGTMap.h"
+#import <ulibss7config/UMSS7ConfigGTMapEntry.h>
 #import <ulibss7config/UMSS7ConfigSCCPTranslationTable.h>
 #import <ulibss7config/UMSS7ConfigSCCPTranslationTableEntry.h>
 #import <ulibss7config/UMSS7ConfigSCCPTranslationTableMap.h>
@@ -107,6 +109,7 @@
     _sccp_translation_table_entry_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_translation_table_map_dict = [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
+    _gtmaps_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _sccp_number_translation_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _tcap_dict= [[UMSynchronizedSortedDictionary alloc]init];
     _tcap_filter_dict= [[UMSynchronizedSortedDictionary alloc]init];
@@ -895,6 +898,16 @@
         }
     }
 
+    NSArray *gtmap_configs = [cfg getMultiGroups:[UMSS7ConfigGTMap groupName]];
+    for(NSDictionary *gtmap_config in gtmap_configs)
+    {
+        UMSS7ConfigGTMap *e = [[UMSS7ConfigGTMap alloc]initWithConfig:gtmap_config];
+        if(e.name.length  > 0)
+        {
+            _gtmaps_dict[e.name] = e;
+        }
+    }
+
     NSArray *sccp_number_translation_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslation groupName]];
     for(NSDictionary *sccp_number_translation_config in sccp_number_translation_configs)
     {
@@ -904,6 +917,7 @@
             _sccp_number_translation_dict[e.name] = e;
         }
     }
+    
     NSArray *sccp_number_translation_entry_configs = [cfg getMultiGroups:[UMSS7ConfigSCCPNumberTranslationEntry groupName]];
     for(NSDictionary *sccp_number_translation_entry_config in sccp_number_translation_entry_configs)
     {
@@ -1105,7 +1119,9 @@
       /* UMSS7ConfigSCCPTranslationTableEntry */
       [self appendSectionWithEntries:s dict:_sccp_translation_table_map_dict sectionName:[UMSS7ConfigSCCPTranslationTableMap groupName]];
       [self appendSection:s dict:_sccp_filter_dict sectionName:[UMSS7ConfigSCCPFilter groupName]];
-      [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:[UMSS7ConfigSCCPNumberTranslation groupName]];
+
+    [self appendSectionWithEntries:s dict:_gtmaps_dict sectionName:[UMSS7ConfigGTMap groupName]];
+    [self appendSectionWithEntries:s dict:_sccp_number_translation_dict sectionName:[UMSS7ConfigSCCPNumberTranslation groupName]];
       /* UMSS7ConfigSCCPNumberTranslationEntry */
       [self appendSection:s dict:_tcap_dict sectionName:[UMSS7ConfigTCAP groupName]];
       [self appendSectionWithEntries:s dict:_tcap_filter_dict sectionName:[UMSS7ConfigTCAPFilter groupName]];
@@ -1269,6 +1285,9 @@
     ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigSCCPNumberTranslation,
                                             UMSS7ConfigSCCPNumberTranslationEntry,
                                             _sccp_number_translation_dict);
+    ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigGTMap,
+                                            UMSS7ConfigGTMapEntry,
+                                            _gtmaps_dict);
 
     ADD_SECTION_CONDITIONAL(d, UMSS7ConfigTCAP,_tcap_dict);
     ADD_SECTION_CONDITIONAL_WITH_ENTRIES(d, UMSS7ConfigTCAPFilter,UMSS7ConfigTCAPFilterEntry,_tcap_dict);
@@ -2116,6 +2135,54 @@
 
 /*
  **************************************************
+ ** Global Title Maps
+ **************************************************
+ */
+#pragma mark -
+#pragma mark GTMaps
+
+- (NSArray *)getGTMapNames
+{
+    return [[_gtmaps_dict allKeys]sortedStringsArray];
+}
+
+- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name;
+{
+    return _gtmaps_dict[name];
+}
+
+- (NSString *)addGTMap:(UMSS7ConfigGTMap *)number_translation;
+{
+    if(_gtmaps_dict[number_translation.name] == NULL)
+    {
+        _gtmaps_dict[number_translation.name] = number_translation;
+        _dirty=YES;
+        return @"ok";
+    }
+    return @"already exists";
+}
+
+- (NSString *)replaceGTMap:(UMSS7ConfigGTMapEntry *)map
+{
+    _gtmaps_dict[map.name] = name;
+    _dirty=YES;
+    return @"ok";
+}
+
+- (NSString *)deleteGTMaps:(NSString *)name
+{
+    if(_gtmaps_dict[name]==NULL)
+    {
+        return @"not found";
+    }
+    [_gtmaps_dict removeObjectForKey:name];
+    _dirty=YES;
+    return @"ok";
+}
+
+
+/*
+ **************************************************
  ** SCCP-NumberTranslation
  **************************************************
  */
@@ -2127,12 +2194,12 @@
     return [[_sccp_number_translation_dict allKeys]sortedStringsArray];
 }
 
-- (UMSS7ConfigSCCPNumberTranslation *)getSCCPNumberTranslation:(NSString *)name;
+- (UMSS7ConfigSCCPNumberTranslation *)getSCCPNumberTranslation:(NSString *)name
 {
     return _sccp_number_translation_dict[name];
 }
 
-- (NSString *)addSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation*)number_translation;
+- (NSString *)addSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation*)number_translation
 {
     if(_sccp_number_translation_dict[number_translation.name] == NULL)
     {
@@ -2143,14 +2210,14 @@
     return @"already exists";
 }
 
-- (NSString *)replaceSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation *)number_translation;
+- (NSString *)replaceSCCPNumberTranslation:(UMSS7ConfigSCCPNumberTranslation *)number_translation
 {
     _sccp_number_translation_dict[number_translation.name] = number_translation;
     _dirty=YES;
     return @"ok";
 }
 
-- (NSString *)deleteSCCPNumberTranslation:(NSString *)name;
+- (NSString *)deleteSCCPNumberTranslation:(NSString *)name
 {
     if(_sccp_number_translation_dict[name]==NULL)
     {
