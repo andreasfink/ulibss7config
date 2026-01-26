@@ -43,6 +43,7 @@
 @class SmscConnection;
 @class UMLicenseDirectory;
 @class UMLicenseProductFeature;
+@class UMSS7ConfigGTMap;
 
 typedef enum SchrittmacherMode
 {
@@ -602,7 +603,12 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)renameCAMEL:(NSString *)oldName to:(NSString *)newName;
 
 
-- (SccpNumberTranslation *)getSccpNumberTransationByName:(NSString *)name;
+/************************************************************/
+#pragma mark -
+#pragma mark GTMaps Management
+/************************************************************/
+
+- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name;
 
 @end
 

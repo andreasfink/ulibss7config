@@ -69,6 +69,16 @@
     return self;
 }
 
+- (SS7GenericInstance *)initWithGTMap:(UMSS7ConfigGTMap *)gtmap
+{
+    self = [super init];
+    if(self)
+    {
+        _gtmap = gtmap;
+        [self genericInitialisation];
+    }
+    return self;
+}
 - (NSUInteger)sessionsCount
 {
     UMAssert(_sessions!=NULL,@"_sessions is null");
@@ -90,8 +100,10 @@
     return self;
 }
 
--(void) setConfig:(NSDictionary *)cfg applicationContext:(id)appContext
+-(void) setConfig:(NSDictionary *)cfg applicationContext:(id<UMSS7ConfigAppDelegateProtocol>)appContext
 {
+    _appDelegate = appContext;
+    
     [self readLayerConfig:cfg];
 
     if(cfg[@"timeout"])
@@ -102,6 +114,12 @@
     {
         _timeoutInSeconds = 80;
     }
+    
+    if(cfg[@"gtmap"])
+    {
+        _gtmap = [_appDelegate getGTMap:[cfg[@"gtmap"] stringValue]];
+    }
+
     if(cfg[@"number"])
     {
         _instanceAddress =[cfg[@"number"] stringValue];

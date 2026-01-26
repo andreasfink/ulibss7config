@@ -3588,6 +3588,11 @@
 					"$(inherited)",
 					"HAS_ULIBLICENSE=1",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					/usr/local/include,
+					"\"/Library/Application Support/FinkTelecomServices/include\"",
+				);
 				INFOPLIST_FILE = ulibss7config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3610,6 +3615,7 @@
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				SUPPORTS_MACCATALYST = NO;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				TVOS_DEPLOYMENT_TARGET = 18.0;
 				WARNING_CFLAGS = "-Wimplicit-fallthrough";
 			};
@@ -3636,6 +3642,11 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_PREPROCESSOR_DEFINITIONS = "HAS_ULIBLICENSE=1";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					/usr/local/include,
+					"\"/Library/Application Support/FinkTelecomServices/include\"",
+				);
 				INFOPLIST_FILE = ulibss7config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3658,6 +3669,7 @@
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				SUPPORTS_MACCATALYST = NO;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				TVOS_DEPLOYMENT_TARGET = 18.0;
 				WARNING_CFLAGS = "-Wimplicit-fallthrough";
 			};

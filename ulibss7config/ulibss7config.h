@@ -16,7 +16,6 @@
 #import <ulibss7config/SS7TelnetSocket.h>
 #import <ulibss7config/UMSS7TraceFile.h>
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibss7config/UMSS7ConfigMacroHelper.h>
 #import <ulibss7config/UMSS7ConfigStorage.h>
@@ -77,6 +76,8 @@
 #import <ulibss7config/UMSS7ConfigAuthServer.h>
 #import <ulibss7config/UMSS7ConfigStorageServer.h>
 #import <ulibss7config/UMSS7ConfigCdrServer.h>
+#import <ulibss7config/UMSS7ConfigGTMap.h>
+#import <ulibss7config/UMSS7ConfigGTMapEntry.h>
 
 #import <ulibss7config/UMSS7ConfigCAMEL.h>
 #import <ulibss7config/UMSS7ApiTaskAll.h>

@@ -7446,6 +7446,10 @@ static void signalHandler(int signum);
     }
 }
 
+- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name
+{
+    return [_runningConfig getGTMap:name];
+}
 @end
 
 static void signalHandler(int signum)

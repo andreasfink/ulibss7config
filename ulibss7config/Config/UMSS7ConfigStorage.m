@@ -25,7 +25,7 @@
 #import <ulibss7config/UMSS7ConfigM3UAASP.h>
 #import <ulibss7config/UMSS7ConfigSCCP.h>
 #import <ulibss7config/UMSS7ConfigSCCPFilter.h>
-#import "UMSS7ConfigGTMap.h"
+#import <ulibss7config/UMSS7ConfigGTMap.h>
 #import <ulibss7config/UMSS7ConfigGTMapEntry.h>
 #import <ulibss7config/UMSS7ConfigSCCPTranslationTable.h>
 #import <ulibss7config/UMSS7ConfigSCCPTranslationTableEntry.h>
@@ -2146,12 +2146,12 @@
     return [[_gtmaps_dict allKeys]sortedStringsArray];
 }
 
-- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name;
+- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name
 {
     return _gtmaps_dict[name];
 }
 
-- (NSString *)addGTMap:(UMSS7ConfigGTMap *)number_translation;
+- (NSString *)addGTMap:(UMSS7ConfigGTMap *)number_translation
 {
     if(_gtmaps_dict[number_translation.name] == NULL)
     {
@@ -2164,7 +2164,7 @@
 
 - (NSString *)replaceGTMap:(UMSS7ConfigGTMapEntry *)map
 {
-    _gtmaps_dict[map.name] = name;
+    _gtmaps_dict[map.name] = map;
     _dirty=YES;
     return @"ok";
 }

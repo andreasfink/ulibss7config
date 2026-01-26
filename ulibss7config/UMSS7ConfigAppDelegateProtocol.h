@@ -18,6 +18,7 @@
 @class SS7CDRWriter;
 @class UMDiameterRouter;
 @class DiameterGenericInstance;
+@class UMSS7ConfigGTMap;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -86,6 +87,7 @@ realm:(NSString **)realm;
 - (void)addWithConfigSCCP:(NSDictionary *)config;
 - (void)deleteSCCP:(NSString *)name;
 - (void)renameSCCP:(NSString *)old to:(NSString *)new;
+
 
 - (void)deleteSCCPTranslationTable:(NSString *)name
 								   tt:(NSNumber *)tt
@@ -235,6 +237,8 @@ realm:(NSString **)realm;
 #pragma mark Diameter
 /************************************************************/
 - (UMDiameterRouter *)getDiameterRouter:(NSString *)name;
+
+- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name;
 
 @optional
 - (UMSynchronizedSortedDictionary *)apiVersionDict;
