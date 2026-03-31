@@ -16,7 +16,7 @@
     NSString *_number;
     NSString *_imsiPool;
     NSNumber *_answerTranslationType;
-
+    NSNumber *_defaultCalledTT;
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;
@@ -27,6 +27,7 @@
 @property(readwrite,strong,atomic)   NSString *timeoutTraceDirectory;
 @property(readwrite,strong,atomic)   NSString *fullTraceDirectory;
 @property(readwrite,strong,atomic)  NSNumber *answerTranslationType;
+@property(readwrite,strong,atomic)  NSNumber *defaultCalledTT;
 
 
 

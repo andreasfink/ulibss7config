@@ -125,6 +125,11 @@
         _instanceAddress =[cfg[@"number"] stringValue];
     }
 
+    if(cfg[@"default-called-tt"])
+    {
+        _default_called_tt =@([cfg[@"default-called-tt"] intValue]);
+    }
+
     if(cfg[@"timeout-trace-directory"])
     {
         _timeoutTraceDirectory = [cfg[@"timeout-trace-directory"]stringValue];

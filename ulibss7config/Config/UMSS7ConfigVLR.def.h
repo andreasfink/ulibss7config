@@ -6,3 +6,4 @@ STRING(o,"full-trace-directory",_fullTraceDirectory,"full_trace_directory",14,""
 STRING(o,"status-update-url",_statusUpdateUrl,"status_update_url",15,"")
 STRING(o,"roaming-number",_roamingNumber,"roaming_number",16,"")
 STRING(o,"roaming-number-url",_roamingNumberUrl,"roaming_number_url",17,"")
+INTEGER(o,"default-called-tt"      ,_defaultCalledTT      ,"default_called_tt"      ,117,"")

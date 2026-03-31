@@ -15,6 +15,7 @@
     NSString *_address;
     NSString *_ssn;
     NSNumber *_timeout;
+    NSNumber *_defaultCalledTT;
 }
 
 
@@ -22,6 +23,7 @@
 @property(readwrite,strong,atomic)  NSString *address;
 @property(readwrite,strong,atomic)  NSString *ssn;
 @property(readwrite,strong,atomic)  NSNumber *timeout;
+@property(readwrite,strong,atomic)  NSNumber *defaultCalledTT;
 
 + (NSString *)groupName;
 - (NSString *)groupName;

@@ -16,6 +16,7 @@
     NSString *_timeoutTraceDirectory;
     NSString *_fullTraceDirectory;
     NSString *_eirRequestUrl;
+    NSNumber *_defaultCalledTT;
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;
@@ -24,6 +25,7 @@
 @property(readwrite,strong,atomic)   NSString *timeoutTraceDirectory;
 @property(readwrite,strong,atomic)   NSString *fullTraceDirectory;
 @property(readwrite,strong,atomic)   NSString *eirRequestUrl;
+@property(readwrite,strong,atomic)  NSNumber *defaultCalledTT;
 
 
 + (NSString *)groupName;

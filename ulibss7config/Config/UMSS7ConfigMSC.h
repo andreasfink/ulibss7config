@@ -17,6 +17,7 @@
     NSNumber *_answerTranslationType;
     NSString *_imsiPool;
     NSNumber *_smsErrorCode;
+    NSNumber *_defaultCalledTT;
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;
@@ -25,6 +26,7 @@
 @property(readwrite,strong,atomic)   NSString *smsForwardUrl;
 @property(readwrite,strong,atomic)   NSNumber *answerTranslationType;
 @property(readwrite,strong,atomic)   NSString *imsiPool;
+@property(readwrite,strong,atomic)  NSNumber *defaultCalledTT;
 
 
 + (NSString *)groupName;

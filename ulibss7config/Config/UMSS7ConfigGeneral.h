@@ -21,6 +21,8 @@
     NSString *_zmqSocket;
     NSString *_gui;
     NSString *_ss7TraceFileDirectory;
+    NSArray<NSString *>*_webAllow;
+    NSArray<NSString *>*_webDeny;
 
 }
 
@@ -39,5 +41,7 @@
 @property(readwrite,strong,atomic)  NSString *zmqSocket;
 @property(readwrite,strong,atomic)  NSString *gui;
 @property(readwrite,strong,atomic)  NSString *ss7TraceFileDirectory;
+@property(readwrite,strong,atomic)  NSArray<NSString *>*webAllow;
+@property(readwrite,strong,atomic)  NSArray<NSString *>*webDeny;
 
 @end

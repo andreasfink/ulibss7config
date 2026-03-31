@@ -208,6 +208,7 @@ else \
     _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericSession_operationMutex"];
     _historyLog = [[UMHistoryLog alloc]init];
     _outputFormat = OutputFormat_json;
+    _default_called_tt = inst.default_called_tt;
 }
 
 - (SS7GenericSession *)init
@@ -273,7 +274,6 @@ else \
         {
             _emptyComponentLast = [e boolValue];
         }
-
     }
     return self;
 }
@@ -1305,6 +1305,15 @@ else \
     _called_address  = [p[@"called-address"]urldecode];
     _calling_tt      = [p[@"calling-tt"]urldecode];
     _called_tt       = [p[@"called-tt"]urldecode];
+    if(([_called_tt isEqualToString:@"default"]) ||
+       ([_called_tt isEqualToString:@"0"]) ||
+       (_called_tt == NULL))
+    {
+        if(_default_called_tt)
+        {
+            _called_tt = [_default_called_tt stringValue];
+        }
+    }
     NSString *link   = [p[@"link"]urldecode];
     if((gtmap) && (link.length > 0))
     {

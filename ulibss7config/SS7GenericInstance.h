@@ -45,6 +45,7 @@
     UMTransportService          *_umTransportService;
     BOOL                        _genericInitialisationWasRun;
     UMSS7ConfigGTMap            *_gtmap;
+    NSNumber                    *_default_called_tt;
 }
 
 @property(readwrite,strong) id<UMSS7ConfigAppDelegateProtocol> appDelegate;
@@ -58,6 +59,7 @@
 @property(readwrite,strong) id<SS7UserAuthenticateProtocol>    authDelegate;
 @property(readwrite,strong) UMTransportService  *umTransportService;
 @property(readwrite,strong) UMSS7ConfigGTMap *gtmap;
+@property(readwrite,strong) NSNumber *default_called_tt;
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
 - (SS7GenericInstance *)initWithGTMap:(UMSS7ConfigGTMap *)gtmap;

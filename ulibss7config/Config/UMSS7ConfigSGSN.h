@@ -15,12 +15,14 @@
     NSNumber *_timeout;
     NSString *_number;
     NSNumber *_answerTranslationType;
+    NSNumber *_defaultCalledTT;
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;
 @property(readwrite,strong,atomic)   NSNumber *timeout;
 @property(readwrite,strong,atomic)   NSString *number;
 @property(readwrite,strong,atomic)   NSNumber *answerTranslationType;
+@property(readwrite,strong,atomic)  NSNumber *defaultCalledTT;
 
 + (NSString *)groupName;
 - (NSString *)groupName;

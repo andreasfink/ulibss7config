@@ -10,7 +10,7 @@
 
 @interface UMSS7ConfigAdminUser : UMSS7ConfigObject
 {
-    NSString *_password;
+    NSString            *_password;
     NSArray<NSString *> *_withoutAuthenticationIp;
 }
 

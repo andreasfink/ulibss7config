@@ -6,4 +6,4 @@ INTEGER(o,"smsc-translation-type",_smscTranslationType,"smsc_translation_type",1
 INTEGER(o,"srism-translation-type",_srismTranslationType,"srism_translation_type",15,"")
 INTEGER(o,"forwardsm-translation-type",_forwardsmTranslationType,"forwardsms_translation_type",16,"")
 REAL(o,"timeout",_timeout,"timeout",17,"")
-
+INTEGER(o,"default-called-tt"      ,_defaultCalledTT      ,"default_called_tt"      ,117,"")

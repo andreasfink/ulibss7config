@@ -19,3 +19,5 @@ STRING(o,"filter-engine-directory",_filterEngineDirectory,"filter_engine_directo
 STRING(o,"ss7-trace-file-directory",_ss7TraceFileDirectory,"ss7_trace_file_directory",18,"")
 STRING(o,"zmq-socket",_zmqSocket,"zmq_socket",19,"")
 STRING(o,"gui",_gui,"gui",20,"")
+ARRAY_VERBOSE(o,"web-allow",_webAllow,"web_allow",20,"")
+ARRAY_VERBOSE(o,"web-deny",_webDeny,"web_deny",20,"")

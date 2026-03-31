@@ -15,6 +15,7 @@
     NSString *_number;
     NSString *_timeoutTraceDirectory;
     NSString *_fullTraceDirectory;
+    NSNumber *_defaultCalledTT;
 }
 
 @property(readwrite,strong,atomic)   NSString *attachTo;
@@ -22,6 +23,7 @@
 @property(readwrite,strong,atomic)   NSString *number;
 @property(readwrite,strong,atomic)   NSString *timeoutTraceDirectory;
 @property(readwrite,strong,atomic)   NSString *fullTraceDirectory;
+@property(readwrite,strong,atomic)  NSNumber *defaultCalledTT;
 
 
 + (NSString *)groupName;

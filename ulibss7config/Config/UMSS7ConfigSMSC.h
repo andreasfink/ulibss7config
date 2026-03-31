@@ -19,6 +19,7 @@
     NSNumber *_smscTranslationType;
     NSNumber *_srismTranslationType;
     NSNumber *_forwardsmTranslationType;
+    NSNumber *_defaultCalledTT;
 
 }
 
@@ -30,6 +31,7 @@
 @property(readwrite,strong,atomic)   NSNumber *smscTranslationType;
 @property(readwrite,strong,atomic)   NSNumber *srismTranslationType;
 @property(readwrite,strong,atomic)   NSNumber *forwardsmTranslationType;
+@property(readwrite,strong,atomic)   NSNumber *defaultCalledTT;
 
 
 + (NSString *)groupName;
