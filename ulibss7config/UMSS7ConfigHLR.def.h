@@ -1,0 +1,6 @@
+STRING(o,"attach-to",_attachTo,"attach_to",10,"")
+STRING(o,"number",_number,"number",11,"")
+STRING(o,"imsi-pool",_imsiPool,"imsi_pool",12,"")
+REAL(o,"timeout",_timeout,"timeout",13,"")
+INTEGER(o,"answer-translation-type",_answerTranslationType,"answer_translation_type",14,"")
+INTEGER(o,"default-called-tt"      ,_defaultCalledTT      ,"default_called_tt"      ,117,"")

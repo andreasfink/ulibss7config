@@ -1,0 +1,5 @@
+STRING(o,"filter",_filter,"filter",10,"")
+STRING(o,"result",_result,"result",11,"")
+STRING(o,"opc",_result,"opc",12,"")
+STRING(o,"dpc",_result,"dpc",13,"")
+INTEGER(o,"si",_si,"si",14,"")

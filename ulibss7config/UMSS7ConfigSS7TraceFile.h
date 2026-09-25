@@ -1,0 +1,33 @@
+//
+//  UMSS7ConfigSS7TraceFile.h
+//  ulibss7config
+//
+//  Created by Andreas Fink on 21.05.19.
+//  Copyright © 2019 Andreas Fink. All rights reserved.
+//
+
+#import <ulibss7config/UMSS7ConfigObject.h>
+
+@interface UMSS7ConfigSS7TraceFile : UMSS7ConfigObject
+{
+    NSString *_filename;
+    NSString *_format;
+    NSNumber *_minutes;
+    NSNumber *_packets;
+    NSNumber *_maxRotations;
+}
+
+@property(readwrite,strong,atomic)  NSString *filename;
+@property(readwrite,strong,atomic)  NSString *format;
+@property(readwrite,strong,atomic)  NSNumber *minutes;
+@property(readwrite,strong,atomic)  NSNumber *packets;
+@property(readwrite,strong,atomic)  NSNumber *maxRotations;
+
+- (UMSS7ConfigSS7TraceFile *)initWithConfig:(NSDictionary *)dict;
+
++ (NSString *)groupName;
+- (NSString *)groupName;
+
+@end
+
+ 

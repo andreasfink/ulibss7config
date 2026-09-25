@@ -1,0 +1,78 @@
+//
+//  UMSS7ApiTaskSCCP_action.m
+//  estp
+//
+//  Created by Andreas Fink on 13.03.18.
+//  Copyright © 2018 Andreas Fink. All rights reserved.
+//
+
+#import "UMSS7ApiTaskSCCP_action.h"
+
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
+#import <ulibss7config/UMSS7ConfigObject.h>
+#import <ulibss7config/UMSS7ConfigStorage.h>
+#import <ulibmtp3/ulibmtp3.h>
+
+@implementation UMSS7ApiTaskSCCP_action
+
++ (NSString *)apiPath
+{
+    return @"/api/sccp-action";
+}
+
+- (void)main
+{
+    @autoreleasepool
+    {
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorised])
+        {
+            [self sendErrorNotAuthorised];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        NSString *action = _params[@"action"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+        if(sccp)
+        {
+            if([action isEqualToString:@"action-list"])
+            {
+                [self sendResultObject:@[ @"activate", @"deactivate", @"start",@"stop"]];
+            }
+
+            else if([action isEqualToString:@"activate"])
+            {
+                [self sendErrorNotImplemented];
+
+            }
+            else if([action isEqualToString:@"deactivate"])
+            {
+                [self sendErrorNotImplemented];
+            }
+            else if([action isEqualToString:@"start"])
+            {
+                [self sendErrorNotImplemented];
+            }
+            else if([action isEqualToString:@"stop"])
+            {
+                [self sendErrorNotImplemented];
+            }
+            else
+            {
+                [self sendErrorUnknownAction];
+            }
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
+    }
+}
+@end

@@ -1,0 +1,55 @@
+//
+//  UMSS7ApiTaskSCCP_status.m
+//  estp
+//
+//  Created by Andreas Fink on 13.03.18.
+//  Copyright © 2018 Andreas Fink. All rights reserved.
+//
+
+#import "UMSS7ApiTaskSCCP_status.h"
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
+#import <ulibss7config/UMSS7ConfigObject.h>
+#import <ulibss7config/UMSS7ConfigStorage.h>
+#import <ulibsccp/ulibsccp.h>
+
+@implementation UMSS7ApiTaskSCCP_status
+
++ (NSString *)apiPath
+{
+    return @"/api/sccp-status";
+}
+
+- (void)main
+{
+    @autoreleasepool
+    {
+        if(![self isAuthenticated])
+        {
+            [self sendErrorNotAuthenticated];
+            return;
+        }
+        
+        if(![self isAuthorised])
+        {
+            [self sendErrorNotAuthorised];
+            return;
+        }
+        
+        NSString *name = _params[@"name"];
+        name = [UMSS7ConfigObject filterName:name];
+        UMLayerSCCP *sccp = [_appDelegate getSCCP:name];
+        
+        if(sccp)
+        {
+            UMSynchronizedSortedDictionary *dict = [[UMSynchronizedSortedDictionary alloc]init];
+            dict[@"routing-table"] = [sccp.sccpL3RoutingTable status];
+            dict[@"statistics"] = [sccp statisticalInfo];
+            [self sendResultObject:dict];
+        }
+        else
+        {
+            [self sendErrorNotFound];
+        }
+    }
+}
+@end

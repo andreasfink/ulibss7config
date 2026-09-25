@@ -1,0 +1,202 @@
+//
+//  UMSS7ApiTaskAll.h
+//  estp
+//
+//  Created by Andreas Fink on 13.03.18.
+//  Copyright © 2018 Andreas Fink. All rights reserved.
+//
+
+
+#import <ulibss7config/UMSS7ApiTaskVersion.h>
+#import <ulibss7config/UMSS7ApiTaskLogin.h>
+#import <ulibss7config/UMSS7ApiTaskLogout.h>
+#import <ulibss7config/UMSS7ApiTaskList.h>
+#import <ulibss7config/UMSS7ApiTaskIdle.h>
+#import <ulibss7config/UMSS7ApiTaskSessionsList.h>
+#import <ulibss7config/UMSS7ApiTaskConfig_list.h>
+#import <ulibss7config/UMSS7ApiTaskConfig_action.h>
+#import <ulibss7config/UMSS7ApiTaskSCTP_list.h>
+#import <ulibss7config/UMSS7ApiTaskSCTP_read.h>
+#import <ulibss7config/UMSS7ApiTaskSCTP_add.h>
+#import <ulibss7config/UMSS7ApiTaskSCTP_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSCTP_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSCTP_status.h>
+#import <ulibss7config/UMSS7ApiTaskSCTP_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskM2PA_list.h>
+#import <ulibss7config/UMSS7ApiTaskM2PA_read.h>
+#import <ulibss7config/UMSS7ApiTaskM2PA_add.h>
+#import <ulibss7config/UMSS7ApiTaskM2PA_modify.h>
+#import <ulibss7config/UMSS7ApiTaskM2PA_delete.h>
+#import <ulibss7config/UMSS7ApiTaskM2PA_status.h>
+#import <ulibss7config/UMSS7ApiTaskM2PA_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskMTP3_list.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3_read.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3_add.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3_modify.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3_delete.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3_status.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskMTP3Link_list.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3Link_read.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3Link_add.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3Link_modify.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3Link_delete.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3Link_status.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3Link_action.h>
+
+
+#import <ulibss7config/UMSS7ApiTaskMTP3LinkSet_list.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3LinkSet_read.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3LinkSet_add.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3LinkSet_modify.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3LinkSet_delete.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3LinkSet_status.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3LinkSet_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskM3UAAS_list.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAAS_read.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAAS_add.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAAS_modify.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAAS_delete.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAAS_status.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAAS_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskM3UAASP_list.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAASP_read.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAASP_add.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAASP_modify.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAASP_delete.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAASP_status.h>
+#import <ulibss7config/UMSS7ApiTaskM3UAASP_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSCCP_list.h>
+#import <ulibss7config/UMSS7ApiTaskSCCP_read.h>
+#import <ulibss7config/UMSS7ApiTaskSCCP_add.h>
+#import <ulibss7config/UMSS7ApiTaskSCCP_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSCCP_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSCCP_status.h>
+#import <ulibss7config/UMSS7ApiTaskSCCP_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTable_list.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTable_read.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTable_add.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTable_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTable_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTable_status.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTable_action.h>
+
+
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTableEntry_list.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTableEntry_read.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTableEntry_add.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTableEntry_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTableEntry_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTableEntry_status.h>
+#import <ulibss7config/UMSS7ApiTaskSCCPTranslationTableEntry_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskApiUser_list.h>
+#import <ulibss7config/UMSS7ApiTaskApiUser_read.h>
+#import <ulibss7config/UMSS7ApiTaskApiUser_add.h>
+#import <ulibss7config/UMSS7ApiTaskApiUser_modify.h>
+#import <ulibss7config/UMSS7ApiTaskApiUser_delete.h>
+#import <ulibss7config/UMSS7ApiTaskApiUser_status.h>
+#import <ulibss7config/UMSS7ApiTaskApiUser_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskServiceUser_list.h>
+#import <ulibss7config/UMSS7ApiTaskServiceUser_read.h>
+#import <ulibss7config/UMSS7ApiTaskServiceUser_add.h>
+#import <ulibss7config/UMSS7ApiTaskServiceUser_modify.h>
+#import <ulibss7config/UMSS7ApiTaskServiceUser_delete.h>
+#import <ulibss7config/UMSS7ApiTaskServiceUser_status.h>
+#import <ulibss7config/UMSS7ApiTaskServiceUser_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSS7FilterStagingArea_list.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterStagingArea_read.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterStagingArea_add.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterStagingArea_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterStagingArea_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterStagingArea_status.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterStagingArea_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRuleSet_list.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRuleSet_read.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRuleSet_add.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRuleSet_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRuleSet_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRuleSet_status.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRuleSet_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRule_list.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRule_read.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRule_add.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRule_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRule_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRule_status.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterRule_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSS7FilterActionList_list.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterActionList_read.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterActionList_add.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterActionList_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterActionList_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterActionList_status.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterActionList_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSS7FilterAction_list.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterAction_read.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterAction_add.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterAction_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterAction_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterAction_status.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterAction_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSS7FilterTraceFile_list.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterTraceFile_read.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterTraceFile_add.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterTraceFile_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterTraceFile_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterTraceFile_status.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterTraceFile_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskSS7FilterEngine_list.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterEngine_read.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterEngine_add.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterEngine_modify.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterEngine_delete.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterEngine_status.h>
+#import <ulibss7config/UMSS7ApiTaskSS7FilterEngine_action.h>
+
+
+#import <ulibss7config/UMSS7ApiTaskNamedlist_list.h>
+#import <ulibss7config/UMSS7ApiTaskNamedlist_lists.h>
+#import <ulibss7config/UMSS7ApiTaskNamedlist_read.h>
+#import <ulibss7config/UMSS7ApiTaskNamedlist_add.h>
+#import <ulibss7config/UMSS7ApiTaskNamedlist_remove.h>
+#import <ulibss7config/UMSS7ApiTaskNamedlist_contains.h>
+
+#import <ulibss7config/UMSS7ApiTaskStatistics_list.h>
+#import <ulibss7config/UMSS7ApiTaskStatistics_read.h>
+#import <ulibss7config/UMSS7ApiTaskStatistics_add.h>
+#import <ulibss7config/UMSS7ApiTaskStatistics_modify.h>
+#import <ulibss7config/UMSS7ApiTaskStatistics_delete.h>
+#import <ulibss7config/UMSS7ApiTaskStatistics_status.h>
+#import <ulibss7config/UMSS7ApiTaskStatistics_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_list.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_read.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_add.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_modify.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_delete.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_status.h>
+#import <ulibss7config/UMSS7ApiTaskMTP3PointCodeTranslationTable_action.h>
+
+#import <ulibss7config/UMSS7ApiTaskDiameterRoute_add.h>
+#import <ulibss7config/UMSS7ApiTaskDiameterRoute_read.h>
+#import <ulibss7config/UMSS7ApiTaskDiameterRoute_list.h>
+#import <ulibss7config/UMSS7ApiTaskDiameterRoute_modify.h>
+#import <ulibss7config/UMSS7ApiTaskDiameterRoute_delete.h>
+#import <ulibss7config/UMSS7ApiTaskDiameterRoute_status.h>
+#import <ulibss7config/UMSS7ApiTaskDiameterRoute_action.h>

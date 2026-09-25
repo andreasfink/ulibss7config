@@ -1,0 +1,22 @@
+//
+//  UMSS7ConfigGSMMAPFilter.h
+//  estp
+//
+//  Created by Andreas Fink on 10.03.18.
+//  Copyright © 2018 Andreas Fink. All rights reserved.
+//
+
+#import <ulibss7config/UMSS7ConfigObject.h>
+
+@interface UMSS7ConfigGSMMAPFilter : UMSS7ConfigObject
+{
+    NSString *_defaultResult;
+}
+
+@property(readwrite,strong,atomic)      NSString *defaultResult;
+
++ (NSString *)groupName;
+- (NSString *)groupName;
+- (UMSS7ConfigGSMMAPFilter *)initWithConfig:(NSDictionary *)dict;
+
+@end
