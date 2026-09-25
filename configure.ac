@@ -71,7 +71,7 @@ dnl -----------------------------------------
 dnl setting up dependencies
 dnl -----------------------------------------
 
-DEPENDENT_PKGCONFIGS="ulibgsmmap libiconv"
+DEPENDENT_PKGCONFIGS="ulib ulibgsmmap ulibdiameter ulibcamel ulibpcap umscript ulibtransport ulibsmpp schrittmacherclient"
 
 dnl -----------------------------------------
 dnl main work

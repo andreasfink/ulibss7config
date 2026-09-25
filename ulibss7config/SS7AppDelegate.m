@@ -2916,6 +2916,7 @@ static void signalHandler(int signum);
     NSString *opString          = [[p[@"operation"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *incomingLinkset   = [[p[@"incoming-linkset"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *source            = [[p[@"source"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *packetType        = [[p[@"packet-type"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSNumber *op =NULL;
     if(opString.length > 0)
     {
@@ -2942,6 +2943,7 @@ static void signalHandler(int signum);
         return;
     }
 
+    NSMutableString *debug = [[NSMutableString alloc]init];
     UMSynchronizedSortedDictionary *resultDict = [sccp routeTestForMSISDN:msisdn
                                                           translationType:tt
                                                                 fromLocal:NO
@@ -2949,7 +2951,9 @@ static void signalHandler(int signum);
                                                                 operation:op
                                                        applicationContext:ac
                                                           incomingLinkset:incomingLinkset
-                                                            sourceAddress:source];
+                                                            sourceAddress:source
+                                                               packetType:packetType
+                                                                    debug:debug];
     [req setResponseJsonObject:resultDict];
     return;
 }

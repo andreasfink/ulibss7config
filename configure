@@ -2468,7 +2468,7 @@ then
 fi
 
 
-DEPENDENT_PKGCONFIGS="ulibgsmmap libiconv"
+DEPENDENT_PKGCONFIGS="ulib ulibgsmmap ulibdiameter ulibcamel ulibpcap umscript ulibtransport ulibsmpp schrittmacherclient"
 
 
 
