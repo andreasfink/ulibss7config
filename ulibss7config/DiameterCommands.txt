@@ -1,0 +1,15 @@
+Authentication_Information_Request
+Update_Location_Request
+Insert_Subscriber_Data_Request
+Delete_Subscriber_Data_Request
+Cancel_Location_Request
+Reset_Request
+Notify_Request
+Purge_UE_Request
+CER
+DWR
+STR
+RAR
+ACR
+DPR
+ASR
