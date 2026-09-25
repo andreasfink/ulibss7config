@@ -76,8 +76,6 @@
 #import <ulibss7config/UMSS7ConfigAuthServer.h>
 #import <ulibss7config/UMSS7ConfigStorageServer.h>
 #import <ulibss7config/UMSS7ConfigCdrServer.h>
-#import <ulibss7config/UMSS7ConfigGTMap.h>
-#import <ulibss7config/UMSS7ConfigGTMapEntry.h>
 
 #import <ulibss7config/UMSS7ConfigCAMEL.h>
 #import <ulibss7config/UMSS7ApiTaskAll.h>

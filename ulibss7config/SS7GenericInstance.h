@@ -10,7 +10,6 @@
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
-#import <ulibss7config/UMSS7ConfigGTMap.h>
 #import <ulibss7config/SS7UserAuthenticateProtocol.h>
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 
@@ -40,7 +39,6 @@
     NSMutableArray              *_delayedDestroy3;
     UMTransportService          *_umTransportService;
     BOOL                        _genericInitialisationWasRun;
-    UMSS7ConfigGTMap            *_gtmap;
     NSNumber                    *_default_called_tt;
 }
 
@@ -54,11 +52,9 @@
 @property(readwrite,strong) UMHTTPClient *webClient;
 @property(readwrite,strong) id<SS7UserAuthenticateProtocol>    authDelegate;
 @property(readwrite,strong) UMTransportService  *umTransportService;
-@property(readwrite,strong) UMSS7ConfigGTMap *gtmap;
 @property(readwrite,strong) NSNumber *default_called_tt;
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
-- (SS7GenericInstance *)initWithGTMap:(UMSS7ConfigGTMap *)gtmap;
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name;
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq;
 

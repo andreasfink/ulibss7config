@@ -69,16 +69,6 @@
     return self;
 }
 
-- (SS7GenericInstance *)initWithGTMap:(UMSS7ConfigGTMap *)gtmap
-{
-    self = [super init];
-    if(self)
-    {
-        _gtmap = gtmap;
-        [self genericInitialisation];
-    }
-    return self;
-}
 - (NSUInteger)sessionsCount
 {
     UMAssert(_sessions!=NULL,@"_sessions is null");
@@ -115,11 +105,6 @@
         _timeoutInSeconds = 80;
     }
     
-    if(cfg[@"gtmap"])
-    {
-        _gtmap = [_appDelegate getGTMap:[cfg[@"gtmap"] stringValue]];
-    }
-
     if(cfg[@"number"])
     {
         _instanceAddress =[cfg[@"number"] stringValue];

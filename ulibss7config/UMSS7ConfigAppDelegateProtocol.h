@@ -16,7 +16,6 @@
 @class SS7CDRWriter;
 @class UMDiameterRouter;
 @class DiameterGenericInstance;
-@class UMSS7ConfigGTMap;
 
 @protocol UMSS7ConfigAppDelegateProtocol<NSObject,
     UMLayerSctpApplicationContextProtocol,
@@ -236,7 +235,6 @@ realm:(NSString **)realm;
 /************************************************************/
 - (UMDiameterRouter *)getDiameterRouter:(NSString *)name;
 
-- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name;
 
 @optional
 - (UMSynchronizedSortedDictionary *)apiVersionDict;

@@ -8,7 +8,6 @@
 
 #import "SS7GenericSession.h"
 #import "SS7GenericInstance.h"
-#import <ulibss7config/UMSS7ConfigGTMapEntry.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -1295,7 +1294,6 @@ else \
                          defaultCallingNumber:(NSString *)defaultCalling
                           defaultCalledNumber:(NSString *)defaultCalled
                       defaultCalledNumberPlan:(int)numberplan
-                                        gtMap:(UMSS7ConfigGTMap *)gtmap
 {
     NSDictionary *p = _req.params;
 
@@ -1315,30 +1313,6 @@ else \
         }
     }
     NSString *link   = [p[@"link"]urldecode];
-    if((gtmap) && (link.length > 0))
-    {
-        NSDictionary *entryConfig = NULL;
-        NSArray *subConfigs = gtmap.subConfigs;
-        for(NSDictionary *subConfig in subConfigs)
-        {
-            if([subConfig[@"link"] isEqualToString:link])
-            {
-                entryConfig = subConfig;
-            }
-        }
-        if(entryConfig)
-        {
-            defaultCalling = entryConfig[@"calling-gt"];
-            NSNumber *n = entryConfig[@"called-tt"];
-            if(n)
-            {
-                if((_called_tt.length == 0) || (_called_tt.intValue == 0))
-                {
-                    _called_tt = [n stringValue];
-                }
-            }
-        }
-    }
     _opc = [p[@"opc"]urldecode];
     _dpc = [p[@"dpc"]urldecode];
     NSString *sls_string = [p[@"sls"]urldecode];
@@ -2414,29 +2388,7 @@ else \
          calledComment:(NSString *)calledComment
             callingSSN:(NSString *)callingSSN
              calledSSN:(NSString *)calledSSN
-                 gtMap:(UMSS7ConfigGTMap *)gtmap
 {
-    if(gtmap)
-    {
-        
-        [s appendString:@"<tr>\n"];
-        [s appendString:@"    <td class=optional>link</td>\n"];
-        [s appendFormat:@"    <td class=optional>\n"];
-        [s appendFormat:@"        <select name=\"link\">\n"];
-        for(UMSS7ConfigGTMapEntry *entry in gtmap.subEntries)
-        {
-            NSString *linkDescription = [[NSString alloc]initWithFormat:@"Link %@: %@",entry.link,entry.calling_gt];
-            [s appendFormat:@"            <option value=%@>%@</option>",entry.link,linkDescription];
-        }
-        [s appendFormat:@"    </select></td><%@>\n",callingComment];
-        [s appendString:@"</tr>\n"];
-
-        [s appendString:@"<tr>\n"];
-        [s appendString:@"    <td class=optional>calling-address</td>\n"];
-        [s appendFormat:@"    <td class=optional><input name=\"calling-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",callingComment];
-        [s appendString:@"</tr>\n"];
-
-    }
     [s appendString:@"<tr>\n"];
     [s appendString:@"    <td class=optional>calling-address</td>\n"];
     [s appendFormat:@"    <td class=optional><input name=\"calling-address\" type=\"text\" placeholder=\"+12345678\" value=\"default\"> %@</td>\n",callingComment];

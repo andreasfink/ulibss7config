@@ -42,7 +42,6 @@
 @class SmscConnection;
 @class UMLicenseDirectory;
 @class UMLicenseProductFeature;
-@class UMSS7ConfigGTMap;
 
 typedef enum SchrittmacherMode
 {
@@ -607,7 +606,6 @@ UMEnvironmentNamedListProviderProtocol>
 #pragma mark GTMaps Management
 /************************************************************/
 
-- (UMSS7ConfigGTMap *)getGTMap:(NSString *)name;
 - (void)startDirtyTimer;
 - (void)loadSS7StagingAreasFromPath:(NSString *)path;
 - (void)addWithConfigSCCPDestination:(NSDictionary *)config;

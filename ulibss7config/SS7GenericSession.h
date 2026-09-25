@@ -11,12 +11,9 @@
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
-#import <ulibss7config/UMSS7ConfigGTMap.h>
-#import <ulibss7config/UMSS7ConfigGTMapEntry.h>
 @class UMPCAPFile;
 
 #import <ulibss7config/OutputFormat.h>
-#import <ulibss7config/UMSS7ConfigGTMap.h>
 
 @class SS7GenericInstance;
 
@@ -221,8 +218,7 @@ typedef enum SS7MultiInvokeVariant
                              defaultCalledSsn:(NSString *)defaultCalledSsn
                          defaultCallingNumber:(NSString *)defaultCalling
                           defaultCalledNumber:(NSString *)defaultCalled
-                      defaultCalledNumberPlan:(int)numberplan
-                                        gtMap:(UMSS7ConfigGTMap *)gtmap;
+                      defaultCalledNumberPlan:(int)numberplan;
 
 - (void) setDefaultApplicationContext:(NSString *)def;
 - (void) setUserInfo_MAP_Open;
@@ -397,9 +393,7 @@ typedef enum SS7MultiInvokeVariant
         callingComment:(NSString *)callingComment
          calledComment:(NSString *)calledComment
             callingSSN:(NSString *)callingSSN
-             calledSSN:(NSString *)calledSSN
-                 gtMap:(UMSS7ConfigGTMap *)gtmap;
-
+             calledSSN:(NSString *)calledSSN;
 
 + (void)webMtp3Title:(NSMutableString *)s;
 + (void)webMtp3Options:(NSMutableString *)s;
