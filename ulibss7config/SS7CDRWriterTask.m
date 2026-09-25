@@ -6,7 +6,7 @@
 //  Copyright © 2019 Andreas Fink. All rights reserved.
 //
 
-#import <ulibdb/ulibdb.h>
+#import <ulib/ulib.h>
 #import "SS7CDRWriterTask.h"
 #import "SS7CDRWriter.h"
 

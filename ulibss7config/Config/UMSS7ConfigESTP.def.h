@@ -1,7 +1,0 @@
-STRING(o,"number",_number,"number",10,"")
-STRING(o,"sccp",_sccp,"sccp",11,"")
-STRING(o,"license-directory",_licenseDirectory,"license_directory",12,"")
-STRING(o,"filter-engine-directory",_filterEngineDirectory,"filter_engine_directory",13,"")
-STRING(o,"gtt-accounting-db-pool",_gttAccountingDbPool,"gtt_accounting_db_pool",14,"")
-STRING(o,"gtt-accounting-table",_gttAccountingTable,"gtt_accounting_table",15,"")
-STRING(o,"gtt-accounting-prefixes-table",_gttAccountingPrefixesTable,"gtt_accounting_prefixes_table",16,"")

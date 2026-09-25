@@ -1,6 +1,0 @@
-STRING(o,"attach-to",_attachTo,"attach_to",10,"")
-STRING(o,"number",_number,"number",11,"")
-REAL(o,"timeout",_timeout,"timeout",12,"")
-STRING(o,"timeout-trace-directory",_timeoutTraceDirectory,"timeout_trace_directory",13,"")
-STRING(o,"full-trace-directory",_fullTraceDirectory,"full_trace_directory",14,"")
-INTEGER(o,"default-called-tt"      ,_defaultCalledTT      ,"default_called_tt"      ,117,"")

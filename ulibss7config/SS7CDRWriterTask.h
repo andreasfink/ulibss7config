@@ -8,7 +8,6 @@
 
 
 #import <ulib/ulib.h>
-#import <ulibdb/ulibdb.h>
 @class SS7CDRWriter;
 
 @interface SS7CDRWriterTask : UMLayerTask

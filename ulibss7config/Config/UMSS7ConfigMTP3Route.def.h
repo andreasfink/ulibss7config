@@ -1,7 +1,0 @@
-STRING(o,"mtp3",_mtp3,"mtp3",10,"")
-ARRAY_VERBOSE(o,"dpc",_dpc,"dpc",11,"")
-STRING(o,"ls",_ls,"ls",12,"")
-STRING(o,"as",_as,"as",13,"")
-INTEGER(o,"priority",_priority,"priority",14,"")
-REAL(o,"weight",_weight,"weight",15,"")
-REAL(o,"local-preference",_localPreference,"local_preference",16,"")

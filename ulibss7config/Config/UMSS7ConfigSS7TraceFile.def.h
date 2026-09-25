@@ -1,5 +1,0 @@
-STRING(o,"filename",_filename,"filename",10,"")
-STRING(o,"format",_format,"format",11,"")
-INTEGER(o,"minutes",_minutes,"minutes",12,"")
-INTEGER(o,"packets",_packets,"packets",13,"")
-INTEGER(o,"max-rotations",_maxRotations,"max_rotations",14,"")

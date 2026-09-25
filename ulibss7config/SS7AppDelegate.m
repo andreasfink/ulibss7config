@@ -10,13 +10,11 @@
 
 #import "SS7AppDelegate.h"
 
-#import <ulibasn1/ulibasn1.h>
+#import <ulib/ulib.h>
 #import <ulibtransport/ulibtransport.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibdiameter/ulibdiameter.h>
-#import <ulibgt/ulibgt.h>
 #import <ulibsccp/ulibsccp.h>
-#import <ulibmtp3/ulibmtp3.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import <objc/runtime.h>
 #import <ulibsmpp/ulibsmpp.h>

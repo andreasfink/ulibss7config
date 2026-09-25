@@ -1,5 +1,0 @@
-STRING(o,"default-local-pc",_defaultLocalPc,"default_local_pc",10,"")
-STRING(o,"default-remote-pc",_defaultLocalPc,"default_remote_pc",11,"")
-INTEGER(o,"local-ni",_localNi,"local_ni",12,"")
-INTEGER(o,"remote-ni",_remoteNi,"remote_ni",13,"")
-ARRAY_VERBOSE(o,"map",_pcmap,"map",14,"")

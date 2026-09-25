@@ -8,7 +8,6 @@
 
 
 #import <ulib/ulib.h>
-#import <ulibgt/ulibgt.h>
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>

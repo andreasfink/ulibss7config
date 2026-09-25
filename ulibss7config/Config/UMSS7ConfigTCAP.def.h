@@ -1,7 +1,0 @@
-STRING(o,"attach-to",_attachTo,"attach_to",10,"")
-STRING(o,"variant",_variant,"variant",11,"")
-STRING(o,"subsystem",_subsystem,"subsystem",12,"")
-STRING(o,"number",_number,"number",13,"")
-STRING(o,"transaction-id-range",_range,"range",14,"")
-REAL(o,"timeout",_timeout,"timeout",15,"")
-STRING(o,"transaction-id-pool-type",_poolType,"transaction_id_pool_type",16,"")

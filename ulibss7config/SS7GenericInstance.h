@@ -7,10 +7,6 @@
 //
 
 
-#import <ulib/ulib.h>
-#import <ulibgt/ulibgt.h>
-#import <ulibsccp/ulibsccp.h>
-#import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibss7config/UMSS7ConfigObject.h>

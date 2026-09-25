@@ -1,5 +1,0 @@
-STRING(o,"filter",_filter,"filter",10,"")
-STRING(o,"command",_command,"command",11,"")
-STRING(o,"operation",_operation,"operation",12,"")
-ARRAY_VERBOSE(o,"application-context",_applicationContexts,"application_context",13,"")
-STRING(o,"result",_result,"result",14,"")

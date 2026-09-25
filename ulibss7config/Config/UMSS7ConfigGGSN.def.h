@@ -1,5 +1,0 @@
-STRING(o,"attach-to",_attachTo,"attach_to",10,"")
-STRING(o,"number",_number,"number",11,"")
-REAL(o,"timeout",_timeout,"timeout",12,"")
-INTEGER(o,"answer-translation-type",_answerTranslationType,"answer_translation_type",13,"")
-INTEGER(o,"default-called-tt"      ,_defaultCalledTT      ,"default_called_tt"      ,117,"")

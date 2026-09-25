@@ -6,9 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import <ulib/ulib.h>
 #import <ulibgsmmap/ulibgsmmap.h>
-#import <ulibdb/ulibdb.h>
 #import <umscript/umscript.h>
 
 @class UMSS7ConfigStorage;

@@ -12,7 +12,6 @@
 #import <ulibsms/ulibsms.h>
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
-#import <ulibdb/ulibdb.h>
 #import <umscript/umscript.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibss7config/SS7TelnetSocketHelperProtocol.h>
