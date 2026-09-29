@@ -8,7 +8,6 @@
 
 #import "SS7AppTransportHandler.h"
 #import "SS7AppDelegate.h"
-#import <ulibgt/ulibgt.h>
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibtransport/ulibtransport.h>

@@ -12,7 +12,6 @@
 #import <ulibsms/ulibsms.h>
 #import <ulibtransport/ulibtransport.h>
 #import <schrittmacherclient/schrittmacherclient.h>
-#import <ulibdb/ulibdb.h>
 #import <umscript/umscript.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibss7config/SS7TelnetSocketHelperProtocol.h>
@@ -602,7 +601,22 @@ UMEnvironmentNamedListProviderProtocol>
 - (void)renameCAMEL:(NSString *)oldName to:(NSString *)newName;
 
 
-- (SccpNumberTranslation *)getSccpNumberTransationByName:(NSString *)name;
+/************************************************************/
+#pragma mark -
+#pragma mark GTMaps Management
+/************************************************************/
+
+- (void)startDirtyTimer;
+- (void)loadSS7StagingAreasFromPath:(NSString *)path;
+- (void)addWithConfigSCCPDestination:(NSDictionary *)config;
+- (void)addWithConfigSCCPDestination:(NSDictionary *)config
+                          subConfigs:(NSArray<NSDictionary *>*)subConfigs
+                             variant:(UMMTP3Variant)variant;
+- (void)handleDecodeDiameter:(UMHTTPRequest *)req;
+- (void)handleInjectDiameter:(UMHTTPRequest *)req;
+- (void)handleInjectMtp3:(UMHTTPRequest *)req;
+- (void)handleInjectSccp:(UMHTTPRequest *)req;
+- (void)addTcapSharingWithConfig:(NSDictionary *)config;
 
 @end
 

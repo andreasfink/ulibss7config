@@ -1,8 +1,0 @@
-STRING(o,"attach-to",_attachTo,"attach_to",10,"")
-STRING(o,"number",_number,"number",11,"")
-REAL(o,"timeout",_timeout,"timeout",12,"")
-STRING(o,"timeout-trace-directory",_timeoutTraceDirectory,"timeout_trace_directory",13,"")
-STRING(o,"full-trace-directory",_fullTraceDirectory,"full_trace_directory",14,"")
-STRING(o,"status-update-url",_statusUpdateUrl,"status_update_url",15,"")
-STRING(o,"roaming-number",_roamingNumber,"roaming_number",16,"")
-STRING(o,"roaming-number-url",_roamingNumberUrl,"roaming_number_url",17,"")

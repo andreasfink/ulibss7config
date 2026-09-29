@@ -6,11 +6,11 @@ libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Cflags: -I${includedir} 
-Libs: -l:libulibss7config.@SHARED_LIBRARY_EXTENSION@.@MAJORVER@.@MINORVER@
+Libs: -lulibss7config
 
 Name: ulibss7config
 Description: universal SS7 configuration library
 Version: @VERSION@
-Requires: ulib ulibgsmmap ulibdiameter ulibcamel ulibpcap
+Requires: ulib ulibgsmmap ulibdiameter ulibcamel ulibpcap umscript ulibtransport ulibsmpp schrittmacherclient
 
 

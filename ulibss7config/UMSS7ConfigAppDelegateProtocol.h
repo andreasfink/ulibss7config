@@ -6,9 +6,7 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
-#import <ulib/ulib.h>
 #import <ulibgsmmap/ulibgsmmap.h>
-#import <ulibdb/ulibdb.h>
 #import <umscript/umscript.h>
 
 @class UMSS7ConfigStorage;
@@ -86,6 +84,7 @@ realm:(NSString **)realm;
 - (void)addWithConfigSCCP:(NSDictionary *)config;
 - (void)deleteSCCP:(NSString *)name;
 - (void)renameSCCP:(NSString *)old to:(NSString *)new;
+
 
 - (void)deleteSCCPTranslationTable:(NSString *)name
 								   tt:(NSNumber *)tt
@@ -235,6 +234,7 @@ realm:(NSString **)realm;
 #pragma mark Diameter
 /************************************************************/
 - (UMDiameterRouter *)getDiameterRouter:(NSString *)name;
+
 
 @optional
 - (UMSynchronizedSortedDictionary *)apiVersionDict;

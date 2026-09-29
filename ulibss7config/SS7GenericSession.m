@@ -207,6 +207,7 @@ else \
     _operationMutex = [[UMMutex alloc]initWithName:@"SS7GenericSession_operationMutex"];
     _historyLog = [[UMHistoryLog alloc]init];
     _outputFormat = OutputFormat_json;
+    _default_called_tt = inst.default_called_tt;
 }
 
 - (SS7GenericSession *)init
@@ -256,6 +257,11 @@ else \
         {
             _emptyComponentFirst = [e boolValue];
         }
+        SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"map-irep");
+        if(e.length > 0)
+        {
+            _mapIrep = @([e integerValue]);
+        }
         SET_OPTIONAL_CLEAN_PARAMETER(p,e,@"empty-component-last");
         if(e.length > 0)
         {
@@ -267,7 +273,6 @@ else \
         {
             _emptyComponentLast = [e boolValue];
         }
-
     }
     return self;
 }
@@ -1298,6 +1303,16 @@ else \
     _called_address  = [p[@"called-address"]urldecode];
     _calling_tt      = [p[@"calling-tt"]urldecode];
     _called_tt       = [p[@"called-tt"]urldecode];
+    if(([_called_tt isEqualToString:@"default"]) ||
+       ([_called_tt isEqualToString:@"0"]) ||
+       (_called_tt == NULL))
+    {
+        if(_default_called_tt)
+        {
+            _called_tt = [_default_called_tt stringValue];
+        }
+    }
+    NSString *link   = [p[@"link"]urldecode];
     _opc = [p[@"opc"]urldecode];
     _dpc = [p[@"dpc"]urldecode];
     NSString *sls_string = [p[@"sls"]urldecode];
@@ -1830,13 +1845,21 @@ else \
     {
         UMLayerGSMMAP_OpCode *xop = [[UMLayerGSMMAP_OpCode alloc]initWithOperationCode:self.firstInvokeOperation];
 
-        [_gInstance.gsmMap executeMAP_Invoke_Req:self.firstInvoke
-                                          dialog:_dialogId
-                                        invokeId:_invokeId
-                                        linkedId:TCAP_UNDEFINED_LINKED_ID
-                                          opCode:xop
-                                            last:YES
-                                         options:_options];
+        int n =1;
+        if(_mapIrep)
+        {
+            n = [_mapIrep intValue];
+        }
+        for(int i=0;i<n;i++)
+        {
+            [_gInstance.gsmMap executeMAP_Invoke_Req:self.firstInvoke
+                                              dialog:_dialogId
+                                            invokeId:_invokeId
+                                            linkedId:TCAP_UNDEFINED_LINKED_ID
+                                              opCode:xop
+                                                last:YES
+                                             options:_options];
+        }
     }
     switch(_multi_invoke_variant)
     {
@@ -1844,13 +1867,21 @@ else \
         {
             if((_opcode) && (_query))
             {
-                [_gInstance.gsmMap executeMAP_Invoke_Req:_query
-                                                  dialog:_dialogId
-                                                invokeId:_invokeId
-                                                linkedId:TCAP_UNDEFINED_LINKED_ID
-                                                  opCode:_opcode
-                                                    last:YES
-                                                 options:_options];
+                int n =1;
+                if(_mapIrep)
+                {
+                    n = [_mapIrep intValue];
+                }
+                for(int i=0;i<n;i++)
+                {
+                    [_gInstance.gsmMap executeMAP_Invoke_Req:_query
+                                                      dialog:_dialogId
+                                                    invokeId:_invokeId
+                                                    linkedId:TCAP_UNDEFINED_LINKED_ID
+                                                      opCode:_opcode
+                                                        last:YES
+                                                     options:_options];
+                }
             }
             if(!useHandshake)
             {
@@ -2298,7 +2329,11 @@ else \
     [s appendString:@"    <td class=optional>ecl</td>\n"];
     [s appendString:@"    <td class=optional><input name=\"ecl\" type=text>{0 | 1 }</td>\n"];
     [s appendString:@"</tr>\n"];
-
+    
+    [s appendString:@"<tr>\n"];
+    [s appendString:@"    <td class=optional>map-irep</td>\n"];
+    [s appendString:@"    <td class=optional><input name=\"map-irep\" type=\"text\" value=\"\"></td>\n"];
+    [s appendString:@"</tr>\n"];
 }
 
 + (void)webTcapTitle:(NSMutableString *)s

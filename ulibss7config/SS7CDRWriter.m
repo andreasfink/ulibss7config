@@ -7,7 +7,6 @@
 //
 
 #import "SS7CDRWriter.h"
-#import <ulibdb/ulibdb.h>
 #import <ulibss7config/ulibss7config.h>
 #import "SS7CDRWriterTask.h"
 #include <unistd.h>
@@ -16,6 +15,7 @@
 #include <fcntl.h>
 
 @implementation SS7CDRWriter
+
 
 
 - (SS7CDRWriter *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq usingBatchInsert:(BOOL)bi

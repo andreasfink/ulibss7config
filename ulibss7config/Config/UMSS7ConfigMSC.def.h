@@ -1,7 +1,0 @@
-STRING(o,"attach-to",_attachTo,"attach_to",10,"")
-STRING(o,"number",_number,"number",11,"")
-REAL(o,"timeout",_timeout,"timeout",12,"")
-STRING(o,"sms-forward-url",_smsForwardUrl,"sms_forward_url",13,"")
-INTEGER(o,"sms-error-code",_smsErrorCode,"sms_error_code",14,"")
-INTEGER(o,"answer-translation-type",_answerTranslationType,"answer_translation_type",15,"")
-STRING(o,"imsi-pool",_imsiPool,"imsi_pool",16,"")

@@ -10,13 +10,11 @@
 
 #import "SS7AppDelegate.h"
 
-#import <ulibasn1/ulibasn1.h>
+#import <ulib/ulib.h>
 #import <ulibtransport/ulibtransport.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibdiameter/ulibdiameter.h>
-#import <ulibgt/ulibgt.h>
 #import <ulibsccp/ulibsccp.h>
-#import <ulibmtp3/ulibmtp3.h>
 #import <schrittmacherclient/schrittmacherclient.h>
 #import <objc/runtime.h>
 #import <ulibsmpp/ulibsmpp.h>
@@ -2918,6 +2916,7 @@ static void signalHandler(int signum);
     NSString *opString          = [[p[@"operation"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *incomingLinkset   = [[p[@"incoming-linkset"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSString *source            = [[p[@"source"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
+    NSString *packetType        = [[p[@"packet-type"]urldecode] stringByTrimmingCharactersInSet:[UMObject whitespaceAndNewlineCharacterSet]];
     NSNumber *op =NULL;
     if(opString.length > 0)
     {
@@ -2944,6 +2943,7 @@ static void signalHandler(int signum);
         return;
     }
 
+    NSMutableString *debug = [[NSMutableString alloc]init];
     UMSynchronizedSortedDictionary *resultDict = [sccp routeTestForMSISDN:msisdn
                                                           translationType:tt
                                                                 fromLocal:NO
@@ -2951,7 +2951,9 @@ static void signalHandler(int signum);
                                                                 operation:op
                                                        applicationContext:ac
                                                           incomingLinkset:incomingLinkset
-                                                            sourceAddress:source];
+                                                            sourceAddress:source
+                                                               packetType:packetType
+                                                                    debug:debug];
     [req setResponseJsonObject:resultDict];
     return;
 }

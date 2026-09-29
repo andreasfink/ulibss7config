@@ -8,11 +8,9 @@
 
 
 #import <ulib/ulib.h>
-#import <ulibgt/ulibgt.h>
 #import <ulibsccp/ulibsccp.h>
 #import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
-
 @class UMPCAPFile;
 
 #import <ulibss7config/OutputFormat.h>
@@ -107,6 +105,8 @@ typedef enum SS7MultiInvokeVariant
     SS7MultiInvokeVariant       _multi_invoke_variant;
     BOOL                        _emptyComponentFirst;
     BOOL                        _emptyComponentLast;
+    NSNumber                    *_mapIrep;
+    NSNumber                    *_default_called_tt;
     NSString *_calling_ssn;
     NSString *_called_ssn;
     NSString *_calling_address;
@@ -188,6 +188,8 @@ typedef enum SS7MultiInvokeVariant
 @property(readwrite,assign,atomic)    SS7MultiInvokeVariant       multi_invoke_variant;
 @property(readwrite,assign,atomic)    BOOL                        emptyComponentFirst;
 @property(readwrite,assign,atomic)    BOOL                        emptyComponentLast;
+@property(readwrite,strong,atomic)    NSNumber                    *mapIrep;
+@property(readwrite,strong,atomic)    NSNumber                    *default_called_tt;
 @property(readwrite,strong,atomic)    NSString *tcap_operation_global;
 @property(readwrite,strong,atomic)    NSString *callingssn;
 @property(readwrite,strong,atomic)    NSString *calledssn;
@@ -392,6 +394,7 @@ typedef enum SS7MultiInvokeVariant
          calledComment:(NSString *)calledComment
             callingSSN:(NSString *)callingSSN
              calledSSN:(NSString *)calledSSN;
+
 + (void)webMtp3Title:(NSMutableString *)s;
 + (void)webMtp3Options:(NSMutableString *)s;
 

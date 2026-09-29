@@ -7,23 +7,20 @@
 //
 
 
-#import <ulib/ulib.h>
-#import <ulibgt/ulibgt.h>
-#import <ulibsccp/ulibsccp.h>
-#import <ulibtcap/ulibtcap.h>
 #import <ulibgsmmap/ulibgsmmap.h>
 #import <ulibcamel/ulibcamel.h>
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibss7config/SS7UserAuthenticateProtocol.h>
+#import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
 
 @class SS7GenericSession;
 @class UMCamelInitialDPArg;
 @class UMTransportService;
 @interface SS7GenericInstance : UMLayer<UMLayerGSMMAP_UserProtocol,
                                 UMHTTPServerHttpGetPostDelegate,
-                                UMHTTPRequest_TimeoutProtocol
-/* AuthenticationDelegateProtocol */>
+                                UMHTTPRequest_TimeoutProtocol>
 {
+    id<UMSS7ConfigAppDelegateProtocol>  _appDelegate;
     NSString                    *_instanceAddress;
     UMSynchronizedDictionary    *_sessions;
     UMLayerGSMMAP               *_gsmMap;
@@ -42,8 +39,10 @@
     NSMutableArray              *_delayedDestroy3;
     UMTransportService          *_umTransportService;
     BOOL                        _genericInitialisationWasRun;
+    NSNumber                    *_default_called_tt;
 }
 
+@property(readwrite,strong) id<UMSS7ConfigAppDelegateProtocol> appDelegate;
 @property(readwrite,strong) UMLayerGSMMAP *gsmMap;
 @property(readwrite,strong) NSString *instanceAddress;
 @property(readwrite,assign) NSTimeInterval timeoutInSeconds;
@@ -53,13 +52,14 @@
 @property(readwrite,strong) UMHTTPClient *webClient;
 @property(readwrite,strong) id<SS7UserAuthenticateProtocol>    authDelegate;
 @property(readwrite,strong) UMTransportService  *umTransportService;
+@property(readwrite,strong) NSNumber *default_called_tt;
 
 - (SS7GenericInstance *)initWithNumber:(NSString *)iAddress;
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq name:(NSString *)name;
 - (SS7GenericInstance *)initWithTaskQueueMulti:(UMTaskQueueMulti *)tq;
 
 - (NSString *)status;
-- (void) setConfig:(NSDictionary *)cfg applicationContext:(id)appContext;
+- (void) setConfig:(NSDictionary *)cfg applicationContext:(id<UMSS7ConfigAppDelegateProtocol>)appContext;
 
 
 - (UMGSMMAP_UserIdentifier *)getNewUserIdentifier;

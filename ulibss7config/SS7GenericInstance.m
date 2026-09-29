@@ -90,8 +90,10 @@
     return self;
 }
 
--(void) setConfig:(NSDictionary *)cfg applicationContext:(id)appContext
+-(void) setConfig:(NSDictionary *)cfg applicationContext:(id<UMSS7ConfigAppDelegateProtocol>)appContext
 {
+    _appDelegate = appContext;
+    
     [self readLayerConfig:cfg];
 
     if(cfg[@"timeout"])
@@ -102,9 +104,15 @@
     {
         _timeoutInSeconds = 80;
     }
+    
     if(cfg[@"number"])
     {
         _instanceAddress =[cfg[@"number"] stringValue];
+    }
+
+    if(cfg[@"default-called-tt"])
+    {
+        _default_called_tt =@([cfg[@"default-called-tt"] intValue]);
     }
 
     if(cfg[@"timeout-trace-directory"])

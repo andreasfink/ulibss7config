@@ -6,7 +6,17 @@
 //  Copyright © 2018 Andreas Fink. All rights reserved.
 //
 
+/* dependencies */
 #import <ulib/ulib.h>
+#import <ulibgsmmap/ulibgsmmap.h>
+#import <ulibdiameter/ulibdiameter.h>
+#import <ulibcamel/ulibcamel.h>
+#import <umscript/umscript.h>
+#import <ulibpcap/ulibpcap.h>
+#import <ulibtransport/ulibtransport.h>
+#import <ulibsmpp/ulibsmpp.h>
+#import <schrittmacherclient/schrittmacherclient.h>
+
 #import <ulibss7config/SS7AppDelegate.h>
 #import <ulibss7config/SS7UserAuthenticateProtocol.h>
 #import <ulibss7config/SS7GenericInstance.h>
@@ -16,7 +26,6 @@
 #import <ulibss7config/SS7TelnetSocket.h>
 #import <ulibss7config/UMSS7TraceFile.h>
 #import <ulibss7config/UMSS7ConfigAppDelegateProtocol.h>
-
 #import <ulibss7config/UMSS7ConfigObject.h>
 #import <ulibss7config/UMSS7ConfigMacroHelper.h>
 #import <ulibss7config/UMSS7ConfigStorage.h>
