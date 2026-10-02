@@ -264,14 +264,12 @@
          }
          */
         NSDictionary *p = req.params;
-        int pcount=0;
         for(NSString *n in p.allKeys)
         {
             if(([n isEqualToString:@"user"])  || ([n isEqualToString:@"pass"]))
             {
                 continue;
             }
-            pcount++;
         }
         @try
         {
