@@ -938,7 +938,9 @@
 
             if([path isEqualToString:@"/msc"])
             {
-                [req setResponseHtmlString:[SS7GenericInstance webIndexForm]];
+                UMWebObjectHTML *wo = [SS7GenericInstance webObjectIndexForm];
+                NSString *html =  [wo htmlString:YES ident:0 flags:0];
+                [req setResponseHtmlString:html];
             }
 
         }
@@ -974,6 +976,22 @@
 {
     return [NSString stringWithFormat:@"IS:%lu",[_sessions count]];
 }
+
++ (UMWebObjectHTML *)webObjectIndexForm
+{
+    NSString *title = @"SS7 Instance";
+    UMWebObjectHTML *html = [UMWebObjectHTML webDocumentWithTitle:title css:@"/css/style.css" charset:@"UTF-8"];
+    UMWebObjectH2 *h2 = [[UMWebObjectH2 alloc]initWithString:title];
+    UMWebObjectUL *ul = [[UMWebObjectUL alloc]init];
+    UMWebObjectLI *li = [[UMWebObjectLI alloc]init];
+    UMWebObjectA *a = [[UMWebObjectA alloc]initWithURL:@"/ss7" text:@"appcontext-test"];
+    [li addChild:a];
+    [ul addChild:li];
+    [html.body addChild:h2];
+    [html.body addChild:ul];
+    return html;
+}
+
 
 + (NSString *)webIndexForm
 {

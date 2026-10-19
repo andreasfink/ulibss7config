@@ -1,5 +1,5 @@
 //
-//  DiameterSession.inc
+//  DiameterSession.inc.h
 //  ulibss7config
 //
 //  Copyright © 2019 Andreas Fink. All rights reserved.

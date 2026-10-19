@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		A61694113086098B00E1980A /* DiameterGenericInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = A61690153086098B00E1980A /* DiameterGenericInstance.m */; };
 		A61694123086098B00E1980A /* DiameterGenericSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A61690183086098B00E1980A /* DiameterGenericSession.m */; };
-		A61694133086098B00E1980A /* DiameterSession.inc in Sources */ = {isa = PBXBuildFile; fileRef = A616901A3086098B00E1980A /* DiameterSession.inc */; };
 		A61694143086098B00E1980A /* DiameterSession_Send_Routing_Info_for_SM_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A616901D3086098B00E1980A /* DiameterSession_Send_Routing_Info_for_SM_Request.m */; };
 		A61694153086098B00E1980A /* DiameterSessionACR.m in Sources */ = {isa = PBXBuildFile; fileRef = A61690203086098B00E1980A /* DiameterSessionACR.m */; };
 		A61694163086098B00E1980A /* DiameterSessionASR.m in Sources */ = {isa = PBXBuildFile; fileRef = A61690233086098B00E1980A /* DiameterSessionASR.m */; };
@@ -780,7 +779,7 @@
 		A61690153086098B00E1980A /* DiameterGenericInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiameterGenericInstance.m; sourceTree = "<group>"; };
 		A61690173086098B00E1980A /* DiameterGenericSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiameterGenericSession.h; sourceTree = "<group>"; };
 		A61690183086098B00E1980A /* DiameterGenericSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiameterGenericSession.m; sourceTree = "<group>"; };
-		A616901A3086098B00E1980A /* DiameterSession.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = DiameterSession.inc; sourceTree = "<group>"; };
+		A616901A3086098B00E1980A /* DiameterSession.inc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiameterSession.inc.h; sourceTree = "<group>"; };
 		A616901B3086098B00E1980A /* DiameterSession_all.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiameterSession_all.h; sourceTree = "<group>"; };
 		A616901C3086098B00E1980A /* DiameterSession_Send_Routing_Info_for_SM_Request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiameterSession_Send_Routing_Info_for_SM_Request.h; sourceTree = "<group>"; };
 		A616901D3086098B00E1980A /* DiameterSession_Send_Routing_Info_for_SM_Request.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiameterSession_Send_Routing_Info_for_SM_Request.m; sourceTree = "<group>"; };
@@ -1511,13 +1510,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A6A520652D387EEB00B1896D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = A684E39F20774ADB000F3F70 /* ulibss7configTests */;
-		};
 		A6A520762D38844500B1896D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -1529,7 +1521,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A67B716D2D3879B000699B17 /* ulibss7configTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A6A520652D387EEB00B1896D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ulibss7configTests; sourceTree = "<group>"; };
+		A67B716D2D3879B000699B17 /* ulibss7configTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ulibss7configTests; sourceTree = "<group>"; };
 		A6A5206B2D3881AA00B1896D /* umss7config-db */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A6A520762D38844500B1896D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "umss7config-db"; sourceTree = "<group>"; };
 		A6C947A92E3FF76700813EE0 /* trace-test */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "trace-test"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -1596,7 +1588,7 @@
 				A61690153086098B00E1980A /* DiameterGenericInstance.m */,
 				A61690173086098B00E1980A /* DiameterGenericSession.h */,
 				A61690183086098B00E1980A /* DiameterGenericSession.m */,
-				A616901A3086098B00E1980A /* DiameterSession.inc */,
+				A616901A3086098B00E1980A /* DiameterSession.inc.h */,
 				A616901B3086098B00E1980A /* DiameterSession_all.h */,
 				A616901C3086098B00E1980A /* DiameterSession_Send_Routing_Info_for_SM_Request.h */,
 				A616901D3086098B00E1980A /* DiameterSession_Send_Routing_Info_for_SM_Request.m */,
@@ -2888,7 +2880,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 2710;
 				ORGANIZATIONNAME = "Andreas Fink";
 				TargetAttributes = {
 					A684E39620774ADA000F3F70 = {
@@ -2975,7 +2967,6 @@
 			files = (
 				A61694113086098B00E1980A /* DiameterGenericInstance.m in Sources */,
 				A61694123086098B00E1980A /* DiameterGenericSession.m in Sources */,
-				A61694133086098B00E1980A /* DiameterSession.inc in Sources */,
 				A61694143086098B00E1980A /* DiameterSession_Send_Routing_Info_for_SM_Request.m in Sources */,
 				A61694153086098B00E1980A /* DiameterSessionACR.m in Sources */,
 				A61694163086098B00E1980A /* DiameterSessionASR.m in Sources */,
@@ -3368,7 +3359,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_LOCATION = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DSTROOT = "/Library/Application Support";
+				DSTROOT = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -3388,12 +3379,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
-				INSTALL_PATH = FinkTelecomServices/frameworks;
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include;
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VERSIONING_SYSTEM = "";
@@ -3445,7 +3437,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DSTROOT = "/Library/Application Support";
+				DSTROOT = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -3459,12 +3451,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
-				INSTALL_PATH = FinkTelecomServices/frameworks;
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include;
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VERSIONING_SYSTEM = "";
@@ -3477,16 +3470,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = ulibss7config/Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Libraries",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fink-telecom.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -3499,15 +3488,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = ulibss7config/Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Libraries",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fink-telecom.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;

@@ -236,7 +236,7 @@
     { \
         session = [[ B alloc]initWithInstance:self];\
     }
-#include <ulibss7config/DiameterSession.inc>
+#include <ulibss7config/DiameterSession.inc.h>
 
 #undef SESSION
 
@@ -374,7 +374,7 @@
 
 
 #define SESSION( A ,  B)  [s appendFormat:@"<LI><a href=\"%s\">%s</a>\n",A,A];
-#include <ulibss7config/DiameterSession.inc>
+#include <ulibss7config/DiameterSession.inc.h>
 #undef SESSION
 
     [s appendString:@"</UL>\n"];

@@ -296,4 +296,6 @@
               source:(NSString *)src
          destination:(NSString *)dst;
 
++ (UMWebObjectHTML *)webObjectIndexForm;
+
 @end

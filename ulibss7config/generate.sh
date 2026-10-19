@@ -1,11 +1,11 @@
 #!/bin/bash
 
 H="DiameterSession_all.h"
-X="DiameterSession.inc"
+X="DiameterSession.inc.h"
 
 
 echo "//" >$X
-echo "//  DiameterSession.inc" >>$X
+echo "//  DiameterSession.inc.h" >>$X
 echo "//  ulibss7config" >>$X
 echo "//" >>$X
 echo "//  Created by $USER on `date`" >>$H
