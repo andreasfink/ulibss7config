@@ -22,9 +22,6 @@
 		A643EE7630666ACD00F9798D /* libulibcamel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A643EE7530666ACD00F9798D /* libulibcamel.a */; };
 		A643EE7730666ACD00F9798D /* libulibcamel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A643EE7530666ACD00F9798D /* libulibcamel.a */; };
 		A684E3A120774ADB000F3F70 /* ulibss7config.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A684E39720774ADA000F3F70 /* ulibss7config.framework */; };
-		A6AA23D424855035008D5A57 /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = A6AA23D324855035008D5A57 /* VERSION */; };
-		A6C2C26C28510FA700A09BA7 /* RELEASE-NOTES.txt in Resources */ = {isa = PBXBuildFile; fileRef = A6C2C26A28510FA700A09BA7 /* RELEASE-NOTES.txt */; };
-		A6C2C26D28510FA700A09BA7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A6C2C26B28510FA700A09BA7 /* README.md */; };
 		A6C4788A22D53E92007F395C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4788922D53E92007F395C /* main.m */; };
 		A6C4789422D54167007F395C /* UMDiameterGeneratorWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4789322D54167007F395C /* UMDiameterGeneratorWeb.m */; };
 /* End PBXBuildFile section */
@@ -96,6 +93,11 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				DiameterCommands.txt,
+				generate.sh,
+				Info.plist,
+				"stamp-h1",
+				ulibss7config_config.h.in,
+				UMSS7ApiTaskAll.txt,
 			);
 			target = A684E39620774ADA000F3F70 /* ulibss7config */;
 		};
@@ -406,9 +408,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6C2C26C28510FA700A09BA7 /* RELEASE-NOTES.txt in Resources */,
-				A6C2C26D28510FA700A09BA7 /* README.md in Resources */,
-				A6AA23D424855035008D5A57 /* VERSION in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

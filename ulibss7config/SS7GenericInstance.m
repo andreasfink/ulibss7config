@@ -994,7 +994,6 @@
     return s;
 }
 
-
 + (void)webHeader:(NSMutableString *)s title:(NSString *)t
 {
     [s appendString:@"<html>\n"];
@@ -1005,6 +1004,7 @@
     [s appendString:@"</head>\n"];
     [s appendString:@"<body>\n"];
 }
+
 
 - (void)housekeeping
 {

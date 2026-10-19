@@ -70,7 +70,9 @@
 - (void) markSessionForTermination:(SS7GenericSession *)t reason:(NSString *)reason;
 + (NSString *)webIndexForm;
 
+
 + (void)webHeader:(NSMutableString *)s title:(NSString *)t;
+
 - (UMHTTPAuthenticationStatus)httpAuthenticateRequest:(UMHTTPRequest *)req
                                                 realm:(NSString **)realm;
 - (UMHTTPAuthenticationStatus)authenticateUser:(NSString *)user pass:(NSString *)pass;
