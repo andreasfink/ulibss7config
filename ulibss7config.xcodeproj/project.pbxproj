@@ -714,6 +714,18 @@
 		A616980B3086098B00E1980A /* UMTTaskGetVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = A61694093086098B00E1980A /* UMTTaskGetVersion.h */; };
 		A616980C3086098B00E1980A /* UMTTaskPing.h in Headers */ = {isa = PBXBuildFile; fileRef = A616940C3086098B00E1980A /* UMTTaskPing.h */; };
 		A616980D3086098B00E1980A /* WebMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A616940F3086098B00E1980A /* WebMacros.h */; };
+		A616982A3086116C00E1980A /* libulibsccp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A61698293086116C00E1980A /* libulibsccp.a */; };
+		A616982B3086116C00E1980A /* libulibsccp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A61698293086116C00E1980A /* libulibsccp.a */; };
+		A61698303086119500E1980A /* libulibtcap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A616982F3086119500E1980A /* libulibtcap.a */; };
+		A61698313086119500E1980A /* libulibtcap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A616982F3086119500E1980A /* libulibtcap.a */; };
+		A6169833308611C000E1980A /* libulibmtp3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6169832308611C000E1980A /* libulibmtp3.a */; };
+		A6169834308611C000E1980A /* libulibmtp3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6169832308611C000E1980A /* libulibmtp3.a */; };
+		A6169836308611D600E1980A /* libulibsms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6169835308611D600E1980A /* libulibsms.a */; };
+		A6169837308611D600E1980A /* libulibsms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6169835308611D600E1980A /* libulibsms.a */; };
+		A6169839308611F500E1980A /* libschrittmacherclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6169838308611F500E1980A /* libschrittmacherclient.a */; };
+		A616983A308611F500E1980A /* libschrittmacherclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6169838308611F500E1980A /* libschrittmacherclient.a */; };
+		A616983C3086122C00E1980A /* libuliblicense.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A616983B3086122C00E1980A /* libuliblicense.a */; };
+		A616983D3086122C00E1980A /* libuliblicense.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A616983B3086122C00E1980A /* libuliblicense.a */; };
 		A643EE5530666A5600F9798D /* libulibgsmmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A643EE5130666A5600F9798D /* libulibgsmmap.a */; };
 		A643EE5830666A5600F9798D /* libulibpcap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A643EE5330666A5600F9798D /* libulibpcap.a */; };
 		A643EE5930666A5600F9798D /* libulibgsmmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A643EE5130666A5600F9798D /* libulibgsmmap.a */; };
@@ -1488,6 +1500,12 @@
 		A616940C3086098B00E1980A /* UMTTaskPing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMTTaskPing.h; sourceTree = "<group>"; };
 		A616940D3086098B00E1980A /* UMTTaskPing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMTTaskPing.m; sourceTree = "<group>"; };
 		A616940F3086098B00E1980A /* WebMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebMacros.h; sourceTree = "<group>"; };
+		A61698293086116C00E1980A /* libulibsccp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libulibsccp.a; path = /usr/local/lib/libulibsccp.a; sourceTree = "<absolute>"; };
+		A616982F3086119500E1980A /* libulibtcap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libulibtcap.a; path = /usr/local/lib/libulibtcap.a; sourceTree = "<absolute>"; };
+		A6169832308611C000E1980A /* libulibmtp3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libulibmtp3.a; path = /usr/local/lib/libulibmtp3.a; sourceTree = "<absolute>"; };
+		A6169835308611D600E1980A /* libulibsms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libulibsms.a; path = /usr/local/lib/libulibsms.a; sourceTree = "<absolute>"; };
+		A6169838308611F500E1980A /* libschrittmacherclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libschrittmacherclient.a; path = /usr/local/lib/libschrittmacherclient.a; sourceTree = "<absolute>"; };
+		A616983B3086122C00E1980A /* libuliblicense.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuliblicense.a; path = /usr/local/lib/libuliblicense.a; sourceTree = "<absolute>"; };
 		A63EF6BA228D981F00E4F190 /* ss7config.scriv */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ss7config.scriv; sourceTree = "<group>"; };
 		A643EE5130666A5600F9798D /* libulibgsmmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libulibgsmmap.a; path = /usr/local/lib/libulibgsmmap.a; sourceTree = "<absolute>"; };
 		A643EE5330666A5600F9798D /* libulibpcap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libulibpcap.a; path = /usr/local/lib/libulibpcap.a; sourceTree = "<absolute>"; };
@@ -1531,12 +1549,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A616982A3086116C00E1980A /* libulibsccp.a in Frameworks */,
 				A643EE6A30666A7D00F9798D /* libumscript.a in Frameworks */,
 				A643EE7630666ACD00F9798D /* libulibcamel.a in Frameworks */,
+				A6169833308611C000E1980A /* libulibmtp3.a in Frameworks */,
+				A61698303086119500E1980A /* libulibtcap.a in Frameworks */,
 				A643EE6530666A6400F9798D /* libulibtransport.a in Frameworks */,
+				A616983A308611F500E1980A /* libschrittmacherclient.a in Frameworks */,
 				A643EE5930666A5600F9798D /* libulibgsmmap.a in Frameworks */,
 				A643EE7030666AA300F9798D /* libulib.a in Frameworks */,
+				A616983D3086122C00E1980A /* libuliblicense.a in Frameworks */,
 				A643EE7430666ABA00F9798D /* libulibdiameter.a in Frameworks */,
+				A6169836308611D600E1980A /* libulibsms.a in Frameworks */,
 				A643EE5C30666A5600F9798D /* libulibpcap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1546,13 +1570,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				A643EE5530666A5600F9798D /* libulibgsmmap.a in Frameworks */,
+				A6169839308611F500E1980A /* libschrittmacherclient.a in Frameworks */,
 				A643EE6230666A6400F9798D /* libulibtransport.a in Frameworks */,
 				A643EE7330666ABA00F9798D /* libulibdiameter.a in Frameworks */,
 				A643EE7730666ACD00F9798D /* libulibcamel.a in Frameworks */,
+				A616983C3086122C00E1980A /* libuliblicense.a in Frameworks */,
 				A643EE7130666AA300F9798D /* libulib.a in Frameworks */,
 				A643EE5830666A5600F9798D /* libulibpcap.a in Frameworks */,
+				A616982B3086116C00E1980A /* libulibsccp.a in Frameworks */,
 				A684E3A120774ADB000F3F70 /* ulibss7config.framework in Frameworks */,
 				A643EE6B30666A7D00F9798D /* libumscript.a in Frameworks */,
+				A6169837308611D600E1980A /* libulibsms.a in Frameworks */,
+				A6169834308611C000E1980A /* libulibmtp3.a in Frameworks */,
+				A61698313086119500E1980A /* libulibtcap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2313,12 +2343,18 @@
 			isa = PBXGroup;
 			children = (
 				A643EE6F30666AA300F9798D /* libulib.a */,
-				A643EE5130666A5600F9798D /* libulibgsmmap.a */,
 				A643EE7230666ABA00F9798D /* libulibdiameter.a */,
 				A643EE7530666ACD00F9798D /* libulibcamel.a */,
 				A643EE5330666A5600F9798D /* libulibpcap.a */,
 				A643EE6930666A7D00F9798D /* libumscript.a */,
 				A643EE5F30666A6400F9798D /* libulibtransport.a */,
+				A6169832308611C000E1980A /* libulibmtp3.a */,
+				A61698293086116C00E1980A /* libulibsccp.a */,
+				A616982F3086119500E1980A /* libulibtcap.a */,
+				A643EE5130666A5600F9798D /* libulibgsmmap.a */,
+				A6169835308611D600E1980A /* libulibsms.a */,
+				A6169838308611F500E1980A /* libschrittmacherclient.a */,
+				A616983B3086122C00E1980A /* libuliblicense.a */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -3475,7 +3511,10 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = ulibss7config/Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fink-telecom.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -3492,7 +3531,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = ulibss7config/Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fink-telecom.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
